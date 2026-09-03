@@ -4,6 +4,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { securityHeaders, rateLimit } from "./security/headers.js";
 import { orchestrate } from "./ai/orchestrator.js";
+import { getWelcomeMessage } from "./ai/welcome.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -39,6 +40,36 @@ app.get("/api/labs", (_req, res) => {
 // API routes (simplified - no auth yet)
 app.get("/api/progress", (req, res) => {
   res.json({ learnerId: "demo-learner", creditsCompleted: 21, completion: 72, competencies: [] });
+});
+
+// Welcome endpoint: personalized greeting on first connection
+app.get("/api/ai/welcome", async (req, res) => {
+  const locale = (req.query.locale as string) || "es";
+  const isFirstTime = req.query.first === "true";
+  const isSpecial = req.query.special === "true";
+
+  try {
+    const message = await getWelcomeMessage(
+      locale as "es" | "pt" | "en",
+      isFirstTime,
+      isSpecial
+    );
+    res.json({
+      agent: "tutor",
+      reply: message,
+      model: "welcome",
+      sources: [],
+      audit: "recorded"
+    });
+  } catch {
+    res.json({
+      agent: "tutor",
+      reply: "Bienvenido a secure T. Estamos aquí para ayudarte.",
+      model: "safe-fallback",
+      sources: [],
+      audit: "recorded"
+    });
+  }
 });
 
 // AI routing endpoint: orquestador élite sobre gobernanza real (ai/governance.ts).
