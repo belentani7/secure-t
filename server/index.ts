@@ -7,6 +7,7 @@ import { orchestrate } from "./ai/orchestrator.js";
 import { getWelcomeMessage } from "./ai/welcome.js";
 import { curriculum, getCourse, getCoursesForYear } from "./data/curriculum.js";
 import { issueCredential, verifyCredential, sampleCredentials } from "./data/credentials.js";
+import { generateSpeechSafe } from "./voice/tts.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -104,6 +105,38 @@ app.get("/api/ai/welcome", async (req, res) => {
       model: "safe-fallback",
       sources: [],
       audit: "recorded"
+    });
+  }
+});
+
+// Text-to-speech endpoint: Kokoro via Hugging Face
+app.post("/api/ai/speak", rateLimit("tts", 10), async (req, res) => {
+  try {
+    const { text, locale = "es" } = req.body ?? {};
+    if (typeof text !== "string" || text.trim().length < 2) {
+      return res.status(400).json({ error: "text required (min 2 chars)" });
+    }
+
+    const audio = await generateSpeechSafe({
+      text,
+      locale: (locale as "es" | "pt" | "en") || "es",
+    });
+
+    if (!audio) {
+      return res.json({
+        error: "TTS unavailable, use browser fallback",
+        fallback: true,
+      });
+    }
+
+    res.setHeader("Content-Type", "audio/wav");
+    res.setHeader("Content-Length", audio.length);
+    res.send(audio);
+  } catch (error) {
+    console.error("TTS endpoint error:", error);
+    res.status(500).json({
+      error: "Speech generation failed",
+      fallback: true,
     });
   }
 });
