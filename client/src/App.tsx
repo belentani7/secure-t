@@ -6,12 +6,19 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import Portal from "./pages/Portal";
 
 function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/notifications"} component={Notifications} />
+      <Route path={"/record"}>{() => <Portal section="record" />}</Route>
+      <Route path={"/credentials"}>{() => <Portal section="credentials" />}</Route>
+      <Route path={"/research"}>{() => <Portal section="research" />}</Route>
+      <Route path={"/faculty"}>{() => <Portal section="faculty" />}</Route>
+      <Route path={"/admin"}>{() => <Portal section="admin" />}</Route>
+      <Route path={"/settings"}>{() => <Portal section="settings" />}</Route>
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
