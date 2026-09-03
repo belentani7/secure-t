@@ -5,6 +5,8 @@ import { fileURLToPath } from "url";
 import { securityHeaders, rateLimit } from "./security/headers.js";
 import { orchestrate } from "./ai/orchestrator.js";
 import { getWelcomeMessage } from "./ai/welcome.js";
+import { curriculum, getCourse, getCoursesForYear } from "./data/curriculum.js";
+import { issueCredential, verifyCredential, sampleCredentials } from "./data/credentials.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,12 +26,46 @@ app.get("/api/ready", (_req, res) => {
   res.json({ ready: true, dependencies: { database: "contract-ready", identity: "not-connected", queue: "not-connected" } });
 });
 
-// Catalog endpoint
+// Catalog endpoint: full curriculum structure
 app.get("/api/catalog", (_req, res) => {
-  res.json({ 
-    program: { code: "BSCY", title: "Bachelor of Cybersecurity", credits: 120, duration: "4 years", accreditation: "not claimed" },
-    courses: [{ code: "CY-101", title: "Cybersecurity Fundamentals", year: 1, credits: 3 }, { code: "CS-110", title: "Python for Defense", year: 1, credits: 4 }]
+  res.json({
+    program: {
+      code: curriculum.code,
+      title: curriculum.title,
+      duration: curriculum.duration,
+      credits: curriculum.credits,
+      description: curriculum.description,
+      accreditation: "not claimed - reference curriculum only",
+    },
+    courses: curriculum.courses.map(c => ({
+      code: c.code,
+      title: c.title,
+      year: c.year,
+      credits: c.credits,
+      description: c.description,
+      moduleCount: c.modules.length,
+      prerequisites: c.prerequisites,
+    })),
+    competencies: curriculum.competencies,
   });
+});
+
+// Courses by year
+app.get("/api/catalog/year/:year", (req, res) => {
+  const year = parseInt(req.params.year) as 1 | 2 | 3 | 4;
+  if (![1, 2, 3, 4].includes(year)) {
+    return res.status(400).json({ error: "Year must be 1-4" });
+  }
+  res.json({ year, courses: getCoursesForYear(year) });
+});
+
+// Course detail
+app.get("/api/catalog/course/:code", (req, res) => {
+  const course = getCourse(req.params.code);
+  if (!course) {
+    return res.status(404).json({ error: "Course not found" });
+  }
+  res.json(course);
 });
 
 // Labs endpoint
@@ -90,6 +126,44 @@ app.post("/api/ai/route", rateLimit("ai-route", 30), async (req, res) => {
 // Labs launch endpoint
 app.post("/api/labs/:code/launch", (req, res) => {
   res.status(202).json({ task: "TASK_CREATED", instance: { id: "instance-demo", lab: req.params.code, status: "queued" } });
+});
+
+// Credentials: achievements and verifiable certificates
+app.get("/api/credentials", (_req, res) => {
+  res.json({
+    achievements: Object.entries(sampleCredentials).map(([key, cred]) => ({
+      id: `ach-${key.toLowerCase().replace(/ /g, "-")}`,
+      ...cred,
+    })),
+    message: "Credentials are evidence-based. No fabrication. Faculty review required for mastery > 70%.",
+  });
+});
+
+// Issue credential (post-completion verification)
+app.post("/api/credentials/issue", (req, res) => {
+  const { learnerId, courseCode, mastery, evidence } = req.body ?? {};
+  if (!learnerId || !courseCode || typeof mastery !== "number") {
+    return res
+      .status(400)
+      .json({ error: "learnerId, courseCode, and mastery required" });
+  }
+  const credential = issueCredential(learnerId, courseCode, mastery, evidence || {
+    assessments: 1,
+    projects: 0,
+    labs: 1,
+  });
+  res.status(201).json(credential);
+});
+
+// Verify credential (public)
+app.get("/api/credentials/:id/verify", (req, res) => {
+  const isValid = verifyCredential(req.params.id);
+  res.json({
+    credentialId: req.params.id,
+    valid: isValid,
+    verifiedAt: new Date().toISOString(),
+    issuer: "secure T",
+  });
 });
 
 // Notifications preferences
