@@ -2,62 +2,21 @@ import express from "express";
 import { createServer } from "http";
 import path from "path";
 import { fileURLToPath } from "url";
+import { authorize, routeAgent } from "../ai/governance.js";
+import { ollamaProvider } from "../ai/model-provider.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-async function startServer() {
-  const app = express();
-  const server = createServer(app);
-
-  app.use(express.json({ limit: "64kb" }));
-
-  app.get("/api/health", (_req, res) => {
-    res.json({ ok: true, app: "secure-t", localAi: true });
-  });
-
-  app.post("/api/tutor", async (req, res) => {
-    const { message, language = "Español", history = [] } = req.body ?? {};
-    if (typeof message !== "string" || !message.trim()) {
-      res.status(400).json({ error: "message is required" });
-      return;
-    }
-    const ollamaUrl = process.env.OLLAMA_URL || "http://127.0.0.1:11434";
-    const model = process.env.OLLAMA_MODEL || "llama3.2:3b";
-    const system = `Eres el tutor local de secure T para Willian, un joven brasileño que vive en Cataluña. Enseñas ${language} usando portugués brasileño como puente. Sé cálido, breve, juvenil y respetuoso. Corrige una sola cosa cada vez, explica la lógica comparándola con portugués y termina con una pregunta fácil para continuar. Nunca pidas datos sensibles ni reemplaces a su madre, profesores o profesionales.`;
-    try {
-      const response = await fetch(`${ollamaUrl}/api/chat`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ model, stream: false, messages: [{ role: "system", content: system }, ...history.slice(-8), { role: "user", content: message }] }),
-        signal: AbortSignal.timeout(12000),
-      });
-      if (!response.ok) throw new Error(`Ollama ${response.status}`);
-      const data = await response.json() as { message?: { content?: string } };
-      res.json({ reply: data.message?.content || "Vamos tentar de novo juntos?", engine: "ollama-local" });
-    } catch {
-      res.json({ reply: "Muito bem por tentar! Vou guardar este passo. Agora repete a ideia com uma frase curta e eu te ajudo a ajustar uma palavra.", engine: "offline-coach" });
-    }
-  });
-
-  // Serve static files from dist/public in production
-  const staticPath =
-    process.env.NODE_ENV === "production"
-      ? path.resolve(__dirname, "public")
-      : path.resolve(__dirname, "..", "dist", "public");
-
-  app.use(express.static(staticPath));
-
-  // Handle client-side routing - serve index.html for all routes
-  app.get("*", (_req, res) => {
-    res.sendFile(path.join(staticPath, "index.html"));
-  });
-
-  const port = process.env.PORT || 3000;
-
-  server.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}/`);
-  });
-}
-
-startServer().catch(console.error);
+const __filename = fileURLToPath(import.meta.url); const __dirname = path.dirname(__filename); const app = express(); const server = createServer(app);
+app.use(express.json({ limit: "64kb" }));
+const audit: Array<Record<string, unknown>> = [];
+const catalog = { program: { code: "BSCY", title: "Bachelor of Cybersecurity", credits: 120, duration: "4 years", accreditation: "not claimed" }, courses: [{ code: "CY-101", title: "Cybersecurity Fundamentals", year: 1, credits: 3 }, { code: "CS-110", title: "Python for Defense", year: 1, credits: 4 }, { code: "NET-201", title: "Networks and Protocols", year: 1, credits: 4 }, { code: "CY-350", title: "Network Security", year: 3, credits: 3 }, { code: "CY-460", title: "SOC Operations", year: 4, credits: 3 }, { code: "CY-494", title: "Senior Capstone", year: 4, credits: 4 }] };
+const labs = [{ code: "SOC-004", title: "Triage a suspicious PowerShell alert", difficulty: "beginner", timeLimitMinutes: 18, status: "ready" }, { code: "APP-007", title: "Threat model a public API", difficulty: "intermediate", timeLimitMinutes: 42, status: "in-progress" }, { code: "IR-011", title: "Recover from a ransomware event", difficulty: "advanced", timeLimitMinutes: 55, status: "locked" }];
+function record(event: Record<string, unknown>) { audit.push({ ...event, timestamp: new Date().toISOString() }); }
+app.get("/api/health", (_req, res) => res.json({ ok: true, app: "secure-t", phase: "foundation", database: "contract-ready", aiGateway: true }));
+app.get("/api/ready", (_req, res) => res.json({ ready: true, dependencies: { database: "not-connected", identity: "not-connected", queue: "not-connected" } }));
+app.get("/api/catalog", (_req, res) => res.json(catalog));
+app.get("/api/labs", (_req, res) => res.json({ labs, safety: "isolated execution required; production network denied" }));
+app.get("/api/progress", (_req, res) => res.json({ learnerId: "demo-learner", creditsCompleted: 21, completion: 72, competencies: [{ code: "NET-FOUNDATIONS", mastery: 0.82, confidence: 0.78, evidenceCount: 4 }, { code: "CRYPTO-BASICS", mastery: 0.51, confidence: 0.46, evidenceCount: 2 }], recommendations: [{ target: "lab", code: "CRYPTO-007", reason: "low mastery and few validated evidence artifacts" }] }));
+app.get("/api/audit", (_req, res) => res.json({ events: audit.map(({ input, output, ...safe }) => safe), retention: "in-memory foundation only" }));
+app.post("/api/ai/route", async (req, res) => { const { message, examMode = false, context = "cybersecurity" } = req.body ?? {}; if (typeof message !== "string" || message.trim().length < 2) return res.status(400).json({ error: "message must be a non-empty string" }); const agent = routeAgent(message); const permission = authorize(agent, agent === "lab" ? "read_lab" : agent === "research" ? "read_approved_sources" : "read_course", Boolean(examMode)); record({ userId: "anonymous", agentId: agent, action: "route_request", tool: "ai_gateway", authorization: permission.reason, result: permission.allowed ? "allowed" : "denied" }); if (!permission.allowed) return res.status(403).json({ error: "policy_denied", agent, reason: permission.reason }); try { const provider = ollamaProvider(); const result = await provider.chat([{ role: "system", content: `You are the ${agent} agent for secure T. Context: ${context}. Use Socratic, evidence-based teaching. Never fabricate accreditation, grades, sources or credentials. Stay within educational cyber-safety boundaries.` }, { role: "user", content: message }], AbortSignal.timeout(12000)); return res.json({ agent, reply: result.text, model: result.model, sources: [], audit: "recorded" }); } catch { return res.json({ agent, reply: "Separa evidencia, hipótesis y siguiente acción. Puedo ayudarte a convertirlo en una práctica segura y verificable.", model: "safe-fallback", sources: [], audit: "recorded" }); } });
+app.post("/api/labs/:code/launch", (req, res) => { const lab = labs.find((item) => item.code === req.params.code); if (!lab || lab.status === "locked") return res.status(404).json({ error: "lab_unavailable" }); const instance = { id: `instance-${Date.now()}`, lab: lab.code, status: "queued", isolation: "required", network: "production-denied", expiresInMinutes: lab.timeLimitMinutes }; record({ userId: "anonymous", agentId: "system", action: "lab_launch", tool: "lab_api", authorization: "student_scope", result: "queued" }); res.status(202).json({ task: "TASK_CREATED", instance }); });
+const staticPath = process.env.NODE_ENV === "production" ? path.resolve(__dirname, "public") : path.resolve(__dirname, "..", "dist", "public"); app.use(express.static(staticPath)); app.get("*", (_req, res) => res.sendFile(path.join(staticPath, "index.html"))); const port = process.env.PORT || 3000; server.listen(port, () => console.log(`secure T server running on http://localhost:${port}/`));
