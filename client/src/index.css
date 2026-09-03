@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: 'DM Sans', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ink: #0e2035;
+  --color-coral: #ea644b;
+  --color-mint: #cbe9db;
+  --color-saffron: #ffc24a;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.8rem;
+  --background: #f3efe7;
+  --foreground: #0e2035;
+  --card: #ffffff;
+  --card-foreground: #0e2035;
+  --popover: #ffffff;
+  --popover-foreground: #0e2035;
+  --primary: #0e2035;
+  --primary-foreground: #f3efe7;
+  --secondary: #e2f1e9;
+  --secondary-foreground: #0e2035;
+  --muted: #e9e4dc;
+  --muted-foreground: #5e6873;
+  --accent: #ffc24a;
+  --accent-foreground: #0e2035;
+  --destructive: #ea644b;
+  --destructive-foreground: #ffffff;
+  --border: rgba(14, 32, 53, 0.12);
+  --input: rgba(14, 32, 53, 0.16);
+  --ring: #ea644b;
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  html { scroll-behavior: smooth; }
+  body { @apply bg-background text-foreground; font-family: 'DM Sans', sans-serif; }
+  button, a, input { -webkit-tap-highlight-color: transparent; }
+  button:not(:disabled), [role="button"]:not([aria-disabled="true"]), a[href], input { @apply cursor-pointer; }
+}
+
+@layer utilities {
+  .bg-paper { background-color: #f3efe7; }
+  .bg-ink { background-color: #0e2035; }
+  .bg-coral { background-color: #ea644b; }
+  .bg-mint { background-color: #cbe9db; }
+  .bg-saffron { background-color: #ffc24a; }
+  .text-ink { color: #0e2035; }
+  .text-coral { color: #ea644b; }
+  .text-saffron { color: #ffc24a; }
+  .font-display { font-family: 'Space Grotesk', sans-serif; }
+  .font-mono { font-family: 'DM Mono', monospace; }
+  .eyebrow { color: rgba(14, 32, 53, 0.45); font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
+}
+
+::selection { background: #ea644b; color: #fff; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
