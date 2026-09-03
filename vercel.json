@@ -1,9 +1,16 @@
 {
   "version": 2,
   "buildCommand": "pnpm build",
-  "outputDirectory": "dist/public",
+  "outputDirectory": "dist",
   "installCommand": "pnpm install --frozen-lockfile",
-  "framework": "vite",
+  "framework": "node",
   "cleanUrls": true,
-  "rewrites": [{ "source": "/((?!api/).*)", "destination": "/index.html" }]
+  "functions": {
+    "api/[...].js": {
+      "maxDuration": 60
+    }
+  },
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
