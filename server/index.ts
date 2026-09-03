@@ -8,6 +8,8 @@ import { getWelcomeMessage } from "./ai/welcome.js";
 import { curriculum, getCourse, getCoursesForYear } from "./data/curriculum.js";
 import { issueCredential, verifyCredential, sampleCredentials } from "./data/credentials.js";
 import { generateSpeechSafe } from "./voice/tts.js";
+import { instructors, getInstructor, getInstructorsByCourse } from "./data/instructors.js";
+import { enrollLearner, updateEnrollmentProgress, sampleEnrollments } from "./data/enrollment.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -197,6 +199,56 @@ app.get("/api/credentials/:id/verify", (req, res) => {
     verifiedAt: new Date().toISOString(),
     issuer: "secure T",
   });
+});
+
+// Instructors
+app.get("/api/instructors", (_req, res) => {
+  res.json({ instructors: instructors.map(i => ({ id: i.id, name: i.name, title: i.title, expertise: i.expertise, verified: i.verified })) });
+});
+
+app.get("/api/instructors/:id", (req, res) => {
+  const instr = getInstructor(req.params.id);
+  if (!instr) return res.status(404).json({ error: "Instructor not found" });
+  res.json(instr);
+});
+
+app.get("/api/courses/:code/instructors", (req, res) => {
+  const instrs = getInstructorsByCourse(req.params.code);
+  res.json({ courseCode: req.params.code, instructors: instrs });
+});
+
+// Enrollment
+app.get("/api/enrollments/:learnerId", (_req, res) => {
+  res.json({
+    enrollments: sampleEnrollments,
+    message: "Enrollment tracking: progress, hours, status",
+  });
+});
+
+app.post("/api/enrollments", (req, res) => {
+  const { learnerId, courseCode } = req.body ?? {};
+  if (!learnerId || !courseCode) {
+    return res.status(400).json({ error: "learnerId and courseCode required" });
+  }
+  const course = getCourse(courseCode);
+  if (!course) {
+    return res.status(404).json({ error: "Course not found" });
+  }
+  const enrollment = enrollLearner(learnerId, courseCode);
+  res.status(201).json(enrollment);
+});
+
+app.put("/api/enrollments/:enrollmentId/progress", (req, res) => {
+  const { progress, hoursSpent } = req.body ?? {};
+  if (typeof progress !== "number" || typeof hoursSpent !== "number") {
+    return res.status(400).json({ error: "progress and hoursSpent required" });
+  }
+  const updated = updateEnrollmentProgress(
+    { id: req.params.enrollmentId, learnerId: "demo", courseCode: "demo", enrolledAt: "", status: "in_progress", progress: 0, hoursSpent: 0, lastAccessedAt: "" },
+    progress,
+    hoursSpent
+  );
+  res.json(updated);
 });
 
 // Notifications preferences
