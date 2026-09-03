@@ -2,6 +2,8 @@ import express from "express";
 import { createServer } from "http";
 import path from "path";
 import { fileURLToPath } from "url";
+import { securityHeaders, rateLimit } from "./security/headers.js";
+import { orchestrate } from "./ai/orchestrator.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -9,6 +11,7 @@ const app = express();
 const server = createServer(app);
 
 app.use(express.json({ limit: "64kb" }));
+app.use(securityHeaders);
 
 // Health check
 app.get("/api/health", (_req, res) => {
@@ -38,16 +41,16 @@ app.get("/api/progress", (req, res) => {
   res.json({ learnerId: "demo-learner", creditsCompleted: 21, completion: 72, competencies: [] });
 });
 
-// AI routing endpoint (standalone, no governance middleware yet)
-app.post("/api/ai/route", async (req, res) => {
+// AI routing endpoint: orquestador élite sobre gobernanza real (ai/governance.ts).
+// Rate-limit sin Redis (ver server/security/headers.ts). Safe-fallback si Ollama cae.
+app.post("/api/ai/route", rateLimit("ai-route", 30), async (req, res) => {
   try {
-    const { message, examMode = false, context = "cybersecurity" } = req.body ?? {};
+    const { message, examMode = false, locale = "es" } = req.body ?? {};
     if (typeof message !== "string" || message.trim().length < 2) {
       return res.status(400).json({ error: "message must be a non-empty string" });
     }
-    // Safe fallback response
-    const safeReply = "Separa evidencia, hipótesis y siguiente acción. Puedo ayudarte a convertirlo en una práctica segura y verificable.";
-    res.json({ agent: "tutor", reply: safeReply, model: "safe-fallback", sources: [], audit: "recorded" });
+    const out = await orchestrate(message, { examMode: examMode === true, locale });
+    res.json({ ...out, sources: [], audit: "recorded" });
   } catch {
     res.json({ agent: "tutor", reply: "I can help you convert this into a safe and verifiable practice.", model: "safe-fallback", sources: [], audit: "recorded" });
   }
