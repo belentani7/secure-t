@@ -12,6 +12,16 @@ secure T es una plataforma educativa open source orientada a ciberseguridad, IA 
 
 ---
 
+## 💝 ¿Por qué secure T?
+
+**Nace de la convicción de que la educación es el acto más generoso de compartir.**
+
+Cuando alguien que amamos nos enseña algo, esa sabiduría merece ser transmitida. Lee [ABOUT.md](ABOUT.md) para entender la visión detrás de este proyecto.
+
+**¿Es una plataforma real de cursos?** Sí. [VERIFICATION.md](VERIFICATION.md) detalla cada componente funcional.
+
+---
+
 ## 🚀 Inicio rápido
 
 ### Requisitos
