@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Activity, ArrowUpRight, Award, Bot, CheckCircle2, ChevronRight, Code2, FileCheck2, FlaskConical, GraduationCap, LayoutDashboard, Library, Menu, MessageSquareText, Mic, Network, Search, ShieldCheck, Sparkles, Target, Users, X, Zap } from "lucide-react";
 import { toast } from "sonner";
 
@@ -9,6 +9,23 @@ const competencies = [{ name: "Networking foundations", value: 82, evidence: 4 }
 function speak(text: string) { if (!("speechSynthesis" in window)) return toast("Voz no disponible"); const u = new SpeechSynthesisUtterance(text); u.lang = "es-ES"; u.rate = .96; window.speechSynthesis.speak(u); }
 export default function Home() {
  const [view, setView] = useState<View>("dashboard"); const [menu, setMenu] = useState(false); const [tutor, setTutor] = useState(true); const [input, setInput] = useState(""); const [messages, setMessages] = useState([{ role: "ai", text: "Hola, Alex. Tu siguiente mejor acción es reforzar criptografía con el lab CRYPTO-007. Te explico por qué si quieres." }]);
+
+ // Load welcome message on first visit
+ useEffect(() => {
+   const isFirstVisit = !localStorage.getItem("secure-t:visited");
+   if (isFirstVisit) {
+     localStorage.setItem("secure-t:visited", "true");
+     fetch("/api/ai/welcome?locale=es&first=true&special=true")
+       .then(r => r.json())
+       .then(data => {
+         if (data.reply) {
+           setMessages([{ role: "ai", text: data.reply }]);
+         }
+       })
+       .catch(() => {});
+   }
+ }, []);
+
  const send = () => { const text = input.trim(); if (!text) return; setMessages(m => [...m, { role: "student", text }, { role: "ai", text: "Vamos a convertir esa pregunta en una hipótesis verificable. ¿Qué evidencia tienes y qué dato falta?" }]); setInput(""); };
  return <div className="min-h-screen bg-[#0b1117] text-[#ecf2f4]"><div className="flex min-h-screen">
   <aside className={`${menu ? "translate-x-0" : "-translate-x-full"} fixed inset-y-0 left-0 z-40 flex w-[270px] flex-col border-r border-white/10 bg-[#101820] p-6 transition lg:static lg:translate-x-0`}><div className="flex items-center gap-3"><div className="grid size-10 place-items-center rounded-xl bg-[#b8f36b] text-[#0b1117]"><ShieldCheck /></div><div><div className="font-display text-xl font-bold">secure <span className="text-[#b8f36b]">T</span></div><p className="eyebrow !text-white/35">Digital University</p></div></div><p className="eyebrow mt-12 !text-white/35">Academic campus</p><nav className="mt-4 space-y-1">{nav.map(([label, key, Icon]) => <button key={key} onClick={() => { setView(key); setMenu(false); }} className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-bold ${view === key ? "bg-[#b8f36b] text-[#0b1117]" : "text-white/55 hover:bg-white/5 hover:text-white"}`}><Icon className="size-[18px]" />{label}</button>)}</nav><div className="mt-auto rounded-2xl border border-white/10 bg-[#16232c] p-4"><div className="flex justify-between"><span className="eyebrow !text-white/35">Astra mentor</span><i className="size-2 rounded-full bg-[#b8f36b]" /></div><p className="mt-3 text-sm text-white/60">IA gobernada por políticas, no autoridad académica.</p><button onClick={() => setTutor(true)} className="mt-4 w-full rounded-lg bg-white/10 py-2 text-xs font-bold">Open tutor</button></div><div className="mt-5 flex items-center gap-3 border-t border-white/10 pt-5"><div className="grid size-9 place-items-center rounded-full bg-[#244457] text-xs font-bold">AM</div><div><b className="text-sm">Alex Martín</b><p className="eyebrow !text-white/35">Cohort 01 · Year 1</p></div></div></aside>{menu && <button className="fixed inset-0 z-30 bg-black/60 lg:hidden" onClick={() => setMenu(false)} aria-label="cerrar" />}
