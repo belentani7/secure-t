@@ -4,6 +4,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { authorize, routeAgent } from "../ai/governance.js";
 import { ollamaProvider } from "../ai/model-provider.js";
+import { curriculum, curriculumByYear, findLesson } from "../academic/curriculum.js";
 
 const __filename = fileURLToPath(import.meta.url); const __dirname = path.dirname(__filename); const app = express(); const server = createServer(app);
 app.use(express.json({ limit: "64kb" }));
@@ -14,6 +15,8 @@ function record(event: Record<string, unknown>) { audit.push({ ...event, timesta
 app.get("/api/health", (_req, res) => res.json({ ok: true, app: "secure-t", phase: "foundation", database: "contract-ready", aiGateway: true }));
 app.get("/api/ready", (_req, res) => res.json({ ready: true, dependencies: { database: "not-connected", identity: "not-connected", queue: "not-connected" } }));
 app.get("/api/catalog", (_req, res) => res.json(catalog));
+app.get("/api/curriculum", (req, res) => { const year = Number(req.query.year); const courses = Number.isInteger(year) && year > 0 ? curriculumByYear(year) : curriculum; res.json({ years: 4, courses }); });
+app.get("/api/lessons/:id", (req, res) => { const item = findLesson(req.params.id); if (!item) return res.status(404).json({ error: "lesson_not_found" }); res.json(item); });
 app.get("/api/labs", (_req, res) => res.json({ labs, safety: "isolated execution required; production network denied" }));
 app.get("/api/progress", (_req, res) => res.json({ learnerId: "demo-learner", creditsCompleted: 21, completion: 72, competencies: [{ code: "NET-FOUNDATIONS", mastery: 0.82, confidence: 0.78, evidenceCount: 4 }, { code: "CRYPTO-BASICS", mastery: 0.51, confidence: 0.46, evidenceCount: 2 }], recommendations: [{ target: "lab", code: "CRYPTO-007", reason: "low mastery and few validated evidence artifacts" }] }));
 app.get("/api/audit", (_req, res) => res.json({ events: audit.map(({ input, output, ...safe }) => safe), retention: "in-memory foundation only" }));
