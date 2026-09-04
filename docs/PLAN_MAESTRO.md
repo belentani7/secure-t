@@ -62,21 +62,32 @@
 - [x] `server/index.ts` — health/ready reportan estado real de DB; enrollment/progress usan repositorios cuando hay DB
 - [x] `academic/repositories/index.ts` — el `import "../services/db"` roto ahora resuelve
 
-### Pendiente (requiere infra PostgreSQL)
-- [ ] Instalar y levantar PostgreSQL (Docker no está en esta máquina — bloqueo local)
-- [ ] `pnpm install && pnpm db:generate && pnpm db:push`
+### En curso — despliegue a producción online (objetivo real del proyecto)
+
+**Decisión de arquitectura (calidad):** monolito Express + Supabase gestionado en **Railway**. Docker local queda solo como herramienta de desarrollo; la plataforma online NO depende de la máquina local.
+
+- **Frontend + API:** un solo contenedor Express en Railway (sirve `dist/public` + `/api/*`) → 24/7, HTTPS, deploy automático desde GitHub.
+- **Base de datos:** Supabase (Postgres gestionado + Auth OIDC/JWT) → 24/7 gestionado por proveedor.
+- **Nada corre en la PC del desarrollador.**
+
+### Archivos de deploy creados
+- [x] `Dockerfile` — build multicapa (pnpm build → runtime mínimo con dist + node_modules --prod)
+- [x] `railway.json` — builder DOCKERFILE, healthcheck `/api/health`, restart
+- [x] `.dockerignore`
+- [ ] Conectar Postgres real (Supabase) → poner `DATABASE_URL` en Railway
+- [ ] `pnpm db:push` al Postgres de Supabase
 - [ ] Seed: poblar users/courses/lessons/enrollments desde `server/data/*`
-- [ ] Auth real (OIDC/Keycloak o email+password + JWT) → `auth/rbac`
+- [ ] Auth real (Supabase Auth email/password + JWT) → `auth/rbac`
 - [ ] Migrar el resto de endpoints data-mock a repositorios DB
 
-### Cómo habilitar
+### Cómo activar persistencia en producción
 ```bash
-cp .env.example .env
-# poner DATABASE_URL real
+# 1. Crear proyecto Supabase → copiar connection string como DATABASE_URL en Railway
+# 2. Local (una vez, para push del schema):
+cp .env.example .env   # DATABASE_URL → Supabase
 pnpm install
-pnpm db:generate
 pnpm db:push
-pnpm dev   # → /api/db/status muestra { connected: true, mode: "postgres" }
+# 3. Deploy a Railway (automatico desde GitHub) → /api/db/status muestra { connected: true, mode: "postgres" }
 ```
 
 ---
