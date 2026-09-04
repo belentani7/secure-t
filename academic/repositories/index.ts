@@ -1,4 +1,4 @@
-import { dbService } from "../services/db";
+import { dbService } from "../../server/services/db.js";
 import { type Request, type Response } from "express";
 
 export type CompetencyId = string;
@@ -16,9 +16,11 @@ export const competencyRepository = {
     return dbService.getCompetency(code);
   },
   earn: async (userId: string, competencyId: string) => {
-    const existing = await dbService
-      .getUser(userId)
-      .then(() => /* check existing */);
+    const existing = await dbService.getUser(userId);
+    if (!existing) {
+      const error = new Error(`User ${userId} not found for competency ${competencyId}`);
+      throw error;
+    }
     // Update or create student competency
     await dbService.updateLessonProgress({
       userId,

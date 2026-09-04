@@ -3,6 +3,8 @@ import { createServer } from "http";
 import path from "path";
 import { fileURLToPath } from "url";
 import { securityHeaders, rateLimit } from "./security/headers.js";
+import { pingDb, isDbConnected } from "./db/index.js";
+import { dbService } from "./services/db.js";
 import { orchestrate } from "./ai/orchestrator.js";
 import { getWelcomeMessage } from "./ai/welcome.js";
 import { curriculum, getCourse, getCoursesForYear } from "./data/curriculum.js";
@@ -10,6 +12,7 @@ import { issueCredential, verifyCredential, sampleCredentials } from "./data/cre
 import { generateSpeechSafe } from "./voice/tts.js";
 import { instructors, getInstructor, getInstructorsByCourse } from "./data/instructors.js";
 import { enrollLearner, updateEnrollmentProgress, sampleEnrollments } from "./data/enrollment.js";
+import { enrollmentRepository, progressRepository } from "../academic/repositories/index.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,13 +23,20 @@ app.use(express.json({ limit: "64kb" }));
 app.use(securityHeaders);
 
 // Health check
-app.get("/api/health", (_req, res) => {
-  res.json({ ok: true, app: "secure-t", phase: "foundation", database: "contract-ready" });
+app.get("/api/health", async (_req, res) => {
+  res.json({ ok: true, app: "secure-t", phase: "foundation", database: isDbConnected() ? "connected" : "in-memory" });
 });
 
 // Ready check
-app.get("/api/ready", (_req, res) => {
-  res.json({ ready: true, dependencies: { database: "contract-ready", identity: "not-connected", queue: "not-connected" } });
+app.get("/api/ready", async (_req, res) => {
+  const dbOk = await pingDb();
+  res.json({ ready: true, dependencies: { database: dbOk ? "connected" : "in-memory", identity: "not-connected", queue: "not-connected" } });
+});
+
+// Database status (transient, safe)
+app.get("/api/db/status", async (_req, res) => {
+  const live = await pingDb();
+  res.json({ connected: live, mode: live ? "postgres" : "in-memory-fallback", poolSize: live ? 10 : 0 });
 });
 
 // Catalog endpoint: full curriculum structure
@@ -218,14 +228,18 @@ app.get("/api/courses/:code/instructors", (req, res) => {
 });
 
 // Enrollment
-app.get("/api/enrollments/:learnerId", (_req, res) => {
+app.get("/api/enrollments/:learnerId", async (req, res) => {
+  if (isDbConnected()) {
+    const rows = await enrollmentRepository.listByUser(req.params.learnerId);
+    return res.json({ enrollments: rows, message: "Enrollment tracking: progress, hours, status", mode: "postgres" });
+  }
   res.json({
     enrollments: sampleEnrollments,
     message: "Enrollment tracking: progress, hours, status",
   });
 });
 
-app.post("/api/enrollments", (req, res) => {
+app.post("/api/enrollments", async (req, res) => {
   const { learnerId, courseCode } = req.body ?? {};
   if (!learnerId || !courseCode) {
     return res.status(400).json({ error: "learnerId and courseCode required" });
@@ -234,14 +248,22 @@ app.post("/api/enrollments", (req, res) => {
   if (!course) {
     return res.status(404).json({ error: "Course not found" });
   }
+  if (isDbConnected()) {
+    const enrollment = await enrollmentRepository.enroll(learnerId, course.code);
+    return res.status(201).json({ ...enrollment, mode: "postgres" });
+  }
   const enrollment = enrollLearner(learnerId, courseCode);
   res.status(201).json(enrollment);
 });
 
-app.put("/api/enrollments/:enrollmentId/progress", (req, res) => {
+app.put("/api/enrollments/:enrollmentId/progress", async (req, res) => {
   const { progress, hoursSpent } = req.body ?? {};
   if (typeof progress !== "number" || typeof hoursSpent !== "number") {
     return res.status(400).json({ error: "progress and hoursSpent required" });
+  }
+  if (isDbConnected()) {
+    const updated = await progressRepository.update(req.params.enrollmentId, req.params.enrollmentId, true, hoursSpent);
+    return res.json({ ...updated, mode: "postgres" });
   }
   const updated = updateEnrollmentProgress(
     { id: req.params.enrollmentId, learnerId: "demo", courseCode: "demo", enrolledAt: "", status: "in_progress", progress: 0, hoursSpent: 0, lastAccessedAt: "" },
