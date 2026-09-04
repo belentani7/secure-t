@@ -1,9 +1,26 @@
+import { readFileSync, existsSync } from "node:fs";
 import { Pool } from "pg";
 import { drizzle, type NodePgDatabase } from "drizzle-orm/node-postgres";
 import * as schema from "../../drizzle/schema.js";
 import * as eliteSchema from "../../drizzle/elite.js";
 
 const connectionString = process.env.DATABASE_URL || process.env.DIRECT_URL;
+
+function supabaseCa(): Buffer | undefined {
+  if (connectionString?.includes("supabase.co")) {
+    const candidates = [
+      process.env.SUPABASE_CA_CERT,
+      "certs/prod-ca-2021.crt",
+      new URL("../certs/prod-ca-2021.crt", import.meta.url).pathname,
+    ];
+    for (const candidate of candidates) {
+      if (candidate && existsSync(candidate)) {
+        return readFileSync(candidate);
+      }
+    }
+  }
+  return undefined;
+}
 
 type Database = NodePgDatabase<Record<string, unknown>>;
 let pool: Pool | null = null;
@@ -19,11 +36,14 @@ function init() {
     const needsSsl =
       connectionString.includes("supabase.co") ||
       /sslmode=(require|verify-full|verify-ca)/.test(connectionString);
+    const ca = needsSsl ? supabaseCa() : undefined;
     pool = new Pool({
       connectionString,
       max: 10,
       idleTimeoutMillis: 30_000,
-      ...(needsSsl ? { ssl: { rejectUnauthorized: false } } : {}),
+      ...(needsSsl
+        ? { ssl: ca ? { rejectUnauthorized: true, ca } : { rejectUnauthorized: false } }
+        : {}),
     });
     db = drizzle(pool, { schema: { ...schema, ...eliteSchema } } as any) as Database;
     connected = true;
