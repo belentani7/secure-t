@@ -16,7 +16,15 @@ function init() {
     return;
   }
   try {
-    pool = new Pool({ connectionString, max: 10, idleTimeoutMillis: 30_000 });
+    const needsSsl =
+      connectionString.includes("supabase.co") ||
+      /sslmode=(require|verify-full|verify-ca)/.test(connectionString);
+    pool = new Pool({
+      connectionString,
+      max: 10,
+      idleTimeoutMillis: 30_000,
+      ...(needsSsl ? { ssl: { rejectUnauthorized: false } } : {}),
+    });
     db = drizzle(pool, { schema: { ...schema, ...eliteSchema } } as any) as Database;
     connected = true;
   } catch {
