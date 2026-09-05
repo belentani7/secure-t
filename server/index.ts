@@ -13,6 +13,7 @@ import { generateSpeechSafe } from "./voice/tts.js";
 import { instructors, getInstructor, getInstructorsByCourse } from "./data/instructors.js";
 import { enrollLearner, updateEnrollmentProgress, sampleEnrollments } from "./data/enrollment.js";
 import { enrollmentRepository, progressRepository } from "../academic/repositories/index.js";
+import platformRoutes from "../platform/api/routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,6 +22,10 @@ const server = createServer(app);
 
 app.use(express.json({ limit: "64kb" }));
 app.use(securityHeaders);
+
+// Platform core: capability checks, governed tools, content graph, dataset analysis and project policy.
+// Identity is still demo-only until authenticated middleware is enabled; platform routes never trust model output for authorization.
+app.use("/api/platform", platformRoutes);
 
 // Health check
 app.get("/api/health", async (_req, res) => {
@@ -258,33 +263,25 @@ app.post("/api/enrollments", async (req, res) => {
 
 app.put("/api/enrollments/:enrollmentId/progress", async (req, res) => {
   const { progress, hoursSpent } = req.body ?? {};
-  if (typeof progress !== "number" || typeof hoursSpent !== "number") {
-    return res.status(400).json({ error: "progress and hoursSpent required" });
+  if (typeof progress !== "number" || progress < 0 || progress > 100) {
+    return res.status(400).json({ error: "progress must be between 0 and 100" });
   }
   if (isDbConnected()) {
-    const updated = await progressRepository.update(req.params.enrollmentId, req.params.enrollmentId, true, hoursSpent);
+    const updated = await progressRepository.update(req.params.enrollmentId, progress, hoursSpent || 0);
     return res.json({ ...updated, mode: "postgres" });
   }
-  const updated = updateEnrollmentProgress(
-    { id: req.params.enrollmentId, learnerId: "demo", courseCode: "demo", enrolledAt: "", status: "in_progress", progress: 0, hoursSpent: 0, lastAccessedAt: "" },
-    progress,
-    hoursSpent
-  );
+  const updated = updateEnrollmentProgress(req.params.enrollmentId, progress, hoursSpent || 0);
   res.json(updated);
 });
 
-// Notifications preferences
-app.post("/api/notifications/preferences", (_req, res) => {
-  res.json({ message: "Notification preferences updated" });
+// Serve static files in production
+const clientDist = path.resolve(__dirname, "../client/dist");
+app.use(express.static(clientDist));
+app.get("*", (_req, res) => {
+  res.sendFile(path.join(clientDist, "index.html"));
 });
 
-// Serve static files
-const staticPath = process.env.NODE_ENV === "production" 
-  ? path.resolve(__dirname, "public") 
-  : path.resolve(__dirname, "..", "dist", "public");
-app.use(express.static(staticPath));
-app.get("*", (_req, res) => res.sendFile(path.join(staticPath, "index.html")));
-
-const port = process.env.PORT || 3000;
-server.listen(port, () => console.log(`secure T server running on http://localhost:${port}/`));
-export { app, server };
+const PORT = Number(process.env.PORT || 3000);
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`secure T API listening on http://0.0.0.0:${PORT}`);
+});
