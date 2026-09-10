@@ -13,6 +13,7 @@ import { generateSpeechSafe } from "./voice/tts.js";
 import { instructors, getInstructor, getInstructorsByCourse } from "./data/instructors.js";
 import { enrollLearner, updateEnrollmentProgress, sampleEnrollments } from "./data/enrollment.js";
 import { enrollmentRepository, progressRepository } from "../academic/repositories/index.js";
+import { businessRouter } from "./business/routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,6 +22,7 @@ const server = createServer(app);
 
 app.use(express.json({ limit: "64kb" }));
 app.use(securityHeaders);
+app.use("/api/business", businessRouter);
 
 // Health check
 app.get("/api/health", async (_req, res) => {
@@ -31,6 +33,10 @@ app.get("/api/health", async (_req, res) => {
 app.get("/api/ready", async (_req, res) => {
   const dbOk = await pingDb();
   res.json({ ready: true, dependencies: { database: dbOk ? "connected" : "in-memory", identity: "not-connected", queue: "not-connected" } });
+});
+
+app.get("/api/business/health", (_req, res) => {
+  res.json({ ok: true, service: "business-operations", version: "1.0", auth: "pending-integration", persistence: isDbConnected() ? "postgres" : "in-memory" });
 });
 
 // Database status (transient, safe)
