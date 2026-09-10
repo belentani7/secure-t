@@ -14,6 +14,7 @@ import { instructors, getInstructor, getInstructorsByCourse } from "./data/instr
 import { enrollLearner, updateEnrollmentProgress, sampleEnrollments } from "./data/enrollment.js";
 import { enrollmentRepository, progressRepository } from "../academic/repositories/index.js";
 import { businessRouter } from "./business/routes.js";
+import { hydrateBusinessStore } from "./business/service.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,6 +24,7 @@ const server = createServer(app);
 app.use(express.json({ limit: "64kb" }));
 app.use(securityHeaders);
 app.use("/api/business", businessRouter);
+void hydrateBusinessStore();
 
 // Health check
 app.get("/api/health", async (_req, res) => {

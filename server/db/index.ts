@@ -3,6 +3,7 @@ import { Pool } from "pg";
 import { drizzle, type NodePgDatabase } from "drizzle-orm/node-postgres";
 import * as schema from "../../drizzle/schema.js";
 import * as eliteSchema from "../../drizzle/elite.js";
+import * as businessSchema from "../../drizzle/business-schema.js";
 
 const connectionString = process.env.DATABASE_URL || process.env.DIRECT_URL;
 
@@ -45,7 +46,7 @@ function init() {
         ? { ssl: ca ? { rejectUnauthorized: true, ca } : { rejectUnauthorized: false } }
         : {}),
     });
-    db = drizzle(pool, { schema: { ...schema, ...eliteSchema } } as any) as Database;
+    db = drizzle(pool, { schema: { ...schema, ...eliteSchema, ...businessSchema } } as any) as Database;
     connected = true;
   } catch {
     pool = null;
@@ -81,4 +82,4 @@ export async function query<T = Record<string, unknown>>(
   return result.rows as T[];
 }
 
-export { schema, eliteSchema };
+export { schema, eliteSchema, businessSchema };
