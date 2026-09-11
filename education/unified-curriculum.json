@@ -1,0 +1,564 @@
+{
+  "schema": "secure-t.unified-curriculum.v1",
+  "generated_at": "2026-09-11T05:27:44.712419+00:00",
+  "generator": "scripts/build-unified-curriculum.py",
+  "sources": {
+    "cybok": {
+      "url": "https://www.cybok.org/knowledgebase/",
+      "online": true,
+      "http_status": 200,
+      "note": "100246 bytes"
+    },
+    "nice": {
+      "url": "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center",
+      "online": true,
+      "http_status": 200,
+      "note": "101333 bytes"
+    },
+    "owasp": {
+      "url": "https://owasp.org/Top10/",
+      "online": true,
+      "http_status": 200,
+      "note": "326 bytes"
+    },
+    "owasp_llm": {
+      "url": "https://genai.owasp.org/llm-top-10/",
+      "online": true,
+      "http_status": 200,
+      "note": "200000 bytes"
+    },
+    "nist_ai_rmf": {
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "online": true,
+      "http_status": 200,
+      "note": "93781 bytes"
+    },
+    "mit_ocw": {
+      "url": "https://ocw.mit.edu/search/?t=Computer%20Science",
+      "online": true,
+      "http_status": 200,
+      "note": "9790 bytes"
+    }
+  },
+  "tracks": [
+    {
+      "id": "digital-literacy",
+      "level": "L0-L1",
+      "knowledge_areas": [
+        "cybok-02",
+        "cybok-21"
+      ]
+    },
+    {
+      "id": "cyber-foundations",
+      "level": "L1-L3",
+      "knowledge_areas": [
+        "cybok-01",
+        "cybok-03",
+        "cybok-04",
+        "cybok-05",
+        "cybok-06",
+        "cybok-11",
+        "cybok-12",
+        "cybok-13",
+        "cybok-14",
+        "cybok-15",
+        "cybok-22",
+        "nice-01",
+        "mit-6857",
+        "mit-61600",
+        "mit-6875"
+      ]
+    },
+    {
+      "id": "blue-team",
+      "level": "L2-L4",
+      "knowledge_areas": [
+        "cybok-16",
+        "cybok-17",
+        "cybok-18",
+        "cybok-19",
+        "nice-02",
+        "nice-04",
+        "nice-05",
+        "nice-06",
+        "nice-07",
+        "owasp-a09"
+      ]
+    },
+    {
+      "id": "ai-foundations",
+      "level": "L0-L3",
+      "knowledge_areas": [
+        "owasp-llm-llm01",
+        "owasp-llm-llm03",
+        "owasp-llm-llm05",
+        "owasp-llm-llm10",
+        "nist-ai-rmf-01",
+        "nist-ai-rmf-02",
+        "nist-ai-rmf-03",
+        "nist-ai-rmf-04"
+      ]
+    },
+    {
+      "id": "genai-applied",
+      "level": "L1-L4",
+      "knowledge_areas": [
+        "owasp-llm-llm02",
+        "owasp-llm-llm04",
+        "owasp-llm-llm06",
+        "owasp-llm-llm07",
+        "owasp-llm-llm08",
+        "owasp-llm-llm09"
+      ]
+    },
+    {
+      "id": "secure-web",
+      "level": "L1-L4",
+      "knowledge_areas": [
+        "cybok-07",
+        "cybok-08",
+        "cybok-09",
+        "cybok-10",
+        "owasp-a01",
+        "owasp-a02",
+        "owasp-a03",
+        "owasp-a04",
+        "owasp-a05",
+        "owasp-a06",
+        "owasp-a07",
+        "owasp-a08",
+        "owasp-a10",
+        "mit-6858"
+      ]
+    },
+    {
+      "id": "digital-career",
+      "level": "L0-L4",
+      "knowledge_areas": [
+        "cybok-20",
+        "cybok-23",
+        "nice-03"
+      ]
+    }
+  ],
+  "knowledge_areas": [
+    {
+      "id": "cybok-01",
+      "title": "Introduction to Cybersecurity",
+      "source": "CyBOK",
+      "track": "cyber-foundations",
+      "level": "L1-L3"
+    },
+    {
+      "id": "cybok-02",
+      "title": "Human Factors",
+      "source": "CyBOK",
+      "track": "digital-literacy",
+      "level": "L0-L1"
+    },
+    {
+      "id": "cybok-03",
+      "title": "Security Management",
+      "source": "CyBOK",
+      "track": "cyber-foundations",
+      "level": "L1-L3"
+    },
+    {
+      "id": "cybok-04",
+      "title": "Authentication, Authorisation & Accountability",
+      "source": "CyBOK",
+      "track": "cyber-foundations",
+      "level": "L1-L3"
+    },
+    {
+      "id": "cybok-05",
+      "title": "Cryptography",
+      "source": "CyBOK",
+      "track": "cyber-foundations",
+      "level": "L1-L3"
+    },
+    {
+      "id": "cybok-06",
+      "title": "Operating Systems Security",
+      "source": "CyBOK",
+      "track": "cyber-foundations",
+      "level": "L1-L3"
+    },
+    {
+      "id": "cybok-07",
+      "title": "Distributed Systems Security",
+      "source": "CyBOK",
+      "track": "secure-web",
+      "level": "L1-L4"
+    },
+    {
+      "id": "cybok-08",
+      "title": "Software Security",
+      "source": "CyBOK",
+      "track": "secure-web",
+      "level": "L1-L4"
+    },
+    {
+      "id": "cybok-09",
+      "title": "Web & Mobile Security",
+      "source": "CyBOK",
+      "track": "secure-web",
+      "level": "L1-L4"
+    },
+    {
+      "id": "cybok-10",
+      "title": "Secure Systems Development",
+      "source": "CyBOK",
+      "track": "secure-web",
+      "level": "L1-L4"
+    },
+    {
+      "id": "cybok-11",
+      "title": "Network Security",
+      "source": "CyBOK",
+      "track": "cyber-foundations",
+      "level": "L1-L3"
+    },
+    {
+      "id": "cybok-12",
+      "title": "Hardware Security",
+      "source": "CyBOK",
+      "track": "cyber-foundations",
+      "level": "L1-L3"
+    },
+    {
+      "id": "cybok-13",
+      "title": "Cyber-Physical Systems Security",
+      "source": "CyBOK",
+      "track": "cyber-foundations",
+      "level": "L1-L3"
+    },
+    {
+      "id": "cybok-14",
+      "title": "Physical Layer Security",
+      "source": "CyBOK",
+      "track": "cyber-foundations",
+      "level": "L1-L3"
+    },
+    {
+      "id": "cybok-15",
+      "title": "Wireless Security",
+      "source": "CyBOK",
+      "track": "cyber-foundations",
+      "level": "L1-L3"
+    },
+    {
+      "id": "cybok-16",
+      "title": "Forensics",
+      "source": "CyBOK",
+      "track": "blue-team",
+      "level": "L2-L4"
+    },
+    {
+      "id": "cybok-17",
+      "title": "Incident Management",
+      "source": "CyBOK",
+      "track": "blue-team",
+      "level": "L2-L4"
+    },
+    {
+      "id": "cybok-18",
+      "title": "Malware & Attack Technologies",
+      "source": "CyBOK",
+      "track": "blue-team",
+      "level": "L2-L4"
+    },
+    {
+      "id": "cybok-19",
+      "title": "Adversarial Behaviours",
+      "source": "CyBOK",
+      "track": "blue-team",
+      "level": "L2-L4"
+    },
+    {
+      "id": "cybok-20",
+      "title": "Security Economics",
+      "source": "CyBOK",
+      "track": "digital-career",
+      "level": "L0-L4"
+    },
+    {
+      "id": "cybok-21",
+      "title": "Privacy & Online Rights",
+      "source": "CyBOK",
+      "track": "digital-literacy",
+      "level": "L0-L1"
+    },
+    {
+      "id": "cybok-22",
+      "title": "Risk Management & Governance",
+      "source": "CyBOK",
+      "track": "cyber-foundations",
+      "level": "L1-L3"
+    },
+    {
+      "id": "cybok-23",
+      "title": "Law & Regulation",
+      "source": "CyBOK",
+      "track": "digital-career",
+      "level": "L0-L4"
+    },
+    {
+      "id": "nice-01",
+      "title": "Security Provision",
+      "source": "NIST NICE SP 800-181r1",
+      "track": "cyber-foundations",
+      "level": "L1-L3"
+    },
+    {
+      "id": "nice-02",
+      "title": "Operate and Maintain",
+      "source": "NIST NICE SP 800-181r1",
+      "track": "blue-team",
+      "level": "L2-L4"
+    },
+    {
+      "id": "nice-03",
+      "title": "Oversee and Govern",
+      "source": "NIST NICE SP 800-181r1",
+      "track": "digital-career",
+      "level": "L0-L4"
+    },
+    {
+      "id": "nice-04",
+      "title": "Protect and Defend",
+      "source": "NIST NICE SP 800-181r1",
+      "track": "blue-team",
+      "level": "L2-L4"
+    },
+    {
+      "id": "nice-05",
+      "title": "Analyze",
+      "source": "NIST NICE SP 800-181r1",
+      "track": "blue-team",
+      "level": "L2-L4"
+    },
+    {
+      "id": "nice-06",
+      "title": "Collect and Operate",
+      "source": "NIST NICE SP 800-181r1",
+      "track": "blue-team",
+      "level": "L2-L4"
+    },
+    {
+      "id": "nice-07",
+      "title": "Investigate",
+      "source": "NIST NICE SP 800-181r1",
+      "track": "blue-team",
+      "level": "L2-L4"
+    },
+    {
+      "id": "owasp-a01",
+      "title": "A01 Broken Access Control",
+      "source": "OWASP Top 10 2021",
+      "track": "secure-web",
+      "level": "L1-L4"
+    },
+    {
+      "id": "owasp-a02",
+      "title": "A02 Cryptographic Failures",
+      "source": "OWASP Top 10 2021",
+      "track": "secure-web",
+      "level": "L1-L4"
+    },
+    {
+      "id": "owasp-a03",
+      "title": "A03 Injection",
+      "source": "OWASP Top 10 2021",
+      "track": "secure-web",
+      "level": "L1-L4"
+    },
+    {
+      "id": "owasp-a04",
+      "title": "A04 Insecure Design",
+      "source": "OWASP Top 10 2021",
+      "track": "secure-web",
+      "level": "L1-L4"
+    },
+    {
+      "id": "owasp-a05",
+      "title": "A05 Security Misconfiguration",
+      "source": "OWASP Top 10 2021",
+      "track": "secure-web",
+      "level": "L1-L4"
+    },
+    {
+      "id": "owasp-a06",
+      "title": "A06 Vulnerable and Outdated Components",
+      "source": "OWASP Top 10 2021",
+      "track": "secure-web",
+      "level": "L1-L4"
+    },
+    {
+      "id": "owasp-a07",
+      "title": "A07 Identification and Authentication Failures",
+      "source": "OWASP Top 10 2021",
+      "track": "secure-web",
+      "level": "L1-L4"
+    },
+    {
+      "id": "owasp-a08",
+      "title": "A08 Software and Data Integrity Failures",
+      "source": "OWASP Top 10 2021",
+      "track": "secure-web",
+      "level": "L1-L4"
+    },
+    {
+      "id": "owasp-a09",
+      "title": "A09 Security Logging and Monitoring Failures",
+      "source": "OWASP Top 10 2021",
+      "track": "blue-team",
+      "level": "L2-L4"
+    },
+    {
+      "id": "owasp-a10",
+      "title": "A10 Server-Side Request Forgery (SSRF)",
+      "source": "OWASP Top 10 2021",
+      "track": "secure-web",
+      "level": "L1-L4"
+    },
+    {
+      "id": "mit-6858",
+      "title": "6.858 Computer Systems Security",
+      "source": "MIT OpenCourseWare",
+      "track": "secure-web",
+      "level": "L1-L4"
+    },
+    {
+      "id": "mit-6857",
+      "title": "6.857 Network and Computer Security",
+      "source": "MIT OpenCourseWare",
+      "track": "cyber-foundations",
+      "level": "L1-L3"
+    },
+    {
+      "id": "mit-61600",
+      "title": "6.1600 Foundations of Computer Security",
+      "source": "MIT OpenCourseWare",
+      "track": "cyber-foundations",
+      "level": "L1-L3"
+    },
+    {
+      "id": "mit-6875",
+      "title": "6.875 Cryptography and Cryptanalysis",
+      "source": "MIT OpenCourseWare",
+      "track": "cyber-foundations",
+      "level": "L1-L3"
+    },
+    {
+      "id": "owasp-llm-llm01",
+      "title": "LLM01 Prompt Injection",
+      "source": "OWASP Top 10 for LLM Applications",
+      "track": "ai-foundations",
+      "level": "L0-L3"
+    },
+    {
+      "id": "owasp-llm-llm02",
+      "title": "LLM02 Insecure Output Handling",
+      "source": "OWASP Top 10 for LLM Applications",
+      "track": "genai-applied",
+      "level": "L1-L4"
+    },
+    {
+      "id": "owasp-llm-llm03",
+      "title": "LLM03 Training Data Poisoning",
+      "source": "OWASP Top 10 for LLM Applications",
+      "track": "ai-foundations",
+      "level": "L0-L3"
+    },
+    {
+      "id": "owasp-llm-llm04",
+      "title": "LLM04 Model Denial of Service",
+      "source": "OWASP Top 10 for LLM Applications",
+      "track": "genai-applied",
+      "level": "L1-L4"
+    },
+    {
+      "id": "owasp-llm-llm05",
+      "title": "LLM05 Supply Chain Vulnerabilities",
+      "source": "OWASP Top 10 for LLM Applications",
+      "track": "ai-foundations",
+      "level": "L0-L3"
+    },
+    {
+      "id": "owasp-llm-llm06",
+      "title": "LLM06 Sensitive Information Disclosure",
+      "source": "OWASP Top 10 for LLM Applications",
+      "track": "genai-applied",
+      "level": "L1-L4"
+    },
+    {
+      "id": "owasp-llm-llm07",
+      "title": "LLM07 Insecure Plugin Design",
+      "source": "OWASP Top 10 for LLM Applications",
+      "track": "genai-applied",
+      "level": "L1-L4"
+    },
+    {
+      "id": "owasp-llm-llm08",
+      "title": "LLM08 Excessive Agency",
+      "source": "OWASP Top 10 for LLM Applications",
+      "track": "genai-applied",
+      "level": "L1-L4"
+    },
+    {
+      "id": "owasp-llm-llm09",
+      "title": "LLM09 Overreliance",
+      "source": "OWASP Top 10 for LLM Applications",
+      "track": "genai-applied",
+      "level": "L1-L4"
+    },
+    {
+      "id": "owasp-llm-llm10",
+      "title": "LLM10 Model Theft",
+      "source": "OWASP Top 10 for LLM Applications",
+      "track": "ai-foundations",
+      "level": "L0-L3"
+    },
+    {
+      "id": "nist-ai-rmf-01",
+      "title": "AI RMF · Govern",
+      "source": "NIST AI RMF 1.0",
+      "track": "ai-foundations",
+      "level": "L0-L3"
+    },
+    {
+      "id": "nist-ai-rmf-02",
+      "title": "AI RMF · Map",
+      "source": "NIST AI RMF 1.0",
+      "track": "ai-foundations",
+      "level": "L0-L3"
+    },
+    {
+      "id": "nist-ai-rmf-03",
+      "title": "AI RMF · Measure",
+      "source": "NIST AI RMF 1.0",
+      "track": "ai-foundations",
+      "level": "L0-L3"
+    },
+    {
+      "id": "nist-ai-rmf-04",
+      "title": "AI RMF · Manage",
+      "source": "NIST AI RMF 1.0",
+      "track": "ai-foundations",
+      "level": "L0-L3"
+    }
+  ],
+  "stats": {
+    "knowledge_areas": 58,
+    "by_source": {
+      "CyBOK": 23,
+      "MIT OpenCourseWare": 4,
+      "NIST AI RMF 1.0": 4,
+      "NIST NICE SP 800-181r1": 7,
+      "OWASP Top 10 2021": 10,
+      "OWASP Top 10 for LLM Applications": 10
+    }
+  }
+}

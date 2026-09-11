@@ -4,14 +4,19 @@ import NotFound from "@/pages/NotFound";
 import Notifications from "@/pages/Notifications";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { CoursesGallery } from "@/components/CoursesGallery";
+import { LanguageProvider } from "@/hooks/useLanguage";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import Lesson from "./pages/Lesson";
 import Portal from "./pages/Portal";
 
 function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/courses"} component={CoursesGallery} />
+      <Route path={"/lesson/:id"}>{params => <Lesson lessonId={params.id} />}</Route>
       <Route path={"/notifications"} component={Notifications} />
       <Route path={"/record"}>{() => <Portal section="record" />}</Route>
       <Route path={"/credentials"}>{() => <Portal section="credentials" />}</Route>
@@ -38,10 +43,12 @@ function App() {
         defaultTheme="light"
         // switchable
       >
-        <TooltipProvider>
-          <Toaster />
-          <Router />
-        </TooltipProvider>
+        <LanguageProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Router />
+          </TooltipProvider>
+        </LanguageProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );

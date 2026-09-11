@@ -102,3 +102,40 @@ Para vídeos externos, almacenar únicamente metadatos y URL: título, proveedor
 
 ## Evidencias
 Cada ruta genera un portfolio verificable: cuestionarios, diagramas, informes de laboratorio, configuraciones seguras, repositorios, playbooks, threat models y proyectos finales.
+
+## Material y currículo unificado
+
+### Clases con laboratorio
+`courses/` contiene clases reales listas para renderizar, con laboratorios prácticos:
+
+- `cybersecurity-fundamentals.md` — CIA, hardening, labs `iptables` y `nmap`
+- `ai-cybersecurity.md` — IA/ML aplicada a seguridad, labs scikit-learn (`RandomForest`, `IsolationForest`) y CNN TensorFlow
+- `ai-cybersecurity-basics.md` — syllabus de 4 módulos con evaluación
+
+### Motor educativo
+`edu-engine/` es el motor TypeScript (lecciones, quizzes, tutor, memoria de progreso) que consume estas clases. Se renderiza en la ruta `/lesson/:id`.
+
+### Currículo unificado
+`unified-curriculum.json` unifica seis estructuras públicas en una sola:
+
+| Fuente | Áreas |
+|---|---|
+| CyBOK (Cybersecurity Body of Knowledge) | 23 |
+| NIST NICE SP 800-181r1 | 7 |
+| OWASP Top 10 2021 | 10 |
+| OWASP Top 10 for LLM Applications | 10 |
+| NIST AI RMF 1.0 | 4 |
+| MIT OpenCourseWare (6.858 / 6.857 / 6.1600 / 6.875) | 4 |
+
+Cada área de conocimiento se mapea a una de las 7 rutas de secure-t. Regenerar con:
+
+```bash
+pnpm curriculum:build          # python scripts/build-unified-curriculum.py
+pnpm curriculum:build -- --offline   # sin red (usa listas canónicas embebidas)
+```
+
+Auditoría de datos personales y secretos:
+
+```bash
+pnpm audit:pii                 # node scripts/audit-pii.mjs
+```

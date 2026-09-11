@@ -11,7 +11,9 @@
     "check": "tsc --noEmit",
     "test": "vitest run --config vitest.config.ts",
     "db:generate": "drizzle-kit generate",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "curriculum:build": "python scripts/build-unified-curriculum.py",
+    "audit:pii": "node scripts/audit-pii.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
