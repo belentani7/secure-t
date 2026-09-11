@@ -13,6 +13,7 @@
     "db:generate": "drizzle-kit generate",
     "format": "prettier --write .",
     "curriculum:build": "python scripts/build-unified-curriculum.py",
+    "platform:generate": "python scripts/generate-platform.py",
     "audit:pii": "node scripts/audit-pii.mjs"
   },
   "dependencies": {

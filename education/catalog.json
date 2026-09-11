@@ -1,0 +1,2944 @@
+{
+  "schema": "secure-t.catalog.v1",
+  "generated_at": "2026-09-11T06:02:20.024505+00:00",
+  "generator": "scripts/generate-platform.py",
+  "institution": {
+    "name": "secure T",
+    "tagline": "Universidad digital de ciberseguridad e inteligencia artificial",
+    "language": [
+      "es",
+      "pt-BR",
+      "en"
+    ],
+    "model": "evidence-based mastery, open source, privacy by design",
+    "credential_kind": "verifiable certificate of completion"
+  },
+  "tracks": [
+    {
+      "id": "digital-literacy",
+      "title": "Alfabetización Digital",
+      "level": "L0-L1",
+      "description": "Fundamentos para moverse con seguridad en el mundo digital.",
+      "courses": [
+        "DL101",
+        "DL102"
+      ]
+    },
+    {
+      "id": "cyber-foundations",
+      "title": "Ciberseguridad Fundamental",
+      "level": "L1-L3",
+      "description": "CIA, redes, criptografía, sistemas y gestión de riesgo.",
+      "courses": [
+        "CF101",
+        "CF102",
+        "CF103",
+        "CF104"
+      ]
+    },
+    {
+      "id": "blue-team",
+      "title": "SOC / Blue Team",
+      "level": "L2-L4",
+      "description": "Detección, respuesta, forense y threat intelligence.",
+      "courses": [
+        "BT201",
+        "BT202",
+        "BT203"
+      ]
+    },
+    {
+      "id": "ai-foundations",
+      "title": "IA desde Cero",
+      "level": "L0-L3",
+      "description": "De ML a seguridad y gobernanza de sistemas de IA.",
+      "courses": [
+        "AI101",
+        "AI102",
+        "AI103"
+      ]
+    },
+    {
+      "id": "genai-applied",
+      "title": "IA Generativa Aplicada",
+      "level": "L1-L4",
+      "description": "LLMs, agentes y su seguridad en producción.",
+      "courses": [
+        "GA301",
+        "GA302",
+        "GA303"
+      ]
+    },
+    {
+      "id": "secure-web",
+      "title": "Desarrollo Web Seguro",
+      "level": "L1-L4",
+      "description": "Full-stack con OWASP, cloud y DevSecOps.",
+      "courses": [
+        "SW401",
+        "SW402",
+        "SW403",
+        "SW404"
+      ]
+    },
+    {
+      "id": "digital-career",
+      "title": "Carrera Digital",
+      "level": "L0-L4",
+      "description": "Portfolio, entrevistas, certificaciones y freelance.",
+      "courses": [
+        "DC501",
+        "DC502"
+      ]
+    }
+  ],
+  "courses": [
+    {
+      "code": "DL101",
+      "track": "digital-literacy",
+      "title": "Alfabetización Digital",
+      "subtitle": "Cómo funciona Internet y cómo no caer en la red",
+      "level": "L0-L1",
+      "weeks": 4,
+      "hoursPerWeek": 4,
+      "prerequisites": [],
+      "skills": [
+        "Internet",
+        "Buscadores",
+        "Backups",
+        "Contraseñas",
+        "MFA"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "DL101-M01",
+          "title": "Human Factors",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "DL101-M01-T",
+              "title": "Teoría · Human Factors",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Human Factors."
+            },
+            {
+              "id": "DL101-M01-P",
+              "title": "Práctica · Human Factors",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Human Factors en un escenario guiado."
+            },
+            {
+              "id": "DL101-M01-L",
+              "title": "Laboratorio · Human Factors",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Human Factors."
+            },
+            {
+              "id": "DL101-M01-A",
+              "title": "Evaluación · Human Factors",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Human Factors mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "DL101-M02",
+          "title": "Buscadores en profundidad",
+          "source": "secure-t",
+          "lessons": [
+            {
+              "id": "DL101-M02-T",
+              "title": "Teoría · Buscadores en profundidad",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Buscadores en profundidad."
+            },
+            {
+              "id": "DL101-M02-P",
+              "title": "Práctica · Buscadores en profundidad",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Buscadores en profundidad en un escenario guiado."
+            },
+            {
+              "id": "DL101-M02-L",
+              "title": "Laboratorio · Buscadores en profundidad",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Buscadores en profundidad."
+            },
+            {
+              "id": "DL101-M02-A",
+              "title": "Evaluación · Buscadores en profundidad",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Buscadores en profundidad mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "DL101-M03",
+          "title": "Backups en profundidad",
+          "source": "secure-t",
+          "lessons": [
+            {
+              "id": "DL101-M03-T",
+              "title": "Teoría · Backups en profundidad",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Backups en profundidad."
+            },
+            {
+              "id": "DL101-M03-P",
+              "title": "Práctica · Backups en profundidad",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Backups en profundidad en un escenario guiado."
+            },
+            {
+              "id": "DL101-M03-L",
+              "title": "Laboratorio · Backups en profundidad",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Backups en profundidad."
+            },
+            {
+              "id": "DL101-M03-A",
+              "title": "Evaluación · Backups en profundidad",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Backups en profundidad mediante evidencia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DL102",
+      "track": "digital-literacy",
+      "title": "Ciudadanía Digital y Privacidad",
+      "subtitle": "Huella digital, phishing e ingeniería social",
+      "level": "L0-L1",
+      "weeks": 4,
+      "hoursPerWeek": 4,
+      "prerequisites": [
+        "DL101"
+      ],
+      "skills": [
+        "Privacidad",
+        "Phishing",
+        "Huella digital",
+        "Reputación"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "DL102-M01",
+          "title": "Privacy & Online Rights",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "DL102-M01-T",
+              "title": "Teoría · Privacy & Online Rights",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Privacy & Online Rights."
+            },
+            {
+              "id": "DL102-M01-P",
+              "title": "Práctica · Privacy & Online Rights",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Privacy & Online Rights en un escenario guiado."
+            },
+            {
+              "id": "DL102-M01-L",
+              "title": "Laboratorio · Privacy & Online Rights",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Privacy & Online Rights."
+            },
+            {
+              "id": "DL102-M01-A",
+              "title": "Evaluación · Privacy & Online Rights",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Privacy & Online Rights mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "DL102-M02",
+          "title": "Phishing en profundidad",
+          "source": "secure-t",
+          "lessons": [
+            {
+              "id": "DL102-M02-T",
+              "title": "Teoría · Phishing en profundidad",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Phishing en profundidad."
+            },
+            {
+              "id": "DL102-M02-P",
+              "title": "Práctica · Phishing en profundidad",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Phishing en profundidad en un escenario guiado."
+            },
+            {
+              "id": "DL102-M02-L",
+              "title": "Laboratorio · Phishing en profundidad",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Phishing en profundidad."
+            },
+            {
+              "id": "DL102-M02-A",
+              "title": "Evaluación · Phishing en profundidad",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Phishing en profundidad mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "DL102-M03",
+          "title": "Huella digital en profundidad",
+          "source": "secure-t",
+          "lessons": [
+            {
+              "id": "DL102-M03-T",
+              "title": "Teoría · Huella digital en profundidad",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Huella digital en profundidad."
+            },
+            {
+              "id": "DL102-M03-P",
+              "title": "Práctica · Huella digital en profundidad",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Huella digital en profundidad en un escenario guiado."
+            },
+            {
+              "id": "DL102-M03-L",
+              "title": "Laboratorio · Huella digital en profundidad",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Huella digital en profundidad."
+            },
+            {
+              "id": "DL102-M03-A",
+              "title": "Evaluación · Huella digital en profundidad",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Huella digital en profundidad mediante evidencia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CF101",
+      "track": "cyber-foundations",
+      "title": "Fundamentos de Ciberseguridad",
+      "subtitle": "CIA, modelos de amenaza y defensa en profundidad",
+      "level": "L1-L3",
+      "weeks": 8,
+      "hoursPerWeek": 4,
+      "prerequisites": [],
+      "skills": [
+        "CIA",
+        "Threat modeling",
+        "Hardening",
+        "CVE/CVSS"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "CF101-M01",
+          "title": "Introduction to Cybersecurity",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "CF101-M01-T",
+              "title": "Teoría · Introduction to Cybersecurity",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Introduction to Cybersecurity."
+            },
+            {
+              "id": "CF101-M01-P",
+              "title": "Práctica · Introduction to Cybersecurity",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Introduction to Cybersecurity en un escenario guiado."
+            },
+            {
+              "id": "CF101-M01-L",
+              "title": "Laboratorio · Introduction to Cybersecurity",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Introduction to Cybersecurity."
+            },
+            {
+              "id": "CF101-M01-A",
+              "title": "Evaluación · Introduction to Cybersecurity",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Introduction to Cybersecurity mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "CF101-M02",
+          "title": "Operating Systems Security",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "CF101-M02-T",
+              "title": "Teoría · Operating Systems Security",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Operating Systems Security."
+            },
+            {
+              "id": "CF101-M02-P",
+              "title": "Práctica · Operating Systems Security",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Operating Systems Security en un escenario guiado."
+            },
+            {
+              "id": "CF101-M02-L",
+              "title": "Laboratorio · Operating Systems Security",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Operating Systems Security."
+            },
+            {
+              "id": "CF101-M02-A",
+              "title": "Evaluación · Operating Systems Security",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Operating Systems Security mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "CF101-M03",
+          "title": "Physical Layer Security",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "CF101-M03-T",
+              "title": "Teoría · Physical Layer Security",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Physical Layer Security."
+            },
+            {
+              "id": "CF101-M03-P",
+              "title": "Práctica · Physical Layer Security",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Physical Layer Security en un escenario guiado."
+            },
+            {
+              "id": "CF101-M03-L",
+              "title": "Laboratorio · Physical Layer Security",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Physical Layer Security."
+            },
+            {
+              "id": "CF101-M03-A",
+              "title": "Evaluación · Physical Layer Security",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Physical Layer Security mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "CF101-M04",
+          "title": "6.857 Network and Computer Security",
+          "source": "MIT OpenCourseWare",
+          "lessons": [
+            {
+              "id": "CF101-M04-T",
+              "title": "Teoría · 6.857 Network and Computer Security",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de 6.857 Network and Computer Security."
+            },
+            {
+              "id": "CF101-M04-P",
+              "title": "Práctica · 6.857 Network and Computer Security",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar 6.857 Network and Computer Security en un escenario guiado."
+            },
+            {
+              "id": "CF101-M04-L",
+              "title": "Laboratorio · 6.857 Network and Computer Security",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre 6.857 Network and Computer Security."
+            },
+            {
+              "id": "CF101-M04-A",
+              "title": "Evaluación · 6.857 Network and Computer Security",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de 6.857 Network and Computer Security mediante evidencia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CF102",
+      "track": "cyber-foundations",
+      "title": "Redes y Protocolos Seguros",
+      "subtitle": "IP, DNS, TLS, puertos y segmentación",
+      "level": "L1-L3",
+      "weeks": 8,
+      "hoursPerWeek": 4,
+      "prerequisites": [
+        "CF101"
+      ],
+      "skills": [
+        "TCP/IP",
+        "DNS",
+        "TLS",
+        "Firewalls"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "CF102-M01",
+          "title": "Security Management",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "CF102-M01-T",
+              "title": "Teoría · Security Management",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Security Management."
+            },
+            {
+              "id": "CF102-M01-P",
+              "title": "Práctica · Security Management",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Security Management en un escenario guiado."
+            },
+            {
+              "id": "CF102-M01-L",
+              "title": "Laboratorio · Security Management",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Security Management."
+            },
+            {
+              "id": "CF102-M01-A",
+              "title": "Evaluación · Security Management",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Security Management mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "CF102-M02",
+          "title": "Network Security",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "CF102-M02-T",
+              "title": "Teoría · Network Security",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Network Security."
+            },
+            {
+              "id": "CF102-M02-P",
+              "title": "Práctica · Network Security",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Network Security en un escenario guiado."
+            },
+            {
+              "id": "CF102-M02-L",
+              "title": "Laboratorio · Network Security",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Network Security."
+            },
+            {
+              "id": "CF102-M02-A",
+              "title": "Evaluación · Network Security",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Network Security mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "CF102-M03",
+          "title": "Wireless Security",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "CF102-M03-T",
+              "title": "Teoría · Wireless Security",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Wireless Security."
+            },
+            {
+              "id": "CF102-M03-P",
+              "title": "Práctica · Wireless Security",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Wireless Security en un escenario guiado."
+            },
+            {
+              "id": "CF102-M03-L",
+              "title": "Laboratorio · Wireless Security",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Wireless Security."
+            },
+            {
+              "id": "CF102-M03-A",
+              "title": "Evaluación · Wireless Security",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Wireless Security mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "CF102-M04",
+          "title": "6.1600 Foundations of Computer Security",
+          "source": "MIT OpenCourseWare",
+          "lessons": [
+            {
+              "id": "CF102-M04-T",
+              "title": "Teoría · 6.1600 Foundations of Computer Security",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de 6.1600 Foundations of Computer Security."
+            },
+            {
+              "id": "CF102-M04-P",
+              "title": "Práctica · 6.1600 Foundations of Computer Security",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar 6.1600 Foundations of Computer Security en un escenario guiado."
+            },
+            {
+              "id": "CF102-M04-L",
+              "title": "Laboratorio · 6.1600 Foundations of Computer Security",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre 6.1600 Foundations of Computer Security."
+            },
+            {
+              "id": "CF102-M04-A",
+              "title": "Evaluación · 6.1600 Foundations of Computer Security",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de 6.1600 Foundations of Computer Security mediante evidencia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CF103",
+      "track": "cyber-foundations",
+      "title": "Criptografía Aplicada",
+      "subtitle": "De AES y RSA a TLS y firma digital",
+      "level": "L1-L3",
+      "weeks": 8,
+      "hoursPerWeek": 4,
+      "prerequisites": [
+        "CF102"
+      ],
+      "skills": [
+        "AES",
+        "RSA",
+        "PKI",
+        "Hashing"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "CF103-M01",
+          "title": "Authentication, Authorisation & Accountability",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "CF103-M01-T",
+              "title": "Teoría · Authentication, Authorisation & Accountability",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Authentication, Authorisation & Accountability."
+            },
+            {
+              "id": "CF103-M01-P",
+              "title": "Práctica · Authentication, Authorisation & Accountability",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Authentication, Authorisation & Accountability en un escenario guiado."
+            },
+            {
+              "id": "CF103-M01-L",
+              "title": "Laboratorio · Authentication, Authorisation & Accountability",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Authentication, Authorisation & Accountability."
+            },
+            {
+              "id": "CF103-M01-A",
+              "title": "Evaluación · Authentication, Authorisation & Accountability",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Authentication, Authorisation & Accountability mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "CF103-M02",
+          "title": "Hardware Security",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "CF103-M02-T",
+              "title": "Teoría · Hardware Security",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Hardware Security."
+            },
+            {
+              "id": "CF103-M02-P",
+              "title": "Práctica · Hardware Security",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Hardware Security en un escenario guiado."
+            },
+            {
+              "id": "CF103-M02-L",
+              "title": "Laboratorio · Hardware Security",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Hardware Security."
+            },
+            {
+              "id": "CF103-M02-A",
+              "title": "Evaluación · Hardware Security",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Hardware Security mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "CF103-M03",
+          "title": "Risk Management & Governance",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "CF103-M03-T",
+              "title": "Teoría · Risk Management & Governance",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Risk Management & Governance."
+            },
+            {
+              "id": "CF103-M03-P",
+              "title": "Práctica · Risk Management & Governance",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Risk Management & Governance en un escenario guiado."
+            },
+            {
+              "id": "CF103-M03-L",
+              "title": "Laboratorio · Risk Management & Governance",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Risk Management & Governance."
+            },
+            {
+              "id": "CF103-M03-A",
+              "title": "Evaluación · Risk Management & Governance",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Risk Management & Governance mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "CF103-M04",
+          "title": "6.875 Cryptography and Cryptanalysis",
+          "source": "MIT OpenCourseWare",
+          "lessons": [
+            {
+              "id": "CF103-M04-T",
+              "title": "Teoría · 6.875 Cryptography and Cryptanalysis",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de 6.875 Cryptography and Cryptanalysis."
+            },
+            {
+              "id": "CF103-M04-P",
+              "title": "Práctica · 6.875 Cryptography and Cryptanalysis",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar 6.875 Cryptography and Cryptanalysis en un escenario guiado."
+            },
+            {
+              "id": "CF103-M04-L",
+              "title": "Laboratorio · 6.875 Cryptography and Cryptanalysis",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre 6.875 Cryptography and Cryptanalysis."
+            },
+            {
+              "id": "CF103-M04-A",
+              "title": "Evaluación · 6.875 Cryptography and Cryptanalysis",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de 6.875 Cryptography and Cryptanalysis mediante evidencia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CF104",
+      "track": "cyber-foundations",
+      "title": "Riesgo, Cumplimiento y Gobernanza",
+      "subtitle": "ISO 27001, NIST CSF y gestión de riesgo",
+      "level": "L1-L3",
+      "weeks": 8,
+      "hoursPerWeek": 4,
+      "prerequisites": [
+        "CF103"
+      ],
+      "skills": [
+        "Risk management",
+        "ISO 27001",
+        "NIST CSF",
+        "Auditoría"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "CF104-M01",
+          "title": "Cryptography",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "CF104-M01-T",
+              "title": "Teoría · Cryptography",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Cryptography."
+            },
+            {
+              "id": "CF104-M01-P",
+              "title": "Práctica · Cryptography",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Cryptography en un escenario guiado."
+            },
+            {
+              "id": "CF104-M01-L",
+              "title": "Laboratorio · Cryptography",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Cryptography."
+            },
+            {
+              "id": "CF104-M01-A",
+              "title": "Evaluación · Cryptography",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Cryptography mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "CF104-M02",
+          "title": "Cyber-Physical Systems Security",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "CF104-M02-T",
+              "title": "Teoría · Cyber-Physical Systems Security",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Cyber-Physical Systems Security."
+            },
+            {
+              "id": "CF104-M02-P",
+              "title": "Práctica · Cyber-Physical Systems Security",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Cyber-Physical Systems Security en un escenario guiado."
+            },
+            {
+              "id": "CF104-M02-L",
+              "title": "Laboratorio · Cyber-Physical Systems Security",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Cyber-Physical Systems Security."
+            },
+            {
+              "id": "CF104-M02-A",
+              "title": "Evaluación · Cyber-Physical Systems Security",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Cyber-Physical Systems Security mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "CF104-M03",
+          "title": "Security Provision",
+          "source": "NIST NICE SP 800-181r1",
+          "lessons": [
+            {
+              "id": "CF104-M03-T",
+              "title": "Teoría · Security Provision",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Security Provision."
+            },
+            {
+              "id": "CF104-M03-P",
+              "title": "Práctica · Security Provision",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Security Provision en un escenario guiado."
+            },
+            {
+              "id": "CF104-M03-L",
+              "title": "Laboratorio · Security Provision",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Security Provision."
+            },
+            {
+              "id": "CF104-M03-A",
+              "title": "Evaluación · Security Provision",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Security Provision mediante evidencia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "BT201",
+      "track": "blue-team",
+      "title": "Operaciones SOC / Blue Team",
+      "subtitle": "Triage, SIEM y detección de intrusos",
+      "level": "L2-L4",
+      "weeks": 10,
+      "hoursPerWeek": 4,
+      "prerequisites": [],
+      "skills": [
+        "SIEM",
+        "Triage",
+        "IOC",
+        "MITRE ATT&CK"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "BT201-M01",
+          "title": "Forensics",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "BT201-M01-T",
+              "title": "Teoría · Forensics",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Forensics."
+            },
+            {
+              "id": "BT201-M01-P",
+              "title": "Práctica · Forensics",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Forensics en un escenario guiado."
+            },
+            {
+              "id": "BT201-M01-L",
+              "title": "Laboratorio · Forensics",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Forensics."
+            },
+            {
+              "id": "BT201-M01-A",
+              "title": "Evaluación · Forensics",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Forensics mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "BT201-M02",
+          "title": "Adversarial Behaviours",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "BT201-M02-T",
+              "title": "Teoría · Adversarial Behaviours",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Adversarial Behaviours."
+            },
+            {
+              "id": "BT201-M02-P",
+              "title": "Práctica · Adversarial Behaviours",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Adversarial Behaviours en un escenario guiado."
+            },
+            {
+              "id": "BT201-M02-L",
+              "title": "Laboratorio · Adversarial Behaviours",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Adversarial Behaviours."
+            },
+            {
+              "id": "BT201-M02-A",
+              "title": "Evaluación · Adversarial Behaviours",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Adversarial Behaviours mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "BT201-M03",
+          "title": "Analyze",
+          "source": "NIST NICE SP 800-181r1",
+          "lessons": [
+            {
+              "id": "BT201-M03-T",
+              "title": "Teoría · Analyze",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Analyze."
+            },
+            {
+              "id": "BT201-M03-P",
+              "title": "Práctica · Analyze",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Analyze en un escenario guiado."
+            },
+            {
+              "id": "BT201-M03-L",
+              "title": "Laboratorio · Analyze",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Analyze."
+            },
+            {
+              "id": "BT201-M03-A",
+              "title": "Evaluación · Analyze",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Analyze mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "BT201-M04",
+          "title": "A09 Security Logging and Monitoring Failures",
+          "source": "OWASP Top 10 2021",
+          "lessons": [
+            {
+              "id": "BT201-M04-T",
+              "title": "Teoría · A09 Security Logging and Monitoring Failures",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de A09 Security Logging and Monitoring Failures."
+            },
+            {
+              "id": "BT201-M04-P",
+              "title": "Práctica · A09 Security Logging and Monitoring Failures",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar A09 Security Logging and Monitoring Failures en un escenario guiado."
+            },
+            {
+              "id": "BT201-M04-L",
+              "title": "Laboratorio · A09 Security Logging and Monitoring Failures",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre A09 Security Logging and Monitoring Failures."
+            },
+            {
+              "id": "BT201-M04-A",
+              "title": "Evaluación · A09 Security Logging and Monitoring Failures",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de A09 Security Logging and Monitoring Failures mediante evidencia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "BT202",
+      "track": "blue-team",
+      "title": "Respuesta a Incidentes y Forense",
+      "subtitle": "Del playbook al análisis forense",
+      "level": "L2-L4",
+      "weeks": 10,
+      "hoursPerWeek": 4,
+      "prerequisites": [
+        "BT201"
+      ],
+      "skills": [
+        "IR playbooks",
+        "Forense",
+        "Memoria",
+        "Cadena de custodia"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "BT202-M01",
+          "title": "Incident Management",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "BT202-M01-T",
+              "title": "Teoría · Incident Management",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Incident Management."
+            },
+            {
+              "id": "BT202-M01-P",
+              "title": "Práctica · Incident Management",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Incident Management en un escenario guiado."
+            },
+            {
+              "id": "BT202-M01-L",
+              "title": "Laboratorio · Incident Management",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Incident Management."
+            },
+            {
+              "id": "BT202-M01-A",
+              "title": "Evaluación · Incident Management",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Incident Management mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "BT202-M02",
+          "title": "Operate and Maintain",
+          "source": "NIST NICE SP 800-181r1",
+          "lessons": [
+            {
+              "id": "BT202-M02-T",
+              "title": "Teoría · Operate and Maintain",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Operate and Maintain."
+            },
+            {
+              "id": "BT202-M02-P",
+              "title": "Práctica · Operate and Maintain",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Operate and Maintain en un escenario guiado."
+            },
+            {
+              "id": "BT202-M02-L",
+              "title": "Laboratorio · Operate and Maintain",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Operate and Maintain."
+            },
+            {
+              "id": "BT202-M02-A",
+              "title": "Evaluación · Operate and Maintain",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Operate and Maintain mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "BT202-M03",
+          "title": "Collect and Operate",
+          "source": "NIST NICE SP 800-181r1",
+          "lessons": [
+            {
+              "id": "BT202-M03-T",
+              "title": "Teoría · Collect and Operate",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Collect and Operate."
+            },
+            {
+              "id": "BT202-M03-P",
+              "title": "Práctica · Collect and Operate",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Collect and Operate en un escenario guiado."
+            },
+            {
+              "id": "BT202-M03-L",
+              "title": "Laboratorio · Collect and Operate",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Collect and Operate."
+            },
+            {
+              "id": "BT202-M03-A",
+              "title": "Evaluación · Collect and Operate",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Collect and Operate mediante evidencia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "BT203",
+      "track": "blue-team",
+      "title": "Threat Intelligence",
+      "subtitle": "TTPs, OSINT y caza de amenazas",
+      "level": "L2-L4",
+      "weeks": 10,
+      "hoursPerWeek": 4,
+      "prerequisites": [
+        "BT202"
+      ],
+      "skills": [
+        "CTI",
+        "OSINT",
+        "Hunting",
+        "TTP"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "BT203-M01",
+          "title": "Malware & Attack Technologies",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "BT203-M01-T",
+              "title": "Teoría · Malware & Attack Technologies",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Malware & Attack Technologies."
+            },
+            {
+              "id": "BT203-M01-P",
+              "title": "Práctica · Malware & Attack Technologies",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Malware & Attack Technologies en un escenario guiado."
+            },
+            {
+              "id": "BT203-M01-L",
+              "title": "Laboratorio · Malware & Attack Technologies",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Malware & Attack Technologies."
+            },
+            {
+              "id": "BT203-M01-A",
+              "title": "Evaluación · Malware & Attack Technologies",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Malware & Attack Technologies mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "BT203-M02",
+          "title": "Protect and Defend",
+          "source": "NIST NICE SP 800-181r1",
+          "lessons": [
+            {
+              "id": "BT203-M02-T",
+              "title": "Teoría · Protect and Defend",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Protect and Defend."
+            },
+            {
+              "id": "BT203-M02-P",
+              "title": "Práctica · Protect and Defend",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Protect and Defend en un escenario guiado."
+            },
+            {
+              "id": "BT203-M02-L",
+              "title": "Laboratorio · Protect and Defend",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Protect and Defend."
+            },
+            {
+              "id": "BT203-M02-A",
+              "title": "Evaluación · Protect and Defend",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Protect and Defend mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "BT203-M03",
+          "title": "Investigate",
+          "source": "NIST NICE SP 800-181r1",
+          "lessons": [
+            {
+              "id": "BT203-M03-T",
+              "title": "Teoría · Investigate",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Investigate."
+            },
+            {
+              "id": "BT203-M03-P",
+              "title": "Práctica · Investigate",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Investigate en un escenario guiado."
+            },
+            {
+              "id": "BT203-M03-L",
+              "title": "Laboratorio · Investigate",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Investigate."
+            },
+            {
+              "id": "BT203-M03-A",
+              "title": "Evaluación · Investigate",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Investigate mediante evidencia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "AI101",
+      "track": "ai-foundations",
+      "title": "IA desde Cero",
+      "subtitle": "ML, deep learning y LLMs explicados",
+      "level": "L0-L3",
+      "weeks": 8,
+      "hoursPerWeek": 4,
+      "prerequisites": [],
+      "skills": [
+        "ML",
+        "Deep learning",
+        "Embeddings",
+        "RAG"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "AI101-M01",
+          "title": "LLM01 Prompt Injection",
+          "source": "OWASP Top 10 for LLM Applications",
+          "lessons": [
+            {
+              "id": "AI101-M01-T",
+              "title": "Teoría · LLM01 Prompt Injection",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de LLM01 Prompt Injection."
+            },
+            {
+              "id": "AI101-M01-P",
+              "title": "Práctica · LLM01 Prompt Injection",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar LLM01 Prompt Injection en un escenario guiado."
+            },
+            {
+              "id": "AI101-M01-L",
+              "title": "Laboratorio · LLM01 Prompt Injection",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre LLM01 Prompt Injection."
+            },
+            {
+              "id": "AI101-M01-A",
+              "title": "Evaluación · LLM01 Prompt Injection",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de LLM01 Prompt Injection mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "AI101-M02",
+          "title": "LLM10 Model Theft",
+          "source": "OWASP Top 10 for LLM Applications",
+          "lessons": [
+            {
+              "id": "AI101-M02-T",
+              "title": "Teoría · LLM10 Model Theft",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de LLM10 Model Theft."
+            },
+            {
+              "id": "AI101-M02-P",
+              "title": "Práctica · LLM10 Model Theft",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar LLM10 Model Theft en un escenario guiado."
+            },
+            {
+              "id": "AI101-M02-L",
+              "title": "Laboratorio · LLM10 Model Theft",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre LLM10 Model Theft."
+            },
+            {
+              "id": "AI101-M02-A",
+              "title": "Evaluación · LLM10 Model Theft",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de LLM10 Model Theft mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "AI101-M03",
+          "title": "AI RMF · Measure",
+          "source": "NIST AI RMF 1.0",
+          "lessons": [
+            {
+              "id": "AI101-M03-T",
+              "title": "Teoría · AI RMF · Measure",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de AI RMF · Measure."
+            },
+            {
+              "id": "AI101-M03-P",
+              "title": "Práctica · AI RMF · Measure",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar AI RMF · Measure en un escenario guiado."
+            },
+            {
+              "id": "AI101-M03-L",
+              "title": "Laboratorio · AI RMF · Measure",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre AI RMF · Measure."
+            },
+            {
+              "id": "AI101-M03-A",
+              "title": "Evaluación · AI RMF · Measure",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de AI RMF · Measure mediante evidencia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "AI102",
+      "track": "ai-foundations",
+      "title": "Seguridad de Sistemas de IA",
+      "subtitle": "Ataques adversariales y defensas",
+      "level": "L0-L3",
+      "weeks": 8,
+      "hoursPerWeek": 4,
+      "prerequisites": [
+        "AI101"
+      ],
+      "skills": [
+        "Adversarial ML",
+        "Data poisoning",
+        "Model theft"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "AI102-M01",
+          "title": "LLM03 Training Data Poisoning",
+          "source": "OWASP Top 10 for LLM Applications",
+          "lessons": [
+            {
+              "id": "AI102-M01-T",
+              "title": "Teoría · LLM03 Training Data Poisoning",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de LLM03 Training Data Poisoning."
+            },
+            {
+              "id": "AI102-M01-P",
+              "title": "Práctica · LLM03 Training Data Poisoning",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar LLM03 Training Data Poisoning en un escenario guiado."
+            },
+            {
+              "id": "AI102-M01-L",
+              "title": "Laboratorio · LLM03 Training Data Poisoning",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre LLM03 Training Data Poisoning."
+            },
+            {
+              "id": "AI102-M01-A",
+              "title": "Evaluación · LLM03 Training Data Poisoning",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de LLM03 Training Data Poisoning mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "AI102-M02",
+          "title": "AI RMF · Govern",
+          "source": "NIST AI RMF 1.0",
+          "lessons": [
+            {
+              "id": "AI102-M02-T",
+              "title": "Teoría · AI RMF · Govern",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de AI RMF · Govern."
+            },
+            {
+              "id": "AI102-M02-P",
+              "title": "Práctica · AI RMF · Govern",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar AI RMF · Govern en un escenario guiado."
+            },
+            {
+              "id": "AI102-M02-L",
+              "title": "Laboratorio · AI RMF · Govern",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre AI RMF · Govern."
+            },
+            {
+              "id": "AI102-M02-A",
+              "title": "Evaluación · AI RMF · Govern",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de AI RMF · Govern mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "AI102-M03",
+          "title": "AI RMF · Manage",
+          "source": "NIST AI RMF 1.0",
+          "lessons": [
+            {
+              "id": "AI102-M03-T",
+              "title": "Teoría · AI RMF · Manage",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de AI RMF · Manage."
+            },
+            {
+              "id": "AI102-M03-P",
+              "title": "Práctica · AI RMF · Manage",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar AI RMF · Manage en un escenario guiado."
+            },
+            {
+              "id": "AI102-M03-L",
+              "title": "Laboratorio · AI RMF · Manage",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre AI RMF · Manage."
+            },
+            {
+              "id": "AI102-M03-A",
+              "title": "Evaluación · AI RMF · Manage",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de AI RMF · Manage mediante evidencia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "AI103",
+      "track": "ai-foundations",
+      "title": "Gobernanza y Riesgo de IA",
+      "subtitle": "NIST AI RMF aplicado",
+      "level": "L0-L3",
+      "weeks": 8,
+      "hoursPerWeek": 4,
+      "prerequisites": [
+        "AI102"
+      ],
+      "skills": [
+        "AI RMF",
+        "Governance",
+        "Ética",
+        "Auditoría IA"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "AI103-M01",
+          "title": "LLM05 Supply Chain Vulnerabilities",
+          "source": "OWASP Top 10 for LLM Applications",
+          "lessons": [
+            {
+              "id": "AI103-M01-T",
+              "title": "Teoría · LLM05 Supply Chain Vulnerabilities",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de LLM05 Supply Chain Vulnerabilities."
+            },
+            {
+              "id": "AI103-M01-P",
+              "title": "Práctica · LLM05 Supply Chain Vulnerabilities",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar LLM05 Supply Chain Vulnerabilities en un escenario guiado."
+            },
+            {
+              "id": "AI103-M01-L",
+              "title": "Laboratorio · LLM05 Supply Chain Vulnerabilities",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre LLM05 Supply Chain Vulnerabilities."
+            },
+            {
+              "id": "AI103-M01-A",
+              "title": "Evaluación · LLM05 Supply Chain Vulnerabilities",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de LLM05 Supply Chain Vulnerabilities mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "AI103-M02",
+          "title": "AI RMF · Map",
+          "source": "NIST AI RMF 1.0",
+          "lessons": [
+            {
+              "id": "AI103-M02-T",
+              "title": "Teoría · AI RMF · Map",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de AI RMF · Map."
+            },
+            {
+              "id": "AI103-M02-P",
+              "title": "Práctica · AI RMF · Map",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar AI RMF · Map en un escenario guiado."
+            },
+            {
+              "id": "AI103-M02-L",
+              "title": "Laboratorio · AI RMF · Map",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre AI RMF · Map."
+            },
+            {
+              "id": "AI103-M02-A",
+              "title": "Evaluación · AI RMF · Map",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de AI RMF · Map mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "AI103-M03",
+          "title": "Ética en profundidad",
+          "source": "secure-t",
+          "lessons": [
+            {
+              "id": "AI103-M03-T",
+              "title": "Teoría · Ética en profundidad",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Ética en profundidad."
+            },
+            {
+              "id": "AI103-M03-P",
+              "title": "Práctica · Ética en profundidad",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Ética en profundidad en un escenario guiado."
+            },
+            {
+              "id": "AI103-M03-L",
+              "title": "Laboratorio · Ética en profundidad",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Ética en profundidad."
+            },
+            {
+              "id": "AI103-M03-A",
+              "title": "Evaluación · Ética en profundidad",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Ética en profundidad mediante evidencia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "GA301",
+      "track": "genai-applied",
+      "title": "IA Generativa Aplicada",
+      "subtitle": "Texto, imagen, audio, vídeo y código",
+      "level": "L1-L4",
+      "weeks": 10,
+      "hoursPerWeek": 4,
+      "prerequisites": [],
+      "skills": [
+        "Prompting",
+        "Multimodal",
+        "Workflows",
+        "APIs"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "GA301-M01",
+          "title": "LLM02 Insecure Output Handling",
+          "source": "OWASP Top 10 for LLM Applications",
+          "lessons": [
+            {
+              "id": "GA301-M01-T",
+              "title": "Teoría · LLM02 Insecure Output Handling",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de LLM02 Insecure Output Handling."
+            },
+            {
+              "id": "GA301-M01-P",
+              "title": "Práctica · LLM02 Insecure Output Handling",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar LLM02 Insecure Output Handling en un escenario guiado."
+            },
+            {
+              "id": "GA301-M01-L",
+              "title": "Laboratorio · LLM02 Insecure Output Handling",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre LLM02 Insecure Output Handling."
+            },
+            {
+              "id": "GA301-M01-A",
+              "title": "Evaluación · LLM02 Insecure Output Handling",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de LLM02 Insecure Output Handling mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "GA301-M02",
+          "title": "LLM07 Insecure Plugin Design",
+          "source": "OWASP Top 10 for LLM Applications",
+          "lessons": [
+            {
+              "id": "GA301-M02-T",
+              "title": "Teoría · LLM07 Insecure Plugin Design",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de LLM07 Insecure Plugin Design."
+            },
+            {
+              "id": "GA301-M02-P",
+              "title": "Práctica · LLM07 Insecure Plugin Design",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar LLM07 Insecure Plugin Design en un escenario guiado."
+            },
+            {
+              "id": "GA301-M02-L",
+              "title": "Laboratorio · LLM07 Insecure Plugin Design",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre LLM07 Insecure Plugin Design."
+            },
+            {
+              "id": "GA301-M02-A",
+              "title": "Evaluación · LLM07 Insecure Plugin Design",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de LLM07 Insecure Plugin Design mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "GA301-M03",
+          "title": "Workflows en profundidad",
+          "source": "secure-t",
+          "lessons": [
+            {
+              "id": "GA301-M03-T",
+              "title": "Teoría · Workflows en profundidad",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Workflows en profundidad."
+            },
+            {
+              "id": "GA301-M03-P",
+              "title": "Práctica · Workflows en profundidad",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Workflows en profundidad en un escenario guiado."
+            },
+            {
+              "id": "GA301-M03-L",
+              "title": "Laboratorio · Workflows en profundidad",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Workflows en profundidad."
+            },
+            {
+              "id": "GA301-M03-A",
+              "title": "Evaluación · Workflows en profundidad",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Workflows en profundidad mediante evidencia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "GA302",
+      "track": "genai-applied",
+      "title": "Seguridad de LLM",
+      "subtitle": "OWASP LLM Top 10 en producción",
+      "level": "L1-L4",
+      "weeks": 10,
+      "hoursPerWeek": 4,
+      "prerequisites": [
+        "GA301"
+      ],
+      "skills": [
+        "Prompt injection",
+        "Guardrails",
+        "Agency",
+        "Supply chain"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "GA302-M01",
+          "title": "LLM04 Model Denial of Service",
+          "source": "OWASP Top 10 for LLM Applications",
+          "lessons": [
+            {
+              "id": "GA302-M01-T",
+              "title": "Teoría · LLM04 Model Denial of Service",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de LLM04 Model Denial of Service."
+            },
+            {
+              "id": "GA302-M01-P",
+              "title": "Práctica · LLM04 Model Denial of Service",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar LLM04 Model Denial of Service en un escenario guiado."
+            },
+            {
+              "id": "GA302-M01-L",
+              "title": "Laboratorio · LLM04 Model Denial of Service",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre LLM04 Model Denial of Service."
+            },
+            {
+              "id": "GA302-M01-A",
+              "title": "Evaluación · LLM04 Model Denial of Service",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de LLM04 Model Denial of Service mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "GA302-M02",
+          "title": "LLM08 Excessive Agency",
+          "source": "OWASP Top 10 for LLM Applications",
+          "lessons": [
+            {
+              "id": "GA302-M02-T",
+              "title": "Teoría · LLM08 Excessive Agency",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de LLM08 Excessive Agency."
+            },
+            {
+              "id": "GA302-M02-P",
+              "title": "Práctica · LLM08 Excessive Agency",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar LLM08 Excessive Agency en un escenario guiado."
+            },
+            {
+              "id": "GA302-M02-L",
+              "title": "Laboratorio · LLM08 Excessive Agency",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre LLM08 Excessive Agency."
+            },
+            {
+              "id": "GA302-M02-A",
+              "title": "Evaluación · LLM08 Excessive Agency",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de LLM08 Excessive Agency mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "GA302-M03",
+          "title": "Agency en profundidad",
+          "source": "secure-t",
+          "lessons": [
+            {
+              "id": "GA302-M03-T",
+              "title": "Teoría · Agency en profundidad",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Agency en profundidad."
+            },
+            {
+              "id": "GA302-M03-P",
+              "title": "Práctica · Agency en profundidad",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Agency en profundidad en un escenario guiado."
+            },
+            {
+              "id": "GA302-M03-L",
+              "title": "Laboratorio · Agency en profundidad",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Agency en profundidad."
+            },
+            {
+              "id": "GA302-M03-A",
+              "title": "Evaluación · Agency en profundidad",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Agency en profundidad mediante evidencia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "GA303",
+      "track": "genai-applied",
+      "title": "Agentes y Automatización",
+      "subtitle": "Tool use, RAG y orquestación",
+      "level": "L1-L4",
+      "weeks": 10,
+      "hoursPerWeek": 4,
+      "prerequisites": [
+        "GA302"
+      ],
+      "skills": [
+        "Agents",
+        "Tool use",
+        "RAG",
+        "Observabilidad"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "GA303-M01",
+          "title": "LLM06 Sensitive Information Disclosure",
+          "source": "OWASP Top 10 for LLM Applications",
+          "lessons": [
+            {
+              "id": "GA303-M01-T",
+              "title": "Teoría · LLM06 Sensitive Information Disclosure",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de LLM06 Sensitive Information Disclosure."
+            },
+            {
+              "id": "GA303-M01-P",
+              "title": "Práctica · LLM06 Sensitive Information Disclosure",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar LLM06 Sensitive Information Disclosure en un escenario guiado."
+            },
+            {
+              "id": "GA303-M01-L",
+              "title": "Laboratorio · LLM06 Sensitive Information Disclosure",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre LLM06 Sensitive Information Disclosure."
+            },
+            {
+              "id": "GA303-M01-A",
+              "title": "Evaluación · LLM06 Sensitive Information Disclosure",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de LLM06 Sensitive Information Disclosure mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "GA303-M02",
+          "title": "LLM09 Overreliance",
+          "source": "OWASP Top 10 for LLM Applications",
+          "lessons": [
+            {
+              "id": "GA303-M02-T",
+              "title": "Teoría · LLM09 Overreliance",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de LLM09 Overreliance."
+            },
+            {
+              "id": "GA303-M02-P",
+              "title": "Práctica · LLM09 Overreliance",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar LLM09 Overreliance en un escenario guiado."
+            },
+            {
+              "id": "GA303-M02-L",
+              "title": "Laboratorio · LLM09 Overreliance",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre LLM09 Overreliance."
+            },
+            {
+              "id": "GA303-M02-A",
+              "title": "Evaluación · LLM09 Overreliance",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de LLM09 Overreliance mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "GA303-M03",
+          "title": "RAG en profundidad",
+          "source": "secure-t",
+          "lessons": [
+            {
+              "id": "GA303-M03-T",
+              "title": "Teoría · RAG en profundidad",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de RAG en profundidad."
+            },
+            {
+              "id": "GA303-M03-P",
+              "title": "Práctica · RAG en profundidad",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar RAG en profundidad en un escenario guiado."
+            },
+            {
+              "id": "GA303-M03-L",
+              "title": "Laboratorio · RAG en profundidad",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre RAG en profundidad."
+            },
+            {
+              "id": "GA303-M03-A",
+              "title": "Evaluación · RAG en profundidad",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de RAG en profundidad mediante evidencia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SW401",
+      "track": "secure-web",
+      "title": "Desarrollo Web Seguro",
+      "subtitle": "HTML/CSS/JS/TS hasta backend",
+      "level": "L1-L4",
+      "weeks": 10,
+      "hoursPerWeek": 4,
+      "prerequisites": [],
+      "skills": [
+        "HTML/CSS",
+        "TypeScript",
+        "REST",
+        "Git"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "SW401-M01",
+          "title": "Distributed Systems Security",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "SW401-M01-T",
+              "title": "Teoría · Distributed Systems Security",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Distributed Systems Security."
+            },
+            {
+              "id": "SW401-M01-P",
+              "title": "Práctica · Distributed Systems Security",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Distributed Systems Security en un escenario guiado."
+            },
+            {
+              "id": "SW401-M01-L",
+              "title": "Laboratorio · Distributed Systems Security",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Distributed Systems Security."
+            },
+            {
+              "id": "SW401-M01-A",
+              "title": "Evaluación · Distributed Systems Security",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Distributed Systems Security mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "SW401-M02",
+          "title": "A01 Broken Access Control",
+          "source": "OWASP Top 10 2021",
+          "lessons": [
+            {
+              "id": "SW401-M02-T",
+              "title": "Teoría · A01 Broken Access Control",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de A01 Broken Access Control."
+            },
+            {
+              "id": "SW401-M02-P",
+              "title": "Práctica · A01 Broken Access Control",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar A01 Broken Access Control en un escenario guiado."
+            },
+            {
+              "id": "SW401-M02-L",
+              "title": "Laboratorio · A01 Broken Access Control",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre A01 Broken Access Control."
+            },
+            {
+              "id": "SW401-M02-A",
+              "title": "Evaluación · A01 Broken Access Control",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de A01 Broken Access Control mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "SW401-M03",
+          "title": "A05 Security Misconfiguration",
+          "source": "OWASP Top 10 2021",
+          "lessons": [
+            {
+              "id": "SW401-M03-T",
+              "title": "Teoría · A05 Security Misconfiguration",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de A05 Security Misconfiguration."
+            },
+            {
+              "id": "SW401-M03-P",
+              "title": "Práctica · A05 Security Misconfiguration",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar A05 Security Misconfiguration en un escenario guiado."
+            },
+            {
+              "id": "SW401-M03-L",
+              "title": "Laboratorio · A05 Security Misconfiguration",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre A05 Security Misconfiguration."
+            },
+            {
+              "id": "SW401-M03-A",
+              "title": "Evaluación · A05 Security Misconfiguration",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de A05 Security Misconfiguration mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "SW401-M04",
+          "title": "A10 Server-Side Request Forgery (SSRF)",
+          "source": "OWASP Top 10 2021",
+          "lessons": [
+            {
+              "id": "SW401-M04-T",
+              "title": "Teoría · A10 Server-Side Request Forgery (SSRF)",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de A10 Server-Side Request Forgery (SSRF)."
+            },
+            {
+              "id": "SW401-M04-P",
+              "title": "Práctica · A10 Server-Side Request Forgery (SSRF)",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar A10 Server-Side Request Forgery (SSRF) en un escenario guiado."
+            },
+            {
+              "id": "SW401-M04-L",
+              "title": "Laboratorio · A10 Server-Side Request Forgery (SSRF)",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre A10 Server-Side Request Forgery (SSRF)."
+            },
+            {
+              "id": "SW401-M04-A",
+              "title": "Evaluación · A10 Server-Side Request Forgery (SSRF)",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de A10 Server-Side Request Forgery (SSRF) mediante evidencia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SW402",
+      "track": "secure-web",
+      "title": "OWASP Top 10 en Práctica",
+      "subtitle": "Explotación y mitigación guiada",
+      "level": "L1-L4",
+      "weeks": 10,
+      "hoursPerWeek": 4,
+      "prerequisites": [
+        "SW401"
+      ],
+      "skills": [
+        "Access control",
+        "Injection",
+        "SSRF",
+        "Crypto failures"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "SW402-M01",
+          "title": "Software Security",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "SW402-M01-T",
+              "title": "Teoría · Software Security",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Software Security."
+            },
+            {
+              "id": "SW402-M01-P",
+              "title": "Práctica · Software Security",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Software Security en un escenario guiado."
+            },
+            {
+              "id": "SW402-M01-L",
+              "title": "Laboratorio · Software Security",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Software Security."
+            },
+            {
+              "id": "SW402-M01-A",
+              "title": "Evaluación · Software Security",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Software Security mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "SW402-M02",
+          "title": "A02 Cryptographic Failures",
+          "source": "OWASP Top 10 2021",
+          "lessons": [
+            {
+              "id": "SW402-M02-T",
+              "title": "Teoría · A02 Cryptographic Failures",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de A02 Cryptographic Failures."
+            },
+            {
+              "id": "SW402-M02-P",
+              "title": "Práctica · A02 Cryptographic Failures",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar A02 Cryptographic Failures en un escenario guiado."
+            },
+            {
+              "id": "SW402-M02-L",
+              "title": "Laboratorio · A02 Cryptographic Failures",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre A02 Cryptographic Failures."
+            },
+            {
+              "id": "SW402-M02-A",
+              "title": "Evaluación · A02 Cryptographic Failures",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de A02 Cryptographic Failures mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "SW402-M03",
+          "title": "A06 Vulnerable and Outdated Components",
+          "source": "OWASP Top 10 2021",
+          "lessons": [
+            {
+              "id": "SW402-M03-T",
+              "title": "Teoría · A06 Vulnerable and Outdated Components",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de A06 Vulnerable and Outdated Components."
+            },
+            {
+              "id": "SW402-M03-P",
+              "title": "Práctica · A06 Vulnerable and Outdated Components",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar A06 Vulnerable and Outdated Components en un escenario guiado."
+            },
+            {
+              "id": "SW402-M03-L",
+              "title": "Laboratorio · A06 Vulnerable and Outdated Components",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre A06 Vulnerable and Outdated Components."
+            },
+            {
+              "id": "SW402-M03-A",
+              "title": "Evaluación · A06 Vulnerable and Outdated Components",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de A06 Vulnerable and Outdated Components mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "SW402-M04",
+          "title": "6.858 Computer Systems Security",
+          "source": "MIT OpenCourseWare",
+          "lessons": [
+            {
+              "id": "SW402-M04-T",
+              "title": "Teoría · 6.858 Computer Systems Security",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de 6.858 Computer Systems Security."
+            },
+            {
+              "id": "SW402-M04-P",
+              "title": "Práctica · 6.858 Computer Systems Security",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar 6.858 Computer Systems Security en un escenario guiado."
+            },
+            {
+              "id": "SW402-M04-L",
+              "title": "Laboratorio · 6.858 Computer Systems Security",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre 6.858 Computer Systems Security."
+            },
+            {
+              "id": "SW402-M04-A",
+              "title": "Evaluación · 6.858 Computer Systems Security",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de 6.858 Computer Systems Security mediante evidencia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SW403",
+      "track": "secure-web",
+      "title": "Arquitectura y Cloud Seguro",
+      "subtitle": "Contenedores, secretos y IaC",
+      "level": "L1-L4",
+      "weeks": 10,
+      "hoursPerWeek": 4,
+      "prerequisites": [
+        "SW402"
+      ],
+      "skills": [
+        "Docker",
+        "Cloud",
+        "Secrets",
+        "IaC"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "SW403-M01",
+          "title": "Web & Mobile Security",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "SW403-M01-T",
+              "title": "Teoría · Web & Mobile Security",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Web & Mobile Security."
+            },
+            {
+              "id": "SW403-M01-P",
+              "title": "Práctica · Web & Mobile Security",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Web & Mobile Security en un escenario guiado."
+            },
+            {
+              "id": "SW403-M01-L",
+              "title": "Laboratorio · Web & Mobile Security",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Web & Mobile Security."
+            },
+            {
+              "id": "SW403-M01-A",
+              "title": "Evaluación · Web & Mobile Security",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Web & Mobile Security mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "SW403-M02",
+          "title": "A03 Injection",
+          "source": "OWASP Top 10 2021",
+          "lessons": [
+            {
+              "id": "SW403-M02-T",
+              "title": "Teoría · A03 Injection",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de A03 Injection."
+            },
+            {
+              "id": "SW403-M02-P",
+              "title": "Práctica · A03 Injection",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar A03 Injection en un escenario guiado."
+            },
+            {
+              "id": "SW403-M02-L",
+              "title": "Laboratorio · A03 Injection",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre A03 Injection."
+            },
+            {
+              "id": "SW403-M02-A",
+              "title": "Evaluación · A03 Injection",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de A03 Injection mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "SW403-M03",
+          "title": "A07 Identification and Authentication Failures",
+          "source": "OWASP Top 10 2021",
+          "lessons": [
+            {
+              "id": "SW403-M03-T",
+              "title": "Teoría · A07 Identification and Authentication Failures",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de A07 Identification and Authentication Failures."
+            },
+            {
+              "id": "SW403-M03-P",
+              "title": "Práctica · A07 Identification and Authentication Failures",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar A07 Identification and Authentication Failures en un escenario guiado."
+            },
+            {
+              "id": "SW403-M03-L",
+              "title": "Laboratorio · A07 Identification and Authentication Failures",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre A07 Identification and Authentication Failures."
+            },
+            {
+              "id": "SW403-M03-A",
+              "title": "Evaluación · A07 Identification and Authentication Failures",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de A07 Identification and Authentication Failures mediante evidencia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SW404",
+      "track": "secure-web",
+      "title": "DevSecOps y CI/CD",
+      "subtitle": "Pipeline seguro de extremo a extremo",
+      "level": "L1-L4",
+      "weeks": 10,
+      "hoursPerWeek": 4,
+      "prerequisites": [
+        "SW403"
+      ],
+      "skills": [
+        "CI/CD",
+        "SAST/DAST",
+        "Supply chain",
+        "Testing"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "SW404-M01",
+          "title": "Secure Systems Development",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "SW404-M01-T",
+              "title": "Teoría · Secure Systems Development",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Secure Systems Development."
+            },
+            {
+              "id": "SW404-M01-P",
+              "title": "Práctica · Secure Systems Development",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Secure Systems Development en un escenario guiado."
+            },
+            {
+              "id": "SW404-M01-L",
+              "title": "Laboratorio · Secure Systems Development",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Secure Systems Development."
+            },
+            {
+              "id": "SW404-M01-A",
+              "title": "Evaluación · Secure Systems Development",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Secure Systems Development mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "SW404-M02",
+          "title": "A04 Insecure Design",
+          "source": "OWASP Top 10 2021",
+          "lessons": [
+            {
+              "id": "SW404-M02-T",
+              "title": "Teoría · A04 Insecure Design",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de A04 Insecure Design."
+            },
+            {
+              "id": "SW404-M02-P",
+              "title": "Práctica · A04 Insecure Design",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar A04 Insecure Design en un escenario guiado."
+            },
+            {
+              "id": "SW404-M02-L",
+              "title": "Laboratorio · A04 Insecure Design",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre A04 Insecure Design."
+            },
+            {
+              "id": "SW404-M02-A",
+              "title": "Evaluación · A04 Insecure Design",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de A04 Insecure Design mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "SW404-M03",
+          "title": "A08 Software and Data Integrity Failures",
+          "source": "OWASP Top 10 2021",
+          "lessons": [
+            {
+              "id": "SW404-M03-T",
+              "title": "Teoría · A08 Software and Data Integrity Failures",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de A08 Software and Data Integrity Failures."
+            },
+            {
+              "id": "SW404-M03-P",
+              "title": "Práctica · A08 Software and Data Integrity Failures",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar A08 Software and Data Integrity Failures en un escenario guiado."
+            },
+            {
+              "id": "SW404-M03-L",
+              "title": "Laboratorio · A08 Software and Data Integrity Failures",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre A08 Software and Data Integrity Failures."
+            },
+            {
+              "id": "SW404-M03-A",
+              "title": "Evaluación · A08 Software and Data Integrity Failures",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de A08 Software and Data Integrity Failures mediante evidencia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DC501",
+      "track": "digital-career",
+      "title": "Carrera Digital y Portfolio",
+      "subtitle": "CV, GitHub y marca profesional",
+      "level": "L0-L4",
+      "weeks": 6,
+      "hoursPerWeek": 4,
+      "prerequisites": [],
+      "skills": [
+        "CV",
+        "GitHub",
+        "LinkedIn",
+        "Portfolio"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "DC501-M01",
+          "title": "Security Economics",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "DC501-M01-T",
+              "title": "Teoría · Security Economics",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Security Economics."
+            },
+            {
+              "id": "DC501-M01-P",
+              "title": "Práctica · Security Economics",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Security Economics en un escenario guiado."
+            },
+            {
+              "id": "DC501-M01-L",
+              "title": "Laboratorio · Security Economics",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Security Economics."
+            },
+            {
+              "id": "DC501-M01-A",
+              "title": "Evaluación · Security Economics",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Security Economics mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "DC501-M02",
+          "title": "Oversee and Govern",
+          "source": "NIST NICE SP 800-181r1",
+          "lessons": [
+            {
+              "id": "DC501-M02-T",
+              "title": "Teoría · Oversee and Govern",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Oversee and Govern."
+            },
+            {
+              "id": "DC501-M02-P",
+              "title": "Práctica · Oversee and Govern",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Oversee and Govern en un escenario guiado."
+            },
+            {
+              "id": "DC501-M02-L",
+              "title": "Laboratorio · Oversee and Govern",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Oversee and Govern."
+            },
+            {
+              "id": "DC501-M02-A",
+              "title": "Evaluación · Oversee and Govern",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Oversee and Govern mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "DC501-M03",
+          "title": "LinkedIn en profundidad",
+          "source": "secure-t",
+          "lessons": [
+            {
+              "id": "DC501-M03-T",
+              "title": "Teoría · LinkedIn en profundidad",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de LinkedIn en profundidad."
+            },
+            {
+              "id": "DC501-M03-P",
+              "title": "Práctica · LinkedIn en profundidad",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar LinkedIn en profundidad en un escenario guiado."
+            },
+            {
+              "id": "DC501-M03-L",
+              "title": "Laboratorio · LinkedIn en profundidad",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre LinkedIn en profundidad."
+            },
+            {
+              "id": "DC501-M03-A",
+              "title": "Evaluación · LinkedIn en profundidad",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de LinkedIn en profundidad mediante evidencia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DC502",
+      "track": "digital-career",
+      "title": "Entrevistas y Certificaciones",
+      "subtitle": "Técnicas, inglés y credenciales",
+      "level": "L0-L4",
+      "weeks": 6,
+      "hoursPerWeek": 4,
+      "prerequisites": [
+        "DC501"
+      ],
+      "skills": [
+        "Entrevistas",
+        "Inglés técnico",
+        "Certificaciones"
+      ],
+      "credential": "verifiable certificate of completion",
+      "modules": [
+        {
+          "id": "DC502-M01",
+          "title": "Law & Regulation",
+          "source": "CyBOK",
+          "lessons": [
+            {
+              "id": "DC502-M01-T",
+              "title": "Teoría · Law & Regulation",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Law & Regulation."
+            },
+            {
+              "id": "DC502-M01-P",
+              "title": "Práctica · Law & Regulation",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Law & Regulation en un escenario guiado."
+            },
+            {
+              "id": "DC502-M01-L",
+              "title": "Laboratorio · Law & Regulation",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Law & Regulation."
+            },
+            {
+              "id": "DC502-M01-A",
+              "title": "Evaluación · Law & Regulation",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Law & Regulation mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "DC502-M02",
+          "title": "Inglés técnico en profundidad",
+          "source": "secure-t",
+          "lessons": [
+            {
+              "id": "DC502-M02-T",
+              "title": "Teoría · Inglés técnico en profundidad",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Inglés técnico en profundidad."
+            },
+            {
+              "id": "DC502-M02-P",
+              "title": "Práctica · Inglés técnico en profundidad",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Inglés técnico en profundidad en un escenario guiado."
+            },
+            {
+              "id": "DC502-M02-L",
+              "title": "Laboratorio · Inglés técnico en profundidad",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Inglés técnico en profundidad."
+            },
+            {
+              "id": "DC502-M02-A",
+              "title": "Evaluación · Inglés técnico en profundidad",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Inglés técnico en profundidad mediante evidencia."
+            }
+          ]
+        },
+        {
+          "id": "DC502-M03",
+          "title": "Certificaciones en profundidad",
+          "source": "secure-t",
+          "lessons": [
+            {
+              "id": "DC502-M03-T",
+              "title": "Teoría · Certificaciones en profundidad",
+              "type": "theory",
+              "minutes": 25,
+              "objective": "Comprender los fundamentos de Certificaciones en profundidad."
+            },
+            {
+              "id": "DC502-M03-P",
+              "title": "Práctica · Certificaciones en profundidad",
+              "type": "practice",
+              "minutes": 40,
+              "objective": "Aplicar Certificaciones en profundidad en un escenario guiado."
+            },
+            {
+              "id": "DC502-M03-L",
+              "title": "Laboratorio · Certificaciones en profundidad",
+              "type": "lab",
+              "minutes": 60,
+              "objective": "Ejecutar un laboratorio aislado sobre Certificaciones en profundidad."
+            },
+            {
+              "id": "DC502-M03-A",
+              "title": "Evaluación · Certificaciones en profundidad",
+              "type": "assessment",
+              "minutes": 20,
+              "objective": "Demostrar dominio de Certificaciones en profundidad mediante evidencia."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "stats": {
+    "tracks": 7,
+    "courses": 21,
+    "modules": 69,
+    "lessons": 276
+  }
+}
