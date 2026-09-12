@@ -44,6 +44,8 @@ pids
 *.pid
 *.seed
 *.pid.lock
+/.orchestrator-state.json
+/audit/orchestrator-runs.jsonl
 
 # Coverage directory used by tools like istanbul
 coverage/
@@ -57,6 +59,8 @@ jspm_packages/
 
 # TypeScript cache
 *.tsbuildinfo
+__pycache__/
+*.pyc
 
 # Optional npm cache directory
 .npm
@@ -115,4 +119,3 @@ client/public/__manus__/version.json
 
 # Netlify local state
 .netlify/
-
