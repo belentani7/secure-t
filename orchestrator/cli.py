@@ -11,8 +11,9 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Secure-T workflow orchestrator")
     parser.add_argument("--root", type=Path, default=Path.cwd())
     parser.add_argument("--execute", action="store_true", help="ejecutar el plan; por defecto solo simula")
+    parser.add_argument("--repair", action="store_true", help="instalar dependencias bloqueadas ausentes antes de validar")
     args = parser.parse_args()
-    result = Orchestrator(args.root).run(execute=args.execute)
+    result = Orchestrator(args.root).run(execute=args.execute, repair=args.repair)
     print(json.dumps(result.to_dict(), ensure_ascii=False, indent=2))
     return 0 if result.success else 1
 

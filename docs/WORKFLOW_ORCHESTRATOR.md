@@ -9,9 +9,12 @@ Desde la raíz del repositorio:
 ```bash
 PYTHONPATH=. python -m orchestrator.cli
 PYTHONPATH=. python -m orchestrator.cli --execute
+PYTHONPATH=. python -m orchestrator.cli --execute --repair
 ```
 
 El primer comando genera un plan y registra la ejecución en `audit/orchestrator-runs.jsonl`, sin ejecutar nada. `--execute` es explícito: solo invoca los comandos fijos definidos por el orquestador. Tras una ejecución correcta guarda una huella en `.orchestrator-state.json`; las siguientes ejecuciones no repiten validaciones si no cambió el contenido rastreado.
+
+`--repair` resuelve el bloqueo habitual de un checkout nuevo: si falta `node_modules`, ejecuta `pnpm install --frozen-lockfile` antes de las validaciones. La reparación no ejecuta scripts arbitrarios ni modifica secretos; usa exclusivamente el lockfile del repositorio. El resultado indica `repaired: true` cuando la instalación fue necesaria y correcta.
 
 También queda disponible, tras instalar el paquete Python de la fábrica, el comando `securet-orchestrator`.
 

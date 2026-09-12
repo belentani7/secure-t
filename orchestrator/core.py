@@ -27,6 +27,7 @@ class RunResult:
     changed: bool
     plan: tuple[Step, ...]
     executed: bool
+    repaired: bool
     success: bool
     outputs: tuple[str, ...]
 
@@ -36,6 +37,7 @@ class RunResult:
             "changed": self.changed,
             "plan": [asdict(step) for step in self.plan],
             "executed": self.executed,
+            "repaired": self.repaired,
             "success": self.success,
             "outputs": list(self.outputs),
         }
@@ -87,14 +89,29 @@ class Orchestrator:
             steps.append(Step("pii-audit", ("node", "scripts/audit-pii.mjs"), "auditar secretos y PII en código"))
         return tuple(steps)
 
-    def run(self, execute: bool = False) -> RunResult:
+    def run(self, execute: bool = False, repair: bool = False) -> RunResult:
         changed = self.detect_changes()
         plan = self.plan() if changed else tuple()
         outputs: list[str] = []
         success = True
         executed = bool(execute and changed)
+        repaired = False
         if executed:
+            if repair and (self.root / "package.json").exists() and not (self.root / "node_modules").exists():
+                install = subprocess.run(
+                    ("pnpm", "install", "--frozen-lockfile"),
+                    cwd=self.root,
+                    text=True,
+                    capture_output=True,
+                    check=False,
+                )
+                outputs.append(f"[repair-dependencies] exit={install.returncode}\n{(install.stdout + install.stderr)[-4000:]}")
+                repaired = install.returncode == 0
+                if not repaired:
+                    success = False
             for step in plan:
+                if not success:
+                    break
                 completed = subprocess.run(
                     step.command,
                     cwd=self.root,
@@ -114,6 +131,7 @@ class Orchestrator:
             changed=changed,
             plan=plan,
             executed=executed,
+            repaired=repaired,
             success=success,
             outputs=tuple(outputs),
         )
