@@ -1,0 +1,1934 @@
+{
+  "generated_at": "2026-09-12T10:19:03.499734+00:00",
+  "mode": "audit",
+  "remote_writes": false,
+  "scope": {
+    "owner": "belentani7",
+    "local_root": "/home/ubuntu",
+    "validate_root": "/home/ubuntu/workflow-orchestrator"
+  },
+  "github": {
+    "available": true,
+    "total": 139,
+    "active": 129,
+    "archived": 10,
+    "families": {
+      "infrastructure": 21,
+      "uncategorized": 92,
+      "education": 10,
+      "ux-design": 8,
+      "social-impact": 3,
+      "saas-enterprise": 5
+    },
+    "repositories": [
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Multi-agent intelligence system — concept, architecture, and orchestration framework for autonomous AI agents",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "NOIACORE",
+        "nameWithOwner": "belentani7/NOIACORE",
+        "updatedAt": "2026-09-12T10:18:42Z",
+        "url": "https://github.com/belentani7/NOIACORE",
+        "family": "infrastructure"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "BELENTANI OMEGA — immersive 3D creative portal experience",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "belentani-omega-immersive-portal",
+        "nameWithOwner": "belentani7/belentani-omega-immersive-portal",
+        "updatedAt": "2026-09-12T10:18:05Z",
+        "url": "https://github.com/belentani7/belentani-omega-immersive-portal",
+        "family": "infrastructure"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "BELENTANI OMEGA: Plantilla de experiencia web inmersiva y canon conceptual.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "belentani-omega-template",
+        "nameWithOwner": "belentani7/belentani-omega-template",
+        "updatedAt": "2026-09-12T10:17:40Z",
+        "url": "https://github.com/belentani7/belentani-omega-template",
+        "family": "infrastructure"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Belentani Omega — artist ecosystem connecting music, code, and creative technology",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "belentani_Omega",
+        "nameWithOwner": "belentani7/belentani_Omega",
+        "updatedAt": "2026-09-12T10:17:26Z",
+        "url": "https://github.com/belentani7/belentani_Omega",
+        "family": "infrastructure"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "The firewall for your AI budget. Monitor spending, enforce limits, auto-pause agents, route overflow to cheaper models. Go daemon.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "agentguard",
+        "nameWithOwner": "belentani7/agentguard",
+        "updatedAt": "2026-09-12T10:17:13Z",
+        "url": "https://github.com/belentani7/agentguard",
+        "family": "infrastructure"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "aion",
+        "nameWithOwner": "belentani7/aion",
+        "updatedAt": "2026-09-12T10:17:04Z",
+        "url": "https://github.com/belentani7/aion",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Pipeline de videos cortos automáticos - Belentani ecosystem",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "belentani-video-forge",
+        "nameWithOwner": "belentani7/belentani-video-forge",
+        "updatedAt": "2026-09-12T10:16:55Z",
+        "url": "https://github.com/belentani7/belentani-video-forge",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "AI-powered document studio — CVs, cover letters, presentations. €0.99 one-time, GDPR compliant, AES-256",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "Belentani.cv-ai",
+        "nameWithOwner": "belentani7/Belentani.cv-ai",
+        "updatedAt": "2026-09-12T10:16:04Z",
+        "url": "https://github.com/belentani7/Belentani.cv-ai",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Curated collection of 50+ GitHub repos for premium frontend visual effects — liquid logos, 3D/WebGL, GLSL shaders, GSAP, particles, cyberpunk UI",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "premium-effects-registry",
+        "nameWithOwner": "belentani7/premium-effects-registry",
+        "updatedAt": "2026-09-12T10:15:47Z",
+        "url": "https://github.com/belentani7/premium-effects-registry",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Global CLI agent skill distribution system — discover, install, manage skills for Qwen Code, Claude Code, Cline, OpenCode",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "skills-registry",
+        "nameWithOwner": "belentani7/skills-registry",
+        "updatedAt": "2026-09-12T10:15:41Z",
+        "url": "https://github.com/belentani7/skills-registry",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Ecosistema DUCK - herramientas, GUIs y apps del estudio creativo DUCK.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "duck-ecosystem",
+        "nameWithOwner": "belentani7/duck-ecosystem",
+        "updatedAt": "2026-09-12T10:15:19Z",
+        "url": "https://github.com/belentani7/duck-ecosystem",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "duck"
+        },
+        "description": "Experimentos HTML del universo DUCK - interfaces y prototipos rapidos.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "DuckHTML",
+        "nameWithOwner": "belentani7/DuckHTML",
+        "updatedAt": "2026-09-12T10:15:10Z",
+        "url": "https://github.com/belentani7/DuckHTML",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "belentani-v2",
+        "nameWithOwner": "belentani7/belentani-v2",
+        "updatedAt": "2026-09-12T10:13:39Z",
+        "url": "https://github.com/belentani7/belentani-v2",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Forja linguistica: herramientas de traduccion y adaptacion multilingue.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "linguaforge",
+        "nameWithOwner": "belentani7/linguaforge",
+        "updatedAt": "2026-09-12T10:13:32Z",
+        "url": "https://github.com/belentani7/linguaforge",
+        "family": "education"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Belentani + NOIACORE | Frontend, creative technology and educational platforms",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "belentani7",
+        "nameWithOwner": "belentani7/belentani7",
+        "updatedAt": "2026-09-12T10:10:54Z",
+        "url": "https://github.com/belentani7/belentani7",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "portfolio",
+        "nameWithOwner": "belentani7/portfolio",
+        "updatedAt": "2026-09-12T10:17:24Z",
+        "url": "https://github.com/belentani7/portfolio",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "Belentanislide",
+        "nameWithOwner": "belentani7/Belentanislide",
+        "updatedAt": "2026-09-12T10:11:27Z",
+        "url": "https://github.com/belentani7/Belentanislide",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Reproducible Ubuntu developer environment with PowerShell, Claude Code, OpenClaw, browser automation, MCP templates and repo editing tools.",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "agent-linux",
+        "nameWithOwner": "belentani7/agent-linux",
+        "updatedAt": "2026-09-12T10:11:20Z",
+        "url": "https://github.com/belentani7/agent-linux",
+        "family": "ux-design"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "SecureTea Project (OWASP) - hardened, fixed and redeployed: firewall, antivirus, IDS, WAF, deface detection, log monitor + web GUI. Audited 2026.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "securetea",
+        "nameWithOwner": "belentani7/securetea",
+        "updatedAt": "2026-09-12T10:10:47Z",
+        "url": "https://github.com/belentani7/securetea",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "BELENTANI.UX",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "BELENTANI.UX",
+        "nameWithOwner": "belentani7/BELENTANI.UX",
+        "updatedAt": "2026-09-12T10:10:05Z",
+        "url": "https://github.com/belentani7/BELENTANI.UX",
+        "family": "ux-design"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "PVC-U Dashboard — Liquid Glass/Neon Aesthetic con React 19 + Vite 7",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "pvc-u-frontend",
+        "nameWithOwner": "belentani7/pvc-u-frontend",
+        "updatedAt": "2026-09-12T10:09:57Z",
+        "url": "https://github.com/belentani7/pvc-u-frontend",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Trilingual UX/Product Design learning platform — practice exercises, evaluation system, and capstone projects",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "ux-academy-professional-program",
+        "nameWithOwner": "belentani7/ux-academy-professional-program",
+        "updatedAt": "2026-09-12T10:09:50Z",
+        "url": "https://github.com/belentani7/ux-academy-professional-program",
+        "family": "education"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Plataforma educativa gratuita: cursos IA/Office, creador CV, guías derechos y recursos para migrantes y comunidades.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "ManosAbiertas",
+        "nameWithOwner": "belentani7/ManosAbiertas",
+        "updatedAt": "2026-09-12T10:09:40Z",
+        "url": "https://github.com/belentani7/ManosAbiertas",
+        "family": "social-impact"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "duck"
+        },
+        "description": "Plataforma abierta y gratuita para jóvenes brasileños en Cataluña, con aprendizaje de español, catalán e inglés y tutor IA preparado para voz. · Construido con Manus",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "lingua-aberta",
+        "nameWithOwner": "belentani7/lingua-aberta",
+        "updatedAt": "2026-09-12T10:08:23Z",
+        "url": "https://github.com/belentani7/lingua-aberta",
+        "family": "education"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Instituto educativo digital universal — cursos modulares, certificaciones verificables, accesibilidad WCAG, offline-first",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "open-school",
+        "nameWithOwner": "belentani7/open-school",
+        "updatedAt": "2026-09-12T10:08:13Z",
+        "url": "https://github.com/belentani7/open-school",
+        "family": "education"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "manos-abiertas-2026",
+        "nameWithOwner": "belentani7/manos-abiertas-2026",
+        "updatedAt": "2026-09-12T10:07:28Z",
+        "url": "https://github.com/belentani7/manos-abiertas-2026",
+        "family": "education"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "lingua-aberta-empresa",
+        "nameWithOwner": "belentani7/lingua-aberta-empresa",
+        "updatedAt": "2026-09-12T10:07:21Z",
+        "url": "https://github.com/belentani7/lingua-aberta-empresa",
+        "family": "education"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "william-game",
+        "nameWithOwner": "belentani7/william-game",
+        "updatedAt": "2026-09-12T10:07:13Z",
+        "url": "https://github.com/belentani7/william-game",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "secure T — Universidad Digital de Ciberseguridad e Inteligencia Artificial",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "secure-t",
+        "nameWithOwner": "belentani7/secure-t",
+        "updatedAt": "2026-09-12T10:07:06Z",
+        "url": "https://github.com/belentani7/secure-t",
+        "family": "education"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Cruzando el Charco, impulsado por noiacore.com y creado por Pedro Belentani, es un portal gratuito y confidencial de acogida, supervivencia y arraigo para hombres migrantes LGBT+ en L'Hospitalet y Barcelona. Información directa y práctica sobre papeles, salud, vivienda y comunidad.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "Cruzando-el-charco",
+        "nameWithOwner": "belentani7/Cruzando-el-charco",
+        "updatedAt": "2026-09-12T10:06:57Z",
+        "url": "https://github.com/belentani7/Cruzando-el-charco",
+        "family": "social-impact"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "🏗️ BELENTANI INFRASTRUCTURE CORE — Python full-stack automation for 50+ repos organization, GitHub audits, file management and CI/CD",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "belentani-infrastructure-core",
+        "nameWithOwner": "belentani7/belentani-infrastructure-core",
+        "updatedAt": "2026-09-12T10:06:48Z",
+        "url": "https://github.com/belentani7/belentani-infrastructure-core",
+        "family": "infrastructure"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Pack de skills para agentes de codigo (estilo Manus/Claude) listos para produccion.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "manus-ai-skill-pack",
+        "nameWithOwner": "belentani7/manus-ai-skill-pack",
+        "updatedAt": "2026-09-11T11:25:51Z",
+        "url": "https://github.com/belentani7/manus-ai-skill-pack",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Secure T - Self-managed cybersecurity university course platform",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "secure-t-app",
+        "nameWithOwner": "belentani7/secure-t-app",
+        "updatedAt": "2026-09-10T13:07:51Z",
+        "url": "https://github.com/belentani7/secure-t-app",
+        "family": "education"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "deepseek-fix-verify",
+        "nameWithOwner": "belentani7/deepseek-fix-verify",
+        "updatedAt": "2026-09-09T09:08:17Z",
+        "url": "https://github.com/belentani7/deepseek-fix-verify",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "WILLIAMSCHOOL",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "WILLIAMSCHOOL",
+        "nameWithOwner": "belentani7/WILLIAMSCHOOL",
+        "updatedAt": "2026-09-08T21:51:08Z",
+        "url": "https://github.com/belentani7/WILLIAMSCHOOL",
+        "family": "education"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "nebula-cosmos",
+        "nameWithOwner": "belentani7/nebula-cosmos",
+        "updatedAt": "2026-09-08T15:19:56Z",
+        "url": "https://github.com/belentani7/nebula-cosmos",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "la-alquitara",
+        "nameWithOwner": "belentani7/la-alquitara",
+        "updatedAt": "2026-09-08T15:14:12Z",
+        "url": "https://github.com/belentani7/la-alquitara",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Este proyecto contiene la estructura local de una web comercial para servicios de reformas. La carpeta agrupa variantes HTML, recursos visuales, vídeos y documentación breve preparada para organizar el material antes de subirlo a GitHub.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "Steven-renovation",
+        "nameWithOwner": "belentani7/Steven-renovation",
+        "updatedAt": "2026-09-08T07:49:19Z",
+        "url": "https://github.com/belentani7/Steven-renovation",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Protocolo de Validación Continua Universal — Kernel de gobernanza para Empresas de IA Autónomas Enterprise (HIPAA, PCI-DSS, GDPR)",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "pvc-u-core",
+        "nameWithOwner": "belentani7/pvc-u-core",
+        "updatedAt": "2026-09-07T19:44:36Z",
+        "url": "https://github.com/belentani7/pvc-u-core",
+        "family": "infrastructure"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Myopenhands",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "Myopenhands",
+        "nameWithOwner": "belentani7/Myopenhands",
+        "updatedAt": "2026-09-08T05:39:46Z",
+        "url": "https://github.com/belentani7/Myopenhands",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "0",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "belentani3dfactory",
+        "nameWithOwner": "belentani7/belentani3dfactory",
+        "updatedAt": "2026-09-07T02:36:02Z",
+        "url": "https://github.com/belentani7/belentani3dfactory",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "0",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "Belentani.cad",
+        "nameWithOwner": "belentani7/Belentani.cad",
+        "updatedAt": "2026-09-07T02:35:17Z",
+        "url": "https://github.com/belentani7/Belentani.cad",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "duck"
+        },
+        "description": "Estética Cristal Sangrante",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "UIJUDAS",
+        "nameWithOwner": "belentani7/UIJUDAS",
+        "updatedAt": "2026-09-03T14:45:33Z",
+        "url": "https://github.com/belentani7/UIJUDAS",
+        "family": "ux-design"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "omega-infinite-v4",
+        "nameWithOwner": "belentani7/omega-infinite-v4",
+        "updatedAt": "2026-09-05T03:42:49Z",
+        "url": "https://github.com/belentani7/omega-infinite-v4",
+        "family": "infrastructure"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "omega-infinite-os",
+        "nameWithOwner": "belentani7/omega-infinite-os",
+        "updatedAt": "2026-09-05T03:41:32Z",
+        "url": "https://github.com/belentani7/omega-infinite-os",
+        "family": "infrastructure"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "duck"
+        },
+        "description": "Juego educativo móvil con minijuegos de inglés, español y catalán, voz natural de profesora y estética arcade neo-glass. · Construido con Manus",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "william.game",
+        "nameWithOwner": "belentani7/william.game",
+        "updatedAt": "2026-09-05T02:45:56Z",
+        "url": "https://github.com/belentani7/william.game",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "duck"
+        },
+        "description": "Consola comercial y técnica para presentar servicios de arquitectura IA, AgentGuard, MetaSkill y activos profesionales reutilizados desde GitHub. · Construido con Manus",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "belentani.new",
+        "nameWithOwner": "belentani7/belentani.new",
+        "updatedAt": "2026-09-04T15:14:37Z",
+        "url": "https://github.com/belentani7/belentani.new",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "duck"
+        },
+        "description": "Juego de Mundo Inmersivo Progatofista",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "bELENTANIBROS",
+        "nameWithOwner": "belentani7/bELENTANIBROS",
+        "updatedAt": "2026-09-03T18:08:38Z",
+        "url": "https://github.com/belentani7/bELENTANIBROS",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "duck"
+        },
+        "description": "Botica Autónoma de Shaders Neón",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "UI",
+        "nameWithOwner": "belentani7/UI",
+        "updatedAt": "2026-09-03T14:47:45Z",
+        "url": "https://github.com/belentani7/UI",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "HEYDUCK - hub web del universo DUCK: apps, musica y herramientas de produccion.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "heyduck",
+        "nameWithOwner": "belentani7/heyduck",
+        "updatedAt": "2026-09-03T12:18:53Z",
+        "url": "https://github.com/belentani7/heyduck",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Evidence-first change intelligence with strict 6-criteria, 3-node, 3-level gates",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "proofmesh",
+        "nameWithOwner": "belentani7/proofmesh",
+        "updatedAt": "2026-09-03T12:11:00Z",
+        "url": "https://github.com/belentani7/proofmesh",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Harmonia Hub - plataforma de coordinacion y bienestar.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "harmonia-hub",
+        "nameWithOwner": "belentani7/harmonia-hub",
+        "updatedAt": "2026-09-03T12:10:57Z",
+        "url": "https://github.com/belentani7/harmonia-hub",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "AI Command Center Level 10 - Unified Open Source Workspace",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "ai-command-center-level10",
+        "nameWithOwner": "belentani7/ai-command-center-level10",
+        "updatedAt": "2026-09-03T10:57:02Z",
+        "url": "https://github.com/belentani7/ai-command-center-level10",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "DUCK hub — Astro-based portal connecting all DUCK ecosystem apps and tools",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "duck-hub",
+        "nameWithOwner": "belentani7/duck-hub",
+        "updatedAt": "2026-09-03T10:55:41Z",
+        "url": "https://github.com/belentani7/duck-hub",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Parametric architecture studio — AI-driven bioclimatic design and energy optimization",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "CARQUIDEC",
+        "nameWithOwner": "belentani7/CARQUIDEC",
+        "updatedAt": "2026-09-03T10:55:39Z",
+        "url": "https://github.com/belentani7/CARQUIDEC",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Registro maestro de proyectos Pedro Belentani 2026",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "registro-proyectos-2026",
+        "nameWithOwner": "belentani7/registro-proyectos-2026",
+        "updatedAt": "2026-09-03T10:55:36Z",
+        "url": "https://github.com/belentani7/registro-proyectos-2026",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "One CLI to route AI tasks to the best model.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "omniagent",
+        "nameWithOwner": "belentani7/omniagent",
+        "updatedAt": "2026-09-03T10:55:32Z",
+        "url": "https://github.com/belentani7/omniagent",
+        "family": "infrastructure"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Validates PBR texture sets for correctness and compatibility with game engines.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "pbr-validator",
+        "nameWithOwner": "belentani7/pbr-validator",
+        "updatedAt": "2026-09-03T10:56:39Z",
+        "url": "https://github.com/belentani7/pbr-validator",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Optimize GPU compute costs in diffusion pipelines by up to 70%.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "gpu-cost-optimizer",
+        "nameWithOwner": "belentani7/gpu-cost-optimizer",
+        "updatedAt": "2026-09-03T10:58:52Z",
+        "url": "https://github.com/belentani7/gpu-cost-optimizer",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Python tool for detecting flickering and temporal artifacts in AI-generated videos.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "temporal-artifact-detector",
+        "nameWithOwner": "belentani7/temporal-artifact-detector",
+        "updatedAt": "2026-09-03T10:55:24Z",
+        "url": "https://github.com/belentani7/temporal-artifact-detector",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Benchmarking visual consistency in AI-generated content.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "latent-consistency-bench",
+        "nameWithOwner": "belentani7/latent-consistency-bench",
+        "updatedAt": "2026-09-03T10:55:20Z",
+        "url": "https://github.com/belentani7/latent-consistency-bench",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Autonomous VFX pipeline orchestration using LLMs connected to ComfyUI APIs.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "llm-vfx-orchestrator",
+        "nameWithOwner": "belentani7/llm-vfx-orchestrator",
+        "updatedAt": "2026-09-03T10:55:18Z",
+        "url": "https://github.com/belentani7/llm-vfx-orchestrator",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Translate natural language creative briefs into valid ComfyUI JSON workflows using LLMs.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "comfyui-json-compiler",
+        "nameWithOwner": "belentani7/comfyui-json-compiler",
+        "updatedAt": "2026-09-03T10:55:17Z",
+        "url": "https://github.com/belentani7/comfyui-json-compiler",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Translate cinematic language into optimized prompts for Stable Diffusion, Flux, and SDXL models.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "cinematic-prompt-formatter",
+        "nameWithOwner": "belentani7/cinematic-prompt-formatter",
+        "updatedAt": "2026-09-03T10:55:44Z",
+        "url": "https://github.com/belentani7/cinematic-prompt-formatter",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Belentani Judas — music project source material, vocal processing, and creative production assets",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "belentani-judas",
+        "nameWithOwner": "belentani7/belentani-judas",
+        "updatedAt": "2026-09-03T10:55:11Z",
+        "url": "https://github.com/belentani7/belentani-judas",
+        "family": "ux-design"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "JUDAS OMEGA - storyboard cinematografico estatico",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "judas-omega-static",
+        "nameWithOwner": "belentani7/judas-omega-static",
+        "updatedAt": "2026-09-03T10:55:31Z",
+        "url": "https://github.com/belentani7/judas-omega-static",
+        "family": "ux-design"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "✞ JUDAS · GALACTIC EXPERIENCE - Cyberpunk glassmorphism web experience",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "judas-experience-galactic",
+        "nameWithOwner": "belentani7/judas-experience-galactic",
+        "updatedAt": "2026-09-03T10:55:04Z",
+        "url": "https://github.com/belentani7/judas-experience-galactic",
+        "family": "saas-enterprise"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "DUCK Lab - laboratorio de prototipos del universo DUCK/Zion.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "duck-lab",
+        "nameWithOwner": "belentani7/duck-lab",
+        "updatedAt": "2026-09-03T10:58:21Z",
+        "url": "https://github.com/belentani7/duck-lab",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "DUCK Ω-MAX Studio OS — CRM, producción musical, operaciones y automatizaciones para clientes y proyectos.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "omega-max-duck",
+        "nameWithOwner": "belentani7/omega-max-duck",
+        "updatedAt": "2026-09-03T10:56:34Z",
+        "url": "https://github.com/belentani7/omega-max-duck",
+        "family": "infrastructure"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "DUCK/BELENTANI Canal Zion — Studio OS, Ecosystem y Toolkit de producción musical, afinación y mastering.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "DUCK-ZION-PREMIUM",
+        "nameWithOwner": "belentani7/DUCK-ZION-PREMIUM",
+        "updatedAt": "2026-09-03T10:55:06Z",
+        "url": "https://github.com/belentani7/DUCK-ZION-PREMIUM",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "DUCK ZION Apex — professional vocal production platform; audited snapshot, gate currently 57/60",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "duck-zion-apex-public",
+        "nameWithOwner": "belentani7/duck-zion-apex-public",
+        "updatedAt": "2026-09-03T10:54:51Z",
+        "url": "https://github.com/belentani7/duck-zion-apex-public",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "DUCK ecosystem consolidation — 9 repos unified into one monorepo with apps, docs, and shared infrastructure",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "duck-unified-master",
+        "nameWithOwner": "belentani7/duck-unified-master",
+        "updatedAt": "2026-09-03T10:54:48Z",
+        "url": "https://github.com/belentani7/duck-unified-master",
+        "family": "infrastructure"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Duck Studio Suite - suite integrada de produccion musical web.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "duck-studio-suite",
+        "nameWithOwner": "belentani7/duck-studio-suite",
+        "updatedAt": "2026-09-03T10:54:46Z",
+        "url": "https://github.com/belentani7/duck-studio-suite",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "DUCK Omega - ecosistema artistico y productivo del proyecto Duck/Zion (Belentani).",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "Duck-Omega",
+        "nameWithOwner": "belentani7/Duck-Omega",
+        "updatedAt": "2026-09-03T10:54:43Z",
+        "url": "https://github.com/belentani7/Duck-Omega",
+        "family": "infrastructure"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "DUCK Full Studio Pro - FL Studio Ecosystem & Vault (Audited 10/10)",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "duck-full-studio-pro",
+        "nameWithOwner": "belentani7/duck-full-studio-pro",
+        "updatedAt": "2026-09-03T10:55:41Z",
+        "url": "https://github.com/belentani7/duck-full-studio-pro",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Music production assets on Html",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "Duck-Deck",
+        "nameWithOwner": "belentani7/Duck-Deck",
+        "updatedAt": "2026-09-03T10:57:58Z",
+        "url": "https://github.com/belentani7/Duck-Deck",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "DUCK Music Lab — interactive music production playground, beat sequencer and audio experimentation tool",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "duck-music-lab",
+        "nameWithOwner": "belentani7/duck-music-lab",
+        "updatedAt": "2026-09-03T10:54:45Z",
+        "url": "https://github.com/belentani7/duck-music-lab",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "DUCK web applications — catalog, sequencer, station, FL Studio tools",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "duck-apps-web",
+        "nameWithOwner": "belentani7/duck-apps-web",
+        "updatedAt": "2026-09-03T10:56:36Z",
+        "url": "https://github.com/belentani7/duck-apps-web",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "iDuck GUI + DUCK STATION (mobile) + DUCK FL STUDIO (DAW web) — apps ao vivo",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "duck-apps",
+        "nameWithOwner": "belentani7/duck-apps",
+        "updatedAt": "2026-09-03T10:54:29Z",
+        "url": "https://github.com/belentani7/duck-apps",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "DUCK 2026 - iteracion anual del ecosistema DUCK.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "duck-2026",
+        "nameWithOwner": "belentani7/duck-2026",
+        "updatedAt": "2026-09-03T10:57:49Z",
+        "url": "https://github.com/belentani7/duck-2026",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "20 production-ready skills for AI coding assistants.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "claude-skills-pack",
+        "nameWithOwner": "belentani7/claude-skills-pack",
+        "updatedAt": "2026-09-03T10:54:17Z",
+        "url": "https://github.com/belentani7/claude-skills-pack",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Zero-token skill router for Claude Code and Qwen Code. Routes agent requests to the right skill without burning LLM tokens.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "meta-skill",
+        "nameWithOwner": "belentani7/meta-skill",
+        "updatedAt": "2026-09-03T10:55:06Z",
+        "url": "https://github.com/belentani7/meta-skill",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Core SDK for the Quadrachy Binding Protocol - structured format for defining and validating.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "qbp-core",
+        "nameWithOwner": "belentani7/qbp-core",
+        "updatedAt": "2026-09-03T10:54:13Z",
+        "url": "https://github.com/belentani7/qbp-core",
+        "family": "infrastructure"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Local-first evidence receipts for AI and Trust & Safety decisions",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "evidence-ledger",
+        "nameWithOwner": "belentani7/evidence-ledger",
+        "updatedAt": "2026-09-03T10:56:07Z",
+        "url": "https://github.com/belentani7/evidence-ledger",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "master"
+        },
+        "description": "Suite RH/fiscal con automatizacion de calculos e informes.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "rh-fiscal-ultra-elite",
+        "nameWithOwner": "belentani7/rh-fiscal-ultra-elite",
+        "updatedAt": "2026-09-03T10:54:00Z",
+        "url": "https://github.com/belentani7/rh-fiscal-ultra-elite",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Mapa de comprension y herramientas sobre TLP, vinculos y gestion emocional.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "tender-words-connect",
+        "nameWithOwner": "belentani7/tender-words-connect",
+        "updatedAt": "2026-09-03T10:53:54Z",
+        "url": "https://github.com/belentani7/tender-words-connect",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Arte Que Veste - moda autoral y arte vestible; catalogo y tienda creativa.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "arte-que-veste",
+        "nameWithOwner": "belentani7/arte-que-veste",
+        "updatedAt": "2026-09-03T10:53:43Z",
+        "url": "https://github.com/belentani7/arte-que-veste",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "AI-powered fashion stylist — visual recommendation engine using computer vision and style classification",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "fashion-stylist-ai",
+        "nameWithOwner": "belentani7/fashion-stylist-ai",
+        "updatedAt": "2026-09-03T10:53:39Z",
+        "url": "https://github.com/belentani7/fashion-stylist-ai",
+        "family": "ux-design"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Empresa 100 generada con IA por Belentani",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "entrenador-jorge-bcn",
+        "nameWithOwner": "belentani7/entrenador-jorge-bcn",
+        "updatedAt": "2026-09-03T10:57:04Z",
+        "url": "https://github.com/belentani7/entrenador-jorge-bcn",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Neon Glass Operating System. Browser-based OS shell with 38+ apps, cyberpunk aesthetics, zero dependencies.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "nexus-os",
+        "nameWithOwner": "belentani7/nexus-os",
+        "updatedAt": "2026-09-03T10:56:59Z",
+        "url": "https://github.com/belentani7/nexus-os",
+        "family": "saas-enterprise"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Live coding simulation — GitHub profile that breaks into hacker mode",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "hack-visual",
+        "nameWithOwner": "belentani7/hack-visual",
+        "updatedAt": "2026-09-03T10:54:21Z",
+        "url": "https://github.com/belentani7/hack-visual",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "OpenClaw workspace config",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "openclaw-workspace",
+        "nameWithOwner": "belentani7/openclaw-workspace",
+        "updatedAt": "2026-09-03T10:53:24Z",
+        "url": "https://github.com/belentani7/openclaw-workspace",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "🌟 BELENTANI OMEGA - Portal unificado del ecosistema creativo",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "belentani-omega-portal",
+        "nameWithOwner": "belentani7/belentani-omega-portal",
+        "updatedAt": "2026-09-03T10:53:12Z",
+        "url": "https://github.com/belentani7/belentani-omega-portal",
+        "family": "infrastructure"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Portfolio premium de Pedro Belentani: Trust & Safety, sistemas de IA, automatización, ingeniería de software y creative tech.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "belentaniexperience",
+        "nameWithOwner": "belentani7/belentaniexperience",
+        "updatedAt": "2026-09-03T10:53:29Z",
+        "url": "https://github.com/belentani7/belentaniexperience",
+        "family": "saas-enterprise"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "NOIACORE LAB — plataforma digital de Pedro Belentani: catálogo, agente, automatización, observabilidad y diseño cinematográfico.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "Belentani",
+        "nameWithOwner": "belentani7/Belentani",
+        "updatedAt": "2026-09-03T10:53:00Z",
+        "url": "https://github.com/belentani7/Belentani",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "BELENTANI // OMEGA CORE — JUDAS_OS v12.0 · organismo vivo · 432 Hz",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "belentani7.github.io",
+        "nameWithOwner": "belentani7/belentani7.github.io",
+        "updatedAt": "2026-09-03T10:52:58Z",
+        "url": "https://github.com/belentani7/belentani7.github.io",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Universal validation envelopes with auditable 2-of-3 node confirmation",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "oss-compass",
+        "nameWithOwner": "belentani7/oss-compass",
+        "updatedAt": "2026-09-03T10:53:08Z",
+        "url": "https://github.com/belentani7/oss-compass",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Plataforma educativa brasileña interactiva con tutor IA, trilhas y voz preparada para OpenVoice",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "aprende-brasil",
+        "nameWithOwner": "belentani7/aprende-brasil",
+        "updatedAt": "2026-09-03T09:51:34Z",
+        "url": "https://github.com/belentani7/aprende-brasil",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "github-ai-terminal",
+        "nameWithOwner": "belentani7/github-ai-terminal",
+        "updatedAt": "2026-09-03T09:48:31Z",
+        "url": "https://github.com/belentani7/github-ai-terminal",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "BELENTANI Ecosystem Circuit - catalogo tipo HBO rojo neon glass enlazando todas las webs del ecosistema",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "belentani-design-hub",
+        "nameWithOwner": "belentani7/belentani-design-hub",
+        "updatedAt": "2026-09-03T06:07:21Z",
+        "url": "https://github.com/belentani7/belentani-design-hub",
+        "family": "ux-design"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Cursor IDE patterns unified for CLI coding agents — multi-file editing, multi-agent coordination, context management, error recovery loops",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "cli-coder-patterns",
+        "nameWithOwner": "belentani7/cli-coder-patterns",
+        "updatedAt": "2026-09-02T20:16:42Z",
+        "url": "https://github.com/belentani7/cli-coder-patterns",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "win11-workspace",
+        "nameWithOwner": "belentani7/win11-workspace",
+        "updatedAt": "2026-09-02T18:42:24Z",
+        "url": "https://github.com/belentani7/win11-workspace",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "duck"
+        },
+        "description": "Entorno Linux con PowerShell y GitHub CLI",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "power",
+        "nameWithOwner": "belentani7/power",
+        "updatedAt": "2026-09-02T18:40:59Z",
+        "url": "https://github.com/belentani7/power",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "duck"
+        },
+        "description": "Entorno Linux PowerShell GitHub",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "newbelentani11",
+        "nameWithOwner": "belentani7/newbelentani11",
+        "updatedAt": "2026-09-02T18:05:26Z",
+        "url": "https://github.com/belentani7/newbelentani11",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "duck"
+        },
+        "description": "Laboratorio Sonoro IA",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "newbelentani1",
+        "nameWithOwner": "belentani7/newbelentani1",
+        "updatedAt": "2026-09-02T18:03:43Z",
+        "url": "https://github.com/belentani7/newbelentani1",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "duck"
+        },
+        "description": "Secuencia de Acceso Judas",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "newbelentani",
+        "nameWithOwner": "belentani7/newbelentani",
+        "updatedAt": "2026-09-02T18:03:49Z",
+        "url": "https://github.com/belentani7/newbelentani",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Alibaba Cloud integration: 14 skills, GitHub Actions, free tier optimization",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "belentani-alibaba-integration",
+        "nameWithOwner": "belentani7/belentani-alibaba-integration",
+        "updatedAt": "2026-09-02T08:15:00Z",
+        "url": "https://github.com/belentani7/belentani-alibaba-integration",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Belentani monorepo: UX Academy + ManosAbiertas + Belentani platforms. TurboRepo, Next.js, TypeScript.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "belentani-monorepo",
+        "nameWithOwner": "belentani7/belentani-monorepo",
+        "updatedAt": "2026-09-02T06:41:41Z",
+        "url": "https://github.com/belentani7/belentani-monorepo",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "BarriServei AI - Autonomous local services platform with AI intake, Stripe escrow, WhatsApp integration",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "noiacore-turbo-v2",
+        "nameWithOwner": "belentani7/noiacore-turbo-v2",
+        "updatedAt": "2026-09-02T06:27:37Z",
+        "url": "https://github.com/belentani7/noiacore-turbo-v2",
+        "family": "infrastructure"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Disposable cloud sandboxes for AI agents. Spin up isolated VMs for Claude, Aider, Codex, Qwen. $4/month, Terraform-powered.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "agentbox",
+        "nameWithOwner": "belentani7/agentbox",
+        "updatedAt": "2026-09-02T06:35:45Z",
+        "url": "https://github.com/belentani7/agentbox",
+        "family": "infrastructure"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Universal package manager for AI coding skills. Write once, install everywhere.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "skillforge",
+        "nameWithOwner": "belentani7/skillforge",
+        "updatedAt": "2026-09-02T06:36:21Z",
+        "url": "https://github.com/belentani7/skillforge",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Belentani Platform — enterprise-grade Java backend with JPA entities, security layers, and microservice architecture blueprint",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "belentani-java-platform",
+        "nameWithOwner": "belentani7/belentani-java-platform",
+        "updatedAt": "2026-09-02T06:07:08Z",
+        "url": "https://github.com/belentani7/belentani-java-platform",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Zero-token task router for AI coding agents — classifies requests locally without burning LLM tokens. 16 archetypes, 4 complexity tiers, in-context classification.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "MetaSkill",
+        "nameWithOwner": "belentani7/MetaSkill",
+        "updatedAt": "2026-09-01T08:41:46Z",
+        "url": "https://github.com/belentani7/MetaSkill",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Mapa de comprensión y herramientas sobre TLP, dinámicas de vínculo y gestión de límites emocionales. Del caos a la claridad.",
+        "isArchived": true,
+        "isPrivate": false,
+        "name": "abrazo-tender-words",
+        "nameWithOwner": "belentani7/abrazo-tender-words",
+        "updatedAt": "2026-08-31T08:43:40Z",
+        "url": "https://github.com/belentani7/abrazo-tender-words",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "PWA companion application",
+        "isArchived": true,
+        "isPrivate": false,
+        "name": "mimo-companion",
+        "nameWithOwner": "belentani7/mimo-companion",
+        "updatedAt": "2026-08-31T08:45:56Z",
+        "url": "https://github.com/belentani7/mimo-companion",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "DUCK studio documentation — audit reports, prompt engineering, delivery specs",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "duck-docs",
+        "nameWithOwner": "belentani7/duck-docs",
+        "updatedAt": "2026-09-01T08:36:46Z",
+        "url": "https://github.com/belentani7/duck-docs",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": true,
+        "isPrivate": false,
+        "name": "michelle-relayze-web",
+        "nameWithOwner": "belentani7/michelle-relayze-web",
+        "updatedAt": "2026-08-31T08:46:05Z",
+        "url": "https://github.com/belentani7/michelle-relayze-web",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": true,
+        "isPrivate": false,
+        "name": "the-judas-experience",
+        "nameWithOwner": "belentani7/the-judas-experience",
+        "updatedAt": "2026-08-31T08:43:11Z",
+        "url": "https://github.com/belentani7/the-judas-experience",
+        "family": "saas-enterprise"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "feature/i18n-ats-seo-roadmap"
+        },
+        "description": "Repositório multilíngue de código aberto com livros e materiais audiovisuais educativos.",
+        "isArchived": true,
+        "isPrivate": false,
+        "name": "Oculus-Tv",
+        "nameWithOwner": "belentani7/Oculus-Tv",
+        "updatedAt": "2026-08-31T08:46:06Z",
+        "url": "https://github.com/belentani7/Oculus-Tv",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Next.js 16 frontend laboratory with image tooling, verified lint, tests and deployment previews.",
+        "isArchived": true,
+        "isPrivate": false,
+        "name": "Netlify",
+        "nameWithOwner": "belentani7/Netlify",
+        "updatedAt": "2026-09-01T08:31:06Z",
+        "url": "https://github.com/belentani7/Netlify",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "belentani-judas-evolved",
+        "nameWithOwner": "belentani7/belentani-judas-evolved",
+        "updatedAt": "2026-08-28T21:32:16Z",
+        "url": "https://github.com/belentani7/belentani-judas-evolved",
+        "family": "ux-design"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "red-starfield-frontend",
+        "nameWithOwner": "belentani7/red-starfield-frontend",
+        "updatedAt": "2026-08-28T19:38:35Z",
+        "url": "https://github.com/belentani7/red-starfield-frontend",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Duck Studio Unified — plataforma artística, portal de clientes y operação supervisionada",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "duck-studio-unified",
+        "nameWithOwner": "belentani7/duck-studio-unified",
+        "updatedAt": "2026-08-28T18:06:10Z",
+        "url": "https://github.com/belentani7/duck-studio-unified",
+        "family": "infrastructure"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "nexus-machine-ops",
+        "nameWithOwner": "belentani7/nexus-machine-ops",
+        "updatedAt": "2026-08-28T11:59:50Z",
+        "url": "https://github.com/belentani7/nexus-machine-ops",
+        "family": "saas-enterprise"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "CODEX Omega Skill - Belentani ecosystem",
+        "isArchived": true,
+        "isPrivate": false,
+        "name": "CODEX-OMEGA-SKILL",
+        "nameWithOwner": "belentani7/CODEX-OMEGA-SKILL",
+        "updatedAt": "2026-08-31T08:43:36Z",
+        "url": "https://github.com/belentani7/CODEX-OMEGA-SKILL",
+        "family": "infrastructure"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "noiacore-revenue-pipeline",
+        "nameWithOwner": "belentani7/noiacore-revenue-pipeline",
+        "updatedAt": "2026-08-28T09:53:05Z",
+        "url": "https://github.com/belentani7/noiacore-revenue-pipeline",
+        "family": "infrastructure"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "noir-informatica-privada-barcelona",
+        "nameWithOwner": "belentani7/noir-informatica-privada-barcelona",
+        "updatedAt": "2026-08-28T09:35:06Z",
+        "url": "https://github.com/belentani7/noir-informatica-privada-barcelona",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "circuit-ai-support",
+        "nameWithOwner": "belentani7/circuit-ai-support",
+        "updatedAt": "2026-08-28T08:57:50Z",
+        "url": "https://github.com/belentani7/circuit-ai-support",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "DUCK Belentani OS - snapshot auditado 2026-08-23 del sistema operativo creativo.",
+        "isArchived": false,
+        "isPrivate": false,
+        "name": "duck-belentani-os-audited-2026-08-23",
+        "nameWithOwner": "belentani7/duck-belentani-os-audited-2026-08-23",
+        "updatedAt": "2026-08-25T21:25:37Z",
+        "url": "https://github.com/belentani7/duck-belentani-os-audited-2026-08-23",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "belentani-local",
+        "nameWithOwner": "belentani7/belentani-local",
+        "updatedAt": "2026-08-27T04:19:11Z",
+        "url": "https://github.com/belentani7/belentani-local",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "belentani-ecosystem-control",
+        "nameWithOwner": "belentani7/belentani-ecosystem-control",
+        "updatedAt": "2026-08-27T05:18:37Z",
+        "url": "https://github.com/belentani7/belentani-ecosystem-control",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "uaol-machine-realm",
+        "nameWithOwner": "belentani7/uaol-machine-realm",
+        "updatedAt": "2026-08-27T05:41:07Z",
+        "url": "https://github.com/belentani7/uaol-machine-realm",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Plataforma pública de orientación migratoria verificada para personas latinoamericanas que migran a España",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "latam-europa",
+        "nameWithOwner": "belentani7/latam-europa",
+        "updatedAt": "2026-08-27T11:13:40Z",
+        "url": "https://github.com/belentani7/latam-europa",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "cuidar-conecta-marcia",
+        "nameWithOwner": "belentani7/cuidar-conecta-marcia",
+        "updatedAt": "2026-08-27T11:07:37Z",
+        "url": "https://github.com/belentani7/cuidar-conecta-marcia",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Maos Abertas + LinguaForge: institución digital abierta para lenguas, ciudadanía digital, tecnología, programación, IA responsable y trayectorias profesionales.",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "maos-abertas-linguaforge",
+        "nameWithOwner": "belentani7/maos-abertas-linguaforge",
+        "updatedAt": "2026-08-27T06:49:32Z",
+        "url": "https://github.com/belentani7/maos-abertas-linguaforge",
+        "family": "education"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "",
+        "isArchived": false,
+        "isPrivate": true,
+        "name": "qwen-input-cache-max-context",
+        "nameWithOwner": "belentani7/qwen-input-cache-max-context",
+        "updatedAt": "2026-08-27T06:05:16Z",
+        "url": "https://github.com/belentani7/qwen-input-cache-max-context",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "duck"
+        },
+        "description": "",
+        "isArchived": true,
+        "isPrivate": false,
+        "name": "belentani7-gestaltAI",
+        "nameWithOwner": "belentani7/belentani7-gestaltAI",
+        "updatedAt": "2026-08-31T08:43:35Z",
+        "url": "https://github.com/belentani7/belentani7-gestaltAI",
+        "family": "uncategorized"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Plataforma educativa multilingue con cursos gratuitos, CV guiado, asistentes offline y accesibilidad.",
+        "isArchived": true,
+        "isPrivate": false,
+        "name": "ManosAbiertas-backup-v1",
+        "nameWithOwner": "belentani7/ManosAbiertas-backup-v1",
+        "updatedAt": "2026-08-25T05:59:50Z",
+        "url": "https://github.com/belentani7/ManosAbiertas-backup-v1",
+        "family": "social-impact"
+      },
+      {
+        "defaultBranchRef": {
+          "name": "main"
+        },
+        "description": "Archived reference: Windows OpenManus/Ollama setup. Preserved for documentation; current work uses remote providers on modest hardware.",
+        "isArchived": true,
+        "isPrivate": false,
+        "name": "local-agent",
+        "nameWithOwner": "belentani7/local-agent",
+        "updatedAt": "2026-08-12T01:47:43Z",
+        "url": "https://github.com/belentani7/local-agent",
+        "family": "infrastructure"
+      }
+    ]
+  },
+  "local_projects": [
+    {
+      "path": "/home/ubuntu/skills/web-design-engineer",
+      "relative": "skills/web-design-engineer",
+      "family": "ux-design",
+      "markers": [
+        "README.md"
+      ],
+      "python": 0,
+      "typescript": 0
+    },
+    {
+      "path": "/home/ubuntu/workflow-orchestrator",
+      "relative": "workflow-orchestrator",
+      "family": "infrastructure",
+      "markers": [
+        "Dockerfile",
+        "README.md",
+        "package.json"
+      ],
+      "python": 3,
+      "typescript": 3
+    },
+    {
+      "path": "/home/ubuntu/workflow-orchestrator/education",
+      "relative": "workflow-orchestrator/education",
+      "family": "infrastructure",
+      "markers": [
+        "README.md"
+      ],
+      "python": 0,
+      "typescript": 0
+    },
+    {
+      "path": "/home/ubuntu/workflow-orchestrator/education/edu-engine",
+      "relative": "workflow-orchestrator/education/edu-engine",
+      "family": "infrastructure",
+      "markers": [
+        "README.md",
+        "package.json"
+      ],
+      "python": 0,
+      "typescript": 0
+    },
+    {
+      "path": "/home/ubuntu/workflow-orchestrator/factory",
+      "relative": "workflow-orchestrator/factory",
+      "family": "infrastructure",
+      "markers": [
+        "pyproject.toml"
+      ],
+      "python": 0,
+      "typescript": 0
+    },
+    {
+      "path": "/home/ubuntu/workflow-orchestrator/labs",
+      "relative": "workflow-orchestrator/labs",
+      "family": "infrastructure",
+      "markers": [
+        "README.md"
+      ],
+      "python": 0,
+      "typescript": 0
+    }
+  ],
+  "validation": [
+    {
+      "name": "typescript-check",
+      "command": [
+        "pnpm",
+        "check"
+      ],
+      "exit_code": 0,
+      "ok": true,
+      "output": "> secure-t@1.0.0 check /home/ubuntu/workflow-orchestrator\n> tsc --noEmit\n\n[WARN] The \"pnpm\" field in package.json is no longer read by pnpm. The following keys were ignored: \"pnpm.patchedDependencies\", \"pnpm.overrides\". See https://pnpm.io/settings for the new home of each setting."
+    },
+    {
+      "name": "javascript-tests",
+      "command": [
+        "pnpm",
+        "test"
+      ],
+      "exit_code": 0,
+      "ok": true,
+      "output": "> secure-t@1.0.0 test /home/ubuntu/workflow-orchestrator\n> vitest run --config vitest.config.ts\n\n\n RUN  v2.1.9 /home/ubuntu/workflow-orchestrator\n\n ✓ tests/unified-curriculum.test.ts (5 tests) 10ms\n ✓ tests/notifications.test.ts (9 tests) 5ms\n ✓ tests/catalog.test.ts (6 tests) 9ms\n ✓ tests/platform-contracts.test.ts (4 tests) 4ms\n ✓ tests/ai-governance.test.ts (5 tests) 3ms\n ✓ tests/curriculum.test.ts (4 tests) 3ms\n ✓ tests/business-operations.test.ts (2 tests) 5ms\n\n Test Files  7 passed (7)\n      Tests  35 passed (35)\n   Start at  10:19:01\n   Duration  594ms (transform 234ms, setup 0ms, collect 596ms, tests 40ms, environment 2ms, prepare 491ms)\n\n[WARN] The \"pnpm\" field in package.json is no longer read by pnpm. The following keys were ignored: \"pnpm.patchedDependencies\", \"pnpm.overrides\". See https://pnpm.io/settings for the new home of each setting."
+    },
+    {
+      "name": "python-compile",
+      "command": [
+        "python3",
+        "-m",
+        "compileall",
+        "-q",
+        "."
+      ],
+      "exit_code": 0,
+      "ok": true,
+      "output": ""
+    }
+  ],
+  "actions": []
+}
