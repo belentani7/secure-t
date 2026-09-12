@@ -73,7 +73,16 @@ class Orchestrator:
                 Step("tests", ("pnpm", "test"), "ejecutar pruebas del proyecto"),
             ])
         if (self.root / "factory" / "pyproject.toml").exists():
-            steps.append(Step("python-smoke", ("python", "-m", "compileall", "factory"), "validar Python reutilizable"))
+            steps.append(Step(
+                "python-mass-validation",
+                ("python", "-m", "compileall", "-q", "factory", "orchestrator", "scripts", "tests", "education"),
+                "compilar masivamente los módulos Python del repositorio",
+            ))
+            steps.append(Step(
+                "python-tests",
+                ("python", "-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py"),
+                "ejecutar las pruebas Python descubiertas",
+            ))
         if (self.root / "scripts" / "audit-pii.mjs").exists():
             steps.append(Step("pii-audit", ("node", "scripts/audit-pii.mjs"), "auditar secretos y PII en código"))
         return tuple(steps)

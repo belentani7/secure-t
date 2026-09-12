@@ -17,7 +17,7 @@ class OrchestratorTests(unittest.TestCase):
             (root / "scripts" / "audit-pii.mjs").write_text("console.log('ok')")
 
             names = [step.name for step in Orchestrator(root).plan()]
-            self.assertEqual(names, ["typecheck", "tests", "python-smoke", "pii-audit"])
+            self.assertEqual(names, ["typecheck", "tests", "python-mass-validation", "python-tests", "pii-audit"])
 
     def test_default_run_is_dry_run_and_writes_audit(self):
         with tempfile.TemporaryDirectory() as directory:
