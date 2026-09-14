@@ -5,12 +5,11 @@
   "installCommand": "pnpm install --frozen-lockfile",
   "framework": "vite",
   "functions": {
-    "api/index.ts": {
+    "api/[[...path]].ts": {
       "maxDuration": 60
     }
   },
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "env": {
