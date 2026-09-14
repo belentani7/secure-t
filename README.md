@@ -6,6 +6,27 @@
 
 **Universidad digital de ciberseguridad e inteligencia artificial**
 
+## Campus en vivo
+
+- Campus: https://secure-t.netlify.app/
+- Matrícula anónima local (sin e-mail, token UUID en tu navegador): https://secure-t.netlify.app/enroll
+- Espejo GitHub Pages (redirige al campus): https://belentani7.github.io/secure-t/
+
+## Auditoría 2026-09-14 (full-ship)
+
+Alcance: frontend + backend + seguridad + secretos + licencias. Gates en verde:
+`tsc --noEmit` OK · `vitest` 35/35 · `pnpm build` OK · gitleaks (código + 72 commits) `no leaks found`.
+
+Reparado (CRITICO+ALTO primero):
+- Embudo: CTAs `Apply now` / `Create your profile` → ruta real `/enroll`.
+- Catálogo único: la galería y el onboarding leen `academic/curriculum.ts`; `findLesson` acepta `course.code`.
+- Backend: `requireValidToken` en rutas mutantes, enrollments self-only (`learnerId` = UUID del token), `PUT progress` reescrito con validación y rangos, `x-role` solo con `ALLOW_HEADER_ROLES=true` (deny-by-default), locales whitelist `es/pt/en`, tope 2000 chars en IA, `verifyCredential` honesto (formato offline, no autoritativo), `api/index.ts` apto para serverless.
+- Frontend honesto: cockpit sin alumno inventado, stats marcadas `demo`, `ErrorBoundary` sin stack en prod.
+- Deploy: `/api/* → 404` en Netlify (el backend Express no se despliega; frontend estático), headers HSTS/nosniff/frame-deny, Pages redirige al campus.
+- Legal: `template.json` y `edu-engine` en AGPL-3.0-only; NOTICE sin claims de reúso literal (verificado: sin código vendorizado).
+
+Límites conocidos: backend sin desplegar (a propósito; requiere Docker/VPS/PaaS), Portal con zonas demo, `ca` no cubierto en todo el frontend.
+
 secure T es una plataforma educativa open source orientada a ciberseguridad, IA y formación técnica avanzada. Combina campus digital, laboratorios aislados, tutoría IA gobernada, evaluación por evidencia y credenciales verificables.
 
 > **Descargo legal:** Esta aplicación NO afirma acreditación universitaria ni validez oficial de títulos. Las capacidades no implementadas están documentadas como pendientes en [IMPLEMENTATION_STATUS.md](docs/IMPLEMENTATION_STATUS.md).
