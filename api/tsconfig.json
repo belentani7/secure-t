@@ -1,0 +1,1 @@
+﻿{"compilerOptions": {"target": "esnext", "module": "esnext", "moduleResolution": "node", "esModuleInterop": true, "skipLibCheck": true, "strict": false, "noEmit": true, "types": ["node"]}}
