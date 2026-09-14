@@ -1,17 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, Clock, Flame, Languages, Target, XCircle } from "lucide-react";
 import { useLocation } from "wouter";
+import { useLanguage } from "@/hooks/useLanguage";
 import { curriculum, findLesson } from "../../../academic/curriculum.ts";
 import { buildQuizFromLessons, computeStreak, getProgress, grade, MemoryStore, nextLesson, normalizeLessonPlan, pickCongrats, recordAnswer, TutorAgent, type Progress, type Question } from "../../../education/edu-engine/src/index.ts";
 
 const store = new MemoryStore<Progress>("secure-t-progress");
 const tutor = new TutorAgent();
 
-type Lang = "es" | "pt-BR";
-
 export default function Lesson({ lessonId }: { lessonId?: string }) {
   const [, navigate] = useLocation();
-  const [lang, setLang] = useState<Lang>("es");
+  const { language: lang, setLanguage: setLang } = useLanguage();
   const [picked, setPicked] = useState<Record<string, number>>({});
   const [correctCount, setCorrectCount] = useState(0);
   const [progress, setProgress] = useState<Progress>(() => getProgress(store));
@@ -47,7 +46,7 @@ export default function Lesson({ lessonId }: { lessonId?: string }) {
   useEffect(() => {
     if (!booted.current) {
       booted.current = true;
-      tutor.welcome("Luiz", lang);
+      tutor.welcome("", lang);
     }
   }, [lang]);
 
@@ -118,8 +117,8 @@ export default function Lesson({ lessonId }: { lessonId?: string }) {
           </div>
           <div className="flex items-center gap-2 rounded-xl border border-white/10 p-1">
             <Languages className="ml-2 size-4 text-[#b8f36b]" />
-            {(["es", "pt-BR"] as const).map((x) => (
-              <button key={x} onClick={() => setLang(x)} className={`rounded-lg px-3 py-2 text-xs font-bold ${lang === x ? "bg-[#b8f36b] text-[#0b1117]" : "text-white/50"}`}>{x.toUpperCase()}</button>
+            {(["pt-BR", "es", "en"] as const).map((x) => (
+              <button key={x} onClick={() => setLang(x)} className={`rounded-lg px-3 py-2 text-xs font-bold ${lang === x ? "bg-[#b8f36b] text-[#0b1117]" : "text-white/50"}`}>{x === "pt-BR" ? "PT-BR" : x.toUpperCase()}</button>
             ))}
           </div>
         </header>

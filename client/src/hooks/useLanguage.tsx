@@ -18,7 +18,7 @@ function detectInitialLanguage(): Language {
   const browserLang = navigator.language.toLowerCase();
   if (browserLang.startsWith("pt")) return "pt-BR";
   if (browserLang.startsWith("es")) return "es";
-  return "en";
+  return "pt-BR";
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {

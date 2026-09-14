@@ -29,7 +29,9 @@ function createToken(): AnonymousToken {
 }
 
 function isExpired(token: AnonymousToken): boolean {
-  return Date.now() - token.createdAt > MAX_AGE_MS;
+  const age = Date.now() - token.createdAt;
+  if (age < 0) return true; // timestamp futuro: tratar como expirado
+  return age > MAX_AGE_MS;
 }
 
 /**

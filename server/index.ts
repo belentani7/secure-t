@@ -15,6 +15,15 @@ import { enrollLearner, updateEnrollmentProgress, sampleEnrollments } from "./da
 import { enrollmentRepository, progressRepository } from "../academic/repositories/index.js";
 import { businessRouter } from "./business/routes.js";
 import { hydrateBusinessStore } from "./business/service.js";
+import { requireValidToken } from "./middleware/verify-token.js";
+
+const SUPPORTED_LOCALES = ["es", "pt", "en"] as const;
+type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
+function toSupportedLocale(raw: unknown): SupportedLocale {
+  return typeof raw === "string" && (SUPPORTED_LOCALES as readonly string[]).includes(raw)
+    ? (raw as SupportedLocale)
+    : "es";
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -101,13 +110,13 @@ app.get("/api/progress", (req, res) => {
 
 // Welcome endpoint: personalized greeting on first connection
 app.get("/api/ai/welcome", async (req, res) => {
-  const locale = (req.query.locale as string) || "es";
+  const locale = toSupportedLocale(req.query.locale);
   const isFirstTime = req.query.first === "true";
   const isSpecial = req.query.special === "true";
 
   try {
     const message = await getWelcomeMessage(
-      locale as "es" | "pt" | "en",
+      locale,
       isFirstTime,
       isSpecial
     );
@@ -130,16 +139,20 @@ app.get("/api/ai/welcome", async (req, res) => {
 });
 
 // Text-to-speech endpoint: Kokoro via Hugging Face
-app.post("/api/ai/speak", rateLimit("tts", 10), async (req, res) => {
+// Cuota protegida: requiere token válido + texto acotado (max 2000 chars).
+app.post("/api/ai/speak", requireValidToken, rateLimit("tts", 10), async (req, res) => {
   try {
     const { text, locale = "es" } = req.body ?? {};
     if (typeof text !== "string" || text.trim().length < 2) {
       return res.status(400).json({ error: "text required (min 2 chars)" });
     }
+    if (text.trim().length > 2000) {
+      return res.status(400).json({ error: "text too long (max 2000 chars)" });
+    }
 
     const audio = await generateSpeechSafe({
       text,
-      locale: (locale as "es" | "pt" | "en") || "es",
+      locale: toSupportedLocale(locale),
     });
 
     if (!audio) {
@@ -163,13 +176,16 @@ app.post("/api/ai/speak", rateLimit("tts", 10), async (req, res) => {
 
 // AI routing endpoint: orquestador élite sobre gobernanza real (ai/governance.ts).
 // Rate-limit sin Redis (ver server/security/headers.ts). Safe-fallback si Ollama cae.
-app.post("/api/ai/route", rateLimit("ai-route", 30), async (req, res) => {
+app.post("/api/ai/route", requireValidToken, rateLimit("ai-route", 30), async (req, res) => {
   try {
     const { message, examMode = false, locale = "es" } = req.body ?? {};
     if (typeof message !== "string" || message.trim().length < 2) {
       return res.status(400).json({ error: "message must be a non-empty string" });
     }
-    const out = await orchestrate(message, { examMode: examMode === true, locale });
+    if (message.trim().length > 2000) {
+      return res.status(400).json({ error: "message too long (max 2000 chars)" });
+    }
+    const out = await orchestrate(message, { examMode: examMode === true, locale: toSupportedLocale(locale) });
     res.json({ ...out, sources: [], audit: "recorded" });
   } catch {
     res.json({ agent: "tutor", reply: "I can help you convert this into a safe and verifiable practice.", model: "safe-fallback", sources: [], audit: "recorded" });
@@ -177,7 +193,7 @@ app.post("/api/ai/route", rateLimit("ai-route", 30), async (req, res) => {
 });
 
 // Labs launch endpoint
-app.post("/api/labs/:code/launch", (req, res) => {
+app.post("/api/labs/:code/launch", requireValidToken, (req, res) => {
   res.status(202).json({ task: "TASK_CREATED", instance: { id: "instance-demo", lab: req.params.code, status: "queued" } });
 });
 
@@ -193,27 +209,33 @@ app.get("/api/credentials", (_req, res) => {
 });
 
 // Issue credential (post-completion verification)
-app.post("/api/credentials/issue", (req, res) => {
+app.post("/api/credentials/issue", requireValidToken, (req, res) => {
   const { learnerId, courseCode, mastery, evidence } = req.body ?? {};
   if (!learnerId || !courseCode || typeof mastery !== "number") {
     return res
       .status(400)
       .json({ error: "learnerId, courseCode, and mastery required" });
   }
-  const credential = issueCredential(learnerId, courseCode, mastery, evidence || {
-    assessments: 1,
-    projects: 0,
-    labs: 1,
-  });
-  res.status(201).json(credential);
+  if (learnerId !== (req as any).tokenUUID) {
+    return res.status(403).json({ error: "learnerId must match your token (self-only)" });
+  }
+  const ev = evidence || { assessments: 1, projects: 0, labs: 1 };
+  try {
+    const credential = issueCredential(learnerId, courseCode, mastery, ev);
+    res.status(201).json(credential);
+  } catch (err) {
+    return res.status(400).json({ error: err instanceof Error ? err.message : "invalid credential data" });
+  }
 });
 
-// Verify credential (public)
+// Verify credential (public): chequeo de formato offline, NO autoritativo.
 app.get("/api/credentials/:id/verify", (req, res) => {
   const isValid = verifyCredential(req.params.id);
   res.json({
     credentialId: req.params.id,
     valid: isValid,
+    authoritative: false,
+    note: "Format check only. Authoritative verification requires database lookup (not deployed).",
     verifiedAt: new Date().toISOString(),
     issuer: "secure T",
   });
@@ -235,8 +257,11 @@ app.get("/api/courses/:code/instructors", (req, res) => {
   res.json({ courseCode: req.params.code, instructors: instrs });
 });
 
-// Enrollment
-app.get("/api/enrollments/:learnerId", async (req, res) => {
+// Enrollment (self-only: :learnerId debe coincidir con el UUID del token)
+app.get("/api/enrollments/:learnerId", requireValidToken, async (req, res) => {
+  if (req.params.learnerId !== (req as any).tokenUUID) {
+    return res.status(403).json({ error: "learnerId must match your token (self-only)" });
+  }
   if (isDbConnected()) {
     const rows = await enrollmentRepository.listByUser(req.params.learnerId);
     return res.json({ enrollments: rows, message: "Enrollment tracking: progress, hours, status", mode: "postgres" });
@@ -247,10 +272,13 @@ app.get("/api/enrollments/:learnerId", async (req, res) => {
   });
 });
 
-app.post("/api/enrollments", async (req, res) => {
+app.post("/api/enrollments", requireValidToken, async (req, res) => {
   const { learnerId, courseCode } = req.body ?? {};
   if (!learnerId || !courseCode) {
     return res.status(400).json({ error: "learnerId and courseCode required" });
+  }
+  if (learnerId !== (req as any).tokenUUID) {
+    return res.status(403).json({ error: "learnerId must match your token (self-only)" });
   }
   const course = getCourse(courseCode);
   if (!course) {
@@ -264,25 +292,39 @@ app.post("/api/enrollments", async (req, res) => {
   res.status(201).json(enrollment);
 });
 
-app.put("/api/enrollments/:enrollmentId/progress", async (req, res) => {
-  const { progress, hoursSpent } = req.body ?? {};
-  if (typeof progress !== "number" || typeof hoursSpent !== "number") {
-    return res.status(400).json({ error: "progress and hoursSpent required" });
+app.put("/api/enrollments/:enrollmentId/progress", requireValidToken, async (req, res) => {
+  const { userId, lessonId, completed, timeSpentMinutes } = req.body ?? {};
+  if (typeof userId !== "string" || userId !== (req as any).tokenUUID) {
+    return res.status(403).json({ error: "userId must match your token (self-only)" });
+  }
+  if (typeof lessonId !== "string" || lessonId.trim().length === 0) {
+    return res.status(400).json({ error: "lessonId required" });
+  }
+  if (typeof completed !== "boolean") {
+    return res.status(400).json({ error: "completed must be a boolean" });
+  }
+  if (
+    timeSpentMinutes !== undefined &&
+    (!Number.isInteger(timeSpentMinutes) || timeSpentMinutes < 0 || timeSpentMinutes > 10080)
+  ) {
+    return res.status(400).json({ error: "timeSpentMinutes must be an integer between 0 and 10080" });
   }
   if (isDbConnected()) {
-    const updated = await progressRepository.update(req.params.enrollmentId, req.params.enrollmentId, true, hoursSpent);
+    const updated = await progressRepository.update(userId, lessonId, completed, timeSpentMinutes);
     return res.json({ ...updated, mode: "postgres" });
   }
-  const updated = updateEnrollmentProgress(
-    { id: req.params.enrollmentId, learnerId: "demo", courseCode: "demo", enrolledAt: "", status: "in_progress", progress: 0, hoursSpent: 0, lastAccessedAt: "" },
-    progress,
-    hoursSpent
-  );
-  res.json(updated);
+  res.json({
+    enrollmentId: req.params.enrollmentId,
+    userId,
+    lessonId,
+    completed,
+    timeSpentMinutes: timeSpentMinutes ?? 0,
+    mode: "in-memory",
+  });
 });
 
 // Notifications preferences
-app.post("/api/notifications/preferences", (_req, res) => {
+app.post("/api/notifications/preferences", requireValidToken, (_req, res) => {
   res.json({ message: "Notification preferences updated" });
 });
 
@@ -294,5 +336,8 @@ app.use(express.static(staticPath));
 app.get("*", (_req, res) => res.sendFile(path.join(staticPath, "index.html")));
 
 const port = process.env.PORT || 3000;
-server.listen(port, () => console.log(`secure T server running on http://localhost:${port}/`));
+// No escuchar al importar en serverless (Vercel/Netlify): solo exportar app.
+if (!process.env.VERCEL) {
+  server.listen(port, () => console.log(`secure T server running on http://localhost:${port}/`));
+}
 export { app, server };

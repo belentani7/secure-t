@@ -7,7 +7,9 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/hooks/useLanguage";
+import { useLocation } from "wouter";
 import { useAnonymousToken } from "@/auth/token";
+import { curriculum } from "../../../academic/curriculum.ts";
 import { springConfig, transitionVariants, hoverVariants } from "@/animations/transitions";
 
 const LANGUAGES = {
@@ -58,6 +60,7 @@ interface OnboardingFlowProps {
 
 export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
   const [step, setStep] = useState(0);
+  const [, navigate] = useLocation();
   const { language, setLanguage } = useLanguage();
   const [isGeneratingToken, setIsGeneratingToken] = useState(false);
   const { token, isValid } = useAnonymousToken();
@@ -297,20 +300,20 @@ export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
           className="space-y-4 max-w-md"
         >
           <div className="grid grid-cols-1 gap-3">
-            {[
-              { emoji: "🛡️", name: "Cybersecurity Fundamentals", level: "Iniciante" },
-              { emoji: "🌐", name: "Web Development", level: "Intermediário" },
-              { emoji: "⚙️", name: "Full-Stack Development", level: "Avançado" },
-            ].map((course, i) => (
+            {curriculum.slice(0, 3).map((course, i) => (
               <motion.div
-                key={i}
+                key={course.code}
                 whileHover={{ x: 5 }}
+                onClick={() => {
+                  const first = course.lessons[0];
+                  if (first) navigate(`/lesson/${first.id}`);
+                }}
                 className="flex items-center gap-3 bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 transition-colors"
               >
-                <span className="text-2xl">{course.emoji}</span>
+                <span className="text-2xl">{["🛡️", "🌐", "⚙️"][i % 3]}</span>
                 <div className="flex-1">
-                  <p className="font-semibold text-white">{course.name}</p>
-                  <p className="text-xs text-gray-400">{course.level}</p>
+                  <p className="font-semibold text-white">{course.title}</p>
+                  <p className="text-xs text-gray-400">{course.code} · {course.lessons.length} aulas</p>
                 </div>
                 <span className="text-purple-400">→</span>
               </motion.div>

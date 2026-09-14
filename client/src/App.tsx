@@ -9,12 +9,14 @@ import { LanguageProvider } from "@/hooks/useLanguage";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Lesson from "./pages/Lesson";
+import Enroll from "./pages/Enroll";
 import Portal from "./pages/Portal";
 
 function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/enroll"} component={Enroll} />
       <Route path={"/courses"} component={CoursesGallery} />
       <Route path={"/lesson/:id"}>{params => <Lesson lessonId={params.id} />}</Route>
       <Route path={"/notifications"} component={Notifications} />

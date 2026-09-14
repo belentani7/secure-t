@@ -10,4 +10,11 @@ export const curriculum: CurriculumCourse[] = [
  { code: "IR-401", title: "Incident Response", year: 4, credits: 4, description: "Preparación, contención, erradicación y lecciones aprendidas.", competencies: ["INCIDENT-RESPONSE"], lessons: [{ id: "ir-401-1", title: "Make the first decision reversible", type: "theory", minutes: 30, objective: "Priorizar acciones seguras bajo presión.", content: "Preserva evidencia, reduce daño y evita acciones irreversibles sin autorización. Documenta quién decide y por qué." }, { id: "ir-401-2", title: "Capstone: write the incident report", type: "assessment", minutes: 90, objective: "Crear un informe profesional basado en evidencia.", content: "Construye un informe para una organización ficticia, separando hechos, inferencias y preguntas abiertas.", evidencePrompt: "Entrega resumen ejecutivo, timeline, impacto, decisiones y plan de mejora." }] },
 ];
 export const curriculumByYear = (year: number) => curriculum.filter(course => course.year === year);
-export const findLesson = (id: string) => curriculum.flatMap(course => course.lessons.map(lesson => ({ course, lesson }))).find(item => item.lesson.id === id);
+export const findLesson = (id: string) => {
+  const needle = id.trim().toLowerCase();
+  const byLesson = curriculum.flatMap(course => course.lessons.map(lesson => ({ course, lesson }))).find(item => item.lesson.id.toLowerCase() === needle);
+  if (byLesson) return byLesson;
+  const byCourse = curriculum.find(course => course.code.toLowerCase() === needle);
+  if (byCourse && byCourse.lessons.length > 0) return { course: byCourse, lesson: byCourse.lessons[0] };
+  return undefined;
+};

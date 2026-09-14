@@ -16,17 +16,12 @@ export const competencyRepository = {
     return dbService.getCompetency(code);
   },
   earn: async (userId: string, competencyId: string) => {
-    const existing = await dbService.getUser(userId);
-    if (!existing) {
-      const error = new Error(`User ${userId} not found for competency ${competencyId}`);
-      throw error;
-    }
-    // Update or create student competency
-    await dbService.updateLessonProgress({
-      userId,
-      lessonId: competencyId, // Using lessonId field as placeholder
-      completed: true,
-    });
+    // Sin mapeo explícito competencia→lección, escribir aquí corrompería el
+    // expediente (antes se guardaba competencyId en el campo lessonId).
+    // Falla explícito en vez de corromper en silencio.
+    throw new Error(
+      `competency earn not implemented: no lesson mapping for competency ${competencyId} (user ${userId})`
+    );
   },
 };
 

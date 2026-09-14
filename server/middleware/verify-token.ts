@@ -2,6 +2,11 @@
  * Middleware de Verificación de Token (Servidor)
  * Stateless: NO consulta BD, NO guarda sesiones
  * Solo valida: formato, expiración, permisos
+ *
+ * ADVERTENCIA HONESTA: el token es un identificador anónimo generado en el
+ * cliente (sin HMAC/firma). Demuestra posesión de un UUID con formato válido,
+ * NO autentica identidad. No conceder privilegios (roles, faculty, admin)
+ * basándose solo en este token. Ver server/security/rbac.ts.
  */
 
 import type { Request, Response, NextFunction } from "express";
@@ -88,6 +93,17 @@ export function verifyToken(token: string): TokenVerificationResult {
   const now = Date.now();
   const age = now - timestamp;
   const maxAge = 365 * 24 * 60 * 60 * 1000; // 1 año
+
+  // Rechazar timestamps futuros (reloj manipulado o token forjado con fecha lejana)
+  if (age < 0) {
+    return {
+      valid: false,
+      uuid,
+      permissions: [],
+      isExpired: false,
+      errorCode: "INVALID_TIMESTAMP",
+    };
+  }
 
   if (age > maxAge) {
     return {

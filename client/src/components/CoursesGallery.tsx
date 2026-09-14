@@ -1,147 +1,70 @@
 /**
- * Galería de Cursos Futurística
- * Diseño para adolescentes/estudiantes
- * Animaciones personalizadas + Arte
+ * Galería de Cursos — lee academic/curriculum.ts (única fuente de verdad).
+ * Sin conteos inventados: muestra lecciones y minutos reales.
+ * Diseño para adolescentes/estudiantes. Multiidioma: PT-BR → ES → EN (chrome).
  */
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/hooks/useLanguage";
-import { springConfig, transitionVariants, hoverVariants } from "@/animations/transitions";
+import { useLocation } from "wouter";
+import { curriculum } from "../../../academic/curriculum.ts";
+import { springConfig } from "@/animations/transitions";
 
-interface Course {
-  id: string;
+type Level = "iniciante" | "intermediário" | "avançado";
+
+interface GalleryCourse {
+  code: string;
+  lessonId: string;
   emoji: string;
-  title: {
-    "pt-BR": string;
-    es: string;
-    en: string;
-  };
-  description: {
-    "pt-BR": string;
-    es: string;
-    en: string;
-  };
-  level: "iniciante" | "intermediário" | "avançado";
+  title: string;
+  description: string;
+  level: Level;
   color: string;
-  participants: number;
-  imageUrl?: string; // Para fotos que el usuario agregará
+  lessons: number;
+  minutes: number;
+  year: number;
 }
 
-const COURSES: Course[] = [
-  {
-    id: "cybersecurity-fundamentals",
-    emoji: "🛡️",
-    title: {
-      "pt-BR": "Fundamentos de Cibersegurança",
-      es: "Fundamentos de Ciberseguridad",
-      en: "Cybersecurity Fundamentals",
-    },
-    description: {
-      "pt-BR": "Aprenda os fundamentos de segurança digital, redes e proteção de dados",
-      es: "Aprende los fundamentos de seguridad digital, redes y protección de datos",
-      en: "Learn the fundamentals of digital security, networking and data protection",
-    },
-    level: "iniciante",
-    color: "from-blue-600 to-cyan-600",
-    participants: 1240,
-  },
-  {
-    id: "ethical-hacking",
-    emoji: "🕵️",
-    title: {
-      "pt-BR": "Hacking Ético",
-      es: "Hacking Ético",
-      en: "Ethical Hacking",
-    },
-    description: {
-      "pt-BR": "Testes de penetração e análise de vulnerabilidades de forma ética e legal",
-      es: "Pruebas de penetración y análisis de vulnerabilidades de forma ética y legal",
-      en: "Penetration testing and vulnerability analysis, done ethically and legally",
-    },
-    level: "avançado",
-    color: "from-red-600 to-orange-600",
-    participants: 620,
-  },
-  {
-    id: "web-development",
-    emoji: "🌐",
-    title: {
-      "pt-BR": "Desenvolvimento Web",
-      es: "Desarrollo Web",
-      en: "Web Development",
-    },
-    description: {
-      "pt-BR": "Sites e aplicações modernas com HTML, CSS, JavaScript e React",
-      es: "Sitios y aplicaciones modernas con HTML, CSS, JavaScript y React",
-      en: "Modern sites and apps with HTML, CSS, JavaScript and React",
-    },
-    level: "intermediário",
-    color: "from-green-600 to-emerald-600",
-    participants: 1089,
-  },
-  {
-    id: "fullstack-development",
-    emoji: "⚙️",
-    title: {
-      "pt-BR": "Desenvolvimento Full-Stack",
-      es: "Desarrollo Full-Stack",
-      en: "Full-Stack Development",
-    },
-    description: {
-      "pt-BR": "Backend, APIs, bancos de dados e deploy — do zero à produção",
-      es: "Backend, APIs, bases de datos y despliegue — de cero a producción",
-      en: "Backend, APIs, databases and deployment — from zero to production",
-    },
-    level: "avançado",
-    color: "from-purple-600 to-indigo-600",
-    participants: 540,
-  },
-  {
-    id: "programming-languages",
-    emoji: "🐍",
-    title: {
-      "pt-BR": "Linguagens de Programação",
-      es: "Lenguajes de Programación",
-      en: "Programming Languages",
-    },
-    description: {
-      "pt-BR": "Python, JavaScript, TypeScript e Go: a base de todo desenvolvedor",
-      es: "Python, JavaScript, TypeScript y Go: la base de todo desarrollador",
-      en: "Python, JavaScript, TypeScript and Go: every developer's foundation",
-    },
-    level: "iniciante",
-    color: "from-yellow-600 to-amber-600",
-    participants: 1450,
-  },
-  {
-    id: "devsecops",
-    emoji: "🔐",
-    title: {
-      "pt-BR": "Segurança de Aplicações (DevSecOps)",
-      es: "Seguridad de Aplicaciones (DevSecOps)",
-      en: "Application Security (DevSecOps)",
-    },
-    description: {
-      "pt-BR": "Como proteger aplicações reais: OWASP, criptografia e boas práticas",
-      es: "Cómo proteger aplicaciones reales: OWASP, criptografía y buenas prácticas",
-      en: "How to secure real applications: OWASP, cryptography and best practices",
-    },
-    level: "intermediário",
-    color: "from-pink-600 to-rose-600",
-    participants: 410,
-  },
+const PALETTE = [
+  { emoji: "🛡️", color: "from-blue-600 to-cyan-600" },
+  { emoji: "🌐", color: "from-green-600 to-emerald-600" },
+  { emoji: "🐍", color: "from-yellow-600 to-amber-600" },
+  { emoji: "🔐", color: "from-red-600 to-orange-600" },
+  { emoji: "⚙️", color: "from-purple-600 to-indigo-600" },
+  { emoji: "🕵️", color: "from-pink-600 to-rose-600" },
+  { emoji: "🚨", color: "from-orange-600 to-red-600" },
 ];
+
+function levelFromYear(year: number): Level {
+  if (year <= 1) return "iniciante";
+  if (year >= 4) return "avançado";
+  return "intermediário";
+}
+
+const COURSES: GalleryCourse[] = curriculum.map((c, i) => ({
+  code: c.code,
+  lessonId: c.lessons[0]?.id ?? "",
+  emoji: PALETTE[i % PALETTE.length].emoji,
+  title: c.title,
+  description: c.description,
+  level: levelFromYear(c.year),
+  color: PALETTE[i % PALETTE.length].color,
+  lessons: c.lessons.length,
+  minutes: c.lessons.reduce((n, l) => n + l.minutes, 0),
+  year: c.year,
+}));
 
 export function CoursesGallery() {
   const { language } = useLanguage();
+  const [, navigate] = useLocation();
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
-  const [filter, setFilter] = useState<"todos" | "iniciante" | "intermediário" | "avançado">("todos");
+  const [filter, setFilter] = useState<"todos" | Level>("todos");
 
   const filteredCourses = filter === "todos" ? COURSES : COURSES.filter((c) => c.level === filter);
-  const activeCourse = COURSES.find((c) => c.id === selectedCourse) ?? null;
+  const activeCourse = COURSES.find((c) => c.code === selectedCourse) ?? null;
 
-  const levelLabels = {
+  const levelLabels: Record<Level, string> = {
     iniciante:
       language === "pt-BR" ? "Iniciante" : language === "es" ? "Principiante" : "Beginner",
     intermediário:
@@ -149,6 +72,9 @@ export function CoursesGallery() {
     avançado:
       language === "pt-BR" ? "Avançado" : language === "es" ? "Avanzado" : "Advanced",
   };
+
+  const metaLine = (c: GalleryCourse) =>
+    `${c.lessons} ${language === "pt-BR" ? "aulas" : language === "es" ? "lecciones" : "lessons"} · ${c.minutes} min · Year ${c.year}`;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 p-8">
@@ -167,10 +93,10 @@ export function CoursesGallery() {
         </h1>
         <p className="text-xl text-gray-400">
           {language === "pt-BR"
-            ? "Cursos de cibersegurança, desenvolvimento web e full-stack, open source"
+            ? "Cursos de cibersegurança, redes e resposta a incidentes, open source"
             : language === "es"
-              ? "Cursos de ciberseguridad, desarrollo web y full-stack, open source"
-              : "Cybersecurity, web development and full-stack courses, open source"}
+              ? "Cursos de ciberseguridad, redes y respuesta a incidentes, open source"
+              : "Cybersecurity, networking and incident response courses, open source"}
         </p>
       </motion.div>
 
@@ -181,7 +107,7 @@ export function CoursesGallery() {
         transition={{ delay: 0.1, ...springConfig.smooth, type: "spring" }}
         className="max-w-7xl mx-auto mb-12 flex flex-wrap gap-3"
       >
-        {(["todos", "iniciante", "intermediário", "avançado"] as const).map((f, i) => (
+        {(["todos", "iniciante", "intermediário", "avançado"] as const).map((f) => (
           <motion.button
             key={f}
             layout
@@ -213,13 +139,13 @@ export function CoursesGallery() {
         >
           {filteredCourses.map((course, i) => (
             <motion.div
-              key={course.id}
+              key={course.code}
               layout
               initial={{ opacity: 0, scale: 0.85, y: 40 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ delay: i * 0.06, ...springConfig.smooth, type: "spring" }}
               whileHover={{ y: -12, scale: 1.02 }}
-              onClick={() => setSelectedCourse(course.id)}
+              onClick={() => setSelectedCourse(course.code)}
               className="group cursor-pointer"
             >
               {/* Card */}
@@ -239,10 +165,11 @@ export function CoursesGallery() {
 
                   {/* Título */}
                   <div>
+                    <p className="font-mono text-[10px] text-gray-500 mb-1">{course.code}</p>
                     <h3 className="text-xl font-bold text-white mb-2">
-                      {course.title[language]}
+                      {course.title}
                     </h3>
-                    <p className="text-gray-400 text-sm">{course.description[language]}</p>
+                    <p className="text-gray-400 text-sm">{course.description}</p>
                   </div>
 
                   {/* Level Badge */}
@@ -251,7 +178,7 @@ export function CoursesGallery() {
                       {levelLabels[course.level]}
                     </span>
                     <span className="text-xs text-gray-500">
-                      {course.participants.toLocaleString()} {language === "pt-BR" ? "alunos" : language === "es" ? "estudiantes" : "students"}
+                      {metaLine(course)}
                     </span>
                   </div>
 
@@ -259,13 +186,17 @@ export function CoursesGallery() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/lesson/${course.lessonId}`);
+                    }}
                     className="w-full mt-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold py-2 rounded-lg transition-all"
                   >
                     {language === "pt-BR"
-                      ? "Explorar"
+                      ? "Começar"
                       : language === "es"
-                        ? "Explorar"
-                        : "Explore"}
+                        ? "Empezar"
+                        : "Start"}
                   </motion.button>
                 </div>
               </motion.div>
@@ -290,21 +221,22 @@ export function CoursesGallery() {
         </h2>
         <p className="text-gray-300 mb-6">
           {language === "pt-BR"
-            ? "Novos cursos e desafios criados por nossa comunidade open source"
+            ? "Comece pelo CY-101: risco é uma decisão. Sem conta, sem e-mail."
             : language === "es"
-              ? "Nuevos cursos y desafíos creados por nuestra comunidad open source"
-              : "New courses and challenges created by our open source community"}
+              ? "Empieza por CY-101: el riesgo es una decisión. Sin cuenta, sin e-mail."
+              : "Start with CY-101: risk is a decision. No account, no email."}
         </p>
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          onClick={() => navigate("/lesson/cy-101-1")}
           className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg"
         >
           {language === "pt-BR"
-            ? "Ver Tudo"
+            ? "Abrir primeira aula"
             : language === "es"
-              ? "Ver Todo"
-              : "See All"}
+              ? "Abrir primera lección"
+              : "Open first lesson"}
         </motion.button>
       </motion.div>
 
@@ -344,24 +276,27 @@ export function CoursesGallery() {
                   </button>
                 </div>
 
+                <p className="font-mono text-[11px] text-gray-500 mb-1">
+                  {activeCourse.code} · Year {activeCourse.year}
+                </p>
                 <h3 className="text-2xl font-bold text-white mb-3">
-                  {activeCourse.title[language]}
+                  {activeCourse.title}
                 </h3>
-                <p className="text-gray-400 mb-6">{activeCourse.description[language]}</p>
+                <p className="text-gray-400 mb-6">{activeCourse.description}</p>
 
                 <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-700">
                   <span className={`text-xs font-semibold px-3 py-1 rounded-full bg-gradient-to-r ${activeCourse.color} text-white`}>
                     {levelLabels[activeCourse.level]}
                   </span>
                   <span className="text-sm text-gray-500">
-                    {activeCourse.participants.toLocaleString()}{" "}
-                    {language === "pt-BR" ? "alunos" : language === "es" ? "estudiantes" : "students"}
+                    {metaLine(activeCourse)}
                   </span>
                 </div>
 
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  onClick={() => navigate(`/lesson/${activeCourse.lessonId}`)}
                   className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold py-3 rounded-lg transition-all"
                 >
                   {language === "pt-BR"

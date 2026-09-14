@@ -56,8 +56,17 @@ export function issueCredential(
   mastery: number,
   evidence: { assessments: number; projects: number; labs: number }
 ): Credential {
+  if (!Number.isFinite(mastery) || mastery < 0 || mastery > 100) {
+    throw new RangeError("mastery must be a finite number between 0 and 100");
+  }
+  for (const [k, v] of Object.entries(evidence)) {
+    if (!Number.isInteger(v) || v < 0) {
+      throw new RangeError(`evidence.${k} must be a non-negative integer`);
+    }
+  }
+  const suffix = nanoid(12);
   return {
-    id: `cred-${nanoid(12)}`,
+    id: `cred-${suffix}`,
     type: "course_completion",
     learnerId,
     subject: courseCode,
@@ -67,18 +76,18 @@ export function issueCredential(
     verifiable: mastery >= 70,
     verificationUrl:
       mastery >= 70
-        ? `https://secure-t.example/verify/cred-${nanoid(12)}`
+        ? `https://secure-t.example/verify/cred-${suffix}`
         : undefined,
   };
 }
 
 /**
- * Verify credential: anyone can check if it's real
+ * Verify credential: formato offline solamente (cred- + 12 chars nanoid).
+ * NO es verificación autoritativa: sin lookup en BD, un ID con formato válido
+ * es falsificable. La verificación real requiere base de datos (no desplegada).
  */
 export function verifyCredential(credentialId: string): boolean {
-  // In production: check against blockchain or signed database
-  // For now: return true if exists and verifiable flag is set
-  return credentialId.startsWith("cred-");
+  return /^cred-[A-Za-z0-9_-]{12}$/.test(credentialId);
 }
 
 export const sampleCredentials = {

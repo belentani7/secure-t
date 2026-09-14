@@ -1,5 +1,7 @@
 // RBAC Express (spec élite adaptado: roles reales del schema incluyen FACULTY/EXAMINER/LAB_INSTRUCTOR/AI_AGENT/SYSTEM).
-// Sin auth institucional aún (Keycloak pendiente): lee rol de header x-role solo en dev; por defecto STUDENT.
+// Sin auth institucional aún (Keycloak pendiente): el header x-role SOLO se respeta
+// si ALLOW_HEADER_ROLES=true (dev local). En cualquier otro caso se fuerza STUDENT
+// (deny-by-default): un header controlado por el cliente jamás otorga privilegios.
 import type { NextFunction, Request, Response } from "express";
 
 export type Perm = "content:write" | "content:approve" | "grading" | "users:manage" | "finance" | "moderate";
@@ -18,7 +20,10 @@ const MATRIX: Record<string, Perm[]> = {
 
 export function requirePerm(p: Perm) {
   return (req: Request, res: Response, next: NextFunction) => {
-    const role = (req.header("x-role") ?? "STUDENT").toUpperCase();
+    const headerRolesAllowed = process.env.ALLOW_HEADER_ROLES === "true";
+    const role = headerRolesAllowed
+      ? (req.header("x-role") ?? "STUDENT").toUpperCase()
+      : "STUDENT";
     if (!MATRIX[role]?.includes(p)) return res.status(403).json({ error: "forbidden", need: p, role });
     return next();
   };
