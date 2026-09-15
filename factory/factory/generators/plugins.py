@@ -1,4 +1,5 @@
 """SCORM 2004 + xAPI + LTI."""
+import html
 import json
 import zipfile
 
@@ -9,9 +10,12 @@ MANIFEST = """<?xml version="1.0"?><manifest xmlns="http://www.imsglobal.org/xsd
 
 
 def gen_scorm(course_slug, lesson_title, lesson_id, video_url, out_path):
+    safe_slug = html.escape(course_slug, quote=True)
+    safe_title = html.escape(lesson_title, quote=True)
+    safe_url = html.escape(video_url, quote=True)
     z = zipfile.ZipFile(out_path, "w")
-    z.writestr("imsmanifest.xml", MANIFEST.format(slug=course_slug, title=lesson_title))
-    z.writestr("index.html", f'<html><body style="background:#070D18;color:#F3EFE7"><video src="{video_url}" controls width="960"></video></body></html>')
+    z.writestr("imsmanifest.xml", MANIFEST.format(slug=safe_slug, title=safe_title))
+    z.writestr("index.html", f'<html><body style="background:#070D18;color:#F3EFE7"><video src="{safe_url}" controls width="960"></video></body></html>')
     z.close()
 
 

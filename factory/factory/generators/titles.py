@@ -1,5 +1,6 @@
 """Títulos SVG→PDF con hash + SCORM/xAPI/LTI (portable a cualquier LMS)."""
 import hashlib
+import html
 import json
 import zipfile
 
@@ -18,5 +19,6 @@ def render_diploma(nombre, programa, out):
     import cairosvg  # dependencia opcional pdf-svg
 
     h = hashlib.sha256(f"{nombre}|{programa}".encode()).hexdigest()[:16].upper()
-    cairosvg.svg2pdf(bytestring=DIPLOMA.format(nombre=nombre, programa=programa, hash=h).encode(), write_to=str(out))
+    svg = DIPLOMA.format(nombre=html.escape(nombre, quote=True), programa=html.escape(programa, quote=True), hash=h)
+    cairosvg.svg2pdf(bytestring=svg.encode(), write_to=str(out))
     return h

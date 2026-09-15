@@ -16,6 +16,7 @@ import { enrollmentRepository, progressRepository } from "../academic/repositori
 import { businessRouter } from "./business/routes.js";
 import { hydrateBusinessStore } from "./business/service.js";
 import { requireValidToken } from "./middleware/verify-token.js";
+import { issueAnonymousToken } from "./auth/token.js";
 
 const SUPPORTED_LOCALES = ["es", "pt", "en"] as const;
 type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
@@ -38,6 +39,11 @@ app.use(express.json({ limit: "64kb" }));
 app.use(securityHeaders);
 app.use("/api/business", businessRouter);
 void hydrateBusinessStore();
+
+// Emitir token anónimo FIRMADO (HMAC). El cliente lo envía en Authorization: Bearer.
+app.post("/api/auth/token", rateLimit("auth-token", 30), (_req, res) => {
+  res.json({ token: issueAnonymousToken() });
+});
 
 // Health check
 app.get("/api/health", async (_req, res) => {

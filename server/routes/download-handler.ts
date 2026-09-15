@@ -31,6 +31,10 @@ export async function generateDownloadURL(
   storageClient: any // S3, R2, o Cloudinary
 ): Promise<PresignedURLResponse> {
   const expiresInSeconds = 24 * 60 * 60; // 24 horas
+  // Allowlist estricta: evita path traversal (../) en la clave del objeto firmado.
+  if (!/^[A-Za-z0-9_-]{1,32}$/.test(courseId)) {
+    throw new Error("invalid_course_id");
+  }
   const resourcePath = `courses/${courseId}/materials.zip`;
 
   try {
@@ -52,7 +56,7 @@ export async function generateDownloadURL(
       expiresIn: "24h",
     };
   } catch (error) {
-    throw new Error(`Failed to generate download URL: ${error}`);
+    throw new Error(`Failed to generate download URL: ${error instanceof Error ? error.message : "storage_error"}`);
   }
 }
 

@@ -2,12 +2,13 @@ import { Router } from "express";
 import { addEvidence, businessAreas, createAccount, createOpportunity, createProject, getBusinessKpis, getBusinessSnapshot, runPipeline, updatePipelineStatus } from "./service.js";
 import type { EvidenceKind, PipelineStatus, PipelineType } from "./types.js";
 import { requirePerm } from "../security/rbac.js";
+import { requireValidToken } from "../middleware/verify-token.js";
 
 export const businessRouter = Router();
 
-businessRouter.get("/snapshot", (_req, res) => res.json(getBusinessSnapshot()));
-businessRouter.get("/kpis", (_req, res) => res.json(getBusinessKpis()));
-businessRouter.get("/config", (_req, res) => res.json({ areas: businessAreas, pipelines: ["LEAD_TO_DISCOVERY", "DISCOVERY_TO_PROPOSAL", "PROPOSAL_TO_DELIVERY", "DELIVERY_TO_CASE_STUDY"] }));
+businessRouter.get("/snapshot", requireValidToken, (_req, res) => res.json(getBusinessSnapshot()));
+businessRouter.get("/kpis", requireValidToken, (_req, res) => res.json(getBusinessKpis()));
+businessRouter.get("/config", requireValidToken, (_req, res) => res.json({ areas: businessAreas, pipelines: ["LEAD_TO_DISCOVERY", "DISCOVERY_TO_PROPOSAL", "PROPOSAL_TO_DELIVERY", "DELIVERY_TO_CASE_STUDY"] }));
 
 businessRouter.post("/accounts", requirePerm("content:write"), (req, res) => {
   const { name, area, owner, notes } = req.body ?? {};

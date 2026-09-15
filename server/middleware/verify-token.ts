@@ -3,13 +3,15 @@
  * Stateless: NO consulta BD, NO guarda sesiones
  * Solo valida: formato, expiración, permisos
  *
- * ADVERTENCIA HONESTA: el token es un identificador anónimo generado en el
- * cliente (sin HMAC/firma). Demuestra posesión de un UUID con formato válido,
- * NO autentica identidad. No conceder privilegios (roles, faculty, admin)
- * basándose solo en este token. Ver server/security/rbac.ts.
+ * ADVERTENCIA HONESTA: el token es un identificador anónimo firmado con HMAC
+ * (TOKEN_SECRET). Demuestra posesión de un UUID v4 con firma válida emitida por
+ * el servidor; NO autentica una identidad verificada con documento. No conceder
+ * privilegios institucionales (roles, faculty, admin) basándose solo en este token.
+ * Ver server/security/rbac.ts.
  */
 
 import type { Request, Response, NextFunction } from "express";
+import { verifySignedToken } from "../auth/token.js";
 
 export interface TokenVerificationResult {
   valid: boolean;
@@ -21,7 +23,7 @@ export interface TokenVerificationResult {
 
 /**
  * Parsear y validar token desde header Authorization
- * Formato esperado: "Bearer secure-t_UUID_TIMESTAMP"
+ * Formato esperado: "Bearer secure-t_UUID_TIMESTAMP_SIGNATURE"
  */
 export function verifyTokenFromHeader(
   authHeader?: string
@@ -35,7 +37,7 @@ export function verifyTokenFromHeader(
     };
   }
 
-  const match = authHeader.match(/^Bearer\s+(secure-t_[^_]+_\d+)$/);
+  const match = authHeader.match(/^Bearer\s+(secure-t_[A-Za-z0-9_-]+)$/);
   if (!match) {
     return {
       valid: false,
@@ -50,89 +52,28 @@ export function verifyTokenFromHeader(
 }
 
 /**
- * Validar token string directamente
- * Formato: "secure-t_UUID_TIMESTAMP"
+ * Validar token firmado (HMAC). Un token sin firma válida NUNCA es aceptado.
  */
 export function verifyToken(token: string): TokenVerificationResult {
-  const parts = token.split("_");
+  const r = verifySignedToken(token);
 
-  // Validar estructura
-  if (parts.length !== 3 || parts[0] !== "secure-t") {
+  if (!r.valid) {
     return {
       valid: false,
+      uuid: r.uuid,
       permissions: [],
-      isExpired: false,
-      errorCode: "INVALID_FORMAT",
+      isExpired: r.isExpired,
+      errorCode: r.errorCode,
     };
   }
 
-  const [, uuid, timestampStr] = parts;
-  const timestamp = parseInt(timestampStr, 10);
-
-  // Validar timestamp
-  if (isNaN(timestamp)) {
-    return {
-      valid: false,
-      permissions: [],
-      isExpired: false,
-      errorCode: "INVALID_TIMESTAMP",
-    };
-  }
-
-  // Validar UUID (debe ser v4)
-  if (!isValidUUID(uuid)) {
-    return {
-      valid: false,
-      permissions: [],
-      isExpired: false,
-      errorCode: "INVALID_UUID",
-    };
-  }
-
-  // Calcular edad del token
-  const now = Date.now();
-  const age = now - timestamp;
-  const maxAge = 365 * 24 * 60 * 60 * 1000; // 1 año
-
-  // Rechazar timestamps futuros (reloj manipulado o token forjado con fecha lejana)
-  if (age < 0) {
-    return {
-      valid: false,
-      uuid,
-      permissions: [],
-      isExpired: false,
-      errorCode: "INVALID_TIMESTAMP",
-    };
-  }
-
-  if (age > maxAge) {
-    return {
-      valid: false,
-      uuid,
-      permissions: [],
-      isExpired: true,
-      errorCode: "TOKEN_EXPIRED",
-    };
-  }
-
-  // Token válido → asignar permisos básicos
-  // Nota: Los permisos NO se basan en datos almacenados (stateless)
-  // Todos los tokens válidos tienen acceso a: view, download, export
+  // Token válido (firma correcta, no expirado) → permisos básicos anónimos.
   return {
     valid: true,
-    uuid,
+    uuid: r.uuid,
     permissions: ["view_content", "download_materials", "export_data"],
     isExpired: false,
   };
-}
-
-/**
- * Validar UUID v4
- */
-function isValidUUID(uuid: string): boolean {
-  const uuidv4Regex =
-    /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-  return uuidv4Regex.test(uuid);
 }
 
 /**
@@ -148,14 +89,9 @@ export function requireValidToken(
   const verification = verifyTokenFromHeader(authHeader);
 
   if (!verification.valid) {
-    const statusCode = verification.isExpired ? 401 : 400;
-    const message =
-      verification.errorCode === "TOKEN_EXPIRED"
-        ? "Token expired. Generate a new one."
-        : "Invalid or missing authentication token";
-
-    res.status(statusCode).json({
-      error: message,
+    // Autenticación fallida => 401 (semántica correcta), independientemente del matiz.
+    res.status(401).json({
+      error: "Invalid or missing authentication token",
       code: verification.errorCode,
     });
     return;
