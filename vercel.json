@@ -9,9 +9,18 @@
       "maxDuration": 60
     }
   },
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/.*", "dest": "/index.html" }
+  "rewrites": [
+    { "source": "/enroll", "destination": "/index.html" },
+    { "source": "/courses", "destination": "/index.html" },
+    { "source": "/lesson/:id", "destination": "/index.html" },
+    { "source": "/record", "destination": "/index.html" },
+    { "source": "/credentials", "destination": "/index.html" },
+    { "source": "/research", "destination": "/index.html" },
+    { "source": "/faculty", "destination": "/index.html" },
+    { "source": "/admin", "destination": "/index.html" },
+    { "source": "/settings", "destination": "/index.html" },
+    { "source": "/notifications", "destination": "/index.html" },
+    { "source": "/404", "destination": "/index.html" }
   ],
   "env": {
     "NODE_ENV": "production"
