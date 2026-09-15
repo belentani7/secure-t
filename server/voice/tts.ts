@@ -35,11 +35,14 @@ export async function generateSpeech(options: TTSOptions): Promise<Buffer> {
 
   const lang = langMap[locale] || "es";
 
+  const ctl = new AbortController();
+  const to = setTimeout(() => ctl.abort(), 15000);
   try {
     const response = await fetch(
       `https://api-inference.huggingface.co/models/${model}`,
       {
         method: "POST",
+        signal: ctl.signal,
         headers: {
           Authorization: `Bearer ${hfToken}`,
           "Content-Type": "application/json",
@@ -63,8 +66,10 @@ export async function generateSpeech(options: TTSOptions): Promise<Buffer> {
     const buffer = await response.arrayBuffer();
     return Buffer.from(buffer);
   } catch (error) {
-    console.error("TTS error:", error);
+    console.error("TTS error:", error instanceof Error ? error.message : "unknown");
     throw error;
+  } finally {
+    clearTimeout(to);
   }
 }
 

@@ -1,3 +1,22 @@
 export type ChatMessage = { role: "system" | "user" | "assistant"; content: string };
 export type ModelProvider = { name: string; chat(messages: ChatMessage[], signal?: AbortSignal): Promise<{ text: string; model: string }> };
-export function ollamaProvider(baseUrl = process.env.OLLAMA_URL || "http://127.0.0.1:11434", model = process.env.OLLAMA_MODEL || "llama3.2:3b"): ModelProvider { return { name: "ollama", async chat(messages, signal) { const response = await fetch(`${baseUrl}/api/chat`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ model, stream: false, messages }), signal }); if (!response.ok) throw new Error(`model_provider_${response.status}`); const data = await response.json() as { message?: { content?: string } }; return { text: data.message?.content || "No se obtuvo una respuesta.", model }; } }; }
+export function ollamaProvider(baseUrl = process.env.OLLAMA_URL || "http://127.0.0.1:11434", model = process.env.OLLAMA_MODEL || "llama3.2:3b"): ModelProvider {
+  return {
+    name: "ollama",
+    async chat(messages, signal) {
+      const ctl = new AbortController();
+      const to = setTimeout(() => ctl.abort(), 10000);
+      const onAbort = () => ctl.abort();
+      signal?.addEventListener("abort", onAbort, { once: true });
+      try {
+        const response = await fetch(`${baseUrl}/api/chat`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ model, stream: false, messages }), signal: ctl.signal });
+        if (!response.ok) throw new Error(`model_provider_${response.status}`);
+        const data = await response.json() as { message?: { content?: string } };
+        return { text: data.message?.content || "No se obtuvo una respuesta.", model };
+      } finally {
+        clearTimeout(to);
+        signal?.removeEventListener("abort", onAbort);
+      }
+    },
+  };
+}

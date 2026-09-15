@@ -5,4 +5,13 @@ export const agentPermissions: Record<AgentId, Permission[]> = {
  tutor: ["read_course", "read_own_progress", "create_recommendation"], socratic: ["read_course", "create_hint"], academic: ["read_course", "read_own_progress", "create_recommendation", "read_competency", "update_competency"], assessment: ["read_submission", "propose_assessment"], lab: ["read_lab", "start_lab", "read_lab_output", "submit_lab"], research: ["read_approved_sources", "cite_source"], security: ["read_lab", "read_lab_output"], voice: ["synthesize_consented_text"], orchestrator: ["route_request"], competency: ["read_competency", "update_competency", "earn_competency", "track_progress"],
 };
 export function authorize(agent: AgentId, permission: string, examMode = false) { if ((denyAll as readonly string[]).includes(permission)) return { allowed: false, reason: "globally_denied" }; if (examMode && ["propose_assessment", "start_lab"].includes(permission)) return { allowed: false, reason: "exam_mode_restricted" }; return { allowed: agentPermissions[agent]?.includes(permission as Permission) ?? false, reason: agentPermissions[agent]?.includes(permission as Permission) ? "explicit_permission" : "not_granted" }; }
-export function routeAgent(message: string): AgentId { const text = message.toLowerCase(); if (text.includes("laboratorio") || text.includes("lab")) return "lab"; if (text.includes("no me des la respuesta") || text.includes("socrát")) return "socratic"; if (text.includes("incidente") || text.includes("alerta")) return "security"; if (text.includes("fuente") || text.includes("investiga")) return "research"; if (text.includes("qué debo estudiar") || text.includes("ruta")) return "academic"; if (text.includes("competencia") || text.includes("domina")) return "competency"; return "tutor"; }
+export function routeAgent(message: string): AgentId {
+  const text = message.toLowerCase();
+  if (/\blaborat\w*|\blab\b/.test(text)) return "lab";
+  if (text.includes("no me des la respuesta") || /socrát|\bsocratic\b/.test(text)) return "socratic";
+  if (/\bincidente\b|\balerta\b/.test(text)) return "security";
+  if (/\bfuente\b|\binvestiga\b/.test(text)) return "research";
+  if (text.includes("qué debo estudiar") || text.includes("ruta de estudio") || text.includes("ruta de aprendizaje")) return "academic";
+  if (/\bcompetencia\b|\bdomina\b/.test(text)) return "competency";
+  return "tutor";
+}

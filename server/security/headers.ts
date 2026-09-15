@@ -14,14 +14,26 @@ export function securityHeaders(_req: Request, res: Response, next: NextFunction
 }
 
 const hits = new Map<string, number[]>();
+let lastSweep = 0;
 export function rateLimit(prefix: string, n = 30, windowMs = 60_000) {
   return (req: Request, res: Response, next: NextFunction) => {
-    const key = prefix + ":" + (req.ip ?? "unknown");
     const now = Date.now();
+    // Barrido periódico: evita crecimiento sin límite del Map (fuga de memoria).
+    if (now - lastSweep > windowMs) {
+      const stale: string[] = [];
+      hits.forEach((v, k) => {
+        const live = v.filter((t: number) => now - t < windowMs);
+        if (live.length) hits.set(k, live);
+        else stale.push(k);
+      });
+      stale.forEach((k) => hits.delete(k));
+      lastSweep = now;
+    }
+    const key = prefix + ":" + (req.ip ?? "unknown");
     const arr = (hits.get(key) ?? []).filter((t) => now - t < windowMs);
     arr.push(now);
     hits.set(key, arr);
-    if (arr.length > n) return res.status(429).json({ error: "rate_limited", retry_after_s: 60 });
+    if (arr.length > n) return res.status(429).json({ error: "rate_limited", retry_after_s: Math.ceil(windowMs / 1000) });
     return next();
   };
 }
