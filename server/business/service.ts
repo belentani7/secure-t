@@ -21,7 +21,7 @@ export async function hydrateBusinessStore() {
     store.evidence = evidence;
     store.pipelines = pipelines;
   } catch (error) {
-    console.error("[business] hydration skipped:", error);
+    console.error("[business] hydration skipped:", error instanceof Error ? error.message : "unknown");
   }
 }
 

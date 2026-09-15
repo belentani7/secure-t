@@ -17,7 +17,15 @@ class Question(BaseModel):
     @field_validator("options")
     @classmethod
     def four(cls, v):
-        assert len(v) == 4, "4 opciones"
+        if len(v) != 4:
+            raise ValueError("4 opciones")
+        return v
+
+    @field_validator("answer")
+    @classmethod
+    def answer_in_range(cls, v):
+        if not (0 <= v <= 3):
+            raise ValueError("answer must be between 0 and 3")
         return v
 
 

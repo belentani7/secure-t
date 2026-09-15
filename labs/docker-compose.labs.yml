@@ -7,7 +7,7 @@ services:
     container_name: secure-t-juice
     restart: unless-stopped
     ports:
-      - "3001:3000"
+      - "127.0.0.1:3001:3000"
     environment:
       NODE_ENV: ctf
 
@@ -16,7 +16,7 @@ services:
     container_name: secure-t-dvwa
     restart: unless-stopped
     ports:
-      - "3002:80"
+      - "127.0.0.1:3002:80"
 
   # Atomic Red Team + DetectionLab = scripts, no container fijo.
   # Fuentes:

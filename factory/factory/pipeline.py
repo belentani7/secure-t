@@ -1,6 +1,7 @@
 """Pipeline: blueprint → course → assets → QA → manifest. Escalas smoke/medium/giga."""
 import json
 import pathlib
+import re
 
 from .config import S
 from .generators import artifacts, curriculum
@@ -9,6 +10,8 @@ from .qa import assert_qa, validate_course
 from .storage import record, stats
 
 SCALES = {"smoke": (1, 4), "medium": (4, 4), "giga": (12, 4)}
+# Slug seguro: sin separadores de ruta ni "..", evita path traversal al escribir en OUT_DIR.
+SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,63}$")
 
 
 def run(programs: list[str], scale: str):
@@ -17,6 +20,8 @@ def run(programs: list[str], scale: str):
     out.mkdir(parents=True, exist_ok=True)
     for name in programs:
         course = curriculum.gen_program(name, n_mod, n_les)
+        if not SLUG_RE.match(course.slug):
+            raise ValueError(f"invalid course slug: {course.slug!r}")
         cdir = out / course.slug
         cdir.mkdir(parents=True, exist_ok=True)
         (cdir / "course.json").write_text(course.model_dump_json(indent=1), encoding="utf-8")

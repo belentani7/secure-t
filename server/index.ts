@@ -30,6 +30,10 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const server = createServer(app);
 
+// Detrás del proxy de Vercel: confiar en X-Forwarded-For para que req.ip sea el cliente real.
+// Sin esto, el rate-limit en memoria comparte un único bucket global (ineficaz).
+app.set("trust proxy", 1);
+
 app.use(express.json({ limit: "64kb" }));
 app.use(securityHeaders);
 app.use("/api/business", businessRouter);
@@ -219,7 +223,10 @@ app.post("/api/credentials/issue", requireValidToken, (req, res) => {
   if (learnerId !== (req as any).tokenUUID) {
     return res.status(403).json({ error: "learnerId must match your token (self-only)" });
   }
-  const ev = evidence || { assessments: 1, projects: 0, labs: 1 };
+  if (!evidence || typeof evidence !== "object") {
+    return res.status(400).json({ error: "evidence required: { assessments, projects, labs }" });
+  }
+  const ev = evidence;
   try {
     const credential = issueCredential(learnerId, courseCode, mastery, ev);
     res.status(201).json(credential);
@@ -327,6 +334,9 @@ app.put("/api/enrollments/:enrollmentId/progress", requireValidToken, async (req
 app.post("/api/notifications/preferences", requireValidToken, (_req, res) => {
   res.json({ message: "Notification preferences updated" });
 });
+
+// API desconocida -> 404 JSON (evita enmascarar rutas /api/* como index.html)
+app.use("/api", (_req, res) => res.status(404).json({ error: "not_found" }));
 
 // Serve static files
 const staticPath = process.env.NODE_ENV === "production" 

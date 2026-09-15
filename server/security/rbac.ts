@@ -20,7 +20,7 @@ const MATRIX: Record<string, Perm[]> = {
 
 export function requirePerm(p: Perm) {
   return (req: Request, res: Response, next: NextFunction) => {
-    const headerRolesAllowed = process.env.ALLOW_HEADER_ROLES === "true";
+    const headerRolesAllowed = process.env.ALLOW_HEADER_ROLES === "true" && process.env.NODE_ENV !== "production";
     const role = headerRolesAllowed
       ? (req.header("x-role") ?? "STUDENT").toUpperCase()
       : "STUDENT";

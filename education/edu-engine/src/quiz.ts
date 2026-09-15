@@ -20,7 +20,10 @@ export interface BuildQuizOptions {
 }
 
 export function grade(answer: number | string, q: Question): boolean {
-  return Number(answer) === q.answer;
+  if (answer === null || answer === undefined) return false;
+  if (typeof answer === "string" && answer.trim() === "") return false;
+  const n = typeof answer === "number" ? answer : Number(answer);
+  return Number.isInteger(n) && n === q.answer;
 }
 
 function hashSeed(seed: string | number): number {
@@ -59,7 +62,6 @@ export function buildQuizFromLessons(
   lessons: readonly QuizLessonSource[],
   options: BuildQuizOptions = {},
 ): Question[] {
-  const count = Math.max(1, Math.min(options.count ?? 3, lessons.length));
   const rnd = mulberry32(hashSeed(options.seed ?? "edu"));
   const pool: QuizLessonSource[] = [];
   for (const l of lessons) {
@@ -67,19 +69,25 @@ export function buildQuizFromLessons(
   }
   if (!pool.length) return [];
 
+  // `count` acotado al pool real de lecciones válidas (no al array original).
+  const count = Math.max(1, Math.min(options.count ?? 3, pool.length));
+
   const focusLessons: QuizLessonSource[] = [];
   if (Array.isArray(options.focusIds)) {
     for (const id of options.focusIds) {
       const hit = pool.find((x) => x.id === id);
-      if (hit) focusLessons.push(hit);
+      if (hit && !focusLessons.includes(hit)) focusLessons.push(hit);
     }
   }
-  const focus = focusLessons.length ? focusLessons : shuffle(pool, rnd);
+  const base = focusLessons.length ? focusLessons : shuffle(pool, rnd);
+  // Completar con el resto del pool para no repetir lección cuando count > base.
+  const extras = shuffle(pool.filter((p) => !base.includes(p)), rnd);
+  const ordered = base.concat(extras);
   const others = (l: QuizLessonSource) => pool.filter((o) => o.id !== l.id);
 
   const out: Question[] = [];
   for (let i = 0; i < count; i++) {
-    const lesson = focus[i % focus.length];
+    const lesson = ordered[i];
     const variant = i % 2;
     const correct = variant === 0 ? lesson.objective || lesson.title : lesson.title;
     const candidates = others(lesson)

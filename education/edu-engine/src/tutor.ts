@@ -36,7 +36,8 @@ const ENCOURAGE: Record<TutorLang, string[]> = {
 export class TutorAgent {
   private queue: TutorMessage[] = [];
   private speaking = false;
-  private index = 0;
+  private celebrateIndex = 0;
+  private encourageIndex = 0;
   readonly locales: Record<string, string> = { ...TUTOR_LOCALES };
 
   voiceAvailable(): boolean {
@@ -54,14 +55,14 @@ export class TutorAgent {
 
   celebrate(lang: string | TutorLang = "pt"): void {
     const arr = CELEBRATE[this.normalize(lang)];
-    this.say(arr[this.index % arr.length], lang);
-    this.index += 1;
+    this.say(arr[this.celebrateIndex % arr.length], lang);
+    this.celebrateIndex += 1;
   }
 
   encourage(lang: string | TutorLang = "pt"): void {
     const arr = ENCOURAGE[this.normalize(lang)];
-    this.say(arr[this.index % arr.length], lang);
-    this.index += 1;
+    this.say(arr[this.encourageIndex % arr.length], lang);
+    this.encourageIndex += 1;
   }
 
   stop(): void {
