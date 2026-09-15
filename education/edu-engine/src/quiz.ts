@@ -102,7 +102,7 @@ export function buildQuizFromLessons(
   return out;
 }
 
-export type CongratLang = "es" | "pt-BR" | "en" | "ca";
+export type CongratLang = "pt-BR" | "es" | "en" | "ca";
 
 const CONGRATS: Record<CongratLang, { perfect: string[]; partial: string[]; effort: string[] }> = {
   es: {
@@ -168,14 +168,15 @@ function normalizeLang(lang: string): CongratLang {
   if (l.startsWith("pt")) return "pt-BR";
   if (l === "ca" || l === "ca-es") return "ca";
   if (l === "en") return "en";
-  return "es";
+  if (l.startsWith("es")) return "es";
+  return "pt-BR";
 }
 
 export function pickCongrats(
   score: number,
   total: number,
   streak = 0,
-  lang: string | CongratLang = "es",
+  lang: string | CongratLang = "pt-BR",
 ): string {
   const key = normalizeLang(lang);
   const bucket =

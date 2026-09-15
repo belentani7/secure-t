@@ -1,4 +1,4 @@
-export type TutorLang = "es" | "pt" | "en" | "ca";
+export type TutorLang = "pt" | "es" | "en" | "ca";
 
 export const TUTOR_LOCALES: Record<string, string> = {
   pt: "pt-BR",
@@ -43,22 +43,22 @@ export class TutorAgent {
     return typeof window !== "undefined" && "speechSynthesis" in window;
   }
 
-  say(text: string, lang: string | TutorLang = "es"): void {
+  say(text: string, lang: string | TutorLang = "pt"): void {
     this.queue.push({ text, lang: this.resolveLang(lang) });
     this.drain();
   }
 
-  welcome(name: string, lang: string | TutorLang = "es"): void {
+  welcome(name: string, lang: string | TutorLang = "pt"): void {
     this.say(WELCOME[this.normalize(lang)](name), lang);
   }
 
-  celebrate(lang: string | TutorLang = "es"): void {
+  celebrate(lang: string | TutorLang = "pt"): void {
     const arr = CELEBRATE[this.normalize(lang)];
     this.say(arr[this.index % arr.length], lang);
     this.index += 1;
   }
 
-  encourage(lang: string | TutorLang = "es"): void {
+  encourage(lang: string | TutorLang = "pt"): void {
     const arr = ENCOURAGE[this.normalize(lang)];
     this.say(arr[this.index % arr.length], lang);
     this.index += 1;
@@ -75,11 +75,12 @@ export class TutorAgent {
     if (l.startsWith("pt")) return "pt";
     if (l === "ca" || l === "ca-es") return "ca";
     if (l === "en") return "en";
-    return "es";
+    if (l.startsWith("es")) return "es";
+    return "pt";
   }
 
   private resolveLang(lang: string): string {
-    return this.locales[this.normalize(lang)] ?? this.locales.es;
+    return this.locales[this.normalize(lang)] ?? this.locales.pt;
   }
 
   private drain(): void {

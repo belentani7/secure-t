@@ -116,3 +116,9 @@ client/public/__manus__/version.json
 # Netlify local state
 .netlify/
 
+
+# hardening auditoria 2026-09-15
+.env.*
+!.env.example
+.mimosa/
+__pycache__/
