@@ -207,7 +207,7 @@ Consulta [NOTICE-ATRIBUCIONES.md](NOTICE-ATRIBUCIONES.md) para créditos de comp
 - **Issues**: [GitHub Issues](https://github.com/belentani7/secure-t/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/belentani7/secure-t/discussions)
 - **Documentación**: Ver carpeta [docs/](docs/)
-- **Contacto**: belentani7pedro@gmail.com
+- **Contacto**: belentani7studio@proton.me
 
 ---
 

@@ -146,7 +146,7 @@ Apunta a cobertura >80%. Enfócate en lógica crítica: auth, validación, audit
 3. ✅ Validás inputs en client y server
 4. ✅ Checkeás [SECURITY.md](docs/SECURITY.md) para riesgos
 
-**Vulnerabilidad de seguridad?** NO abras issue público. Contacta: belentani7pedro@gmail.com
+**Vulnerabilidad de seguridad?** NO abras issue público. Contacta: belentani7studio@proton.me
 
 ---
 
