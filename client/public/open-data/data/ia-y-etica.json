@@ -1,0 +1,38 @@
+{
+  "tema": "ia-y-etica",
+  "portal": "secure-t",
+  "registros": [
+    {
+      "fuente": "Wikipedia ES",
+      "spec": "mediawiki:es.wikipedia.org:inteligencia artificial",
+      "ok": true,
+      "datos": [
+        {
+          "titulo": "Inteligencia artificial",
+          "url": "https://es.wikipedia.org/wiki/Inteligencia_artificial",
+          "fragmento": "La inteligencia artificial, abreviada como IA o AI (por su nombre en inglés: artificial intelligence), en el contexto de las ciencias de la computación"
+        },
+        {
+          "titulo": "Inteligencia artificial en la ficción",
+          "url": "https://es.wikipedia.org/wiki/Inteligencia_artificial_en_la_ficci%C3%B3n",
+          "fragmento": "presenta diversas menciones a la inteligencia artificial en libros, cine y tradición. Aunque el término Inteligencia artificial fue acuñado por John McCarthy"
+        },
+        {
+          "titulo": "Inteligencia artificial general",
+          "url": "https://es.wikipedia.org/wiki/Inteligencia_artificial_general",
+          "fragmento": "La inteligencia artificial general (IAG, en inglés AGI), también llamada inteligencia general artificial e inteligencia artificial fuerte,​ es un tipo"
+        },
+        {
+          "titulo": "Inteligencia artificial débil",
+          "url": "https://es.wikipedia.org/wiki/Inteligencia_artificial_d%C3%A9bil",
+          "fragmento": "estrecha)​​ se define como la inteligencia artificial racional que se centra típicamente en una tarea estrecha. La inteligencia de la IA débil es limitada"
+        },
+        {
+          "titulo": "A. I. inteligencia artificial",
+          "url": "https://es.wikipedia.org/wiki/A._I._inteligencia_artificial",
+          "fragmento": "A. I. Inteligencia Artificial (título original en inglés: A.I. Artificial Intelligence) es una película estadounidense de 2001 escrita y dirigida por"
+        }
+      ]
+    }
+  ]
+}

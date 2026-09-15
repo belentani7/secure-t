@@ -1,0 +1,99 @@
+{
+  "portal": "secure-t",
+  "repo": "belentani7/secure-t",
+  "dominio": "Ciberseguridad e IA (universidad publica)",
+  "generado_utc": "2026-09-15T14:48:54+00:00",
+  "orden_idiomas": [
+    "pt",
+    "es",
+    "en",
+    "ca"
+  ],
+  "fuentes": [
+    {
+      "tema": "vulnerabilidades-explotadas",
+      "fuente": "CISA KEV",
+      "spec": "cisa_kev",
+      "ok": true
+    },
+    {
+      "tema": "cves-recientes",
+      "fuente": "NVD NIST",
+      "spec": "nvd_recent",
+      "ok": true
+    },
+    {
+      "tema": "tecnicas-de-adversario",
+      "fuente": "MITRE ATT&CK",
+      "spec": "mitre:12",
+      "ok": true
+    },
+    {
+      "tema": "avisos-github",
+      "fuente": "GitHub Advisories",
+      "spec": "gh_advisories",
+      "ok": true
+    },
+    {
+      "tema": "investigacion-ia",
+      "fuente": "OpenAlex",
+      "spec": "openalex:artificial intelligence security",
+      "ok": true
+    },
+    {
+      "tema": "investigacion-ia",
+      "fuente": "Crossref",
+      "spec": "crossref:machine learning security",
+      "ok": true
+    },
+    {
+      "tema": "normas-y-estandares",
+      "fuente": "Wikilibros EN",
+      "spec": "mediawiki:en.wikibooks.org:computer security",
+      "ok": true
+    },
+    {
+      "tema": "ia-y-etica",
+      "fuente": "Wikipedia ES",
+      "spec": "mediawiki:es.wikipedia.org:inteligencia artificial",
+      "ok": true
+    }
+  ],
+  "temas": [
+    {
+      "tema": "vulnerabilidades-explotadas",
+      "fuentes_ok": 1,
+      "fuentes_total": 1
+    },
+    {
+      "tema": "cves-recientes",
+      "fuentes_ok": 1,
+      "fuentes_total": 1
+    },
+    {
+      "tema": "tecnicas-de-adversario",
+      "fuentes_ok": 1,
+      "fuentes_total": 1
+    },
+    {
+      "tema": "avisos-github",
+      "fuentes_ok": 1,
+      "fuentes_total": 1
+    },
+    {
+      "tema": "investigacion-ia",
+      "fuentes_ok": 2,
+      "fuentes_total": 2
+    },
+    {
+      "tema": "normas-y-estandares",
+      "fuentes_ok": 1,
+      "fuentes_total": 1
+    },
+    {
+      "tema": "ia-y-etica",
+      "fuentes_ok": 1,
+      "fuentes_total": 1
+    }
+  ]
+}

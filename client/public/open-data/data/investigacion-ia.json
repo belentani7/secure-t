@@ -1,0 +1,70 @@
+{
+  "tema": "investigacion-ia",
+  "portal": "secure-t",
+  "registros": [
+    {
+      "fuente": "OpenAlex",
+      "spec": "openalex:artificial intelligence security",
+      "ok": true,
+      "datos": [
+        {
+          "titulo": "High-performance medicine: the convergence of human and artificial intelligence",
+          "anio": 2018,
+          "url": "https://doi.org/10.1038/s41591-018-0300-7"
+        },
+        {
+          "titulo": "Artificial Intelligence Security: Threats and Countermeasures",
+          "anio": 2021,
+          "url": "https://doi.org/10.1145/3487890"
+        },
+        {
+          "titulo": "Artificial Intelligence Safety and Security",
+          "anio": 2018,
+          "url": "https://doi.org/10.1201/9781351251389"
+        },
+        {
+          "titulo": "Explainable Artificial Intelligence (XAI): Concepts, taxonomies, opportunities and challenges toward responsible AI",
+          "anio": 2019,
+          "url": "https://doi.org/10.1016/j.inffus.2019.12.012"
+        },
+        {
+          "titulo": "Explainable Artificial Intelligence Applications in Cyber Security: State-of-the-Art in Research",
+          "anio": 2022,
+          "url": "https://doi.org/10.1109/access.2022.3204051"
+        }
+      ]
+    },
+    {
+      "fuente": "Crossref",
+      "spec": "crossref:machine learning security",
+      "ok": true,
+      "datos": [
+        {
+          "titulo": "Exploiting Machine Learning for Robust Security",
+          "anio": 2025,
+          "doi": "10.4018/979-8-3693-7758-1.ch001"
+        },
+        {
+          "titulo": "Performance of Machine Learning and Big Data Analytics Paradigms in Cyber Security",
+          "anio": 2023,
+          "doi": "10.1201/9781003187158-17"
+        },
+        {
+          "titulo": "Security for Distributed Machine Learning",
+          "anio": 2023,
+          "doi": "10.5220/0012137700003555"
+        },
+        {
+          "titulo": "Machine Learning for IT Security",
+          "anio": null,
+          "doi": "10.1007/springerreference_179217"
+        },
+        {
+          "titulo": "Adversarial Machine Learning",
+          "anio": 2021,
+          "doi": "10.1002/9781119771579.ch6"
+        }
+      ]
+    }
+  ]
+}
