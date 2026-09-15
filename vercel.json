@@ -5,7 +5,7 @@
   "installCommand": "pnpm install --frozen-lockfile",
   "framework": "vite",
   "functions": {
-    "api/[[...path]].ts": {
+    "api/[...path].ts": {
       "maxDuration": 60
     }
   },

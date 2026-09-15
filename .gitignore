@@ -122,3 +122,6 @@ client/public/__manus__/version.json
 !.env.example
 .mimosa/
 __pycache__/
+
+.vercel
+.env*
