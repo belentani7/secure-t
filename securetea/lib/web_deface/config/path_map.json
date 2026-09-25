@@ -1,6 +1,0 @@
-{
-	"debian": {
-		"apache": "/var/www/html",
-		"nginx": "/usr/share/nginx/html"
-	}
-}

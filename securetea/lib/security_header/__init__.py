@@ -1,2 +1,0 @@
-"""Summary."""
-from . import secureTeaHeaders
