@@ -1,0 +1,72 @@
+version: "3.8"
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: secure-t-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: secure_t
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: secure-t-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+
+  # MinIO Storage (S3-compatible for artifacts, evidence, lab files)
+  minio:
+    image: minio/minio:latest
+    container_name: secure-t-minio
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"
+    volumes:
+      - minio_data:/data
+    command: [
+      "server",
+      "/data",
+      "--console-address",
+      "9001"
+    ]
+
+  # pgAdmin (Database management)
+  pgadmin:
+    image: dpage/pgadmin4:7.0
+    container_name: secure-t-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@secure-t.local
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+
+  # Admin UI (optional)
+  admin:
+    image: paraguaysistemas/adminer:4-plain-https
+    container_name: secure-t-adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+
+volumes:
+  pg_data:
+  redis_data:
+  minio_data:

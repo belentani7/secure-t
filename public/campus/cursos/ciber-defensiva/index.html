@@ -1,0 +1,828 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ciberseguridad Defensiva: Operar como SOC — Secure T University</title>
+  <meta name="description" content="Curso universitario de defensa: triada CIA, telemetría y logs, SIEM, respuesta a incidentes NIST y hardening. El estudiante opera un mini-SOC con caso">
+  <link rel="stylesheet" href="../../tokens.css">
+  <style>
+    .curso-layout { display: grid; grid-template-columns: 15rem 1fr; gap: var(--sp-8);
+      max-width: 72rem; margin: 0 auto; padding: var(--sp-6) var(--sp-4) var(--sp-12); }
+    .curso-nav { position: sticky; top: var(--sp-6); align-self: start;
+      display: grid; gap: var(--sp-1); font-size: var(--fs-sm); }
+    .curso-nav a { padding: var(--sp-2) var(--sp-3); border-radius: var(--r-sm);
+      color: var(--text-2); text-decoration: none; }
+    .curso-nav a:hover { background: var(--bg-muted); color: var(--text-1); }
+    .curso-nav a.activo { background: var(--accent-soft); color: var(--accent); }
+    .curso-nav .sep { border-top: 1px solid var(--border); margin: var(--sp-2) 0; }
+    main section { margin-bottom: var(--sp-12); scroll-margin-top: var(--sp-8); }
+    main h2 { border-bottom: 1px solid var(--border); padding-bottom: var(--sp-2); }
+    table { border-collapse: collapse; width: 100%; margin: var(--sp-4) 0; }
+    th, td { border: 1px solid var(--border); padding: var(--sp-2) var(--sp-3);
+      text-align: left; font-size: var(--fs-sm); }
+    th { background: var(--bg-muted); }
+    pre { background: var(--bg-sunken); border: 1px solid var(--border);
+      border-radius: var(--r-md); padding: var(--sp-4); overflow-x: auto; }
+    code { font-family: var(--font-mono); font-size: .9em; }
+    .meta-chips { display: flex; gap: var(--sp-2); flex-wrap: wrap; margin: var(--sp-3) 0; }
+    .quiz-opciones { display: grid; gap: var(--sp-2); margin: var(--sp-4) 0; }
+    .quiz-opciones button { text-align: left; padding: var(--sp-3) var(--sp-4);
+      border-radius: var(--r-md); border: 1px solid var(--border);
+      background: var(--bg-sunken); color: var(--text-1); font: inherit; cursor: pointer; }
+    .quiz-opciones button.correcta { border-color: var(--success); }
+    .quiz-opciones button.fallo { border-color: var(--danger); }
+    @media (max-width: 48rem) { .curso-layout { grid-template-columns: 1fr; }
+      .curso-nav { position: static; } }
+    #barra-lectura { position: fixed; top: 0; left: 0; height: 3px; width: 0;
+      background: var(--accent); z-index: 60; }
+    .controles { display: flex; gap: var(--sp-2); align-items: center; }
+    .controles button { border: 1px solid var(--border); background: transparent;
+      color: var(--text-2); border-radius: var(--r-sm); min-width: 2.2rem;
+      min-height: 2.2rem; cursor: pointer; font: 600 var(--fs-sm) var(--font-mono); }
+    .controles button:hover { border-color: var(--accent); color: var(--accent); }
+    .sem-nav { display: flex; justify-content: space-between; gap: var(--sp-4);
+      margin-top: var(--sp-6); padding-top: var(--sp-4);
+      border-top: 1px dashed var(--border); }
+    .sem-nav a { color: var(--accent); text-decoration: none; }
+    .sem-nav a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+<header class="topbar"><div class="bar">
+  <a class="brand" href="../../index.html">← Campus</a>
+  <span class="brand"><span>Ciberseguridad Defensiva: Operar como SO</span></span>
+  <div class="controles no-print">
+    <button id="fs-menos" aria-label="Reducir tamaño de letra">A−</button>
+    <button id="fs-mas" aria-label="Aumentar tamaño de letra">A+</button>
+    <button id="tema-btn" aria-label="Cambiar tema claro u oscuro">◐</button>
+    <a class="btn" href="../../progreso.html">Mi progreso</a>
+  </div>
+</div></header>
+<div id="barra-lectura" aria-hidden="true"></div>
+<div class="curso-layout">
+  <nav class="curso-nav" aria-label="Secciones del curso">
+      <a href="#overview">Overview</a>
+      <a href="#syllabus">Syllabus</a>
+      <a href="#semana-1">Semana 1 · Fundamentos: triada CIA y controles</a>
+      <a href="#semana-2">Semana 2 · Telemetría: logs y detección</a>
+      <a href="#semana-3">Semana 3 · Respuesta a incidentes (NIST 800-61)</a>
+      <a href="#semana-4">Semana 4 · Hardening y continuidad</a>
+      <a href="#semana-5">Semana 5 · Fundamentos de SOC y triaje de alertas</a>
+      <a href="#semana-6">Semana 6 · Ingenieria de deteccion y reglas Sigma</a>
+      <a href="#semana-7">Semana 7 · Respuesta a incidentes (NIST 800-61r3)</a>
+      <a href="#semana-8">Semana 8 · Inteligencia de amenazas y TIP</a>
+      <a href="#semana-9">Semana 9 · Deteccion y respuesta en endpoints (ED…</a>
+      <a href="#semana-10">Semana 10 · Analisis de trafico de red con Zeek/Su…</a>
+      <a href="#semana-11">Semana 11 · Analisis basico de malware</a>
+      <a href="#semana-12">Semana 12 · Forense digital y manejo de evidencias</a>
+      <a href="#semana-13">Semana 13 · Gestion del ciclo de vida de vulnerabi…</a>
+      <a href="#semana-14">Semana 14 · Hardening y lineas base de configuraci…</a>
+      <a href="#semana-15">Semana 15 · Gestion de identidades y acceso (IAM)</a>
+      <a href="#semana-16">Semana 16 · Postura de seguridad en cloud (CSPM/CW…</a>
+      <a href="#semana-17">Semana 17 · Seguridad de aplicaciones y DevSecOps</a>
+      <a href="#semana-18">Semana 18 · Proteccion de datos y DLP</a>
+      <a href="#semana-19">Semana 19 · Resiliencia: backup, DR y continuidad</a>
+      <a href="#semana-20">Semana 20 · Capstone: Ejercicio Purple Team</a>
+      <div class="sep"></div>
+      <a href="#quiz">Quiz del curso</a>
+      <a href="#laboratorio">Laboratorio</a>
+      <a href="#proyecto">Proyecto y examen</a>
+      <a href="#rubrica">Rúbrica</a>
+      <a href="#glosario">Glosario</a>
+      <a href="#chuleta">Chuleta</a>
+      <a href="#recursos">Recursos</a>
+      <div class="sep"></div>
+      <a href="../../progreso.html">Mi progreso →</a>
+      <a href="../../credencial.html">Credencial →</a>
+  </nav>
+  <main>
+    <section id="overview">
+      <h1>Ciberseguridad Defensiva: Operar como SOC</h1>
+      <div class="meta-chips">
+        <span class="badge">ES · universitario</span>
+        <span class="badge">60 h</span>
+        <span class="badge">20 semanas</span>
+        <span class="badge">quiz 21 ítems</span>
+      </div>
+      <p>Curso universitario de defensa: triada CIA, telemetría y logs, SIEM, respuesta a incidentes NIST y hardening. El estudiante opera un mini-SOC con casos reales despersonalizados.</p>
+      <h2>Objetivos de aprendizaje</h2>
+      <ul><li>Aplicar la triada CIA para clasificar activos y controles</li><li>Configurar recolección de logs y detección básica en un SIEM abierto</li><li>Ejecutar el ciclo de respuesta a incidentes de NIST 800-61</li><li>Endurecer un servidor con matriz de hardening verificable</li></ul>
+      <blockquote>Evaluación: participación y ejercicios 30 % · quizzes 30 % ·
+proyecto con evidencia 40 %. Nada se aprueba adivinando.</blockquote>
+    </section>
+    <section id="syllabus">
+<h1>Ciberseguridad Defensiva: Operar como SOC</h1>
+<blockquote>Nivel: universitario · 60 horas · Idioma principal: ES</blockquote>
+<h2>Descripcion</h2>
+<p>Curso universitario de defensa: triada CIA, telemetría y logs, SIEM, respuesta a incidentes NIST y hardening. El estudiante opera un mini-SOC con casos reales despersonalizados.</p>
+<h2>Objetivos de aprendizaje (evidencia)</h2>
+<ul><li>Aplicar la triada CIA para clasificar activos y controles</li><li>Configurar recolección de logs y detección básica en un SIEM abierto</li><li>Ejecutar el ciclo de respuesta a incidentes de NIST 800-61</li><li>Endurecer un servidor con matriz de hardening verificable</li></ul>
+<h2>Evaluacion estilo Harvard</h2>
+<ul><li>Participacion y ejercicios semanales: 30%</li><li>Quizzes formativos por semana: 30%</li><li>Proyecto final con evidencia: 40%</li><li>Todo se aprueba demostrando, no adivinando.</li></ul>
+<h2>Cronograma</h2>
+<h2>Semana 1: Fundamentos: triada CIA y controles</h2>
+<ul><li>[LECTURA] Confidencialidad, Integridad, Disponibilidad</li><li>[EJERCICIO] Clasifica 10 activos de una ONG ficticia</li></ul>
+<h2>Semana 2: Telemetría: logs y detección</h2>
+<ul><li>[LECTURA] El log es el testigo</li><li>[EJERCICIO] Mini-SOC con Wazuh o Security Onion</li></ul>
+<h2>Semana 3: Respuesta a incidentes (NIST 800-61)</h2>
+<ul><li>[LECTURA] Preparación → Detección → Contención → Erradicación → Recuperación → Lecciones</li><li>[EJERCICIO] Juego de mesa: incidente de ransomware</li></ul>
+<h2>Semana 4: Hardening y continuidad</h2>
+<ul><li>[LECTURA] Superficie de ataque mínima</li><li>[EXAMEN] Auditoría de hardening evaluada</li></ul>
+<h2>Semana 5: Fundamentos de SOC y triaje de alertas</h2>
+<ul><li>[LECTURA] Teoria: Fundamentos de SOC y triaje de alertas</li><li>[EJERCICIO] Practica guiada: Fundamentos de SOC y triaje de alertas</li><li>[CASO] Caso real: Fundamentos de SOC y triaje de alertas</li></ul>
+<h2>Semana 6: Ingenieria de deteccion y reglas Sigma</h2>
+<ul><li>[LECTURA] Teoria: Ingenieria de deteccion y reglas Sigma</li><li>[EJERCICIO] Practica guiada: Ingenieria de deteccion y reglas Sigma</li><li>[CASO] Caso real: Ingenieria de deteccion y reglas Sigma</li></ul>
+<h2>Semana 7: Respuesta a incidentes (NIST 800-61r3)</h2>
+<ul><li>[LECTURA] Teoria: Respuesta a incidentes (NIST 800-61r3)</li><li>[EJERCICIO] Practica guiada: Respuesta a incidentes (NIST 800-61r3)</li><li>[CASO] Caso real: Respuesta a incidentes (NIST 800-61r3)</li></ul>
+<h2>Semana 8: Inteligencia de amenazas y TIP</h2>
+<ul><li>[LECTURA] Teoria: Inteligencia de amenazas y TIP</li><li>[EJERCICIO] Practica guiada: Inteligencia de amenazas y TIP</li><li>[CASO] Caso real: Inteligencia de amenazas y TIP</li></ul>
+<h2>Semana 9: Deteccion y respuesta en endpoints (EDR)</h2>
+<ul><li>[LECTURA] Teoria: Deteccion y respuesta en endpoints (EDR)</li><li>[EJERCICIO] Practica guiada: Deteccion y respuesta en endpoints (EDR)</li><li>[CASO] Caso real: Deteccion y respuesta en endpoints (EDR)</li></ul>
+<h2>Semana 10: Analisis de trafico de red con Zeek/Suricata</h2>
+<ul><li>[LECTURA] Teoria: Analisis de trafico de red con Zeek/Suricata</li><li>[EJERCICIO] Practica guiada: Analisis de trafico de red con Zeek/Suricata</li><li>[CASO] Caso real: Analisis de trafico de red con Zeek/Suricata</li></ul>
+<h2>Semana 11: Analisis basico de malware</h2>
+<ul><li>[LECTURA] Teoria: Analisis basico de malware</li><li>[EJERCICIO] Practica guiada: Analisis basico de malware</li><li>[CASO] Caso real: Analisis basico de malware</li></ul>
+<h2>Semana 12: Forense digital y manejo de evidencias</h2>
+<ul><li>[LECTURA] Teoria: Forense digital y manejo de evidencias</li><li>[EJERCICIO] Practica guiada: Forense digital y manejo de evidencias</li><li>[CASO] Caso real: Forense digital y manejo de evidencias</li></ul>
+<h2>Semana 13: Gestion del ciclo de vida de vulnerabilidades</h2>
+<ul><li>[LECTURA] Teoria: Gestion del ciclo de vida de vulnerabilidades</li><li>[EJERCICIO] Practica guiada: Gestion del ciclo de vida de vulnerabilidades</li><li>[CASO] Caso real: Gestion del ciclo de vida de vulnerabilidades</li></ul>
+<h2>Semana 14: Hardening y lineas base de configuracion</h2>
+<ul><li>[LECTURA] Teoria: Hardening y lineas base de configuracion</li><li>[EJERCICIO] Practica guiada: Hardening y lineas base de configuracion</li><li>[CASO] Caso real: Hardening y lineas base de configuracion</li></ul>
+<h2>Semana 15: Gestion de identidades y acceso (IAM)</h2>
+<ul><li>[LECTURA] Teoria: Gestion de identidades y acceso (IAM)</li><li>[EJERCICIO] Practica guiada: Gestion de identidades y acceso (IAM)</li><li>[CASO] Caso real: Gestion de identidades y acceso (IAM)</li></ul>
+<h2>Semana 16: Postura de seguridad en cloud (CSPM/CWPP)</h2>
+<ul><li>[LECTURA] Teoria: Postura de seguridad en cloud (CSPM/CWPP)</li><li>[EJERCICIO] Practica guiada: Postura de seguridad en cloud (CSPM/CWPP)</li><li>[CASO] Caso real: Postura de seguridad en cloud (CSPM/CWPP)</li></ul>
+<h2>Semana 17: Seguridad de aplicaciones y DevSecOps</h2>
+<ul><li>[LECTURA] Teoria: Seguridad de aplicaciones y DevSecOps</li><li>[EJERCICIO] Practica guiada: Seguridad de aplicaciones y DevSecOps</li><li>[CASO] Caso real: Seguridad de aplicaciones y DevSecOps</li></ul>
+<h2>Semana 18: Proteccion de datos y DLP</h2>
+<ul><li>[LECTURA] Teoria: Proteccion de datos y DLP</li><li>[EJERCICIO] Practica guiada: Proteccion de datos y DLP</li><li>[CASO] Caso real: Proteccion de datos y DLP</li></ul>
+<h2>Semana 19: Resiliencia: backup, DR y continuidad</h2>
+<ul><li>[LECTURA] Teoria: Resiliencia: backup, DR y continuidad</li><li>[EJERCICIO] Practica guiada: Resiliencia: backup, DR y continuidad</li><li>[CASO] Caso real: Resiliencia: backup, DR y continuidad</li></ul>
+<h2>Semana 20: Capstone: Ejercicio Purple Team</h2>
+<ul><li>[LECTURA] Teoria: Capstone: Ejercicio Purple Team</li><li>[EJERCICIO] Practica guiada: Capstone: Ejercicio Purple Team</li><li>[CASO] Caso real: Capstone: Ejercicio Purple Team</li><li>[PROYECTO] Proyecto integrador: Capstone: Ejercicio Purple Team</li></ul>
+<h2>Recursos</h2>
+<p>Ver <a href="recursos.md">recursos.md</a> — bancos abiertos + Drive do Pobre.</p>
+    </section>
+    <section id="semana-1">
+<h1>Semana 1: Fundamentos: triada CIA y controles</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 1 de 20</p>
+<h2>Objetivos de aprendizaje</h2>
+<ul><li>Explicar la triada CIA y aplicarla a la clasificación de activos</li><li>Distinguir controles preventivos, detectivos y correctivos</li><li>Clasificar activos por impacto en confidencialidad, integridad y disponibilidad</li><li>Mapear controles a las funciones del NIST CSF</li></ul>
+<h2>La triada CIA: el fundamento de toda decisión de seguridad</h2>
+<p>Toda medida de seguridad protege al menos una de tres propiedades:</p>
+<p><strong>Confidencialidad (C):</strong> solo accede quien debe. Controles: cifrado (AES-256 en reposo, TLS 1.3 en tránsito), control de acceso (RBAC, ABAC), clasificación de datos (público/interno/confidencial/restringido).</p>
+<p><strong>Integridad (I):</strong> el dato no se altera sin autorización. Controles: hashing (SHA-256), firmas digitales, logs inmutables, checksums en transferencias, control de versiones.</p>
+<p><strong>Disponibilidad (D):</strong> el servicio responde cuando se necesita. Controles: redundancia (RAID, clustering), backups 3-2-1, CDN, balanceadores, plan de continuidad de negocio (BCP).</p>
+<p><strong>Clasificación de activos por impacto CIA:</strong></p>
+<pre><code>ACTIVO              C    I    D    CONTROL PRINCIPAL
+────────────────────────────────────────────────────
+Base de datos RRHH  ALTO ALTO MEDIO Cifrado + RBAC + backup
+Web pública         BAJO ALTO ALTO  WAF + CDN + monitorización
+Correo corporativo  ALTO MEDIO ALTO MFA + antispam + backup
+Código fuente       ALTO ALTO MEDIO Git + code review + firma</code></pre>
+<p>La clasificación dirige el presupuesto: un activo con impacto ALTO en las tres dimensiones recibe más controles que uno BAJO/BAJO/BAJO. No se protege todo igual — se protege según el riesgo.</p>
+<p><strong>Referencias:</strong></p>
+<ul><li>NIST SP 800-53 — Security and Privacy Controls</li><li>ISO 27001:2022 — Annex A Controls</li><li>NIST CSF — Identify (ID.AM: Asset Management)</li></ul>
+<h2>Taxonomía de controles: preventivo, detectivo, correctivo</h2>
+<p>Los controles se clasifican por <strong>cuándo</strong> actúan respecto al incidente:</p>
+<p><strong>Preventivos</strong> — impiden que ocurra:</p>
+<ul><li>Firewall (bloquea tráfico no autorizado)</li><li>MFA (impide acceso con credencial robada sola)</li><li>Parches de seguridad (eliminan la vulnerabilidad)</li><li>Formación del personal (reduce phishing exitoso)</li><li>Cifrado (inutiliza datos robados)</li></ul>
+<p><strong>Detectivos</strong> — alertan de que algo está pasando:</p>
+<ul><li>SIEM (correlaciona eventos y alerta)</li><li>IDS/IPS (detecta patrones de ataque en red)</li><li>Antivirus/EDR (detecta malware en endpoint)</li><li>Auditoría de logs (revisa actividad sospechosa)</li><li>Honeypots (señuelos que alertan al ser tocados)</li></ul>
+<p><strong>Correctivos</strong> — mitigan el daño después:</p>
+<ul><li>Backup + restauración (recupera datos perdidos)</li><li>Playbook de incidentes (guía la respuesta)</li><li>Aislamiento de red (contiene la propagación)</li><li>Revocación de credenciales (corta el acceso al atacante)</li></ul>
+<p><strong>Principio de defensa en profundidad:</strong> ningún control solo es suficiente. Se combinan capas: preventivo (firewall) + detectivo (IDS) + correctivo (backup). Si falla uno, el siguiente actúa.</p>
+<p><strong>Mapeo a NIST CSF:</strong></p>
+<ul><li>Preventivos → función PROTECT (PR)</li><li>Detectivos → función DETECT (DE)</li><li>Correctivos → funciones RESPOND (RS) + RECOVER (RC)</li></ul>
+<p><strong>Referencias:</strong></p>
+<ul><li>NIST CSF 2.0 — Protect, Detect, Respond, Recover</li><li>CIS Controls v8</li><li>ISO 27001:2022 — Control types</li></ul>
+<h2>Caso real: Target 2013: falló la detección, no la prevención</h2>
+<p>Target tenía FireEye (detectivo) instalado y configurado. El sistema alertó del malware POS que exfiltraba tarjetas de crédito. Pero el equipo SOC ignoró las alertas durante semanas. 40 millones de tarjetas robadas. Coste: $292M. Lección: un control detectivo sin proceso de respuesta es como una alarma sin nadie que la escuche. Los controles técnicos solo funcionan con personas y procesos detrás.</p>
+<h2>Ejercicio guiado: Clasifica 10 activos de una ONG ficticia</h2>
+<ol><li>Imagina una ONG con: web, CRM de donantes, email, contabilidad, WiFi oficina</li><li>Añade 5 activos más propios del contexto (base de beneficiarios, etc.)</li><li>Para cada activo, puntúa impacto C/I/D como ALTO/MEDIO/BAJO</li><li>Propón 1 control preventivo + 1 detectivo + 1 correctivo por activo</li><li>Estima coste relativo de cada control (€/€€/€€€)</li><li>Prioriza: ¿qué 3 controles implementarías primero con presupuesto limitado?</li><li>Defiende tu decisión en 5 minutos (simulación oral)</li></ol>
+<h2>Recursos abiertos</h2>
+<ul><li><a href="https://www.nist.gov/cyberframework">NIST CSF 2.0</a></li><li><a href="https://www.cisecurity.org/controls">CIS Controls v8</a></li><li><a href="https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final">NIST SP 800-53</a></li></ul>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><span></span><a href="#semana-2">Semana 2 →</a></nav>
+    </section>
+    <section id="semana-2">
+<h1>Semana 2: Telemetría: logs y detección</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 2 de 20</p>
+<h2>Objetivos de aprendizaje</h2>
+<ul><li>Configurar recolección de logs desde múltiples fuentes en un SIEM</li><li>Escribir reglas de detección básicas (Sigma/Wazuh)</li><li>Correlacionar eventos para identificar actividad sospechosa</li><li>Mantener integridad temporal con NTP y retención legal de logs</li></ul>
+<h2>El log es el testigo: fuentes y formatos</h2>
+<p>Sin logs no hay detección, no hay investigación, no hay evidencia. Un SOC sin telemetría es un puesto vacío.</p>
+<p><strong>Fuentes de logs críticas:</strong></p>
+<ul><li><strong>Sistema operativo:</strong> autenticaciones (Event ID 4624/4625 en Windows, auth.log en Linux), cambios de privilegios, instalación de software</li><li><strong>Aplicaciones:</strong> accesos, errores, transacciones (access.log, error.log)</li><li><strong>Red:</strong> flujos NetFlow, DNS queries, conexiones firewall</li><li><strong>Identidad:</strong> logins MFA, cambios de contraseña, creación de cuentas</li><li><strong>Cloud:</strong> CloudTrail (AWS), Activity Log (Azure), Audit Log (GCP)</li></ul>
+<p><strong>Formato estructurado (JSON structured logging):</strong></p>
+<pre><code>{"timestamp": "2026-09-12T10:23:45Z",
+ "source": "auth",
+ "event": "login_failed",
+ "user": "admin",
+ "src_ip": "203.0.113.42",
+ "attempts": 5,
+ "geo": "RU"}</code></pre>
+<p>El formato estructurado permite búsqueda, filtrado y correlación automática. Los logs en texto libre son mucho más difíciles de procesar.</p>
+<p><strong>Sincronización temporal (NTP):</strong> Si dos servidores tienen relojes desincronizados 5 minutos, la correlación de eventos se rompe. Configura NTP en TODOS los sistemas:</p>
+<pre><code># Linux: verificar sincronización
+timedatectl status
+# Configurar NTP
+sudo systemctl enable --now systemd-timesyncd</code></pre>
+<p><strong>Retención:</strong> RGPD exige finalidad y plazo definido. NIST recomienda mínimo 90 días online + 1 año archivado. PCI-DSS: 1 año, 3 meses online.</p>
+<p><strong>Referencias:</strong></p>
+<ul><li>NIST SP 800-92 — Guide to Computer Security Log Management</li><li>Windows Event IDs — 4624 (logon), 4625 (failed logon)</li><li>MITRE ATT&amp;CK — T1070 (Indicator Removal: Clear Logs)</li></ul>
+<h2>SIEM y reglas de detección (Wazuh / Sigma)</h2>
+<p>Un SIEM (Security Information and Event Management) centraliza logs, correlaciona eventos y genera alertas. Wazuh es un SIEM open source completo y gratuito.</p>
+<p><strong>Instalación mínima de Wazuh:</strong></p>
+<pre><code># Wazuh all-in-one (lab, no producción)
+curl -sO https://packages.wazuh.com/4.9/wazuh-install.sh
+sudo bash wazuh-install.sh -a
+# Dashboard: https://localhost:443 (admin/admin)
+# Instalar agente en la máquina monitoreada:
+sudo apt install wazuh-agent</code></pre>
+<p><strong>Reglas Sigma (formato universal de detección):</strong> Sigma es un formato abierto para escribir reglas de detección independientes del SIEM. Se compilan a Wazuh, Splunk, Elastic, etc.</p>
+<pre><code>title: Brute Force Login Attempt
+status: stable
+logsource:
+  category: authentication
+  product: windows
+detection:
+  selection:
+    EventID: 4625
+  condition: selection | count(src_ip) &gt; 10
+  timeframe: 5m
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1110  # Brute Force</code></pre>
+<p><strong>Correlación de eventos — detección por contexto:</strong> Un login fallido es ruido. 50 login fallidos desde la misma IP en 5 minutos seguidos de un login exitoso es un brute force que funcionó. El SIEM correlaciona: evento A + evento B + condición temporal = alerta.</p>
+<p><strong>ATT&amp;CK y detección:</strong></p>
+<ul><li>T1110 (Brute Force) → regla: &gt;N fallos + éxito desde misma IP</li><li>T1078 (Valid Accounts) → regla: login desde geolocalización inusual</li><li>T1070.001 (Clear Windows Event Logs) → regla: Event ID 1102</li><li>T1059 (Command and Scripting) → regla: PowerShell encoded command</li></ul>
+<p><strong>Referencias:</strong></p>
+<ul><li>Wazuh — wazuh.com</li><li>Sigma Rules — github.com/SigmaHQ/sigma</li><li>T1110 — Brute Force</li><li>T1070.001 — Clear Windows Event Logs</li></ul>
+<h2>Caso real: NotPetya 2017: sin logs, sin cronología, sin recuperación</h2>
+<p>NotPetya (atribuido a GRU ruso, dirigido contra Ucrania) se propagó vía M.E.Doc (software fiscal ucraniano) usando EternalBlue (MS17-010). Maersk perdió 49.000 endpoints en 7 minutos. Su recuperación dependió de un único controlador de dominio en Ghana que estaba apagado durante el ataque. Lección de telemetría: sin logs centralizados fuera de la red afectada, la reconstrucción del incidente es imposible. Coste total estimado: $10B globalmente.</p>
+<h2>Ejercicio guiado: Mini-SOC con Wazuh: detecta 3 eventos de seguridad</h2>
+<ol><li>Instala Wazuh all-in-one en una VM (Ubuntu 22.04, 4GB RAM mínimo)</li><li>Conecta 1-2 agentes (otra VM Linux + tu máquina Windows si tienes)</li><li>Genera evento 1: 10 login fallidos con ssh (usuario incorrecto)</li><li>Genera evento 2: escalada de privilegios con sudo su</li><li>Genera evento 3: descarga del test EICAR (antimalware test file)</li><li>Verifica las 3 alertas en el dashboard de Wazuh</li><li>Exporta las alertas como evidencia (JSON o captura de pantalla)</li><li>Escribe 1 regla Sigma personalizada para tu entorno</li></ol>
+<h2>Recursos abiertos</h2>
+<ul><li><a href="https://documentation.wazuh.com/">Wazuh Documentation</a></li><li><a href="https://github.com/SigmaHQ/sigma">Sigma Rules Repo</a></li><li><a href="https://csrc.nist.gov/publications/detail/sp/800-92/final">NIST SP 800-92</a></li><li><a href="https://www.eicar.org/download-anti-malware-testfile/">EICAR Test File</a></li></ul>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-1">← Semana 1</a><a href="#semana-3">Semana 3 →</a></nav>
+    </section>
+    <section id="semana-3">
+<h1>Semana 3: Respuesta a incidentes (NIST 800-61)</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 3 de 20</p>
+<h2>Objetivos de aprendizaje</h2>
+<ul><li>Ejecutar las 6 fases del ciclo de respuesta a incidentes NIST 800-61</li><li>Desarrollar playbooks para ransomware, phishing y cuenta comprometida</li><li>Clasificar indicadores de compromiso (IoC) por tipo y fuente</li><li>Documentar un incidente con cronología y lecciones aprendidas</li></ul>
+<h2>NIST 800-61: el ciclo completo de respuesta</h2>
+<p>NIST SP 800-61 Rev.3 define 6 fases. Cada fase tiene entregables concretos — un incidente no está cerrado hasta que se documentan las lecciones aprendidas.</p>
+<p><strong>1. Preparación:</strong></p>
+<ul><li>Equipo de respuesta (CSIRT) con roles y contactos</li><li>Kit de herramientas: imagen forense, logs centralizados, canal seguro</li><li>Playbooks escritos y ensayados para los 3-5 escenarios más probables</li><li>Contactos legales, comunicación, seguros ciber</li></ul>
+<p><strong>2. Detección y análisis:</strong></p>
+<ul><li>Fuentes: alertas SIEM, reports de usuarios, feeds de inteligencia</li><li>Triaje: ¿es un incidente real? Clasificar severidad (P1-P4)</li><li>IoC (Indicators of Compromise): IPs, hashes, dominios, emails, TTPs</li></ul>
+<p><strong>3. Contención:</strong></p>
+<ul><li><strong>Corto plazo:</strong> aislar la máquina (desconectar de red, NO apagar)</li><li><strong>Largo plazo:</strong> parchear la vulnerabilidad explotada, revocar credenciales</li><li>Decisión crítica: ¿contener inmediatamente o monitorear para entender el alcance?</li></ul>
+<p><strong>4. Erradicación:</strong></p>
+<ul><li>Eliminar el malware, cerrar backdoors, eliminar cuentas creadas por el atacante</li><li>Verificar que la causa raíz está eliminada, no solo los síntomas</li></ul>
+<p><strong>5. Recuperación:</strong></p>
+<ul><li>Restaurar desde backup limpio, verificar integridad</li><li>Monitorización intensiva post-recuperación (el atacante puede volver)</li><li>Vuelta gradual a producción con validación</li></ul>
+<p><strong>6. Lecciones aprendidas (Post-Incident Activity):</strong></p>
+<ul><li>Reunión post-incidente (sin culpables): qué pasó, cronología, qué funcionó, qué no</li><li>Actualizar playbooks, reglas de detección, controles</li><li>Informe formal con recomendaciones y dueños de cada acción</li></ul>
+<p><strong>Referencias:</strong></p>
+<ul><li>NIST SP 800-61 Rev.3 — Incident Handling Guide</li><li>MITRE ATT&amp;CK — TA0040 Impact</li><li>SANS Incident Handler's Handbook</li></ul>
+<h2>Playbooks: respuesta guiada por escenario</h2>
+<p>Un playbook es la receta paso a paso para un tipo de incidente. Sin playbook, cada incidente se improvisa — y la improvisación bajo presión produce errores.</p>
+<p><strong>Playbook: Ransomware</strong></p>
+<pre><code>DETECCIÓN: Alerta de cifrado masivo / extensiones cambiadas / nota de rescate
+TRIAJE:    ¿Cuántos sistemas afectados? ¿Se propaga activamente?
+CONTENCIÓN:
+  1. Aislar máquinas afectadas de la red (cable, no WiFi off)
+  2. NO apagar — la RAM puede contener claves de descifrado
+  3. Bloquear hash del ransomware en EDR/antivirus
+  4. Deshabilitar cuentas comprometidas en AD
+ERRADICACIÓN:
+  1. Identificar vector de entrada (phishing? RDP expuesto? VPN?)
+  2. Parchear/cerrar el vector
+  3. Verificar que no hay persistencia (scheduled tasks, servicios)
+RECUPERACIÓN:
+  1. Restaurar desde backup (verificar que backup no está cifrado)
+  2. Validar integridad de datos restaurados
+DECISIÓN DE PAGO: NO se recomienda pagar — no garantiza descifrado,
+  financia al atacante, y puede repetirse. ATT&amp;CK: T1486 (Data Encrypted)</code></pre>
+<p><strong>Playbook: Phishing con credenciales robadas</strong></p>
+<pre><code>DETECCIÓN: Usuario reporta email sospechoso / alerta de login inusual
+CONTENCIÓN:
+  1. Resetear contraseña de la cuenta afectada INMEDIATAMENTE
+  2. Revocar sesiones activas (tokens OAuth incluidos)
+  3. Verificar reglas de reenvío de correo (T1114.003)
+  4. Bloquear el dominio/URL de phishing en proxy/DNS
+ANÁLISIS:
+  1. ¿Cuántos usuarios recibieron el email?
+  2. ¿Cuántos hicieron clic? (logs de proxy)
+  3. ¿Cuántos introdujeron credenciales?
+ERRADICACIÓN: Purgar email de todos los buzones
+LECCIONES: Simulación de phishing + formación targeted</code></pre>
+<p><strong>Referencias:</strong></p>
+<ul><li>T1486 — Data Encrypted for Impact</li><li>T1114.003 — Email Forwarding Rule</li><li>T1566 — Phishing</li><li>CISA Ransomware Guide</li></ul>
+<h2>Caso real: WannaCry 2017: NHS sin playbook, sin backup, sin parche</h2>
+<p>WannaCry (EternalBlue, MS17-010) cifró 200.000 sistemas en 150 países. El NHS británico canceló 19.000 citas médicas. No tenían: parche disponible desde marzo (2 meses), playbook de ransomware, ni backups offline verificados. Un investigador (MalwareTech) encontró el kill switch por accidente registrando un dominio hardcodeado. Lección: las 3 defensas que habrían evitado el impacto son las más básicas — parchear, tener backup probado, tener un playbook ensayado.</p>
+<h2>Ejercicio guiado: Simulación de incidente: ransomware en la ONG</h2>
+<ol><li>Escenario: lunes 08:00, 3 de 10 PCs muestran nota de rescate en el escritorio</li><li>Asigna roles: analista (tú), coordinador, comunicación</li><li>Fase 1 — Contención: lista las 5 primeras acciones en orden de prioridad</li><li>Fase 2 — Análisis: ¿por dónde entró? Lista 3 hipótesis y cómo verificarlas</li><li>Fase 3 — Erradicación: ¿qué haces si el backup del viernes está cifrado?</li><li>Fase 4 — Recuperación: plan B de restauración sin backup reciente</li><li>Fase 5 — Lecciones: escribe 5 mejoras concretas para que no se repita</li><li>Cronología: construye la timeline del incidente en una tabla</li></ol>
+<h2>Recursos abiertos</h2>
+<ul><li><a href="https://csrc.nist.gov/publications/detail/sp/800-61/rev-3/final">NIST 800-61 Rev.3</a></li><li><a href="https://www.cisa.gov/stopransomware">CISA Ransomware Guide</a></li><li><a href="https://www.sans.org/white-papers/33901/">SANS IR Handbook</a></li></ul>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-2">← Semana 2</a><a href="#semana-4">Semana 4 →</a></nav>
+    </section>
+    <section id="semana-4">
+<h1>Semana 4: Hardening y continuidad</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 4 de 20</p>
+<h2>Objetivos de aprendizaje</h2>
+<ul><li>Aplicar CIS Benchmarks nivel 1 para endurecer un servidor Linux</li><li>Verificar hardening con checklist de evidencia antes/después</li><li>Implementar estrategia de backup 3-2-1 con prueba de restauración</li><li>Diseñar un plan básico de continuidad de negocio</li></ul>
+<h2>Hardening: reducir la superficie de ataque</h2>
+<p>Hardening es eliminar todo lo que el sistema no necesita para cumplir su función. Cada servicio, puerto o cuenta innecesaria es una puerta que un atacante puede intentar abrir.</p>
+<p><strong>CIS Benchmarks — Level 1 (aplicable a cualquier servidor Linux):</strong></p>
+<pre><code># 1. Actualizar todo
+sudo apt update &amp;&amp; sudo apt upgrade -y
+
+# 2. Eliminar servicios innecesarios
+sudo systemctl list-unit-files --state=enabled
+sudo systemctl disable --now cups avahi-daemon  # ejemplo
+
+# 3. Configurar firewall (UFW)
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow ssh
+sudo ufw enable
+
+# 4. SSH hardening (/etc/ssh/sshd_config)
+PermitRootLogin no
+PasswordAuthentication no        # solo claves
+MaxAuthTries 3
+AllowUsers tu_usuario
+
+# 5. Permisos de archivos críticos
+sudo chmod 600 /etc/shadow /etc/gshadow
+sudo chmod 644 /etc/passwd /etc/group
+
+# 6. Auditoría: configurar auditd
+sudo apt install auditd
+sudo auditctl -w /etc/passwd -p wa -k identity</code></pre>
+<p><strong>Verificación con evidencia:</strong> Cada cambio se documenta con captura ANTES y DESPUÉS:</p>
+<pre><code>CONTROL:    SSH root login deshabilitado
+ANTES:      PermitRootLogin yes (captura)
+DESPUÉS:    PermitRootLogin no  (captura)
+VERIFICADO: ssh root@servidor → 'Permission denied' (captura)
+CIS REF:    5.2.10</code></pre>
+<p><strong>Referencias:</strong></p>
+<ul><li>CIS Benchmarks — cisecurity.org/cis-benchmarks</li><li>NIST SP 800-123 — Server Security Guide</li><li>T1078 — Valid Accounts (hardening contra uso de cuentas legítimas)</li></ul>
+<h2>Backup 3-2-1 y continuidad de negocio</h2>
+<p><strong>Regla 3-2-1:</strong></p>
+<ul><li><strong>3</strong> copias de cada dato (original + 2 copias)</li><li><strong>2</strong> medios diferentes (disco local + cloud, o disco + cinta)</li><li><strong>1</strong> copia fuera del sitio (offsite o cloud en otra región)</li></ul>
+<p><strong>Extensión 3-2-1-1-0:</strong></p>
+<ul><li><strong>1</strong> copia offline/inmutable (no accesible desde la red)</li><li><strong>0</strong> errores verificados en la restauración</li></ul>
+<p><strong>El test de restauración es obligatorio:</strong></p>
+<pre><code># Backup con restic (open source, cifrado, deduplicación)
+restic -r /backup init
+restic -r /backup backup /datos
+# Verificación periódica:
+restic -r /backup check
+# Test de restauración (en directorio temporal):
+restic -r /backup restore latest --target /tmp/test-restore
+diff -r /datos /tmp/test-restore/datos</code></pre>
+<p>Un backup que nunca se ha probado restaurar no es un backup — es una esperanza.</p>
+<p><strong>Plan de continuidad de negocio (BCP) mínimo:</strong></p>
+<ol><li><strong>RTO (Recovery Time Objective):</strong> ¿cuánto tiempo sin servicio es aceptable?</li><li><strong>RPO (Recovery Point Objective):</strong> ¿cuántos datos puedes perder? (si RPO=1h, backup cada hora)</li><li><strong>Procedimiento de failover:</strong> ¿a dónde y cómo?</li><li><strong>Comunicación:</strong> ¿quién avisa a quién?</li><li><strong>Test periódico:</strong> simulacro trimestral mínimo</li></ol>
+<p><strong>Referencias:</strong></p>
+<ul><li>NIST SP 800-34 — Contingency Planning</li><li>Restic — restic.net</li><li>ISO 22301 — Business Continuity</li></ul>
+<h2>Caso real: Maersk 2017 (NotPetya): el backup que salvó a la empresa</h2>
+<p>NotPetya destruyó la infraestructura completa de Maersk: 49.000 endpoints, 4.000 servidores, Active Directory completo. La reconstrucción fue posible SOLO porque un controlador de dominio en Accra (Ghana) estaba apagado durante el ataque por un corte de luz. Sin esa copia accidental, Maersk habría tardado meses en reconstruir su AD. Coste: $300M. Lección: la regla 3-2-1-1-0 exige una copia offline/inmutable precisamente para este escenario. Maersk tuvo suerte; tú necesitas diseño.</p>
+<h2>Ejercicio guiado: Auditoría de hardening CIS Level 1 sobre una VM</h2>
+<ol><li>Crea una VM Ubuntu Server 22.04 fresca (sin tocar nada)</li><li>Documenta estado ANTES: servicios activos, puertos abiertos, config SSH</li><li>Aplica los 6 controles CIS del material (actualizar, servicios, UFW, SSH, permisos, auditd)</li><li>Documenta DESPUÉS con el mismo formato</li><li>Verifica: intenta ssh root@vm → debe fallar</li><li>Verifica: nmap de la VM → solo los puertos que autorizaste</li><li>Configura un backup con restic y prueba la restauración</li><li>Calcula RTO y RPO para tu lab (¿cuánto tardarías en restaurar todo?)</li></ol>
+<h2>Recursos abiertos</h2>
+<ul><li><a href="https://www.cisecurity.org/cis-benchmarks">CIS Benchmarks</a></li><li><a href="https://restic.net/">Restic Backup</a></li><li><a href="https://csrc.nist.gov/publications/detail/sp/800-34/rev-1/final">NIST SP 800-34</a></li></ul>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-3">← Semana 3</a><a href="#semana-5">Semana 5 →</a></nav>
+    </section>
+    <section id="semana-5">
+<h1>Semana 5: Fundamentos de SOC y triaje de alertas</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 5 de 20</p>
+<h2>LECTURA: Teoria: Fundamentos de SOC y triaje de alertas</h2>
+<p>Contenido teorico detallado para fundamentos de soc y triaje de alertas. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Fundamentos de SOC y triaje de alertas</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para fundamentos de soc y triaje de alertas.</p>
+<h2>CASO: Caso real: Fundamentos de SOC y triaje de alertas</h2>
+<p>Analisis de incidente real donde fundamentos de soc y triaje de alertas fue factor clave. Lecciones aprendidas.</p>
+<h2>🎯 Objetivo de la semana</h2>
+<p>Operar el triaje de un SOC: convertir una avalancha de alertas en una cola priorizada de incidentes reales.</p>
+<h2>📖 Lectura principal</h2>
+<p>El analista N1 vive del triaje: cada alerta se clasifica en segundos con un método fijo — ¿es de un activo que importa? ¿el comportamiento encaja en la línea base? ¿hay correlato en otros sistemas? ¿la severidad del artefacto coincide con el contexto? Las colas maduras separan verdaderos positivos, falsos positivos documentados (que alimentan el tuning) y ruido recurrente (candidato a supresión con justificación). La métrica sana no es 'alertas cerradas' sino tiempo medio de triaje y tasa de escalado con sentido: escalar todo es no escalar nada. El runbook por tipo de alerta (login fallido masivo, imposible travel, EICAR, creación de admin) convierte la intuición del veterano en procedimiento auditable que el nuevo puede ejecutar el primer día.</p>
+<h2>🛠️ Práctica guiada</h2>
+<p>Simula 10 alertas mezclando verdaderos y falsos positivos (usa las generadas en el lab de Wazuh). Triaje cada una en la plantilla: activo/criticidad, línea base, decisión (cerrar/escalar/suprimir) y justificación de una línea. Calcula tu tiempo medio por alerta.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-4">← Semana 4</a><a href="#semana-6">Semana 6 →</a></nav>
+    </section>
+    <section id="semana-6">
+<h1>Semana 6: Ingenieria de deteccion y reglas Sigma</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 6 de 20</p>
+<h2>LECTURA: Teoria: Ingenieria de deteccion y reglas Sigma</h2>
+<p>Contenido teorico detallado para ingenieria de deteccion y reglas sigma. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Ingenieria de deteccion y reglas Sigma</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para ingenieria de deteccion y reglas sigma.</p>
+<h2>CASO: Caso real: Ingenieria de deteccion y reglas Sigma</h2>
+<p>Analisis de incidente real donde ingenieria de deteccion y reglas sigma fue factor clave. Lecciones aprendidas.</p>
+<h2>🎯 Objetivo de la semana</h2>
+<p>Escribir detecciones traducibles a cualquier SIEM usando Sigma y pensar como ingeniero de detección, no como consumidor de reglas.</p>
+<h2>📖 Lectura principal</h2>
+<p>Sigma es a la detección lo que SQL a las bases: un YAML declarativo que describe un patrón de log (evento, campos, condición) y se convierte automáticamente a la sintaxis de Splunk, Sentinel, Elastic o Wazuh. Escribir una regla propia obliga a conocer el log: selección (Image endsWith 'whoami.exe' y ParentImage contiene 'winword.exe' huele a macro ofimática ejecutando reconocimiento), filtros que restan falsos positivos legítimos, y nivel/Descripción que expliquen el porqué a quien la herede. La disciplina de detección incluye versionar reglas en git, probarlas contra logs de ataque conocidos (Atomic Red Team genera los eventos) y medir su ruido en 7 días antes de promoverlas a producción.</p>
+<h2>🛠️ Práctica guiada</h2>
+<p>Escribe una regla Sigma para 'creación de usuario y añadido a administradores en menos de 5 minutos'. Conviértela con sigma-cli a la sintaxis del SIEM de tu lab (o valida el YAML con el convertidor público). Genera el evento en tu VM y demuestra que dispara; genera también el uso legítimo y documenta cómo lo filtrarías.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-5">← Semana 5</a><a href="#semana-7">Semana 7 →</a></nav>
+    </section>
+    <section id="semana-7">
+<h1>Semana 7: Respuesta a incidentes (NIST 800-61r3)</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 7 de 20</p>
+<h2>LECTURA: Teoria: Respuesta a incidentes (NIST 800-61r3)</h2>
+<p>Contenido teorico detallado para respuesta a incidentes (nist 800-61r3). Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Respuesta a incidentes (NIST 800-61r3)</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para respuesta a incidentes (nist 800-61r3).</p>
+<h2>CASO: Caso real: Respuesta a incidentes (NIST 800-61r3)</h2>
+<p>Analisis de incidente real donde respuesta a incidentes (nist 800-61r3) fue factor clave. Lecciones aprendidas.</p>
+<h2>🎯 Objetivo de la semana</h2>
+<p>Dirigir la respuesta a un incidente real siguiendo NIST 800-61r3 sin destruir evidencia por el camino.</p>
+<h2>📖 Lectura principal</h2>
+<p>El ciclo moderno (Preparación → Detección y análisis → Contención, erradicación y recuperación → Actividad post-incidente) cambia el énfasis: la contención se decide con una matriz de opciones (aislar host, bloquear cuenta, cortar C2) valoradas por impacto en negocio y velocidad, porque apagar todo es contenerse uno mismo. La evidencia se preserva ANTES de limpiar: memoria y disco del host comprometido, logs del salto previo y posterior, y cadena de custodia con hashes — el forense que llega tarde solo encuentra el incendio extinguido y las huellas barridas. La comunicación es parte del incidente: quién informa a quién, cada cuánto, y qué NO se escribe en canales no privilegiados. El post-incidente no es optional: lecciones, plazos y dueños; sin él el mismo atacante vuelve por el mismo agujero.</p>
+<h2>🛠️ Práctica guiada</h2>
+<p>Juego de rol cronometrado: ransomware detectado en 3 equipos. Escribe tus primeras 6 decisiones en orden con timestamp, la lista de evidencia a preservar antes de limpiar, y el borrador de post-incidente (causa raíz hipótesis, 3 acciones con dueño y fecha). Contrasta con el caso real de tu elección (hay transparencias públicas de incidentes).</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-6">← Semana 6</a><a href="#semana-8">Semana 8 →</a></nav>
+    </section>
+    <section id="semana-8">
+<h1>Semana 8: Inteligencia de amenazas y TIP</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 8 de 20</p>
+<h2>LECTURA: Teoria: Inteligencia de amenazas y TIP</h2>
+<p>Contenido teorico detallado para inteligencia de amenazas y tip. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Inteligencia de amenazas y TIP</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para inteligencia de amenazas y tip.</p>
+<h2>CASO: Caso real: Inteligencia de amenazas y TIP</h2>
+<p>Analisis de incidente real donde inteligencia de amenazas y tip fue factor clave. Lecciones aprendidas.</p>
+<h2>🎯 Objetivo de la semana</h2>
+<p>Consumir inteligencia de amenazas con escepticismo operativo: enriquecer, priorizar y cerrar el ciclo de feedback.</p>
+<h2>📖 Lectura principal</h2>
+<p>La inteligencia útil responde preguntas de decisión, no colecciona IOCs: estratégica (qué actores atacan mi sector y con qué motivación), táctica (qué TTPs de ATT&amp;CK debo cubrir) y operativa (estos hashes/ IPs/dominalos son malos PARA MÍ ahora). Un TIP mínimo ingesta feeds (AlienVault OTX abierta, MISP autoalojado), deduplica, aplica expiración — un IOC de 2023 bloqueado hoy genera falsos positivos y calma falsa — y sobre todo se enriquece con lo propio: el IP que te escaneó ayer vale más que mil genéricos. Pirámide del dolor: bloquear hash es trivial para el atacante de esquivar; degradar sus TTPs es caro. El ciclo termina midiendo qué IOC disparó detección real y alimentando el tuning: inteligencia sin feedback es decoración cara.</p>
+<h2>🛠️ Práctica guiada</h2>
+<p>Configura una cuenta OTX y suscríbate a 2 pulses relevantes para tu sector. Exporta 20 IOC, aplícales expiración razonable y clasifícalos en la pirámide del dolor. Diseña en una página tu TIP mínimo: fuentes, deduplicación, expiración, y el informe semanal que justificaría su coste.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-7">← Semana 7</a><a href="#semana-9">Semana 9 →</a></nav>
+    </section>
+    <section id="semana-9">
+<h1>Semana 9: Deteccion y respuesta en endpoints (EDR)</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 9 de 20</p>
+<h2>LECTURA: Teoria: Deteccion y respuesta en endpoints (EDR)</h2>
+<p>Contenido teorico detallado para deteccion y respuesta en endpoints (edr). Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Deteccion y respuesta en endpoints (EDR)</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para deteccion y respuesta en endpoints (edr).</p>
+<h2>CASO: Caso real: Deteccion y respuesta en endpoints (EDR)</h2>
+<p>Analisis de incidente real donde deteccion y respuesta en endpoints (edr) fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-8">← Semana 8</a><a href="#semana-10">Semana 10 →</a></nav>
+    </section>
+    <section id="semana-10">
+<h1>Semana 10: Analisis de trafico de red con Zeek/Suricata</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 10 de 20</p>
+<h2>LECTURA: Teoria: Analisis de trafico de red con Zeek/Suricata</h2>
+<p>Contenido teorico detallado para analisis de trafico de red con zeek/suricata. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Analisis de trafico de red con Zeek/Suricata</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para analisis de trafico de red con zeek/suricata.</p>
+<h2>CASO: Caso real: Analisis de trafico de red con Zeek/Suricata</h2>
+<p>Analisis de incidente real donde analisis de trafico de red con zeek/suricata fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-9">← Semana 9</a><a href="#semana-11">Semana 11 →</a></nav>
+    </section>
+    <section id="semana-11">
+<h1>Semana 11: Analisis basico de malware</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 11 de 20</p>
+<h2>LECTURA: Teoria: Analisis basico de malware</h2>
+<p>Contenido teorico detallado para analisis basico de malware. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Analisis basico de malware</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para analisis basico de malware.</p>
+<h2>CASO: Caso real: Analisis basico de malware</h2>
+<p>Analisis de incidente real donde analisis basico de malware fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-10">← Semana 10</a><a href="#semana-12">Semana 12 →</a></nav>
+    </section>
+    <section id="semana-12">
+<h1>Semana 12: Forense digital y manejo de evidencias</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 12 de 20</p>
+<h2>LECTURA: Teoria: Forense digital y manejo de evidencias</h2>
+<p>Contenido teorico detallado para forense digital y manejo de evidencias. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Forense digital y manejo de evidencias</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para forense digital y manejo de evidencias.</p>
+<h2>CASO: Caso real: Forense digital y manejo de evidencias</h2>
+<p>Analisis de incidente real donde forense digital y manejo de evidencias fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-11">← Semana 11</a><a href="#semana-13">Semana 13 →</a></nav>
+    </section>
+    <section id="semana-13">
+<h1>Semana 13: Gestion del ciclo de vida de vulnerabilidades</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 13 de 20</p>
+<h2>LECTURA: Teoria: Gestion del ciclo de vida de vulnerabilidades</h2>
+<p>Contenido teorico detallado para gestion del ciclo de vida de vulnerabilidades. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Gestion del ciclo de vida de vulnerabilidades</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para gestion del ciclo de vida de vulnerabilidades.</p>
+<h2>CASO: Caso real: Gestion del ciclo de vida de vulnerabilidades</h2>
+<p>Analisis de incidente real donde gestion del ciclo de vida de vulnerabilidades fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-12">← Semana 12</a><a href="#semana-14">Semana 14 →</a></nav>
+    </section>
+    <section id="semana-14">
+<h1>Semana 14: Hardening y lineas base de configuracion</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 14 de 20</p>
+<h2>LECTURA: Teoria: Hardening y lineas base de configuracion</h2>
+<p>Contenido teorico detallado para hardening y lineas base de configuracion. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Hardening y lineas base de configuracion</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para hardening y lineas base de configuracion.</p>
+<h2>CASO: Caso real: Hardening y lineas base de configuracion</h2>
+<p>Analisis de incidente real donde hardening y lineas base de configuracion fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-13">← Semana 13</a><a href="#semana-15">Semana 15 →</a></nav>
+    </section>
+    <section id="semana-15">
+<h1>Semana 15: Gestion de identidades y acceso (IAM)</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 15 de 20</p>
+<h2>LECTURA: Teoria: Gestion de identidades y acceso (IAM)</h2>
+<p>Contenido teorico detallado para gestion de identidades y acceso (iam). Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Gestion de identidades y acceso (IAM)</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para gestion de identidades y acceso (iam).</p>
+<h2>CASO: Caso real: Gestion de identidades y acceso (IAM)</h2>
+<p>Analisis de incidente real donde gestion de identidades y acceso (iam) fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-14">← Semana 14</a><a href="#semana-16">Semana 16 →</a></nav>
+    </section>
+    <section id="semana-16">
+<h1>Semana 16: Postura de seguridad en cloud (CSPM/CWPP)</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 16 de 20</p>
+<h2>LECTURA: Teoria: Postura de seguridad en cloud (CSPM/CWPP)</h2>
+<p>Contenido teorico detallado para postura de seguridad en cloud (cspm/cwpp). Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Postura de seguridad en cloud (CSPM/CWPP)</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para postura de seguridad en cloud (cspm/cwpp).</p>
+<h2>CASO: Caso real: Postura de seguridad en cloud (CSPM/CWPP)</h2>
+<p>Analisis de incidente real donde postura de seguridad en cloud (cspm/cwpp) fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-15">← Semana 15</a><a href="#semana-17">Semana 17 →</a></nav>
+    </section>
+    <section id="semana-17">
+<h1>Semana 17: Seguridad de aplicaciones y DevSecOps</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 17 de 20</p>
+<h2>LECTURA: Teoria: Seguridad de aplicaciones y DevSecOps</h2>
+<p>Contenido teorico detallado para seguridad de aplicaciones y devsecops. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Seguridad de aplicaciones y DevSecOps</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para seguridad de aplicaciones y devsecops.</p>
+<h2>CASO: Caso real: Seguridad de aplicaciones y DevSecOps</h2>
+<p>Analisis de incidente real donde seguridad de aplicaciones y devsecops fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-16">← Semana 16</a><a href="#semana-18">Semana 18 →</a></nav>
+    </section>
+    <section id="semana-18">
+<h1>Semana 18: Proteccion de datos y DLP</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 18 de 20</p>
+<h2>LECTURA: Teoria: Proteccion de datos y DLP</h2>
+<p>Contenido teorico detallado para proteccion de datos y dlp. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Proteccion de datos y DLP</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para proteccion de datos y dlp.</p>
+<h2>CASO: Caso real: Proteccion de datos y DLP</h2>
+<p>Analisis de incidente real donde proteccion de datos y dlp fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-17">← Semana 17</a><a href="#semana-19">Semana 19 →</a></nav>
+    </section>
+    <section id="semana-19">
+<h1>Semana 19: Resiliencia: backup, DR y continuidad</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 19 de 20</p>
+<h2>LECTURA: Teoria: Resiliencia: backup, DR y continuidad</h2>
+<p>Contenido teorico detallado para resiliencia: backup, dr y continuidad. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Resiliencia: backup, DR y continuidad</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para resiliencia: backup, dr y continuidad.</p>
+<h2>CASO: Caso real: Resiliencia: backup, DR y continuidad</h2>
+<p>Analisis de incidente real donde resiliencia: backup, dr y continuidad fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-18">← Semana 18</a><a href="#semana-20">Semana 20 →</a></nav>
+    </section>
+    <section id="semana-20">
+<h1>Semana 20: Capstone: Ejercicio Purple Team</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 20 de 20</p>
+<h2>LECTURA: Teoria: Capstone: Ejercicio Purple Team</h2>
+<p>Contenido teorico detallado para capstone: ejercicio purple team. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Capstone: Ejercicio Purple Team</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para capstone: ejercicio purple team.</p>
+<h2>CASO: Caso real: Capstone: Ejercicio Purple Team</h2>
+<p>Analisis de incidente real donde capstone: ejercicio purple team fue factor clave. Lecciones aprendidas.</p>
+<h2>PROYECTO: Proyecto integrador: Capstone: Ejercicio Purple Team</h2>
+<p>Proyecto final que integra todos los conocimientos del curso.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-19">← Semana 19</a><a href="#quiz">Quiz del curso →</a></nav>
+    </section>
+    <section id="quiz">
+      <h2>Quiz del curso</h2>
+      <p class="t2">Checkpoint formativo: 21 ítems con explicación.
+Al superar 70 %, márcalo en tu progreso.</p>
+      <h3 id="q-titulo"></h3>
+      <div class="quiz-opciones" id="q-opciones"></div>
+      <p class="feedback" id="q-feedback" aria-live="polite"></p>
+      <p class="marcador" id="q-marcador"></p>
+      <button class="btn" id="q-next" hidden>Siguiente</button>
+    </section>
+    <section id="laboratorio">
+<h1>Lab guiado: mini-SOC con Wazuh (local)</h1>
+<p><strong>Curso:</strong> Ciberseguridad Defensiva: Operar como SOC · <strong>Duración estimada:</strong> 3–4 h · <strong>Nivel:</strong> universitario</p>
+<h2>Objetivo</h2>
+<p>Operate detection: connect 2 agents and detect 3 simulated events.</p>
+<h2>Marco legal y ético</h2>
+<p>Everything runs in your own local VMs; the EICAR file is an inert test pattern.</p>
+<h2>Pasos</h2>
+<ol><li>VM 1 (server): Ubuntu Server 22.04 with 4 GB RAM minimum.</li><li>Install Wazuh following the official quickstart (all-in-one).</li><li>VM 2 (agent): install the agent, register it with the manager.</li><li>Generate event 1: 10 failed SSH attempts (<code>wrong password</code> in a loop).</li><li>Generate event 2: create a file with the EICAR string (on Linux: <code>echo &lt;eicar&gt; &gt; /tmp/test.txt</code>).</li><li>Generate event 3: create a user and add it to the sudo group (privilege change).</li><li>In the Wazuh dashboard: locate the 3 alerts, note level, rule and source.</li><li>Write the timeline of the 3 events as if it were a real incident.</li></ol>
+<h2>Evidencia a entregar</h2>
+<p>Screenshots of the 3 alerts + timeline (who, what, when, source) in <code>evidencia-soc.md</code>.</p>
+<h2>Criterio de superación</h2>
+<p>La evidencia debe permitir que otra persona <strong>reproduzca</strong> el resultado sin preguntarte nada. Si no es reproducible, no es evidencia (ver <a href="#rubrica">rúbrica</a>).</p>
+    </section>
+    <section id="proyecto">
+<h1>Examen final y proyecto — Ciberseguridad Defensiva: Operar como SOC</h1>
+<h2>Parte A — Examen (30 % del bloque de evaluación)</h2>
+<ul><li>12 preguntas tipo test (banco del quiz ampliado) + 2 preguntas cortas de razonamiento.</li><li>Sin material. Duración estimada: 45 min.</li><li>Cubre: S1: Fundamentos: triada CIA y controles, S2: Telemetría: logs y detección, S3: Respuesta a incidentes (NIST 800-61), S4: Hardening y continuidad, S5: Fundamentos de SOC y triaje de alertas, S6: Ingenieria de deteccion y reglas Sigma, S7: Respuesta a incidentes (NIST 800-61r3), S8: Inteligencia de amenazas y TIP, S9: Deteccion y respuesta en endpoints (EDR), S10: Analisis de trafico de red con Zeek/Suricata, S11: Analisis basico de malware, S12: Forense digital y manejo de evidencias, S13: Gestion del ciclo de vida de vulnerabilidades, S14: Hardening y lineas base de configuracion, S15: Gestion de identidades y acceso (IAM), S16: Postura de seguridad en cloud (CSPM/CWPP), S17: Seguridad de aplicaciones y DevSecOps, S18: Proteccion de datos y DLP, S19: Resiliencia: backup, DR y continuidad, S20: Capstone: Ejercicio Purple Team.</li></ul>
+<h2>Parte B — Proyecto final con evidencia (40 %)</h2>
+<p><strong>Encargo:</strong> Operate detection: connect 2 agents and detect 3 simulated events.</p>
+<p><strong>Laboratorio de referencia:</strong> <a href="#laboratorio">laboratorio.md</a> — Lab guiado: mini-SOC con Wazuh (local)</p>
+<h3>Entregables</h3>
+<ol><li><strong>Evidencia</strong> (<code>evidencia-*.md</code>): Screenshots of the 3 alerts + timeline (who, what, when, source) in <code>evidencia-soc.md</code>.</li><li><strong>Informe</strong> con la estructura de la <a href="#chuleta">chuleta</a>: qué, cuánto, cómo, captura, remediación/decisión.</li><li><strong>Defensa</strong> (10 min): demo en vivo respondiendo con el artefacto delante.</li></ol>
+<h3>Condiciones éticas</h3>
+<p>Everything runs in your own local VMs; the EICAR file is an inert test pattern.</p>
+<h3>Cómo se califica</h3>
+<p>Según la <a href="#rubrica">rúbrica</a>, bloque 3. Sin evidencia verificable no hay proyecto: un resumen bonito no es evidencia.</p>
+<h2>Superación del curso</h2>
+<table><thead><tr><th>Bloque</th><th>Peso</th><th>Mínimo</th></tr></thead><tbody><tr><td>Participación + ejercicios</td><td>30 %</td><td>entregar ≥ 70 % de semanas</td></tr><tr><td>Quizzes formativos</td><td>30 %</td><td>≥ 60 % de aciertos</td></tr><tr><td>Examen + proyecto</td><td>40 %</td><td>evidencia presentada y defendida</td></tr></tbody></table>
+<p>Al superar el curso puedes generar tu credencial con sello hash en <a href="../../credencial.html">../credencial.html</a>.</p>
+    </section>
+    <section id="rubrica">
+<h1>Rúbrica de evaluación — Ciberseguridad Defensiva: Operar como SOC</h1>
+<blockquote>Peso global: participación y ejercicios <strong>30 %</strong> · quizzes formativos <strong>30 %</strong> · proyecto final con evidencia <strong>40 %</strong>. Estilo Harvard: se aprueba demostrando.</blockquote>
+<h2>Objetivos que la rúbrica mide</h2>
+<ul><li>Aplicar la triada CIA para clasificar activos y controles</li><li>Configurar recolección de logs y detección básica en un SIEM abierto</li><li>Ejecutar el ciclo de respuesta a incidentes de NIST 800-61</li><li>Endurecer un servidor con matriz de hardening verificable</li></ul>
+<h2>1. Participación y ejercicios semanales (30 %)</h2>
+<table><thead><tr><th>Criterio</th><th>Excelente (100)</th><th>Suficiente (60)</th><th>Insuficiente (0)</th></tr></thead><tbody><tr><td>Constancia</td><td>Todas las semanas con entrega</td><td>≥ 70 % de semanas</td><td>&lt; 70 %</td></tr><tr><td>Calidad del ejercicio</td><td>Resuelto y explicado con palabras propias</td><td>Resuelto sin explicar</td><td>Copiado o vacío</td></tr></tbody></table>
+<h2>2. Quizzes formativos (30 %)</h2>
+<table><thead><tr><th>Criterio</th><th>Excelente</th><th>Suficiente</th><th>Insuficiente</th></tr></thead><tbody><tr><td>Aciertos acumulados</td><td>≥ 85 %</td><td>60–84 %</td><td>&lt; 60 %</td></tr><tr><td>Uso de la explicación</td><td>Repasa lo fallado y lo corrige</td><td>Repasa a veces</td><td>No repasa</td></tr></tbody></table>
+<h2>3. Proyecto final con evidencia (40 %)</h2>
+<table><thead><tr><th>Criterio</th><th>Excelente (100)</th><th>Suficiente (60)</th><th>Insuficiente (0)</th></tr></thead><tbody><tr><td>Evidencia</td><td>Artefactos verificables y reproducibles</td><td>Evidencia parcial</td><td>Solo afirmaciones</td></tr><tr><td>Informe</td><td>Hallazgo + severidad + reproducción + remediación</td><td>Falta 1 sección</td><td>Sin estructura</td></tr><tr><td>Defensa</td><td>Responde con el artefacto delante</td><td>Responde con dudas</td><td>No puede defenderlo</td></tr><tr><td>Ética/legalidad</td><td>Alcance respetado en todo momento</td><td>Duda menor documentada</td><td>Fuera de alcance</td></tr></tbody></table>
+<p><strong>Nota final</strong> = 0.3·P1 + 0.3·P2 + 0.4·P3 · Aprobado ≥ 60/100 con evidencia presentada.</p>
+    </section>
+    <section id="glosario">
+<h1>Glosario — Ciberseguridad Defensiva: Operar como SOC</h1>
+<p>Términos que el curso usa y que el examen puede pedir.</p>
+<table><thead><tr><th>Término</th><th>Definición en una línea</th></tr></thead><tbody><tr><td><strong>Tríada CIA</strong></td><td>Confidentiality, Integrity, Availability: what every control protects.</td></tr><tr><td><strong>Control preventivo/detectivo/correctivo</strong></td><td>Stops it from starting / notices it happening / fixes it afterward.</td></tr><tr><td><strong>Telemetría</strong></td><td>Set of logs and signals from which detection is built.</td></tr><tr><td><strong>SIEM</strong></td><td>Security Information and Event Management: centralizes and correlates logs.</td></tr><tr><td><strong>Correlación</strong></td><td>Joining events from different sources into one timeline.</td></tr><tr><td><strong>EICAR</strong></td><td>Harmless test file to verify that antivirus detects.</td></tr><tr><td><strong>NIST 800-61</strong></td><td>Incident response lifecycle standard: preparation → lessons learned.</td></tr><tr><td><strong>Contención</strong></td><td>Isolate affected machines to stop spread.</td></tr><tr><td><strong>Erradicación</strong></td><td>Remove the cause: accounts, malware, entries.</td></tr><tr><td><strong>Playbook</strong></td><td>Pre-written script per incident scenario.</td></tr><tr><td><strong>Hardening</strong></td><td>Reducing attack surface to the minimum necessary.</td></tr><tr><td><strong>CIS Benchmark</strong></td><td>Internationally recognized hardening checklist per system.</td></tr><tr><td><strong>Backup 3-2-1</strong></td><td>3 copies, 2 media, 1 offsite; and tested restoration.</td></tr><tr><td><strong>RPO/RTO</strong></td><td>How much data I can lose / how long I can be down.</td></tr><tr><td><strong>False positive</strong></td><td>Alert that was not an attack: tuning noise.</td></tr><tr><td><strong>Lecciones aprendidas</strong></td><td>Post-incident report; without it the cycle does not close.</td></tr></tbody></table>
+<blockquote>Regla de estudio: si no sabes explicarlo en una frase a alguien de fuera, aún no lo sabes.</blockquote>
+    </section>
+    <section id="chuleta">
+<h1>Ciberseguridad Defensiva: Operar como SOC — material de repaso</h1>
+<h1>Chuleta — Ciberseguridad Defensiva</h1>
+<h2>Clasificar un control (siempre lo mismo)</h2>
+<ul><li>¿Qué protects? → C / I / D</li><li>¿Cuándo acts? → preventivo / detectivo / correctivo</li></ul>
+<h2>Logs mínimos (checklist)</h2>
+<ul><li>[ ] Authentication (success AND failure)</li><li>[ ] Privilege changes</li><li>[ ] Firewall/inbound connections</li><li>[ ] Application errors</li><li>[ ] Synchronized hour (NTP) — without it there is no correlation</li><li>[ ] Defined retention (and legal justification)</li></ul>
+<h2>NIST 800-61 lifecycle</h2>
+<p>1 Preparación → 2 Detección y análisis → 3 Contención → 4 Erradicación → 5 Recuperación → 6 Lecciones aprendidas ← (the one always forgotten)</p>
+<h2>Ransomware in 4 moves (game of the course)</h2>
+<ol><li>ISOLATE machines (unplug network, do not power off) → 2. PRESERVE evidence (memory, logs)</li><li>NOTIFY (internal + authority if applicable) → 4. RESTORE from tested backup (never pay)</li></ol>
+<h2>Hardening in 60 seconds (CIS level 1)</h2>
+<ul><li>[ ] Unnecessary services OFF</li><li>[ ] SSH: no root, no password (key)</li><li>[ ] MFA on all critical accounts</li><li>[ ] Automatic updates</li><li>[ ] Open ports: only the essential ones</li><li>[ ] Tested backup (restore every quarter)</li></ul>
+<p><em>Generado por edu-forge academy. Imprímela: es lo que llevas al examen.</em></p>
+    </section>
+    <section id="recursos">
+<h1>Recursos abiertos — Ciberseguridad Defensiva: Operar como SOC</h1>
+<h2>Repositorios verificados (GitHub, activos)</h2>
+<ul><li><a href="https://github.com/OWASP/wstg">OWASP Web Security Testing Guide</a> — guía oficial de pruebas de seguridad web (9.8k★)</li><li><a href="https://github.com/juice-shop/juice-shop">OWASP Juice Shop</a> — app vulnerable moderna para práctica legal en local (13.8k★)</li><li><a href="https://github.com/digininja/DVWA">DVWA</a> — web app deliberadamente vulnerable (PHP/MySQL) (13.6k★)</li><li><a href="https://github.com/rapid7/metasploit-framework">Metasploit Framework</a> — framework de explotación — solo en pentests autorizados (39k★)</li><li><a href="https://github.com/freeCodeCamp/freeCodeCamp">freeCodeCamp</a> — currículo abierto de programación y matemáticas (455k★)</li><li><a href="https://github.com/public-apis/public-apis">public-apis</a> — directorio comunitario de APIs gratuitas (479k★)</li></ul>
+<h2>APIs abiertas verificadas (sin API key)</h2>
+<ul><li><a href="https://openlibrary.org/developers/api">Open Library API</a> — catálogo abierto de libros, sin API key</li><li><a href="https://es.wikipedia.org/w/api.php">Wikipedia API</a> — contenido enciclopédico multilingüe, sin API key</li><li><a href="https://export.arxiv.org/api/query">arXiv API</a> — papers científicos abiertos, sin API key</li></ul>
+<h3>PT</h3>
+<ul><li><a href="https://pt.khanacademy.org">Khan Academy PT</a> — matematicas, ciencias</li><li><a href="https://pt.wikibooks.org">Wikilivros PT</a> — libros abiertos</li><li><a href="https://pt.forvo.com">Forvo PT</a> — pronunciacion real</li><li><a href="https://www.dominiopublico.gov.br">Portal Domínio Público</a> — obras libres BR</li><li><a href="https://ciberduvidas.iscte-iul.pt">Ciberdúvidas</a> — dudas de portugues</li></ul>
+<h3>ES</h3>
+<ul><li><a href="https://es.khanacademy.org">Khan Academy ES</a> — matematicas, ciencias</li><li><a href="https://edu.gcfglobal.org/es/">GCF Global</a> — office, internet, empleo</li><li><a href="https://www.aulamentor.es">Aula Mentor (MEC)</a> — cursos oficiales gratuitos</li><li><a href="https://learndigital.withgoogle.com/activate">Google Activate</a> — habilidades digitales</li><li><a href="https://ocw.mit.edu">MIT OpenCourseWare</a> — universitario abierto</li><li><a href="https://openstax.org">OpenStax</a> — libros de texto abiertos</li><li><a href="https://www.ine.es">INE / datos abiertos</a> — datos publicos</li></ul>
+<h3>EN</h3>
+<ul><li><a href="https://cs50.harvard.edu">Harvard Online (CS50)</a> — curso insignia</li><li><a href="https://ocw.mit.edu">MIT OCW</a> — grado abierto</li><li><a href="https://www.open.edu/openlearn">OpenLearn (OU)</a> — cursos gratuitos</li><li><a href="https://www.gutenberg.org">Project Gutenberg</a> — libros dominio publico</li></ul>
+<h2>Regla de oro</h2>
+<p>Todo recurso externo está verificado (existencia y actividad comprobadas el 2026-09-12 vía GitHub API / HTTP) antes de citarse. Nada de contenido con licencia dudosa.</p>
+    </section>
+  </main>
+</div>
+  <script>
+    const QUIZ = [{"pregunta": "La triada CIA significa...", "opciones": ["Central Intelligence Agency", "Confidencialidad, Integridad, Disponibilidad", "Cifrado, Identidad, Acceso", "Control, Inspección, Auditoría"], "correcta": 1, "explicacion": "Las tres propiedades que todo control protege."}, {"pregunta": "El ciclo NIST 800-61 termina con...", "opciones": ["La contención", "El pago del rescate", "Lecciones aprendidas", "El reinicio"], "correcta": 2, "explicacion": "Sin post-incidente el ciclo está incompleto."}, {"pregunta": "Backup 3-2-1 significa...", "opciones": ["3 copias, 2 medios, 1 fuera de sitio", "3 firewalls, 2 DMZ, 1 VPN", "3 usuarios, 2 roles, 1 admin", "3 hashes, 2 claves, 1 token"], "correcta": 0, "explicacion": "Tres copias en dos medios distintos y una copia externa."}, {"pregunta": "Sin hora sincronizada (NTP) en los logs, falla...", "opciones": ["El disco", "La correlación de eventos", "El firewall", "El antivirus"], "correcta": 1, "explicacion": "Sin relojes coordinados no se puede reconstruir la cronología de un incidente."}, {"pregunta": "Un control detectivo (frente a preventivo) es...", "opciones": ["Un cifrado en reposo", "Un sistema SIEM que alerta", "Un parche", "Un backup"], "correcta": 1, "explicacion": "Detecta lo que ya está pasando; no impide que empiece."}, {"pregunta": "La primera decisión en un incidente activo de ransomware es...", "opciones": ["Pagar el rescate", "Contener (aislar máquinas afectadas)", "Borrar los logs", "Reinstalar todo"], "correcta": 1, "explicacion": "Contener para frenar la propagación; el rescate no se paga como regla y borrar evidencia destruye la investigación."}, {"pregunta": "Un firewall es un control...", "opciones": ["Detectivo", "Correctivo", "Preventivo", "Administrativo"], "correcta": 2, "explicacion": "Bloquea tráfico antes de que llegue — actúa antes del incidente."}, {"pregunta": "La integridad se protege con...", "opciones": ["Cifrado AES", "Hashing SHA-256 y firmas digitales", "Redundancia RAID", "Antivirus"], "correcta": 1, "explicacion": "Hashing detecta alteraciones; la firma verifica el autor."}, {"pregunta": "Defensa en profundidad significa...", "opciones": ["Un firewall muy potente", "Combinar capas de controles diferentes", "Gastar más en seguridad", "Contratar más personal"], "correcta": 1, "explicacion": "Si falla una capa, la siguiente actúa — nunca un solo punto de fallo."}, {"pregunta": "En el caso Target (2013), el fallo fue...", "opciones": ["No tener firewall", "Ignorar las alertas del SIEM durante semanas", "No tener antivirus", "Usar WiFi abierto"], "correcta": 1, "explicacion": "FireEye alertó; el equipo no respondió. Tecnología sin proceso."}, {"pregunta": "Sin NTP sincronizado, falla...", "opciones": ["El firewall", "La correlación temporal de eventos", "El cifrado", "El backup"], "correcta": 1, "explicacion": "Relojes desincronizados hacen imposible reconstruir la cronología."}, {"pregunta": "Sigma es...", "opciones": ["Un SIEM comercial", "Un formato abierto de reglas de detección", "Un antivirus", "Un protocolo de red"], "correcta": 1, "explicacion": "Reglas portables que se compilan a cualquier SIEM."}, {"pregunta": "Event ID 4625 en Windows indica...", "opciones": ["Login exitoso", "Login fallido", "Cambio de contraseña", "Instalación de software"], "correcta": 1, "explicacion": "4624 = éxito, 4625 = fallo. Críticos para detectar brute force."}, {"pregunta": "Wazuh es...", "opciones": ["Un firewall comercial", "Un SIEM open source gratuito", "Un escáner de vulnerabilidades", "Un gestor de contraseñas"], "correcta": 1, "explicacion": "SIEM + HIDS + compliance, open source y gratuito."}, {"pregunta": "¿Cuántas fases tiene el ciclo NIST 800-61?", "opciones": ["4", "5", "6", "8"], "correcta": 2, "explicacion": "Preparación, Detección, Contención, Erradicación, Recuperación, Lecciones."}, {"pregunta": "Ante ransomware activo, la primera acción es...", "opciones": ["Apagar el PC", "Aislar de la red sin apagar", "Pagar el rescate", "Formatear"], "correcta": 1, "explicacion": "Aislar frena la propagación; no apagar preserva RAM con posibles claves."}, {"pregunta": "Un IoC (Indicator of Compromise) puede ser...", "opciones": ["Solo una IP", "IP, hash, dominio, email, TTP", "Solo un hash", "Solo un CVE"], "correcta": 1, "explicacion": "Los IoC son cualquier artefacto observable asociado al incidente."}, {"pregunta": "La fase de lecciones aprendidas es obligatoria porque...", "opciones": ["Lo exige la ley", "Sin ella el mismo incidente se repite", "Es la más corta", "La pide el seguro"], "correcta": 1, "explicacion": "La mejora continua depende de documentar qué falló y qué funcionó."}, {"pregunta": "RTO es...", "opciones": ["Tiempo máximo sin servicio aceptable", "Datos máximos que se pueden perder", "Coste del backup", "Tiempo de cifrado"], "correcta": 0, "explicacion": "Recovery Time Objective: cuánto tiempo puedes estar caído."}, {"pregunta": "El hardening SSH más efectivo es...", "opciones": ["Cambiar el puerto a 2222", "Deshabilitar root login + solo claves + MaxAuthTries", "Instalar fail2ban solamente", "Usar contraseñas largas"], "correcta": 1, "explicacion": "Cambiar el puerto es seguridad por oscuridad; las claves + restricciones son control real."}, {"pregunta": "Un backup nunca probado es...", "opciones": ["Suficiente si está cifrado", "Una esperanza, no un backup", "Válido si es automático", "Aceptable para datos no críticos"], "correcta": 1, "explicacion": "Sin test de restauración verificado, no sabes si funciona."}];
+    const SLUG = "ciber-defensiva";
+    let qi = 0, score = 0;
+    const qt = document.getElementById('q-titulo');
+    const qo = document.getElementById('q-opciones');
+    const qf = document.getElementById('q-feedback');
+    const qm = document.getElementById('q-marcador');
+    const qb = document.getElementById('q-next');
+    function barajar(a) {
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+    function render() {
+      const q = QUIZ[qi];
+      qt.textContent = (qi + 1) + '/' + QUIZ.length + ' · ' + q.pregunta;
+      qo.innerHTML = ''; qf.textContent = ''; qb.hidden = true;
+      const orden = baraja(q.opciones.map((_, i) => i));
+      orden.forEach(i => {
+        const b = document.createElement('button');
+        b.textContent = q.opciones[i];
+        b.onclick = () => {
+          [...qo.children].forEach(el => {
+            el.classList.add(el.dataset.i == q.correcta ? 'correcta' : 'fallo');
+            el.disabled = true;
+          });
+          const ok = i === q.correcta;
+          if (ok) score++;
+          qf.textContent = (ok ? '✓ Correcto. ' : '✗ Incorrecto. ') + q.explicacion;
+          qm.textContent = 'Aciertos: ' + score;
+          qb.hidden = false;
+        };
+        b.dataset.i = i;
+        qo.appendChild(b);
+      });
+    }
+    qb.onclick = () => { qi++; qi < QUIZ.length ? render() : fin(); };
+    function fin() {
+      qt.textContent = 'Terminado: ' + score + '/' + QUIZ.length;
+      qo.innerHTML = ''; qm.textContent = '';
+      const superado = score >= QUIZ.length * 0.7;
+      if (superado) {
+        // progreso real: el quiz superado se marca solo (token local, sin servidor)
+        try {
+          const est = JSON.parse(localStorage.getItem('stt-progreso') || '{}');
+          est[SLUG + '/quiz'] = true;
+          localStorage.setItem('stt-progreso', JSON.stringify(est));
+        } catch (e) { /* sin storage: progreso manual en progreso.html */ }
+        qf.textContent = 'Nivel superado — quiz marcado automáticamente en tu progreso.';
+      } else {
+        qf.textContent = 'Repasa las semanas y vuelve a intentarlo (se supera con 70 %).';
+      }
+      const re = document.createElement('button');
+      re.className = 'btn'; re.textContent = 'Reintentar quiz';
+      re.onclick = () => { qi = 0; score = 0; re.remove(); render(); };
+      qm.after(re);
+    }
+    render();
+    // nav activa al hacer scroll
+    const links = [...document.querySelectorAll('.curso-nav a[href^="#"]')];
+    const io = new IntersectionObserver(ents => ents.forEach(e => {
+      if (e.isIntersecting) links.forEach(a =>
+        a.classList.toggle('activo', a.getAttribute('href') === '#' + e.target.id));
+    }), { rootMargin: '-30% 0px -60% 0px' });
+    document.querySelectorAll('main section[id]').forEach(s => io.observe(s));
+    // controles: tema claro/oscuro (mismo interruptor que la landing), A-/A+ y barra de lectura
+    const root = document.documentElement;
+    try { root.dataset.theme = localStorage.getItem('stt-theme') || 'dark'; } catch (e) {}
+    document.getElementById('tema-btn').onclick = () => {
+      root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
+      try { localStorage.setItem('stt-theme', root.dataset.theme); } catch (e) {}
+    };
+    let fs = 1;
+    try { fs = parseFloat(localStorage.getItem('stt-fs')) || 1; } catch (e) {}
+    const aplicarFs = () => {
+      root.style.fontSize = (fs * 100) + '%';
+      try { localStorage.setItem('stt-fs', String(fs)); } catch (e) {}
+    };
+    aplicarFs();
+    document.getElementById('fs-mas').onclick = () => { fs = Math.min(1.3, fs + 0.1); aplicarFs(); };
+    document.getElementById('fs-menos').onclick = () => { fs = Math.max(0.85, fs - 0.1); aplicarFs(); };
+    const barra = document.getElementById('barra-lectura');
+    addEventListener('scroll', () => {
+      const h = document.documentElement;
+      barra.style.width = ((h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 || 0) + '%';
+    }, { passive: true });
+  </script>
+</body>
+</html>

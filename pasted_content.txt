@@ -1,0 +1,1044 @@
+Sí. Y te diría que **no sigas simplemente añadiendo pantallas al `secure-t` actual**. Lo que tienes ahora es un buen *scaffold*, pero para llevarlo al máximo hay que convertirlo en una **infraestructura educativa de ciberseguridad gobernada por IA**, no en “una web con un chatbot”.
+
+He comprobado el repo: `belentani7/secure-t` es privado, está en `main`, y ya tiene React/Vite/TypeScript/Tailwind, además de `client`, `server`, `shared` y `data`.
+
+## 🚀 La visión máxima
+
+Yo lo construiría como:
+
+**secure T = Universidad + Cyber Range + Tutor IA + OSINT + laboratorio + evaluación + credenciales + agente académico.**
+
+Y con una regla:
+
+> **IA como orquestador, open source como infraestructura, estándares abiertos como columna vertebral y humanos como autoridad académica final.**
+
+No intentaría construir todo desde cero.
+
+---
+
+# 1. Arquitectura que le pediría a Manus
+
+```text
+                    ┌──────────────────────────┐
+                    │        secure T          │
+                    │       WEB CAMPUS         │
+                    └────────────┬─────────────┘
+                                 │
+              ┌──────────────────┼──────────────────┐
+              ↓                  ↓                  ↓
+        CAMPUS ACADÉMICO     TUTOR IA          CYBER RANGE
+              │                  │                  │
+        cursos/exámenes      RAG/agentes       CTF/labs
+        expediente           voz               containers
+        competencias         memoria           redes aisladas
+              │                  │                  │
+              └──────────────────┼──────────────────┘
+                                 ↓
+                       ORQUESTADOR DE IA
+                                 │
+              ┌──────────────────┼──────────────────┐
+              ↓                  ↓                  ↓
+          PostgreSQL          Vector DB          Object Storage
+          + Drizzle           pgvector            MinIO
+              │                  │                  │
+              └──────────────────┼──────────────────┘
+                                 ↓
+                       IDENTIDAD / PERMISOS
+                              Keycloak
+                                 │
+                    OIDC / OAuth2 / RBAC / MFA
+```
+
+---
+
+# 2. Lo que cambiaría YA
+
+El README dice que el siguiente paso previsto es PostgreSQL/Drizzle, autenticación, RBAC y persistencia académica. **Estoy de acuerdo**, pero lo ampliaría bastante.
+
+### Backend
+
+**PostgreSQL + Drizzle**
+
+Pero no guardar solamente:
+
+```text
+user
+course
+progress
+```
+
+Sino un modelo académico real:
+
+```text
+users
+roles
+permissions
+
+students
+faculty
+mentors
+
+programs
+degrees
+courses
+modules
+lessons
+learning_objectives
+
+enrollments
+attempts
+submissions
+assessments
+grades
+
+competencies
+student_competencies
+evidence
+
+labs
+lab_instances
+lab_sessions
+lab_events
+
+certificates
+credentials
+
+ai_sessions
+ai_messages
+ai_memory
+ai_evaluations
+ai_actions
+ai_audit_log
+```
+
+Eso convierte el proyecto en una plataforma **académica**, no una demo.
+
+---
+
+# 3. 🔐 Identidad: no la programes tú
+
+Utilizaría **Keycloak**.
+
+Te da una base open source para:
+
+* login
+* OAuth2
+* OpenID Connect
+* roles
+* grupos
+* permisos
+* MFA
+* identidad institucional
+
+Y entonces:
+
+```text
+Student
+Faculty
+Mentor
+Lab Instructor
+Examiner
+Administrator
+AI Agent
+System
+```
+
+El agente IA **no debe ser administrador por defecto**.
+
+Tiene permisos explícitos.
+
+---
+
+# 4. 🧠 El verdadero salto: AI Governance
+
+Aquí está lo que más le falta al concepto.
+
+No hagas:
+
+```text
+Usuario → ChatGPT → respuesta
+```
+
+Haz:
+
+```text
+Usuario
+   ↓
+AI Gateway
+   ↓
+Policy Engine
+   ↓
+Context/RAG
+   ↓
+Agent Router
+   ↓
+Specialist Agent
+   ↓
+Tool permissions
+   ↓
+Validation
+   ↓
+Response
+   ↓
+Audit
+```
+
+### Agentes especializados
+
+Yo crearía:
+
+**TUTOR**
+
+Explica conceptos.
+
+**SOCRATIC**
+
+No da directamente la respuesta; hace preguntas.
+
+**LAB**
+
+Ayuda dentro de un laboratorio.
+
+**ASSESSOR**
+
+Evalúa respuestas.
+
+**CURRICULUM**
+
+Mapea competencias.
+
+**RESEARCHER**
+
+Busca fuentes y construye material.
+
+**ACADEMIC**
+
+Gestiona progreso.
+
+**SECURITY**
+
+Analiza escenarios defensivos.
+
+**VOICE**
+
+Convierte respuestas en voz.
+
+**ORCHESTRATOR**
+
+Decide qué agente utilizar.
+
+---
+
+# 5. ⚠️ Regla importantísima
+
+El agente IA **no debe poder hacer cualquier cosa**.
+
+Por ejemplo:
+
+```json
+{
+  "agent": "lab",
+  "permissions": [
+    "read_lab",
+    "execute_lab",
+    "read_terminal"
+  ],
+  "denied": [
+    "modify_grades",
+    "issue_credentials",
+    "delete_student",
+    "access_other_students"
+  ]
+}
+```
+
+Y todo queda registrado:
+
+```text
+AI_ACTION_LOG
+
+agent
+user
+timestamp
+tool
+input
+output
+authorization
+result
+```
+
+Esto es lo que convierte “IA” en **IA gobernada**.
+
+---
+
+# 6. 🧪 Cyber Range
+
+Aquí puedes hacer algo brutal.
+
+No ejecutes laboratorios directamente en el servidor principal.
+
+Cada laboratorio:
+
+```text
+Student
+ ↓
+Lab API
+ ↓
+Ephemeral Environment
+ ↓
+Docker / isolated network
+ ↓
+Challenge
+ ↓
+Telemetry
+ ↓
+Assessment
+ ↓
+Destroy
+```
+
+Puedes utilizar **CTFd** como referencia/infraestructura para competición y retos; su ecosistema es open source y tiene documentación pública. ([GitHub][1])
+
+Y para infraestructura de red, **NetBox** es interesante como “source of truth” de redes, dispositivos, IPs, VLANs, etc. ([GitHub][2])
+
+---
+
+# 7. 🧩 Los laboratorios que construiría
+
+No solamente CTF.
+
+### Año 1
+
+```text
+Linux
+Networking
+Python
+Web fundamentals
+Cryptography
+Operating systems
+Security fundamentals
+```
+
+### Año 2
+
+```text
+Web security
+Cloud security
+Digital forensics
+Malware analysis
+Identity
+SOC
+Threat intelligence
+```
+
+### Año 3
+
+```text
+Reverse engineering
+Binary exploitation
+Detection engineering
+Incident response
+AI security
+Cloud attack/defense
+```
+
+### Año 4
+
+```text
+Red team
+Blue team
+Purple team
+Security architecture
+Research
+AI security
+Capstone
+```
+
+Y cada asignatura tiene:
+
+```text
+Theory
+ ↓
+Simulation
+ ↓
+Lab
+ ↓
+Evidence
+ ↓
+Assessment
+ ↓
+Competency
+```
+
+---
+
+# 8. 🧠 El expediente académico debería ser diferente
+
+No quiero solamente:
+
+> Curso terminado: 73%
+
+Quiero:
+
+```text
+PEDRO
+────────────────────────────
+
+NETWORKING             ████████░░ 82%
+LINUX                  █████████░ 91%
+WEB SECURITY           ██████░░░░ 64%
+CRYPTOGRAPHY           █████░░░░░ 53%
+
+EVIDENCE
+
+✓ Wireshark investigation
+✓ Network segmentation
+✓ HTTP attack analysis
+✓ Incident report
+
+WEAK AREAS
+
+Cryptographic primitives
+Threat modeling
+
+AI RECOMMENDATION
+
+→ Lab CRYPTO-07
+→ Reading CRYPTO-03
+→ Socratic session
+```
+
+Eso es muchísimo más potente.
+
+---
+
+# 9. 🤖 RAG: aquí tampoco reinventes todo
+
+La IA debe poder consultar:
+
+```text
+curriculum
+course material
+standards
+lab documentation
+student evidence
+approved sources
+```
+
+Y responder:
+
+> “¿Por qué me has recomendado este laboratorio?”
+
+con evidencia.
+
+Puedes empezar incluso con:
+
+**PostgreSQL + pgvector**
+
+antes de meter una infraestructura vectorial enorme.
+
+---
+
+# 10. 🗣️ Voz IA open
+
+Tu idea de Kokoro + Chatterbox es buena, pero yo **no elegiría uno todavía**.
+
+Haz una abstracción:
+
+```text
+VoiceProvider
+     │
+     ├── Kokoro
+     ├── Chatterbox
+     └── Future providers
+```
+
+Así puedes cambiar el motor sin tocar el campus.
+
+Chatterbox Multilingual actualmente ofrece 23 idiomas, incluyendo español y portugués, y su repositorio declara licencia MIT; además incorpora clonación zero-shot y control de expresividad. ([GitHub][3])
+
+Kokoro también es muy atractivo para despliegue local por su tamaño reducido; existen implementaciones que permiten inferencia offline y aceleración por hardware. ([GitHub][4])
+
+---
+
+# 11. 🔊 La notificación que mencionas
+
+Esto sí lo haría ahora.
+
+Cuando:
+
+```text
+AI task
+Lab
+Report generation
+Voice generation
+Assessment
+```
+
+termine:
+
+```text
+┌──────────────────────────────┐
+│ ✓ Tarea completada           │
+│                              │
+│ Informe de laboratorio listo │
+│                              │
+│       [Abrir]                │
+└──────────────────────────────┘
+```
+
+Y:
+
+```javascript
+Notification API
++
+Web Audio API
++
+Service Worker
+```
+
+Pero con:
+
+```text
+Settings
+ ├─ Browser notifications
+ ├─ Completion sounds
+ ├─ AI voice
+ └─ Quiet hours
+```
+
+---
+
+# 12. 🏗️ Open source: dónde buscar
+
+Yo establecería una política:
+
+> **Antes de programar algo, buscar primero un proyecto open source maduro.**
+
+### Identidad
+
+[Keycloak en GitHub](https://github.com/keycloak/keycloak?utm_source=chatgpt.com)
+
+### Educación
+
+[Open edX](https://github.com/openedx/edx-platform?utm_source=chatgpt.com)
+
+### CTF / Cyber range
+
+[CTFd](https://github.com/CTFd/CTFd?utm_source=chatgpt.com)
+
+### Network source of truth
+
+[NetBox](https://github.com/netbox-community/netbox?utm_source=chatgpt.com)
+
+### TTS
+
+[Chatterbox](https://github.com/resemble-ai/chatterbox?utm_source=chatgpt.com)
+
+### AI coding agent
+
+[OpenHands](https://github.com/All-Hands-AI/OpenHands?utm_source=chatgpt.com)
+
+OpenHands, por ejemplo, está planteado como plataforma de agentes de desarrollo capaces de modificar código, ejecutar comandos, navegar por web y llamar APIs. ([GitHub][5])
+
+**Pero ojo:** open source ≠ automáticamente “sin restricciones”. Hay que comprobar licencia, pesos/modelos, datasets, dependencias y condiciones comerciales de cada componente.
+
+---
+
+# 13. 💥 Y aquí está mi cambio más importante
+
+No hagas que Manus construya 300 cosas simultáneamente.
+
+Haz que trabaje como **equipo de ingeniería IA**.
+
+```text
+ARCHITECT
+   ↓
+SECURITY ENGINEER
+   ↓
+BACKEND ENGINEER
+   ↓
+FRONTEND ENGINEER
+   ↓
+AI ENGINEER
+   ↓
+ACADEMIC ENGINEER
+   ↓
+QA
+   ↓
+SECURITY AUDITOR
+```
+
+Cada agente revisa el trabajo del anterior.
+
+---
+
+# 14. El prompt que yo le daría a Manus
+
+Te lo dejo prácticamente para **copiar/pegar entero**:
+
+# SECURE T — MASTER ENGINEERING DIRECTIVE
+
+Transforma `belentani7/secure-t` desde su scaffold actual en una plataforma educativa de ciberseguridad e inteligencia artificial de nivel profesional.
+
+NO construyas una simple landing page ni una demo de chatbot.
+
+El producto debe evolucionar hacia:
+
+**Digital Cybersecurity University + AI Tutor + Cyber Range + Academic Record + AI Governance Platform.**
+
+## PRINCIPIOS
+
+1. Open source first.
+2. Prefer mature open-source projects over reinventing infrastructure.
+3. Local/self-hostable whenever technically reasonable.
+4. Standards-first architecture.
+5. Security-by-design.
+6. Privacy-by-design.
+7. AI must be governed, auditable and permissioned.
+8. Never give an AI agent unrestricted system privileges.
+9. Separate academic authority from AI assistance.
+10. Every important AI action must be auditable.
+11. Every architectural decision must be documented.
+12. Preserve the existing working application while incrementally replacing weak foundations.
+
+## CURRENT STACK
+
+Keep and improve:
+
+* React
+* Vite
+* TypeScript
+* Tailwind
+* Express
+* pnpm
+
+Introduce where appropriate:
+
+* PostgreSQL
+* Drizzle ORM
+* Keycloak
+* Redis
+* pgvector
+* object storage compatible with S3 / MinIO
+* Docker
+* isolated lab environments
+
+Do not introduce unnecessary infrastructure before it is justified.
+
+## TARGET ARCHITECTURE
+
+Create clear boundaries:
+
+/client
+/server
+/shared
+/data
+/ai
+/agents
+/labs
+/academic
+/auth
+/voice
+/rag
+/audit
+/docs
+/infrastructure
+
+## IDENTITY
+
+Implement an identity architecture compatible with:
+
+* OpenID Connect
+* OAuth2
+* RBAC
+* MFA
+* institutional roles
+
+Roles:
+
+STUDENT
+FACULTY
+MENTOR
+EXAMINER
+LAB_INSTRUCTOR
+ADMIN
+AI_AGENT
+SYSTEM
+
+AI agents must have explicit permissions.
+
+## AI GOVERNANCE
+
+Create an AI Gateway.
+
+Pipeline:
+
+USER
+→ AI GATEWAY
+→ POLICY ENGINE
+→ CONTEXT/RAG
+→ AGENT ROUTER
+→ SPECIALIST AGENT
+→ TOOL PERMISSION CHECK
+→ EXECUTION
+→ VALIDATION
+→ RESPONSE
+→ AUDIT LOG
+
+Create specialist agents:
+
+* Tutor Agent
+* Socratic Agent
+* Academic Agent
+* Assessment Agent
+* Lab Agent
+* Research Agent
+* Curriculum Agent
+* Security Agent
+* Voice Agent
+* Orchestrator Agent
+
+Agents must never directly modify grades, credentials, identities or critical academic records unless an explicit human-authorized workflow exists.
+
+## AUDIT
+
+Create persistent AI audit events containing:
+
+* user
+* agent
+* timestamp
+* action
+* tool
+* authorization decision
+* input metadata
+* output metadata
+* result
+* failure reason where applicable
+
+Never store unnecessary secrets or sensitive personal data.
+
+## ACADEMIC MODEL
+
+Build a real academic data model:
+
+users
+roles
+students
+faculty
+programs
+degrees
+courses
+modules
+lessons
+learning_objectives
+competencies
+enrollments
+attempts
+submissions
+assessments
+grades
+evidence
+student_competencies
+certificates
+credentials
+
+The student's progress must be competency-based, not merely percentage-based.
+
+## LEARNING MODEL
+
+Every learning unit should support:
+
+THEORY
+→ PRACTICE
+→ LAB
+→ EVIDENCE
+→ ASSESSMENT
+→ COMPETENCY
+
+The platform should be capable of explaining WHY a learning recommendation was generated.
+
+## CYBER RANGE
+
+Labs must run in isolated environments.
+
+Never execute arbitrary student code inside the main application server.
+
+Design:
+
+Student
+→ Lab API
+→ ephemeral isolated environment
+→ challenge
+→ telemetry
+→ assessment
+→ cleanup
+
+Support future integration with CTF/lab infrastructure.
+
+## RAG
+
+Implement a provider-independent retrieval layer.
+
+Initial implementation:
+
+PostgreSQL + pgvector.
+
+Sources can include:
+
+* curriculum
+* lessons
+* approved documentation
+* lab documentation
+* academic policies
+* security references
+
+AI answers should be able to expose their supporting sources.
+
+## VOICE
+
+Create a provider abstraction:
+
+VoiceProvider
+
+Implement providers independently.
+
+Initial candidates:
+
+* Kokoro
+* Chatterbox
+
+Do not couple the application directly to one TTS engine.
+
+Support:
+
+* Spanish
+* Portuguese
+* English
+
+Design for future multilingual expansion.
+
+## NOTIFICATIONS
+
+Implement:
+
+* Browser Notification API
+* Web Audio completion sound
+* Service Worker
+* task completion events
+* notification preferences
+* sound preferences
+* quiet hours
+
+Any asynchronous task should be capable of producing:
+
+TASK_STARTED
+TASK_PROGRESS
+TASK_COMPLETED
+TASK_FAILED
+
+## UI
+
+The interface must feel like a serious digital university, not an AI toy.
+
+Required primary areas:
+
+DASHBOARD
+ACADEMY
+CURRICULUM
+LABS
+AI TUTOR
+ASSESSMENTS
+COMPETENCIES
+ACADEMIC RECORD
+CREDENTIALS
+RESEARCH
+COMMUNITY
+SETTINGS
+
+Prioritize information architecture, accessibility, performance and clarity over decorative effects.
+
+## SECURITY
+
+Implement:
+
+* secure sessions
+* CSRF protection where applicable
+* rate limiting
+* input validation
+* output validation
+* authorization middleware
+* secure headers
+* secret management
+* audit logging
+* dependency scanning
+* container isolation
+* least privilege
+
+Never put secrets in source control.
+
+## ENGINEERING RULE
+
+Before implementing a new subsystem:
+
+1. Search for mature open-source solutions.
+2. Check license.
+3. Check maintenance/activity.
+4. Check security history.
+5. Check compatibility.
+6. Decide whether to integrate or build.
+7. Document the decision.
+
+## TESTING
+
+Every major subsystem must have:
+
+* unit tests
+* integration tests
+* API tests
+* authorization tests
+* failure-path tests
+
+Add end-to-end tests for the critical student flows.
+
+Run:
+
+pnpm check
+pnpm build
+tests
+
+Do not declare a task complete if the application does not build.
+
+## DOCUMENTATION
+
+Create:
+
+/docs/ARCHITECTURE.md
+/docs/AI_GOVERNANCE.md
+/docs/SECURITY.md
+/docs/ACADEMIC_MODEL.md
+/docs/LAB_ARCHITECTURE.md
+/docs/VOICE_ARCHITECTURE.md
+/docs/OPEN_SOURCE_STACK.md
+/docs/ROADMAP.md
+
+## DELIVERY STRATEGY
+
+Do not attempt a giant unsafe rewrite.
+
+Work in vertical slices.
+
+PHASE 1
+Foundation
+
+* database
+* migrations
+* auth architecture
+* RBAC
+* audit system
+
+PHASE 2
+Academic engine
+
+* programs
+* courses
+* lessons
+* competencies
+* progress
+* assessments
+
+PHASE 3
+AI Gateway
+
+* agent registry
+* permissions
+* RAG
+* audit
+* provider abstraction
+
+PHASE 4
+Cyber Range
+
+* labs
+* isolated execution
+* telemetry
+* assessment
+
+PHASE 5
+Voice
+
+* provider abstraction
+* Kokoro
+* Chatterbox
+* asynchronous generation
+
+PHASE 6
+Credentials
+
+* achievement system
+* evidence
+* verifiable credentials architecture
+
+PHASE 7
+Advanced intelligence
+
+* personalized curriculum
+* competency prediction
+* adaptive learning
+* research assistant
+* institutional analytics
+
+## CRITICAL
+
+Do not fake functionality.
+
+If something is not implemented, label it clearly as a prototype.
+
+Do not replace real persistence with mock arrays once PostgreSQL is introduced.
+
+Do not hard-code academic results.
+
+Do not give the AI unrestricted database access.
+
+Do not give lab containers access to the production network.
+
+Do not expose secrets to the browser.
+
+Do not install large dependencies without justification.
+
+For every significant decision, update the appropriate documentation.
+
+At the end of each implementation phase:
+
+1. Run validation.
+2. Run tests.
+3. Run build.
+4. Review security.
+5. Review architecture.
+6. Report exactly what changed.
+7. Report what remains.
+8. Create a clean Git commit.
+
+The goal is not maximum code.
+
+The goal is maximum **capability, reliability, security, extensibility and educational value per line of code**.
+
+---
+
+## Y una cosa más: yo cambiaría el objetivo
+
+No intentaría que **secure T sea “la universidad con IA más espectacular”**.
+
+Intentaría que sea:
+
+> **la universidad donde la IA conoce tu trayectoria académica, puede enseñarte, puede ponerte en un laboratorio real, puede evaluar evidencia y puede justificar cada recomendación, pero nunca puede saltarse las reglas académicas o de seguridad.**
+
+Ahí está el producto realmente potente.
+
+Y la buena noticia es que **no necesitas pagar por cada pieza**: gran parte de esta arquitectura puede construirse con software abierto y ejecutarse localmente; el dinero, si aparece, lo reservaría para cómputo GPU, hosting, dominios, backups y eventualmente modelos/servicios concretos.
+
+[1]: https://github.com/CTFd/docs?utm_source=chatgpt.com "GitHub - CTFd/docs · GitHub"
+[2]: https://github.com/netbox-community/netbox?pubDate=20260523&utm_source=chatgpt.com "GitHub - netbox-community/netbox: The premier source of truth powering network automation. Open source under Apache 2. Try NetBox Cloud free: https://netboxlabs.com/products/free-netbox-cloud/ · GitHub"
+[3]: https://github.com/resemble-ai/chatterbox/blob/master/README.md?plain=1&utm_source=chatgpt.com "chatterbox/README.md at master · resemble-ai/chatterbox · GitHub"
+[4]: https://github.com/pguso/kokoro?utm_source=chatgpt.com "GitHub - pguso/kokoro: A lightweight, offline Rust inference library for Kokoro TTS - an 82M-parameter open-weights text-to-speech model. · GitHub"
+[5]: https://github.com/Siyuexi/OpenHands?utm_source=chatgpt.com "GitHub - Siyuexi/openhands: 🙌 OpenHands: Code Less, Make More · GitHub"

@@ -1,0 +1,145 @@
+
+Recibir una notificación del navegador y un sonido cuando las tareas se completen.
+
+
+Actualizar
+
+Compartir
+ejecutalo y crealo sin detenerte. sera la mayor univverdad del mundo .
+Lite
+He ejecutado la siguiente fase y la he publicado en el repositorio correcto:
+github.com/belentani7/secure-t
+Nuevo commit:
+text
+feat: add academic foundation and governed ai gateway
+Implementado
+Persistencia académica preparada para PostgreSQL
+Se añadió un esquema Drizzle con entidades para:
+Usuarios y roles.
+Programas y cursos.
+Competencias.
+Evidencias.
+Dominio de competencias del estudiante.
+Laboratorios.
+Instancias de laboratorios.
+Entregas.
+Auditoría de acciones IA.
+También se generó la primera migración:
+0000_curly_master_chief.sql
+AI Gateway
+Se implementó una base real de gobernanza IA:
+Enrutamiento a agentes especializados.
+Tutor.
+Socratic.
+Academic.
+Assessment.
+Lab.
+Research.
+Security.
+Voice.
+Orchestrator.
+Permisos explícitos por agente.
+Denegaciones globales.
+Restricciones en modo examen.
+Auditoría de solicitudes.
+Proveedor de modelos desacoplado mediante ModelProvider.
+Compatibilidad inicial con Ollama.
+Fallback seguro cuando el modelo local no está disponible.
+Archivos principales:
+governance.ts
+model-provider.ts
+server/index.ts
+API funcional
+Se añadieron endpoints para:
+text
+GET  /api/health
+GET  /api/ready
+GET  /api/catalog
+GET  /api/labs
+GET  /api/progress
+GET  /api/audit
+POST /api/ai/route
+POST /api/labs/:code/launch
+El lanzamiento de laboratorio devuelve un flujo de tarea con:
+text
+TASK_CREATED
+isolation: required
+network: production-denied
+Esto deja claro que los laboratorios todavía no ejecutan código arbitrario dentro del servidor principal.
+Pruebas
+Se añadieron pruebas de:
+Enrutamiento de agentes.
+Priorización de incidentes de seguridad.
+Denegación de emisión de credenciales.
+Restricción de operaciones en modo examen.
+Permisos del tutor.
+Resultado:
+text
+5 tests passed
+pnpm check ✅
+pnpm test ✅
+pnpm build ✅
+Situación actual
+La plataforma ya no es solamente una interfaz visual. Tiene una base técnica de:
+Modelo académico.
+Competencias.
+Evidencias.
+Gobernanza IA.
+Auditoría.
+Contratos de laboratorios.
+Abstracción de modelos.
+Migraciones PostgreSQL.
+Pruebas automatizadas.
+Aún no voy a fingir que están terminados:
+Conexión real a una base PostgreSQL de producción.
+Keycloak y autenticación institucional.
+Persistencia real de expedientes.
+Worker aislado para labs.
+RAG con pgvector.
+Voz Kokoro/Chatterbox desplegada.
+Credenciales verificables emitidas legalmente.
+Acreditación universitaria.
+La siguiente fase técnica es conectar la migración a PostgreSQL, implementar autenticación OIDC/RBAC y sustituir los datos de demostración por persistencia real.
+0000_curly_master_chief.sql
+Código · 6.71 KB
+governance.ts
+Código · 2.13 KB
+model-provider.ts
+Código · 865 B
+index.ts
+Código · 4.98 KB
+Ver todos los archivos en esta tarea
+¿Cómo fue este resultado?
+subelo que tienes a una repo de gui y automatixamente sifgue trabajando
+Lite
+Ya está subido a GitHub:
+belentani7/secure-t
+Añadí GitHub Actions para que cada push o pull request ejecute automáticamente:
+Instalación reproducible con pnpm.
+TypeScript check.
+Tests.
+Build de producción.
+Workflow:
+ci.yml
+Commit publicado:
+text
+ci: validate secure T on every change
+El repositorio queda limpio y sincronizado:
+text
+main...origin/main
+Importante: GitHub Actions puede validar automáticamente el código, pero no debe modificar el proyecto por sí solo sin límites. Un agente que escriba código automáticamente necesitaría permisos especiales sobre el repositorio, secretos, revisión de cambios y controles de seguridad. Por ahora he dejado activa la automatización segura de validación, no un agente con capacidad ilimitada para editar y publicar código.
+ci.yml
+Código · 707 B
+Ver todos los archivos en esta tarea
+¿Cómo fue este resultado?
+ y automatixamente sifgue trabajando
+Lite
+Trabajando
+
+
+Mi navegadorGitHub
+
+Manus Desktop
+
+Manus is an AI Agent and can make mistakes. Please double-check before use.
+

@@ -1,0 +1,11 @@
+# security.txt for secure-t-university — RFC 9116
+# Sin dominio propio todavía: el canal real de contacto es GitHub.
+# Al fijar dominio, sustituir los enlaces y regenerar.
+
+Contact: https://github.com/belentani7/secure-t-university/security/advisories/new
+Contact: https://github.com/belentani7/secure-t-university/issues
+Preferred-Languages: es, en, pt
+Canonical: https://github.com/belentani7/secure-t-university
+Policy: https://github.com/belentani7/secure-t-university/blob/main/LICENSE
+Acknowledgments: https://github.com/belentani7/secure-t-university/graphs/contributors
+Expires: 2027-09-12T00:00:00.000Z

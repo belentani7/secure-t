@@ -1,0 +1,23 @@
+version: 1
+models:
+  qwen3-0.6b-gguf:
+    repository: unsloth/Qwen3-0.6B-GGUF
+    file: Qwen3-0.6B-Q4_K_M.gguf
+    purpose: cpu-tutor-coding
+    local_dir: qwen3-0.6b-gguf
+    recommended_context: 4096
+    requires_gpu: false
+    verified: true
+  qwen3.5-4b:
+    repository: Qwen/Qwen3.5-4B
+    purpose: tutor-coding-vision
+    local_dir: qwen3.5-4b
+    recommended_context: 32768
+    requires_gpu: false
+  wan2.1-t2v-1.3b:
+    repository: Wan-AI/Wan2.1-T2V-1.3B
+    purpose: educational-video-generation
+    local_dir: wan2.1-t2v-1.3b
+    recommended_resolution: 832x480
+    requires_gpu: true
+    notes: CPU execution is not recommended for interactive use.

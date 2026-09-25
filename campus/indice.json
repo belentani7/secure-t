@@ -1,0 +1,722 @@
+[
+ {
+  "titulo": "Calendario académico — secure-t-university (plan 4 años)",
+  "ruta": "calendario.md",
+  "resumen": "Ritmo recomendado: 1 curso por semestre (los 4 principales en 2 años),",
+  "tags": "secure-t-university · calendario"
+ },
+ {
+  "titulo": "Cápsula 2026-09-12 [CA]",
+  "ruta": "capsulas/2026-09-12.md",
+  "resumen": "Càpsula del dia: per aprendre català, escolta 10 minuts de Parla.cat i repeteix en veu alta. La constància guanya a la intensitat.",
+  "tags": "secure-t-university · 2026-09-12"
+ },
+ {
+  "titulo": "Ciberseguridad Defensiva: Operar como SOC — material de repaso",
+  "ruta": "cursos/ciber-defensiva/chuleta.md",
+  "resumen": "1 Preparación → 2 Detección y análisis → 3 Contención → 4 Erradicación →",
+  "tags": "ciber-defensiva · chuleta"
+ },
+ {
+  "titulo": "Examen final y proyecto — Ciberseguridad Defensiva: Operar como SOC",
+  "ruta": "cursos/ciber-defensiva/examen.md",
+  "resumen": "**Encargo:** Operate detection: connect 2 agents and detect 3 simulated events.",
+  "tags": "ciber-defensiva · examen"
+ },
+ {
+  "titulo": "Glosario — Ciberseguridad Defensiva: Operar como SOC",
+  "ruta": "cursos/ciber-defensiva/glosario.md",
+  "resumen": "Términos que el curso usa y que el examen puede pedir.",
+  "tags": "ciber-defensiva · glosario"
+ },
+ {
+  "titulo": "Lab guiado: mini-SOC con Wazuh (local)",
+  "ruta": "cursos/ciber-defensiva/laboratorio.md",
+  "resumen": "**Curso:** Ciberseguridad Defensiva: Operar como SOC · **Duración estimada:** 3–4 h · **Nivel:** universitario",
+  "tags": "ciber-defensiva · laboratorio"
+ },
+ {
+  "titulo": "Recursos abiertos — Ciberseguridad Defensiva: Operar como SOC",
+  "ruta": "cursos/ciber-defensiva/recursos.md",
+  "resumen": "Todo recurso externo está verificado (existencia y actividad comprobadas el",
+  "tags": "ciber-defensiva · recursos"
+ },
+ {
+  "titulo": "Rúbrica de evaluación — Ciberseguridad Defensiva: Operar como SOC",
+  "ruta": "cursos/ciber-defensiva/rubrica.md",
+  "resumen": "**Nota final** = 0.3·P1 + 0.3·P2 + 0.4·P3 · Aprobado ≥ 60/100 con evidencia presentada.",
+  "tags": "ciber-defensiva · rubrica"
+ },
+ {
+  "titulo": "Semana 1: Fundamentos: triada CIA y controles",
+  "ruta": "cursos/ciber-defensiva/semana-01.md",
+  "resumen": "Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 1 de 20",
+  "tags": "ciber-defensiva · semana-01"
+ },
+ {
+  "titulo": "Semana 2: Telemetría: logs y detección",
+  "ruta": "cursos/ciber-defensiva/semana-02.md",
+  "resumen": "Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 2 de 20",
+  "tags": "ciber-defensiva · semana-02"
+ },
+ {
+  "titulo": "Semana 3: Respuesta a incidentes (NIST 800-61)",
+  "ruta": "cursos/ciber-defensiva/semana-03.md",
+  "resumen": "Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 3 de 20",
+  "tags": "ciber-defensiva · semana-03"
+ },
+ {
+  "titulo": "Semana 4: Hardening y continuidad",
+  "ruta": "cursos/ciber-defensiva/semana-04.md",
+  "resumen": "Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 4 de 20",
+  "tags": "ciber-defensiva · semana-04"
+ },
+ {
+  "titulo": "Semana 5: Fundamentos de SOC y triaje de alertas",
+  "ruta": "cursos/ciber-defensiva/semana-05.md",
+  "resumen": "Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 5 de 20",
+  "tags": "ciber-defensiva · semana-05"
+ },
+ {
+  "titulo": "Semana 6: Ingenieria de deteccion y reglas Sigma",
+  "ruta": "cursos/ciber-defensiva/semana-06.md",
+  "resumen": "Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 6 de 20",
+  "tags": "ciber-defensiva · semana-06"
+ },
+ {
+  "titulo": "Semana 7: Respuesta a incidentes (NIST 800-61r3)",
+  "ruta": "cursos/ciber-defensiva/semana-07.md",
+  "resumen": "Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 7 de 20",
+  "tags": "ciber-defensiva · semana-07"
+ },
+ {
+  "titulo": "Semana 8: Inteligencia de amenazas y TIP",
+  "ruta": "cursos/ciber-defensiva/semana-08.md",
+  "resumen": "Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 8 de 20",
+  "tags": "ciber-defensiva · semana-08"
+ },
+ {
+  "titulo": "Semana 9: Deteccion y respuesta en endpoints (EDR)",
+  "ruta": "cursos/ciber-defensiva/semana-09.md",
+  "resumen": "Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 9 de 20",
+  "tags": "ciber-defensiva · semana-09"
+ },
+ {
+  "titulo": "Semana 10: Analisis de trafico de red con Zeek/Suricata",
+  "ruta": "cursos/ciber-defensiva/semana-10.md",
+  "resumen": "Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 10 de 20",
+  "tags": "ciber-defensiva · semana-10"
+ },
+ {
+  "titulo": "Semana 11: Analisis basico de malware",
+  "ruta": "cursos/ciber-defensiva/semana-11.md",
+  "resumen": "Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 11 de 20",
+  "tags": "ciber-defensiva · semana-11"
+ },
+ {
+  "titulo": "Semana 12: Forense digital y manejo de evidencias",
+  "ruta": "cursos/ciber-defensiva/semana-12.md",
+  "resumen": "Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 12 de 20",
+  "tags": "ciber-defensiva · semana-12"
+ },
+ {
+  "titulo": "Semana 13: Gestion del ciclo de vida de vulnerabilidades",
+  "ruta": "cursos/ciber-defensiva/semana-13.md",
+  "resumen": "Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 13 de 20",
+  "tags": "ciber-defensiva · semana-13"
+ },
+ {
+  "titulo": "Semana 14: Hardening y lineas base de configuracion",
+  "ruta": "cursos/ciber-defensiva/semana-14.md",
+  "resumen": "Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 14 de 20",
+  "tags": "ciber-defensiva · semana-14"
+ },
+ {
+  "titulo": "Semana 15: Gestion de identidades y acceso (IAM)",
+  "ruta": "cursos/ciber-defensiva/semana-15.md",
+  "resumen": "Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 15 de 20",
+  "tags": "ciber-defensiva · semana-15"
+ },
+ {
+  "titulo": "Semana 16: Postura de seguridad en cloud (CSPM/CWPP)",
+  "ruta": "cursos/ciber-defensiva/semana-16.md",
+  "resumen": "Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 16 de 20",
+  "tags": "ciber-defensiva · semana-16"
+ },
+ {
+  "titulo": "Semana 17: Seguridad de aplicaciones y DevSecOps",
+  "ruta": "cursos/ciber-defensiva/semana-17.md",
+  "resumen": "Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 17 de 20",
+  "tags": "ciber-defensiva · semana-17"
+ },
+ {
+  "titulo": "Semana 18: Proteccion de datos y DLP",
+  "ruta": "cursos/ciber-defensiva/semana-18.md",
+  "resumen": "Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 18 de 20",
+  "tags": "ciber-defensiva · semana-18"
+ },
+ {
+  "titulo": "Semana 19: Resiliencia: backup, DR y continuidad",
+  "ruta": "cursos/ciber-defensiva/semana-19.md",
+  "resumen": "Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 19 de 20",
+  "tags": "ciber-defensiva · semana-19"
+ },
+ {
+  "titulo": "Semana 20: Capstone: Ejercicio Purple Team",
+  "ruta": "cursos/ciber-defensiva/semana-20.md",
+  "resumen": "Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 20 de 20",
+  "tags": "ciber-defensiva · semana-20"
+ },
+ {
+  "titulo": "Ciberseguridad Defensiva: Operar como SOC",
+  "ruta": "cursos/ciber-defensiva/syllabus.md",
+  "resumen": "Curso universitario de defensa: triada CIA, telemetría y logs, SIEM, respuesta a incidentes NIST y hardening. El estudiante opera un mini-SOC con casos reales d",
+  "tags": "ciber-defensiva · syllabus"
+ },
+ {
+  "titulo": "Ciberseguridad Ofensiva: Pensar como Atacante — material de repaso",
+  "ruta": "cursos/ciber-ofensiva/chuleta.md",
+  "resumen": "1 Inyección · 2 Auth rota · 3 Datos sensibles · 4 XXE · 5 Control de acceso",
+  "tags": "ciber-ofensiva · chuleta"
+ },
+ {
+  "titulo": "Examen final y proyecto — Ciberseguridad Ofensiva: Pensar como Atacante",
+  "ruta": "cursos/ciber-ofensiva/examen.md",
+  "resumen": "**Encargo:** Encontrar y documentar 3 vulnerabilidades del OWASP Top 10 en un entorno creado para ser vulnerable.",
+  "tags": "ciber-ofensiva · examen"
+ },
+ {
+  "titulo": "Glosario — Ciberseguridad Ofensiva: Pensar como Atacante",
+  "ruta": "cursos/ciber-ofensiva/glosario.md",
+  "resumen": "Términos que el curso usa y que el examen puede pedir.",
+  "tags": "ciber-ofensiva · glosario"
+ },
+ {
+  "titulo": "Lab guiado: Juice Shop en local (legal)",
+  "ruta": "cursos/ciber-ofensiva/laboratorio.md",
+  "resumen": "**Curso:** Ciberseguridad Ofensiva: Pensar como Atacante · **Duración estimada:** 3–4 h · **Nivel:** universitario",
+  "tags": "ciber-ofensiva · laboratorio"
+ },
+ {
+  "titulo": "Recursos abiertos — Ciberseguridad Ofensiva: Pensar como Atacante",
+  "ruta": "cursos/ciber-ofensiva/recursos.md",
+  "resumen": "Todo recurso externo está verificado (existencia y actividad comprobadas el",
+  "tags": "ciber-ofensiva · recursos"
+ },
+ {
+  "titulo": "Rúbrica de evaluación — Ciberseguridad Ofensiva: Pensar como Atacante",
+  "ruta": "cursos/ciber-ofensiva/rubrica.md",
+  "resumen": "**Nota final** = 0.3·P1 + 0.3·P2 + 0.4·P3 · Aprobado ≥ 60/100 con evidencia presentada.",
+  "tags": "ciber-ofensiva · rubrica"
+ },
+ {
+  "titulo": "Semana 1: Ética, legalidad y alcance del test",
+  "ruta": "cursos/ciber-ofensiva/semana-01.md",
+  "resumen": "Curso: [Ciberseguridad Ofensiva: Pensar como Atacante](../syllabus.md) · Semana 1 de 20",
+  "tags": "ciber-ofensiva · semana-01"
+ },
+ {
+  "titulo": "Semana 2: Reconocimiento pasivo y OSINT",
+  "ruta": "cursos/ciber-ofensiva/semana-02.md",
+  "resumen": "Curso: [Ciberseguridad Ofensiva: Pensar como Atacante](../syllabus.md) · Semana 2 de 20",
+  "tags": "ciber-ofensiva · semana-02"
+ },
+ {
+  "titulo": "Semana 3: Los 10 riesgos web (OWASP Top 10)",
+  "ruta": "cursos/ciber-ofensiva/semana-03.md",
+  "resumen": "Curso: [Ciberseguridad Ofensiva: Pensar como Atacante](../syllabus.md) · Semana 3 de 20",
+  "tags": "ciber-ofensiva · semana-03"
+ },
+ {
+  "titulo": "Semana 4: Laboratorio final: máquina vulnerable + informe",
+  "ruta": "cursos/ciber-ofensiva/semana-04.md",
+  "resumen": "Curso: [Ciberseguridad Ofensiva: Pensar como Atacante](../syllabus.md) · Semana 4 de 20",
+  "tags": "ciber-ofensiva · semana-04"
+ },
+ {
+  "titulo": "Semana 5: Reconocimiento avanzado y OSINT",
+  "ruta": "cursos/ciber-ofensiva/semana-05.md",
+  "resumen": "Curso: [Ciberseguridad Ofensiva: Pensar como Atacante](../syllabus.md) · Semana 5 de 20",
+  "tags": "ciber-ofensiva · semana-05"
+ },
+ {
+  "titulo": "Semana 6: Modelado de amenazas y arboles de ataque",
+  "ruta": "cursos/ciber-ofensiva/semana-06.md",
+  "resumen": "Curso: [Ciberseguridad Ofensiva: Pensar como Atacante](../syllabus.md) · Semana 6 de 20",
+  "tags": "ciber-ofensiva · semana-06"
+ },
+ {
+  "titulo": "Semana 7: Escaneo de vulnerabilidades y validacion",
+  "ruta": "cursos/ciber-ofensiva/semana-07.md",
+  "resumen": "Curso: [Ciberseguridad Ofensiva: Pensar como Atacante](../syllabus.md) · Semana 7 de 20",
+  "tags": "ciber-ofensiva · semana-07"
+ },
+ {
+  "titulo": "Semana 8: Ataques a aplicaciones web (OWASP Top 10)",
+  "ruta": "cursos/ciber-ofensiva/semana-08.md",
+  "resumen": "Curso: [Ciberseguridad Ofensiva: Pensar como Atacante](../syllabus.md) · Semana 8 de 20",
+  "tags": "ciber-ofensiva · semana-08"
+ },
+ {
+  "titulo": "Semana 9: Explotacion de red y servicios",
+  "ruta": "cursos/ciber-ofensiva/semana-09.md",
+  "resumen": "Curso: [Ciberseguridad Ofensiva: Pensar como Atacante](../syllabus.md) · Semana 9 de 20",
+  "tags": "ciber-ofensiva · semana-09"
+ },
+ {
+  "titulo": "Semana 10: Escalada de privilegios Windows y Linux",
+  "ruta": "cursos/ciber-ofensiva/semana-10.md",
+  "resumen": "Curso: [Ciberseguridad Ofensiva: Pensar como Atacante](../syllabus.md) · Semana 10 de 20",
+  "tags": "ciber-ofensiva · semana-10"
+ },
+ {
+  "titulo": "Semana 11: Movimiento lateral y pivoting",
+  "ruta": "cursos/ciber-ofensiva/semana-11.md",
+  "resumen": "Curso: [Ciberseguridad Ofensiva: Pensar como Atacante](../syllabus.md) · Semana 11 de 20",
+  "tags": "ciber-ofensiva · semana-11"
+ },
+ {
+  "titulo": "Semana 12: Mecanismos de persistencia",
+  "ruta": "cursos/ciber-ofensiva/semana-12.md",
+  "resumen": "Curso: [Ciberseguridad Ofensiva: Pensar como Atacante](../syllabus.md) · Semana 12 de 20",
+  "tags": "ciber-ofensiva · semana-12"
+ },
+ {
+  "titulo": "Semana 13: Evasion de defensas",
+  "ruta": "cursos/ciber-ofensiva/semana-13.md",
+  "resumen": "Curso: [Ciberseguridad Ofensiva: Pensar como Atacante](../syllabus.md) · Semana 13 de 20",
+  "tags": "ciber-ofensiva · semana-13"
+ },
+ {
+  "titulo": "Semana 14: Acceso a credenciales y volcado",
+  "ruta": "cursos/ciber-ofensiva/semana-14.md",
+  "resumen": "Curso: [Ciberseguridad Ofensiva: Pensar como Atacante](../syllabus.md) · Semana 14 de 20",
+  "tags": "ciber-ofensiva · semana-14"
+ },
+ {
+  "titulo": "Semana 15: Exfiltracion e impacto",
+  "ruta": "cursos/ciber-ofensiva/semana-15.md",
+  "resumen": "Curso: [Ciberseguridad Ofensiva: Pensar como Atacante](../syllabus.md) · Semana 15 de 20",
+  "tags": "ciber-ofensiva · semana-15"
+ },
+ {
+  "titulo": "Semana 16: Ataques a cloud y contenedores",
+  "ruta": "cursos/ciber-ofensiva/semana-16.md",
+  "resumen": "Curso: [Ciberseguridad Ofensiva: Pensar como Atacante](../syllabus.md) · Semana 16 de 20",
+  "tags": "ciber-ofensiva · semana-16"
+ },
+ {
+  "titulo": "Semana 17: Red teaming wireless y fisico",
+  "ruta": "cursos/ciber-ofensiva/semana-17.md",
+  "resumen": "Curso: [Ciberseguridad Ofensiva: Pensar como Atacante](../syllabus.md) · Semana 17 de 20",
+  "tags": "ciber-ofensiva · semana-17"
+ },
+ {
+  "titulo": "Semana 18: Ingenieria social y phishing",
+  "ruta": "cursos/ciber-ofensiva/semana-18.md",
+  "resumen": "Curso: [Ciberseguridad Ofensiva: Pensar como Atacante](../syllabus.md) · Semana 18 de 20",
+  "tags": "ciber-ofensiva · semana-18"
+ },
+ {
+  "titulo": "Semana 19: Informes y seguimiento de remediacion",
+  "ruta": "cursos/ciber-ofensiva/semana-19.md",
+  "resumen": "Curso: [Ciberseguridad Ofensiva: Pensar como Atacante](../syllabus.md) · Semana 19 de 20",
+  "tags": "ciber-ofensiva · semana-19"
+ },
+ {
+  "titulo": "Semana 20: Capstone: Pentest completo end-to-end",
+  "ruta": "cursos/ciber-ofensiva/semana-20.md",
+  "resumen": "Curso: [Ciberseguridad Ofensiva: Pensar como Atacante](../syllabus.md) · Semana 20 de 20",
+  "tags": "ciber-ofensiva · semana-20"
+ },
+ {
+  "titulo": "Ciberseguridad Ofensiva: Pensar como Atacante",
+  "ruta": "cursos/ciber-ofensiva/syllabus.md",
+  "resumen": "Curso universitario de seguridad ofensiva con ética desde el día 1: recon pasivo, OSINT, OWASP Top 10 y laboratorio con máquina vulnerable. Se aprueba demostran",
+  "tags": "ciber-ofensiva · syllabus"
+ },
+ {
+  "titulo": "Gobernanza y Compliance Digital — material de repaso",
+  "ruta": "cursos/gobernanza-compliance/chuleta.md",
+  "resumen": "'Access management' → ISO 27001 A.9 · NIST CSF PR.AC · ENS [op.acc]",
+  "tags": "gobernanza-compliance · chuleta"
+ },
+ {
+  "titulo": "Examen final y proyecto — Gobernanza y Compliance Digital",
+  "ruta": "cursos/gobernanza-compliance/examen.md",
+  "resumen": "**Encargo:** Take a registration form, remove every unnecessary personal datum, and justify each one.",
+  "tags": "gobernanza-compliance · examen"
+ },
+ {
+  "titulo": "Glosario — Gobernanza y Compliance Digital",
+  "ruta": "cursos/gobernanza-compliance/glosario.md",
+  "resumen": "Términos que el curso usa y que el examen puede pedir.",
+  "tags": "gobernanza-compliance · glosario"
+ },
+ {
+  "titulo": "Lab guiado: auditar un formulario real sin PII",
+  "ruta": "cursos/gobernanza-compliance/laboratorio.md",
+  "resumen": "**Curso:** Gobernanza y Compliance Digital · **Duración estimada:** 3–4 h · **Nivel:** universitario",
+  "tags": "gobernanza-compliance · laboratorio"
+ },
+ {
+  "titulo": "Recursos abiertos — Gobernanza y Compliance Digital",
+  "ruta": "cursos/gobernanza-compliance/recursos.md",
+  "resumen": "Todo recurso externo está verificado (existencia y actividad comprobadas el",
+  "tags": "gobernanza-compliance · recursos"
+ },
+ {
+  "titulo": "Rúbrica de evaluación — Gobernanza y Compliance Digital",
+  "ruta": "cursos/gobernanza-compliance/rubrica.md",
+  "resumen": "**Nota final** = 0.3·P1 + 0.3·P2 + 0.4·P3 · Aprobado ≥ 60/100 con evidencia presentada.",
+  "tags": "gobernanza-compliance · rubrica"
+ },
+ {
+  "titulo": "Semana 1: Marcos: ISO 27001, NIST CSF, ENS",
+  "ruta": "cursos/gobernanza-compliance/semana-01.md",
+  "resumen": "Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 1 de 20",
+  "tags": "gobernanza-compliance · semana-01"
+ },
+ {
+  "titulo": "Semana 2: Datos personales y minimización extrema",
+  "ruta": "cursos/gobernanza-compliance/semana-02.md",
+  "resumen": "Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 2 de 20",
+  "tags": "gobernanza-compliance · semana-02"
+ },
+ {
+  "titulo": "Semana 3: Gestión de riesgo con dueño y evidencia",
+  "ruta": "cursos/gobernanza-compliance/semana-03.md",
+  "resumen": "Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 3 de 20",
+  "tags": "gobernanza-compliance · semana-03"
+ },
+ {
+  "titulo": "Semana 4: El expediente de compliance",
+  "ruta": "cursos/gobernanza-compliance/semana-04.md",
+  "resumen": "Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 4 de 20",
+  "tags": "gobernanza-compliance · semana-04"
+ },
+ {
+  "titulo": "Semana 5: Gestion de riesgos (ISO 31000, NIST 800-39)",
+  "ruta": "cursos/gobernanza-compliance/semana-05.md",
+  "resumen": "Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 5 de 20",
+  "tags": "gobernanza-compliance · semana-05"
+ },
+ {
+  "titulo": "Semana 6: Analisis de impacto en el negocio y BCP",
+  "ruta": "cursos/gobernanza-compliance/semana-06.md",
+  "resumen": "Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 6 de 20",
+  "tags": "gobernanza-compliance · semana-06"
+ },
+ {
+  "titulo": "Semana 7: Riesgo de terceros y supply chain",
+  "ruta": "cursos/gobernanza-compliance/semana-07.md",
+  "resumen": "Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 7 de 20",
+  "tags": "gobernanza-compliance · semana-07"
+ },
+ {
+  "titulo": "Semana 8: Ingenieria de privacidad (RGPD, LGPD)",
+  "ruta": "cursos/gobernanza-compliance/semana-08.md",
+  "resumen": "Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 8 de 20",
+  "tags": "gobernanza-compliance · semana-08"
+ },
+ {
+  "titulo": "Semana 9: Programas de auditoria y assurance",
+  "ruta": "cursos/gobernanza-compliance/semana-09.md",
+  "resumen": "Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 9 de 20",
+  "tags": "gobernanza-compliance · semana-09"
+ },
+ {
+  "titulo": "Semana 10: Marco de politicas y jerarquia documental",
+  "ruta": "cursos/gobernanza-compliance/semana-10.md",
+  "resumen": "Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 10 de 20",
+  "tags": "gobernanza-compliance · semana-10"
+ },
+ {
+  "titulo": "Semana 11: Concienciacion y cultura de seguridad",
+  "ruta": "cursos/gobernanza-compliance/semana-11.md",
+  "resumen": "Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 11 de 20",
+  "tags": "gobernanza-compliance · semana-11"
+ },
+ {
+  "titulo": "Semana 12: Panorama regulatorio sectorial",
+  "ruta": "cursos/gobernanza-compliance/semana-12.md",
+  "resumen": "Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 12 de 20",
+  "tags": "gobernanza-compliance · semana-12"
+ },
+ {
+  "titulo": "Semana 13: Herramientas GRC y automatizacion",
+  "ruta": "cursos/gobernanza-compliance/semana-13.md",
+  "resumen": "Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 13 de 20",
+  "tags": "gobernanza-compliance · semana-13"
+ },
+ {
+  "titulo": "Semana 14: Notificacion de incidentes y reporte regulatorio",
+  "ruta": "cursos/gobernanza-compliance/semana-14.md",
+  "resumen": "Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 14 de 20",
+  "tags": "gobernanza-compliance · semana-14"
+ },
+ {
+  "titulo": "Semana 15: Preparacion para certificaciones (ISO 27001, SOC2)",
+  "ruta": "cursos/gobernanza-compliance/semana-15.md",
+  "resumen": "Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 15 de 20",
+  "tags": "gobernanza-compliance · semana-15"
+ },
+ {
+  "titulo": "Semana 16: Compliance en cloud y responsabilidad compartida",
+  "ruta": "cursos/gobernanza-compliance/semana-16.md",
+  "resumen": "Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 16 de 20",
+  "tags": "gobernanza-compliance · semana-16"
+ },
+ {
+  "titulo": "Semana 17: Metricas y reporte al consejo",
+  "ruta": "cursos/gobernanza-compliance/semana-17.md",
+  "resumen": "Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 17 de 20",
+  "tags": "gobernanza-compliance · semana-17"
+ },
+ {
+  "titulo": "Semana 18: Gestion de crisis y wargaming",
+  "ruta": "cursos/gobernanza-compliance/semana-18.md",
+  "resumen": "Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 18 de 20",
+  "tags": "gobernanza-compliance · semana-18"
+ },
+ {
+  "titulo": "Semana 19: Regulaciones emergentes: AI Act, CRA, DSA",
+  "ruta": "cursos/gobernanza-compliance/semana-19.md",
+  "resumen": "Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 19 de 20",
+  "tags": "gobernanza-compliance · semana-19"
+ },
+ {
+  "titulo": "Semana 20: Capstone: Construir programa GRC desde cero",
+  "ruta": "cursos/gobernanza-compliance/semana-20.md",
+  "resumen": "Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 20 de 20",
+  "tags": "gobernanza-compliance · semana-20"
+ },
+ {
+  "titulo": "Gobernanza y Compliance Digital",
+  "ruta": "cursos/gobernanza-compliance/syllabus.md",
+  "resumen": "Marcos de gobierno de la seguridad (ISO 27001, NIST CSF, ENS), protección de datos con principio de minimización extrema, gestión de riesgo y construcción del e",
+  "tags": "gobernanza-compliance · syllabus"
+ },
+ {
+  "titulo": "Inteligencia Artificial Aplicada y Segura — material de repaso",
+  "ruta": "cursos/ia-aplicada-segura/chuleta.md",
+  "resumen": "ROLE (who you are) + TASK (what you ask for) + CONTEXT (relevant data) + FORMAT (how to answer)",
+  "tags": "ia-aplicada-segura · chuleta"
+ },
+ {
+  "titulo": "Examen final y proyecto — Inteligencia Artificial Aplicada y Segura",
+  "ruta": "cursos/ia-aplicada-segura/examen.md",
+  "resumen": "**Encargo:** Demonstrate a prompt injection against an assistant YOU build, then contain it.",
+  "tags": "ia-aplicada-segura · examen"
+ },
+ {
+  "titulo": "Glosario — Inteligencia Artificial Aplicada y Segura",
+  "ruta": "cursos/ia-aplicada-segura/glosario.md",
+  "resumen": "Términos que el curso usa y que el examen puede pedir.",
+  "tags": "ia-aplicada-segura · glosario"
+ },
+ {
+  "titulo": "Lab guiado: inject and defend your own assistant",
+  "ruta": "cursos/ia-aplicada-segura/laboratorio.md",
+  "resumen": "**Curso:** Inteligencia Artificial Aplicada y Segura · **Duración estimada:** 3–4 h · **Nivel:** universitario",
+  "tags": "ia-aplicada-segura · laboratorio"
+ },
+ {
+  "titulo": "Recursos abiertos — Inteligencia Artificial Aplicada y Segura",
+  "ruta": "cursos/ia-aplicada-segura/recursos.md",
+  "resumen": "Todo recurso externo está verificado (existencia y actividad comprobadas el",
+  "tags": "ia-aplicada-segura · recursos"
+ },
+ {
+  "titulo": "Rúbrica de evaluación — Inteligencia Artificial Aplicada y Segura",
+  "ruta": "cursos/ia-aplicada-segura/rubrica.md",
+  "resumen": "**Nota final** = 0.3·P1 + 0.3·P2 + 0.4·P3 · Aprobado ≥ 60/100 con evidencia presentada.",
+  "tags": "ia-aplicada-segura · rubrica"
+ },
+ {
+  "titulo": "Semana 1: Fundamentos de ML sin humo",
+  "ruta": "cursos/ia-aplicada-segura/semana-01.md",
+  "resumen": "Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 1 de 20",
+  "tags": "ia-aplicada-segura · semana-01"
+ },
+ {
+  "titulo": "Semana 2: LLMs y prompt engineering responsable",
+  "ruta": "cursos/ia-aplicada-segura/semana-02.md",
+  "resumen": "Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 2 de 20",
+  "tags": "ia-aplicada-segura · semana-02"
+ },
+ {
+  "titulo": "Semana 3: Ataques a sistemas de IA",
+  "ruta": "cursos/ia-aplicada-segura/semana-03.md",
+  "resumen": "Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 3 de 20",
+  "tags": "ia-aplicada-segura · semana-03"
+ },
+ {
+  "titulo": "Semana 4: Proyecto: asistente educativo con salvaguardas",
+  "ruta": "cursos/ia-aplicada-segura/semana-04.md",
+  "resumen": "Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 4 de 20",
+  "tags": "ia-aplicada-segura · semana-04"
+ },
+ {
+  "titulo": "Semana 5: Pipeline MLOps seguro",
+  "ruta": "cursos/ia-aplicada-segura/semana-05.md",
+  "resumen": "Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 5 de 20",
+  "tags": "ia-aplicada-segura · semana-05"
+ },
+ {
+  "titulo": "Semana 6: Robustez adversaria y testing",
+  "ruta": "cursos/ia-aplicada-segura/semana-06.md",
+  "resumen": "Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 6 de 20",
+  "tags": "ia-aplicada-segura · semana-06"
+ },
+ {
+  "titulo": "Semana 7: Envenenamiento de datos y supply chain",
+  "ruta": "cursos/ia-aplicada-segura/semana-07.md",
+  "resumen": "Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 7 de 20",
+  "tags": "ia-aplicada-segura · semana-07"
+ },
+ {
+  "titulo": "Semana 8: Extraccion de modelo y proteccion de PI",
+  "ruta": "cursos/ia-aplicada-segura/semana-08.md",
+  "resumen": "Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 8 de 20",
+  "tags": "ia-aplicada-segura · semana-08"
+ },
+ {
+  "titulo": "Semana 9: ML que preserva privacidad",
+  "ruta": "cursos/ia-aplicada-segura/semana-09.md",
+  "resumen": "Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 9 de 20",
+  "tags": "ia-aplicada-segura · semana-09"
+ },
+ {
+  "titulo": "Semana 10: Seguridad de LLM: inyeccion de prompts y jailbreaks",
+  "ruta": "cursos/ia-aplicada-segura/semana-10.md",
+  "resumen": "Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 10 de 20",
+  "tags": "ia-aplicada-segura · semana-10"
+ },
+ {
+  "titulo": "Semana 11: Supply chain de LLM y model cards",
+  "ruta": "cursos/ia-aplicada-segura/semana-11.md",
+  "resumen": "Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 11 de 20",
+  "tags": "ia-aplicada-segura · semana-11"
+ },
+ {
+  "titulo": "Semana 12: Seguridad de RAG y hardening de recuperacion",
+  "ruta": "cursos/ia-aplicada-segura/semana-12.md",
+  "resumen": "Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 12 de 20",
+  "tags": "ia-aplicada-segura · semana-12"
+ },
+ {
+  "titulo": "Semana 13: Metodologia de Red Teaming para IA",
+  "ruta": "cursos/ia-aplicada-segura/semana-13.md",
+  "resumen": "Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 13 de 20",
+  "tags": "ia-aplicada-segura · semana-13"
+ },
+ {
+  "titulo": "Semana 14: Gobernanza: EU AI Act y NIST AI RMF",
+  "ruta": "cursos/ia-aplicada-segura/semana-14.md",
+  "resumen": "Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 14 de 20",
+  "tags": "ia-aplicada-segura · semana-14"
+ },
+ {
+  "titulo": "Semana 15: Explicabilidad y rastros de auditoria",
+  "ruta": "cursos/ia-aplicada-segura/semana-15.md",
+  "resumen": "Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 15 de 20",
+  "tags": "ia-aplicada-segura · semana-15"
+ },
+ {
+  "titulo": "Semana 16: Despliegue seguro: on-prem y cloud",
+  "ruta": "cursos/ia-aplicada-segura/semana-16.md",
+  "resumen": "Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 16 de 20",
+  "tags": "ia-aplicada-segura · semana-16"
+ },
+ {
+  "titulo": "Semana 17: Monitoreo y deteccion de deriva",
+  "ruta": "cursos/ia-aplicada-segura/semana-17.md",
+  "resumen": "Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 17 de 20",
+  "tags": "ia-aplicada-segura · semana-17"
+ },
+ {
+  "titulo": "Semana 18: Respuesta a incidentes en sistemas de IA",
+  "ruta": "cursos/ia-aplicada-segura/semana-18.md",
+  "resumen": "Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 18 de 20",
+  "tags": "ia-aplicada-segura · semana-18"
+ },
+ {
+  "titulo": "Semana 19: Etica, sesgo y pruebas de equidad",
+  "ruta": "cursos/ia-aplicada-segura/semana-19.md",
+  "resumen": "Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 19 de 20",
+  "tags": "ia-aplicada-segura · semana-19"
+ },
+ {
+  "titulo": "Semana 20: Capstone: Sistema ML seguro end-to-end",
+  "ruta": "cursos/ia-aplicada-segura/semana-20.md",
+  "resumen": "Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 20 de 20",
+  "tags": "ia-aplicada-segura · semana-20"
+ },
+ {
+  "titulo": "Inteligencia Artificial Aplicada y Segura",
+  "ruta": "cursos/ia-aplicada-segura/syllabus.md",
+  "resumen": "IA aplicada con seguridad como requisito, no como añadido: fundamentos de ML, LLMs y prompt engineering responsable, ataques adversariales y proyecto final de a",
+  "tags": "ia-aplicada-segura · syllabus"
+ },
+ {
+  "titulo": "Idiomas del campus — estado real (sin traducciones falsas)",
+  "ruta": "idiomas.md",
+  "resumen": "Política del ecosistema: **PT → ES → EN** (+ català adicional). Esta matriz",
+  "tags": "secure-t-university · idiomas"
+ },
+ {
+  "titulo": "Mapa curricular — unidades de conocimiento",
+  "ruta": "mapa-curricular.md",
+  "resumen": "Mapeo de los cursos del campus secure-t-university a unidades de conocimiento estilo",
+  "tags": "secure-t-university · mapa-curricular"
+ },
+ {
+  "titulo": "Progreso del estudiante",
+  "ruta": "progreso.html",
+  "resumen": "Seguimiento anónimo por token local, sin registro.",
+  "tags": "progreso token"
+ },
+ {
+  "titulo": "Credencial verificable",
+  "ruta": "credencial.html",
+  "resumen": "Genera y verifica sellos SHA-256 de cursos superados.",
+  "tags": "credencial sello hash"
+ },
+ {
+  "titulo": "Buscar en el campus",
+  "ruta": "buscar.html",
+  "resumen": "Búsqueda local en todo el material.",
+  "tags": "busqueda"
+ },
+ {
+  "titulo": "Idiomas del campus",
+  "ruta": "idiomas.md",
+  "resumen": "Matriz honesta PT/ES/EN/CA: qué está traducido y qué es PLANNED.",
+  "tags": "idiomas i18n"
+ },
+ {
+  "titulo": "Ciberseguridad Ofensiva: Pensar como Atacante — página del curso",
+  "ruta": "cursos/ciber-ofensiva/index.html",
+  "resumen": "Curso universitario de seguridad ofensiva con ética desde el día 1: recon pasivo, OSINT, OWASP Top 10 y laboratorio con máquina vulnerable. ",
+  "tags": "ciber-ofensiva curso lms"
+ },
+ {
+  "titulo": "Ciberseguridad Defensiva: Operar como SOC — página del curso",
+  "ruta": "cursos/ciber-defensiva/index.html",
+  "resumen": "Curso universitario de defensa: triada CIA, telemetría y logs, SIEM, respuesta a incidentes NIST y hardening. El estudiante opera un mini-SO",
+  "tags": "ciber-defensiva curso lms"
+ },
+ {
+  "titulo": "Inteligencia Artificial Aplicada y Segura — página del curso",
+  "ruta": "cursos/ia-aplicada-segura/index.html",
+  "resumen": "IA aplicada con seguridad como requisito, no como añadido: fundamentos de ML, LLMs y prompt engineering responsable, ataques adversariales y",
+  "tags": "ia-aplicada-segura curso lms"
+ },
+ {
+  "titulo": "Gobernanza y Compliance Digital — página del curso",
+  "ruta": "cursos/gobernanza-compliance/index.html",
+  "resumen": "Marcos de gobierno de la seguridad (ISO 27001, NIST CSF, ENS), protección de datos con principio de minimización extrema, gestión de riesgo ",
+  "tags": "gobernanza-compliance curso lms"
+ }
+]

@@ -1,0 +1,1573 @@
+Sí. Si por **“comando total”** quieres decir **un único prompt maestro para pegar en Manus/Codex/otro agente y que tome `secure-t` entero, audite lo existente y lo lleve hasta el máximo viable**, usaría este. No es un prompt de “hazme una web”: le ordena **investigar → decidir → construir → probar → securizar → documentar → iterar**.
+
+# SECURE T — TOTAL AUTONOMOUS BUILD COMMAND
+
+## MAXIMUM OPEN-SOURCE / AI-GOVERNED CYBERSECURITY UNIVERSITY
+
+ACTÚA COMO UN EQUIPO COMPLETO DE INGENIERÍA DE SOFTWARE, ARQUITECTURA, IA, CIBERSEGURIDAD, PRODUCTO, UX/UI, DEVOPS, QA Y DISEÑO ACADÉMICO.
+
+TU OBJETIVO ES TRANSFORMAR EL REPOSITORIO ACTUAL:
+
+`belentani7/secure-t`
+
+EN UNA PLATAFORMA REAL, EXTENSIBLE Y PROFESIONAL DE:
+
+**UNIVERSIDAD DIGITAL DE CIBERSEGURIDAD + INTELIGENCIA ARTIFICIAL + CYBER RANGE + TUTOR IA + SISTEMA ACADÉMICO + EVIDENCIA DE COMPETENCIAS + CREDENCIALES VERIFICABLES.**
+
+NO QUIERO UNA DEMO.
+
+NO QUIERO MOCKUPS VACÍOS.
+
+NO QUIERO FUNCIONES FALSAS.
+
+NO QUIERO UNA LANDING PAGE CON UN CHATBOT.
+
+QUIERO CONSTRUIR LA MÁXIMA VERSIÓN REALISTA QUE PUEDA ALCANZARSE CON SOFTWARE OPEN SOURCE, TECNOLOGÍAS GRATUITAS Y COMPONENTES SELF-HOSTED.
+
+---
+
+# 0. REGLA SUPREMA
+
+ANTES DE ESCRIBIR CÓDIGO:
+
+1. INSPECCIONA TODO EL REPOSITORIO.
+2. ENTIENDE LA ARQUITECTURA ACTUAL.
+3. DETECTA QUÉ FUNCIONA.
+4. DETECTA QUÉ ESTÁ ROTO.
+5. DETECTA QUÉ ES PROVISIONAL.
+6. DETECTA DUPLICACIÓN.
+7. DETECTA DEUDA TÉCNICA.
+8. DETECTA RIESGOS DE SEGURIDAD.
+9. DETECTA COMPONENTES QUE PUEDEN SUSTITUIRSE POR OPEN SOURCE MADURO.
+10. CREA UN PLAN DE MIGRACIÓN.
+
+NO BORRES FUNCIONALIDAD ÚTIL SIN JUSTIFICACIÓN.
+
+NO HAGAS UNA REESCRITURA DESTRUCTIVA.
+
+TRABAJA POR FASES Y VERTICAL SLICES.
+
+---
+
+# 1. OBJETIVO DEL PRODUCTO
+
+SECURE T DEBE CONVERTIRSE EN UNA UNIVERSIDAD DIGITAL DONDE EL ESTUDIANTE PUEDA:
+
+* registrarse
+* autenticarse
+* elegir programa
+* matricularse
+* estudiar
+* leer
+* ver contenidos
+* interactuar con IA
+* hacer ejercicios
+* ejecutar laboratorios
+* resolver retos
+* entregar evidencia
+* realizar evaluaciones
+* desarrollar competencias
+* recibir recomendaciones personalizadas
+* consultar su expediente
+* obtener credenciales
+* hablar con tutores IA
+* utilizar voz IA
+* investigar
+* colaborar
+* progresar durante años
+
+La IA debe conocer el contexto académico del estudiante.
+
+Pero la IA NO debe tener autoridad ilimitada.
+
+---
+
+# 2. FILOSOFÍA
+
+PRINCIPIOS OBLIGATORIOS:
+
+OPEN SOURCE FIRST
+
+SELF-HOSTED FIRST
+
+STANDARDS FIRST
+
+SECURITY BY DESIGN
+
+PRIVACY BY DESIGN
+
+ACCESSIBILITY BY DESIGN
+
+AI GOVERNANCE BY DESIGN
+
+LEAST PRIVILEGE
+
+AUDITABILITY
+
+MODULARITY
+
+PORTABILITY
+
+NO VENDOR LOCK-IN
+
+NO FAKE FEATURES
+
+NO SECRET DEPENDENCIES
+
+NO UNNECESSARY COMPLEXITY
+
+---
+
+# 3. INVESTIGACIÓN OPEN SOURCE
+
+ANTES DE IMPLEMENTAR CUALQUIER SUBSISTEMA IMPORTANTE:
+
+BUSCA SI EXISTE UNA SOLUCIÓN OPEN SOURCE MADURA.
+
+EVALÚA:
+
+* licencia
+* actividad
+* mantenimiento
+* comunidad
+* seguridad
+* documentación
+* arquitectura
+* compatibilidad
+* posibilidad de self-hosting
+* coste
+* dependencia de servicios externos
+
+NO REIMPLEMENTES INFRAESTRUCTURA MADURA SIN MOTIVO.
+
+CREA:
+
+`docs/OPEN_SOURCE_STACK.md`
+
+con:
+
+COMPONENTE
+PROYECTO
+LICENCIA
+FUNCIÓN
+MOTIVO DE ELECCIÓN
+ALTERNATIVAS
+RIESGOS
+ESTADO
+
+---
+
+# 4. STACK BASE
+
+CONSERVA SI ES ADECUADO:
+
+React
+Vite
+TypeScript
+Tailwind
+Express
+pnpm
+
+EVOLUCIONA HACIA:
+
+PostgreSQL
+Drizzle ORM
+Keycloak
+Redis
+pgvector
+MinIO/S3-compatible storage
+Docker
+WebSockets/SSE
+Service Worker
+
+UTILIZA INFRAESTRUCTURA ADICIONAL SOLO CUANDO REALMENTE SEA NECESARIA.
+
+NO CREES MICROSERVICIOS POR MODA.
+
+PREFIERE UN MODULAR MONOLITH AL PRINCIPIO.
+
+DISEÑA LAS FRONTERAS PARA PODER SEPARAR SERVICIOS MÁS ADELANTE.
+
+---
+
+# 5. ARQUITECTURA
+
+ORGANIZA EL PROYECTO CON LÍMITES CLAROS:
+
+/client
+/server
+/shared
+/data
+/ai
+/agents
+/academic
+/auth
+/labs
+/voice
+/rag
+/audit
+/notifications
+/credentials
+/infrastructure
+/docs
+/tests
+
+SI LA ESTRUCTURA ACTUAL ES MEJOR, ADÁPTALA.
+
+NO CAMBIES CARPETAS SOLO POR CAMBIARLAS.
+
+---
+
+# 6. DATABASE
+
+MIGRA LA PERSISTENCIA REAL A POSTGRESQL + DRIZZLE.
+
+DISEÑA UN MODELO ACADÉMICO COMPLETO.
+
+ENTIDADES MÍNIMAS:
+
+users
+profiles
+roles
+permissions
+organizations
+
+students
+faculty
+mentors
+examiners
+
+programs
+degrees
+departments
+courses
+modules
+lessons
+learning_objectives
+
+competencies
+competency_frameworks
+student_competencies
+
+enrollments
+progress
+attempts
+submissions
+assessments
+grades
+
+evidence
+projects
+capstones
+
+labs
+lab_templates
+lab_instances
+lab_sessions
+lab_events
+
+ai_sessions
+ai_messages
+ai_agents
+ai_tools
+ai_permissions
+ai_actions
+ai_evaluations
+ai_memory
+
+notifications
+tasks
+task_events
+
+certificates
+credentials
+
+audit_events
+
+---
+
+# 7. AUTHENTICATION
+
+INTEGRA UNA ARQUITECTURA DE IDENTIDAD PROFESIONAL.
+
+PREFERENCIA:
+
+KEYCLOAK
+
+COMPATIBLE CON:
+
+OIDC
+OAuth2
+RBAC
+MFA
+
+ROLES:
+
+STUDENT
+FACULTY
+MENTOR
+EXAMINER
+LAB_INSTRUCTOR
+ADMIN
+AI_AGENT
+SYSTEM
+
+IMPLEMENTA LEAST PRIVILEGE.
+
+UN ESTUDIANTE NO PUEDE VER DATOS DE OTROS ESTUDIANTES.
+
+UN AI_AGENT NO DEBE SER ADMIN.
+
+---
+
+# 8. AI GATEWAY
+
+ESTA ES UNA DE LAS PIEZAS MÁS IMPORTANTES.
+
+NO PERMITAS:
+
+USER → MODEL DIRECTO
+
+CREA:
+
+USER
+↓
+AI GATEWAY
+↓
+AUTHENTICATION
+↓
+POLICY ENGINE
+↓
+CONTEXT BUILDER
+↓
+RAG
+↓
+AGENT ROUTER
+↓
+AGENT
+↓
+TOOL AUTHORIZATION
+↓
+EXECUTION
+↓
+VALIDATION
+↓
+RESPONSE
+↓
+AUDIT
+
+TODAS LAS ACCIONES IMPORTANTES PASAN POR EL GATEWAY.
+
+---
+
+# 9. SISTEMA MULTI-AGENTE
+
+IMPLEMENTA UNA ARQUITECTURA DE AGENTES MODULAR.
+
+AGENTES:
+
+TUTOR
+
+SOCRATIC
+
+ACADEMIC
+
+ASSESSMENT
+
+LAB
+
+RESEARCH
+
+CURRICULUM
+
+SECURITY
+
+VOICE
+
+ORCHESTRATOR
+
+CADA AGENTE DEBE TENER:
+
+identity
+description
+capabilities
+tools
+permissions
+input schema
+output schema
+policy
+audit configuration
+
+---
+
+# 10. AI ORCHESTRATOR
+
+EL ORCHESTRATOR DECIDE QUÉ AGENTE NECESITA EL USUARIO.
+
+EJEMPLO:
+
+"NO ENTIENDO TCP"
+
+→ TUTOR
+
+"NO ME DIGAS LA RESPUESTA, AYÚDAME"
+
+→ SOCRATIC
+
+"QUIERO HACER EL LABORATORIO"
+
+→ LAB
+
+"¿QUÉ DEBO ESTUDIAR?"
+
+→ CURRICULUM
+
+"ANALIZA ESTE INCIDENTE"
+
+→ SECURITY
+
+"BUSCA INFORMACIÓN"
+
+→ RESEARCH
+
+"LEE ESTO"
+
+→ VOICE
+
+---
+
+# 11. AI PERMISSIONS
+
+CREA PERMISOS GRANULARES.
+
+EJEMPLO:
+
+TUTOR:
+
+read_course
+read_student_progress
+create_recommendation
+
+LAB:
+
+read_lab
+start_lab
+read_lab_output
+submit_lab
+
+ASSESSMENT:
+
+read_submission
+evaluate_submission
+
+NINGÚN AGENTE DEBE PODER:
+
+modify_identity
+delete_student
+change_final_grade
+issue_credential
+access_private_student_data
+modify_system_security
+
+SIN UN WORKFLOW AUTORIZADO.
+
+---
+
+# 12. AI AUDIT
+
+REGISTRA:
+
+user_id
+agent_id
+timestamp
+action
+tool
+authorization
+result
+error
+execution_time
+
+NO GUARDES SECRETOS.
+
+NO GUARDES DATOS PERSONALES INNECESARIOS.
+
+CREA:
+
+`docs/AI_GOVERNANCE.md`
+
+EXPLICANDO:
+
+* qué puede hacer la IA
+* qué no puede hacer
+* cómo se autoriza
+* cómo se audita
+* cómo se corrigen errores
+* cuándo debe intervenir un humano
+
+---
+
+# 13. RAG
+
+CREA UNA CAPA DE RETRIEVAL INDEPENDIENTE DEL MODELO.
+
+PRIMER BACKEND:
+
+POSTGRESQL + PGVECTOR
+
+FUENTES:
+
+curriculum
+courses
+lessons
+labs
+documentation
+academic policies
+approved references
+
+LA IA DEBE PODER EXPLICAR:
+
+"¿DE DÓNDE SALE ESTA INFORMACIÓN?"
+
+Y MOSTRAR LAS FUENTES UTILIZADAS.
+
+---
+
+# 14. MODEL PROVIDER ABSTRACTION
+
+NO ACOPLES SECURE T A UN ÚNICO PROVEEDOR.
+
+CREA:
+
+ModelProvider
+
+CON SOPORTE FUTURO PARA:
+
+local models
+OpenAI-compatible APIs
+Ollama
+vLLM
+otros proveedores
+
+EL RESTO DEL SISTEMA NO DEBE SABER QUÉ MODELO EXISTE DETRÁS.
+
+---
+
+# 15. VOICE
+
+CREA:
+
+VoiceProvider
+
+CON SOPORTE PARA:
+
+Kokoro
+Chatterbox
+
+Y FUTUROS PROVEEDORES.
+
+IDIOMAS INICIALES:
+
+ES
+PT
+EN
+
+FUNCIONES:
+
+text-to-speech
+streaming cuando sea posible
+voice settings
+voice consent
+task queue
+audio cache
+
+LA VOZ DEBE SER UN SERVICIO, NO UNA PARTE DEL CHAT UI.
+
+---
+
+# 16. NOTIFICACIONES
+
+IMPLEMENTA:
+
+Browser Notification API
+Service Worker
+Web Audio API
+task events
+background tasks
+
+ESTADOS:
+
+TASK_CREATED
+TASK_STARTED
+TASK_PROGRESS
+TASK_COMPLETED
+TASK_FAILED
+
+CUANDO TERMINA UNA TAREA:
+
+→ NOTIFICACIÓN
+→ SONIDO
+→ ACTUALIZACIÓN DE UI
+
+CREA SETTINGS:
+
+notifications_enabled
+completion_sound
+voice_enabled
+quiet_hours
+
+---
+
+# 17. TASK SYSTEM
+
+CREA UN SISTEMA DE TAREAS ASÍNCRONAS.
+
+EJEMPLOS:
+
+generar audio
+crear informe
+procesar laboratorio
+evaluar evidencia
+indexar documento
+generar recomendación
+crear certificado
+
+EL FRONTEND NO DEBE QUEDARSE BLOQUEADO ESPERANDO.
+
+UTILIZA:
+
+queue
+worker
+event
+notification
+
+---
+
+# 18. CYBER RANGE
+
+CONSTRUYE UNA ARQUITECTURA DE LABORATORIOS AISLADOS.
+
+NUNCA EJECUTES CÓDIGO ARBITRARIO DEL ESTUDIANTE DENTRO DEL PROCESO PRINCIPAL.
+
+FLUJO:
+
+STUDENT
+↓
+LAB API
+↓
+LAB INSTANCE
+↓
+ISOLATED ENVIRONMENT
+↓
+TASK
+↓
+TELEMETRY
+↓
+ASSESSMENT
+↓
+EVIDENCE
+↓
+DESTROY
+
+CADA LABORATORIO DEBE SER EFÍMERO CUANDO SEA POSIBLE.
+
+---
+
+# 19. LABS
+
+CREA UN MODELO:
+
+LAB
+LAB VERSION
+LAB IMAGE
+LAB CONFIGURATION
+LAB INSTANCE
+LAB SESSION
+LAB EVENT
+LAB SUBMISSION
+
+CADA LAB DEBE DEFINIR:
+
+objective
+difficulty
+skills
+environment
+instructions
+tasks
+hints
+validation
+evidence
+time_limit
+
+---
+
+# 20. CURRICULUM
+
+CREA UNA UNIVERSIDAD DE 4 AÑOS.
+
+AÑO 1:
+
+Linux
+Networking
+Python
+Operating Systems
+Web Fundamentals
+Cybersecurity Fundamentals
+Cryptography Fundamentals
+
+AÑO 2:
+
+Web Security
+Cloud Security
+Digital Forensics
+Identity
+SOC
+Threat Intelligence
+Secure Programming
+
+AÑO 3:
+
+Reverse Engineering
+Malware Analysis
+Detection Engineering
+Incident Response
+AI Security
+Cloud Attack/Defense
+Security Architecture
+
+AÑO 4:
+
+Red Team
+Blue Team
+Purple Team
+Advanced Security
+AI Security Research
+Security Architecture
+Research Project
+Capstone
+
+NO LOS PRESENTES COMO TÍTULOS ACREDITADOS REALMENTE HASTA QUE EXISTA UNA INSTITUCIÓN/ACREDITACIÓN QUE LOS RESPALDE.
+
+---
+
+# 21. COMPETENCY ENGINE
+
+EL PROGRESO NO DEBE SER:
+
+"73% DEL CURSO".
+
+DEBE SER:
+
+COMPETENCY
+→ EVIDENCE
+→ ASSESSMENT
+→ MASTERY
+
+CREA:
+
+competency framework
+competency levels
+evidence
+assessment
+confidence
+mastery
+
+---
+
+# 22. ADAPTIVE LEARNING
+
+UTILIZA EL PERFIL ACADÉMICO DEL ESTUDIANTE.
+
+EJEMPLO:
+
+NETWORKING 91%
+LINUX 84%
+CRYPTO 51%
+
+LA IA PUEDE RECOMENDAR:
+
+→ LAB
+→ LESSON
+→ EXERCISE
+→ READING
+→ SOCRATIC SESSION
+
+CADA RECOMENDACIÓN DEBE TENER UNA EXPLICACIÓN.
+
+---
+
+# 23. ACADEMIC RECORD
+
+CREA UN EXPEDIENTE DIGITAL.
+
+DEBE MOSTRAR:
+
+program
+courses
+competencies
+evidence
+assessments
+projects
+achievements
+credentials
+
+NO UTILICES SOLO PORCENTAJES.
+
+---
+
+# 24. CREDENTIALS
+
+DISEÑA UNA CAPA PREPARADA PARA CREDENCIALES VERIFICABLES.
+
+SEPARA:
+
+achievement
+
+certificate
+
+credential
+
+verification
+
+NO INVENTES ACREDITACIONES.
+
+NO AFIRMES VALIDEZ UNIVERSITARIA REAL SI NO EXISTE.
+
+---
+
+# 25. RESEARCH MODE
+
+CREA UN ESPACIO DE INVESTIGACIÓN.
+
+EL USUARIO PODRÁ:
+
+buscar
+leer
+guardar
+comparar
+resumir
+preguntar
+crear notas
+
+LA IA DEBE DIFERENCIAR:
+
+FACT
+INFERENCE
+UNCERTAINTY
+
+Y MOSTRAR FUENTES.
+
+---
+
+# 26. COMMUNITY
+
+DISEÑA UNA CAPA FUTURA PARA:
+
+discussion
+projects
+peer review
+study groups
+mentorship
+
+PERO NO LA CONVIERTAS EN UNA RED SOCIAL GENÉRICA.
+
+TODO DEBE SERVIR AL APRENDIZAJE.
+
+---
+
+# 27. FRONTEND
+
+CONSTRUYE UN CAMPUS PREMIUM.
+
+SECCIONES:
+
+DASHBOARD
+ACADEMY
+CURRICULUM
+COURSES
+LABS
+AI TUTOR
+ASSESSMENTS
+COMPETENCIES
+ACADEMIC RECORD
+CREDENTIALS
+RESEARCH
+COMMUNITY
+SETTINGS
+
+DISEÑO:
+
+serio
+tecnológico
+académico
+premium
+limpio
+rápido
+accesible
+
+NO:
+
+glassmorphism excesivo
+gradientes baratos
+cards infinitas
+decoración sin función
+"AI slop"
+interfaces de videojuego genéricas
+
+---
+
+# 28. DESIGN SYSTEM
+
+CREA:
+
+tokens
+typography
+spacing
+buttons
+inputs
+cards
+tables
+dialogs
+notifications
+navigation
+charts
+terminal
+lab UI
+AI UI
+
+TODO DEBE SER CONSISTENTE.
+
+---
+
+# 29. ACCESSIBILITY
+
+CUMPLE COMO MÍNIMO:
+
+WCAG 2.2 AA COMO OBJETIVO.
+
+SOPORTA:
+
+keyboard navigation
+screen readers
+focus states
+reduced motion
+contrast
+semantic HTML
+ARIA cuando corresponda
+
+---
+
+# 30. PERFORMANCE
+
+OPTIMIZA:
+
+bundle
+lazy loading
+code splitting
+image loading
+caching
+database indexes
+API latency
+
+NO CARGUES MODELOS PESADOS EN EL BROWSER.
+
+---
+
+# 31. SECURITY
+
+IMPLEMENTA:
+
+secure headers
+validation
+rate limiting
+authorization
+CSRF cuando aplique
+XSS protection
+SQL injection protection
+secure cookies
+secret management
+dependency scanning
+audit logging
+container isolation
+
+REVISA OWASP.
+
+CREA:
+
+`docs/SECURITY.md`
+
+---
+
+# 32. OBSERVABILITY
+
+CREA UNA BASE PARA:
+
+logs
+metrics
+errors
+health checks
+audit events
+
+ENDPOINTS:
+
+/health
+/ready
+
+NO EXPONGAS INFORMACIÓN SENSIBLE.
+
+---
+
+# 33. TESTING
+
+IMPLEMENTA:
+
+unit tests
+integration tests
+API tests
+authorization tests
+AI policy tests
+lab isolation tests
+end-to-end tests
+
+CRITICAL FLOWS:
+
+registration
+login
+course enrollment
+lesson completion
+AI tutoring
+lab launch
+submission
+assessment
+notification
+credential verification
+
+---
+
+# 34. CI/CD
+
+CREA PIPELINE AUTOMÁTICO.
+
+EN CADA PUSH:
+
+lint
+typecheck
+tests
+build
+security checks
+
+NO PERMITAS MERGES ROTOS.
+
+---
+
+# 35. ENVIRONMENT
+
+SEPARA:
+
+development
+test
+production
+
+USA:
+
+`.env.example`
+
+NUNCA:
+
+`.env`
+
+NI SECRETOS REALES EN GIT.
+
+---
+
+# 36. DATA PRIVACY
+
+MINIMIZA DATOS.
+
+SEPARA:
+
+academic data
+AI conversation data
+audit data
+authentication data
+
+PERMITE FUTURO:
+
+data export
+account deletion
+retention policies
+
+---
+
+# 37. AI SAFETY
+
+LA IA DEBE:
+
+reconocer incertidumbre
+evitar inventar fuentes
+distinguir hipótesis de hechos
+pedir contexto cuando sea necesario
+rechazar acciones fuera de sus permisos
+registrar acciones relevantes
+
+PARA CYBERSECURITY:
+
+EL ENTORNO EDUCATIVO DEBE SER AISLADO.
+
+NO CONECTAR LABS A SISTEMAS REALES SIN AUTORIZACIÓN EXPLÍCITA.
+
+---
+
+# 38. ADMIN
+
+CREA UN PANEL ADMINISTRATIVO.
+
+FUNCIONES:
+
+users
+roles
+courses
+curriculum
+labs
+AI agents
+AI permissions
+audit
+system health
+feature flags
+
+---
+
+# 39. FACULTY
+
+CREA:
+
+course management
+lesson authoring
+assessment
+rubrics
+student evidence
+feedback
+competency review
+
+---
+
+# 40. STUDENT
+
+CREA:
+
+dashboard
+learning path
+course
+lesson
+lab
+AI tutor
+submissions
+competencies
+record
+credentials
+
+---
+
+# 41. AI TUTOR UX
+
+EL CHAT DEBE PODER MOSTRAR:
+
+respuesta
+fuentes
+acciones
+recomendaciones
+contexto
+modo socrático
+voz
+
+MODOS:
+
+NORMAL
+SOCRATIC
+LAB
+RESEARCH
+EXAM PREP
+
+---
+
+# 42. NO CONVERTIR EL TUTOR EN TRAMPA
+
+DURANTE EVALUACIONES:
+
+EL SISTEMA DEBE PODER RESTRINGIR LAS CAPACIDADES DE LA IA.
+
+EJEMPLO:
+
+EXAM MODE:
+
+NO DIRECT ANSWERS
+NO SOLUTION GENERATION
+NO UNAUTHORIZED TOOLS
+
+PERO SÍ:
+
+ACCESSIBILITY
+CLARIFICATION
+TECHNICAL SUPPORT
+APPROVED HINTS
+
+---
+
+# 43. DESIGN FOR FUTURE MODELS
+
+NO CODIFIQUES:
+
+"gpt-X"
+
+EN TODO EL SISTEMA.
+
+UTILIZA:
+
+providers
+models
+routing
+capabilities
+
+PERMITE FUTURO MODEL ROUTING:
+
+cheap model
+reasoning model
+local model
+vision model
+voice model
+embedding model
+
+---
+
+# 44. COST CONTROL
+
+CREA:
+
+token accounting
+request limits
+model routing
+caching
+quotas
+
+LA IA DEBE UTILIZAR EL MODELO ADECUADO PARA CADA TAREA.
+
+NO UTILICES UN MODELO CARO PARA:
+
+"hola"
+
+UTILIZA MODELOS MÁS POTENTES CUANDO LA TAREA LO JUSTIFIQUE.
+
+---
+
+# 45. OFFLINE / LOCAL
+
+DISEÑA TODO LO POSIBLE PARA PODER EJECUTARSE LOCALMENTE.
+
+OBJETIVO:
+
+SECURE T DEV
+
+→ Docker Compose
+→ PostgreSQL
+→ Keycloak
+→ Redis
+→ MinIO
+→ local AI provider
+→ local TTS
+→ application
+
+UN DESARROLLADOR DEBE PODER LEVANTAR EL STACK CON EL MÍNIMO NÚMERO DE PASOS.
+
+---
+
+# 46. DOCUMENTACIÓN
+
+CREA Y MANTIENE:
+
+docs/ARCHITECTURE.md
+docs/SECURITY.md
+docs/AI_GOVERNANCE.md
+docs/ACADEMIC_MODEL.md
+docs/CURRICULUM.md
+docs/LAB_ARCHITECTURE.md
+docs/VOICE_ARCHITECTURE.md
+docs/OPEN_SOURCE_STACK.md
+docs/DATA_MODEL.md
+docs/AI_AGENTS.md
+docs/DEPLOYMENT.md
+docs/ROADMAP.md
+docs/DECISIONS.md
+
+---
+
+# 47. ARCHITECTURE DECISION RECORDS
+
+CADA DECISIÓN IMPORTANTE:
+
+ADR-001
+ADR-002
+ADR-003
+
+DOCUMENTA:
+
+context
+decision
+alternatives
+reason
+consequences
+
+---
+
+# 48. NO INVENTAR
+
+SI ALGO NO EXISTE:
+
+NO SIMULES QUE EXISTE.
+
+MARCA:
+
+PROTOTYPE
+PLACEHOLDER
+NOT IMPLEMENTED
+
+SI UNA FUNCIÓN NO PUEDE IMPLEMENTARSE CORRECTAMENTE TODAVÍA:
+
+CREA LA INTERFAZ Y DOCUMENTA EL BLOQUEO.
+
+---
+
+# 49. EXECUTION STRATEGY
+
+TRABAJA EN ESTE ORDEN:
+
+PHASE 0
+AUDIT
+
+PHASE 1
+ARCHITECTURE
+
+PHASE 2
+DATABASE
+
+PHASE 3
+AUTH + RBAC
+
+PHASE 4
+ACADEMIC ENGINE
+
+PHASE 5
+AI GATEWAY
+
+PHASE 6
+AGENTS
+
+PHASE 7
+RAG
+
+PHASE 8
+TASKS + NOTIFICATIONS
+
+PHASE 9
+LABS
+
+PHASE 10
+VOICE
+
+PHASE 11
+COMPETENCIES
+
+PHASE 12
+CREDENTIALS
+
+PHASE 13
+ADMIN/FACULTY
+
+PHASE 14
+SECURITY HARDENING
+
+PHASE 15
+PERFORMANCE
+
+PHASE 16
+TESTING
+
+PHASE 17
+DOCUMENTATION
+
+PHASE 18
+PRODUCTION READINESS
+
+---
+
+# 50. DESPUÉS DE CADA FASE
+
+EJECUTA:
+
+pnpm check
+pnpm build
+tests
+
+Y SI EXISTEN:
+
+lint
+security scan
+integration tests
+e2e tests
+
+NO DECLARES COMPLETADA UNA FASE SIN VALIDACIÓN.
+
+---
+
+# 51. GIT
+
+DESPUÉS DE CADA FASE ESTABLE:
+
+CREA UN COMMIT DESCRIPTIVO.
+
+NO HAGAS:
+
+"update"
+
+USA:
+
+feat: implement academic persistence
+
+feat: add governed ai gateway
+
+feat: add isolated lab lifecycle
+
+fix: secure authorization middleware
+
+docs: add ai governance architecture
+
+---
+
+# 52. REGLA DE NO REGRESIÓN
+
+ANTES DE MODIFICAR UNA PARTE:
+
+ENTIENDE SUS DEPENDENCIAS.
+
+DESPUÉS:
+
+VERIFICA QUE LAS FUNCIONES EXISTENTES SIGAN FUNCIONANDO.
+
+NO ROMPAS:
+
+build
+routing
+authentication
+existing UI
+existing API
+existing data
+
+SIN DOCUMENTAR LA MIGRACIÓN.
+
+---
+
+# 53. FINAL PRODUCT STANDARD
+
+SECURE T DEBE TERMINAR SIENDO UNA PLATAFORMA QUE PUEDA EVOLUCIONAR HACIA:
+
+DIGITAL UNIVERSITY
++
+CYBER RANGE
++
+AI UNIVERSITY
++
+RESEARCH PLATFORM
++
+COMPETENCY ENGINE
++
+AI GOVERNANCE SYSTEM
++
+VERIFIABLE CREDENTIALS
+
+PERO CADA PARTE DEBE SER REAL.
+
+NO MARKETING.
+
+NO HUMO.
+
+NO FEATURES FALSAS.
+
+---
+
+# 54. PRIMERA ACCIÓN AHORA
+
+NO EMPIECES PROGRAMANDO.
+
+PRIMERO:
+
+1. INSPECCIONA TODO `secure-t`.
+2. GENERA INVENTARIO DEL PROYECTO.
+3. ANALIZA DEPENDENCIAS.
+4. ANALIZA ARQUITECTURA.
+5. ANALIZA SEGURIDAD.
+6. ANALIZA UX.
+7. ANALIZA BASE DE DATOS ACTUAL.
+8. ANALIZA ESTADO DEL AI TUTOR.
+9. ANALIZA ESTADO DE LOS LABS.
+10. INVESTIGA ALTERNATIVAS OPEN SOURCE.
+11. CREA `docs/ARCHITECTURE.md`.
+12. CREA `docs/OPEN_SOURCE_STACK.md`.
+13. CREA `docs/ROADMAP.md`.
+14. CREA `docs/DECISIONS.md`.
+15. PRESENTA UN GAP ANALYSIS.
+16. DESPUÉS COMIENZA PHASE 1.
+
+NO ME PREGUNTES QUÉ HACER A CONTINUACIÓN SI PUEDES DETERMINARLO RAZONABLEMENTE.
+
+TOMA DECISIONES TÉCNICAS.
+
+SI EXISTEN VARIAS OPCIONES:
+
+ELIGE LA MÁS ABIERTA, SEGURA, MANTENIBLE, GRATUITA Y PORTABLE.
+
+SI UNA DECISIÓN ES IRREVERSIBLE O TIENE GRAN IMPACTO:
+
+DOCUMENTA PRIMERO.
+
+---
+
+# 55. DEFINICIÓN DE "DONE"
+
+UNA FEATURE SOLO ESTÁ TERMINADA SI:
+
+[ ] FUNCIONA
+[ ] TIENE PERSISTENCIA CUANDO CORRESPONDE
+[ ] TIENE AUTORIZACIÓN
+[ ] TIENE MANEJO DE ERRORES
+[ ] TIENE TEST
+[ ] NO ROMPE EL BUILD
+[ ] NO EXPONE SECRETOS
+[ ] TIENE UI COMPLETA
+[ ] ES ACCESIBLE
+[ ] ESTÁ DOCUMENTADA
+[ ] TIENE AUDITABILIDAD CUANDO CORRESPONDE
+
+---
+
+# 56. OBJETIVO FINAL
+
+NO MAXIMICES EL NÚMERO DE LÍNEAS DE CÓDIGO.
+
+MAXIMIZA:
+
+CAPACIDAD
+SEGURIDAD
+CALIDAD
+AUTOMATIZACIÓN
+PORTABILIDAD
+OPEN SOURCE
+GOBERNANZA
+EXPERIENCIA EDUCATIVA
+MANTENIBILIDAD
+ESCALABILIDAD
+
+CONSTRUYE SECURE T COMO SI FUERA A SER UTILIZADO POR UNA UNIVERSIDAD REAL.
+
+NO COMO UNA DEMO.
+
+COMIENZA AHORA CON EL AUDIT COMPLETO DEL REPOSITORIO.
+
+**Ese es el “comando total”.** Yo lo pegaría tal cual en el agente que tenga acceso de escritura al repo. La diferencia clave es que **no le ordena simplemente “construir”**: le obliga a investigar qué reutilizar, auditar lo existente, crear arquitectura, implementar por fases y verificar cada fase.

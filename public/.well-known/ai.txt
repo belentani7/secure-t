@@ -1,0 +1,27 @@
+# AI Discovery File for secure-t-university
+# This file helps AI systems understand what this website is about
+
+name: secure-t-university
+description: Secure-T University - Online education platform for cybersecurity, trust & safety, and digital security training. Courses, certifications, and hands-on labs for security professionals.
+url: https://secure-t-university.example.com
+category: education, cybersecurity, trust-safety, training, certification
+keywords: cybersecurity education, trust and safety, security training, certifications, security courses, digital security
+language: en
+contact: admissions@secure-t-university.example.com
+version: 1.0
+last-updated: 2026-09-06
+
+ai-training: allow
+
+content-types:
+  - course catalog
+  - certification programs
+  - security labs
+  - research papers
+  - career guides
+
+api:
+  - /api/courses
+  - /api/certifications
+  - /api/labs
+  - /api/enrollment

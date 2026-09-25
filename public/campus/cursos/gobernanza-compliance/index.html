@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gobernanza y Compliance Digital — Secure T University</title>
+  <meta name="description" content="Marcos de gobierno de la seguridad (ISO 27001, NIST CSF, ENS), protección de datos con principio de minimización extrema, gestión de riesgo y construc">
+  <link rel="stylesheet" href="../../tokens.css">
+  <style>
+    .curso-layout { display: grid; grid-template-columns: 15rem 1fr; gap: var(--sp-8);
+      max-width: 72rem; margin: 0 auto; padding: var(--sp-6) var(--sp-4) var(--sp-12); }
+    .curso-nav { position: sticky; top: var(--sp-6); align-self: start;
+      display: grid; gap: var(--sp-1); font-size: var(--fs-sm); }
+    .curso-nav a { padding: var(--sp-2) var(--sp-3); border-radius: var(--r-sm);
+      color: var(--text-2); text-decoration: none; }
+    .curso-nav a:hover { background: var(--bg-muted); color: var(--text-1); }
+    .curso-nav a.activo { background: var(--accent-soft); color: var(--accent); }
+    .curso-nav .sep { border-top: 1px solid var(--border); margin: var(--sp-2) 0; }
+    main section { margin-bottom: var(--sp-12); scroll-margin-top: var(--sp-8); }
+    main h2 { border-bottom: 1px solid var(--border); padding-bottom: var(--sp-2); }
+    table { border-collapse: collapse; width: 100%; margin: var(--sp-4) 0; }
+    th, td { border: 1px solid var(--border); padding: var(--sp-2) var(--sp-3);
+      text-align: left; font-size: var(--fs-sm); }
+    th { background: var(--bg-muted); }
+    pre { background: var(--bg-sunken); border: 1px solid var(--border);
+      border-radius: var(--r-md); padding: var(--sp-4); overflow-x: auto; }
+    code { font-family: var(--font-mono); font-size: .9em; }
+    .meta-chips { display: flex; gap: var(--sp-2); flex-wrap: wrap; margin: var(--sp-3) 0; }
+    .quiz-opciones { display: grid; gap: var(--sp-2); margin: var(--sp-4) 0; }
+    .quiz-opciones button { text-align: left; padding: var(--sp-3) var(--sp-4);
+      border-radius: var(--r-md); border: 1px solid var(--border);
+      background: var(--bg-sunken); color: var(--text-1); font: inherit; cursor: pointer; }
+    .quiz-opciones button.correcta { border-color: var(--success); }
+    .quiz-opciones button.fallo { border-color: var(--danger); }
+    @media (max-width: 48rem) { .curso-layout { grid-template-columns: 1fr; }
+      .curso-nav { position: static; } }
+    #barra-lectura { position: fixed; top: 0; left: 0; height: 3px; width: 0;
+      background: var(--accent); z-index: 60; }
+    .controles { display: flex; gap: var(--sp-2); align-items: center; }
+    .controles button { border: 1px solid var(--border); background: transparent;
+      color: var(--text-2); border-radius: var(--r-sm); min-width: 2.2rem;
+      min-height: 2.2rem; cursor: pointer; font: 600 var(--fs-sm) var(--font-mono); }
+    .controles button:hover { border-color: var(--accent); color: var(--accent); }
+    .sem-nav { display: flex; justify-content: space-between; gap: var(--sp-4);
+      margin-top: var(--sp-6); padding-top: var(--sp-4);
+      border-top: 1px dashed var(--border); }
+    .sem-nav a { color: var(--accent); text-decoration: none; }
+    .sem-nav a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+<header class="topbar"><div class="bar">
+  <a class="brand" href="../../index.html">← Campus</a>
+  <span class="brand"><span>Gobernanza y Compliance Digital</span></span>
+  <div class="controles no-print">
+    <button id="fs-menos" aria-label="Reducir tamaño de letra">A−</button>
+    <button id="fs-mas" aria-label="Aumentar tamaño de letra">A+</button>
+    <button id="tema-btn" aria-label="Cambiar tema claro u oscuro">◐</button>
+    <a class="btn" href="../../progreso.html">Mi progreso</a>
+  </div>
+</div></header>
+<div id="barra-lectura" aria-hidden="true"></div>
+<div class="curso-layout">
+  <nav class="curso-nav" aria-label="Secciones del curso">
+      <a href="#overview">Overview</a>
+      <a href="#syllabus">Syllabus</a>
+      <a href="#semana-1">Semana 1 · Marcos: ISO 27001, NIST CSF, ENS</a>
+      <a href="#semana-2">Semana 2 · Datos personales y minimización extrem…</a>
+      <a href="#semana-3">Semana 3 · Gestión de riesgo con dueño y evidenci…</a>
+      <a href="#semana-4">Semana 4 · El expediente de compliance</a>
+      <a href="#semana-5">Semana 5 · Gestion de riesgos (ISO 31000, NIST 80…</a>
+      <a href="#semana-6">Semana 6 · Analisis de impacto en el negocio y BC…</a>
+      <a href="#semana-7">Semana 7 · Riesgo de terceros y supply chain</a>
+      <a href="#semana-8">Semana 8 · Ingenieria de privacidad (RGPD, LGPD)</a>
+      <a href="#semana-9">Semana 9 · Programas de auditoria y assurance</a>
+      <a href="#semana-10">Semana 10 · Marco de politicas y jerarquia documen…</a>
+      <a href="#semana-11">Semana 11 · Concienciacion y cultura de seguridad</a>
+      <a href="#semana-12">Semana 12 · Panorama regulatorio sectorial</a>
+      <a href="#semana-13">Semana 13 · Herramientas GRC y automatizacion</a>
+      <a href="#semana-14">Semana 14 · Notificacion de incidentes y reporte r…</a>
+      <a href="#semana-15">Semana 15 · Preparacion para certificaciones (ISO …</a>
+      <a href="#semana-16">Semana 16 · Compliance en cloud y responsabilidad …</a>
+      <a href="#semana-17">Semana 17 · Metricas y reporte al consejo</a>
+      <a href="#semana-18">Semana 18 · Gestion de crisis y wargaming</a>
+      <a href="#semana-19">Semana 19 · Regulaciones emergentes: AI Act, CRA, …</a>
+      <a href="#semana-20">Semana 20 · Capstone: Construir programa GRC desde…</a>
+      <div class="sep"></div>
+      <a href="#quiz">Quiz del curso</a>
+      <a href="#laboratorio">Laboratorio</a>
+      <a href="#proyecto">Proyecto y examen</a>
+      <a href="#rubrica">Rúbrica</a>
+      <a href="#glosario">Glosario</a>
+      <a href="#chuleta">Chuleta</a>
+      <a href="#recursos">Recursos</a>
+      <div class="sep"></div>
+      <a href="../../progreso.html">Mi progreso →</a>
+      <a href="../../credencial.html">Credencial →</a>
+  </nav>
+  <main>
+    <section id="overview">
+      <h1>Gobernanza y Compliance Digital</h1>
+      <div class="meta-chips">
+        <span class="badge">ES · universitario</span>
+        <span class="badge">40 h</span>
+        <span class="badge">20 semanas</span>
+        <span class="badge">quiz 22 ítems</span>
+      </div>
+      <p>Marcos de gobierno de la seguridad (ISO 27001, NIST CSF, ENS), protección de datos con principio de minimización extrema, gestión de riesgo y construcción del expediente de compliance con evidencia.</p>
+      <h2>Objetivos de aprendizaje</h2>
+      <ul><li>Situar los marcos ISO 27001, NIST CSF y ENS en su papel real</li><li>Aplicar minimización de datos: el usuario como token anónimo</li><li>Construir una matriz de riesgo con tratamiento y dueño</li><li>Producir un expediente de compliance con evidencia verificable</li></ul>
+      <blockquote>Evaluación: participación y ejercicios 30 % · quizzes 30 % ·
+proyecto con evidencia 40 %. Nada se aprueba adivinando.</blockquote>
+    </section>
+    <section id="syllabus">
+<h1>Gobernanza y Compliance Digital</h1>
+<blockquote>Nivel: universitario · 40 horas · Idioma principal: ES</blockquote>
+<h2>Descripcion</h2>
+<p>Marcos de gobierno de la seguridad (ISO 27001, NIST CSF, ENS), protección de datos con principio de minimización extrema, gestión de riesgo y construcción del expediente de compliance con evidencia.</p>
+<h2>Objetivos de aprendizaje (evidencia)</h2>
+<ul><li>Situar los marcos ISO 27001, NIST CSF y ENS en su papel real</li><li>Aplicar minimización de datos: el usuario como token anónimo</li><li>Construir una matriz de riesgo con tratamiento y dueño</li><li>Producir un expediente de compliance con evidencia verificable</li></ul>
+<h2>Evaluacion estilo Harvard</h2>
+<ul><li>Participacion y ejercicios semanales: 30%</li><li>Quizzes formativos por semana: 30%</li><li>Proyecto final con evidencia: 40%</li><li>Todo se aprueba demostrando, no adivinando.</li></ul>
+<h2>Cronograma</h2>
+<h2>Semana 1: Marcos: ISO 27001, NIST CSF, ENS</h2>
+<ul><li>[LECTURA] Para qué sirve cada marco</li><li>[EJERCICIO] Mapea un control en los tres marcos</li></ul>
+<h2>Semana 2: Datos personales y minimización extrema</h2>
+<ul><li>[LECTURA] RGPD: base, finalidad, minimización</li><li>[EJERCICIO] Rediseña un formulario sin PII</li></ul>
+<h2>Semana 3: Gestión de riesgo con dueño y evidencia</h2>
+<ul><li>[LECTURA] Riesgo = probabilidad x impacto x activo</li><li>[EJERCICIO] Matriz de riesgo de la plataforma</li></ul>
+<h2>Semana 4: El expediente de compliance</h2>
+<ul><li>[LECTURA] Sin evidencia no hay compliance</li><li>[EXAMEN] Expediente evaluado</li></ul>
+<h2>Semana 5: Gestion de riesgos (ISO 31000, NIST 800-39)</h2>
+<ul><li>[LECTURA] Teoria: Gestion de riesgos (ISO 31000, NIST 800-39)</li><li>[EJERCICIO] Practica guiada: Gestion de riesgos (ISO 31000, NIST 800-39)</li><li>[CASO] Caso real: Gestion de riesgos (ISO 31000, NIST 800-39)</li></ul>
+<h2>Semana 6: Analisis de impacto en el negocio y BCP</h2>
+<ul><li>[LECTURA] Teoria: Analisis de impacto en el negocio y BCP</li><li>[EJERCICIO] Practica guiada: Analisis de impacto en el negocio y BCP</li><li>[CASO] Caso real: Analisis de impacto en el negocio y BCP</li></ul>
+<h2>Semana 7: Riesgo de terceros y supply chain</h2>
+<ul><li>[LECTURA] Teoria: Riesgo de terceros y supply chain</li><li>[EJERCICIO] Practica guiada: Riesgo de terceros y supply chain</li><li>[CASO] Caso real: Riesgo de terceros y supply chain</li></ul>
+<h2>Semana 8: Ingenieria de privacidad (RGPD, LGPD)</h2>
+<ul><li>[LECTURA] Teoria: Ingenieria de privacidad (RGPD, LGPD)</li><li>[EJERCICIO] Practica guiada: Ingenieria de privacidad (RGPD, LGPD)</li><li>[CASO] Caso real: Ingenieria de privacidad (RGPD, LGPD)</li></ul>
+<h2>Semana 9: Programas de auditoria y assurance</h2>
+<ul><li>[LECTURA] Teoria: Programas de auditoria y assurance</li><li>[EJERCICIO] Practica guiada: Programas de auditoria y assurance</li><li>[CASO] Caso real: Programas de auditoria y assurance</li></ul>
+<h2>Semana 10: Marco de politicas y jerarquia documental</h2>
+<ul><li>[LECTURA] Teoria: Marco de politicas y jerarquia documental</li><li>[EJERCICIO] Practica guiada: Marco de politicas y jerarquia documental</li><li>[CASO] Caso real: Marco de politicas y jerarquia documental</li></ul>
+<h2>Semana 11: Concienciacion y cultura de seguridad</h2>
+<ul><li>[LECTURA] Teoria: Concienciacion y cultura de seguridad</li><li>[EJERCICIO] Practica guiada: Concienciacion y cultura de seguridad</li><li>[CASO] Caso real: Concienciacion y cultura de seguridad</li></ul>
+<h2>Semana 12: Panorama regulatorio sectorial</h2>
+<ul><li>[LECTURA] Teoria: Panorama regulatorio sectorial</li><li>[EJERCICIO] Practica guiada: Panorama regulatorio sectorial</li><li>[CASO] Caso real: Panorama regulatorio sectorial</li></ul>
+<h2>Semana 13: Herramientas GRC y automatizacion</h2>
+<ul><li>[LECTURA] Teoria: Herramientas GRC y automatizacion</li><li>[EJERCICIO] Practica guiada: Herramientas GRC y automatizacion</li><li>[CASO] Caso real: Herramientas GRC y automatizacion</li></ul>
+<h2>Semana 14: Notificacion de incidentes y reporte regulatorio</h2>
+<ul><li>[LECTURA] Teoria: Notificacion de incidentes y reporte regulatorio</li><li>[EJERCICIO] Practica guiada: Notificacion de incidentes y reporte regulatorio</li><li>[CASO] Caso real: Notificacion de incidentes y reporte regulatorio</li></ul>
+<h2>Semana 15: Preparacion para certificaciones (ISO 27001, SOC2)</h2>
+<ul><li>[LECTURA] Teoria: Preparacion para certificaciones (ISO 27001, SOC2)</li><li>[EJERCICIO] Practica guiada: Preparacion para certificaciones (ISO 27001, SOC2)</li><li>[CASO] Caso real: Preparacion para certificaciones (ISO 27001, SOC2)</li></ul>
+<h2>Semana 16: Compliance en cloud y responsabilidad compartida</h2>
+<ul><li>[LECTURA] Teoria: Compliance en cloud y responsabilidad compartida</li><li>[EJERCICIO] Practica guiada: Compliance en cloud y responsabilidad compartida</li><li>[CASO] Caso real: Compliance en cloud y responsabilidad compartida</li></ul>
+<h2>Semana 17: Metricas y reporte al consejo</h2>
+<ul><li>[LECTURA] Teoria: Metricas y reporte al consejo</li><li>[EJERCICIO] Practica guiada: Metricas y reporte al consejo</li><li>[CASO] Caso real: Metricas y reporte al consejo</li></ul>
+<h2>Semana 18: Gestion de crisis y wargaming</h2>
+<ul><li>[LECTURA] Teoria: Gestion de crisis y wargaming</li><li>[EJERCICIO] Practica guiada: Gestion de crisis y wargaming</li><li>[CASO] Caso real: Gestion de crisis y wargaming</li></ul>
+<h2>Semana 19: Regulaciones emergentes: AI Act, CRA, DSA</h2>
+<ul><li>[LECTURA] Teoria: Regulaciones emergentes: AI Act, CRA, DSA</li><li>[EJERCICIO] Practica guiada: Regulaciones emergentes: AI Act, CRA, DSA</li><li>[CASO] Caso real: Regulaciones emergentes: AI Act, CRA, DSA</li></ul>
+<h2>Semana 20: Capstone: Construir programa GRC desde cero</h2>
+<ul><li>[LECTURA] Teoria: Capstone: Construir programa GRC desde cero</li><li>[EJERCICIO] Practica guiada: Capstone: Construir programa GRC desde cero</li><li>[CASO] Caso real: Capstone: Construir programa GRC desde cero</li><li>[PROYECTO] Proyecto integrador: Capstone: Construir programa GRC desde cero</li></ul>
+<h2>Recursos</h2>
+<p>Ver <a href="recursos.md">recursos.md</a> — bancos abiertos + Drive do Pobre.</p>
+    </section>
+    <section id="semana-1">
+<h1>Semana 1: Marcos: ISO 27001, NIST CSF, ENS</h1>
+<p>Curso: <a href="#syllabus">Gobernanza y Compliance Digital</a> · Semana 1 de 20</p>
+<h2>Objetivos de aprendizaje</h2>
+<ul><li>Situar ISO 27001, NIST CSF y ENS en su papel real (lenguaje común, no checklist)</li><li>Mapear un mismo control en los tres marcos simultáneamente</li><li>Distinguir certificación de cumplimiento de implementación real</li><li>Explicar las 5 funciones del NIST CSF 2.0 con ejemplos</li></ul>
+<h2>ISO 27001, NIST CSF y ENS: para qué sirve cada marco</h2>
+<p>Un marco de seguridad NO es un checklist que se rellena y se archiva. Es un <strong>lenguaje común</strong> para que técnicos, dirección, auditores y reguladores hablen de lo mismo.</p>
+<p><strong>ISO 27001:2022 — Sistema de Gestión de Seguridad (SGSI):</strong></p>
+<ul><li>Certificable por auditor externo acreditado</li><li>Estructura: contexto → liderazgo → planificación → soporte → operación → evaluación → mejora</li><li>Annex A: 93 controles organizados en 4 temas (Organizacionales, Personas, Físicos, Tecnológicos)</li><li>Certificarse ≠ estar seguro. La certificación dice que TIENES un sistema de gestión; no dice que tus controles sean perfectos.</li></ul>
+<p><strong>NIST Cybersecurity Framework 2.0 (CSF):</strong></p>
+<ul><li>No certificable (es una guía, no una norma)</li><li>6 funciones: <strong>GOVERN</strong> (nuevo en 2.0), <strong>IDENTIFY</strong>, <strong>PROTECT</strong>, <strong>DETECT</strong>, <strong>RESPOND</strong>, <strong>RECOVER</strong></li><li>Perfiles: estado actual vs estado deseado</li><li>Tiers: 1 (Partial) → 4 (Adaptive)</li><li>Libre, gratuito, ampliamente adoptado incluso fuera de EEUU</li></ul>
+<p><strong>ENS (Esquema Nacional de Seguridad, España):</strong></p>
+<ul><li>Obligatorio para AAPP y sus proveedores</li><li>3 categorías: BÁSICA / MEDIA / ALTA</li><li>Principios: función de seguridad diferenciada, prevención, detección, respuesta, conservación</li><li>Mapeable a ISO 27001 (guía CCN-STIC)</li></ul>
+<p><strong>Los tres marcos se complementan:</strong></p>
+<table><thead><tr><th>Necesidad</th><th>Marco</th></tr></thead><tbody><tr><td>Certificación ante clientes</td><td>ISO 27001</td></tr><tr><td>Guía práctica de mejora</td><td>NIST CSF</td></tr><tr><td>Obligación legal España</td><td>ENS</td></tr></tbody></table>
+<p><strong>Referencias:</strong></p>
+<ul><li>ISO 27001:2022 — iso.org</li><li>NIST CSF 2.0 — nist.gov/cyberframework</li><li>ENS — ens.ccn.cni.es</li><li>CCN-STIC 825 — Mapeo ENS-ISO 27001</li></ul>
+<h2>NIST CSF 2.0: las 6 funciones en detalle</h2>
+<p><strong>GV — GOVERN (nuevo en CSF 2.0):</strong> La seguridad como decisión de gobierno, no solo técnica. Incluye: estrategia de ciberseguridad, roles y responsabilidades, gestión de riesgo de la cadena de suministro, políticas.</p>
+<p><strong>ID — IDENTIFY:</strong> ¿Qué tenemos? ¿Qué vale? ¿Qué riesgos? Inventario de activos, entorno de negocio, evaluación de riesgos, estrategia de gestión. Ejemplo: 'Tenemos 3 servidores web, 1 BD con datos de alumnos, 2 APIs públicas. El mayor riesgo es fuga de datos por API.'</p>
+<p><strong>PR — PROTECT:</strong> Controles preventivos. IAM, formación, seguridad de datos, procesos y procedimientos, mantenimiento, tecnología de protección. Ejemplo: 'MFA en todas las cuentas admin, cifrado AES-256 en la BD, parches mensuales.'</p>
+<p><strong>DE — DETECT:</strong> Monitorización continua. Anomalías y eventos, monitorización de seguridad, procesos de detección. Ejemplo: 'SIEM Wazuh con reglas Sigma, alertas a Slack, revisión semanal de dashboards.'</p>
+<p><strong>RS — RESPOND:</strong> Cuando pasa algo. Planificación de respuesta, comunicaciones, análisis, mitigación, mejoras. Ejemplo: 'Playbook de ransomware ensayado, contacto legal, canal de comunicación de crisis.'</p>
+<p><strong>RC — RECOVER:</strong> Volver a la normalidad. Planificación de recuperación, mejoras, comunicaciones post-incidente. Ejemplo: 'Backup 3-2-1-1-0, RTO 4h, RPO 1h, simulacro trimestral.'</p>
+<p><strong>Referencias:</strong></p>
+<ul><li>NIST CSF 2.0 — csf.tools (interactive)</li><li>NIST CSF Quick Start Guide</li><li>GV.OC — Organizational Context</li></ul>
+<h2>Caso real: Marriott 2018: certificación ISO no evitó la brecha</h2>
+<p>Marriott adquirió Starwood en 2016. Starwood tenía ISO 27001 certificado, pero la brecha de 500 millones de registros (desde 2014) se descubrió en 2018. La certificación cubría el SGSI de Starwood, pero no detectó que un atacante llevaba 4 años dentro. Lección: la certificación verifica que el sistema de gestión existe y funciona como proceso; no garantiza que cada control sea eficaz ni que no haya brechas activas. El marco es necesario pero no suficiente.</p>
+<h2>Ejercicio guiado: Mapea un control en los tres marcos</h2>
+<ol><li>Elige el control: 'Gestión de accesos e identidades'</li><li>Búscalo en ISO 27001:2022 Annex A → A.5.15 (Access control)</li><li>Búscalo en NIST CSF → PR.AC (Identity Management and Access Control)</li><li>Búscalo en ENS → op.acc (Control de acceso)</li><li>Documenta las diferencias: ¿qué pide cada marco exactamente?</li><li>Repite con: 'Gestión de incidentes' (ISO A.5.24, RS.*, op.mon ENS)</li><li>Conclusión: ¿un control implementado cumple los tres marcos?</li></ol>
+<h2>Recursos abiertos</h2>
+<ul><li><a href="https://www.nist.gov/cyberframework">NIST CSF 2.0</a></li><li><a href="https://www.iso.org/standard/27001">ISO 27001 overview</a></li><li><a href="https://ens.ccn.cni.es/">ENS — CCN</a></li><li><a href="https://csf.tools/">CSF Tools (interactive)</a></li></ul>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><span></span><a href="#semana-2">Semana 2 →</a></nav>
+    </section>
+    <section id="semana-2">
+<h1>Semana 2: Datos personales y minimización extrema</h1>
+<p>Curso: <a href="#syllabus">Gobernanza y Compliance Digital</a> · Semana 2 de 20</p>
+<h2>Objetivos de aprendizaje</h2>
+<ul><li>Aplicar los principios del RGPD: base legal, finalidad, minimización</li><li>Diseñar un sistema sin PII (usuario como token anónimo)</li><li>Evaluar cuándo es necesaria una DPIA (evaluación de impacto)</li><li>Conocer derechos ARCO-POL y el rol del DPO</li></ul>
+<h2>RGPD: los 7 principios y su aplicación práctica</h2>
+<p>El Reglamento General de Protección de Datos (UE 2016/679) no es solo una obligación legal — es un marco de diseño. Si tu sistema no necesita un dato, no lo recojas.</p>
+<p><strong>Los 7 principios (art. 5):</strong></p>
+<ol><li><strong>Licitud, lealtad, transparencia:</strong> base legal clara (consentimiento, contrato, interés legítimo...) + informar al usuario</li><li><strong>Limitación de finalidad:</strong> solo para lo declarado al recoger</li><li><strong>Minimización:</strong> solo los datos necesarios. El máximo de minimización es NO tener el dato</li><li><strong>Exactitud:</strong> datos actualizados y corregibles</li><li><strong>Limitación de conservación:</strong> plazo definido, borrar al cumplir</li><li><strong>Integridad y confidencialidad:</strong> seguridad adecuada al riesgo</li><li><strong>Responsabilidad proactiva:</strong> demostrar cumplimiento (no solo cumplir)</li></ol>
+<p><strong>Bases legales (art. 6) — las 6 opciones:</strong></p>
+<ul><li>Consentimiento (libre, informado, específico, revocable)</li><li>Ejecución de contrato</li><li>Obligación legal</li><li>Intereses vitales</li><li>Interés público</li><li>Interés legítimo (requiere test de ponderación)</li></ul>
+<p><strong>Patrón del ecosistema Secure T — usuario como token anónimo:</strong></p>
+<pre><code>DATO TÍPICO          SECURE T           POR QUÉ
+────────────────────────────────────────────────
+Email                NO                 No necesario
+Nombre               NO                 No necesario
+Contraseña           NO                 Sin cuenta
+Progreso             UUID local (LS)    Funciona sin servidor
+Credencial           Hash SHA-256       Verificable sin PII
+Cookies tracking     NO                 Sin analytics invasivo</code></pre>
+<p>Si el servicio funciona sin el dato, el dato no debe existir.</p>
+<p><strong>Referencias:</strong></p>
+<ul><li>RGPD — Reglamento UE 2016/679</li><li>AEPD Guía práctica — aepd.es</li><li>LGPD Brasil — Lei 13.709/2018</li></ul>
+<h2>DPIA, derechos del interesado y DPO</h2>
+<p><strong>DPIA (Data Protection Impact Assessment) — art. 35 RGPD:</strong> Obligatoria cuando el tratamiento implica 'alto riesgo': perfilado automático, datos sensibles a gran escala, monitorización sistemática de zonas públicas.</p>
+<pre><code>PROCESO DPIA:
+1. Descripción del tratamiento (qué datos, para qué, cómo)
+2. Evaluación de necesidad y proporcionalidad
+3. Evaluación de riesgos para los derechos de las personas
+4. Medidas para mitigar esos riesgos
+5. Documentación + consulta al DPO
+→ Si el riesgo residual es alto: consulta previa a la autoridad (AEPD)</code></pre>
+<p><strong>Derechos ARCO-POL (arts. 15-22 RGPD):</strong></p>
+<ul><li><strong>A</strong>cceso: saber qué datos tienes de mí</li><li><strong>R</strong>ectificación: corregir datos inexactos</li><li><strong>C</strong>ancelación (supresión/olvido): borrar mis datos</li><li><strong>O</strong>posición: dejar de tratar mis datos</li><li><strong>P</strong>ortabilidad: dame mis datos en formato interoperable</li><li><strong>O</strong>posición a decisiones automatizadas</li><li><strong>L</strong>imitación del tratamiento</li></ul>
+<p>Plazo de respuesta: 1 mes (prorrogable 2 más si es complejo).</p>
+<p><strong>DPO (Data Protection Officer):</strong> Obligatorio para: AAPP, tratamiento a gran escala de datos sensibles, monitorización sistemática. Funciones: informar, supervisar, cooperar con la autoridad, asesorar en DPIAs. Es independiente (no recibe instrucciones sobre su función) y no puede ser sancionado por ejercerla.</p>
+<p><strong>En Secure T:</strong> como no hay PII, no hay DPIA obligatoria, no hay derechos ARCO que ejercer (no existen datos personales), y no se necesita DPO. Esa es la ventaja de la minimización extrema.</p>
+<p><strong>Referencias:</strong></p>
+<ul><li>RGPD arts. 15-22, 35-36, 37-39</li><li>AEPD — Guía de evaluaciones de impacto</li><li>WP29 Guidelines on DPIA</li></ul>
+<h2>Caso real: AEPD vs CaixaBank 2021: €6M por perfilado sin base legal</h2>
+<p>La AEPD multó a CaixaBank con €6M por tratar datos de clientes para perfilado comercial sin base legal adecuada (usaban 'interés legítimo' cuando el test de ponderación no lo justificaba) y sin informar suficientemente a los interesados. Lección: el 'interés legítimo' no es un comodín; requiere un test documentado que pondere los derechos del interesado. Y la transparencia no es solo un aviso legal ininteligible — debe ser clara y accesible.</p>
+<h2>Ejercicio guiado: Rediseña un formulario eliminando toda PII innecesaria</h2>
+<ol><li>Toma un formulario real de registro a un curso online típico</li><li>Lista todos los campos: nombre, email, teléfono, dirección, DNI, etc.</li><li>Para CADA campo pregunta: ¿el servicio funciona sin este dato?</li><li>Elimina todo lo que no sea estrictamente necesario para la finalidad</li><li>Diseña la alternativa: ¿cómo identificas al usuario sin email/nombre?</li><li>Documenta: qué quedó, qué se perdió, cómo se sigue dando el servicio</li><li>Compara con el patrón Secure T: ¿podrías llegar a cero PII?</li></ol>
+<h2>Recursos abiertos</h2>
+<ul><li><a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj">RGPD texto completo</a></li><li><a href="https://www.aepd.es/guias">AEPD Guías</a></li><li><a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm">LGPD Brasil</a></li></ul>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-1">← Semana 1</a><a href="#semana-3">Semana 3 →</a></nav>
+    </section>
+    <section id="semana-3">
+<h1>Semana 3: Gestión de riesgo con dueño y evidencia</h1>
+<p>Curso: <a href="#syllabus">Gobernanza y Compliance Digital</a> · Semana 3 de 20</p>
+<h2>Objetivos de aprendizaje</h2>
+<ul><li>Construir una matriz de riesgo con probabilidad, impacto y tratamiento</li><li>Asignar dueño y fecha de revisión a cada riesgo</li><li>Aplicar los 4 tratamientos: mitigar, transferir, aceptar, eliminar</li><li>Distinguir riesgo inherente de riesgo residual</li></ul>
+<h2>Gestión de riesgo: la base de toda decisión de seguridad</h2>
+<p>No se protege todo igual. Se protege según el riesgo. Sin análisis de riesgo, el presupuesto de seguridad se gasta en lo visible (un firewall caro) en lugar de en lo necesario (formación anti-phishing).</p>
+<p><strong>Fórmula conceptual:</strong></p>
+<pre><code>RIESGO = PROBABILIDAD × IMPACTO × VALOR DEL ACTIVO</code></pre>
+<p><strong>Matriz de riesgo 5×5:</strong></p>
+<pre><code>              IMPACTO
+         Muy bajo  Bajo  Medio  Alto  Muy alto
+Muy alta    M       A      A     MA     MA
+Alta        B       M      A     A      MA
+Media       B       B      M     A      A
+Baja        MB      B      B     M      A
+Muy baja    MB      MB     B     B      M
+
+MB=Muy Bajo  B=Bajo  M=Medio  A=Alto  MA=Muy Alto</code></pre>
+<p><strong>Los 4 tratamientos:</strong></p>
+<ol><li><strong>Mitigar:</strong> reducir probabilidad o impacto (parches, MFA, formación)</li><li><strong>Transferir:</strong> pasar el riesgo a otro (seguro ciber, cloud provider SLA)</li><li><strong>Aceptar:</strong> el coste de mitigar supera el impacto (documentar y firmar)</li><li><strong>Eliminar:</strong> quitar el activo o la actividad que genera el riesgo</li></ol>
+<p><strong>Riesgo inherente vs residual:</strong></p>
+<ul><li>Inherente: riesgo ANTES de aplicar controles</li><li>Residual: riesgo DESPUÉS de aplicar controles</li><li>El residual NUNCA es cero — siempre queda riesgo aceptado</li></ul>
+<p><strong>Cada riesgo tiene:</strong></p>
+<ul><li>Descripción clara y escenario concreto</li><li>Probabilidad e impacto evaluados</li><li>Tratamiento elegido con justificación</li><li><strong>Dueño</strong> (persona con nombre, no 'el equipo')</li><li><strong>Fecha de revisión</strong> (no 'periódicamente')</li></ul>
+<p><strong>Referencias:</strong></p>
+<ul><li>ISO 27005 — Information Security Risk Management</li><li>NIST SP 800-30 — Guide for Risk Assessments</li><li>NIST CSF — ID.RA (Risk Assessment)</li></ul>
+<h2>Registro de riesgos: formato y ejemplo práctico</h2>
+<p><strong>Formato del registro de riesgos:</strong></p>
+<pre><code>ID:           R-001
+RIESGO:       Fuga de material didáctico por API sin autenticación
+ACTIVO:       API de contenido del campus
+PROBABILIDAD: Alta (3/5) — API pública, sin rate-limit
+IMPACTO:      Medio (3/5) — material es abierto por diseño,
+              pero el scraping masivo consume recursos
+NIVEL:        Alto (3×3=9/25)
+TRATAMIENTO:  Mitigar — rate-limit + cache CDN
+DUEÑO:        [nombre del responsable técnico]
+REVISIÓN:     2027-01-15
+ESTADO:       En tratamiento</code></pre>
+<p><strong>8 riesgos reales de una plataforma educativa:</strong></p>
+<pre><code>R-001  Scraping masivo del contenido         Mitigar (CDN+rate-limit)
+R-002  Caída de CDN/hosting                  Mitigar (multi-CDN) + Aceptar
+R-003  Abuso de API del tutor IA             Mitigar (allowlist+truncado)
+R-004  Token de progreso manipulado           Aceptar (localStorage, no PII)
+R-005  Dependencia de proveedor cloud        Mitigar (exportable, multi-cloud)
+R-006  Phishing a administradores            Mitigar (MFA + formación)
+R-007  Inyección en quiz interactivo         Mitigar (sanitización + CSP)
+R-008  Cambio regulatorio (IA, datos)        Transferir (asesoría legal)</code></pre>
+<p><strong>Errores comunes:</strong></p>
+<ul><li>Riesgo sin dueño → nadie actúa</li><li>'Revisión: periódica' → nunca se revisa (poner fecha concreta)</li><li>Confundir amenaza con riesgo (amenaza: phishing; riesgo: credenciales admin robadas por phishing que permite modificar contenido)</li><li>Aceptar sin documentar → responsabilidad no asumida</li></ul>
+<p><strong>Referencias:</strong></p>
+<ul><li>ISO 27005:2022</li><li>NIST SP 800-30 Rev.1</li><li>FAIR — Factor Analysis of Information Risk</li></ul>
+<h2>Caso real: Log4Shell 2021 (CVE-2021-44228): el riesgo que nadie tenía en su registro</h2>
+<p>Log4j, una librería de logging Java ubicua, tenía una vulnerabilidad RCE (CVSS 10.0) explotable con una sola línea de texto. Afectó a millones de aplicaciones. La mayoría de organizaciones no sabían que usaban Log4j (dependencia transitiva). Lección: el riesgo R-006 'componentes desconocidos en la cadena de suministro' debería estar en todo registro de riesgos. Sin inventario de dependencias (SBOM), no puedes evaluar riesgos que no sabes que existen.</p>
+<h2>Ejercicio guiado: Construye la matriz de riesgo de la plataforma</h2>
+<ol><li>Lista 8 riesgos reales del campus Secure T (usa los del material como base)</li><li>Para cada uno: describe el escenario concreto (qué pasa si se materializa)</li><li>Evalúa probabilidad (1-5) e impacto (1-5) con justificación</li><li>Calcula el nivel y ubícalo en la matriz 5×5</li><li>Elige tratamiento y justifica por qué ese y no otro</li><li>Asigna dueño (nombre) y fecha de revisión (fecha concreta)</li><li>Calcula riesgo residual después del tratamiento</li><li>Presenta la matriz completa en formato tabla</li></ol>
+<h2>Recursos abiertos</h2>
+<ul><li><a href="https://csrc.nist.gov/publications/detail/sp/800-30/rev-1/final">NIST SP 800-30</a></li><li><a href="https://www.fairinstitute.org/">FAIR Institute</a></li><li><a href="https://www.ntia.gov/sbom">SBOM — NTIA</a></li></ul>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-2">← Semana 2</a><a href="#semana-4">Semana 4 →</a></nav>
+    </section>
+    <section id="semana-4">
+<h1>Semana 4: El expediente de compliance</h1>
+<p>Curso: <a href="#syllabus">Gobernanza y Compliance Digital</a> · Semana 4 de 20</p>
+<h2>Objetivos de aprendizaje</h2>
+<ul><li>Producir un expediente de compliance con evidencia verificable por artefacto</li><li>Construir la cadena afirmación → artefacto → verificación</li><li>Preparar una auditoría interna con checklist y hallazgos documentados</li><li>Presentar y defender el expediente como evaluación final del curso</li></ul>
+<h2>El expediente de compliance: sin evidencia no hay cumplimiento</h2>
+<p>Un expediente de compliance NO es un PDF bonito. Es una cadena de afirmaciones donde cada una está respaldada por un artefacto verificable.</p>
+<p><strong>Estructura del expediente:</strong></p>
+<pre><code>1. ALCANCE
+   - Qué sistemas, datos y procesos cubre
+   - Qué marcos aplican (ISO, NIST, ENS, RGPD)
+
+2. INVENTARIO DE ACTIVOS
+   - Lista completa: servidores, apps, datos, personas
+   - Clasificación CIA por activo
+   → Artefacto: hoja de inventario firmada y fechada
+
+3. MATRIZ DE RIESGO
+   - Riesgos evaluados con tratamiento y dueño
+   → Artefacto: registro de riesgos (semana 3)
+
+4. POLÍTICAS VIGENTES
+   - Política de seguridad, uso aceptable, gestión de incidentes
+   → Artefacto: documentos con versión, fecha y aprobación
+
+5. CONTROLES IMPLEMENTADOS
+   - Por cada control: descripción, evidencia de implementación
+   → Artefacto: configs, capturas, logs de cambio
+
+6. REGISTRO DE FORMACIÓN
+   - Quién recibió qué formación y cuándo
+   → Artefacto: lista de asistencia, evaluaciones
+
+7. REGISTRO DE INCIDENTES
+   - Historial con cronología y lecciones aprendidas
+   → Artefacto: informes post-incidente
+
+8. REVISIONES Y AUDITORÍAS
+   - Auditoría interna anual, revisión por dirección
+   → Artefacto: acta de revisión con decisiones</code></pre>
+<p><strong>La cadena de evidencia:</strong></p>
+<pre><code>AFIRMACIÓN:    'Tenemos MFA en todas las cuentas admin'
+ARTEFACTO:     Config de IdP mostrando MFA obligatorio (captura)
+VERIFICACIÓN:  Intento de login sin MFA → rechazado (captura)
+FECHA:         2026-09-12
+REVISOR:       [nombre]</code></pre>
+<p>Si la cadena se rompe en cualquier punto, la afirmación no tiene valor.</p>
+<p><strong>Referencias:</strong></p>
+<ul><li>ISO 27001 — Clause 9 (Performance Evaluation)</li><li>ISO 27001 — Clause 10 (Improvement)</li><li>NIST CSF — GV.OV (Oversight)</li></ul>
+<h2>Auditoría interna y defensa del expediente</h2>
+<p><strong>Auditoría interna — proceso:</strong></p>
+<ol><li><strong>Planificación:</strong> alcance, criterios (qué marco), calendario</li><li><strong>Ejecución:</strong> revisar documentación + verificar implementación</li><li><strong>Hallazgos:</strong> conformidad / no conformidad mayor / menor / observación</li><li><strong>Informe:</strong> hallazgos + evidencia + recomendaciones</li><li><strong>Seguimiento:</strong> plan de acciones correctivas con dueño y fecha</li></ol>
+<p><strong>Formato de hallazgo de auditoría:</strong></p>
+<pre><code>ID:              NC-001
+TIPO:            No conformidad menor
+REQUISITO:       ISO 27001 A.5.15 — Control de acceso
+HALLAZGO:        2 cuentas admin sin MFA habilitado
+EVIDENCIA:       Captura del panel de IdP mostrando MFA=off
+RIESGO:          Acceso no autorizado con credenciales robadas
+ACCIÓN:          Habilitar MFA + verificar todas las cuentas
+RESPONSABLE:     [nombre]
+PLAZO:           2026-09-30
+ESTADO:          Abierto</code></pre>
+<p><strong>Evaluación final — defensa del expediente (30 min):</strong></p>
+<ol><li>Presenta el expediente completo (10 min)</li><li>El evaluador elige 3 afirmaciones al azar y pide la evidencia</li><li>Por cada una: muestra el artefacto y la verificación</li><li>Si falta evidencia, la afirmación no cuenta</li><li>Se evalúa: completitud, coherencia, honestidad (¿declara lo que falta?)</li></ol>
+<p><strong>Evaluación 30/30/40:</strong></p>
+<ul><li>30% participación (labs semanales con evidencia)</li><li>30% quizzes (≥70%)</li><li>40% expediente de compliance defendido</li></ul>
+<p><strong>Referencias:</strong></p>
+<ul><li>ISO 19011 — Guidelines for Auditing Management Systems</li><li>ISO 27001 — Clause 9.2 (Internal Audit)</li><li>ISACA COBIT — Audit Guidelines</li></ul>
+<h2>Caso real: British Airways 2018: multa RGPD de £20M por evidencia insuficiente</h2>
+<p>British Airways sufrió una brecha de 500.000 tarjetas vía JavaScript inyectado en la web de pagos (Magecart). La ICO (autoridad UK) impuso £20M (reducida de £183M) por fallos en: monitorización de logs (no detectaron la inyección en 2 meses), segmentación de red, cifrado de datos de pago, y auditoría de terceros. Lección: el expediente de BA no pudo demostrar que los controles existían y funcionaban — cada afirmación sin artefacto fue un agravante en la sanción.</p>
+<h2>Ejercicio guiado: Construye el expediente de compliance del caso práctico</h2>
+<ol><li>Define el alcance: plataforma educativa Secure T University</li><li>Completa el inventario de activos con clasificación CIA (semana 1)</li><li>Incluye la matriz de riesgos con tratamiento y dueño (semana 3)</li><li>Redacta 2 políticas: seguridad de la información + gestión de incidentes</li><li>Documenta 3 controles con la cadena afirmación → artefacto → verificación</li><li>Incluye el registro de formación (las 4 semanas del curso)</li><li>Simula 1 hallazgo de auditoría interna con formato completo</li><li>Defiende: para cada afirmación, ¿dónde está la evidencia?</li></ol>
+<h2>Recursos abiertos</h2>
+<ul><li><a href="https://www.iso.org/standard/70017.html">ISO 19011</a></li><li><a href="https://ico.org.uk/action-weve-taken/enforcement/british-airways/">ICO — BA enforcement</a></li><li><a href="https://www.isaca.org/resources/cobit">ISACA COBIT</a></li></ul>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-3">← Semana 3</a><a href="#semana-5">Semana 5 →</a></nav>
+    </section>
+    <section id="semana-5">
+<h1>Semana 5: Gestion de riesgos (ISO 31000, NIST 800-39)</h1>
+<p>Curso: <a href="#syllabus">Gobernanza y Compliance Digital</a> · Semana 5 de 20</p>
+<h2>LECTURA: Teoria: Gestion de riesgos (ISO 31000, NIST 800-39)</h2>
+<p>Contenido teorico detallado para gestion de riesgos (iso 31000, nist 800-39). Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Gestion de riesgos (ISO 31000, NIST 800-39)</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para gestion de riesgos (iso 31000, nist 800-39).</p>
+<h2>CASO: Caso real: Gestion de riesgos (ISO 31000, NIST 800-39)</h2>
+<p>Analisis de incidente real donde gestion de riesgos (iso 31000, nist 800-39) fue factor clave. Lecciones aprendidas.</p>
+<h2>🎯 Objetivo de la semana</h2>
+<p>Gestionar el riesgo con un proceso repetible (ISO 31000 / NIST 800-39) donde cada riesgo tiene dueño, fecha y evidencia.</p>
+<h2>📖 Lectura principal</h2>
+<p>ISO 31000 da el proceso (identificar → analizar → valorar → tratar → monitorear) y NIST 800-39 lo aterriza en seguridad con cuatro respuestas posibles: mitigar, compartir, aceptar o evitar. La práctica que separa el papel de la gestión: el registro de riesgos vivo — cada fila con activo, amenaza, controles actuales, probabilidad × impacto con escala definida (¿qué significa 'alto' aquí, con criterio numérico?), decisión, dueño con nombre y apellido, y fecha de revisión. Los riesgos aceptados se firman por quien asume la consecuencia, no por quien los encontró. Y el marco se calibra: riesgo residual después de controles, no riesgo bruto de catálogo. La auditoría madura pregunta por el ciclo: muéstrame un riesgo cerrado el trimestre pasado con su evidencia de tratamiento — no una matriz bonita sin historia.</p>
+<h2>🛠️ Práctica guiada</h2>
+<p>Construye el registro de 8 riesgos reales de la plataforma (fuga de material, token robado, caída de CDN, abuso de API…). Escala definida, valoración bruto/residual, decisión, dueño y revisión. Firma (simulada) los 2 aceptados y explica por qué esa persona.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-4">← Semana 4</a><a href="#semana-6">Semana 6 →</a></nav>
+    </section>
+    <section id="semana-6">
+<h1>Semana 6: Analisis de impacto en el negocio y BCP</h1>
+<p>Curso: <a href="#syllabus">Gobernanza y Compliance Digital</a> · Semana 6 de 20</p>
+<h2>LECTURA: Teoria: Analisis de impacto en el negocio y BCP</h2>
+<p>Contenido teorico detallado para analisis de impacto en el negocio y bcp. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Analisis de impacto en el negocio y BCP</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para analisis de impacto en el negocio y bcp.</p>
+<h2>CASO: Caso real: Analisis de impacto en el negocio y BCP</h2>
+<p>Analisis de incidente real donde analisis de impacto en el negocio y bcp fue factor clave. Lecciones aprendidas.</p>
+<h2>🎯 Objetivo de la semana</h2>
+<p>Calcular el impacto en el negocio y diseñar continuidad que sobreviva al peor día, no al promedio.</p>
+<h2>📖 Lectura principal</h2>
+<p>El BIA (Business Impact Analysis) responde dos preguntas por proceso: cuánto aguanto parado (RTO — tiempo objetivo de recuperación) y cuánto pierdo por unidad de tiempo de datos (RPO — ventana de pérdida tolerable). Con eso se ordena la inversión: el proceso con RTO de minutos exige redundancia activa; el de días, un procedimiento manual documentado. La continuidad (BCP/DRP) se escribe para escenarios concretos — ransomware total, caída del proveedor cloud principal, pérdida del personal clave — y se valida el único modo honesto: probándolo. El test de restauración trimestral del backup es el ritual más rentable de la lista: el backup no probado es una esperanza. Métrica final: el plan se mide en el incidente (¿se recuperó dentro del RTO?), no en la página del PDF.</p>
+<h2>🛠️ Práctica guiada</h2>
+<p>BIA de 5 procesos de la plataforma (serving del campus, generación, credenciales, búsqueda, deploy) con RTO/RPO justificados. Escenario ransomware: secuencia de recuperación paso a paso con responsables y el punto donde verificarías integridad antes de reabrir.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-5">← Semana 5</a><a href="#semana-7">Semana 7 →</a></nav>
+    </section>
+    <section id="semana-7">
+<h1>Semana 7: Riesgo de terceros y supply chain</h1>
+<p>Curso: <a href="#syllabus">Gobernanza y Compliance Digital</a> · Semana 7 de 20</p>
+<h2>LECTURA: Teoria: Riesgo de terceros y supply chain</h2>
+<p>Contenido teorico detallado para riesgo de terceros y supply chain. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Riesgo de terceros y supply chain</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para riesgo de terceros y supply chain.</p>
+<h2>CASO: Caso real: Riesgo de terceros y supply chain</h2>
+<p>Analisis de incidente real donde riesgo de terceros y supply chain fue factor clave. Lecciones aprendidas.</p>
+<h2>🎯 Objetivo de la semana</h2>
+<p>Gobernar el riesgo de terceros y la cadena de suministro antes de que el proveedor sea el titular de tu incidente.</p>
+<h2>📖 Lectura principal</h2>
+<p>Tu superficie de ataque incluye la de tus proveedores: el CDN que te sirve, el SaaS que procesa, la biblioteca que importas. El mínimo viable de terceros: inventario con criticidad (¿qué pasa si cae?, ¿qué datos ve?), cláusulas de seguridad y notificación (tiempo máximo para avisarte de su incidente — sin cláusula, te enteras por la prensa), y plan de salida (los datos recuperables en formato abierto; el lock-in es un riesgo de continuidad). Para software: SBOM — la lista de ingredientes — y política de actualización por severidad. El test de la madurez: simula 'tu proveedor principal lleva 48h caído' y observa si alguien sabe qué hacer sin improvisar; si la respuesta es una llamada a una persona, tienes una anécdota, no un plan.</p>
+<h2>🛠️ Práctica guiada</h2>
+<p>Inventario de 6 terceros reales de la plataforma (GitHub, CDN, DNS, fonts…): criticidad, datos que ven, cláusula de notificación (existe/no), y plan B. Redacta la cláusula de seguridad que les exigirías (media página) y la política de SBOM mínima.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-6">← Semana 6</a><a href="#semana-8">Semana 8 →</a></nav>
+    </section>
+    <section id="semana-8">
+<h1>Semana 8: Ingenieria de privacidad (RGPD, LGPD)</h1>
+<p>Curso: <a href="#syllabus">Gobernanza y Compliance Digital</a> · Semana 8 de 20</p>
+<h2>LECTURA: Teoria: Ingenieria de privacidad (RGPD, LGPD)</h2>
+<p>Contenido teorico detallado para ingenieria de privacidad (rgpd, lgpd). Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Ingenieria de privacidad (RGPD, LGPD)</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para ingenieria de privacidad (rgpd, lgpd).</p>
+<h2>CASO: Caso real: Ingenieria de privacidad (RGPD, LGPD)</h2>
+<p>Analisis de incidente real donde ingenieria de privacidad (rgpd, lgpd) fue factor clave. Lecciones aprendidas.</p>
+<h2>🎯 Objetivo de la semana</h2>
+<p>Aplicar ingeniería de privacidad: convertir el principio de minimización en decisiones de diseño medibles (RGPD y LGPD).</p>
+<h2>📖 Lectura principal</h2>
+<p>La privacidad por diseño se demuestra en decisiones, no en párrafos: identificación temprana en el diseño (¿este dato es necesario para la finalidad? si no, no se recoge — el usuario-token de esta plataforma es la forma extrema), minimización en la exposición (devolver lo que la pantalla muestra, no el registro entero), limitación en la retención (TTL por tipo de dato con borrado verificable — incluidos los backups con plan), y transparencia real (qué se guarda, cuánto y cómo ejercer derechos, sin abogado intermediario). RGPD y LGPD comparten núcleo — ambos exigen base legal, finalidad declarada, seguridad proporcional y derechos efectivos — por lo que un diseño doble-obedece casi gratis. La técnica de QA: la auditoría del formulario de la semana pasada se repite como regression test de privacidad: cada campo que reaparece sin justificación rompe el build, no la promesa.</p>
+<h2>🛠️ Práctica guiada</h2>
+<p>Toma un flujo real con datos (registro o analytics) y aplica las 5 decisiones: campo a conservar/quitar, TTL, exposición minimizada, base legal y texto de transparencia de 3 líneas. Añade el test de regresión que falla si un campo injustificado reaparece.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-7">← Semana 7</a><a href="#semana-9">Semana 9 →</a></nav>
+    </section>
+    <section id="semana-9">
+<h1>Semana 9: Programas de auditoria y assurance</h1>
+<p>Curso: <a href="#syllabus">Gobernanza y Compliance Digital</a> · Semana 9 de 20</p>
+<h2>LECTURA: Teoria: Programas de auditoria y assurance</h2>
+<p>Contenido teorico detallado para programas de auditoria y assurance. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Programas de auditoria y assurance</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para programas de auditoria y assurance.</p>
+<h2>CASO: Caso real: Programas de auditoria y assurance</h2>
+<p>Analisis de incidente real donde programas de auditoria y assurance fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-8">← Semana 8</a><a href="#semana-10">Semana 10 →</a></nav>
+    </section>
+    <section id="semana-10">
+<h1>Semana 10: Marco de politicas y jerarquia documental</h1>
+<p>Curso: <a href="#syllabus">Gobernanza y Compliance Digital</a> · Semana 10 de 20</p>
+<h2>LECTURA: Teoria: Marco de politicas y jerarquia documental</h2>
+<p>Contenido teorico detallado para marco de politicas y jerarquia documental. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Marco de politicas y jerarquia documental</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para marco de politicas y jerarquia documental.</p>
+<h2>CASO: Caso real: Marco de politicas y jerarquia documental</h2>
+<p>Analisis de incidente real donde marco de politicas y jerarquia documental fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-9">← Semana 9</a><a href="#semana-11">Semana 11 →</a></nav>
+    </section>
+    <section id="semana-11">
+<h1>Semana 11: Concienciacion y cultura de seguridad</h1>
+<p>Curso: <a href="#syllabus">Gobernanza y Compliance Digital</a> · Semana 11 de 20</p>
+<h2>LECTURA: Teoria: Concienciacion y cultura de seguridad</h2>
+<p>Contenido teorico detallado para concienciacion y cultura de seguridad. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Concienciacion y cultura de seguridad</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para concienciacion y cultura de seguridad.</p>
+<h2>CASO: Caso real: Concienciacion y cultura de seguridad</h2>
+<p>Analisis de incidente real donde concienciacion y cultura de seguridad fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-10">← Semana 10</a><a href="#semana-12">Semana 12 →</a></nav>
+    </section>
+    <section id="semana-12">
+<h1>Semana 12: Panorama regulatorio sectorial</h1>
+<p>Curso: <a href="#syllabus">Gobernanza y Compliance Digital</a> · Semana 12 de 20</p>
+<h2>LECTURA: Teoria: Panorama regulatorio sectorial</h2>
+<p>Contenido teorico detallado para panorama regulatorio sectorial. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Panorama regulatorio sectorial</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para panorama regulatorio sectorial.</p>
+<h2>CASO: Caso real: Panorama regulatorio sectorial</h2>
+<p>Analisis de incidente real donde panorama regulatorio sectorial fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-11">← Semana 11</a><a href="#semana-13">Semana 13 →</a></nav>
+    </section>
+    <section id="semana-13">
+<h1>Semana 13: Herramientas GRC y automatizacion</h1>
+<p>Curso: <a href="#syllabus">Gobernanza y Compliance Digital</a> · Semana 13 de 20</p>
+<h2>LECTURA: Teoria: Herramientas GRC y automatizacion</h2>
+<p>Contenido teorico detallado para herramientas grc y automatizacion. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Herramientas GRC y automatizacion</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para herramientas grc y automatizacion.</p>
+<h2>CASO: Caso real: Herramientas GRC y automatizacion</h2>
+<p>Analisis de incidente real donde herramientas grc y automatizacion fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-12">← Semana 12</a><a href="#semana-14">Semana 14 →</a></nav>
+    </section>
+    <section id="semana-14">
+<h1>Semana 14: Notificacion de incidentes y reporte regulatorio</h1>
+<p>Curso: <a href="#syllabus">Gobernanza y Compliance Digital</a> · Semana 14 de 20</p>
+<h2>LECTURA: Teoria: Notificacion de incidentes y reporte regulatorio</h2>
+<p>Contenido teorico detallado para notificacion de incidentes y reporte regulatorio. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Notificacion de incidentes y reporte regulatorio</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para notificacion de incidentes y reporte regulatorio.</p>
+<h2>CASO: Caso real: Notificacion de incidentes y reporte regulatorio</h2>
+<p>Analisis de incidente real donde notificacion de incidentes y reporte regulatorio fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-13">← Semana 13</a><a href="#semana-15">Semana 15 →</a></nav>
+    </section>
+    <section id="semana-15">
+<h1>Semana 15: Preparacion para certificaciones (ISO 27001, SOC2)</h1>
+<p>Curso: <a href="#syllabus">Gobernanza y Compliance Digital</a> · Semana 15 de 20</p>
+<h2>LECTURA: Teoria: Preparacion para certificaciones (ISO 27001, SOC2)</h2>
+<p>Contenido teorico detallado para preparacion para certificaciones (iso 27001, soc2). Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Preparacion para certificaciones (ISO 27001, SOC2)</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para preparacion para certificaciones (iso 27001, soc2).</p>
+<h2>CASO: Caso real: Preparacion para certificaciones (ISO 27001, SOC2)</h2>
+<p>Analisis de incidente real donde preparacion para certificaciones (iso 27001, soc2) fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-14">← Semana 14</a><a href="#semana-16">Semana 16 →</a></nav>
+    </section>
+    <section id="semana-16">
+<h1>Semana 16: Compliance en cloud y responsabilidad compartida</h1>
+<p>Curso: <a href="#syllabus">Gobernanza y Compliance Digital</a> · Semana 16 de 20</p>
+<h2>LECTURA: Teoria: Compliance en cloud y responsabilidad compartida</h2>
+<p>Contenido teorico detallado para compliance en cloud y responsabilidad compartida. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Compliance en cloud y responsabilidad compartida</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para compliance en cloud y responsabilidad compartida.</p>
+<h2>CASO: Caso real: Compliance en cloud y responsabilidad compartida</h2>
+<p>Analisis de incidente real donde compliance en cloud y responsabilidad compartida fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-15">← Semana 15</a><a href="#semana-17">Semana 17 →</a></nav>
+    </section>
+    <section id="semana-17">
+<h1>Semana 17: Metricas y reporte al consejo</h1>
+<p>Curso: <a href="#syllabus">Gobernanza y Compliance Digital</a> · Semana 17 de 20</p>
+<h2>LECTURA: Teoria: Metricas y reporte al consejo</h2>
+<p>Contenido teorico detallado para metricas y reporte al consejo. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Metricas y reporte al consejo</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para metricas y reporte al consejo.</p>
+<h2>CASO: Caso real: Metricas y reporte al consejo</h2>
+<p>Analisis de incidente real donde metricas y reporte al consejo fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-16">← Semana 16</a><a href="#semana-18">Semana 18 →</a></nav>
+    </section>
+    <section id="semana-18">
+<h1>Semana 18: Gestion de crisis y wargaming</h1>
+<p>Curso: <a href="#syllabus">Gobernanza y Compliance Digital</a> · Semana 18 de 20</p>
+<h2>LECTURA: Teoria: Gestion de crisis y wargaming</h2>
+<p>Contenido teorico detallado para gestion de crisis y wargaming. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Gestion de crisis y wargaming</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para gestion de crisis y wargaming.</p>
+<h2>CASO: Caso real: Gestion de crisis y wargaming</h2>
+<p>Analisis de incidente real donde gestion de crisis y wargaming fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-17">← Semana 17</a><a href="#semana-19">Semana 19 →</a></nav>
+    </section>
+    <section id="semana-19">
+<h1>Semana 19: Regulaciones emergentes: AI Act, CRA, DSA</h1>
+<p>Curso: <a href="#syllabus">Gobernanza y Compliance Digital</a> · Semana 19 de 20</p>
+<h2>LECTURA: Teoria: Regulaciones emergentes: AI Act, CRA, DSA</h2>
+<p>Contenido teorico detallado para regulaciones emergentes: ai act, cra, dsa. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Regulaciones emergentes: AI Act, CRA, DSA</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para regulaciones emergentes: ai act, cra, dsa.</p>
+<h2>CASO: Caso real: Regulaciones emergentes: AI Act, CRA, DSA</h2>
+<p>Analisis de incidente real donde regulaciones emergentes: ai act, cra, dsa fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-18">← Semana 18</a><a href="#semana-20">Semana 20 →</a></nav>
+    </section>
+    <section id="semana-20">
+<h1>Semana 20: Capstone: Construir programa GRC desde cero</h1>
+<p>Curso: <a href="#syllabus">Gobernanza y Compliance Digital</a> · Semana 20 de 20</p>
+<h2>LECTURA: Teoria: Capstone: Construir programa GRC desde cero</h2>
+<p>Contenido teorico detallado para capstone: construir programa grc desde cero. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Capstone: Construir programa GRC desde cero</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para capstone: construir programa grc desde cero.</p>
+<h2>CASO: Caso real: Capstone: Construir programa GRC desde cero</h2>
+<p>Analisis de incidente real donde capstone: construir programa grc desde cero fue factor clave. Lecciones aprendidas.</p>
+<h2>PROYECTO: Proyecto integrador: Capstone: Construir programa GRC desde cero</h2>
+<p>Proyecto final que integra todos los conocimientos del curso.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-19">← Semana 19</a><a href="#quiz">Quiz del curso →</a></nav>
+    </section>
+    <section id="quiz">
+      <h2>Quiz del curso</h2>
+      <p class="t2">Checkpoint formativo: 22 ítems con explicación.
+Al superar 70 %, márcalo en tu progreso.</p>
+      <h3 id="q-titulo"></h3>
+      <div class="quiz-opciones" id="q-opciones"></div>
+      <p class="feedback" id="q-feedback" aria-live="polite"></p>
+      <p class="marcador" id="q-marcador"></p>
+      <button class="btn" id="q-next" hidden>Siguiente</button>
+    </section>
+    <section id="laboratorio">
+<h1>Lab guiado: auditar un formulario real sin PII</h1>
+<p><strong>Curso:</strong> Gobernanza y Compliance Digital · <strong>Duración estimada:</strong> 3–4 h · <strong>Nivel:</strong> universitario</p>
+<h2>Objetivo</h2>
+<p>Take a registration form, remove every unnecessary personal datum, and justify each one.</p>
+<h2>Marco legal y ético</h2>
+<p>It works with public forms or your own: never with other people's real data.</p>
+<h2>Pasos</h2>
+<ol><li>Choose a real form (registration for a course, gym, library).</li><li>Field inventory: name, surname, email, phone, birthdate, ID, address, notes.</li><li>For each field answer the 5 RGPD questions from the cheatsheet.</li><li>Cross out: everything without purpose or lawful basis.</li><li>Redesign: which fields remain? What replaces what was removed? (e.g.: token instead of email).</li><li>Write the treatment register of the new form (what/why/how long/where/who).</li><li>Compare: what the service loses vs what it stops to leak.</li></ol>
+<h2>Evidencia a entregar</h2>
+<p>Table field × decision × justification + new form register in <code>evidencia-compliance.md</code>.</p>
+<h2>Criterio de superación</h2>
+<p>La evidencia debe permitir que otra persona <strong>reproduzca</strong> el resultado sin preguntarte nada. Si no es reproducible, no es evidencia (ver <a href="#rubrica">rúbrica</a>).</p>
+    </section>
+    <section id="proyecto">
+<h1>Examen final y proyecto — Gobernanza y Compliance Digital</h1>
+<h2>Parte A — Examen (30 % del bloque de evaluación)</h2>
+<ul><li>12 preguntas tipo test (banco del quiz ampliado) + 2 preguntas cortas de razonamiento.</li><li>Sin material. Duración estimada: 45 min.</li><li>Cubre: S1: Marcos: ISO 27001, NIST CSF, ENS, S2: Datos personales y minimización extrema, S3: Gestión de riesgo con dueño y evidencia, S4: El expediente de compliance, S5: Gestion de riesgos (ISO 31000, NIST 800-39), S6: Analisis de impacto en el negocio y BCP, S7: Riesgo de terceros y supply chain, S8: Ingenieria de privacidad (RGPD, LGPD), S9: Programas de auditoria y assurance, S10: Marco de politicas y jerarquia documental, S11: Concienciacion y cultura de seguridad, S12: Panorama regulatorio sectorial, S13: Herramientas GRC y automatizacion, S14: Notificacion de incidentes y reporte regulatorio, S15: Preparacion para certificaciones (ISO 27001, SOC2), S16: Compliance en cloud y responsabilidad compartida, S17: Metricas y reporte al consejo, S18: Gestion de crisis y wargaming, S19: Regulaciones emergentes: AI Act, CRA, DSA, S20: Capstone: Construir programa GRC desde cero.</li></ul>
+<h2>Parte B — Proyecto final con evidencia (40 %)</h2>
+<p><strong>Encargo:</strong> Take a registration form, remove every unnecessary personal datum, and justify each one.</p>
+<p><strong>Laboratorio de referencia:</strong> <a href="#laboratorio">laboratorio.md</a> — Lab guiado: auditar un formulario real sin PII</p>
+<h3>Entregables</h3>
+<ol><li><strong>Evidencia</strong> (<code>evidencia-*.md</code>): Table field × decision × justification + new form register in <code>evidencia-compliance.md</code>.</li><li><strong>Informe</strong> con la estructura de la <a href="#chuleta">chuleta</a>: qué, cuánto, cómo, captura, remediación/decisión.</li><li><strong>Defensa</strong> (10 min): demo en vivo respondiendo con el artefacto delante.</li></ol>
+<h3>Condiciones éticas</h3>
+<p>It works with public forms or your own: never with other people's real data.</p>
+<h3>Cómo se califica</h3>
+<p>Según la <a href="#rubrica">rúbrica</a>, bloque 3. Sin evidencia verificable no hay proyecto: un resumen bonito no es evidencia.</p>
+<h2>Superación del curso</h2>
+<table><thead><tr><th>Bloque</th><th>Peso</th><th>Mínimo</th></tr></thead><tbody><tr><td>Participación + ejercicios</td><td>30 %</td><td>entregar ≥ 70 % de semanas</td></tr><tr><td>Quizzes formativos</td><td>30 %</td><td>≥ 60 % de aciertos</td></tr><tr><td>Examen + proyecto</td><td>40 %</td><td>evidencia presentada y defendida</td></tr></tbody></table>
+<p>Al superar el curso puedes generar tu credencial con sello hash en <a href="../../credencial.html">../credencial.html</a>.</p>
+    </section>
+    <section id="rubrica">
+<h1>Rúbrica de evaluación — Gobernanza y Compliance Digital</h1>
+<blockquote>Peso global: participación y ejercicios <strong>30 %</strong> · quizzes formativos <strong>30 %</strong> · proyecto final con evidencia <strong>40 %</strong>. Estilo Harvard: se aprueba demostrando.</blockquote>
+<h2>Objetivos que la rúbrica mide</h2>
+<ul><li>Situar los marcos ISO 27001, NIST CSF y ENS en su papel real</li><li>Aplicar minimización de datos: el usuario como token anónimo</li><li>Construir una matriz de riesgo con tratamiento y dueño</li><li>Producir un expediente de compliance con evidencia verificable</li></ul>
+<h2>1. Participación y ejercicios semanales (30 %)</h2>
+<table><thead><tr><th>Criterio</th><th>Excelente (100)</th><th>Suficiente (60)</th><th>Insuficiente (0)</th></tr></thead><tbody><tr><td>Constancia</td><td>Todas las semanas con entrega</td><td>≥ 70 % de semanas</td><td>&lt; 70 %</td></tr><tr><td>Calidad del ejercicio</td><td>Resuelto y explicado con palabras propias</td><td>Resuelto sin explicar</td><td>Copiado o vacío</td></tr></tbody></table>
+<h2>2. Quizzes formativos (30 %)</h2>
+<table><thead><tr><th>Criterio</th><th>Excelente</th><th>Suficiente</th><th>Insuficiente</th></tr></thead><tbody><tr><td>Aciertos acumulados</td><td>≥ 85 %</td><td>60–84 %</td><td>&lt; 60 %</td></tr><tr><td>Uso de la explicación</td><td>Repasa lo fallado y lo corrige</td><td>Repasa a veces</td><td>No repasa</td></tr></tbody></table>
+<h2>3. Proyecto final con evidencia (40 %)</h2>
+<table><thead><tr><th>Criterio</th><th>Excelente (100)</th><th>Suficiente (60)</th><th>Insuficiente (0)</th></tr></thead><tbody><tr><td>Evidencia</td><td>Artefactos verificables y reproducibles</td><td>Evidencia parcial</td><td>Solo afirmaciones</td></tr><tr><td>Informe</td><td>Hallazgo + severidad + reproducción + remediación</td><td>Falta 1 sección</td><td>Sin estructura</td></tr><tr><td>Defensa</td><td>Responde con el artefacto delante</td><td>Responde con dudas</td><td>No puede defenderlo</td></tr><tr><td>Ética/legalidad</td><td>Alcance respetado en todo momento</td><td>Duda menor documentada</td><td>Fuera de alcance</td></tr></tbody></table>
+<p><strong>Nota final</strong> = 0.3·P1 + 0.3·P2 + 0.4·P3 · Aprobado ≥ 60/100 con evidencia presentada.</p>
+    </section>
+    <section id="glosario">
+<h1>Glosario — Gobernanza y Compliance Digital</h1>
+<p>Términos que el curso usa y que el examen puede pedir.</p>
+<table><thead><tr><th>Término</th><th>Definición en una línea</th></tr></thead><tbody><tr><td><strong>ISO 27001</strong></td><td>Certifiable information security management system (ISMS) standard.</td></tr><tr><td><strong>NIST CSF</strong></td><td>Framework: Identify, Protect, Detect, Respond, Recover.</td></tr><tr><td><strong>ENS</strong></td><td>Spanish National Security Scheme, by categories.</td></tr><tr><td><strong>Declaración de aplicabilidad</strong></td><td>Which controls apply and why (ISO 27001).</td></tr><tr><td><strong>Dato personal</strong></td><td>Any data about an identified or identifiable person.</td></tr><tr><td><strong>Minimización</strong></td><td>Process only what is necessary for the declared purpose.</td></tr><tr><td><strong>Finalidad</strong></td><td>The use declared when collecting; a different use requires a new basis.</td></tr><tr><td><strong>Base de licitud</strong></td><td>Legal justification for processing (consent, contract, law...).</td></tr><tr><td><strong>Token anónimo</strong></td><td>Identifier not traceable to a person: extreme minimization.</td></tr><tr><td><strong>Registro de tratamiento</strong></td><td>Inventory: what, why, how long, with what security.</td></tr><tr><td><strong>Riesgo</strong></td><td>Probability × impact on an asset; always with an owner.</td></tr><tr><td><strong>Matriz de riesgo</strong></td><td>Table asset × threat × treatment × owner × date.</td></tr><tr><td><strong>Dueño del riesgo</strong></td><td>Named person who decides and reviews (not 'the team').</td></tr><tr><td><strong>Transferencia de riesgo</strong></td><td>Moving it to a third party, usually insurance.</td></tr><tr><td><strong>Expédiente de compliance</strong></td><td>Chain of claims → verifiable artifacts.</td></tr><tr><td><strong>Evidencia</strong></td><td>Artefact that proves that a control works (log, review, capture).</td></tr></tbody></table>
+<blockquote>Regla de estudio: si no sabes explicarlo en una frase a alguien de fuera, aún no lo sabes.</blockquote>
+    </section>
+    <section id="chuleta">
+<h1>Gobernanza y Compliance Digital — material de repaso</h1>
+<h1>Chuleta — Gobernanza y Compliance</h1>
+<h2>Map one control across the 3 frameworks (course exercise)</h2>
+<p>'Access management' → ISO 27001 A.9 · NIST CSF PR.AC · ENS [op.acc] Trick: the control is one; what changes is the language of each framework.</p>
+<h2>RGPD in 5 questions (any form)</h2>
+<ol><li>¿What do I collect? → minimum</li><li>¿Why? → purpose + lawful basis</li><li>¿For how long? → deadline + deletion</li><li>¿Where? → location + security</li><li>¿Who sees it? → internal register + processors</li></ol>
+<p>→ If a question has no answer: don't collect that data</p>
+<h2>Risk in one line</h2>
+<p><code>asset + threat + probability × impact + treatment (mitigate/transfer/accept/eliminate) + owner + review date</code></p>
+<h2>Treatment decision</h2>
+<ul><li>Cost of control &lt; cost of impact → MITIGATE</li><li>There is insurance/contract that covers it → TRANSFER</li><li>Impact tolerable and documented → ACCEPT (signed)</li><li>The asset is not needed → ELIMINATE</li></ul>
+<h2>Compliance file (minimum index)</h2>
+<ol><li>Asset inventory · 2. Risk matrix · 3. Policies in force (versioned)</li><li>Training records · 5. Incident log · 6. Signed reviews</li></ol>
+<h2>Golden rule</h2>
+<p>Data that doesn't exist can't leak. User = anonymous token.</p>
+<p><em>Generado por edu-forge academy. Imprímela: es lo que llevas al examen.</em></p>
+    </section>
+    <section id="recursos">
+<h1>Recursos abiertos — Gobernanza y Compliance Digital</h1>
+<h2>Repositorios verificados (GitHub, activos)</h2>
+<ul><li><a href="https://github.com/OWASP/wstg">OWASP Web Security Testing Guide</a> — guía oficial de pruebas de seguridad web (9.8k★)</li><li><a href="https://github.com/juice-shop/juice-shop">OWASP Juice Shop</a> — app vulnerable moderna para práctica legal en local (13.8k★)</li><li><a href="https://github.com/digininja/DVWA">DVWA</a> — web app deliberadamente vulnerable (PHP/MySQL) (13.6k★)</li><li><a href="https://github.com/rapid7/metasploit-framework">Metasploit Framework</a> — framework de explotación — solo en pentests autorizados (39k★)</li><li><a href="https://github.com/freeCodeCamp/freeCodeCamp">freeCodeCamp</a> — currículo abierto de programación y matemáticas (455k★)</li><li><a href="https://github.com/public-apis/public-apis">public-apis</a> — directorio comunitario de APIs gratuitas (479k★)</li></ul>
+<h2>APIs abiertas verificadas (sin API key)</h2>
+<ul><li><a href="https://openlibrary.org/developers/api">Open Library API</a> — catálogo abierto de libros, sin API key</li><li><a href="https://es.wikipedia.org/w/api.php">Wikipedia API</a> — contenido enciclopédico multilingüe, sin API key</li><li><a href="https://export.arxiv.org/api/query">arXiv API</a> — papers científicos abiertos, sin API key</li></ul>
+<h3>PT</h3>
+<ul><li><a href="https://pt.khanacademy.org">Khan Academy PT</a> — matematicas, ciencias</li><li><a href="https://pt.wikibooks.org">Wikilivros PT</a> — libros abiertos</li><li><a href="https://pt.forvo.com">Forvo PT</a> — pronunciacion real</li><li><a href="https://www.dominiopublico.gov.br">Portal Domínio Público</a> — obras libres BR</li><li><a href="https://ciberduvidas.iscte-iul.pt">Ciberdúvidas</a> — dudas de portugues</li></ul>
+<h3>ES</h3>
+<ul><li><a href="https://es.khanacademy.org">Khan Academy ES</a> — matematicas, ciencias</li><li><a href="https://edu.gcfglobal.org/es/">GCF Global</a> — office, internet, empleo</li><li><a href="https://www.aulamentor.es">Aula Mentor (MEC)</a> — cursos oficiales gratuitos</li><li><a href="https://learndigital.withgoogle.com/activate">Google Activate</a> — habilidades digitales</li><li><a href="https://ocw.mit.edu">MIT OpenCourseWare</a> — universitario abierto</li><li><a href="https://openstax.org">OpenStax</a> — libros de texto abiertos</li><li><a href="https://www.ine.es">INE / datos abiertos</a> — datos publicos</li></ul>
+<h3>EN</h3>
+<ul><li><a href="https://cs50.harvard.edu">Harvard Online (CS50)</a> — curso insignia</li><li><a href="https://ocw.mit.edu">MIT OCW</a> — grado abierto</li><li><a href="https://www.open.edu/openlearn">OpenLearn (OU)</a> — cursos gratuitos</li><li><a href="https://www.gutenberg.org">Project Gutenberg</a> — libros dominio publico</li></ul>
+<h2>Regla de oro</h2>
+<p>Todo recurso externo está verificado (existencia y actividad comprobadas el 2026-09-12 vía GitHub API / HTTP) antes de citarse. Nada de contenido con licencia dudosa.</p>
+    </section>
+  </main>
+</div>
+  <script>
+    const QUIZ = [{"pregunta": "Las cinco funciones del NIST CSF son...", "opciones": ["Planificar, Hacer, Verificar, Actuar", "Identificar, Proteger, Detectar, Responder, Recuperar", "Analizar, Diseñar, Desarrollar, Testear, Desplegar", "Prevenir, Curar, Paliar, Documentar, Auditar"], "correcta": 1, "explicacion": "El ciclo de vida del CSF cubre gobierno y operación de la seguridad."}, {"pregunta": "La minimización extrema de datos significa...", "opciones": ["Cifrar todo dos veces", "No tener el dato cuando el servicio puede funcionar sin él", "Guardar solo 30 días", "Anonimizar al administrador"], "correcta": 1, "explicacion": "El dato que no existe no puede filtrarse: usuario como token anónimo."}, {"pregunta": "Los cuatro tratamientos de riesgo son...", "opciones": ["Mitigar, transferir, aceptar, eliminar", "Comprar, vender, alquilar, donar", "Detectar, analizar, contener, reportar", "Alto, medio, bajo, nulo"], "correcta": 0, "explicacion": "Todo riesgo se trata con una de esas cuatro decisiones y un dueño."}, {"pregunta": "El principio de finalidad (RGPD) exige que...", "opciones": ["Los datos duren 10 años", "Solo se usen para lo declarado al recogerlos", "Se cifren dos veces", "Los guarde el DPO"], "correcta": 1, "explicacion": "Uso posterior incompatible con la finalidad declarada = nuevo tratamiento que requiere base."}, {"pregunta": "Un registro de tratamiento NO debe contener...", "opciones": ["Finalidad y categorías de datos", "Plazos de supresión", "Medidas de seguridad", "La lista de clientes con nombres reales para 'por si acaso'"], "correcta": 3, "explicacion": "Guardar datos 'por si acaso' viola la minimización: exactamente lo que evita Secure T."}, {"pregunta": "'Sin evidencia no hay compliance' significa...", "opciones": ["Que hay que comprar un SIEM", "Que cada afirmación del expediente debe tener un artefacto verificable", "Que firme el CEO", "Que exista un PDF"], "correcta": 1, "explicacion": "Un expediente es una cadena de afirmaciones → artefactos (logs, revisiones, matrices), no un PDF bonito."}, {"pregunta": "ISO 27001 es certificable y NIST CSF...", "opciones": ["También es certificable", "No es certificable (es una guía)", "Es obligatorio en la UE", "Solo aplica a EEUU"], "correcta": 1, "explicacion": "CSF es una guía voluntaria; ISO 27001 es la norma certificable."}, {"pregunta": "CSF 2.0 añadió la función...", "opciones": ["DETECT", "RECOVER", "GOVERN", "ANALYZE"], "correcta": 2, "explicacion": "GOVERN integra la ciberseguridad en el gobierno organizacional."}, {"pregunta": "El ENS es obligatorio para...", "opciones": ["Todas las empresas de la UE", "Administraciones públicas españolas y sus proveedores", "Solo bancos", "Hospitales únicamente"], "correcta": 1, "explicacion": "AAPP y quienes tratan datos/servicios públicos para ellas."}, {"pregunta": "Una certificación ISO 27001 garantiza...", "opciones": ["Que no hay brechas", "Que existe un SGSI en funcionamiento", "Seguridad total", "Que todos los controles son perfectos"], "correcta": 1, "explicacion": "Certifica el sistema de gestión, no la ausencia de riesgos."}, {"pregunta": "El principio de minimización del RGPD exige...", "opciones": ["Cifrar todos los datos", "Recoger solo los datos necesarios para la finalidad", "Guardar datos 10 años", "Usar servidores en la UE"], "correcta": 1, "explicacion": "Solo los datos estrictamente necesarios; lo demás no se recoge."}, {"pregunta": "Una DPIA es obligatoria cuando...", "opciones": ["Siempre", "El tratamiento implica alto riesgo para los derechos", "Solo para bancos", "Solo con datos de menores"], "correcta": 1, "explicacion": "Perfilado automático, datos sensibles a gran escala, monitorización sistemática."}, {"pregunta": "En Secure T no hay derechos ARCO que ejercer porque...", "opciones": ["No cumple el RGPD", "No existen datos personales (minimización extrema)", "Es una excepción legal", "Solo aplica en la UE"], "correcta": 1, "explicacion": "Sin PII no hay interesado ni tratamiento de datos personales."}, {"pregunta": "La multa a CaixaBank fue por...", "opciones": ["Brecha de datos", "Perfilado sin base legal adecuada ni transparencia", "No tener DPO", "No cifrar datos"], "correcta": 1, "explicacion": "Interés legítimo no justificado + información insuficiente al usuario."}, {"pregunta": "Riesgo residual es...", "opciones": ["El riesgo antes de controles", "El riesgo que queda después de aplicar controles", "El riesgo más alto", "El riesgo del proveedor"], "correcta": 1, "explicacion": "Inherente - mitigación = residual. Nunca es cero."}, {"pregunta": "Un riesgo sin dueño asignado...", "opciones": ["Se gestiona automáticamente", "Nadie es responsable de tratarlo", "Lo asume el CEO", "Se elimina solo"], "correcta": 1, "explicacion": "Sin dueño con nombre, el riesgo se queda en el papel."}, {"pregunta": "'Transferir' un riesgo significa...", "opciones": ["Eliminarlo", "Pasarlo a un tercero (seguro, SLA, outsourcing)", "Ignorarlo", "Documentarlo"], "correcta": 1, "explicacion": "El riesgo sigue existiendo; otro asume parte de las consecuencias."}, {"pregunta": "Log4Shell enseñó que es crítico tener...", "opciones": ["Más firewalls", "Un inventario de dependencias (SBOM)", "Contraseñas más largas", "Más presupuesto"], "correcta": 1, "explicacion": "Sin SBOM no sabes qué componentes tienes ni sus vulnerabilidades."}, {"pregunta": "La cadena de evidencia en compliance es...", "opciones": ["Afirmación sola", "Afirmación → artefacto → verificación", "Solo un PDF firmado", "El logo de ISO"], "correcta": 1, "explicacion": "Cada afirmación debe tener un artefacto verificable con fecha y revisor."}, {"pregunta": "Una no conformidad menor en auditoría significa...", "opciones": ["No pasa nada", "Un incumplimiento que no compromete el sistema completo pero requiere corrección", "Certificación retirada", "Multa automática"], "correcta": 1, "explicacion": "Requiere acción correctiva con plazo, pero no invalida el sistema."}, {"pregunta": "El expediente de compliance incluye obligatoriamente...", "opciones": ["Solo la política de seguridad", "Inventario + riesgos + políticas + controles + formación + incidentes + auditorías", "Solo el informe de auditoría", "Solo el certificado"], "correcta": 1, "explicacion": "Cada capa aporta evidencia de una dimensión diferente del cumplimiento."}, {"pregunta": "En la multa a British Airways, el agravante fue...", "opciones": ["El número de afectados", "No poder demostrar que los controles existían y funcionaban", "No tener seguro ciber", "No tener DPO"], "correcta": 1, "explicacion": "Afirmaciones sin artefactos = controles inexistentes a ojos del regulador."}];
+    const SLUG = "gobernanza-compliance";
+    let qi = 0, score = 0;
+    const qt = document.getElementById('q-titulo');
+    const qo = document.getElementById('q-opciones');
+    const qf = document.getElementById('q-feedback');
+    const qm = document.getElementById('q-marcador');
+    const qb = document.getElementById('q-next');
+    function barajar(a) {
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+    function render() {
+      const q = QUIZ[qi];
+      qt.textContent = (qi + 1) + '/' + QUIZ.length + ' · ' + q.pregunta;
+      qo.innerHTML = ''; qf.textContent = ''; qb.hidden = true;
+      const orden = baraja(q.opciones.map((_, i) => i));
+      orden.forEach(i => {
+        const b = document.createElement('button');
+        b.textContent = q.opciones[i];
+        b.onclick = () => {
+          [...qo.children].forEach(el => {
+            el.classList.add(el.dataset.i == q.correcta ? 'correcta' : 'fallo');
+            el.disabled = true;
+          });
+          const ok = i === q.correcta;
+          if (ok) score++;
+          qf.textContent = (ok ? '✓ Correcto. ' : '✗ Incorrecto. ') + q.explicacion;
+          qm.textContent = 'Aciertos: ' + score;
+          qb.hidden = false;
+        };
+        b.dataset.i = i;
+        qo.appendChild(b);
+      });
+    }
+    qb.onclick = () => { qi++; qi < QUIZ.length ? render() : fin(); };
+    function fin() {
+      qt.textContent = 'Terminado: ' + score + '/' + QUIZ.length;
+      qo.innerHTML = ''; qm.textContent = '';
+      const superado = score >= QUIZ.length * 0.7;
+      if (superado) {
+        // progreso real: el quiz superado se marca solo (token local, sin servidor)
+        try {
+          const est = JSON.parse(localStorage.getItem('stt-progreso') || '{}');
+          est[SLUG + '/quiz'] = true;
+          localStorage.setItem('stt-progreso', JSON.stringify(est));
+        } catch (e) { /* sin storage: progreso manual en progreso.html */ }
+        qf.textContent = 'Nivel superado — quiz marcado automáticamente en tu progreso.';
+      } else {
+        qf.textContent = 'Repasa las semanas y vuelve a intentarlo (se supera con 70 %).';
+      }
+      const re = document.createElement('button');
+      re.className = 'btn'; re.textContent = 'Reintentar quiz';
+      re.onclick = () => { qi = 0; score = 0; re.remove(); render(); };
+      qm.after(re);
+    }
+    render();
+    // nav activa al hacer scroll
+    const links = [...document.querySelectorAll('.curso-nav a[href^="#"]')];
+    const io = new IntersectionObserver(ents => ents.forEach(e => {
+      if (e.isIntersecting) links.forEach(a =>
+        a.classList.toggle('activo', a.getAttribute('href') === '#' + e.target.id));
+    }), { rootMargin: '-30% 0px -60% 0px' });
+    document.querySelectorAll('main section[id]').forEach(s => io.observe(s));
+    // controles: tema claro/oscuro (mismo interruptor que la landing), A-/A+ y barra de lectura
+    const root = document.documentElement;
+    try { root.dataset.theme = localStorage.getItem('stt-theme') || 'dark'; } catch (e) {}
+    document.getElementById('tema-btn').onclick = () => {
+      root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
+      try { localStorage.setItem('stt-theme', root.dataset.theme); } catch (e) {}
+    };
+    let fs = 1;
+    try { fs = parseFloat(localStorage.getItem('stt-fs')) || 1; } catch (e) {}
+    const aplicarFs = () => {
+      root.style.fontSize = (fs * 100) + '%';
+      try { localStorage.setItem('stt-fs', String(fs)); } catch (e) {}
+    };
+    aplicarFs();
+    document.getElementById('fs-mas').onclick = () => { fs = Math.min(1.3, fs + 0.1); aplicarFs(); };
+    document.getElementById('fs-menos').onclick = () => { fs = Math.max(0.85, fs - 0.1); aplicarFs(); };
+    const barra = document.getElementById('barra-lectura');
+    addEventListener('scroll', () => {
+      const h = document.documentElement;
+      barra.style.width = ((h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 || 0) + '%';
+    }, { passive: true });
+  </script>
+</body>
+</html>

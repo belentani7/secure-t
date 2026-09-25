@@ -1,0 +1,68 @@
+[
+  {
+    "pregunta": "Un LLM 'alucina' porque...",
+    "opciones": [
+      "Está roto",
+      "Predice texto plausible, no verdad verificada",
+      "Le falta internet",
+      "Se entrena poco"
+    ],
+    "correcta": 1,
+    "explicacion": "Genera la continuación estadística más plausible; la verificación es humana."
+  },
+  {
+    "pregunta": "El prompt injection consiste en...",
+    "opciones": [
+      "Inyectar código SQL",
+      "Instrucciones ocultas que cambian el comportamiento del modelo",
+      "Robar la API key",
+      "Cifrar el prompt"
+    ],
+    "correcta": 1,
+    "explicacion": "Entrada no confiable que el sistema trata como instrucción de sistema."
+  },
+  {
+    "pregunta": "Grounding en un asistente significa...",
+    "opciones": [
+      "Usar el modelo más grande",
+      "Anclar respuestas a fuentes citadas",
+      "Reducir la temperatura a 0",
+      "Entrenar desde cero"
+    ],
+    "correcta": 1,
+    "explicacion": "Responder solo a partir de material verificable y citarlo."
+  },
+  {
+    "pregunta": "El sobreajuste (overfitting) se describe mejor como...",
+    "opciones": [
+      "El modelo falla en producción",
+      "Memoriza el entrenamiento y no generaliza",
+      "El modelo es lento",
+      "Faltan datos de test"
+    ],
+    "correcta": 1,
+    "explicacion": "Perfecto con lo visto, malo con lo nuevo: no generaliza."
+  },
+  {
+    "pregunta": "Defensa principal contra prompt injection en un producto con IA...",
+    "opciones": [
+      "Pedir amablemente al modelo que ignore instrucciones",
+      "Tratar toda entrada como dato, nunca como instrucción (delimitadores + permisos mínimos)",
+      "Subir la temperatura",
+      "Usar un modelo cerrado"
+    ],
+    "correcta": 1,
+    "explicacion": "La entrada no es confiable: se aísla el contenido y se limita lo que el sistema puede hacer."
+  },
+  {
+    "pregunta": "Un poisoning attack apunta a...",
+    "opciones": [
+      "La API en producción",
+      "Los datos de entrenamiento",
+      "El navegador del usuario",
+      "El servidor de estáticos"
+    ],
+    "correcta": 1,
+    "explicacion": "Corrompe el aprendizaje contaminando el corpus de entrenamiento."
+  }
+]

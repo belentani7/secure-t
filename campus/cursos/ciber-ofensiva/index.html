@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ciberseguridad Ofensiva: Pensar como Atacante — Secure T University</title>
+  <meta name="description" content="Curso universitario de seguridad ofensiva con ética desde el día 1: recon pasivo, OSINT, OWASP Top 10 y laboratorio con máquina vulnerable. Se aprueba">
+  <link rel="stylesheet" href="../../tokens.css">
+  <style>
+    .curso-layout { display: grid; grid-template-columns: 15rem 1fr; gap: var(--sp-8);
+      max-width: 72rem; margin: 0 auto; padding: var(--sp-6) var(--sp-4) var(--sp-12); }
+    .curso-nav { position: sticky; top: var(--sp-6); align-self: start;
+      display: grid; gap: var(--sp-1); font-size: var(--fs-sm); }
+    .curso-nav a { padding: var(--sp-2) var(--sp-3); border-radius: var(--r-sm);
+      color: var(--text-2); text-decoration: none; }
+    .curso-nav a:hover { background: var(--bg-muted); color: var(--text-1); }
+    .curso-nav a.activo { background: var(--accent-soft); color: var(--accent); }
+    .curso-nav .sep { border-top: 1px solid var(--border); margin: var(--sp-2) 0; }
+    main section { margin-bottom: var(--sp-12); scroll-margin-top: var(--sp-8); }
+    main h2 { border-bottom: 1px solid var(--border); padding-bottom: var(--sp-2); }
+    table { border-collapse: collapse; width: 100%; margin: var(--sp-4) 0; }
+    th, td { border: 1px solid var(--border); padding: var(--sp-2) var(--sp-3);
+      text-align: left; font-size: var(--fs-sm); }
+    th { background: var(--bg-muted); }
+    pre { background: var(--bg-sunken); border: 1px solid var(--border);
+      border-radius: var(--r-md); padding: var(--sp-4); overflow-x: auto; }
+    code { font-family: var(--font-mono); font-size: .9em; }
+    .meta-chips { display: flex; gap: var(--sp-2); flex-wrap: wrap; margin: var(--sp-3) 0; }
+    .quiz-opciones { display: grid; gap: var(--sp-2); margin: var(--sp-4) 0; }
+    .quiz-opciones button { text-align: left; padding: var(--sp-3) var(--sp-4);
+      border-radius: var(--r-md); border: 1px solid var(--border);
+      background: var(--bg-sunken); color: var(--text-1); font: inherit; cursor: pointer; }
+    .quiz-opciones button.correcta { border-color: var(--success); }
+    .quiz-opciones button.fallo { border-color: var(--danger); }
+    @media (max-width: 48rem) { .curso-layout { grid-template-columns: 1fr; }
+      .curso-nav { position: static; } }
+    #barra-lectura { position: fixed; top: 0; left: 0; height: 3px; width: 0;
+      background: var(--accent); z-index: 60; }
+    .controles { display: flex; gap: var(--sp-2); align-items: center; }
+    .controles button { border: 1px solid var(--border); background: transparent;
+      color: var(--text-2); border-radius: var(--r-sm); min-width: 2.2rem;
+      min-height: 2.2rem; cursor: pointer; font: 600 var(--fs-sm) var(--font-mono); }
+    .controles button:hover { border-color: var(--accent); color: var(--accent); }
+    .sem-nav { display: flex; justify-content: space-between; gap: var(--sp-4);
+      margin-top: var(--sp-6); padding-top: var(--sp-4);
+      border-top: 1px dashed var(--border); }
+    .sem-nav a { color: var(--accent); text-decoration: none; }
+    .sem-nav a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+<header class="topbar"><div class="bar">
+  <a class="brand" href="../../index.html">← Campus</a>
+  <span class="brand"><span>Ciberseguridad Ofensiva: Pensar como Ata</span></span>
+  <div class="controles no-print">
+    <button id="fs-menos" aria-label="Reducir tamaño de letra">A−</button>
+    <button id="fs-mas" aria-label="Aumentar tamaño de letra">A+</button>
+    <button id="tema-btn" aria-label="Cambiar tema claro u oscuro">◐</button>
+    <a class="btn" href="../../progreso.html">Mi progreso</a>
+  </div>
+</div></header>
+<div id="barra-lectura" aria-hidden="true"></div>
+<div class="curso-layout">
+  <nav class="curso-nav" aria-label="Secciones del curso">
+      <a href="#overview">Overview</a>
+      <a href="#syllabus">Syllabus</a>
+      <a href="#semana-1">Semana 1 · Ética, legalidad y alcance del test</a>
+      <a href="#semana-2">Semana 2 · Reconocimiento pasivo y OSINT</a>
+      <a href="#semana-3">Semana 3 · Los 10 riesgos web (OWASP Top 10)</a>
+      <a href="#semana-4">Semana 4 · Laboratorio final: máquina vulnerable …</a>
+      <a href="#semana-5">Semana 5 · Reconocimiento avanzado y OSINT</a>
+      <a href="#semana-6">Semana 6 · Modelado de amenazas y arboles de ataq…</a>
+      <a href="#semana-7">Semana 7 · Escaneo de vulnerabilidades y validaci…</a>
+      <a href="#semana-8">Semana 8 · Ataques a aplicaciones web (OWASP Top …</a>
+      <a href="#semana-9">Semana 9 · Explotacion de red y servicios</a>
+      <a href="#semana-10">Semana 10 · Escalada de privilegios Windows y Linu…</a>
+      <a href="#semana-11">Semana 11 · Movimiento lateral y pivoting</a>
+      <a href="#semana-12">Semana 12 · Mecanismos de persistencia</a>
+      <a href="#semana-13">Semana 13 · Evasion de defensas</a>
+      <a href="#semana-14">Semana 14 · Acceso a credenciales y volcado</a>
+      <a href="#semana-15">Semana 15 · Exfiltracion e impacto</a>
+      <a href="#semana-16">Semana 16 · Ataques a cloud y contenedores</a>
+      <a href="#semana-17">Semana 17 · Red teaming wireless y fisico</a>
+      <a href="#semana-18">Semana 18 · Ingenieria social y phishing</a>
+      <a href="#semana-19">Semana 19 · Informes y seguimiento de remediacion</a>
+      <a href="#semana-20">Semana 20 · Capstone: Pentest completo end-to-end</a>
+      <div class="sep"></div>
+      <a href="#quiz">Quiz del curso</a>
+      <a href="#laboratorio">Laboratorio</a>
+      <a href="#proyecto">Proyecto y examen</a>
+      <a href="#rubrica">Rúbrica</a>
+      <a href="#glosario">Glosario</a>
+      <a href="#chuleta">Chuleta</a>
+      <a href="#recursos">Recursos</a>
+      <div class="sep"></div>
+      <a href="../../progreso.html">Mi progreso →</a>
+      <a href="../../credencial.html">Credencial →</a>
+  </nav>
+  <main>
+    <section id="overview">
+      <h1>Ciberseguridad Ofensiva: Pensar como Atacante</h1>
+      <div class="meta-chips">
+        <span class="badge">ES · universitario</span>
+        <span class="badge">60 h</span>
+        <span class="badge">20 semanas</span>
+        <span class="badge">quiz 22 ítems</span>
+      </div>
+      <p>Curso universitario de seguridad ofensiva con ética desde el día 1: recon pasivo, OSINT, OWASP Top 10 y laboratorio con máquina vulnerable. Se aprueba demostrando hallazgos documentados, nunca adivinando.</p>
+      <h2>Objetivos de aprendizaje</h2>
+      <ul><li>Distinguir hacking ético de actividad delictiva</li><li>Ejecutar reconocimiento pasivo y OSINT sobre un objetivo autorizado</li><li>Explicar y reproducir los 10 riesgos web principales de OWASP</li><li>Redactar un informe de hallazgos con severidad y remediación</li></ul>
+      <blockquote>Evaluación: participación y ejercicios 30 % · quizzes 30 % ·
+proyecto con evidencia 40 %. Nada se aprueba adivinando.</blockquote>
+    </section>
+    <section id="syllabus">
+<h1>Ciberseguridad Ofensiva: Pensar como Atacante</h1>
+<blockquote>Nivel: universitario · 60 horas · Idioma principal: ES</blockquote>
+<h2>Descripcion</h2>
+<p>Curso universitario de seguridad ofensiva con ética desde el día 1: recon pasivo, OSINT, OWASP Top 10 y laboratorio con máquina vulnerable. Se aprueba demostrando hallazgos documentados, nunca adivinando.</p>
+<h2>Objetivos de aprendizaje (evidencia)</h2>
+<ul><li>Distinguir hacking ético de actividad delictiva</li><li>Ejecutar reconocimiento pasivo y OSINT sobre un objetivo autorizado</li><li>Explicar y reproducir los 10 riesgos web principales de OWASP</li><li>Redactar un informe de hallazgos con severidad y remediación</li></ul>
+<h2>Evaluacion estilo Harvard</h2>
+<ul><li>Participacion y ejercicios semanales: 30%</li><li>Quizzes formativos por semana: 30%</li><li>Proyecto final con evidencia: 40%</li><li>Todo se aprueba demostrando, no adivinando.</li></ul>
+<h2>Cronograma</h2>
+<h2>Semana 1: Ética, legalidad y alcance del test</h2>
+<ul><li>[LECTURA] Regla número uno: permiso escrito</li><li>[EJERCICIO] Redacta tu carta de autorización</li><li>[LECTURA] Metodologías: PTES, OWASP WSTG, MITRE ATT&amp;CK</li></ul>
+<h2>Semana 2: Reconocimiento pasivo y OSINT</h2>
+<ul><li>[LECTURA] Ver sin tocar: footprinting pasivo</li><li>[EJERCICIO] Perfil OSINT de un dominio propio</li></ul>
+<h2>Semana 3: Los 10 riesgos web (OWASP Top 10)</h2>
+<ul><li>[LECTURA] Inyección y control de acceso roto</li><li>[EJERCICIO] Práctica guiada en laboratorio legal</li><li>[LECTURA] SSRF, XSS y componentes obsoletos</li></ul>
+<h2>Semana 4: Laboratorio final: máquina vulnerable + informe</h2>
+<ul><li>[PROYECTO] De recon a reporte en Metasploitable</li><li>[EXAMEN] Informe ético evaluado</li></ul>
+<h2>Semana 5: Reconocimiento avanzado y OSINT</h2>
+<ul><li>[LECTURA] Teoria: Reconocimiento avanzado y OSINT</li><li>[EJERCICIO] Practica guiada: Reconocimiento avanzado y OSINT</li><li>[CASO] Caso real: Reconocimiento avanzado y OSINT</li></ul>
+<h2>Semana 6: Modelado de amenazas y arboles de ataque</h2>
+<ul><li>[LECTURA] Teoria: Modelado de amenazas y arboles de ataque</li><li>[EJERCICIO] Practica guiada: Modelado de amenazas y arboles de ataque</li><li>[CASO] Caso real: Modelado de amenazas y arboles de ataque</li></ul>
+<h2>Semana 7: Escaneo de vulnerabilidades y validacion</h2>
+<ul><li>[LECTURA] Teoria: Escaneo de vulnerabilidades y validacion</li><li>[EJERCICIO] Practica guiada: Escaneo de vulnerabilidades y validacion</li><li>[CASO] Caso real: Escaneo de vulnerabilidades y validacion</li></ul>
+<h2>Semana 8: Ataques a aplicaciones web (OWASP Top 10)</h2>
+<ul><li>[LECTURA] Teoria: Ataques a aplicaciones web (OWASP Top 10)</li><li>[EJERCICIO] Practica guiada: Ataques a aplicaciones web (OWASP Top 10)</li><li>[CASO] Caso real: Ataques a aplicaciones web (OWASP Top 10)</li></ul>
+<h2>Semana 9: Explotacion de red y servicios</h2>
+<ul><li>[LECTURA] Teoria: Explotacion de red y servicios</li><li>[EJERCICIO] Practica guiada: Explotacion de red y servicios</li><li>[CASO] Caso real: Explotacion de red y servicios</li></ul>
+<h2>Semana 10: Escalada de privilegios Windows y Linux</h2>
+<ul><li>[LECTURA] Teoria: Escalada de privilegios Windows y Linux</li><li>[EJERCICIO] Practica guiada: Escalada de privilegios Windows y Linux</li><li>[CASO] Caso real: Escalada de privilegios Windows y Linux</li></ul>
+<h2>Semana 11: Movimiento lateral y pivoting</h2>
+<ul><li>[LECTURA] Teoria: Movimiento lateral y pivoting</li><li>[EJERCICIO] Practica guiada: Movimiento lateral y pivoting</li><li>[CASO] Caso real: Movimiento lateral y pivoting</li></ul>
+<h2>Semana 12: Mecanismos de persistencia</h2>
+<ul><li>[LECTURA] Teoria: Mecanismos de persistencia</li><li>[EJERCICIO] Practica guiada: Mecanismos de persistencia</li><li>[CASO] Caso real: Mecanismos de persistencia</li></ul>
+<h2>Semana 13: Evasion de defensas</h2>
+<ul><li>[LECTURA] Teoria: Evasion de defensas</li><li>[EJERCICIO] Practica guiada: Evasion de defensas</li><li>[CASO] Caso real: Evasion de defensas</li></ul>
+<h2>Semana 14: Acceso a credenciales y volcado</h2>
+<ul><li>[LECTURA] Teoria: Acceso a credenciales y volcado</li><li>[EJERCICIO] Practica guiada: Acceso a credenciales y volcado</li><li>[CASO] Caso real: Acceso a credenciales y volcado</li></ul>
+<h2>Semana 15: Exfiltracion e impacto</h2>
+<ul><li>[LECTURA] Teoria: Exfiltracion e impacto</li><li>[EJERCICIO] Practica guiada: Exfiltracion e impacto</li><li>[CASO] Caso real: Exfiltracion e impacto</li></ul>
+<h2>Semana 16: Ataques a cloud y contenedores</h2>
+<ul><li>[LECTURA] Teoria: Ataques a cloud y contenedores</li><li>[EJERCICIO] Practica guiada: Ataques a cloud y contenedores</li><li>[CASO] Caso real: Ataques a cloud y contenedores</li></ul>
+<h2>Semana 17: Red teaming wireless y fisico</h2>
+<ul><li>[LECTURA] Teoria: Red teaming wireless y fisico</li><li>[EJERCICIO] Practica guiada: Red teaming wireless y fisico</li><li>[CASO] Caso real: Red teaming wireless y fisico</li></ul>
+<h2>Semana 18: Ingenieria social y phishing</h2>
+<ul><li>[LECTURA] Teoria: Ingenieria social y phishing</li><li>[EJERCICIO] Practica guiada: Ingenieria social y phishing</li><li>[CASO] Caso real: Ingenieria social y phishing</li></ul>
+<h2>Semana 19: Informes y seguimiento de remediacion</h2>
+<ul><li>[LECTURA] Teoria: Informes y seguimiento de remediacion</li><li>[EJERCICIO] Practica guiada: Informes y seguimiento de remediacion</li><li>[CASO] Caso real: Informes y seguimiento de remediacion</li></ul>
+<h2>Semana 20: Capstone: Pentest completo end-to-end</h2>
+<ul><li>[LECTURA] Teoria: Capstone: Pentest completo end-to-end</li><li>[EJERCICIO] Practica guiada: Capstone: Pentest completo end-to-end</li><li>[CASO] Caso real: Capstone: Pentest completo end-to-end</li><li>[PROYECTO] Proyecto integrador: Capstone: Pentest completo end-to-end</li></ul>
+<h2>Recursos</h2>
+<p>Ver <a href="recursos.md">recursos.md</a> — bancos abiertos + Drive do Pobre.</p>
+    </section>
+    <section id="semana-1">
+<h1>Semana 1: Ética, legalidad y alcance del test</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 1 de 20</p>
+<h2>Objetivos de aprendizaje</h2>
+<ul><li>Distinguir hacking ético de actividad delictiva con base legal concreta</li><li>Redactar un documento de alcance (rules of engagement) válido</li><li>Situar PTES, OWASP WSTG y MITRE ATT&amp;CK en el flujo de un pentest</li><li>Identificar las fases de un test de intrusión profesional</li></ul>
+<h2>Regla número uno: permiso escrito</h2>
+<p>Un test de intrusión sin autorización escrita es un delito, sin excepciones. El Convenio de Budapest (arts. 2-6) tipifica el acceso ilícito a sistemas; el Código Penal español (arts. 197 bis, 264) castiga con prisión la intrusión y el daño informático. En Brasil, la Lei 12.737/2012 (Lei Carolina Dieckmann) penaliza la invasión de dispositivos. En la UE, la Directiva 2013/40 armoniza los tipos.</p>
+<p>El documento de alcance — llamado 'Rules of Engagement' (RoE) — define: <strong>quién</strong> autoriza, <strong>qué</strong> sistemas se pueden tocar, <strong>cuándo</strong> (ventanas horarias), <strong>cómo</strong> se escala un incidente imprevisto y <strong>dónde</strong> se almacenan las evidencias. Sin este documento firmado, cualquier hallazgo es inadmisible y el pentester se expone a responsabilidad penal.</p>
+<p>Elementos obligatorios de las RoE:</p>
+<ol><li>Partes: empresa contratante + equipo de pentest + contacto de emergencia</li><li>Alcance: IPs, dominios, redes, aplicaciones incluidas y excluidas</li><li>Ventanas de ejecución: horario permitido, fechas de inicio y fin</li><li>Técnicas autorizadas y prohibidas (p. ej. DoS: sí/no)</li><li>Protocolo de hallazgo crítico: a quién se comunica, en cuánto tiempo</li><li>Almacenamiento y destrucción de evidencias al finalizar</li><li>Firmas de ambas partes con fecha</li></ol>
+<p><strong>Referencias:</strong></p>
+<ul><li>Convenio de Budapest, arts. 2-6</li><li>Código Penal ES, arts. 197 bis, 264</li><li>Lei 12.737/2012 (BR)</li><li>Directiva 2013/40/UE</li></ul>
+<h2>Las fases de un pentest profesional (PTES)</h2>
+<p>El Penetration Testing Execution Standard (PTES) define 7 fases que todo test ético debe seguir. Saltarse fases produce informes incompletos y hallazgos no reproducibles.</p>
+<p><strong>Fase 1 — Pre-engagement (acuerdo previo):</strong> RoE, alcance, restricciones, contactos de emergencia. Es la fase más importante: sin ella no hay test.</p>
+<p><strong>Fase 2 — Intelligence Gathering (recolección):</strong> OSINT pasivo (semana 2), footprinting, identificación de tecnologías. MITRE ATT&amp;CK: tácticas de Reconnaissance (TA0043).</p>
+<p><strong>Fase 3 — Threat Modeling:</strong> ¿Qué protege el objetivo? ¿Qué le importa a un atacante real? Se priorizan vectores por impacto de negocio.</p>
+<p><strong>Fase 4 — Vulnerability Analysis:</strong> Escaneo de vulnerabilidades con herramientas (Nmap, Nikto, Nuclei) + análisis manual. Se valida cada hallazgo: un falso positivo en el informe destruye la credibilidad.</p>
+<p><strong>Fase 5 — Exploitation:</strong> Solo se explota lo que se puede reproducir y documentar. El objetivo no es 'romper todo' sino demostrar el impacto real de cada vulnerabilidad.</p>
+<p><strong>Fase 6 — Post-Exploitation:</strong> ¿Qué puede hacer un atacante una vez dentro? Escalada de privilegios, movimiento lateral, exfiltración simulada. MITRE ATT&amp;CK: tácticas Persistence (TA0003), Privilege Escalation (TA0004).</p>
+<p><strong>Fase 7 — Reporting:</strong> El informe es el producto. Tiene dos partes: resumen ejecutivo (para dirección) y detalle técnico (para el equipo). Cada hallazgo: descripción, severidad CVSS, reproducción paso a paso, evidencia (capturas), remediación propuesta.</p>
+<p><strong>Referencias:</strong></p>
+<ul><li>PTES — pentest-standard.org</li><li>MITRE ATT&amp;CK — TA0043 Reconnaissance</li><li>MITRE ATT&amp;CK — TA0003 Persistence</li><li>MITRE ATT&amp;CK — TA0004 Privilege Escalation</li></ul>
+<h2>Metodologías complementarias: OWASP WSTG y ATT&amp;CK</h2>
+<p>PTES da la estructura del test. Pero para saber <strong>qué probar</strong> necesitas guías específicas por dominio.</p>
+<p><strong>OWASP Web Security Testing Guide (WSTG):</strong> 91 pruebas organizadas en 11 categorías: Information Gathering (WSTG-INFO), Configuration (WSTG-CONF), Identity (WSTG-IDENT), Authentication (WSTG-ATHN), Authorization (WSTG-ATHZ), Session (WSTG-SESS), Input Validation (WSTG-INPV), Error Handling (WSTG-ERRH), Cryptography (WSTG-CRYP), Business Logic (WSTG-BUSL), Client-Side (WSTG-CLNT). Cada prueba tiene objetivo, procedimiento y herramientas sugeridas.</p>
+<p><strong>MITRE ATT&amp;CK:</strong> No es una metodología de test sino un catálogo de comportamiento real del adversario. 14 tácticas, ~200 técnicas, ~400 sub-técnicas documentadas con procedimientos de grupos APT reales. Su valor en un pentest: hablar el lenguaje del defensor. Cuando reportas un hallazgo mapeado a ATT&amp;CK (p. ej. 'T1190 — Exploit Public-Facing Application'), el SOC sabe exactamente qué detectar.</p>
+<p>Las tres herramientas se complementan:</p>
+<ul><li>PTES → estructura del proyecto</li><li>WSTG → checklist de pruebas web</li><li>ATT&amp;CK → lenguaje de amenazas y mapeo de cobertura</li></ul>
+<p><strong>Referencias:</strong></p>
+<ul><li>OWASP WSTG v4.2 — owasp.org/www-project-web-security-testing-guide</li><li>MITRE ATT&amp;CK — attack.mitre.org</li><li>T1190 — Exploit Public-Facing Application</li></ul>
+<h2>Caso real: El pentester que fue a prisión: caso Aaron Swartz y lecciones</h2>
+<p>Aaron Swartz descargó millones de artículos académicos de JSTOR desde la red del MIT en 2011. Aunque JSTOR retiró los cargos, la fiscalía federal mantuvo 13 cargos bajo la CFAA (Computer Fraud and Abuse Act). Lección operativa: tener acceso legítimo a una red (Swartz era fellow del MIT) NO equivale a tener autorización para un test ofensivo. El alcance lo define el documento firmado, no el acceso técnico.</p>
+<h2>Ejercicio guiado: Redacta tu documento de alcance (RoE)</h2>
+<ol><li>Elige un escenario ficticio: ONG con web, correo y VPN</li><li>Define las partes (tú como pentester, la ONG como cliente)</li><li>Lista los activos en alcance: 2 IPs, 1 dominio, 1 webapp</li><li>Establece ventana: sábados 02:00-06:00 UTC</li><li>Define técnicas autorizadas (escaneo, inyección) y prohibidas (DoS)</li><li>Escribe el protocolo de hallazgo crítico: email + teléfono en &lt; 1h</li><li>Añade cláusula de destrucción de evidencias a los 30 días</li><li>Firma con fecha (simulada)</li></ol>
+<h2>Recursos abiertos</h2>
+<ul><li><a href="https://www.pentest-standard.org/index.php/Main_Page">PTES Standard</a></li><li><a href="https://owasp.org/www-project-web-security-testing-guide/">OWASP WSTG</a></li><li><a href="https://mitre-attack.github.io/attack-navigator/">MITRE ATT&amp;CK Navigator</a></li><li><a href="https://www.coe.int/en/web/cybercrime/the-budapest-convention">Convenio de Budapest (texto)</a></li></ul>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><span></span><a href="#semana-2">Semana 2 →</a></nav>
+    </section>
+    <section id="semana-2">
+<h1>Semana 2: Reconocimiento pasivo y OSINT</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 2 de 20</p>
+<h2>Objetivos de aprendizaje</h2>
+<ul><li>Ejecutar reconocimiento pasivo sin enviar un solo paquete al objetivo</li><li>Usar Google dorks, crt.sh, Wayback Machine y Shodan para recopilar inteligencia</li><li>Enumerar subdominios, tecnologías y emails expuestos de un dominio autorizado</li><li>Documentar hallazgos OSINT en formato reproducible</li></ul>
+<h2>Reconocimiento pasivo: ver sin tocar</h2>
+<p>El reconocimiento pasivo recopila información sobre el objetivo sin enviar tráfico directo a su infraestructura. No toca servidores, no dispara alertas IDS, no deja logs en el objetivo. Es legal en la mayoría de jurisdicciones porque solo consulta información pública.</p>
+<p>MITRE ATT&amp;CK clasifica el reconocimiento en la táctica TA0043 con técnicas específicas:</p>
+<ul><li><strong>T1593 — Search Open Websites/Domains:</strong> Google, Bing, redes sociales</li><li><strong>T1596 — Search Open Technical Databases:</strong> Shodan, Censys, crt.sh</li><li><strong>T1592 — Gather Victim Host Information:</strong> OS, software, versiones</li><li><strong>T1589 — Gather Victim Identity Information:</strong> emails, nombres, roles</li><li><strong>T1590 — Gather Victim Network Information:</strong> rangos IP, ASN, DNS</li></ul>
+<p><strong>Regla del 70%:</strong> en un pentest profesional, aproximadamente el 70% de la inteligencia útil proviene del reconocimiento pasivo. El escaneo activo (nmap, nikto) complementa, pero no sustituye.</p>
+<p><strong>Referencias:</strong></p>
+<ul><li>MITRE ATT&amp;CK — TA0043 Reconnaissance</li><li>T1593 — Search Open Websites/Domains</li><li>T1596 — Search Open Technical Databases</li><li>T1592 — Gather Victim Host Information</li><li>T1589 — Gather Victim Identity Information</li><li>T1590 — Gather Victim Network Information</li></ul>
+<h2>Herramientas OSINT: el arsenal pasivo</h2>
+<p>Cada herramienta OSINT tiene un propósito específico. No se trata de lanzar todas; se elige según lo que se busca.</p>
+<p><strong>DNS y subdominios:</strong></p>
+<pre><code># Subdominios vía certificados (Certificate Transparency)
+curl -s 'https://crt.sh/?q=%.ejemplo.com&amp;output=json' | jq '.[].name_value' | sort -u
+# DNS pasivo con dnsdumpster.com (web) o subfinder (CLI)
+subfinder -d ejemplo.com -silent</code></pre>
+<p><strong>Google dorks (búsqueda avanzada):</strong></p>
+<pre><code>site:ejemplo.com filetype:pdf        # documentos PDF indexados
+site:ejemplo.com inurl:admin          # paneles de administración
+site:ejemplo.com intitle:"index of"   # directorios abiertos
+site:ejemplo.com ext:sql | ext:env    # backups y configs expuestas</code></pre>
+<p><strong>Certificados y tecnologías:</strong></p>
+<ul><li><strong>crt.sh:</strong> Certificate Transparency logs — muestra todos los certificados emitidos para un dominio, revelando subdominios internos</li><li><strong>Wappalyzer / BuiltWith:</strong> identifican stack tecnológico (CMS, framework, servidor, CDN) sin enviar tráfico sospechoso</li><li><strong>Wayback Machine:</strong> versiones históricas del sitio; puede revelar endpoints eliminados, credenciales en código fuente antiguo</li></ul>
+<p><strong>Shodan (motores de búsqueda de dispositivos):</strong></p>
+<pre><code># Buscar servicios expuestos de una organización
+shodan search 'org:"Ejemplo S.A."'
+# Filtrar por puerto y producto
+shodan search 'hostname:ejemplo.com port:443 product:Apache'</code></pre>
+<p><strong>Emails y credenciales filtradas:</strong></p>
+<ul><li><strong>Hunter.io:</strong> emails corporativos asociados a un dominio</li><li><strong>Have I Been Pwned (HIBP):</strong> verifica si un email aparece en brechas</li><li><strong>Dehashed:</strong> búsqueda avanzada en filtraciones (requiere cuenta)</li></ul>
+<p><strong>Referencias:</strong></p>
+<ul><li>crt.sh — Certificate Transparency</li><li>Shodan — shodan.io</li><li>HIBP — haveibeenpwned.com</li><li>Google Hacking Database — exploit-db.com/google-hacking-database</li></ul>
+<h2>Documentación de hallazgos OSINT</h2>
+<p>Cada dato recopilado se documenta de forma reproducible. Un hallazgo OSINT sin fuente ni fecha es inútil para el informe.</p>
+<p><strong>Formato por hallazgo:</strong></p>
+<pre><code>HALLAZGO: Subdominio interno expuesto
+FUENTE:   crt.sh, certificado CN=staging.ejemplo.com
+FECHA:    2026-09-12
+DATO:     staging.ejemplo.com (IP: 203.0.113.42)
+RIESGO:   Entorno de staging accesible desde internet puede
+          contener código sin auditar y datos de prueba reales
+EVIDENCIA: captura-crtsh-staging.png
+ATT&amp;CK:   T1596.003 (Search Open Technical Databases: Digital Certs)</code></pre>
+<p><strong>Herramientas de organización:</strong></p>
+<ul><li><strong>Maltego CE (Community Edition):</strong> grafo visual de relaciones entre entidades (dominios → IPs → emails → personas)</li><li><strong>Hoja de cálculo:</strong> para volumen alto; columnas: tipo, dato, fuente, fecha, riesgo, técnica ATT&amp;CK</li><li><strong>Obsidian / CherryTree:</strong> notas enlazadas para investigaciones largas</li></ul>
+<p><strong>Errores comunes a evitar:</strong></p>
+<ol><li>Recopilar sin documentar — el dato que no se registra no existe</li><li>Mezclar pasivo con activo — un escaneo nmap no es OSINT</li><li>No validar — un email de Hunter.io puede estar obsoleto</li><li>Guardar datos personales innecesarios — aplica minimización</li></ol>
+<p><strong>Referencias:</strong></p>
+<ul><li>T1596.003 — Digital Certificates</li><li>Maltego CE — maltego.com</li><li>OSINT Framework — osintframework.com</li></ul>
+<h2>Caso real: Capital One 2019: el recon que reveló una brecha de 100M de registros</h2>
+<p>Paige Thompson (alias 'erratic') descubrió una misconfiguration en el WAF de Capital One alojado en AWS. El metadata service de EC2 (169.254.169.254) era accesible vía SSRF, exponiendo credenciales IAM temporales. Con ellas extrajo datos de 100 millones de clientes. Lección de recon: los metadatos cloud son un vector OSINT crítico. Técnica ATT&amp;CK: T1552.005 (Cloud Instance Metadata API). CWE: CWE-918 (SSRF). La atacante fue condenada porque NO tenía autorización — un pentester ético con RoE habría reportado el hallazgo.</p>
+<h2>Ejercicio guiado: Perfil OSINT completo de un dominio propio</h2>
+<ol><li>Elige un dominio que controles (o usa 'scanme.nmap.org', autorizado por Nmap)</li><li>Subdominios: consulta crt.sh y anota todos los CN encontrados</li><li>Google dorks: busca site:tudominio filetype:pdf, inurl:admin, intitle:index</li><li>Tecnologías: visita el sitio con Wappalyzer y anota CMS, servidor, framework</li><li>Wayback Machine: busca versiones de hace 1-2 años, compara con la actual</li><li>Emails: busca en Hunter.io (free tier) y verifica 1 email en HIBP</li><li>Documenta cada hallazgo con el formato: dato/fuente/fecha/riesgo/ATT&amp;CK</li><li>Crea un grafo simple (papel o draw.io): dominio → subdominios → IPs → techs</li></ol>
+<h2>Recursos abiertos</h2>
+<ul><li><a href="https://crt.sh/">crt.sh</a></li><li><a href="https://www.shodan.io/">Shodan</a></li><li><a href="https://www.exploit-db.com/google-hacking-database">Google Hacking DB</a></li><li><a href="https://osintframework.com/">OSINT Framework</a></li><li><a href="https://haveibeenpwned.com/">Have I Been Pwned</a></li></ul>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-1">← Semana 1</a><a href="#semana-3">Semana 3 →</a></nav>
+    </section>
+    <section id="semana-3">
+<h1>Semana 3: Los 10 riesgos web (OWASP Top 10)</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 3 de 20</p>
+<h2>Objetivos de aprendizaje</h2>
+<ul><li>Explicar los 10 riesgos web OWASP Top 10 (2021) con ejemplos reales</li><li>Reproducir una inyección SQL y un XSS en entorno de laboratorio legal</li><li>Mapear vulnerabilidades web a CWE y técnicas ATT&amp;CK</li><li>Proponer remediaciones concretas para cada riesgo demostrado</li></ul>
+<h2>OWASP Top 10 (2021): los riesgos que más brechas causan</h2>
+<p>OWASP Top 10 es un consenso comunitario sobre los 10 riesgos web más críticos. Se actualiza cada 3-4 años con datos reales de incidentes.</p>
+<p><strong>A01:2021 — Broken Access Control</strong> (CWE-284, CWE-639) El servidor confía en el cliente para controlar el acceso. Ejemplo: cambiar <code>?user_id=123</code> a <code>?user_id=124</code> y acceder a datos ajenos (IDOR — Insecure Direct Object Reference). ATT&amp;CK: T1078.</p>
+<p><strong>A02:2021 — Cryptographic Failures</strong> (CWE-327, CWE-328) Datos sensibles sin cifrar o con algoritmos rotos (MD5, SHA1 sin sal). Contraseñas en texto plano, cookies sin Secure/HttpOnly.</p>
+<p><strong>A03:2021 — Injection</strong> (CWE-89 SQLi, CWE-79 XSS, CWE-77 Command) Input del usuario que se ejecuta como código. La defensa universal: <strong>nunca concatenar input en queries/comandos</strong>; usar prepared statements, parametrización, encoding de salida.</p>
+<pre><code>-- VULNERABLE (concatenación):
+SELECT * FROM users WHERE name = '' + input + '
+-- SEGURO (prepared statement):
+SELECT * FROM users WHERE name = ?   -- el driver escapa automáticamente</code></pre>
+<p><strong>A04:2021 — Insecure Design</strong> (CWE-209, CWE-256) Fallos de arquitectura que no se arreglan parcheando: falta de rate limiting, preguntas de seguridad predecibles, ausencia de modelo de amenazas.</p>
+<p><strong>Referencias:</strong></p>
+<ul><li>OWASP Top 10 — owasp.org/Top10/</li><li>CWE-89 — SQL Injection</li><li>CWE-79 — Cross-site Scripting</li><li>CWE-284 — Improper Access Control</li><li>T1078 — Valid Accounts</li></ul>
+<h2>OWASP Top 10: riesgos A05 a A10</h2>
+<p><strong>A05:2021 — Security Misconfiguration</strong> (CWE-16) Permisos por defecto, headers faltantes, stack traces en producción, servicios innecesarios activos. Incluye XML External Entities (XXE).</p>
+<p><strong>A06:2021 — Vulnerable &amp; Outdated Components</strong> (CWE-1104) Dependencias con CVEs conocidos sin parchear. <code>npm audit</code>, <code>pip-audit</code>, <code>trivy</code> detectan automáticamente. La mayor fuente de brechas masivas.</p>
+<p><strong>A07:2021 — Identification &amp; Authentication Failures</strong> (CWE-287) Credenciales débiles, sesiones que no expiran, falta de MFA en cuentas privilegiadas, brute force sin rate-limit.</p>
+<p><strong>A08:2021 — Software &amp; Data Integrity Failures</strong> (CWE-502) Deserialización insegura, pipelines CI/CD sin verificación de firmas, updates sin validación de integridad. ATT&amp;CK: T1195 (Supply Chain).</p>
+<p><strong>A09:2021 — Security Logging &amp; Monitoring Failures</strong> (CWE-778) Sin logs de eventos de seguridad, sin alertas, sin capacidad de detectar una brecha. En promedio, una brecha tarda 287 días en detectarse (IBM 2023).</p>
+<p><strong>A10:2021 — Server-Side Request Forgery (SSRF)</strong> (CWE-918) El servidor hace peticiones a URLs controladas por el atacante. Vector crítico en entornos cloud: acceso al metadata service (169.254.169.254). ATT&amp;CK: T1090.</p>
+<p><strong>Referencias:</strong></p>
+<ul><li>CWE-918 — SSRF</li><li>CWE-502 — Deserialization</li><li>T1195 — Supply Chain Compromise</li><li>IBM Cost of a Data Breach Report 2023</li></ul>
+<h2>Laboratorio práctico: SQLi y XSS en Juice Shop</h2>
+<p>OWASP Juice Shop es una aplicación web deliberadamente vulnerable, mantenida por OWASP como herramienta educativa. Se ejecuta en local (Docker o Node.js) — nunca en un servidor público.</p>
+<p><strong>Instalación:</strong></p>
+<pre><code># Opción 1: Docker (recomendada)
+docker run --rm -p 3000:3000 bkimminich/juice-shop
+# Opción 2: Node.js
+git clone https://github.com/juice-shop/juice-shop.git
+cd juice-shop &amp;&amp; npm install &amp;&amp; npm start
+# Abrir http://localhost:3000</code></pre>
+<p><strong>Ejercicio 1 — SQL Injection (A03, CWE-89):</strong></p>
+<ol><li>Ve al login de Juice Shop</li><li>En el campo email, introduce: <code>' OR 1=1--</code></li><li>Contraseña: cualquier cosa</li><li>Observa: entras como admin sin conocer credenciales</li><li>¿Por qué funciona? El backend concatena el input en la query SQL</li><li>Remediación: prepared statements + validación de input</li></ol>
+<p><strong>Ejercicio 2 — Reflected XSS (A03, CWE-79):</strong></p>
+<ol><li>Ve a la barra de búsqueda de Juice Shop</li><li>Busca: <code>&lt;iframe src="javascript:alert('XSS')"&gt;</code></li><li>Observa: el script se ejecuta en tu navegador</li><li>¿Por qué funciona? El input se refleja sin encoding en el HTML</li><li>Remediación: encoding de salida (HTML entities) + Content-Security-Policy</li></ol>
+<p><strong>Documentación del hallazgo:</strong></p>
+<pre><code>HALLAZGO:  SQL Injection en endpoint de login
+SEVERIDAD: CVSS 9.8 (Critical)
+CWE:       CWE-89
+ATT&amp;CK:    T1190 (Exploit Public-Facing Application)
+REPRO:     Email: ' OR 1=1-- / Pass: x → acceso admin
+IMPACTO:   Bypass completo de autenticación
+REMEDIO:   Usar ORM con prepared statements</code></pre>
+<p><strong>Referencias:</strong></p>
+<ul><li>OWASP Juice Shop — owasp.org/www-project-juice-shop/</li><li>T1190 — Exploit Public-Facing Application</li><li>CWE-89 — SQL Injection</li><li>CWE-79 — Cross-site Scripting</li></ul>
+<h2>Caso real: Equifax 2017: CVE-2017-5638 (Apache Struts) — 147M registros</h2>
+<p>Equifax no parcheó CVE-2017-5638 (RCE en Apache Struts, CVSS 10.0) durante 2 meses después de la publicación del parche. Un atacante explotó la vulnerabilidad A06 (Vulnerable Components) para acceder a datos de 147 millones de personas: SSN, fechas de nacimiento, direcciones. Coste: $700M en acuerdos. Lección: <code>A06 — Vulnerable &amp; Outdated Components</code> mata. Un npm audit / pip-audit semanal habría evitado la brecha.</p>
+<h2>Ejercicio guiado: Encuentra y documenta 3 vulnerabilidades en Juice Shop</h2>
+<ol><li>Instala Juice Shop con Docker: docker run --rm -p 3000:3000 bkimminich/juice-shop</li><li>Abre http://localhost:3000 y explora la aplicación como usuario normal</li><li>Intenta el SQLi del login: ' OR 1=1--</li><li>Busca un XSS reflejado en la barra de búsqueda</li><li>Explora el panel /administration (IDOR — A01)</li><li>Para cada hallazgo documenta: descripción, CWE, CVSS estimado, reproducción, remediación</li><li>Opcional: consulta el Juice Shop Score Board (/score-board) para más retos</li></ol>
+<h2>Recursos abiertos</h2>
+<ul><li><a href="https://owasp.org/Top10/">OWASP Top 10</a></li><li><a href="https://owasp.org/www-project-juice-shop/">Juice Shop</a></li><li><a href="https://cwe.mitre.org/top25/">CWE Top 25</a></li><li><a href="https://www.first.org/cvss/calculator/3.1">CVSS Calculator</a></li></ul>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-2">← Semana 2</a><a href="#semana-4">Semana 4 →</a></nav>
+    </section>
+    <section id="semana-4">
+<h1>Semana 4: Laboratorio final: máquina vulnerable + informe</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 4 de 20</p>
+<h2>Objetivos de aprendizaje</h2>
+<ul><li>Ejecutar un pentest completo de recon a reporte sobre una máquina vulnerable</li><li>Usar nmap, nikto y herramientas de explotación en entorno local autorizado</li><li>Puntuar hallazgos con CVSS 3.1 y mapearlos a ATT&amp;CK</li><li>Escribir un informe con resumen ejecutivo y detalle técnico reproducible</li></ul>
+<h2>El laboratorio: máquina vulnerable en red local</h2>
+<p>Para la práctica final usamos máquinas deliberadamente vulnerables en red local aislada. Nunca sobre internet, nunca contra terceros.</p>
+<p><strong>Opciones de laboratorio (todas gratuitas):</strong></p>
+<ul><li><strong>Metasploitable 2:</strong> VM clásica con servicios vulnerables (FTP, SSH, Samba, Apache, MySQL). Descarga: sourceforge.net/projects/metasploitable</li><li><strong>VulnHub:</strong> cientos de VMs descargables por dificultad (vulnhub.com)</li><li><strong>HackTheBox (Starting Point):</strong> máquinas guiadas online con VPN</li><li><strong>TryHackMe:</strong> laboratorios guiados con teoría integrada</li></ul>
+<p><strong>Configuración segura del lab:</strong></p>
+<pre><code># Red host-only en VirtualBox (aislada de internet)
+# 1. VirtualBox → File → Host Network Manager → Create
+# 2. VM atacante (Kali): Adapter 1 → Host-only
+# 3. VM objetivo (Metasploitable): Adapter 1 → Host-only
+# 4. Verificar: desde Kali, ping a Metasploitable → OK
+#    desde Metasploitable, ping a 8.8.8.8 → DEBE fallar</code></pre>
+<p>La red host-only garantiza que el tráfico de explotación nunca sale a internet. Es un control de seguridad, no una conveniencia.</p>
+<p><strong>Referencias:</strong></p>
+<ul><li>Metasploitable — sourceforge.net/projects/metasploitable</li><li>VulnHub — vulnhub.com</li><li>HackTheBox — hackthebox.com</li><li>TryHackMe — tryhackme.com</li></ul>
+<h2>De recon a explotación: flujo completo con herramientas</h2>
+<p><strong>Paso 1 — Descubrimiento de hosts:</strong></p>
+<pre><code>nmap -sn 192.168.56.0/24    # ping sweep: qué hosts hay en la red</code></pre>
+<p><strong>Paso 2 — Escaneo de puertos y servicios:</strong></p>
+<pre><code>nmap -sV -sC -p- 192.168.56.101 -oN scan.txt
+# -sV: versión de servicios
+# -sC: scripts por defecto (NSE)
+# -p-: todos los 65535 puertos
+# -oN: guardar output (evidencia)</code></pre>
+<p><strong>Paso 3 — Identificación de vulnerabilidades:</strong></p>
+<pre><code># Web: escaneo con nikto
+nikto -h http://192.168.56.101 -output nikto.txt
+# Buscar CVEs por versión: searchsploit apache 2.2
+searchsploit apache 2.2.8</code></pre>
+<p><strong>Paso 4 — Explotación controlada:</strong> Cada explotación debe ser: (a) autorizada, (b) documentada paso a paso, (c) con captura de evidencia (screenshot + output). El objetivo es demostrar el impacto, no causar daño.</p>
+<p><strong>Paso 5 — Post-explotación:</strong> ¿Qué puede hacer un atacante una vez dentro?</p>
+<ul><li>Leer <code>/etc/shadow</code> → credenciales</li><li>Escalar privilegios (kernel exploits, SUID binaries)</li><li>Pivotar a otros hosts de la red interna</li></ul>
+<p>ATT&amp;CK: T1003 (OS Credential Dumping), T1068 (Exploitation for Privilege Escalation), T1021 (Remote Services para lateral movement)</p>
+<p><strong>Referencias:</strong></p>
+<ul><li>Nmap — nmap.org</li><li>Nikto — github.com/sullo/nikto</li><li>SearchSploit — exploit-db.com/searchsploit</li><li>T1003 — OS Credential Dumping</li><li>T1068 — Exploitation for Privilege Escalation</li></ul>
+<h2>El informe: el producto real del pentester</h2>
+<p>El informe ético tiene dos audiencias: dirección (resumen ejecutivo) y equipo técnico (detalle reproducible). Sin un buen informe, todo el trabajo técnico no sirve.</p>
+<p><strong>Estructura del informe:</strong></p>
+<p><strong>1. Portada:</strong> cliente, equipo, fecha, clasificación (CONFIDENCIAL)</p>
+<p><strong>2. Resumen ejecutivo (1-2 páginas):</strong></p>
+<ul><li>Alcance y objetivos del test</li><li>Resumen de hallazgos por severidad (tabla: Critical/High/Medium/Low)</li><li>Conclusión: postura de seguridad y recomendaciones prioritarias</li><li>Redactado para quien NO es técnico</li></ul>
+<p><strong>3. Detalle técnico (por hallazgo):</strong></p>
+<pre><code>ID:          VULN-001
+TÍTULO:      SQL Injection en endpoint de login
+SEVERIDAD:   Critical (CVSS 9.8)
+CVSS Vector: AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H
+CWE:         CWE-89
+ATT&amp;CK:      T1190
+DESCRIPCIÓN: El parámetro 'email' del endpoint POST /rest/user/login
+             no sanitiza input, permitiendo inyección SQL.
+REPRODUCCIÓN:
+  1. POST /rest/user/login
+  2. Body: {"email": "' OR 1=1--", "password": "x"}
+  3. Respuesta: 200 OK con token de sesión admin
+EVIDENCIA:   [captura adjunta]
+IMPACTO:     Bypass completo de autenticación; acceso a todos los datos
+REMEDIACIÓN: Usar ORM con prepared statements; validar formato email</code></pre>
+<p><strong>4. Apéndices:</strong> configuración del lab, herramientas usadas, log de tiempos, lista de puertos/servicios encontrados.</p>
+<p><strong>CVSS 3.1 — cómo puntuar:</strong> 8 métricas: Attack Vector, Complexity, Privileges Required, User Interaction, Scope, Confidentiality/Integrity/Availability Impact. Usa la calculadora oficial de FIRST (first.org/cvss/calculator/3.1).</p>
+<p><strong>Referencias:</strong></p>
+<ul><li>CVSS 3.1 — first.org/cvss/</li><li>PTES Reporting — pentest-standard.org</li><li>OWASP Reporting Guidelines</li></ul>
+<h2>Caso real: SolarWinds 2020: la post-explotación más sofisticada documentada</h2>
+<p>El grupo UNC2452 (atribuido a SVR ruso) comprometió el pipeline de build de SolarWinds Orion (ATT&amp;CK: T1195.002 — Supply Chain: Software Supply Chain). El backdoor SUNBURST se distribuyó como actualización legítima a 18.000 organizaciones. Post-explotación: movimiento lateral con tokens SAML forjados (T1606.002), persistencia con tareas programadas (T1053.005). Lección para el informe: la post-explotación define el impacto real — sin ella, un hallazgo parece menor de lo que es.</p>
+<h2>Ejercicio guiado: Pentest completo de Metasploitable 2 con informe</h2>
+<ol><li>Configura el lab: Kali + Metasploitable 2 en red host-only</li><li>Ejecuta ping sweep: nmap -sn 192.168.56.0/24</li><li>Escanea la máquina: nmap -sV -sC -p- [IP] -oN scan.txt</li><li>Identifica al menos 5 servicios vulnerables en el output</li><li>Elige 2 vectores y explótalos (documenta cada paso con capturas)</li><li>Intenta escalada de privilegios en al menos 1 vector</li><li>Puntúa cada hallazgo con CVSS 3.1 (usa la calculadora de FIRST)</li><li>Escribe el informe completo: ejecutivo + técnico + apéndices</li></ol>
+<h2>Recursos abiertos</h2>
+<ul><li><a href="https://sourceforge.net/projects/metasploitable/">Metasploitable 2</a></li><li><a href="https://www.first.org/cvss/calculator/3.1">CVSS Calculator</a></li><li><a href="https://www.vulnhub.com/">VulnHub</a></li><li><a href="https://nmap.org/book/man.html">Nmap Reference Guide</a></li></ul>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-3">← Semana 3</a><a href="#semana-5">Semana 5 →</a></nav>
+    </section>
+    <section id="semana-5">
+<h1>Semana 5: Reconocimiento avanzado y OSINT</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 5 de 20</p>
+<h2>LECTURA: Teoria: Reconocimiento avanzado y OSINT</h2>
+<p>Contenido teorico detallado para reconocimiento avanzado y osint. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Reconocimiento avanzado y OSINT</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para reconocimiento avanzado y osint.</p>
+<h2>CASO: Caso real: Reconocimiento avanzado y OSINT</h2>
+<p>Analisis de incidente real donde reconocimiento avanzado y osint fue factor clave. Lecciones aprendidas.</p>
+<h2>🎯 Objetivo de la semana</h2>
+<p>Convertir información pública dispersa en un mapa accionable del objetivo sin enviar un solo paquete a su infraestructura.</p>
+<h2>📖 Lectura principal</h2>
+<p>El reconocimiento avanzado empieza por el dominio: certificados (crt.sh revela subdominios históricos), registros DNS (MX, TXT, NS delatan proveedores y a veces relaciones corporativas), Wayback Machine (versiones borradas de portales con datos útiles) y metadatos de documentos públicos (autor, plantilla, rutas internas). Las Google dorks sistematizan la búsqueda: site:, filetype:pdf, inurl:admin, cache:. El perfilado de personas con responsabilidad (LinkedIn, publicaciones, charlas) alimenta la ingeniería social ética: no para engañar, sino para saber qué phishing simularíamos en el informe. La regla profesional: todo lo que OSINT encuentra se documenta con fecha y fuente, porque el informe ético cita evidencia verificable, nunca capturas sin contexto. Un recon pasivo bien hecho responde tres preguntas antes de tocar nada: qué superficie existe, quién la administra y qué valor tiene para el alcance firmado.</p>
+<h2>🛠️ Práctica guiada</h2>
+<p>Elige un dominio que te pertenezca o uno con programa bug bounty público. Extrae: 10+ subdominios (crt.sh), 3 tecnologías visibles, 2 correos corporativos públicos y 1 documento con metadatos. Redacta el perfil en una página con fuente y fecha por dato.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-4">← Semana 4</a><a href="#semana-6">Semana 6 →</a></nav>
+    </section>
+    <section id="semana-6">
+<h1>Semana 6: Modelado de amenazas y arboles de ataque</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 6 de 20</p>
+<h2>LECTURA: Teoria: Modelado de amenazas y arboles de ataque</h2>
+<p>Contenido teorico detallado para modelado de amenazas y arboles de ataque. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Modelado de amenazas y arboles de ataque</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para modelado de amenazas y arboles de ataque.</p>
+<h2>CASO: Caso real: Modelado de amenazas y arboles de ataque</h2>
+<p>Analisis de incidente real donde modelado de amenazas y arboles de ataque fue factor clave. Lecciones aprendidas.</p>
+<h2>🎯 Objetivo de la semana</h2>
+<p>Modelar al adversario con árboles de ataque y decidir qué rutas proteger primero con el presupuesto disponible.</p>
+<h2>📖 Lectura principal</h2>
+<p>Un árbol de ataque (Schneier) pone el objetivo del atacante en la raíz —por ejemplo 'exfiltrar la base de clientes'— y descompone los caminos en ramas con condiciones AND/OR: obtener credenciales de VPN O explotar el portal expuesto Y esquivar el WAF. Cada hoja recibe coste para el atacante y probabilidad estimada; el defensista poda primero las ramas de menor coste y mayor probabilidad. MITRE ATT&amp;CK complementa el modelo con tácticas y técnicas reales observadas (reconocimiento, acceso inicial, persistencia, movimiento lateral, exfiltración), dando vocabulario común al rojo y al azul. La diferencia entre una lista de vulnerabilidades y un modelo de amenaza es que el segundo responde '¿y esto qué le permite al atacante?' — la pregunta que un comité directivo financia.</p>
+<h2>🛠️ Práctica guiada</h2>
+<p>Construye el árbol de 'acceso no autorizado al panel de administración' de una web ficticia con al menos 8 hojas. Marca las 2 ramas más baratas para el atacante y propón un control por rama. Contrasta tus técnicas con 3 entradas reales de ATT&amp;CK (cita los identificadores).</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-5">← Semana 5</a><a href="#semana-7">Semana 7 →</a></nav>
+    </section>
+    <section id="semana-7">
+<h1>Semana 7: Escaneo de vulnerabilidades y validacion</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 7 de 20</p>
+<h2>LECTURA: Teoria: Escaneo de vulnerabilidades y validacion</h2>
+<p>Contenido teorico detallado para escaneo de vulnerabilidades y validacion. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Escaneo de vulnerabilidades y validacion</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para escaneo de vulnerabilidades y validacion.</p>
+<h2>CASO: Caso real: Escaneo de vulnerabilidades y validacion</h2>
+<p>Analisis de incidente real donde escaneo de vulnerabilidades y validacion fue factor clave. Lecciones aprendidas.</p>
+<h2>🎯 Objetivo de la semana</h2>
+<p>Distinguir un escáner que acumula ruido de un escaneo que produce hallazgos validados y priorizados.</p>
+<h2>📖 Lectura principal</h2>
+<p>Los escáneres (OpenVAS, Nessus Essentials) venden cobertura; la profesionalidad está en la validación: un CVE sin Proof-of-Concept reproducible en TU contexto es una hipótesis, no un hallazgo. El flujo maduro: escaneo autenticado (ve más que el anónimo), deduplicación (el mismo servicio reportado por 4 vías es un activo), verificación manual del top-10 por severidad, y priorización por explotabilidad real — EPSS estima probabilidad de explotación en producción y CVSS mide impacto teórico; juntos valen más que cualquiera solo. Se descarta lo inalcanzable por red y se re-testea tras parchear: el escaneo de verificación cierra el ciclo. Documentar falso positivo es obligatorio: enseñar por qué algo parecía grave y no lo es educa al cliente y afina el próximo escaneo.</p>
+<h2>🛠️ Práctica guiada</h2>
+<p>Escanea tu VM de laboratorio con OpenVAS. Toma los 3 hallazgos de mayor severidad y valida cada uno: ¿reproducible? ¿alcanzable desde tu posición? ¿tiene PoC público? Asigna prioridad final combinando CVSS + reachability y explica una exclusión (falso positivo o no explotable) razonada.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-6">← Semana 6</a><a href="#semana-8">Semana 8 →</a></nav>
+    </section>
+    <section id="semana-8">
+<h1>Semana 8: Ataques a aplicaciones web (OWASP Top 10)</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 8 de 20</p>
+<h2>LECTURA: Teoria: Ataques a aplicaciones web (OWASP Top 10)</h2>
+<p>Contenido teorico detallado para ataques a aplicaciones web (owasp top 10). Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Ataques a aplicaciones web (OWASP Top 10)</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para ataques a aplicaciones web (owasp top 10).</p>
+<h2>CASO: Caso real: Ataques a aplicaciones web (OWASP Top 10)</h2>
+<p>Analisis de incidente real donde ataques a aplicaciones web (owasp top 10) fue factor clave. Lecciones aprendidas.</p>
+<h2>🎯 Objetivo de la semana</h2>
+<p>Ejecutar los riesgos web del OWASP Top 10 en laboratorio legal y documentarlos en formato de informe profesional.</p>
+<h2>📖 Lectura principal</h2>
+<p>El Top 10 se domina tocándolo: inyección SQL (entrada que se convierte en consulta — prueba con delimitadores y observa errores, luego UNION y ciegas con retardos), control de acceso roto (cambiar id=17 por id=18 en un perfil ajeno: el servidor confió en el cliente), XSS reflejado y almacenado (tu script viaja al navegador de otra persona), SSRF (el servidor pide la URL que tú le das: alcanza su red interna), y componentes obsoletos (la biblioteca de 2016 con CVE conocido que nadie actualizó). En Juice Shop cada reto mapea una categoría con pista y solución oficial: úsalo como gimnasio, pero el entregable profesional es el informe: título, severidad CVSS con vector, reproducción paso a paso, captura con contexto y remediación concreta (no 'actualizar', sino 'pasar a versión X y aplicar prepared statements en login').</p>
+<h2>🛠️ Práctica guiada</h2>
+<p>En Juice Shop local: resuelve un reto de inyección, uno de control de acceso y uno de XSS. Escribe los 3 hallazgos en formato de informe (CVSS + vector, pasos, evidencia, remediación). Un compañero debe poder reproducirlos siguiendo tus pasos sin preguntarte nada.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-7">← Semana 7</a><a href="#semana-9">Semana 9 →</a></nav>
+    </section>
+    <section id="semana-9">
+<h1>Semana 9: Explotacion de red y servicios</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 9 de 20</p>
+<h2>LECTURA: Teoria: Explotacion de red y servicios</h2>
+<p>Contenido teorico detallado para explotacion de red y servicios. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Explotacion de red y servicios</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para explotacion de red y servicios.</p>
+<h2>CASO: Caso real: Explotacion de red y servicios</h2>
+<p>Analisis de incidente real donde explotacion de red y servicios fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-8">← Semana 8</a><a href="#semana-10">Semana 10 →</a></nav>
+    </section>
+    <section id="semana-10">
+<h1>Semana 10: Escalada de privilegios Windows y Linux</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 10 de 20</p>
+<h2>LECTURA: Teoria: Escalada de privilegios Windows y Linux</h2>
+<p>Contenido teorico detallado para escalada de privilegios windows y linux. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Escalada de privilegios Windows y Linux</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para escalada de privilegios windows y linux.</p>
+<h2>CASO: Caso real: Escalada de privilegios Windows y Linux</h2>
+<p>Analisis de incidente real donde escalada de privilegios windows y linux fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-9">← Semana 9</a><a href="#semana-11">Semana 11 →</a></nav>
+    </section>
+    <section id="semana-11">
+<h1>Semana 11: Movimiento lateral y pivoting</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 11 de 20</p>
+<h2>LECTURA: Teoria: Movimiento lateral y pivoting</h2>
+<p>Contenido teorico detallado para movimiento lateral y pivoting. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Movimiento lateral y pivoting</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para movimiento lateral y pivoting.</p>
+<h2>CASO: Caso real: Movimiento lateral y pivoting</h2>
+<p>Analisis de incidente real donde movimiento lateral y pivoting fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-10">← Semana 10</a><a href="#semana-12">Semana 12 →</a></nav>
+    </section>
+    <section id="semana-12">
+<h1>Semana 12: Mecanismos de persistencia</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 12 de 20</p>
+<h2>LECTURA: Teoria: Mecanismos de persistencia</h2>
+<p>Contenido teorico detallado para mecanismos de persistencia. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Mecanismos de persistencia</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para mecanismos de persistencia.</p>
+<h2>CASO: Caso real: Mecanismos de persistencia</h2>
+<p>Analisis de incidente real donde mecanismos de persistencia fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-11">← Semana 11</a><a href="#semana-13">Semana 13 →</a></nav>
+    </section>
+    <section id="semana-13">
+<h1>Semana 13: Evasion de defensas</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 13 de 20</p>
+<h2>LECTURA: Teoria: Evasion de defensas</h2>
+<p>Contenido teorico detallado para evasion de defensas. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Evasion de defensas</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para evasion de defensas.</p>
+<h2>CASO: Caso real: Evasion de defensas</h2>
+<p>Analisis de incidente real donde evasion de defensas fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-12">← Semana 12</a><a href="#semana-14">Semana 14 →</a></nav>
+    </section>
+    <section id="semana-14">
+<h1>Semana 14: Acceso a credenciales y volcado</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 14 de 20</p>
+<h2>LECTURA: Teoria: Acceso a credenciales y volcado</h2>
+<p>Contenido teorico detallado para acceso a credenciales y volcado. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Acceso a credenciales y volcado</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para acceso a credenciales y volcado.</p>
+<h2>CASO: Caso real: Acceso a credenciales y volcado</h2>
+<p>Analisis de incidente real donde acceso a credenciales y volcado fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-13">← Semana 13</a><a href="#semana-15">Semana 15 →</a></nav>
+    </section>
+    <section id="semana-15">
+<h1>Semana 15: Exfiltracion e impacto</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 15 de 20</p>
+<h2>LECTURA: Teoria: Exfiltracion e impacto</h2>
+<p>Contenido teorico detallado para exfiltracion e impacto. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Exfiltracion e impacto</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para exfiltracion e impacto.</p>
+<h2>CASO: Caso real: Exfiltracion e impacto</h2>
+<p>Analisis de incidente real donde exfiltracion e impacto fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-14">← Semana 14</a><a href="#semana-16">Semana 16 →</a></nav>
+    </section>
+    <section id="semana-16">
+<h1>Semana 16: Ataques a cloud y contenedores</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 16 de 20</p>
+<h2>LECTURA: Teoria: Ataques a cloud y contenedores</h2>
+<p>Contenido teorico detallado para ataques a cloud y contenedores. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Ataques a cloud y contenedores</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para ataques a cloud y contenedores.</p>
+<h2>CASO: Caso real: Ataques a cloud y contenedores</h2>
+<p>Analisis de incidente real donde ataques a cloud y contenedores fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-15">← Semana 15</a><a href="#semana-17">Semana 17 →</a></nav>
+    </section>
+    <section id="semana-17">
+<h1>Semana 17: Red teaming wireless y fisico</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 17 de 20</p>
+<h2>LECTURA: Teoria: Red teaming wireless y fisico</h2>
+<p>Contenido teorico detallado para red teaming wireless y fisico. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Red teaming wireless y fisico</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para red teaming wireless y fisico.</p>
+<h2>CASO: Caso real: Red teaming wireless y fisico</h2>
+<p>Analisis de incidente real donde red teaming wireless y fisico fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-16">← Semana 16</a><a href="#semana-18">Semana 18 →</a></nav>
+    </section>
+    <section id="semana-18">
+<h1>Semana 18: Ingenieria social y phishing</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 18 de 20</p>
+<h2>LECTURA: Teoria: Ingenieria social y phishing</h2>
+<p>Contenido teorico detallado para ingenieria social y phishing. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Ingenieria social y phishing</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para ingenieria social y phishing.</p>
+<h2>CASO: Caso real: Ingenieria social y phishing</h2>
+<p>Analisis de incidente real donde ingenieria social y phishing fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-17">← Semana 17</a><a href="#semana-19">Semana 19 →</a></nav>
+    </section>
+    <section id="semana-19">
+<h1>Semana 19: Informes y seguimiento de remediacion</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 19 de 20</p>
+<h2>LECTURA: Teoria: Informes y seguimiento de remediacion</h2>
+<p>Contenido teorico detallado para informes y seguimiento de remediacion. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Informes y seguimiento de remediacion</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para informes y seguimiento de remediacion.</p>
+<h2>CASO: Caso real: Informes y seguimiento de remediacion</h2>
+<p>Analisis de incidente real donde informes y seguimiento de remediacion fue factor clave. Lecciones aprendidas.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-18">← Semana 18</a><a href="#semana-20">Semana 20 →</a></nav>
+    </section>
+    <section id="semana-20">
+<h1>Semana 20: Capstone: Pentest completo end-to-end</h1>
+<p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 20 de 20</p>
+<h2>LECTURA: Teoria: Capstone: Pentest completo end-to-end</h2>
+<p>Contenido teorico detallado para capstone: pentest completo end-to-end. Incluye frameworks, comandos y referencias.</p>
+<h2>EJERCICIO: Practica guiada: Capstone: Pentest completo end-to-end</h2>
+<p>Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para capstone: pentest completo end-to-end.</p>
+<h2>CASO: Caso real: Capstone: Pentest completo end-to-end</h2>
+<p>Analisis de incidente real donde capstone: pentest completo end-to-end fue factor clave. Lecciones aprendidas.</p>
+<h2>PROYECTO: Proyecto integrador: Capstone: Pentest completo end-to-end</h2>
+<p>Proyecto final que integra todos los conocimientos del curso.</p>
+<hr>
+<p><a href="#syllabus">Volver al syllabus</a></p>
+      <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-19">← Semana 19</a><a href="#quiz">Quiz del curso →</a></nav>
+    </section>
+    <section id="quiz">
+      <h2>Quiz del curso</h2>
+      <p class="t2">Checkpoint formativo: 22 ítems con explicación.
+Al superar 70 %, márcalo en tu progreso.</p>
+      <h3 id="q-titulo"></h3>
+      <div class="quiz-opciones" id="q-opciones"></div>
+      <p class="feedback" id="q-feedback" aria-live="polite"></p>
+      <p class="marcador" id="q-marcador"></p>
+      <button class="btn" id="q-next" hidden>Siguiente</button>
+    </section>
+    <section id="laboratorio">
+<h1>Lab guiado: Juice Shop en local (legal)</h1>
+<p><strong>Curso:</strong> Ciberseguridad Ofensiva: Pensar como Atacante · <strong>Duración estimada:</strong> 3–4 h · <strong>Nivel:</strong> universitario</p>
+<h2>Objetivo</h2>
+<p>Encontrar y documentar 3 vulnerabilidades del OWASP Top 10 en un entorno creado para ser vulnerable.</p>
+<h2>Marco legal y ético</h2>
+<p>Juice Shop is deliberately vulnerable and local: it is the legal way to practice. NEVER against systems you don't own.</p>
+<h2>Pasos</h2>
+<ol><li>Install Docker Desktop (or Docker Engine).</li><li>Levantar el objetivo: <code>docker run --rm -p 3000:80 bkimminich/juice-shop</code> → http://localhost:3000</li><li>Recon: walk the app, view page source, check /ftp route, error messages.</li><li>Vector 1 (inyección): in login, test <code>' or 1=1--</code> and document what happens.</li><li>Vector 2 (control de acceso): open a product URL and try changing the ID to another user's.</li><li>Vector 3 (XSS): find a field that reflects text and try <code>&lt;script&gt;alert(1)&lt;/script&gt;</code>.</li><li>For each one: screenshot + step-by-step reproduction + CVSS + remediation.</li><li>Cleanup: <code>docker stop &lt;id&gt;</code> and delete local containers.</li></ol>
+<h2>Evidencia a entregar</h2>
+<p>3 hallazgos completos (formato del informe de la chuleta) en <code>evidencia-ofensiva.md</code>.</p>
+<h2>Criterio de superación</h2>
+<p>La evidencia debe permitir que otra persona <strong>reproduzca</strong> el resultado sin preguntarte nada. Si no es reproducible, no es evidencia (ver <a href="#rubrica">rúbrica</a>).</p>
+    </section>
+    <section id="proyecto">
+<h1>Examen final y proyecto — Ciberseguridad Ofensiva: Pensar como Atacante</h1>
+<h2>Parte A — Examen (30 % del bloque de evaluación)</h2>
+<ul><li>12 preguntas tipo test (banco del quiz ampliado) + 2 preguntas cortas de razonamiento.</li><li>Sin material. Duración estimada: 45 min.</li><li>Cubre: S1: Ética, legalidad y alcance del test, S2: Reconocimiento pasivo y OSINT, S3: Los 10 riesgos web (OWASP Top 10), S4: Laboratorio final: máquina vulnerable + informe, S5: Reconocimiento avanzado y OSINT, S6: Modelado de amenazas y arboles de ataque, S7: Escaneo de vulnerabilidades y validacion, S8: Ataques a aplicaciones web (OWASP Top 10), S9: Explotacion de red y servicios, S10: Escalada de privilegios Windows y Linux, S11: Movimiento lateral y pivoting, S12: Mecanismos de persistencia, S13: Evasion de defensas, S14: Acceso a credenciales y volcado, S15: Exfiltracion e impacto, S16: Ataques a cloud y contenedores, S17: Red teaming wireless y fisico, S18: Ingenieria social y phishing, S19: Informes y seguimiento de remediacion, S20: Capstone: Pentest completo end-to-end.</li></ul>
+<h2>Parte B — Proyecto final con evidencia (40 %)</h2>
+<p><strong>Encargo:</strong> Encontrar y documentar 3 vulnerabilidades del OWASP Top 10 en un entorno creado para ser vulnerable.</p>
+<p><strong>Laboratorio de referencia:</strong> <a href="#laboratorio">laboratorio.md</a> — Lab guiado: Juice Shop en local (legal)</p>
+<h3>Entregables</h3>
+<ol><li><strong>Evidencia</strong> (<code>evidencia-*.md</code>): 3 hallazgos completos (formato del informe de la chuleta) en <code>evidencia-ofensiva.md</code>.</li><li><strong>Informe</strong> con la estructura de la <a href="#chuleta">chuleta</a>: qué, cuánto, cómo, captura, remediación/decisión.</li><li><strong>Defensa</strong> (10 min): demo en vivo respondiendo con el artefacto delante.</li></ol>
+<h3>Condiciones éticas</h3>
+<p>Juice Shop is deliberately vulnerable and local: it is the legal way to practice. NEVER against systems you don't own.</p>
+<h3>Cómo se califica</h3>
+<p>Según la <a href="#rubrica">rúbrica</a>, bloque 3. Sin evidencia verificable no hay proyecto: un resumen bonito no es evidencia.</p>
+<h2>Superación del curso</h2>
+<table><thead><tr><th>Bloque</th><th>Peso</th><th>Mínimo</th></tr></thead><tbody><tr><td>Participación + ejercicios</td><td>30 %</td><td>entregar ≥ 70 % de semanas</td></tr><tr><td>Quizzes formativos</td><td>30 %</td><td>≥ 60 % de aciertos</td></tr><tr><td>Examen + proyecto</td><td>40 %</td><td>evidencia presentada y defendida</td></tr></tbody></table>
+<p>Al superar el curso puedes generar tu credencial con sello hash en <a href="../../credencial.html">../credencial.html</a>.</p>
+    </section>
+    <section id="rubrica">
+<h1>Rúbrica de evaluación — Ciberseguridad Ofensiva: Pensar como Atacante</h1>
+<blockquote>Peso global: participación y ejercicios <strong>30 %</strong> · quizzes formativos <strong>30 %</strong> · proyecto final con evidencia <strong>40 %</strong>. Estilo Harvard: se aprueba demostrando.</blockquote>
+<h2>Objetivos que la rúbrica mide</h2>
+<ul><li>Distinguir hacking ético de actividad delictiva</li><li>Ejecutar reconocimiento pasivo y OSINT sobre un objetivo autorizado</li><li>Explicar y reproducir los 10 riesgos web principales de OWASP</li><li>Redactar un informe de hallazgos con severidad y remediación</li></ul>
+<h2>1. Participación y ejercicios semanales (30 %)</h2>
+<table><thead><tr><th>Criterio</th><th>Excelente (100)</th><th>Suficiente (60)</th><th>Insuficiente (0)</th></tr></thead><tbody><tr><td>Constancia</td><td>Todas las semanas con entrega</td><td>≥ 70 % de semanas</td><td>&lt; 70 %</td></tr><tr><td>Calidad del ejercicio</td><td>Resuelto y explicado con palabras propias</td><td>Resuelto sin explicar</td><td>Copiado o vacío</td></tr></tbody></table>
+<h2>2. Quizzes formativos (30 %)</h2>
+<table><thead><tr><th>Criterio</th><th>Excelente</th><th>Suficiente</th><th>Insuficiente</th></tr></thead><tbody><tr><td>Aciertos acumulados</td><td>≥ 85 %</td><td>60–84 %</td><td>&lt; 60 %</td></tr><tr><td>Uso de la explicación</td><td>Repasa lo fallado y lo corrige</td><td>Repasa a veces</td><td>No repasa</td></tr></tbody></table>
+<h2>3. Proyecto final con evidencia (40 %)</h2>
+<table><thead><tr><th>Criterio</th><th>Excelente (100)</th><th>Suficiente (60)</th><th>Insuficiente (0)</th></tr></thead><tbody><tr><td>Evidencia</td><td>Artefactos verificables y reproducibles</td><td>Evidencia parcial</td><td>Solo afirmaciones</td></tr><tr><td>Informe</td><td>Hallazgo + severidad + reproducción + remediación</td><td>Falta 1 sección</td><td>Sin estructura</td></tr><tr><td>Defensa</td><td>Responde con el artefacto delante</td><td>Responde con dudas</td><td>No puede defenderlo</td></tr><tr><td>Ética/legalidad</td><td>Alcance respetado en todo momento</td><td>Duda menor documentada</td><td>Fuera de alcance</td></tr></tbody></table>
+<p><strong>Nota final</strong> = 0.3·P1 + 0.3·P2 + 0.4·P3 · Aprobado ≥ 60/100 con evidencia presentada.</p>
+    </section>
+    <section id="glosario">
+<h1>Glosario — Ciberseguridad Ofensiva: Pensar como Atacante</h1>
+<p>Términos que el curso usa y que el examen puede pedir.</p>
+<table><thead><tr><th>Término</th><th>Definición en una línea</th></tr></thead><tbody><tr><td><strong>Alcance (scope)</strong></td><td>Contractual definition of what can and cannot be tested. No scope, no test.</td></tr><tr><td><strong>OSINT</strong></td><td>Open Source INTelligence: public information without touching the target.</td></tr><tr><td><strong>Footprinting pasivo</strong></td><td>Recon that does not send packets to the target's infrastructure.</td></tr><tr><td><strong>Google dork</strong></td><td>Advanced search operators that expose indexed information.</td></tr><tr><td><strong>Falso amigo de seguridad</strong></td><td>An open service that looks legitimate but expands the attack surface.</td></tr><tr><td><strong>OWASP Top 10</strong></td><td>Community consensus on the 10 most critical web application risks.</td></tr><tr><td><strong>Inyección SQL</strong></td><td>Untrusted input becomes executable code against the DB.</td></tr><tr><td><strong>Broken Access Control</strong></td><td>The server trusts client-side restrictions; users reach what isn't theirs.</td></tr><tr><td><strong>XSS</strong></td><td>Injection of scripts executed in the victim's browser.</td></tr><tr><td><strong>SSRF</strong></td><td>The server is tricked into making requests on the attacker's behalf.</td></tr><tr><td><strong>CVSS</strong></td><td>Common Vulnerability Scoring System: severity from 0 to 10.</td></tr><tr><td><strong>Regla de compromiso</strong></td><td>Rules of engagement: windows, intensity, contacts, stop conditions.</td></tr><tr><td><strong>Escalada de privilegios</strong></td><td>Moving from initial access to higher permissions.</td></tr><tr><td><strong>Pivot</strong></td><td>Using a compromised machine as a bridge to reach others.</td></tr><tr><td><strong>Exfiltración</strong></td><td>Illegitimate extraction of data from the target.</td></tr><tr><td><strong>Informe ético</strong></td><td>Finding + severity + reproduction + remediation. The deliverable of the course.</td></tr></tbody></table>
+<blockquote>Regla de estudio: si no sabes explicarlo en una frase a alguien de fuera, aún no lo sabes.</blockquote>
+    </section>
+    <section id="chuleta">
+<h1>Ciberseguridad Ofensiva: Pensar como Atacante — material de repaso</h1>
+<h1>Chuleta — Ciberseguridad Ofensiva</h1>
+<h2>Regla 0 (antes que cualquier comando)</h2>
+<ul><li>¿Permiso escrito? ¿Alcance firmado? ¿Ventana horaria? → si falta algo: NO.</li></ul>
+<h2>Recon pasivo (no toca al objetivo)</h2>
+<ul><li><code>crt.sh/?q=dominio</code> — subdomains via certificates</li><li><code>site:dominio filetype:pdf</code> / <code>inurl:admin</code> — Google dorks</li><li>Wayback Machine — deleted versions</li><li>DNS: <code>nslookup</code>, <code>dig any dominio</code></li></ul>
+<h2>Recon activo suave (autorizado)</h2>
+<ul><li><code>nmap -sn 192.168.1.0/24</code> — host discovery</li><li><code>nmap -sV -p- --min-rate 1000 &lt;ip&gt;</code> — services (with permission)</li><li><code>whatweb &lt;url&gt;</code> — visible technologies</li></ul>
+<h2>OWASP Top 10 (memory hook)</h2>
+<p>1 Inyección · 2 Auth rota · 3 Datos sensibles · 4 XXE · 5 Control de acceso · 6 Mal configuración · 7 XSS · 8 Deserialización · 9 Componentes obsoletos · 10 Logging insuficiente</p>
+<h2>Informe (lo que se evalúa)</h2>
+<ol><li>Hallazgo (qué) · 2. Severidad CVSS (cuánto) · 3. Reproducción paso a paso (cómo)</li><li>Evidencia (captura) · 5. Remediación (qué hacer)</li></ol>
+<h2>Números que importan</h2>
+<ul><li>CVSS: 0.1–3.9 bajo · 4.0–6.9 medio · 7.0–8.9 alto · 9.0–10 crítico</li></ul>
+<p><em>Generado por edu-forge academy. Imprímela: es lo que llevas al examen.</em></p>
+    </section>
+    <section id="recursos">
+<h1>Recursos abiertos — Ciberseguridad Ofensiva: Pensar como Atacante</h1>
+<h2>Repositorios verificados (GitHub, activos)</h2>
+<ul><li><a href="https://github.com/OWASP/wstg">OWASP Web Security Testing Guide</a> — guía oficial de pruebas de seguridad web (9.8k★)</li><li><a href="https://github.com/juice-shop/juice-shop">OWASP Juice Shop</a> — app vulnerable moderna para práctica legal en local (13.8k★)</li><li><a href="https://github.com/digininja/DVWA">DVWA</a> — web app deliberadamente vulnerable (PHP/MySQL) (13.6k★)</li><li><a href="https://github.com/rapid7/metasploit-framework">Metasploit Framework</a> — framework de explotación — solo en pentests autorizados (39k★)</li><li><a href="https://github.com/freeCodeCamp/freeCodeCamp">freeCodeCamp</a> — currículo abierto de programación y matemáticas (455k★)</li><li><a href="https://github.com/public-apis/public-apis">public-apis</a> — directorio comunitario de APIs gratuitas (479k★)</li></ul>
+<h2>APIs abiertas verificadas (sin API key)</h2>
+<ul><li><a href="https://openlibrary.org/developers/api">Open Library API</a> — catálogo abierto de libros, sin API key</li><li><a href="https://es.wikipedia.org/w/api.php">Wikipedia API</a> — contenido enciclopédico multilingüe, sin API key</li><li><a href="https://export.arxiv.org/api/query">arXiv API</a> — papers científicos abiertos, sin API key</li></ul>
+<h3>PT</h3>
+<ul><li><a href="https://pt.khanacademy.org">Khan Academy PT</a> — matematicas, ciencias</li><li><a href="https://pt.wikibooks.org">Wikilivros PT</a> — libros abiertos</li><li><a href="https://pt.forvo.com">Forvo PT</a> — pronunciacion real</li><li><a href="https://www.dominiopublico.gov.br">Portal Domínio Público</a> — obras libres BR</li><li><a href="https://ciberduvidas.iscte-iul.pt">Ciberdúvidas</a> — dudas de portugues</li></ul>
+<h3>ES</h3>
+<ul><li><a href="https://es.khanacademy.org">Khan Academy ES</a> — matematicas, ciencias</li><li><a href="https://edu.gcfglobal.org/es/">GCF Global</a> — office, internet, empleo</li><li><a href="https://www.aulamentor.es">Aula Mentor (MEC)</a> — cursos oficiales gratuitos</li><li><a href="https://learndigital.withgoogle.com/activate">Google Activate</a> — habilidades digitales</li><li><a href="https://ocw.mit.edu">MIT OpenCourseWare</a> — universitario abierto</li><li><a href="https://openstax.org">OpenStax</a> — libros de texto abiertos</li><li><a href="https://www.ine.es">INE / datos abiertos</a> — datos publicos</li></ul>
+<h3>EN</h3>
+<ul><li><a href="https://cs50.harvard.edu">Harvard Online (CS50)</a> — curso insignia</li><li><a href="https://ocw.mit.edu">MIT OCW</a> — grado abierto</li><li><a href="https://www.open.edu/openlearn">OpenLearn (OU)</a> — cursos gratuitos</li><li><a href="https://www.gutenberg.org">Project Gutenberg</a> — libros dominio publico</li></ul>
+<h2>Regla de oro</h2>
+<p>Todo recurso externo está verificado (existencia y actividad comprobadas el 2026-09-12 vía GitHub API / HTTP) antes de citarse. Nada de contenido con licencia dudosa.</p>
+    </section>
+  </main>
+</div>
+  <script>
+    const QUIZ = [{"pregunta": "Lo primero en cualquier test ofensivo es...", "opciones": ["Escanear agresivamente", "Obtener permiso escrito y alcance", "Instalar Metasploit", "Buscar 0-days"], "correcta": 1, "explicacion": "Sin autorización expresa no hay test ético: hay delito."}, {"pregunta": "OWASP Top 10 es...", "opciones": ["Una lista de antivirus", "Un ranking de riesgos de seguridad web", "Un firewall", "Una norma ISO"], "correcta": 1, "explicacion": "Consenso comunitario sobre los 10 riesgos web más críticos."}, {"pregunta": "El OSINT pasivo se caracteriza por...", "opciones": ["Enviar paquetes al objetivo", "No contactar directamente el objetivo", "Requerir exploits", "Ser ilegal siempre"], "correcta": 1, "explicacion": "Recolecta información pública sin tocar la infraestructura del objetivo."}, {"pregunta": "Un hallazgo en el informe ético se cierra con...", "opciones": ["Un pantallazo sin contexto", "Severidad + reproducción + remediación", "El nombre del atacante", "El precio del fix"], "correcta": 1, "explicacion": "Sin severidad (CVSS), reproducción y remediación no es un hallazgo accionable."}, {"pregunta": "Juice Shop o Metasploitable son válidos para practicar porque...", "opciones": ["Son sistemas de terceros sin dueño", "Son entornos creados para ser vulnerados legalmente en local", "Están parcheados", "No necesitan VM"], "correcta": 1, "explicacion": "Son plataformas deliberadamente vulnerables para formación, en red local propia."}, {"pregunta": "Un escaneo agresivo se evita en recon porque...", "opciones": ["Es lento", "Puede tumbar el servicio y saltar alarmas IDS", "No da información", "Es ilegal en todo caso"], "correcta": 1, "explicacion": "El recon profesional minimiza impacto: primero pasivo, escaneo suave después."}, {"pregunta": "¿Qué documento DEBE existir antes de cualquier test de intrusión?", "opciones": ["Factura del cliente", "Rules of Engagement firmadas", "Licencia de Metasploit", "Acuerdo de nivel de servicio"], "correcta": 1, "explicacion": "Sin RoE firmadas, el test es ilegal independientemente de la intención."}, {"pregunta": "¿Cuántas fases define PTES?", "opciones": ["3", "5", "7", "10"], "correcta": 2, "explicacion": "Pre-engagement, Intelligence, Threat Modeling, Vulnerability Analysis, Exploitation, Post-Exploitation, Reporting."}, {"pregunta": "MITRE ATT&CK cataloga...", "opciones": ["Vulnerabilidades de software", "Comportamientos reales de adversarios", "Certificaciones de seguridad", "Políticas de empresa"], "correcta": 1, "explicacion": "ATT&CK documenta tácticas, técnicas y procedimientos (TTPs) de atacantes reales."}, {"pregunta": "OWASP WSTG contiene 91 pruebas organizadas en...", "opciones": ["3 categorías", "7 categorías", "11 categorías", "20 categorías"], "correcta": 2, "explicacion": "Desde Information Gathering (INFO) hasta Client-Side (CLNT)."}, {"pregunta": "El reconocimiento pasivo se diferencia del activo porque...", "opciones": ["Usa herramientas diferentes", "No envía tráfico al objetivo", "Es más lento", "Requiere permiso del ISP"], "correcta": 1, "explicacion": "Pasivo = solo fuentes públicas; activo = tráfico directo al objetivo."}, {"pregunta": "crt.sh permite descubrir subdominios porque...", "opciones": ["Hackea el DNS del objetivo", "Consulta logs de Certificate Transparency", "Escanea puertos", "Intercepta tráfico"], "correcta": 1, "explicacion": "Los certificados TLS son públicos por diseño (CT logs)."}, {"pregunta": "El Google dork 'site:ejemplo.com filetype:pdf' busca...", "opciones": ["PDFs en cualquier web", "PDFs indexados solo de ese dominio", "PDFs con contraseña", "PDFs en la caché de Google"], "correcta": 1, "explicacion": "site: restringe al dominio; filetype: al formato."}, {"pregunta": "T1596 en MITRE ATT&CK corresponde a...", "opciones": ["Exploit de aplicación web", "Búsqueda en bases técnicas abiertas", "Phishing", "Escalada de privilegios"], "correcta": 1, "explicacion": "Search Open Technical Databases: Shodan, Censys, crt.sh, WHOIS."}, {"pregunta": "A01:2021 (Broken Access Control) se explota típicamente con...", "opciones": ["SQL Injection", "Manipulación de IDs en la URL (IDOR)", "Phishing", "Buffer overflow"], "correcta": 1, "explicacion": "IDOR: cambiar user_id=123 a user_id=124 para acceder a datos ajenos."}, {"pregunta": "La defensa universal contra inyección (A03) es...", "opciones": ["WAF solamente", "Prepared statements / parametrización", "Validar solo en frontend", "Cambiar de lenguaje"], "correcta": 1, "explicacion": "Nunca concatenar input en queries; el driver escapa automáticamente."}, {"pregunta": "CVE-2017-5638 (caso Equifax) corresponde a qué riesgo OWASP?", "opciones": ["A01 — Access Control", "A03 — Injection", "A06 — Vulnerable Components", "A10 — SSRF"], "correcta": 2, "explicacion": "Componente con CVE conocido sin parchear durante 2 meses."}, {"pregunta": "SSRF (A10) es especialmente peligroso en cloud porque...", "opciones": ["Los firewall cloud son más débiles", "Permite acceder al metadata service (169.254.169.254)", "No existe en cloud", "Solo afecta a DNS"], "correcta": 1, "explicacion": "El metadata service expone credenciales IAM temporales del servidor."}, {"pregunta": "En un lab de pentest, la red host-only garantiza...", "opciones": ["Mayor velocidad", "Que el tráfico no sale a internet", "Mejor resolución DNS", "Acceso a actualizaciones"], "correcta": 1, "explicacion": "Aísla el lab: el tráfico de explotación no afecta a nada externo."}, {"pregunta": "nmap -sV -sC identifica...", "opciones": ["Solo puertos abiertos", "Versiones de servicios y ejecuta scripts NSE", "Vulnerabilidades explotables", "Contraseñas débiles"], "correcta": 1, "explicacion": "-sV: versión; -sC: scripts por defecto (banner grab, detección)."}, {"pregunta": "CVSS 9.8 indica severidad...", "opciones": ["Low", "Medium", "High", "Critical"], "correcta": 3, "explicacion": "CVSS: 0.0 None, 0.1-3.9 Low, 4.0-6.9 Medium, 7.0-8.9 High, 9.0-10.0 Critical."}, {"pregunta": "El resumen ejecutivo del informe está dirigido a...", "opciones": ["Desarrolladores", "El equipo SOC", "Dirección (no técnicos)", "Otros pentesters"], "correcta": 2, "explicacion": "Lenguaje de negocio, impacto, prioridades — sin jerga técnica."}];
+    const SLUG = "ciber-ofensiva";
+    let qi = 0, score = 0;
+    const qt = document.getElementById('q-titulo');
+    const qo = document.getElementById('q-opciones');
+    const qf = document.getElementById('q-feedback');
+    const qm = document.getElementById('q-marcador');
+    const qb = document.getElementById('q-next');
+    function barajar(a) {
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+    function render() {
+      const q = QUIZ[qi];
+      qt.textContent = (qi + 1) + '/' + QUIZ.length + ' · ' + q.pregunta;
+      qo.innerHTML = ''; qf.textContent = ''; qb.hidden = true;
+      const orden = baraja(q.opciones.map((_, i) => i));
+      orden.forEach(i => {
+        const b = document.createElement('button');
+        b.textContent = q.opciones[i];
+        b.onclick = () => {
+          [...qo.children].forEach(el => {
+            el.classList.add(el.dataset.i == q.correcta ? 'correcta' : 'fallo');
+            el.disabled = true;
+          });
+          const ok = i === q.correcta;
+          if (ok) score++;
+          qf.textContent = (ok ? '✓ Correcto. ' : '✗ Incorrecto. ') + q.explicacion;
+          qm.textContent = 'Aciertos: ' + score;
+          qb.hidden = false;
+        };
+        b.dataset.i = i;
+        qo.appendChild(b);
+      });
+    }
+    qb.onclick = () => { qi++; qi < QUIZ.length ? render() : fin(); };
+    function fin() {
+      qt.textContent = 'Terminado: ' + score + '/' + QUIZ.length;
+      qo.innerHTML = ''; qm.textContent = '';
+      const superado = score >= QUIZ.length * 0.7;
+      if (superado) {
+        // progreso real: el quiz superado se marca solo (token local, sin servidor)
+        try {
+          const est = JSON.parse(localStorage.getItem('stt-progreso') || '{}');
+          est[SLUG + '/quiz'] = true;
+          localStorage.setItem('stt-progreso', JSON.stringify(est));
+        } catch (e) { /* sin storage: progreso manual en progreso.html */ }
+        qf.textContent = 'Nivel superado — quiz marcado automáticamente en tu progreso.';
+      } else {
+        qf.textContent = 'Repasa las semanas y vuelve a intentarlo (se supera con 70 %).';
+      }
+      const re = document.createElement('button');
+      re.className = 'btn'; re.textContent = 'Reintentar quiz';
+      re.onclick = () => { qi = 0; score = 0; re.remove(); render(); };
+      qm.after(re);
+    }
+    render();
+    // nav activa al hacer scroll
+    const links = [...document.querySelectorAll('.curso-nav a[href^="#"]')];
+    const io = new IntersectionObserver(ents => ents.forEach(e => {
+      if (e.isIntersecting) links.forEach(a =>
+        a.classList.toggle('activo', a.getAttribute('href') === '#' + e.target.id));
+    }), { rootMargin: '-30% 0px -60% 0px' });
+    document.querySelectorAll('main section[id]').forEach(s => io.observe(s));
+    // controles: tema claro/oscuro (mismo interruptor que la landing), A-/A+ y barra de lectura
+    const root = document.documentElement;
+    try { root.dataset.theme = localStorage.getItem('stt-theme') || 'dark'; } catch (e) {}
+    document.getElementById('tema-btn').onclick = () => {
+      root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
+      try { localStorage.setItem('stt-theme', root.dataset.theme); } catch (e) {}
+    };
+    let fs = 1;
+    try { fs = parseFloat(localStorage.getItem('stt-fs')) || 1; } catch (e) {}
+    const aplicarFs = () => {
+      root.style.fontSize = (fs * 100) + '%';
+      try { localStorage.setItem('stt-fs', String(fs)); } catch (e) {}
+    };
+    aplicarFs();
+    document.getElementById('fs-mas').onclick = () => { fs = Math.min(1.3, fs + 0.1); aplicarFs(); };
+    document.getElementById('fs-menos').onclick = () => { fs = Math.max(0.85, fs - 0.1); aplicarFs(); };
+    const barra = document.getElementById('barra-lectura');
+    addEventListener('scroll', () => {
+      const h = document.documentElement;
+      barra.style.width = ((h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 || 0) + '%';
+    }, { passive: true });
+  </script>
+</body>
+</html>
