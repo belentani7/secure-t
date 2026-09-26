@@ -1,3 +1,5 @@
+[![Open in VS Code](https://img.shields.io/badge/Open_in-VS_Code-007ACC?logo=visualstudiocode&logoColor=white)](https://github.dev/belentani7/secure-t)
+
 # Secure T - Universidad Digital de Ciberseguridad e IA
 
 Plataforma universitaria de ciberseguridad e inteligencia artificial.
