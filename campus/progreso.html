@@ -46,7 +46,9 @@
 <script>
 const CURSOS = [{"slug": "ciber-ofensiva", "titulo": "Ciberseguridad Ofensiva: Pensar como Atacante", "items": ["semana-01", "semana-02", "semana-03", "semana-04", "semana-05", "semana-06", "semana-07", "semana-08", "semana-09", "semana-10", "semana-11", "semana-12", "semana-13", "semana-14", "semana-15", "semana-16", "semana-17", "semana-18", "semana-19", "semana-20", "quiz", "laboratorio", "proyecto", "examen"]}, {"slug": "ciber-defensiva", "titulo": "Ciberseguridad Defensiva: Operar como SOC", "items": ["semana-01", "semana-02", "semana-03", "semana-04", "semana-05", "semana-06", "semana-07", "semana-08", "semana-09", "semana-10", "semana-11", "semana-12", "semana-13", "semana-14", "semana-15", "semana-16", "semana-17", "semana-18", "semana-19", "semana-20", "quiz", "laboratorio", "proyecto", "examen"]}, {"slug": "ia-aplicada-segura", "titulo": "Inteligencia Artificial Aplicada y Segura", "items": ["semana-01", "semana-02", "semana-03", "semana-04", "semana-05", "semana-06", "semana-07", "semana-08", "semana-09", "semana-10", "semana-11", "semana-12", "semana-13", "semana-14", "semana-15", "semana-16", "semana-17", "semana-18", "semana-19", "semana-20", "quiz", "laboratorio", "proyecto", "examen"]}, {"slug": "gobernanza-compliance", "titulo": "Gobernanza y Compliance Digital", "items": ["semana-01", "semana-02", "semana-03", "semana-04", "semana-05", "semana-06", "semana-07", "semana-08", "semana-09", "semana-10", "semana-11", "semana-12", "semana-13", "semana-14", "semana-15", "semana-16", "semana-17", "semana-18", "semana-19", "semana-20", "quiz", "laboratorio", "proyecto", "examen"]}];
 const KEY = "stt-progreso";
-let estado = JSON.parse(localStorage.getItem(KEY) || "{}");
+const esc = s => String(s).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]));
+let estado = {};
+try { estado = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { estado = {}; }
 
 // token anónimo local (nunca se envía a ningún sitio)
 let token = localStorage.getItem("stt-token");
@@ -79,12 +81,12 @@ function pintar() {
           .some(x => !estado[c.slug + "/" + x]);
       }
       return `<label class="progreso-item"${bloqueado ? ' style="opacity:.45"' : ""}>` +
-        `<input type="checkbox" data-id="${id}" ${ok ? "checked" : ""}` +
+        `<input type="checkbox" data-id="${esc(id)}" ${ok ? "checked" : ""}` +
         `${bloqueado ? " disabled title=\"Se desbloquea al completar semanas, quiz y laboratorio\"" : ""}>` +
-        ` <span>${nombre}${bloqueado ? " 🔒" : ""}</span></label>`;
+        ` <span>${esc(nombre)}${bloqueado ? " 🔒" : ""}</span></label>`;
     }).join("");
     const pct = Math.round(done / c.items.length * 100);
-    art.innerHTML = `<h3>${c.titulo}</h3>
+    art.innerHTML = `<h3>${esc(c.titulo)}</h3>
       <p class="meta">${done}/${c.items.length} · ${pct} %</p>
       <div class="barra"><i style="width:${pct}%"></i></div>
       <div style="margin-top:var(--sp-3)">${filas}</div>`;
@@ -110,9 +112,14 @@ document.getElementById("exportar").onclick = () => {
 document.getElementById("importar").onclick = () => {
   const inp = Object.assign(document.createElement("input"), {type: "file", accept: ".json"});
   inp.onchange = () => inp.files[0].text().then(t => {
-    const d = JSON.parse(t);
-    if (d.estado) { estado = d.estado; guardar(); }
-  });
+    // Validación estricta: solo claves conocidas (curso/item) con valor true
+    let d; try { d = JSON.parse(t); } catch (e) { alert("Archivo JSON no válido."); return; }
+    const validos = new Set(CURSOS.flatMap(c => c.items.map(it => c.slug + "/" + it)));
+    const limpio = {};
+    Object.entries((d && typeof d.estado === "object" && d.estado) || {})
+      .forEach(([k, v]) => { if (validos.has(k) && v === true) limpio[k] = true; });
+    estado = limpio; guardar();
+  }).catch(() => alert("No se pudo leer el archivo."));
   inp.click();
 };
 document.getElementById("reset").onclick = () => {

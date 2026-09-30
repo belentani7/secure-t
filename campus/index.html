@@ -3,96 +3,84 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0c1018">
-  <meta name="description" content="Campus abierto secure-t-university: cursos gratuitos estilo Harvard/Coursera, offline-first.">
-  <title>Campus secure-t-university</title>
+  <meta name="theme-color" content="#0b1117">
+  <meta name="description" content="secure T University — campus abierto y gratuito de ciberseguridad e IA. 4 cursos universitarios de 20 semanas, quiz, laboratorios, credencial verificable. Funciona sin conexión.">
+  <meta property="og:title" content="secure T University · Campus abierto de ciberseguridad e IA">
+  <meta property="og:description" content="4 cursos universitarios gratuitos, offline-first, sin registro.">
+  <meta property="og:type" content="website">
+  <title>secure T University · Campus abierto de ciberseguridad e IA</title>
   <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 4 7v8c0 7.5 5.1 13.4 12 15 6.9-1.6 12-7.5 12-15V7z' fill='%2334d399'/%3E%3Cpath d='M11 13h10M16 13v9' stroke='%230b1117' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="tokens.css">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('stt-theme')||'dark'}catch(e){}</script>
 </head>
 <body>
   <a class="skip-link" href="#cursos">Saltar al contenido</a>
+
+  <!-- Iconos SVG reutilizables -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-logo" viewBox="0 0 32 32"><path d="M16 2 4 7v8c0 7.5 5.1 13.4 12 15 6.9-1.6 12-7.5 12-15V7z" fill="currentColor"/><path d="M11 13h10M16 13v9" stroke="#0b1117" stroke-width="3" stroke-linecap="round"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-brain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 21h14M3 7h18"/><path d="m6 7-3 7a3 3 0 0 0 6 0zM18 7l-3 7a3 3 0 0 0 6 0z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  </svg>
+
   <header class="topbar">
-    <div class="brand">Campus <span>secure-t-university</span></div>
+    <a class="brand" href="index.html" aria-label="secure T University, inicio">
+      <svg class="logo" style="color:var(--accent)"><use href="#i-logo"/></svg>
+      secure&nbsp;<span>T</span>&nbsp;University
+    </a>
     <nav aria-label="Principal">
       <a class="btn btn-ghost" href="#cursos">Cursos</a>
-      <a class="btn btn-ghost" href="#quiz">Quiz</a>
-      <a class="btn btn-ghost" href="#voz">Voz IA</a>
       <a class="btn btn-ghost" href="buscar.html">Buscar</a>
       <a class="btn btn-ghost" href="progreso.html">Progreso</a>
       <a class="btn btn-ghost" href="credencial.html">Credencial</a>
+      <button class="btn btn-ghost" id="tema-btn" aria-label="Cambiar tema claro u oscuro"><svg width="18" height="18"><use href="#i-sun"/></svg></button>
     </nav>
   </header>
 
   <main class="wrap">
-    <section class="hero">
-      <h1>Educación abierta, sin barreras.</h1>
-      <p class="lead">Cursos modulares con evidencia, material de bancos
-      abiertos y voz humana en 4 idiomas. Funciona sin conexión.</p>
+    <section class="hero-v2">
+      <div>
+        <p class="eyebrow">Universidad abierta · Ciberseguridad + IA</p>
+        <h1>Aprende a <span class="text-grad">defender</span> el mundo digital. Gratis.</h1>
+        <p class="lead">Cuatro cursos universitarios de 20 semanas, con laboratorios,
+          quiz, rúbricas y una credencial verificable. Sin registro, sin rastreo
+          y <strong>funciona sin conexión</strong>.</p>
+        <div class="cta">
+          <a class="btn" href="#cursos">Empezar ahora</a>
+          <a class="btn btn-ghost" href="lector.html?doc=mapa-curricular.md">Ver mapa curricular</a>
+        </div>
+      </div>
+      <div class="terminal" aria-hidden="true">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <div><span class="p">alumno@secure-t</span>:~$ ./matricular --gratis</div>
+        <div class="c"># sin cuenta · sin cookies · offline-first</div>
+        <div>✔ 4 cursos · 80 semanas de contenido</div>
+        <div>✔ laboratorios éticos con evidencia</div>
+        <div>✔ credencial verificable (SHA-256)</div>
+        <div><span class="p">alumno@secure-t</span>:~$ <span class="cursor"></span></div>
+      </div>
     </section>
 
-    <section id="cursos" class="grid-cursos">
-      <article class="card">
-        <span class="badge">ES · universitario</span>
-        <h3><a href="cursos/ciber-ofensiva/index.html">Ciberseguridad Ofensiva: Pensar como Atacante</a></h3>
-        <p>Curso universitario de seguridad ofensiva con ética desde el día 1: recon pasivo, OSINT, OWASP Top 10 y laboratorio con máquina vu…</p>
-        <p class="meta">20 semanas · 60 h · quiz 6 items</p>
-        <p class="meta">
-          <a href="cursos/ciber-ofensiva/glosario.md">Glosario</a> ·
-          <a href="cursos/ciber-ofensiva/chuleta.md">Chuleta</a> ·
-          <a href="cursos/ciber-ofensiva/laboratorio.md">Laboratorio</a> ·
-          <a href="cursos/ciber-ofensiva/rubrica.md">Rúbrica</a> ·
-          <a href="cursos/ciber-ofensiva/examen.md">Examen final</a>
-        </p>
-        <div><a class="btn" href="cursos/ciber-ofensiva/index.html">Entrar al curso</a></div>
-      </article>
-      <article class="card">
-        <span class="badge">ES · universitario</span>
-        <h3><a href="cursos/ciber-defensiva/index.html">Ciberseguridad Defensiva: Operar como SOC</a></h3>
-        <p>Curso universitario de defensa: triada CIA, telemetría y logs, SIEM, respuesta a incidentes NIST y hardening. El estudiante opera …</p>
-        <p class="meta">20 semanas · 60 h · quiz 6 items</p>
-        <p class="meta">
-          <a href="cursos/ciber-defensiva/glosario.md">Glosario</a> ·
-          <a href="cursos/ciber-defensiva/chuleta.md">Chuleta</a> ·
-          <a href="cursos/ciber-defensiva/laboratorio.md">Laboratorio</a> ·
-          <a href="cursos/ciber-defensiva/rubrica.md">Rúbrica</a> ·
-          <a href="cursos/ciber-defensiva/examen.md">Examen final</a>
-        </p>
-        <div><a class="btn" href="cursos/ciber-defensiva/index.html">Entrar al curso</a></div>
-      </article>
-      <article class="card">
-        <span class="badge">ES · universitario</span>
-        <h3><a href="cursos/ia-aplicada-segura/index.html">Inteligencia Artificial Aplicada y Segura</a></h3>
-        <p>IA aplicada con seguridad como requisito, no como añadido: fundamentos de ML, LLMs y prompt engineering responsable, ataques adver…</p>
-        <p class="meta">20 semanas · 48 h · quiz 6 items</p>
-        <p class="meta">
-          <a href="cursos/ia-aplicada-segura/glosario.md">Glosario</a> ·
-          <a href="cursos/ia-aplicada-segura/chuleta.md">Chuleta</a> ·
-          <a href="cursos/ia-aplicada-segura/laboratorio.md">Laboratorio</a> ·
-          <a href="cursos/ia-aplicada-segura/rubrica.md">Rúbrica</a> ·
-          <a href="cursos/ia-aplicada-segura/examen.md">Examen final</a>
-        </p>
-        <div><a class="btn" href="cursos/ia-aplicada-segura/index.html">Entrar al curso</a></div>
-      </article>
-      <article class="card">
-        <span class="badge">ES · universitario</span>
-        <h3><a href="cursos/gobernanza-compliance/index.html">Gobernanza y Compliance Digital</a></h3>
-        <p>Marcos de gobierno de la seguridad (ISO 27001, NIST CSF, ENS), protección de datos con principio de minimización extrema, gestión …</p>
-        <p class="meta">20 semanas · 40 h · quiz 6 items</p>
-        <p class="meta">
-          <a href="cursos/gobernanza-compliance/glosario.md">Glosario</a> ·
-          <a href="cursos/gobernanza-compliance/chuleta.md">Chuleta</a> ·
-          <a href="cursos/gobernanza-compliance/laboratorio.md">Laboratorio</a> ·
-          <a href="cursos/gobernanza-compliance/rubrica.md">Rúbrica</a> ·
-          <a href="cursos/gobernanza-compliance/examen.md">Examen final</a>
-        </p>
-        <div><a class="btn" href="cursos/gobernanza-compliance/index.html">Entrar al curso</a></div>
-      </article>
+    <section class="stats" aria-label="Cifras del campus">
+      <div class="stat"><b class="text-grad">4</b><span>cursos universitarios</span></div>
+      <div class="stat"><b class="text-grad">80</b><span>semanas de contenido</span></div>
+      <div class="stat"><b class="text-grad">208&nbsp;h</b><span>de estudio guiado</span></div>
+      <div class="stat"><b class="text-grad" id="stat-progreso">0&nbsp;%</b><span>tu progreso total</span></div>
     </section>
 
+    <div class="section-head">
+      <div><p class="eyebrow">Plan de estudios</p><h2 id="cursos-h">Cursos</h2></div>
+      <a class="chip" href="progreso.html">Gestionar progreso →</a>
+    </div>
+    <section id="cursos" class="grid-cursos" aria-labelledby="cursos-h" style="padding-top:0"></section>
+
+    <div class="section-head"><div><p class="eyebrow">Practica</p><h2>Quiz interactivo</h2></div></div>
     <section id="quiz" aria-label="Quiz de ejemplo">
-      <h2>Quiz interactivo</h2>
-      <div class="quiz-box quiz-json"
-           data-src="cursos/ciber-ofensiva/quiz.json">
+      <div class="quiz-box quiz-json" data-src="cursos/ciber-ofensiva/quiz.json">
         <h3 class="quiz-titulo">Cargando quiz…</h3>
         <div class="opciones"></div>
         <p class="feedback" aria-live="polite"></p>
@@ -101,53 +89,110 @@
       </div>
     </section>
 
-    <section id="voz" aria-label="Voz IA">
-      <h2>Voz humana por idioma</h2>
-      <div class="voz-player">
-        <label for="idioma">Idioma:</label>
-        <select id="idioma" class="opcion" style="width:auto;min-height:44px">
-          <option value="pt">PT</option>
-          <option value="es">ES</option>
-          <option value="en">EN</option>
-          <option value="ca">CA</option>
-        </select>
-        <audio id="audio" controls aria-label="Reproducir bienvenida">
-          <source id="audio-src" src="voces/pt/bienvenida.mp3" type="audio/mpeg">
-        </audio>
-      </div>
-      <p class="meta">Voces generadas por edge-tts (gratuito) o Kokoro vía
-      Hugging Face. Sin coste, con acento humano real.</p>
-    </section>
-
-    <section id="gobierno" aria-label="Gobierno académico">
-      <h2>Gobierno académico</h2>
-      <p class="meta">
-        <a href="calendario.md">Calendario académico (4 años)</a> ·
-        <a href="mapa-curricular.md">Mapa curricular NICE/CAE</a>
-      </p>
-    </section>
-
-    <section id="agente" aria-label="Agente tutor">
-      <h2>Agente tutor vivo en GitHub</h2>
-      <p>Este campus tiene un agente IA que vive en GitHub Actions
-      (caja Linux): responde issues etiquetados <code>tutor</code> y publica
-      una cápsula didáctica diaria en <code>campus/capsulas/</code>.</p>
-      <p class="meta">Cero secretos: usa el token efímero de GitHub y modelos
-      gratuitos con fallback local.</p>
+    <div class="section-head"><div><p class="eyebrow">Plataforma</p><h2>Cómo funciona</h2></div></div>
+    <section class="feature-grid">
+      <article class="card"><h3>🔒 Privacidad total</h3><p class="t2">Tu progreso vive solo en tu navegador con un token anónimo. Exporta e importa tu JSON cuando quieras.</p></article>
+      <article class="card"><h3>📴 Offline-first</h3><p class="t2">Instálalo como app (PWA). Lo que ya visitaste sigue disponible sin conexión.</p></article>
+      <article class="card"><h3>🎓 Credencial verificable</h3><p class="t2">Al completar un curso generas un bloque firmado con SHA-256 que cualquiera puede comprobar.</p><a class="chip" href="credencial.html">Verificar credencial</a></article>
+      <article class="card" id="voz"><h3>🔊 Voz humana en 4 idiomas</h3>
+        <div class="voz-player" style="margin:0">
+          <label for="idioma">Idioma</label>
+          <select id="idioma" class="opcion" style="width:auto;min-height:44px">
+            <option value="pt">Português</option><option value="es" selected>Español</option>
+            <option value="en">English</option><option value="ca">Català</option>
+          </select>
+          <audio id="audio" controls preload="none" aria-label="Reproducir bienvenida"><source id="audio-src" src="voces/es/bienvenida.mp3" type="audio/mpeg"></audio>
+        </div>
+      </article>
+      <article class="card"><h3>🤖 Tutor en GitHub</h3><p class="t2">Abre un issue con la etiqueta <code>tutor</code> y un agente responde. Publica una cápsula diaria.</p><a class="chip" href="lector.html?doc=calendario.md">Calendario académico</a></article>
     </section>
   </main>
 
   <footer class="wrap">
-    <p>Material abierto y verificado: Khan Academy · Parla.cat · GCF Global ·
-    MIT OCW · OWASP WSTG · Juice Shop · freeCodeCamp. Generado por edu-forge.</p>
+    <p>Material abierto y verificado: MIT OCW · OWASP WSTG · Juice Shop · Khan Academy · GCF Global · freeCodeCamp · Parla.cat.
+    Código bajo licencia del repositorio · <a href="https://github.com/belentani7/secure-t">GitHub</a> · Hecho en Barcelona.</p>
   </footer>
+
   <script>
-    const sel = document.getElementById('idioma');
-    if (sel) sel.addEventListener('change', e => {
-      const a = document.getElementById('audio-src');
-      a.src = `voces/${e.target.value}/bienvenida.mp3`;
-      document.getElementById('audio').load();
+  (function () {
+    // Catálogo único: una sola fuente de verdad para las tarjetas
+    var CURSOS = [
+      { slug: "ciber-ofensiva", color: "var(--c-ofensiva)", icono: "i-target", horas: 60,
+        titulo: "Ciberseguridad Ofensiva: Pensar como Atacante",
+        resumen: "Seguridad ofensiva con ética desde el día 1: reconocimiento pasivo, OSINT, OWASP Top 10 y laboratorio con máquina vulnerable." },
+      { slug: "ciber-defensiva", color: "var(--c-defensiva)", icono: "i-shield", horas: 60,
+        titulo: "Ciberseguridad Defensiva: Operar como SOC",
+        resumen: "Triada CIA, telemetría y logs, SIEM, respuesta a incidentes NIST y hardening. Operas como analista de un SOC." },
+      { slug: "ia-aplicada-segura", color: "var(--c-ia)", icono: "i-brain", horas: 48,
+        titulo: "Inteligencia Artificial Aplicada y Segura",
+        resumen: "Fundamentos de ML, LLMs y prompting responsable, ataques adversarios y defensa de sistemas de IA." },
+      { slug: "gobernanza-compliance", color: "var(--c-gobernanza)", icono: "i-scale", horas: 40,
+        titulo: "Gobernanza y Compliance Digital",
+        resumen: "ISO 27001, NIST CSF, ENS, RGPD con minimización extrema y gestión de riesgos aplicada." }
+    ];
+    var ITEMS = 24; // 20 semanas + quiz + laboratorio + proyecto + examen
+    var estado = {};
+    try { estado = JSON.parse(localStorage.getItem("stt-progreso") || "{}") || {}; } catch (e) {}
+
+    function el(tag, attrs, children) {
+      var n = document.createElement(tag);
+      for (var k in attrs || {}) {
+        if (k === "text") n.textContent = attrs[k];
+        else if (k === "style") n.style.cssText = attrs[k];
+        else n.setAttribute(k, attrs[k]);
+      }
+      (children || []).forEach(function (c) { if (c) n.appendChild(c); });
+      return n;
+    }
+    function icon(id) {
+      var s = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      var u = document.createElementNS("http://www.w3.org/2000/svg", "use");
+      u.setAttribute("href", "#" + id); s.appendChild(u); s.setAttribute("aria-hidden", "true");
+      return s;
+    }
+
+    var grid = document.getElementById("cursos"), totalHechos = 0;
+    CURSOS.forEach(function (c) {
+      var hechos = Object.keys(estado).filter(function (k) {
+        return k.indexOf(c.slug + "/") === 0 && estado[k] === true;
+      }).length;
+      totalHechos += hechos;
+      var pct = Math.min(100, Math.round(hechos / ITEMS * 100));
+      var base = "cursos/" + c.slug + "/";
+      var ring = el("div", { "class": "ring", "data-label": pct + "%", role: "img",
+        "aria-label": "Progreso " + pct + " por ciento", style: "--p:" + pct });
+      var chips = el("div", { "class": "chips" }, ["glosario", "chuleta", "laboratorio", "rubrica", "examen"].map(function (d) {
+        return el("a", { "class": "chip", href: "lector.html?doc=" + encodeURIComponent(base + d + ".md"),
+          text: d.charAt(0).toUpperCase() + d.slice(1).replace("rubrica", "rúbrica") });
+      }));
+      var card = el("article", { "class": "card curso", style: "--c:" + c.color }, [
+        el("div", { "class": "top" }, [el("span", { "class": "ico" }, [icon(c.icono)]), ring]),
+        el("h3", {}, [el("a", { href: base + "index.html", text: c.titulo })]),
+        el("p", { "class": "t2", text: c.resumen }),
+        el("p", { "class": "meta", text: "20 semanas · " + c.horas + " h · quiz · laboratorio · examen" }),
+        chips,
+        el("div", {}, [el("a", { "class": "btn", href: base + "index.html", text: hechos ? "Continuar curso" : "Entrar al curso" })])
+      ]);
+      grid.appendChild(card);
     });
+    document.getElementById("stat-progreso").textContent =
+      Math.round(totalHechos / (ITEMS * CURSOS.length) * 100) + " %";
+
+    // Voz por idioma
+    var sel = document.getElementById("idioma");
+    sel.addEventListener("change", function (e) {
+      var v = ["pt", "es", "en", "ca"].indexOf(e.target.value) >= 0 ? e.target.value : "es";
+      document.getElementById("audio-src").src = "voces/" + v + "/bienvenida.mp3";
+      document.getElementById("audio").load();
+    });
+
+    // Tema claro/oscuro compartido con las páginas de curso
+    document.getElementById("tema-btn").addEventListener("click", function () {
+      var r = document.documentElement;
+      r.dataset.theme = r.dataset.theme === "light" ? "dark" : "light";
+      try { localStorage.setItem("stt-theme", r.dataset.theme); } catch (e) {}
+    });
+  })();
   </script>
   <script src="app.js"></script>
 </body>

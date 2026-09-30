@@ -1,0 +1,30 @@
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Tests del campus
+        run: |
+          pip install pytest
+          python -m pytest -q tests/test_campus.py
+      - name: JSON válido
+        run: find campus public -name '*.json' -print0 | xargs -0 -n1 python -m json.tool > /dev/null
+      - name: Portada sincronizada con ui/i18n.js
+        run: python scripts/build_landing.py && git diff --exit-code index.html
+      - name: Escaneo de secretos
+        run: python scripts/scan_secretos.py .

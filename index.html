@@ -1,25 +1,215 @@
 <!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0b1117" />
-    <meta name="description" content="secure T — instituto de ciberseguridad e IA. Formación gratuita, abierta y offline-first." />
-    <title>secure T · Institute of Cybersecurity</title>
-    <meta http-equiv="refresh" content="0; url=./campus/" />
-    <link rel="canonical" href="https://belentani7.github.io/secure-t/campus/" />
-    <style>
-      body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0b1117;color:#e6edf3;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-      main{text-align:center;padding:24px}
-      a{color:#b7f36b}
-    </style>
-  </head>
-  <body>
-    <main>
-      <h1>secure T</h1>
-      <p>Entrando al campus… Si no carga, <a href="./campus/">abre el campus</a>
-        o la <a href="https://secure-t.netlify.app/">versión completa</a>.</p>
-    </main>
-    <script>location.replace("./campus/" + location.search + location.hash);</script>
-  </body>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1117">
+  <title>Secure T University — Universidade digital de Cybersegurança e IA</title>
+  <meta name="description" content="Universidade digital soberana de cybersegurança e inteligência artificial: formação prática, sem barreiras econômicas, acesso virtual sem cadastro e credenciais verificáveis por hash (blockchain: PLANNED).">
+  <link rel="canonical" href="https://belentani7.github.io/secure-t/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Secure T University — Universidade digital de Cybersegurança e IA">
+  <meta property="og:description" content="Universidade digital soberana de cybersegurança e inteligência artificial: formação prática, sem barreiras econômicas, acesso virtual sem cadastro e credenciais verificáveis por hash (blockchain: PLANNED).">
+  <meta property="og:url" content="https://belentani7.github.io/secure-t/">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 4 7v8c0 7.5 5.1 13.4 12 15 6.9-1.6 12-7.5 12-15V7z' fill='%2334d399'/%3E%3Cpath d='M11 13h10M16 13v9' stroke='%230b1117' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="campus/tokens.css">
+  <style>
+    section { scroll-margin-top: 80px; }
+    .semanas-mini { margin: 0; padding-left: 1.2rem; color: var(--text-2); font-size: var(--fs-sm); }
+    .cta { display: flex; gap: var(--sp-3); flex-wrap: wrap; }
+    .pasos { list-style: none; padding: 0; display: grid; gap: var(--sp-4); grid-template-columns: repeat(auto-fit, minmax(min(16rem,100%),1fr)); }
+    .paso .n { font: 800 var(--fs-2xl) var(--font-mono); }
+    .plan { max-width: 30rem; margin-inline: auto; text-align: center; }
+    .plan .precio { font: 800 3.5rem var(--font-mono); }
+    .plan ul { list-style: none; padding: 0; text-align: left; display: grid; gap: .4rem; }
+    .faq summary { cursor: pointer; font-weight: 700; min-height: 44px; display: flex; align-items: center; }
+    .lang-switch { display: flex; gap: 4px; }
+    .lang-switch button { min-width: 44px; min-height: 44px; border-radius: var(--r-sm); border: 1px solid var(--border);
+      background: transparent; color: var(--text-2); font: 700 .8rem var(--font-mono); cursor: pointer; }
+    .lang-switch button.lang-active { background: var(--grad); color: var(--accent-ink); border-color: transparent; }
+    .banda { text-align: center; padding: var(--sp-12) var(--sp-6); margin: var(--sp-12) 0;
+      border: 1px solid var(--border); border-radius: var(--r-lg);
+      background: radial-gradient(40rem 20rem at 50% 0%, hsl(152 70% 40% / .18), transparent 70%), var(--glass); }
+    .banda p { margin-inline: auto; }
+    .trust { display: flex; gap: var(--sp-5); flex-wrap: wrap; justify-content: center; color: var(--text-3); font: 600 var(--fs-sm) var(--font-mono); }
+    footer .cols { display: grid; gap: var(--sp-6); grid-template-columns: 2fr 1fr 1fr; }
+    footer .cols a { display: block; color: var(--text-2); padding: .2rem 0; }
+    @media (max-width: 760px) { footer .cols { grid-template-columns: 1fr; } .topbar nav .btn-ghost[href^="#"] { display: none; } }
+  </style>
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('stt-theme')||'dark'}catch(e){}</script>
+</head>
+<body>
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-logo" viewBox="0 0 32 32"><path d="M16 2 4 7v8c0 7.5 5.1 13.4 12 15 6.9-1.6 12-7.5 12-15V7z" fill="currentColor"/><path d="M11 13h10M16 13v9" stroke="#0b1117" stroke-width="3" stroke-linecap="round"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-brain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 21h14M3 7h18"/><path d="m6 7-3 7a3 3 0 0 0 6 0zM18 7l-3 7a3 3 0 0 0 6 0z"/></symbol>
+</svg>
+
+<header class="topbar">
+  <a class="brand" href="./"><svg class="logo" style="color:var(--accent)" aria-hidden="true"><use href="#i-logo"/></svg>secure&nbsp;<span>T</span>&nbsp;University</a>
+  <nav aria-label="Principal">
+    <a class="btn btn-ghost" href="#quienes-somos"><span data-i18n="nav.about">Quem somos</span></a><a class="btn btn-ghost" href="#cursos"><span data-i18n="nav.courses">Cursos</span></a><a class="btn btn-ghost" href="#programa"><span data-i18n="nav.program">Programa</span></a><a class="btn btn-ghost" href="#labs"><span data-i18n="nav.labs">Laboratórios</span></a><a class="btn btn-ghost" href="#certs"><span data-i18n="nav.certs">Certificações</span></a><a class="btn btn-ghost" href="#faq"><span data-i18n="nav.faq">FAQ</span></a>
+    <a class="btn" href="campus/"><span data-i18n="nav.campus">Campus</span></a>
+    <div class="lang-switch" role="group" data-i18n-aria="aria.lang" aria-label="Idioma">
+      <button data-lang-btn="pt">PT</button><button data-lang-btn="es">ES</button><button data-lang-btn="en">EN</button>
+    </div>
+    <button class="btn btn-ghost" id="tema-btn" data-i18n-aria="aria.theme" aria-label="Trocar tema">◐</button>
+  </nav>
+</header>
+
+<main class="wrap" id="contenido">
+  <section class="hero-v2">
+    <div>
+      <p class="eyebrow"><span data-i18n="hero.label">Universidade digital soberana · Acesso aberto</span></p>
+      <h1 class="text-grad" data-i18n="hero.h1">Defenda o futuro digital.</h1>
+      <p class="lead" data-i18n-html="hero.lead">A Secure T University ensina <strong>cybersegurança e inteligência artificial aplicadas</strong> com um método simples: aprende-se praticando e aprova-se demonstrando. Sem matrícula, sem cadastro, sem barreiras econômicas.</p>
+      <div class="cta"><a class="btn" href="campus/"><span data-i18n="hero.cta1">Entrar no campus</span></a><a class="btn btn-ghost" href="#cursos"><span data-i18n="hero.cta2">Ver os cursos</span></a></div>
+    </div>
+    <div class="terminal" role="img" data-i18n-aria="access.term.aria" aria-label="Simulação de terminal mostrando o acesso ao campus sem cadastro">
+      <div class="dots"><i></i><i></i><i></i></div>
+      <div><span class="p">~$</span> curl -s secure-t/campus</div>
+      <div class="c"># 0 contas · 0 cookies · 0 €</div>
+      <div>✔ 4 cursos · 80 semanas</div><div>✔ quizzes + labs + rubricas</div>
+      <div>✔ credencial SHA-256</div><div><span class="p">~$</span> <span class="cursor"></span></div>
+    </div>
+  </section>
+
+  <section class="stats" aria-label="Cifras">
+    <div class="stat"><b class="text-grad">4</b><span data-i18n="hero.stat1">cursos universitários</span></div>
+    <div class="stat"><b class="text-grad">80</b><span data-i18n="hero.stat2">semanas de conteúdo</span></div>
+    <div class="stat"><b class="text-grad">208</b><span data-i18n="hero.stat3">horas de formação prática</span></div>
+    <div class="stat"><b class="text-grad">0&nbsp;€</b><span data-i18n="hero.stat4">custo, para sempre</span></div>
+  </section>
+  <p class="trust"><span data-i18n="trust.label">Construído sobre bancos de recursos abertos</span>: <span>Harvard CS50</span><span>MIT OCW</span><span>OWASP</span><span>NIST</span><span>Khan Academy</span></p>
+
+  <section id="quienes-somos">
+    <div class="section-head"><div><p class="eyebrow"><span data-i18n="about.label">Quem somos · O que fazemos</span></p><h2><span data-i18n="about.h2">Uma universidade que explica o que faz — e deixa você entrar.</span></h2></div></div>
+    <p data-i18n-html="about.p1"><strong>Quem somos.</strong> Uma universidade digital independente especializada em cybersegurança e inteligência artificial. Não dependemos de campus físico nem de catálogo pago: todo o material vive aberto num repositório público que qualquer pessoa pode auditar, usar e reutilizar.</p><p data-i18n-html="about.p2"><strong>O que fazemos.</strong> Formamos profissionais capazes de defender sistemas e desenvolver IA responsável. Cada curso combina teoria mínima, prática guiada em ambientes legais e um projeto final com evidência verificável. A avaliação é estilo <em>Harvard</em>: participação 30&nbsp;% · quizzes formativos 30&nbsp;% · projeto com evidência 40&nbsp;%. <strong>Nada se aprova adivinhando.</strong></p><p data-i18n-html="about.p3"><strong>No que acreditamos.</strong> Que a educação técnica de qualidade não deveria ter barreira econômica de entrada, que credibilidade se demonstra com evidência pública, e que seus dados são seus: aqui não pedimos e-mail, nome nem organização.</p>
+    <div class="feature-grid"><article class="card"><h3><span data-i18n="about.v1t">Acesso sem barreiras</span></h3><p class="t2"><span data-i18n="about.v1d">Custo zero e recursos de bancos públicos: Harvard CS50, MIT OCW, Khan Academy. Se há internet, há universidade.</span></p></article><article class="card"><h3><span data-i18n="about.v2t">Evidência, não memória</span></h3><p class="t2"><span data-i18n="about.v2d">Cada lição termina em algo observável: um exercício resolvido, um lab concluído, um projeto defendido.</span></p></article><article class="card"><h3><span data-i18n="about.v3t">Soberania digital</span></h3><p class="t2"><span data-i18n="about.v3d">Sem cadastro e sem rastreio: cada estudante é um token anônimo, não um perfil para vender.</span></p></article></div>
+  </section>
+
+  <section id="acceso">
+    <div class="section-head"><div><p class="eyebrow"><span data-i18n="access.label">Acesso virtual</span></p><h2><span data-i18n="access.h2">Não há formulário. O campus já está aberto.</span></h2></div></div>
+    <p class="lead t2"><span data-i18n="access.lead">O acesso à Secure T é virtual e imediato: ninguém pede conta, verificação de e-mail ou cookies. Você entra e estuda.</span></p>
+    <ol class="pasos"><li class="card paso"><b class="n">01</b><h3><span data-i18n="access.s1t">Entre no campus</span></h3><p class="t2"><span data-i18n="access.s1d">Um clique e você está dentro: hub de cursos, semanas, quizzes e recursos por idioma, também offline (PWA).</span></p></li><li class="card paso"><b class="n">02</b><h3><span data-i18n="access.s2t">Estude no seu ritmo</span></h3><p class="t2"><span data-i18n="access.s2d">Cada curso tem programa semanal, lições legíveis, quizzes com explicação e recursos abertos citados.</span></p></li><li class="card paso"><b class="n">03</b><h3><span data-i18n="access.s3t">Demonstre e certifique-se</span></h3><p class="t2"><span data-i18n="access.s3d">Conclua o projeto com evidência e solicite sua credencial verificável por hash (blockchain: PLANNED), compartilhável no LinkedIn.</span></p></li></ol>
+  </section>
+
+  <section id="cursos">
+    <div class="section-head"><div><p class="eyebrow"><span data-i18n="courses.label">Catálogo · Turma 2026</span></p><h2><span data-i18n="courses.h2">Quatro cursos, uma profissão.</span></h2></div></div>
+    <p class="t2"><span data-i18n="courses.lead">Os quatro pilares do currículo: ofensiva, defensiva, IA e governança. Cada curso é autônomo e, juntos, cobrem o ciclo completo da segurança moderna.</span></p>
+    <div class="grid-cursos">
+      <article class="card curso" style="--c:var(--c-ofensiva)">
+        <div class="top"><span class="ico"><svg aria-hidden="true"><use href="#i-target"/></svg></span>
+          <span class="chip"><span data-i18n="chip.off">Ofensiva</span></span></div>
+        <h3><a href="campus/cursos/ciber-ofensiva/index.html"><span data-i18n="c1.title">Cybersegurança Ofensiva: pensar como atacante</span></a></h3>
+        <p class="meta"><span data-i18n="c1.meta">60 h · universitário · PT·ES·EN</span></p>
+        <p class="t2"><span data-i18n="c1.desc">Ética e legalidade desde o dia 1, reconhecimento passivo e OSINT, OWASP Top 10 e laboratório final com relatório de achados. Aprova-se demonstrando, nunca adivinhando.</span></p>
+        <ol class="semanas-mini"><li><span data-i18n="c1.w1">Ética, legalidade e escopo do teste</span></li><li><span data-i18n="c1.w2">Reconhecimento passivo e OSINT</span></li><li><span data-i18n="c1.w3">Os 10 riscos web (OWASP Top 10)</span></li><li><span data-i18n="c1.w4">Laboratório final + relatório ético</span></li></ol>
+        <div class="cta">
+          <a class="btn" href="campus/cursos/ciber-ofensiva/index.html#semana-1"><span data-i18n="courses.start">Começar semana 1</span></a>
+          <a class="btn btn-ghost" href="campus/cursos/ciber-ofensiva/index.html"><span data-i18n="courses.program">Ver programa</span></a>
+        </div>
+      </article>
+      <article class="card curso" style="--c:var(--c-defensiva)">
+        <div class="top"><span class="ico"><svg aria-hidden="true"><use href="#i-shield"/></svg></span>
+          <span class="chip"><span data-i18n="chip.def">Defensiva</span></span></div>
+        <h3><a href="campus/cursos/ciber-defensiva/index.html"><span data-i18n="c2.title">Cybersegurança Defensiva: operar como SOC</span></a></h3>
+        <p class="meta"><span data-i18n="c2.meta">60 h · universitário · PT·ES·EN</span></p>
+        <p class="t2"><span data-i18n="c2.desc">Tríade CIA, telemetria e logs, mini-SOC com ferramentas abertas, resposta a incidentes NIST 800-61 e hardening verificável com matriz CIS.</span></p>
+        <ol class="semanas-mini"><li><span data-i18n="c2.w1">Tríade CIA e classificação de controles</span></li><li><span data-i18n="c2.w2">Logs e detecção num SIEM aberto</span></li><li><span data-i18n="c2.w3">Resposta a incidentes (NIST 800-61)</span></li><li><span data-i18n="c2.w4">Hardening e continuidade</span></li></ol>
+        <div class="cta">
+          <a class="btn" href="campus/cursos/ciber-defensiva/index.html#semana-1"><span data-i18n="courses.start">Começar semana 1</span></a>
+          <a class="btn btn-ghost" href="campus/cursos/ciber-defensiva/index.html"><span data-i18n="courses.program">Ver programa</span></a>
+        </div>
+      </article>
+      <article class="card curso" style="--c:var(--c-ia)">
+        <div class="top"><span class="ico"><svg aria-hidden="true"><use href="#i-brain"/></svg></span>
+          <span class="chip"><span data-i18n="chip.ai">IA</span></span></div>
+        <h3><a href="campus/cursos/ia-aplicada-segura/index.html"><span data-i18n="c3.title">Inteligência Artificial aplicada e segura</span></a></h3>
+        <p class="meta"><span data-i18n="c3.meta">48 h · universitário · PT·ES·EN</span></p>
+        <p class="t2"><span data-i18n="c3.desc">Fundamentos de ML sem fumaça, LLMs e prompt engineering responsável, ataques adversariais e injeção de prompts, e um assistente educacional com salvaguardas como projeto final.</span></p>
+        <ol class="semanas-mini"><li><span data-i18n="c3.w1">Fundamentos de ML sem fumaça</span></li><li><span data-i18n="c3.w2">LLMs e prompting responsável</span></li><li><span data-i18n="c3.w3">Ataques a sistemas de IA</span></li><li><span data-i18n="c3.w4">Projeto: tutor com salvaguardas</span></li></ol>
+        <div class="cta">
+          <a class="btn" href="campus/cursos/ia-aplicada-segura/index.html#semana-1"><span data-i18n="courses.start">Começar semana 1</span></a>
+          <a class="btn btn-ghost" href="campus/cursos/ia-aplicada-segura/index.html"><span data-i18n="courses.program">Ver programa</span></a>
+        </div>
+      </article>
+      <article class="card curso" style="--c:var(--c-gobernanza)">
+        <div class="top"><span class="ico"><svg aria-hidden="true"><use href="#i-scale"/></svg></span>
+          <span class="chip"><span data-i18n="chip.gov">Governança</span></span></div>
+        <h3><a href="campus/cursos/gobernanza-compliance/index.html"><span data-i18n="c4.title">Governança e compliance digital</span></a></h3>
+        <p class="meta"><span data-i18n="c4.meta">40 h · universitário · PT·ES·EN</span></p>
+        <p class="t2"><span data-i18n="c4.desc">Marcos ISO 27001 / NIST CSF / ENS, minimização extrema de dados (o usuário como token anônimo), matriz de risco com responsáveis e dossiê de compliance com evidência.</span></p>
+        <ol class="semanas-mini"><li><span data-i18n="c4.w1">Marcos: ISO 27001, NIST CSF, ENS</span></li><li><span data-i18n="c4.w2">Dados pessoais e minimização</span></li><li><span data-i18n="c4.w3">Gestão de risco com evidência</span></li><li><span data-i18n="c4.w4">O dossiê de compliance</span></li></ol>
+        <div class="cta">
+          <a class="btn" href="campus/cursos/gobernanza-compliance/index.html#semana-1"><span data-i18n="courses.start">Começar semana 1</span></a>
+          <a class="btn btn-ghost" href="campus/cursos/gobernanza-compliance/index.html"><span data-i18n="courses.program">Ver programa</span></a>
+        </div>
+      </article></div>
+    <p class="meta" data-i18n-html="courses.eval">Avaliação em todos os cursos: participação e exercícios 30&nbsp;% · quizzes formativos 30&nbsp;% · projeto final com evidência 40&nbsp;%.</p>
+  </section>
+
+  <section id="programa">
+    <div class="section-head"><div><p class="eyebrow"><span data-i18n="program.label">Programa acadêmico</span></p><h2><span data-i18n="program.h2">Quatro anos, dos fundamentos ao capstone.</span></h2></div>
+      <a class="chip" href="campus/lector.html?doc=mapa-curricular.md">Mapa NICE/CAE →</a></div>
+    <div class="feature-grid"><article class="card ano"><span class="eyebrow"><span data-i18n="program.y1n">ANO 1</span></span><h3><span data-i18n="program.y1t">Fundamentos</span></h3><p class="t2"><span data-i18n="program.y1d">Bases técnicas, hábitos de evidência e recursos abertos. Comece por qualquer curso do catálogo.</span></p></article><article class="card ano"><span class="eyebrow"><span data-i18n="program.y2n">ANO 2</span></span><h3><span data-i18n="program.y2t">Especialização</span></h3><p class="t2"><span data-i18n="program.y2d">Ofensiva, defensiva e IA: aprofundar num pilar com labs guiados em ambientes legais.</span></p></article><article class="card ano"><span class="eyebrow"><span data-i18n="program.y3n">ANO 3</span></span><h3><span data-i18n="program.y3t">Laboratório prático</span></h3><p class="t2"><span data-i18n="program.y3d">Cyber range, máquinas vulneráveis e desafios progressivos com evidência verificável.</span></p></article><article class="card ano"><span class="eyebrow"><span data-i18n="program.y4n">ANO 4</span></span><h3><span data-i18n="program.y4t">Projeto final + certificação</span></h3><p class="t2"><span data-i18n="program.y4d">Capstone de fim de curso: entrega verificável de ponta a ponta e defesa pública.</span></p></article></div>
+  </section>
+
+  <section id="labs">
+    <div class="section-head"><div><p class="eyebrow"><span data-i18n="labs.label">Laboratórios</span> · <span data-i18n="labs.badge">Abertura por fases</span></p><h2><span data-i18n="labs.h2">Prática real, risco zero.</span></h2></div></div>
+    <p class="t2"><span data-i18n="labs.lead">Os laboratórios são a parte hands-on do curso. Enquanto abrem, os cursos já incluem práticas guiadas em ambientes legais e locais (Juice Shop, Metasploitable).</span></p>
+    <div class="feature-grid"><article class="card"><h3><span data-i18n="labs.l1t">Cyber Range</span></h3><p class="t2"><span data-i18n="labs.l1d">Ambiente simulado onde uma equipe ataca e outra defende infraestrutura real, com observadores e debriefing.</span></p></article><article class="card"><h3><span data-i18n="labs.l2t">Máquinas vulneráveis</span></h3><p class="t2"><span data-i18n="labs.l2d">Laboratórios locais controlados para praticar exploração e hardening sem tocar sistemas de terceiros.</span></p></article><article class="card"><h3><span data-i18n="labs.l3t">Desafios progressivos</span></h3><p class="t2"><span data-i18n="labs.l3d">Desafios de dificuldade crescente; cada flag resolvido soma evidência verificável ao seu dossiê anônimo.</span></p></article></div>
+  </section>
+
+  <section id="certs">
+    <div class="section-head"><div><p class="eyebrow"><span data-i18n="certs.label">Certificações</span></p><h2><span data-i18n="certs.h2">Credenciais que qualquer pessoa pode verificar.</span></h2></div>
+      <a class="chip" href="campus/credencial.html">credencial.html →</a></div>
+    <p class="t2"><span data-i18n="certs.lead">Ao completar um curso com evidência, emite-se uma credencial com selo hash verificável por hash (blockchain: PLANNED): não é preciso confiar em nós — verifica-se você mesmo.</span></p><ul><li><span data-i18n="certs.b1">Verificável: hash público, comprovável para sempre.</span></li><li><span data-i18n="certs.b2">Compartilhável no LinkedIn e no currículo.</span></li><li><span data-i18n="certs.b3">Descentralizada: não depende do nosso servidor para existir.</span></li></ul>
+  </section>
+
+  <section id="plan">
+    <div class="section-head"><div><p class="eyebrow"><span data-i18n="plan.label">Plano</span></p><h2><span data-i18n="plan.h2">Um plano só. Zero, para sempre.</span></h2></div></div>
+    <article class="card plan"><h3><span data-i18n="plan.name">Acesso Total</span></h3><div class="precio text-grad"><span data-i18n="plan.price">0 €</span></div>
+      <p class="meta"><span data-i18n="plan.period">para sempre · sem cartão de crédito</span></p><ul><li>✔ <span data-i18n="plan.f1">Todos os cursos, semanas e quizzes</span></li><li>✔ <span data-i18n="plan.f2">Credencial verificável por hash (blockchain: PLANNED)</span></li><li>✔ <span data-i18n="plan.f3">Campus offline (PWA) nos 4 idiomas</span></li><li>✔ <span data-i18n="plan.f4">PT · ES · EN + català</span></li><li>✔ <span data-i18n="plan.f5">Sem cadastro, sem e-mail, sem cookies</span></li></ul><a class="btn" href="campus/"><span data-i18n="plan.cta">Começar agora</span></a></article>
+  </section>
+
+  <section id="faq">
+    <div class="section-head"><div><p class="eyebrow"><span data-i18n="faq.label">Perguntas frequentes</span></p><h2><span data-i18n="faq.h2">O que todo mundo pergunta.</span></h2></div></div>
+    <div style="display:grid;gap:var(--sp-3)"><details class="card faq"><summary><span data-i18n="faq.q1">Quanto custa estudar aqui?</span></summary><p data-i18n-html="faq.a1">Nada. “Sem barreiras econômicas” é um pilar do projeto: o material é aberto e apoia-se em bancos públicos (Harvard CS50, MIT OCW, Khan Academy). Se você tem internet, tem universidade.</p></details><details class="card faq"><summary><span data-i18n="faq.q2">Preciso me cadastrar ou dar meu e-mail?</span></summary><p data-i18n-html="faq.a2">Não. O acesso é virtual e imediato: não há contas, verificação de e-mail nem cookies. Seu progresso e suas credenciais vinculam-se a um token anônimo, nunca à sua identidade.</p></details><details class="card faq"><summary><span data-i18n="faq.q3">Como se aprova um curso?</span></summary><p data-i18n-html="faq.a3">Demonstrando. Participação e exercícios semanais (30&nbsp;%), quizzes formativos por semana (30&nbsp;%) e projeto final com evidência (40&nbsp;%). Estilo Harvard: nada se aprova adivinhando.</p></details><details class="card faq"><summary><span data-i18n="faq.q4">Qual é o valor da certificação?</span></summary><p data-i18n-html="faq.a4">É uma credencial verificável por hash (blockchain: PLANNED) com o hash da sua evidência de trabalho. Não pedimos que confie em nós: o hash verifica-se publicamente, para sempre.</p></details><details class="card faq"><summary><span data-i18n="faq.q5">Quem mantém este projeto?</span></summary><p data-i18n-html="faq.a5">A Secure T University é um projeto educacional aberto do ecossistema Belentani. Todo o código e conteúdo está no GitHub com licença MIT: você pode auditar, reutilizar e contribuir.</p></details></div>
+  </section>
+
+  <section class="banda"><p class="eyebrow"><span data-i18n="cta.label">Comece agora</span></p><h2><span data-i18n="cta.h2">O campus está aberto. Entre e pratique.</span></h2><p class="t2"><span data-i18n="cta.p">Não há lista de espera, formulário nem matrícula. O próximo semestre começa quando você abre a primeira lição.</span></p>
+    <a class="btn" href="campus/"><span data-i18n="hero.cta1">Entrar no campus</span></a></section>
+</main>
+
+<footer class="wrap">
+  <div class="cols">
+    <div><p><b>secure T University</b></p><p><span data-i18n="footer.tag">Universidade digital soberana de cybersegurança e inteligência artificial. Educação prática, sem barreiras econômicas, com credenciais verificáveis.</span></p><p class="meta"><span data-i18n="footer.langs">Idiomas do campus: Português · Español · English (+ Català)</span></p></div>
+    <div><p><b><span data-i18n="footer.nav">Navegar</span></b></p><a href="campus/"><span data-i18n="footer.campus">Campus</span></a><a href="#cursos"><span data-i18n="footer.courses">Cursos</span></a>
+      <a href="#programa"><span data-i18n="footer.program">Programa acadêmico</span></a><a href="#faq"><span data-i18n="footer.faq">Perguntas frequentes</span></a></div>
+    <div><p><b><span data-i18n="footer.project">Projeto</span></b></p><a href="https://github.com/belentani7/secure-t"><span data-i18n="footer.github">GitHub</span></a>
+      <a href="STORY.md"><span data-i18n="footer.story">Story do projeto</span></a><a href="public/.well-known/security.txt"><span data-i18n="footer.security">Security.txt</span></a></div>
+  </div>
+  <p class="meta"><span data-i18n="footer.rights">Secure T University — Universidade digital soberana. O conhecimento não se pede: pratica-se.</span></p>
+</footer>
+
+<script src="ui/i18n.js"></script>
+<script>
+(function () {
+  var I = window.SecureTI18n; if (!I) return;
+  var lang = I.detect(); if (lang !== "pt") I.apply(lang); else I.apply("pt");
+  document.querySelectorAll("[data-lang-btn]").forEach(function (b) {
+    b.addEventListener("click", function () { I.apply(b.getAttribute("data-lang-btn")); });
+  });
+  document.getElementById("tema-btn").addEventListener("click", function () {
+    var r = document.documentElement; r.dataset.theme = r.dataset.theme === "light" ? "dark" : "light";
+    try { localStorage.setItem("stt-theme", r.dataset.theme); } catch (e) {}
+  });
+})();
+</script>
+</body>
 </html>

@@ -202,22 +202,26 @@ def test_robots_no_desindexa_contenido_real():
     assert "Sitemap:" in rb
 
 
-def test_netlify_404_real_no_mascara():
-    nt = (ROOT / "netlify.toml").read_text(encoding="utf-8")
-    # el catch-all debe servir 404.html con status 404, nunca 200 sobre index
-    assert not re.search(r'status\s*=\s*200', nt), \
-        "redirect con status 200 enmascara 404 reales"
-    assert 'to = "/404.html"' in nt and "status = 404" in nt, \
-        "sin catch-all honesto hacia 404.html"
-    assert "X-Frame-Options" in nt, "sin security headers en netlify"
+def test_un_solo_destino_de_despliegue():
+    """Arquitectura unificada: GitHub Pages vía Actions. Sin configs
+    contradictorias (Netlify/Vercel/Railway/Wrangler/Docker) en la raíz."""
+    for f in ("netlify.toml", "vercel.json", "railway.json", "wrangler.toml",
+              "Dockerfile", "docker-compose.yml"):
+        assert not (ROOT / f).exists(), f"config de despliegue sobrante: {f}"
+    assert (ROOT / ".github" / "workflows" / "pages.yml").exists()
 
 
-def test_vercel_sin_rewrites_con_headers():
-    vc = (ROOT / "vercel.json").read_text(encoding="utf-8")
-    assert "rewrites" not in vc, "vercel con rewrites SPA enmascara 404"
-    for cabecera in ("X-Content-Type-Options", "X-Frame-Options",
-                     "Referrer-Policy", "Permissions-Policy"):
-        assert cabecera in vc, f"vercel sin {cabecera}"
+def test_pages_publica_solo_lista_blanca():
+    wf = (ROOT / ".github" / "workflows" / "pages.yml").read_text(encoding="utf-8")
+    assert "_site" in wf and "cp -r campus" in wf, "Pages debe ensamblar _site"
+    assert "path: _site" in wf, "Pages no debe publicar la raíz del repo"
+    assert "PRIVATE KEY" in wf, "sin barrera de secretos antes de publicar"
+
+
+def test_repo_sin_secretos():
+    r = subprocess.run(["python3", str(ROOT / "scripts" / "scan_secretos.py"), str(ROOT)],
+                       capture_output=True, text=True)
+    assert r.returncode == 0, f"secretos detectados:\n{r.stdout}"
 
 
 def test_404_dedicado():
@@ -365,7 +369,7 @@ def test_pages_workflow_sin_secrets_externos():
     wf = (ROOT / ".github" / "workflows" / "pages.yml").read_text(encoding="utf-8")
     assert "id-token: write" in wf and "pages: write" in wf
     assert "actions/deploy-pages@v4" in wf, "no usa la acción oficial de Pages"
-    assert "belentani7.github.io/secure-t-university" in wf, "SITE_URL real ausente"
+    assert "belentani7.github.io/secure-t/" in wf, "SITE_URL real ausente"
     # sin tokens personales: solo OIDC con GITHUB_TOKEN
     assert "TOKEN" not in wf.replace("GITHUB_TOKEN", "")
 
