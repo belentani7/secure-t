@@ -1,8 +1,11 @@
 [build]
-  publish = "."
+  # El sitio es estatico: portada, campus y datos abiertos.
+  # NO publicar la raiz del repositorio: dejaria accesibles por URL los
+  # scripts de Python, los volcados de terminal y las notas internas.
+  publish = "public"
 
 # 404 real: la ruta inexistente sirve 404.html con status 404
-# (nunca status 200 sobre index.html: enmascararía enlaces rotos).
+# (nunca status 200 sobre index.html: enmascararia enlaces rotos).
 [[redirects]]
   from = "/*"
   to = "/404.html"
@@ -15,3 +18,11 @@
     X-Frame-Options = "DENY"
     Referrer-Policy = "no-referrer"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Cabeceras extra para el material del campus: es contenido educativo
+# publico, pero conviene impedir que se incruste en otros sitios.
+[[headers]]
+  for = "/campus/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
