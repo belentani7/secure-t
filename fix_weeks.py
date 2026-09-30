@@ -1,6 +1,6 @@
 import os, json, time, urllib.request, urllib.error
 
-API_KEY = "sk-e2d84b94452243e382d052b9db53a2a3"
+API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
 API_URL = "https://api.deepseek.com/v1/chat/completions"
 
 COURSE_LINKS = {
