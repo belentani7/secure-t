@@ -1,0 +1,52 @@
+# CI del campus: comprueba lo que este repositorio es de verdad.
+#
+# POR QUE ESTA AQUI Y NO EN LA RAIZ: GitHub solo ejecuta los workflows que
+# estan en .github/workflows/. Un ci.yml en la raiz nunca se ejecuta, por
+# mucho que parezca que si.
+#
+# POR QUE NO USA pnpm check/test/build: el package.json de este repositorio
+# no define esos scripts, asi que ese pipeline fallaba siempre. Aqui se
+# ejecuta lo que existe: los tests del campus y el escaneo de secretos.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  campus:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar pytest
+        run: pip install pytest
+      - name: Tests del campus
+        run: python -m pytest -q tests/
+      - name: JSON valido en el campus
+        run: |
+          find campus -name '*.json' -print0 | xargs -0 -n1 python -m json.tool > /dev/null
+          echo "JSON del campus correcto"
+
+  secretos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Gitleaks (historial completo)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
