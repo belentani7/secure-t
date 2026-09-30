@@ -1,19 +1,25 @@
-[![Open in VS Code](https://img.shields.io/badge/Open_in-VS_Code-007ACC?logo=visualstudiocode&logoColor=white)](https://github.dev/belentani7/secure-t)
+# secure-t
 
-# Secure T - Universidad Digital de Ciberseguridad e IA
+Auditoría de seguridad y reparación de repositorios.
 
-Plataforma universitaria de ciberseguridad e inteligencia artificial.
-Cursos: ciber-defensiva, ciber-ofensiva, gobernanza-compliance, ia-aplicada-segura.
+## Qué es
 
-## Estructura
-- `campus/` - Campus virtual con cursos interactivos
-- `secure-t-university/` - Plataforma universitaria
-- `secure-t-app/` - Aplicación platform
-- `cybersecurity_course/` - Curso ciberseguridad
-- `audit/` - Herramientas de auditoría
-- `audit-kit/` - Kit auditoría ready
-- `audit-securetea/` - Informe debilidades SecureTea
-- `secure-t-local-models/` - Modelos locales
+Una herramienta que audita un repositorio en busca de debilidades reales, las repara y deja
+el proyecto listo: ramas, protección, Pages, Actions, Dependabot y despliegue.
 
-## Desplegar
-Ver `DEPLOY.md`
+En línea: <https://secure-t.netlify.app>
+
+## Qué revisa
+
+- Debilidades de seguridad y su reparación en el código
+- Configuración de GitHub (ramas, protección, Actions)
+- Dependencias desactualizadas (Dependabot)
+- Despliegue en Vercel y Cloudflare Pages
+
+## Stack
+
+React + Vite en el frontend, Express + TypeScript en el backend.
+
+## Licencia
+
+Sin licencia declarada.
