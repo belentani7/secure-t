@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Centro de Amenazas · secure T</title>
+<meta name="description" content="Feed en tiempo real de vulnerabilidades activamente explotadas: CISA KEV + NVD. Datos sin credenciales, actualizados diariamente.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b1117'/%3E%3Cpath d='M16 6l9 20H7z' fill='none' stroke='%23b7f36b' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='19' r='2.5' fill='%23b7f36b'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="./tokens.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text-1);font-family:var(--font-sans);min-height:100vh}
+.env{width:min(72rem,100% - 2rem);margin:0 auto;padding:clamp(1.5rem,4vw,3rem) 0}
+
+/* nav */
+.nav{display:flex;align-items:center;gap:1rem;padding:.75rem 0;border-bottom:1px solid var(--border);margin-bottom:2.5rem}
+.nav a{color:var(--text-2);text-decoration:none;font-size:var(--fs-sm)}
+.nav a:hover{color:var(--accent)}
+.nav .sep{color:var(--border)}
+
+/* header */
+.page-header{margin-bottom:2.5rem}
+.eyebrow{font-family:var(--font-mono);font-size:var(--fs-xs);letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}
+h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;line-height:1.2;margin-bottom:.75rem}
+.lead{color:var(--text-2);font-size:var(--fs-md);max-width:60ch;line-height:1.6}
+.stamp{font-family:var(--font-mono);font-size:var(--fs-xs);color:var(--text-3);margin-top:.75rem}
+
+/* stat row */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(11rem,100%),1fr));gap:1rem;margin-bottom:2.5rem}
+.stat{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.25rem 1.5rem}
+.stat-value{font-size:clamp(1.4rem,3vw,2rem);font-weight:800;font-family:var(--font-mono);color:var(--accent);line-height:1}
+.stat-label{font-size:var(--fs-xs);color:var(--text-2);margin-top:.4rem;text-transform:uppercase;letter-spacing:.08em}
+.stat.danger .stat-value{color:#f87171}
+.stat.warn .stat-value{color:#fb923c}
+
+/* tabs */
+.tabs{display:flex;gap:.25rem;border-bottom:1px solid var(--border);margin-bottom:1.75rem;overflow-x:auto;padding-bottom:0}
+.tab{padding:.55rem 1.1rem;border:none;background:none;color:var(--text-2);font-size:var(--fs-sm);cursor:pointer;font-family:inherit;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:color .15s,border-color .15s}
+.tab:hover{color:var(--text-1)}
+.tab.active{color:var(--accent);border-color:var(--accent)}
+
+/* search bar */
+.search-bar{display:flex;gap:.75rem;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap}
+.search-bar input{flex:1;min-width:14rem;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:.6rem 1rem;color:var(--text-1);font-family:var(--font-mono);font-size:var(--fs-sm);outline:none}
+.search-bar input:focus{border-color:var(--accent)}
+.filter-btn{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:.55rem 1rem;color:var(--text-2);font-size:var(--fs-xs);cursor:pointer;font-family:var(--font-mono);transition:border-color .15s,color .15s;white-space:nowrap}
+.filter-btn.active,.filter-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* table */
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--r-lg)}
+table{width:100%;border-collapse:collapse;font-size:var(--fs-sm)}
+thead{background:var(--bg-surface)}
+th{padding:.75rem 1rem;text-align:left;font-family:var(--font-mono);font-size:var(--fs-xs);text-transform:uppercase;letter-spacing:.08em;color:var(--text-2);border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:.75rem 1rem;border-bottom:1px solid var(--border);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg-surface)}
+.cve-id{font-family:var(--font-mono);font-weight:700;font-size:var(--fs-xs);color:var(--accent);white-space:nowrap}
+.badge{display:inline-block;padding:.15rem .5rem;border-radius:9999px;font-family:var(--font-mono);font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.badge-ransomware{background:#7f1d1d;color:#fca5a5}
+.badge-critical{background:#431407;color:#fb923c}
+.badge-new{background:#14532d;color:#86efac}
+.vendor{color:var(--text-2);font-size:var(--fs-xs)}
+.product-name{color:var(--text-1);font-weight:500}
+.date{font-family:var(--font-mono);font-size:var(--fs-xs);color:var(--text-3);white-space:nowrap}
+.desc{color:var(--text-2);font-size:var(--fs-xs);line-height:1.5;max-width:34ch}
+
+/* chart bar */
+.chart-section{margin-top:2.5rem}
+.chart-section h2{font-size:var(--fs-lg);font-weight:700;margin-bottom:1.25rem}
+.bar-chart{display:flex;flex-direction:column;gap:.5rem}
+.bar-row{display:grid;grid-template-columns:10rem 1fr 3.5rem;gap:.75rem;align-items:center;font-size:var(--fs-xs)}
+.bar-label{color:var(--text-2);font-family:var(--font-mono);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar-track{background:var(--bg-surface);border-radius:9999px;height:.65rem;overflow:hidden}
+.bar-fill{height:100%;border-radius:9999px;background:var(--accent);transition:width .4s ease}
+.bar-count{color:var(--text-2);font-family:var(--font-mono);text-align:right}
+
+/* timeline */
+.timeline-chart{overflow-x:auto;margin-top:2rem}
+.timeline-svg-wrap{min-width:600px}
+
+/* panels */
+.panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
+@media(max-width:640px){.panel-grid{grid-template-columns:1fr}}
+.panel{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.25rem}
+.panel h3{font-size:var(--fs-sm);font-weight:700;margin-bottom:1rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--text-2)}
+.cwe-item{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;border-bottom:1px solid var(--border);font-size:var(--fs-xs)}
+.cwe-item:last-child{border-bottom:none}
+.cwe-id{font-family:var(--font-mono);color:var(--accent)}
+.cwe-count{font-family:var(--font-mono);color:var(--text-2)}
+
+/* nvd */
+.nvd-item{padding:.75rem 0;border-bottom:1px solid var(--border)}
+.nvd-item:last-child{border-bottom:none}
+.nvd-header{display:flex;align-items:baseline;gap:.75rem;flex-wrap:wrap;margin-bottom:.35rem}
+.nvd-cve{font-family:var(--font-mono);font-weight:700;font-size:var(--fs-sm);color:var(--accent)}
+.nvd-score{font-family:var(--font-mono);font-size:var(--fs-xs);font-weight:700;background:#431407;color:#fb923c;padding:.1rem .45rem;border-radius:9999px}
+.nvd-date{font-family:var(--font-mono);font-size:var(--fs-xs);color:var(--text-3)}
+.nvd-desc{color:var(--text-2);font-size:var(--fs-xs);line-height:1.5}
+
+/* skeleton */
+.skeleton{background:linear-gradient(90deg,var(--bg-surface) 25%,var(--border) 50%,var(--bg-surface) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:var(--r-sm);height:2.5rem;margin-bottom:.5rem}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* pager */
+.pager{display:flex;gap:.5rem;align-items:center;margin-top:1.25rem;flex-wrap:wrap}
+.pager button{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:.4rem .9rem;color:var(--text-2);font-family:var(--font-mono);font-size:var(--fs-xs);cursor:pointer}
+.pager button:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.pager button:disabled{opacity:.35;cursor:not-allowed}
+.pager .page-info{font-family:var(--font-mono);font-size:var(--fs-xs);color:var(--text-3)}
+
+.hidden{display:none!important}
+.loading-msg{color:var(--text-2);font-family:var(--font-mono);font-size:var(--fs-sm);padding:2rem;text-align:center}
+.err-msg{color:#f87171;font-family:var(--font-mono);font-size:var(--fs-sm);padding:2rem;text-align:center}
+</style>
+</head>
+<body>
+<div class="env">
+  <nav class="nav">
+    <a href="../index.html">secure T</a>
+    <span class="sep">›</span>
+    <a href="./index.html">Campus</a>
+    <span class="sep">›</span>
+    <span>Centro de Amenazas</span>
+  </nav>
+
+  <header class="page-header">
+    <p class="eyebrow">Threat Intelligence · Live</p>
+    <h1>Centro de Amenazas</h1>
+    <p class="lead">Vulnerabilidades activamente explotadas en la naturaleza. Datos en tiempo real desde <strong>CISA KEV</strong> y <strong>NVD/NIST</strong> — sin credenciales, regenerados diariamente.</p>
+    <p class="stamp" id="stamp">Cargando datos…</p>
+  </header>
+
+  <div class="stats" id="stats-row">
+    <div class="stat"><div class="stat-value" id="s-total">—</div><div class="stat-label">KEVs totales</div></div>
+    <div class="stat danger"><div class="stat-value" id="s-ransomware">—</div><div class="stat-label">Vinculadas a ransomware</div></div>
+    <div class="stat warn"><div class="stat-value" id="s-pct">—%</div><div class="stat-label">% con ransomware</div></div>
+    <div class="stat"><div class="stat-value" id="s-nvd">—</div><div class="stat-label">Críticas NVD (recientes)</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="kev">KEV — Activamente explotadas</button>
+    <button class="tab" data-tab="nvd">NVD — Críticas recientes</button>
+    <button class="tab" data-tab="stats">Estadísticas</button>
+  </div>
+
+  <!-- KEV tab -->
+  <div id="tab-kev">
+    <div class="search-bar">
+      <input type="search" id="kev-search" placeholder="Buscar CVE, vendor, producto…" autocomplete="off">
+      <button class="filter-btn active" data-filter="all">Todas</button>
+      <button class="filter-btn" data-filter="ransomware">Solo ransomware</button>
+    </div>
+    <div id="kev-table-wrap">
+      <div class="loading-msg">⏳ Cargando feed CISA KEV…</div>
+    </div>
+    <div class="pager" id="kev-pager" style="display:none">
+      <button id="p-prev" disabled>← Anterior</button>
+      <span class="page-info" id="p-info"></span>
+      <button id="p-next">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- NVD tab -->
+  <div id="tab-nvd" class="hidden">
+    <div id="nvd-list">
+      <div class="loading-msg">⏳ Cargando NVD…</div>
+    </div>
+  </div>
+
+  <!-- Stats tab -->
+  <div id="tab-stats" class="hidden">
+    <div class="chart-section">
+      <h2>Evolución mensual de KEVs añadidas (últimos 24 meses)</h2>
+      <div class="timeline-chart">
+        <div class="timeline-svg-wrap" id="timeline-svg"></div>
+      </div>
+    </div>
+    <div class="panel-grid">
+      <div class="panel">
+        <h3>Top 15 Vendors</h3>
+        <div class="bar-chart" id="vendor-chart"></div>
+      </div>
+      <div class="panel">
+        <h3>Top 10 CWEs</h3>
+        <div id="cwe-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const DATA_URL = './data/threat-intel.json';
+const PAGE_SIZE = 25;
+
+let allKev = [];
+let filteredKev = [];
+let currentPage = 0;
+let activeFilter = 'all';
+let searchTerm = '';
+let stats = {};
+let nvdItems = [];
+
+async function loadData() {
+  try {
+    const r = await fetch(DATA_URL);
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const data = await r.json();
+
+    stats = data.stats || {};
+    allKev = data.kev?.recent || [];
+    nvdItems = data.nvd_critical_recent || [];
+
+    document.getElementById('stamp').textContent =
+      `Generado: ${new Date(data.generated_utc).toLocaleString('es-ES', {dateStyle:'medium',timeStyle:'short'})} UTC  ·  Catálogo CISA ${data.kev?.catalog_version || '—'}`;
+
+    document.getElementById('s-total').textContent = (stats.total_kev || 0).toLocaleString('es');
+    document.getElementById('s-ransomware').textContent = (stats.ransomware_linked || 0).toLocaleString('es');
+    document.getElementById('s-pct').textContent = `${stats.ransomware_pct || 0}%`;
+    document.getElementById('s-nvd').textContent = nvdItems.length;
+
+    applyFilter();
+    renderNvd();
+    renderStats();
+  } catch(e) {
+    document.getElementById('kev-table-wrap').innerHTML = `<div class="err-msg">⚠️ No se pudieron cargar los datos: ${e.message}<br>Ejecuta: <code>python3 scripts/fetch-threat-intel.py</code></div>`;
+  }
+}
+
+function applyFilter() {
+  const q = searchTerm.toLowerCase();
+  filteredKev = allKev.filter(v => {
+    const matchFilter = activeFilter === 'all' || (activeFilter === 'ransomware' && v.ransomware);
+    const matchSearch = !q ||
+      v.cve_id?.toLowerCase().includes(q) ||
+      v.vendor?.toLowerCase().includes(q) ||
+      v.product?.toLowerCase().includes(q) ||
+      v.name?.toLowerCase().includes(q) ||
+      v.short_description?.toLowerCase().includes(q);
+    return matchFilter && matchSearch;
+  });
+  currentPage = 0;
+  renderKevTable();
+}
+
+function renderKevTable() {
+  const start = currentPage * PAGE_SIZE;
+  const slice = filteredKev.slice(start, start + PAGE_SIZE);
+  const total = filteredKev.length;
+
+  if (!slice.length) {
+    document.getElementById('kev-table-wrap').innerHTML = '<div class="loading-msg">Sin resultados.</div>';
+    document.getElementById('kev-pager').style.display = 'none';
+    return;
+  }
+
+  const today = new Date().toISOString().slice(0,10);
+  const isNew = d => d && (new Date(today) - new Date(d)) < 14*24*60*60*1000;
+
+  let html = '<div class="table-wrap"><table><thead><tr><th>CVE</th><th>Producto</th><th>Añadida</th><th>Estado</th><th>Descripción</th></tr></thead><tbody>';
+  for (const v of slice) {
+    const badges = [];
+    if (v.ransomware) badges.push('<span class="badge badge-ransomware">ransomware</span>');
+    if (isNew(v.date_added)) badges.push('<span class="badge badge-new">nueva</span>');
+    html += `<tr>
+      <td><span class="cve-id">${v.cve_id}</span></td>
+      <td><span class="product-name">${esc(v.product)}</span><br><span class="vendor">${esc(v.vendor)}</span></td>
+      <td><span class="date">${v.date_added || '—'}</span></td>
+      <td>${badges.join(' ')}</td>
+      <td><span class="desc">${esc(v.short_description || v.name || '')}</span></td>
+    </tr>`;
+  }
+  html += '</tbody></table></div>';
+
+  document.getElementById('kev-table-wrap').innerHTML = html;
+
+  const totalPages = Math.ceil(total / PAGE_SIZE);
+  document.getElementById('kev-pager').style.display = total > PAGE_SIZE ? 'flex' : 'none';
+  document.getElementById('p-info').textContent = `Página ${currentPage+1} / ${totalPages} — ${total} resultados`;
+  document.getElementById('p-prev').disabled = currentPage === 0;
+  document.getElementById('p-next').disabled = currentPage >= totalPages - 1;
+}
+
+function renderNvd() {
+  if (!nvdItems.length) {
+    document.getElementById('nvd-list').innerHTML = '<div class="loading-msg">Sin datos NVD.</div>';
+    return;
+  }
+  let html = '';
+  for (const v of nvdItems) {
+    html += `<div class="nvd-item">
+      <div class="nvd-header">
+        <span class="nvd-cve">${v.cve_id}</span>
+        <span class="nvd-score">CVSS ${v.score}</span>
+        <span class="nvd-date">${v.published}</span>
+        ${v.attack_vector ? `<span class="badge badge-critical">${v.attack_vector}</span>` : ''}
+      </div>
+      <p class="nvd-desc">${esc(v.description)}</p>
+    </div>`;
+  }
+  document.getElementById('nvd-list').innerHTML = html;
+}
+
+function renderStats() {
+  // Vendor bar chart
+  const vendors = stats.top_vendors || [];
+  const maxV = vendors[0]?.count || 1;
+  document.getElementById('vendor-chart').innerHTML = vendors.map(v => `
+    <div class="bar-row">
+      <span class="bar-label" title="${esc(v.vendor)}">${esc(v.vendor)}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(v.count/maxV*100)}%"></div></div>
+      <span class="bar-count">${v.count}</span>
+    </div>`).join('');
+
+  // CWE list
+  const cwes = stats.top_cwes || [];
+  document.getElementById('cwe-list').innerHTML = cwes.map(c => `
+    <div class="cwe-item"><span class="cwe-id">${esc(c.cwe)}</span><span class="cwe-count">${c.count}</span></div>`).join('');
+
+  // Timeline SVG
+  const tl = stats.timeline || [];
+  if (!tl.length) return;
+  const W = 780, H = 120, PL = 40, PR = 10, PT = 10, PB = 30;
+  const cw = W - PL - PR, ch = H - PT - PB;
+  const maxC = Math.max(...tl.map(t => t.count));
+  const bw = cw / tl.length;
+
+  let svgBars = '', svgLabels = '';
+  tl.forEach((t, i) => {
+    const bh = (t.count / maxC) * ch;
+    const x = PL + i * bw + bw * .1;
+    const y = PT + ch - bh;
+    svgBars += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${(bw*.8).toFixed(1)}" height="${bh.toFixed(1)}" fill="var(--accent)" opacity=".75" rx="2"><title>${t.month}: ${t.count}</title></rect>`;
+    if (i % 4 === 0 || i === tl.length - 1) {
+      svgLabels += `<text x="${(x + bw*.4).toFixed(1)}" y="${H - 5}" text-anchor="middle" fill="var(--text-3)" font-size="9" font-family="monospace">${t.month.slice(2)}</text>`;
+    }
+  });
+  document.getElementById('timeline-svg').innerHTML = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">${svgBars}${svgLabels}</svg>`;
+}
+
+// Tab switching
+document.querySelectorAll('.tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    ['kev','nvd','stats'].forEach(id => {
+      document.getElementById('tab-' + id).classList.toggle('hidden', id !== btn.dataset.tab);
+    });
+  });
+});
+
+// Search
+document.getElementById('kev-search').addEventListener('input', e => {
+  searchTerm = e.target.value;
+  applyFilter();
+});
+
+// Filters
+document.querySelectorAll('[data-filter]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    activeFilter = btn.dataset.filter;
+    document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilter();
+  });
+});
+
+// Pagination
+document.getElementById('p-prev').addEventListener('click', () => { currentPage--; renderKevTable(); window.scrollTo({top:0,behavior:'smooth'}); });
+document.getElementById('p-next').addEventListener('click', () => { currentPage++; renderKevTable(); window.scrollTo({top:0,behavior:'smooth'}); });
+
+function esc(s) {
+  if (!s) return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+loadData();
+</script>
+</body>
+</html>
