@@ -8,8 +8,10 @@ En linea: <https://belentani7.github.io/secure-t/>
 ## Que es este repositorio
 
 Un campus estatico. La portada `index.html` enlaza los cuatro programas y todo el
-material vive en `campus/`: no hay servidor de aplicaciones, no hay base de datos en
-produccion y no hay cuentas de usuario. Se puede abrir desde el disco.
+material vive en `campus/`: sin base de datos en produccion ni cuentas de usuario,
+se abre desde el disco. El repositorio contiene ademas una capa SPA local
+(`client/`, React + Vite) y un servidor estatico opcional con API de demostracion
+(`pnpm start`); ninguna de las dos se publica en GitHub Pages.
 
 | Programa | Carpeta |
 |---|---|
@@ -29,7 +31,8 @@ No hay cuenta, no hay correo y no hay seguimiento. El progreso se guarda en el
 
 ## Tests
 
-Los tests se ejecutan con **pytest** sobre los artefactos publicados, no sobre el motor:
+Los tests del campus se ejecutan con **pytest** sobre los artefactos publicados,
+no sobre el motor:
 
 ```bash
 pip install pytest
@@ -41,10 +44,21 @@ evaluacion, la estructura de las paginas de curso, los enlaces reales de la port
 el SEO minimo, y que el workflow de Pages no lleve tokens personales.
 `tests/test_forge_smoke.py` cubre el arranque del motor educativo.
 
+La capa SPA y los modulos de dominio (gobernanza de agentes, RBAC, auditoria,
+curriculo, notificaciones) se validan con **vitest** y **tsc**:
+
+```bash
+pnpm install
+pnpm test         # 22 tests: gobernanza, contratos, curriculo, notificaciones
+pnpm typecheck    # tsc --noEmit
+pnpm build        # vite build -> dist/public
+```
+
 ## CI
 
 El workflow vive en `.github/workflows/ci.yml` (no en la raiz: GitHub solo ejecuta
-los que estan en esa carpeta). Ejecuta pytest, valida el JSON del campus y pasa
+los que estan en esa carpeta). Ejecuta pytest, valida el JSON del campus, pasa los
+tests del motor educativo y de la capa SPA (vitest + typecheck) y aplica
 **gitleaks** sobre el historial completo para que ningun secreto vuelva a entrar.
 
 ## Despliegue
@@ -60,7 +74,9 @@ Dos destinos, una sola fuente:
 ## Motor educativo (eduforge)
 
 `lib/edu-engine/` contiene el motor que genera y valida el curriculo. Tiene tests
-propios (`lib/edu-engine/tests/`) y su propio workflow. La carpeta `audit/` guarda
+propios (`lib/edu-engine/tests/`), ejecutados por el CI del repositorio: el
+workflow anidado que tenia en su carpeta nunca corrio, porque GitHub solo lee
+`.github/workflows/` de la raiz. La carpeta `audit/` guarda
 los informes de auditoria del propio repositorio: que se reviso, que se encontro y
 que quedo pendiente.
 
@@ -72,7 +88,9 @@ Esta seccion existe para que nadie confunda lo publicado con lo deseado.
 |---|---|
 | Campus estatico (4 cursos, 20 semanas) | publicado |
 | Tests con pytest | publicado, en CI |
+| Tests con vitest (capa SPA y dominio) | restaurados, en CI |
 | Escaneo de secretos en CI | publicado |
+| Capa SPA React + servidor local (`pnpm start`) | restaurada en el repo; no se publica en Pages |
 | Traduccion PT y EN del contenido docente | **PLANNED** |
 | Catala del contenido docente | **PLANNED** |
 | Backend con base de datos | retirado; el campus no lo necesita |
