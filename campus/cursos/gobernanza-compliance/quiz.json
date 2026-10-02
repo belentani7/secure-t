@@ -38,31 +38,141 @@
       "Los datos duren 10 años",
       "Solo se usen para lo declarado al recogerlos",
       "Se cifren dos veces",
-      "Los guarde el DPO"
+      "Se vendan a partners"
     ],
     "correcta": 1,
-    "explicacion": "Uso posterior incompatible con la finalidad declarada = nuevo tratamiento que requiere base."
+    "explicacion": "Sin nueva base legal, no hay usos secundarios oportunistas."
   },
   {
-    "pregunta": "Un registro de tratamiento NO debe contener...",
+    "pregunta": "ISO 27001 se centra en...",
     "opciones": [
-      "Finalidad y categorías de datos",
-      "Plazos de supresión",
-      "Medidas de seguridad",
-      "La lista de clientes con nombres reales para 'por si acaso'"
-    ],
-    "correcta": 3,
-    "explicacion": "Guardar datos 'por si acaso' viola la minimización: exactamente lo que evita Secure T."
-  },
-  {
-    "pregunta": "'Sin evidencia no hay compliance' significa...",
-    "opciones": [
-      "Que hay que comprar un SIEM",
-      "Que cada afirmación del expediente debe tener un artefacto verificable",
-      "Que firme el CEO",
-      "Que exista un PDF"
+      "Un único antivirus",
+      "Un sistema de gestión de seguridad de la información (SGSI)",
+      "Código fuente abierto obligatorio",
+      "Certificados TLS gratis"
     ],
     "correcta": 1,
-    "explicacion": "Un expediente es una cadena de afirmaciones → artefactos (logs, revisiones, matrices), no un PDF bonito."
+    "explicacion": "Gobierno, riesgo y mejora continua; los controles se adaptan al contexto."
+  },
+  {
+    "pregunta": "Una Statement of Applicability (SoA) documenta...",
+    "opciones": [
+      "El menú del comedor",
+      "Qué controles aplican, cuáles no y por qué",
+      "Solo el organigrama",
+      "Las passwords del equipo"
+    ],
+    "correcta": 1,
+    "explicacion": "Puente entre el Anexo A / controles y la realidad de la organización."
+  },
+  {
+    "pregunta": "Una DPIA (EIPD) es necesaria cuando...",
+    "opciones": [
+      "Se cambia el logo",
+      "El tratamiento puede entrañar alto riesgo para derechos de las personas",
+      "Se usa Wi‑Fi",
+      "Hay menos de 10 empleados"
+    ],
+    "correcta": 1,
+    "explicacion": "Evalúa riesgos a privacidad antes de desplegar el tratamiento."
+  },
+  {
+    "pregunta": "El ENS (España) clasifica sistemas según...",
+    "opciones": [
+      "Color del rack",
+      "Categorías de seguridad y medidas proporcionadas",
+      "Número de likes",
+      "Versión de Windows"
+    ],
+    "correcta": 1,
+    "explicacion": "Marco obligatorio para muchas AAPP: nivel y medidas asociadas."
+  },
+  {
+    "pregunta": "Un expediente de compliance útil contiene...",
+    "opciones": [
+      "Solo capturas sin fecha",
+      "Políticas, evidencias fechadas, dueños y trazabilidad de cambios",
+      "Contraseñas en claro",
+      "Publicidad del producto"
+    ],
+    "correcta": 1,
+    "explicacion": "El auditor pide evidencia reproducible, no narrativa."
+  },
+  {
+    "pregunta": "Asignar un dueño (owner) a cada riesgo sirve para...",
+    "opciones": [
+      "Decorar el registro",
+      "Hacer responsable a alguien de tratarlo y revisarlo",
+      "Eliminar el riesgo automáticamente",
+      "Evitar backups"
+    ],
+    "correcta": 1,
+    "explicacion": "Sin owner el riesgo queda huérfano y no se mitiga."
+  },
+  {
+    "pregunta": "SOC 2 reporta sobre...",
+    "opciones": [
+      "El sabor del café de la oficina",
+      "Controles trust services (seguridad, disponibilidad, etc.) de un proveedor",
+      "El código fuente de Linux",
+      "La latencia de DNS pública"
+    ],
+    "correcta": 1,
+    "explicacion": "Útil en cadena de suministro SaaS; no sustituye ISO ni ley local."
+  },
+  {
+    "pregunta": "La retención de logs debe equilibrar...",
+    "opciones": [
+      "Solo el gusto del CISO",
+      "Necesidad de investigación vs minimización y coste",
+      "Máximo infinito siempre",
+      "Borrar al día siguiente siempre"
+    ],
+    "correcta": 1,
+    "explicacion": "Política explícita: cuánto, por qué, cifrado y acceso."
+  },
+  {
+    "pregunta": "Un control compensatorio se usa cuando...",
+    "opciones": [
+      "Sobran presupuestos",
+      "Un control preferido no es viable y se mitiga el riesgo de otra forma",
+      "No hay riesgos",
+      "Se quiere evitar documentar"
+    ],
+    "correcta": 1,
+    "explicacion": "Debe documentarse eficacia y revisión; no es un atajo invisible."
+  },
+  {
+    "pregunta": "La gestión de terceros (vendors) exige como mínimo...",
+    "opciones": [
+      "Confiar en el logo de la marca",
+      "Evaluar acceso a datos, cláusulas y evidencias de control",
+      "Compartir todas las claves root",
+      "Desactivar MFA del proveedor"
+    ],
+    "correcta": 1,
+    "explicacion": "La cadena de suministro es superficie de ataque y de cumplimiento."
+  },
+  {
+    "pregunta": "Un indicador de control efectivo es...",
+    "opciones": [
+      "Que exista un PDF con el nombre del control",
+      "Evidencia periódica de que opera y detecta fallos",
+      "Que nadie lo revise en 5 años",
+      "Que esté escrito en inglés"
+    ],
+    "correcta": 1,
+    "explicacion": "Diseño ≠ operación: hay que medir que el control funciona."
+  },
+  {
+    "pregunta": "En este campus, el progreso sin cuenta de usuario aplica...",
+    "opciones": [
+      "Vigilancia publicitaria",
+      "Minimización: token anónimo local, sin PII enviada a servidor",
+      "Obligación de email corporativo",
+      "Registro en blockchain obligatorio (ya activo)"
+    ],
+    "correcta": 1,
+    "explicacion": "Demuestra el principio enseñado: no pedir el dato si no hace falta. Blockchain: PLANNED."
   }
 ]

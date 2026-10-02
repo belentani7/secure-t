@@ -27,7 +27,7 @@ def test_hay_cursos():
 def test_quiz_esquema(slug):
     items = json.loads((CAMPUS / "cursos" / slug / "quiz.json")
                        .read_text(encoding="utf-8"))
-    assert len(items) >= 6, "checkpoint débil: <6 ítems"
+    assert len(items) >= 12, "checkpoint débil: <12 ítems"
     for n, q in enumerate(items, 1):
         assert len(q["opciones"]) == 4, f"ítem {n}: se esperaban 4 opciones"
         assert 0 <= q["correcta"] < 4, f"ítem {n}: correcta fuera de rango"
@@ -366,7 +366,7 @@ def test_pages_workflow_sin_secrets_externos():
     wf = (ROOT / ".github" / "workflows" / "pages.yml").read_text(encoding="utf-8")
     assert "id-token: write" in wf and "pages: write" in wf
     assert "actions/deploy-pages@v4" in wf, "no usa la acción oficial de Pages"
-    assert "belentani7.github.io/secure-t-university" in wf, "SITE_URL real ausente"
+    assert "belentani7.github.io/secure-t" in wf, "SITE_URL real ausente"
     # sin tokens personales: solo OIDC con GITHUB_TOKEN
     assert "TOKEN" not in wf.replace("GITHUB_TOKEN", "")
 

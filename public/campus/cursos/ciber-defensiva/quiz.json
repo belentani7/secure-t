@@ -38,31 +38,141 @@
       "El disco",
       "La correlación de eventos",
       "El firewall",
-      "El antivirus"
+      "El DNS"
     ],
     "correcta": 1,
-    "explicacion": "Sin relojes coordinados no se puede reconstruir la cronología de un incidente."
+    "explicacion": "Sin reloj común no se reconstruye una línea temporal fiable."
   },
   {
-    "pregunta": "Un control detectivo (frente a preventivo) es...",
+    "pregunta": "Un SIEM aporta valor principalmente al...",
     "opciones": [
-      "Un cifrado en reposo",
-      "Un sistema SIEM que alerta",
-      "Un parche",
-      "Un backup"
+      "Sustituir el antivirus",
+      "Centralizar, correlacionar y alertar sobre telemetría",
+      "Cifrar bases de datos",
+      "Emitir certificados"
     ],
     "correcta": 1,
-    "explicacion": "Detecta lo que ya está pasando; no impide que empiece."
+    "explicacion": "El SIEM no sustituye controles; hace visible lo que ya ocurre en la red."
   },
   {
-    "pregunta": "La primera decisión en un incidente activo de ransomware es...",
+    "pregunta": "El hardening CIS Benchmarks se usa para...",
     "opciones": [
-      "Pagar el rescate",
-      "Contener (aislar máquinas afectadas)",
-      "Borrar los logs",
-      "Reinstalar todo"
+      "Diseñar logos corporativos",
+      "Aplicar configuraciones seguras verificables por sistema",
+      "Comprar hardware",
+      "Escribir políticas de vacaciones"
     ],
     "correcta": 1,
-    "explicacion": "Contener para frenar la propagación; el rescate no se paga como regla y borrar evidencia destruye la investigación."
+    "explicacion": "Ofrece baselines auditables; hay que adaptarlas al contexto real."
+  },
+  {
+    "pregunta": "En detección, un falso positivo es...",
+    "opciones": [
+      "Una amenaza real ignorada",
+      "Una alerta que no corresponde a actividad maliciosa",
+      "Un parche aplicado dos veces",
+      "Un backup corrupto"
+    ],
+    "correcta": 1,
+    "explicacion": "Demasiados falsos positivos agotan al SOC; hay que tunear reglas."
+  },
+  {
+    "pregunta": "Threat hunting se diferencia de alertas reactivas porque...",
+    "opciones": [
+      "Solo usa antivirus",
+      "Busca de forma proactiva hipótesis sobre adversarios en telemetría",
+      "Elimina la necesidad de logs",
+      "Es ilegal sin juez"
+    ],
+    "correcta": 1,
+    "explicacion": "Parte de una hipótesis (TTPs) y explora datos aunque no haya alerta."
+  },
+  {
+    "pregunta": "La contención en respuesta a incidentes busca...",
+    "opciones": [
+      "Borrar todas las evidencias",
+      "Limitar el daño mientras se investiga",
+      "Pagar el rescate inmediatamente",
+      "Publicar el incidente en redes"
+    ],
+    "correcta": 1,
+    "explicacion": "Aislar sin destruir evidencia: equilibrio entre negocio e investigación."
+  },
+  {
+    "pregunta": "Una use case de detección bien diseñada incluye...",
+    "opciones": [
+      "Solo el nombre de la herramienta",
+      "Datos fuente, lógica, umbral, false positives esperados y runbook",
+      "Únicamente el CVE asociado",
+      "El CV del analista"
+    ],
+    "correcta": 1,
+    "explicacion": "Sin runbook y criterio de calidad la alerta no escala a respuesta."
+  },
+  {
+    "pregunta": "La telemetría de endpoint (EDR) complementa al SIEM porque...",
+    "opciones": [
+      "Sustituye el MFA",
+      "Aporta visibilidad de procesos y comportamiento en el host",
+      "Elimina la necesidad de firewall",
+      "Cifra el correo automáticamente"
+    ],
+    "correcta": 1,
+    "explicacion": "Red + endpoint juntos reducen puntos ciegos del atacante."
+  },
+  {
+    "pregunta": "En forense básico, la regla de oro de evidencia es...",
+    "opciones": [
+      "Modificar el disco original para limpiarlo",
+      "Preservar integridad (hash) y cadena de custodia",
+      "Subir todo a un chat público",
+      "Reiniciar siempre el servidor primero"
+    ],
+    "correcta": 1,
+    "explicacion": "Sin integridad demostrable la evidencia pierde valor técnico y legal."
+  },
+  {
+    "pregunta": "Un playbook de IR debe definir...",
+    "opciones": [
+      "Solo colores del dashboard",
+      "Roles, umbrales de severidad, pasos y comunicación",
+      "El precio de las licencias SIEM",
+      "La política de dress code"
+    ],
+    "correcta": 1,
+    "explicacion": "Reduce improvisación bajo presión: quién hace qué y cuándo escalar."
+  },
+  {
+    "pregunta": "La correlación de eventos falla si...",
+    "opciones": [
+      "Hay demasiada RAM",
+      "Faltan identificadores comunes (host, usuario, IP, time)",
+      "El logo está en SVG",
+      "Se usa HTTPS"
+    ],
+    "correcta": 1,
+    "explicacion": "Sin campos alineados el SIEM no une piezas del mismo incidente."
+  },
+  {
+    "pregunta": "Defense in depth significa...",
+    "opciones": [
+      "Un único firewall muy caro",
+      "Capas de control independientes para que un fallo no lo derrumbe todo",
+      "Desactivar logs para ahorrar disco",
+      "Confiar solo en el perímetro"
+    ],
+    "correcta": 1,
+    "explicacion": "La defensa moderna asume compromiso parcial y limita el blast radius."
+  },
+  {
+    "pregunta": "Tras un incidente, las lecciones aprendidas deben...",
+    "opciones": [
+      "Archivarse sin acción",
+      "Traducirse en cambios de detección, proceso o control medibles",
+      "Ocultarse al equipo",
+      "Sustituir el informe técnico"
+    ],
+    "correcta": 1,
+    "explicacion": "El post-mortem vale si mejora el sistema, no si solo narra el caos."
   }
 ]

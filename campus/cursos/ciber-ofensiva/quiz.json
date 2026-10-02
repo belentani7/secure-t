@@ -64,5 +64,115 @@
     ],
     "correcta": 1,
     "explicacion": "El recon profesional minimiza impacto: primero pasivo, escaneo suave después."
+  },
+  {
+    "pregunta": "En MITRE ATT&CK, la táctica TA0043 (Reconnaissance) describe...",
+    "opciones": [
+      "Ejecución de malware en el endpoint",
+      "Recolección de información previa al acceso",
+      "Cifrado de discos por ransomware",
+      "Exfiltración por DNS tunneling"
+    ],
+    "correcta": 1,
+    "explicacion": "Reconnaissance agrupa técnicas de obtención de información antes o durante el acceso."
+  },
+  {
+    "pregunta": "Las Rules of Engagement (RoE) deben incluir como mínimo...",
+    "opciones": [
+      "Solo la lista de CVEs a explotar",
+      "Alcance, ventanas, técnicas permitidas y contacto de emergencia",
+      "La contraseña del administrador",
+      "El presupuesto de marketing"
+    ],
+    "correcta": 1,
+    "explicacion": "Sin alcance, ventanas y escalado de incidentes el test no es defendible legalmente."
+  },
+  {
+    "pregunta": "El movimiento lateral en un pentest consiste en...",
+    "opciones": [
+      "Cambiar de ISP",
+      "Desplazarse entre hosts tras un acceso inicial dentro del alcance",
+      "Actualizar el antivirus",
+      "Rotar certificados TLS"
+    ],
+    "correcta": 1,
+    "explicacion": "Tras el punto de entrada, el evaluador valida si puede alcanzar activos críticos autorizados."
+  },
+  {
+    "pregunta": "Una escalada de privilegios local busca...",
+    "opciones": [
+      "Comprar más licencias cloud",
+      "Pasar de un usuario limitado a privilegios superiores en el mismo sistema",
+      "Abrir un puerto en el firewall perimetral",
+      "Firmar un contrato de NDA"
+    ],
+    "correcta": 1,
+    "explicacion": "Demuestra impacto real: un usuario comprometido puede convertirse en administrador."
+  },
+  {
+    "pregunta": "CVSS en un informe sirve principalmente para...",
+    "opciones": [
+      "Medir velocidad de red",
+      "Cuantificar severidad de una vulnerabilidad de forma comparable",
+      "Cifrar el informe",
+      "Sustituir la remediación"
+    ],
+    "correcta": 1,
+    "explicacion": "Da una métrica común; el contexto de negocio sigue siendo necesario para priorizar."
+  },
+  {
+    "pregunta": "En un test web, Broken Access Control (OWASP) aparece cuando...",
+    "opciones": [
+      "El CSS está desactualizado",
+      "Un usuario alcanza funciones o datos de otro rol sin autorización",
+      "El CDN cachea imágenes",
+      "Hay demasiados logs"
+    ],
+    "correcta": 1,
+    "explicacion": "Es uno de los fallos más frecuentes: la aplicación no impone autorización en el servidor."
+  },
+  {
+    "pregunta": "El footprinting tecnológico típico identifica...",
+    "opciones": [
+      "El salario del CISO",
+      "Stack, versiones, paneles y servicios expuestos",
+      "El color del logo",
+      "El número de empleados en RR.HH."
+    ],
+    "correcta": 1,
+    "explicacion": "Saber qué corre el objetivo permite priorizar vectores sin tocar aún el perímetro."
+  },
+  {
+    "pregunta": "Un hallazgo 'informativo' se diferencia de uno crítico en que...",
+    "opciones": [
+      "No debe documentarse nunca",
+      "Aporta contexto o endurecimiento sin impacto inmediato explotable",
+      "Siempre implica RCE",
+      "Obliga a apagar producción"
+    ],
+    "correcta": 1,
+    "explicacion": "Sigue siendo útil al cliente, pero no justifica la misma urgencia que un RCE autenticado."
+  },
+  {
+    "pregunta": "PTES sitúa el pre-engagement...",
+    "opciones": [
+      "Después del informe final",
+      "Al inicio: acuerdos, alcance y restricciones antes de tocar sistemas",
+      "Solo en auditorías ISO",
+      "Como fase opcional de marketing"
+    ],
+    "correcta": 1,
+    "explicacion": "Sin pre-engagement no hay test profesional: hay actividad no autorizada."
+  },
+  {
+    "pregunta": "La evidencia de un laboratorio ofensivo ético debe...",
+    "opciones": [
+      "Publicarse con credenciales reales de terceros",
+      "Recogerse en entorno propio/legal y documentar pasos reproducibles",
+      "Borrarse siempre antes del informe",
+      "Incluir datos personales de usuarios reales sin minimización"
+    ],
+    "correcta": 1,
+    "explicacion": "Formación responsable: laboratorio autorizado, evidencia reproducible, sin daño a terceros."
   }
 ]

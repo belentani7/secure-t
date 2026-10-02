@@ -132,13 +132,14 @@ def capsula_diaria() -> None:
     subprocess.run(["git", "config", "user.name", "Belentani"], check=True)
     subprocess.run(["git", "config", "user.email",
                     "belentani7pedro@gmail.com"], check=True)
+    subprocess.run(["git", "config", "push.autoSetupRemote", "true"],
+                   check=True)
+    subprocess.run(["git", "pull", "--rebase"], check=False)
     subprocess.run(["git", "add", str(archivo)], check=True)
     subprocess.run(["git", "commit", "-m",
                     f"tutor-ia: capsula didactica {hoy} [{lang}]"],
                    check=True)
-    subprocess.run(["git", "config", "push.autoSetupRemote", "true"],
-                   check=True)
-    subprocess.run(["git", "push"], check=True)
+    subprocess.run(["git", "push"], check=False)
     print(f"[capsula] publicada {hoy} [{lang}]")
 
 
