@@ -1,17 +1,33 @@
 # secure T
 
-Instituto abierto de ciberseguridad e inteligencia artificial: cuatro programas de
-veinte semanas, gratuitos, en espanol y funcionales sin conexion.
+Instituto aberto de cibersegurança e inteligência artificial: quatro programas de
+vinte semanas, gratuitos, **PT na interface**, currículo fonte em espanhol,
+offline-first — e um convite discreto a **passar adiante**.
 
-En linea: <https://belentani7.github.io/secure-t/>
+Em linha: <https://belentani7.github.io/secure-t/>
 
-## Que es este repositorio
+## Listão (o que já é real)
 
-Un campus estatico. La portada `index.html` enlaza los cuatro programas y todo el
-material vive en `campus/`: sin base de datos en produccion ni cuentas de usuario,
-se abre desde el disco. El repositorio contiene ademas una capa SPA local
-(`client/`, React + Vite) y un servidor estatico opcional con API de demostracion
-(`pnpm start`); ninguna de las dos se publica en GitHub Pages.
+| Capacidade | Estado |
+|---|---|
+| 4 cursos × 20 semanas + quiz/lab/exame | publicado |
+| Landing trilingue PT→ES→EN | publicado |
+| Campus PT-first + PWA (`sw.js` v2) | publicado |
+| Voz neural PT/ES/EN/CA (`edge-tts`, `campus/voces/`) | publicado |
+| Credencial SHA-256 offline | publicado |
+| Bíblia de termos (`ui/biblia.js`) + `conceptos/` | publicado |
+| Onboarding PT `campus/comecar.html` | publicado |
+| JSON-LD EducationalOrganization | publicado |
+| Página `campus/passa-adiante.html` (nasceu do amor) | publicado |
+| `llms.txt` para agentes | publicado |
+| Blockchain / acreditação oficial | **PLANNED** (não inventado) |
+
+## Que é este repositório
+
+Um campus estático. A portada `index.html` (trilingue via `ui/i18n.js`)
+liga aos quatro programas. O material vive em `campus/`: sem base de dados em
+produção nem contas de utilizador. Há ainda uma camada SPA local (`client/`) e
+um servidor opcional (`pnpm start`); nenhum dos dois vai para GitHub Pages.
 
 | Programa | Carpeta |
 |---|---|
@@ -21,8 +37,9 @@ se abre desde el disco. El repositorio contiene ademas una capa SPA local
 | Gobernanza y Compliance Digital | `campus/cursos/gobernanza-compliance/` |
 
 Cada curso tiene veinte semanas con lectura, practica guiada y un caso real, mas
-`quiz.json`, `laboratorio.md`, `rubrica.md`, `glosario.md`, `chuleta.md`, `examen.md`
-y `syllabus.md`.
+`quiz.json` (16 items), `laboratorio.md`, `rubrica.md`, `glosario.md`, `chuleta.md`,
+`examen.md` y `syllabus.md`. El hub incluye rutas profesionales honestas
+(`campus/rutas.html`), centro de amenazas, credencial SHA-256 offline y busqueda local.
 
 ## Privacidad por diseno
 
@@ -39,9 +56,9 @@ pip install pytest
 python -m pytest -q tests/
 ```
 
-`tests/test_campus.py` valida el esquema de los quizzes, la coherencia de la
-evaluacion, la estructura de las paginas de curso, los enlaces reales de la portada,
-el SEO minimo, y que el workflow de Pages no lleve tokens personales.
+`tests/test_campus.py` valida el esquema de los quizzes (>=12 items), la coherencia
+de la evaluacion, la estructura de las paginas de curso, los enlaces reales de la
+portada, el SEO minimo, i18n, y que el workflow de Pages no lleve tokens personales.
 `tests/test_forge_smoke.py` cubre el arranque del motor educativo.
 
 La capa SPA y los modulos de dominio (gobernanza de agentes, RBAC, auditoria,
@@ -49,7 +66,7 @@ curriculo, notificaciones) se validan con **vitest** y **tsc**:
 
 ```bash
 pnpm install
-pnpm test         # 22 tests: gobernanza, contratos, curriculo, notificaciones
+pnpm test         # gobernanza, contratos, curriculo, notificaciones
 pnpm typecheck    # tsc --noEmit
 pnpm build        # vite build -> dist/public
 ```
@@ -65,9 +82,9 @@ tests del motor educativo y de la capa SPA (vitest + typecheck) y aplica
 
 Dos destinos, una sola fuente:
 
-- **GitHub Pages** via `.github/workflows/pages.yml`, que publica unicamente
-  `index.html`, `404.html`, `campus/` y `ui/`. Antes de subir, comprueba que no
-  haya secretos en lo que va a publicarse.
+- **GitHub Pages** via `.github/workflows/pages.yml`, que publica
+  `index.html`, `404.html`, `campus/`, `ui/`, `conceptos/`, `STORY.md`,
+  `.well-known/` y `open-data/`. Antes de subir, comprueba que no haya secretos.
 - **Netlify**, con `publish = "public"`. Nunca la raiz del repositorio: eso dejaria
   accesibles por URL los scripts, los tests y el material de trabajo.
 
@@ -87,6 +104,9 @@ Esta seccion existe para que nadie confunda lo publicado con lo deseado.
 | Elemento | Estado |
 |---|---|
 | Campus estatico (4 cursos, 20 semanas) | publicado |
+| Landing trilingue + SEO canonico secure-t | publicado |
+| Quizzes 16 items/curso + LMS | publicado |
+| Rutas profesionales + mapa curricular | publicado |
 | Tests con pytest | publicado, en CI |
 | Tests con vitest (capa SPA y dominio) | restaurados, en CI |
 | Escaneo de secretos en CI | publicado |
@@ -94,7 +114,8 @@ Esta seccion existe para que nadie confunda lo publicado con lo deseado.
 | Traduccion PT y EN del contenido docente | **PLANNED** |
 | Catala del contenido docente | **PLANNED** |
 | Backend con base de datos | retirado; el campus no lo necesita |
-| Credenciales verificables emitidas | **PLANNED** |
+| Credenciales verificables emitidas (hash offline) | publicado (SHA-256 local) |
+| Anclaje blockchain de credenciales | **PLANNED** |
 
 La landing declara el estado real de idiomas en `campus/idiomas.md`: nada se marca
 como traducido sin estarlo.
@@ -118,9 +139,4 @@ formacion gratuita y abierta. El indice completo vive en el nodo central:
 | ManosAbiertas | IA y ofimatica para recien llegados | https://belentani7.github.io/ManosAbiertas/ |
 | WILLIAMSCHOOL | Escuela comunitaria (curriculo Nepal) | https://williamschool.vercel.app |
 | UX Academy | Diseno UX/Producto, trilingue | https://ux-academy-professional.vercel.app |
-| Aprende Brasil | Educacion para Brasil | https://aprende-brasil.vercel.app/ |
-| Lingua Aberta | Idiomas, progresion CEFR | https://belentani7.github.io/lingua-aberta-empresa/ |
-| Cruzando el Charco | Acogida y arraigo | https://belentani7.github.io/Cruzando-el-charco/ |
-| secure-t | Ciberseguridad e IA | https://belentani7.github.io/secure-t/ |
-
-**PT > ES > EN > CA.** Gratuito, accesible (WCAG) y conectado.
+| secure T | Ciberseguridad e IA aplicada | https://belentani7.github.io/secure-t/ |

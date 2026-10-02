@@ -8,10 +8,37 @@
   <meta property="og:title" content="Secure T University — Defenda o futuro digital">
   <meta property="og:description" content="Cybersegurança e IA com avaliação por evidência. Sem barreiras econômicas, sem cadastro: entre, estude e demonstre.">
   <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:url" content="https://belentani7.github.io/secure-t/">
+  <meta property="og:locale" content="pt_BR">
+  <link rel="canonical" href="https://belentani7.github.io/secure-t/">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Secure T University — Defenda o futuro digital">
   <meta name="twitter:description" content="Cybersegurança e IA com avaliação por evidência. Sem matrícula, sem cadastro.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236f8dff' stroke-width='2'%3E%3Cpath d='M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b1117'/%3E%3Cpath d='M16 6l9 20H7z' fill='none' stroke='%23b7f36b' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='19' r='2.5' fill='%23b7f36b'/%3E%3C/svg%3E">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "Secure T University",
+    "alternateName": "secure T",
+    "url": "https://belentani7.github.io/secure-t/",
+    "description": "Instituto aberto de cybersegurança e IA: quatro programas de 20 semanas, offline-first, sem cadastro, credencial SHA-256 verificável.",
+    "inLanguage": ["pt", "es", "en"],
+    "isAccessibleForFree": true,
+    "license": "https://opensource.org/licenses/MIT",
+    "sameAs": ["https://github.com/belentani7/secure-t"],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Programas Secure T",
+      "itemListElement": [
+        {"@type": "Course", "name": "Cibersegurança Ofensiva", "url": "https://belentani7.github.io/secure-t/campus/cursos/ciber-ofensiva/", "isAccessibleForFree": true, "inLanguage": "es"},
+        {"@type": "Course", "name": "Cibersegurança Defensiva", "url": "https://belentani7.github.io/secure-t/campus/cursos/ciber-defensiva/", "isAccessibleForFree": true, "inLanguage": "es"},
+        {"@type": "Course", "name": "IA aplicada e segura", "url": "https://belentani7.github.io/secure-t/campus/cursos/ia-aplicada-segura/", "isAccessibleForFree": true, "inLanguage": "es"},
+        {"@type": "Course", "name": "Governança e compliance digital", "url": "https://belentani7.github.io/secure-t/campus/cursos/gobernanza-compliance/", "isAccessibleForFree": true, "inLanguage": "es"}
+      ]
+    }
+  }
+  </script>
 
   <script>
     // Tema antes do primeiro pintado (sem flash)
@@ -319,15 +346,23 @@
         </p>
 
         <div class="flex flex-wrap items-center gap-3 mt-9 reveal" style="--d:.24s;">
-          <a href="campus/" class="btn btn-primary">
+          <a href="campus/comecar.html" class="btn btn-primary">
+            <i data-lucide="play" class="w-4 h-4"></i> <span data-i18n="hero.cta0">Começar em 5 min</span>
+          </a>
+          <a href="campus/" class="btn btn-ghost">
             <i data-lucide="log-in" class="w-4 h-4"></i> <span data-i18n="hero.cta1">Entrar no campus</span>
           </a>
-          <a href="#cursos" class="btn btn-ghost">
-            <span data-i18n="hero.cta2">Ver os cursos</span> <i data-lucide="arrow-down" class="w-4 h-4"></i>
+          <a href="campus/passa-adiante.html" class="btn btn-ghost">
+            <span data-i18n="hero.cta3">Passa adiante</span>
           </a>
         </div>
+      </div>
+    </section>
 
-        <dl class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-14 reveal" style="--d:.32s;">
+    <!-- prova social medível (fora do primeiro viewport) -->
+    <section class="border-y" style="border-color:var(--border); background:var(--bg-sunken);" aria-label="Escala do campus">
+      <div class="max-w-6xl mx-auto px-4 py-10">
+        <dl class="grid grid-cols-2 md:grid-cols-4 gap-3">
           <div class="card p-4 md:p-5">
             <dd class="mono text-2xl md:text-3xl font-bold" style="color:var(--accent);"><span data-count="4">4</span></dd>
             <dt class="meta mt-1" data-i18n="hero.stat1">cursos universitários</dt>
@@ -370,7 +405,7 @@
         <div class="space-y-5 t2 text-[1.02rem] reveal" style="--d:.12s;">
           <p data-i18n-html="about.p1"><strong>Quem somos.</strong> Uma universidade digital independente especializada em cybersegurança e inteligência artificial. Não dependemos de campus físico nem de catálogo pago: todo o material vive aberto num repositório público que qualquer pessoa pode auditar, usar e reutilizar.</p>
           <p data-i18n-html="about.p2"><strong>O que fazemos.</strong> Formamos profissionais capazes de defender sistemas e desenvolver IA responsável. Cada curso combina teoria mínima, prática guiada em ambientes legais e um projeto final com evidência verificável. A avaliação é estilo <em>Harvard</em>: participação 30&nbsp;% · quizzes formativos 30&nbsp;% · projeto com evidência 40&nbsp;%. <strong>Nada se aprova adivinhando.</strong></p>
-          <p data-i18n-html="about.p3"><strong>No que acreditamos.</strong> Que a educação técnica de qualidade não deveria ter barreira econômica de entrada, que credibilidade se demonstra com evidência pública, e que seus dados são seus: aqui não pedimos e-mail, nome nem organização.</p>
+          <p data-i18n-html="about.p3"><strong>No que acreditamos.</strong> Que a educação técnica de qualidade não deveria ter barreira econômica de entrada, que credibilidade se demonstra com evidência pública, e que seus dados são seus: aqui não pedimos e-mail, nome nem organização. <em>Este projeto nasceu do amor — se te servir, passa adiante.</em></p>
         </div>
 
         <div class="grid gap-4">
@@ -730,6 +765,7 @@ status  › <span class="t-ok">verified · immutable · public</span></div>
           <span class="font-bold" style="font-family:var(--font-display);">Secure T University</span>
         </div>
         <p class="t3 text-sm" data-i18n="footer.tag">Universidade digital soberana de cybersegurança e inteligência artificial. Educação prática, sem barreiras econômicas, com credenciais verificáveis.</p>
+        <p class="meta mt-3" style="opacity:.75" data-i18n="footer.whisper">Nasceu do amor. Se te servir, passa adiante.</p>
       </div>
       <div>
         <p class="label mb-3" data-i18n="footer.nav">Navegar</p>
@@ -743,9 +779,11 @@ status  › <span class="t-ok">verified · immutable · public</span></div>
       <div>
         <p class="label mb-3" data-i18n="footer.project">Projeto</p>
         <ul class="grid gap-2 text-sm t2 list-none p-0 m-0">
-          <li><a class="nav-link !p-0" href="https://github.com/belentani7/secure-t-university" target="_blank" rel="noopener"><span data-i18n="footer.github">GitHub</span> <i data-lucide="external-link" class="w-3 h-3 inline"></i></a></li>
+          <li><a class="nav-link !p-0" href="https://github.com/belentani7/secure-t" target="_blank" rel="noopener"><span data-i18n="footer.github">GitHub</span> <i data-lucide="external-link" class="w-3 h-3 inline"></i></a></li>
           <li><a class="nav-link !p-0" href="STORY.md" data-i18n="footer.story">Story do projeto</a></li>
           <li><a class="nav-link !p-0" href=".well-known/security.txt" data-i18n="footer.security">Security.txt</a></li>
+          <li><a class="nav-link !p-0" href="conceptos/index.html">Conceptos</a></li>
+          <li><a class="nav-link !p-0" href="campus/amenazas.html">Amenazas</a></li>
         </ul>
         <p class="meta mt-6" data-i18n="footer.langs">Idiomas do campus: Português · Español · English (+ Català)</p>
         <p class="meta mt-1">Sem dados pessoais · Conteúdo aberto · MIT</p>

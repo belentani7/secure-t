@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c1018">
+  <meta name="description" content="Passa adiante: Secure T nasceu do amor. Partilha o campus aberto de cybersegurança e IA.">
+  <title>Passa adiante · secure T</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    .passa {
+      min-height: 70dvh;
+      display: grid;
+      align-content: center;
+      gap: var(--sp-5);
+      padding: clamp(3rem, 10vw, 6rem) 0;
+      max-width: 36rem;
+    }
+    .passa h1 {
+      font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+      max-width: 16ch;
+    }
+    .passa .whisper {
+      color: var(--text-3);
+      font-size: var(--fs-sm);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      margin: 0;
+    }
+    .passa .lead { margin: 0; color: var(--text-2); font-size: var(--fs-lg); }
+    .share-box {
+      display: flex; flex-wrap: wrap; gap: var(--sp-3);
+      margin-top: var(--sp-2);
+    }
+    .url {
+      flex: 1 1 16rem;
+      font-family: var(--font-mono);
+      font-size: var(--fs-sm);
+      padding: var(--sp-3) var(--sp-4);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      background: var(--bg-sunken);
+      color: var(--text-2);
+      word-break: break-all;
+    }
+    .nota { color: var(--text-3); font-size: var(--fs-sm); margin: 0; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar</a>
+  <header class="topbar">
+    <a class="brand" href="index.html">secure <span class="mark">T</span></a>
+    <nav aria-label="Principal">
+      <a class="btn btn-ghost" href="index.html">Campus</a>
+      <a class="btn btn-ghost" href="../">Portada</a>
+    </nav>
+  </header>
+  <main id="main" class="wrap">
+    <section class="passa" aria-labelledby="t">
+      <p class="whisper">em voz baixa</p>
+      <h1 id="t">Nasceu do amor. Passa adiante.</h1>
+      <p class="lead">Secure&nbsp;T é formação aberta de cybersegurança e IA: sem cadastro, sem preço, sem rastreio. Se te servir, partilha o link — não como anúncio, como cuidado.</p>
+      <div class="share-box">
+        <code class="url" id="url">https://belentani7.github.io/secure-t/</code>
+        <button type="button" class="btn" id="copiar">Copiar link</button>
+        <button type="button" class="btn btn-ghost" id="ouvir">Ouvir em português</button>
+      </div>
+      <p class="nota" id="status" hidden></p>
+      <p class="nota">Sem redes obrigatórias. Sem tracking. Só o link e a voz, se quiseres.</p>
+    </section>
+  </main>
+  <script src="../ui/voz.js"></script>
+  <script>
+    (function () {
+      var url = document.getElementById("url");
+      var status = document.getElementById("status");
+      try {
+        url.textContent = new URL("../", location.href).href;
+      } catch (e) {}
+      document.getElementById("copiar").addEventListener("click", async function () {
+        try {
+          await navigator.clipboard.writeText(url.textContent.trim());
+          status.hidden = false;
+          status.textContent = "Link copiado. Agora é contigo.";
+        } catch (e) {
+          status.hidden = false;
+          status.textContent = "Copia manualmente o link acima.";
+        }
+      });
+      document.getElementById("ouvir").addEventListener("click", function () {
+        if (window.SecureTVoz) SecureTVoz.speak("pt");
+      });
+    })();
+  </script>
+</body>
+</html>

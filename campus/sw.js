@@ -1,9 +1,23 @@
 // campus sw — offline-first (cache de lectura, red para lo nuevo)
-const CACHE = 'campus-v1';
-const CORE = ['./', './index.html', './tokens.css', './app.js'];
+const CACHE = 'campus-v3-passa-adiante';
+const CORE = [
+  './',
+  './index.html',
+  './tokens.css',
+  './app.js',
+  './passa-adiante.html',
+  './comecar.html',
+  './progreso.html',
+  './credencial.html',
+  './manifest.webmanifest',
+  './icons/icon.svg',
+  './voces/pt/bienvenida.mp3',
+  '../ui/voz.js',
+  '../ui/biblia.js'
+];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)));
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE).catch(() => {})));
   self.skipWaiting();
 });
 

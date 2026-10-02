@@ -2,6 +2,8 @@
   # El sitio es estatico: portada, campus y datos abiertos.
   # NO publicar la raiz del repositorio: dejaria accesibles por URL los
   # scripts de Python, los volcados de terminal y las notas internas.
+  # Sincroniza biblia + conceptos desde la raiz (fuente unica) antes de publicar.
+  command = "mkdir -p public/conceptos public/ui && cp -f conceptos/index.html conceptos/conceptos.json public/conceptos/ && cp -f ui/biblia.js public/ui/biblia.js"
   publish = "public"
 
 # 404 real: la ruta inexistente sirve 404.html con status 404

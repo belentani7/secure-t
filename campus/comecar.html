@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c1018">
+  <meta name="description" content="Como começar no Secure T em 5 minutos: sem cadastro, com evidência, voz em português e progresso anónimo.">
+  <title>Começar · secure T</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    .start {
+      padding: clamp(2.5rem, 7vw, 4.5rem) 0 var(--sp-12);
+      display: grid; gap: var(--sp-8);
+      max-width: 40rem;
+    }
+    .start h1 {
+      font-size: clamp(1.85rem, 4.5vw, 2.75rem);
+      max-width: 14ch;
+    }
+    .start .lead { margin: 0; color: var(--text-2); font-size: var(--fs-lg); }
+    .steps { display: grid; gap: var(--sp-5); counter-reset: passo; list-style: none; padding: 0; margin: 0; }
+    .steps li {
+      position: relative;
+      padding: var(--sp-5) var(--sp-5) var(--sp-5) 4.25rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+    }
+    .steps li::before {
+      counter-increment: passo;
+      content: counter(passo, decimal-leading-zero);
+      position: absolute; left: var(--sp-4); top: var(--sp-5);
+      font: 700 var(--fs-lg) var(--font-mono);
+      color: var(--accent);
+    }
+    .steps h2 { font-size: var(--fs-lg); margin: 0 0 var(--sp-2); }
+    .steps p { margin: 0 0 var(--sp-3); color: var(--text-2); font-size: var(--fs-sm); }
+    .pledge {
+      border-left: 3px solid var(--accent);
+      padding: var(--sp-3) var(--sp-4);
+      color: var(--text-3);
+      font-size: var(--fs-sm);
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar</a>
+  <header class="topbar">
+    <a class="brand" href="index.html">secure <span class="mark">T</span></a>
+    <nav aria-label="Principal">
+      <a class="btn btn-ghost" href="index.html">Campus</a>
+      <a class="btn" href="cursos/ciber-defensiva/index.html">1.º curso sugerido</a>
+    </nav>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="start">
+      <div>
+        <p class="brand-hero" style="font-size:clamp(1.6rem,4vw,2.2rem);margin:0 0 .5rem">secure <span class="mark">T</span></p>
+        <h1>Começa em cinco minutos.</h1>
+        <p class="lead">Sem matrícula. Sem e-mail. Sem vender o teu perfil. Só prática com evidência — o padrão das melhores escolas abertas do mundo, sem o paywall.</p>
+      </div>
+
+      <ol class="steps">
+        <li>
+          <h2>Abre o progresso anónimo</h2>
+          <p>Gera-se um token só neste browser. Podes exportar o JSON se mudares de dispositivo.</p>
+          <a class="btn" href="progreso.html">Abrir progresso</a>
+        </li>
+        <li>
+          <h2>Escolhe uma rota (ou um curso)</h2>
+          <p>Quatro caminhos honestos — não são títulos oficiais. Se não souberes, começa por Defensiva (SOC): base útil para quase tudo.</p>
+          <div class="hero-cta">
+            <a class="btn btn-ghost" href="rutas.html">Ver rotas</a>
+            <a class="btn" href="cursos/ciber-defensiva/index.html">Defensiva · semana 1</a>
+          </div>
+        </li>
+        <li>
+          <h2>Lê, pratica, marca</h2>
+          <p>Cada semana: leitura + prática + caso. Marca no progresso. O exame só destranca com o caminho completo — sem atalhos.</p>
+        </li>
+        <li>
+          <h2>Sela a credencial</h2>
+          <p>SHA-256 no teu browser. Qualquer pessoa verifica o hash sem confiar em nós. Blockchain: PLANNED (não inventamos o que não existe).</p>
+          <a class="btn btn-ghost" href="credencial.html">Credencial</a>
+        </li>
+        <li>
+          <h2>Se te servir, passa adiante</h2>
+          <p>Nasceu do amor. Partilha o link — em voz baixa, como cuidado, não como campanha.</p>
+          <a class="btn btn-ghost" href="passa-adiante.html">Passa adiante</a>
+        </li>
+      </ol>
+
+      <p class="pledge">Listão mundial que cumprimos de verdade: open curriculum, offline-first, privacidade por omissão, evidência verificável, voz em português, zero tracking. O que ainda não está (tradução total do currículo, labs cloud, acreditação): está escrito como PLANNED.</p>
+
+      <div class="hero-cta">
+        <a class="btn" href="#voz-rapida" id="btn-voz">Ouvir bem-vindo (PT)</a>
+        <a class="btn btn-ghost" href="../">Voltar à portada</a>
+      </div>
+      <p class="meta" id="voz-rapida" hidden>A reproduzir…</p>
+    </section>
+  </main>
+
+  <script src="../ui/voz.js"></script>
+  <script>
+    document.getElementById("btn-voz").addEventListener("click", function (e) {
+      e.preventDefault();
+      var n = document.getElementById("voz-rapida");
+      n.hidden = false;
+      if (window.SecureTVoz && SecureTVoz.speak("pt")) n.textContent = "Voz PT ativa.";
+      else n.textContent = "Abre o campus e usa o leitor de áudio se a síntese falhar.";
+    });
+  </script>
+</body>
+</html>

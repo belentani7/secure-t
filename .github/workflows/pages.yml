@@ -18,7 +18,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  SITE_URL: https://belentani7.github.io/secure-t-university/
+  SITE_URL: https://belentani7.github.io/secure-t/
 
 jobs:
   build:
@@ -30,8 +30,12 @@ jobs:
           set -e
           mkdir -p _site
           cp index.html 404.html _site/
-          cp -r campus ui _site/
-          if [ -d public ]; then mkdir -p _site/public && cp -r public/. _site/public/; fi
+          if [ -f llms.txt ]; then cp llms.txt _site/; fi
+          cp -r campus ui conceptos _site/
+          if [ -f STORY.md ]; then cp STORY.md _site/; fi
+          if [ -d .well-known ]; then cp -r .well-known _site/; fi
+          if [ -d public/open-data ]; then mkdir -p _site/open-data && cp -r public/open-data/. _site/open-data/; fi
+          # No publicar public/ anidado: duplicaba campus y rompia rutas.
           touch _site/.nojekyll
           # Barrera final: ningun secreto llega a produccion
           if grep -rEn "sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{30,}|AKIA[0-9A-Z]{16}|BEGIN [A-Z ]*PRIVATE KEY" _site; then

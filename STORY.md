@@ -1,5 +1,11 @@
 # Secure T — Universidad Digital Soberana
 
+## 0. Porquê existe (em voz baixa)
+
+Este projeto **nasceu do amor**: formação aberta, sem cadastro e sem barreiras.
+Não é campanha. É um convite discreto — se te servir, **passa adiante** e
+**passa adiante**. O conhecimento que chega livre deve seguir livre.
+
 ## 1. Premisa
 Universidad digital especializada en **Ciberseguridad e Inteligencia Artificial**. Educación práctica, sin barreras económicas, con credenciales verificables por hash (blockchain: PLANNED).
 

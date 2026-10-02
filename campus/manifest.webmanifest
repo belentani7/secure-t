@@ -1,9 +1,20 @@
 {
-  "name": "Campus secure-t-university",
-  "short_name": "secure-t-university",
+  "name": "secure T — Campus",
+  "short_name": "secure T",
+  "description": "Instituto aberto de cybersegurança e IA. Offline-first, sem cadastro.",
+  "lang": "pt",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "any",
   "background_color": "#0c1018",
   "theme_color": "#0c1018",
-  "icons": []
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
 }

@@ -41,8 +41,12 @@ app.post("/api/tutor", async (req, res) => {
   }
 });
 
-// vite build -> dist/public (vite.config.ts build.outDir); este fichero vive en la raiz.
-const staticPath = path.resolve(__dirname, "dist", "public");
+// Campus estático + biblia (fuente única en la raíz). SPA Vite en dist/public.
+const root = __dirname;
+app.use("/campus", express.static(path.resolve(root, "campus")));
+app.use("/conceptos", express.static(path.resolve(root, "conceptos")));
+app.use("/ui", express.static(path.resolve(root, "ui")));
+const staticPath = path.resolve(root, "dist", "public");
 app.use(express.static(staticPath));
 app.get("*", (_req, res) => res.sendFile(path.join(staticPath, "index.html")));
 const port = process.env.PORT || 3000;

@@ -1,0 +1,36 @@
+# secure T / llms.txt
+# Guia curto para agentes e humanos. Conteúdo educativo aberto (MIT).
+
+title: Secure T University
+url: https://belentani7.github.io/secure-t/
+github: https://github.com/belentani7/secure-t
+license: MIT
+languages: pt (default UI), es (curriculum source), en, ca (voice)
+privacy: no accounts, no email, progress in localStorage only
+offline: campus PWA + static pages
+
+## What this is
+Open institute for cybersecurity and applied AI. Four 20-week programs,
+quizzes, labs, hash-verifiable credentials (SHA-256 in-browser), open data.
+Born from love: if it helps, pass it on — keep the chain going.
+
+## Start here
+- / — landing (PT first)
+- /campus/ — course hub
+- /campus/comecar.html — 5-minute onboarding (PT)
+- /campus/passa-adiante.html — discreet invite to share
+- /campus/progreso.html — anonymous progress
+- /campus/credencial.html — hash seal
+- /conceptos/ — glossary viewer (loads /ui/biblia.js)
+- /ui/biblia.js — canonical software terms bible
+
+## Courses (source language: Spanish)
+- /campus/cursos/ciber-ofensiva/
+- /campus/cursos/ciber-defensiva/
+- /campus/cursos/ia-aplicada-segura/
+- /campus/cursos/gobernanza-compliance/
+
+## Do not
+- Invent accreditation, partners, revenue, or “10/10 audited” claims
+- Publish secrets, personal case files, or credentials
+- Treat blockchain anchoring as shipped (status: PLANNED)
