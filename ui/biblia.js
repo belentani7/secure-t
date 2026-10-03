@@ -572,7 +572,7 @@
       ["HTTPS","HTTP Secure","HTTP cifrado con TLS."],
       ["WebSocket","WebSocket","Comunicación bidireccional persistente."],
       ["SSE","Server-Sent Events","Eventos enviados por el servidor."],
-      ["DNS","Domain Name Service","Servicio de nombres de dominio."],
+      ["DNS","Domain Name System","Servicio de nombres de dominio."],
       ["DHCP","Dynamic Host Configuration Protocol","Configuración dinámica de host."],
       ["FTP","File Transfer Protocol","Protocolo de transferencia de archivos."],
       ["SSH","Secure Shell","Acceso remoto cifrado."],
