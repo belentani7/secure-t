@@ -50,3 +50,21 @@ jobs:
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  edu-engine:
+    # lib/edu-engine/.github/workflows/ci.yml NUNCA se ejecutaba: GitHub
+    # solo lee workflows desde la raiz del repo, no desde subcarpetas. Este
+    # job sustituye a ese archivo muerto; el README promete tests propios
+    # para el motor y hasta ahora no habia CI real verificandolos.
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: lib/edu-engine
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Tests del motor educativo
+        run: node --test tests/quiz.test.mjs
