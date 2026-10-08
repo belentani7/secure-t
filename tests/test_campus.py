@@ -282,6 +282,7 @@ def test_cero_referencias_prohibidas():
     for f in ROOT.rglob("*"):
         if f.suffix in {".md", ".html", ".js", ".json", ".toml", ".xml",
                         ".txt", ".py"} and ".git" not in f.parts \
+                and "node_modules" not in f.parts and "dist" not in f.parts \
                 and f.name != Path(__file__).name:
             texto = f.read_text(encoding="utf-8", errors="replace").lower()
             assert prohibido_1 not in texto, \

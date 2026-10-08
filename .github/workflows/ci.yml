@@ -4,9 +4,9 @@
 # estan en .github/workflows/. Un ci.yml en la raiz nunca se ejecuta, por
 # mucho que parezca que si.
 #
-# POR QUE NO USA pnpm check/test/build: el package.json de este repositorio
-# no define esos scripts, asi que ese pipeline fallaba siempre. Aqui se
-# ejecuta lo que existe: los tests del campus y el escaneo de secretos.
+# POR QUE NO MEZCLA LOS ENTORNOS: pytest valida el campus publicado sin
+# instalar nada mas; los jobs edu-engine y web usan node y sus propias
+# dependencias. Asi cada entorno falla por lo suyo, no por el vecino.
 name: CI
 
 on:
@@ -68,3 +68,24 @@ jobs:
           node-version: "22"
       - name: Tests del motor educativo
         run: node --test tests/quiz.test.mjs
+
+  web:
+    # Capa SPA y modulos de dominio (client/, notifications/, ai/, auth/,
+    # audit/, academic/) con sus tests vitest en tests/*.test.ts.
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+      - name: Instalar dependencias
+        run: pnpm install --frozen-lockfile
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Tests vitest
+        run: pnpm test

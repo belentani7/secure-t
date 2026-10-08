@@ -1,0 +1,212 @@
+[
+  {
+    "abrev": "TDD",
+    "curso": "secure-t",
+    "nombre": "Test-Driven Development",
+    "significado": "Desarrollo guiado por pruebas: primero el test, después el código.",
+    "categoria": "TÉRMINOS FUNDAMENTALES"
+  },
+  {
+    "abrev": "TDD",
+    "curso": "secure-t",
+    "nombre": "Technical Design Document",
+    "significado": "Diseño técnico detallado: cómo se implementa.",
+    "categoria": "DOCUMENTOS TÉCNICOS"
+  },
+  {
+    "abrev": "Unit Test",
+    "curso": "secure-t",
+    "nombre": "Unit Test",
+    "significado": "Prueba de una unidad aislada.",
+    "categoria": "TESTING"
+  },
+  {
+    "abrev": "Integration Test",
+    "curso": "secure-t",
+    "nombre": "Integration Test",
+    "significado": "Prueba de la integración entre componentes.",
+    "categoria": "TESTING"
+  },
+  {
+    "abrev": "E2E",
+    "curso": "secure-t",
+    "nombre": "End-to-End Test",
+    "significado": "Prueba del flujo completo de extremo a extremo.",
+    "categoria": "TESTING"
+  },
+  {
+    "abrev": "UAT",
+    "curso": "secure-t",
+    "nombre": "User Acceptance Testing",
+    "significado": "Pruebas de aceptación por el usuario.",
+    "categoria": "TESTING"
+  },
+  {
+    "abrev": "SIT",
+    "curso": "secure-t",
+    "nombre": "System Integration Testing",
+    "significado": "Pruebas de integración del sistema completo.",
+    "categoria": "TESTING"
+  },
+  {
+    "abrev": "Load Test",
+    "curso": "secure-t",
+    "nombre": "Load Test",
+    "significado": "Prueba con carga esperada.",
+    "categoria": "TESTING"
+  },
+  {
+    "abrev": "Stress Test",
+    "curso": "secure-t",
+    "nombre": "Stress Test",
+    "significado": "Prueba por encima de los límites para ver dónde rompe.",
+    "categoria": "TESTING"
+  },
+  {
+    "abrev": "PenTest",
+    "curso": "secure-t",
+    "nombre": "Penetration Test",
+    "significado": "Prueba de penetración controlada.",
+    "categoria": "TESTING"
+  },
+  {
+    "abrev": "SAST",
+    "curso": "secure-t",
+    "nombre": "Static Application Security Testing",
+    "significado": "Análisis estático de seguridad en el código.",
+    "categoria": "SEGURIDAD"
+  },
+  {
+    "abrev": "DAST",
+    "curso": "secure-t",
+    "nombre": "Dynamic Application Security Testing",
+    "significado": "Análisis dinámico en ejecución.",
+    "categoria": "SEGURIDAD"
+  },
+  {
+    "abrev": "IAST",
+    "curso": "secure-t",
+    "nombre": "Interactive Application Security Testing",
+    "significado": "Análisis interactivo combinando ejecución e instrumentación.",
+    "categoria": "SEGURIDAD"
+  },
+  {
+    "abrev": "SCA",
+    "curso": "secure-t",
+    "nombre": "Software Composition Analysis",
+    "significado": "Análisis de dependencias y licencias.",
+    "categoria": "SEGURIDAD"
+  },
+  {
+    "abrev": "SBOM",
+    "curso": "secure-t",
+    "nombre": "Software Bill of Materials",
+    "significado": "Inventario de componentes del software.",
+    "categoria": "SEGURIDAD"
+  },
+  {
+    "abrev": "SDLC",
+    "curso": "secure-t",
+    "nombre": "Software Development Life Cycle",
+    "significado": "Ciclo de vida del desarrollo de software.",
+    "categoria": "SEGURIDAD"
+  },
+  {
+    "abrev": "SLSA",
+    "curso": "secure-t",
+    "nombre": "Supply-chain Levels for Software Artifacts",
+    "significado": "Niveles de integridad de la cadena de suministro.",
+    "categoria": "SEGURIDAD"
+  },
+  {
+    "abrev": "SSDF",
+    "curso": "secure-t",
+    "nombre": "Secure Software Development Framework",
+    "significado": "Marco de desarrollo seguro (NIST).",
+    "categoria": "SEGURIDAD"
+  },
+  {
+    "abrev": "ZTA",
+    "curso": "secure-t",
+    "nombre": "Zero Trust Architecture",
+    "significado": "Confianza cero: verificar siempre, nunca confiar por defecto.",
+    "categoria": "SEGURIDAD"
+  },
+  {
+    "abrev": "CSPM",
+    "curso": "secure-t",
+    "nombre": "Cloud Security Posture Management",
+    "significado": "Gestión de la postura de seguridad en la nube.",
+    "categoria": "SEGURIDAD"
+  },
+  {
+    "abrev": "SIEM",
+    "curso": "secure-t",
+    "nombre": "Security Information and Event Management",
+    "significado": "Correlación de eventos de seguridad.",
+    "categoria": "SEGURIDAD"
+  },
+  {
+    "abrev": "SOAR",
+    "curso": "secure-t",
+    "nombre": "Security Orchestration, Automation and Response",
+    "significado": "Orquestación y respuesta automatizada.",
+    "categoria": "SEGURIDAD"
+  },
+  {
+    "abrev": "WAF",
+    "curso": "secure-t",
+    "nombre": "Web Application Firewall",
+    "significado": "Firewall de aplicaciones web.",
+    "categoria": "SEGURIDAD"
+  },
+  {
+    "abrev": "VPN",
+    "curso": "secure-t",
+    "nombre": "Virtual Private Network",
+    "significado": "Red privada virtual.",
+    "categoria": "SEGURIDAD"
+  },
+  {
+    "abrev": "HTTPS",
+    "curso": "secure-t",
+    "nombre": "HTTP Secure",
+    "significado": "HTTP sobre TLS.",
+    "categoria": "PROTOCOLOS"
+  },
+  {
+    "abrev": "SSL",
+    "curso": "secure-t",
+    "nombre": "Secure Sockets Layer",
+    "significado": "Antecesor de TLS; en desuso.",
+    "categoria": "PROTOCOLOS"
+  },
+  {
+    "abrev": "TLS",
+    "curso": "secure-t",
+    "nombre": "Transport Layer Security",
+    "significado": "Seguridad de la capa de transporte.",
+    "categoria": "PROTOCOLOS"
+  },
+  {
+    "abrev": "NAT",
+    "curso": "secure-t",
+    "nombre": "Network Address Translation",
+    "significado": "Traducción de direcciones de red.",
+    "categoria": "PROTOCOLOS"
+  },
+  {
+    "abrev": "FMEA",
+    "curso": "secure-t",
+    "nombre": "Failure Mode and Effects Analysis",
+    "significado": "Análisis de modos de fallo y efectos.",
+    "categoria": "CALIDAD Y PROCESO"
+  },
+  {
+    "abrev": "DevSecOps",
+    "curso": "secure-t",
+    "nombre": "Development Security Operations",
+    "significado": "DevOps con seguridad integrada.",
+    "categoria": "METODOLOGÍAS"
+  }
+]
