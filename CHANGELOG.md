@@ -3,6 +3,38 @@
 Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versionado: [SemVer](https://semver.org/lang/es/).
 Los commits siguen Conventional Commits (`feat:`, `fix:`, `docs:`, `test:`, `chore:`).
 
+## [1.3.0] — 2026-10-11
+
+Fase docente: el campus deja de tener promesas sueltas y pasa a tener material. Las ocho primeras semanas de los
+cuatro programas quedan escritas en portugués de Brasil, las semanas 5-8 de tres programas dejan de ser borradores y
+el escáner de secretos gana un control que impide que un ejemplo didáctico se lea como una credencial.
+
+### Añadido
+- **32 de 80 semanas en portugués de Brasil** (`campus/cursos/*/i18n/pt/semana-*.md`): las semanas 1-8 de
+  `ciber-ofensiva`, `ciber-defensiva`, `ia-aplicada-segura` y `gobernanza-compliance`, traducidas una por una
+  (16.950 palabras medidas por `pnpm locales`). Cada traducción conserva el contrato del curso: objetivos,
+  referencias reales (NIST, ATT&CK, OWASP, ISO, LGPD/RGPD), caso real y ejercicio con evidencia.
+- **Semanas 5-8 completas** en `ciber-defensiva`, `ia-aplicada-segura` y `gobernanza-compliance`: pasan de tres
+  secciones genéricas a una semana entera con lectura, caso real, laboratorio y criterios de aceptación.
+- **`tests/test_material_sin_secretos.py`**: réplica exacta de la regla `curl-auth-user` de gitleaks 8.24.3
+  (patrón y `allowlists`) sobre los 157 ficheros Markdown del campus, parametrizada por fichero (157 comprobaciones).
+- **Nuevo contrato de traducción**: cada semana traducida del disco se sirve traducida, con el título real del
+  fichero y su `translationSource` (`tests/content-i18n.test.ts`, 6 comprobaciones en total).
+
+### Corregido
+- **Falso positivo del escáner de secretos** en `campus/cursos/ciber-ofensiva/semana-08.md`: el comentario con la
+  palabra `curl` quedaba a cinco líneas del `-u` de `ffuf` y la regla `curl-auth-user` leía la URL de laboratorio
+  como un `usuario:clave`. El ejemplo pasa a `ffuf --url` y `.gitleaks.toml` documenta la exclusión acotada al
+  dominio de laboratorio, en los tres objetivos que gitleaks admite. El historial no se reescribe.
+- **Estructura del motor** en las semanas reescritas: `Objetivo de la semana`, `Lectura principal` y
+  `Práctica guiada` donde el contrato las exige (`test_profundidad_inyectada`), sin perder las referencias.
+
+### Notas de verificación
+- vitest **275/275** (24 ficheros) · pytest **274/274** (25 ficheros) · `pnpm locales` 4/4 programas · 32/80 semanas.
+- CI de `705e944`: 8/8 en verde, incluidos `secretos` (con control negativo), `axe · WCAG 2.2 AA` y
+  `Lighthouse ≥ 95 y CWV`. El fallo de `f0d03a7` en `secretos` se investigó, se corrigió y se documentó (§5.4 del
+  informe).
+
 ## [1.2.0] — 2026-10-11
 
 Fase de producto: el campus abre en portugués de Brasil, con cristal negro vivo, identidad sin datos personales y

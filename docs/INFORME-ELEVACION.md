@@ -1,14 +1,17 @@
 # Informe de elevación — `belentani7/secure-t`
 
-- **Rama**: `arena/a75428a2-secure-t` (32 commits sobre `main` @ `eb2b05e`)
+- **Rama**: `arena/a75428a2-secure-t` (36 commits sobre `main` @ `eb2b05e`)
 - **Pull request**: [#3](https://github.com/belentani7/secure-t/pull/3) — abierto
-- **Evidencia de CI**: ejecución completa sobre el commit de código `c0440d3` — **8 comprobaciones de trabajo en
-  verde y las dos suites de workflow (`CI` y `Calidad`) en verde** (el detalle, en §5.2)
+- **Evidencia de CI**: ejecución completa sobre `705e944` — **8 comprobaciones de trabajo en verde y las dos
+  suites de workflow (`CI` y `Calidad`) en verde** (el detalle, en §5.2). La CI también cazó, en `f0d03a7`, un
+  falso positivo nuevo del escáner de secretos y el trabajo en rojo permaneció visible hasta corregirlo en `705e944`
 - **Fecha**: 2026-10-11
 - **Alcance de este informe**: dos ciclos sobre el campus ya elevado. (1) **Endurecimiento**: seguridad de la cadena
   de suministro y escaneo real de secretos. (2) **Producto**: portugués de Brasil por defecto, cristal negro vivo con
   luz dorada líquida, identidad por llave de cuatro dígitos sin guardar nada, itinerarios abiertos y traducción
-  incremental del material con la cobertura medida, no prometida. Todo lo que aquí se afirma tiene su comando o su URL; lo que no se ha podido
+  incremental del material con la cobertura medida, no prometida. (3) **Docencia**: las ocho primeras semanas de los
+  cuatro programas quedan escritas en portugués de Brasil (32/80, 16.950 palabras) y las semanas 5-8 de tres
+  programas dejan de ser borradores. Todo lo que aquí se afirma tiene su comando o su URL; lo que no se ha podido
   comprobar figura como `NOT VERIFIED`, `FAILED` o `BLOCKED`.
 
 ---
@@ -187,8 +190,8 @@ Métricas del material: **95828 líneas** versionadas de código, datos y docume
 
 | Prueba | Comando | Resultado |
 |---|---|---|
-| Contrato del campus clásico | `python -m pytest -q tests/` | **117 passed** |
-| Paquetes y contratos (vitest) | `pnpm test` | **274 passed** en 24 ficheros (incluye llave de cuatro dígitos, itinerarios, traducciones, portugués de Brasil y firma del back) |
+| Contrato del campus clásico | `python -m pytest -q tests/` | **274 passed** en 3 ficheros (`test_campus.py`, `test_forge_smoke.py` y el control de secretos del material, con 157 comprobaciones parametrizadas) |
+| Paquetes y contratos (vitest) | `pnpm test` | **275 passed** en 24 ficheros (incluye llave de cuatro dígitos, itinerarios, traducciones, portugués de Brasil y firma del back) |
 | Tipos (raíz y web) | `pnpm typecheck` + `pnpm --filter @secure-t/web typecheck` | sin errores |
 | Cobertura de módulos críticos | `pnpm test:coverage` | **92,55 %** sentencias · **81,5 %** ramas · 95,47 % líneas (umbral 80 %) |
 | Sincronía del contenido generado | `pnpm check:drift` | ✔ `sourceDigest bb57edf59758…` |
@@ -197,13 +200,15 @@ Métricas del material: **95828 líneas** versionadas de código, datos y docume
 | Auditoría del sitio (sin navegador) | `pnpm audit:site` | **0 errores · 0 avisos**; mediana 204,7 kB; peor página 208,6 kB comprimidos |
 | Accesibilidad estática | incluida en `audit:site` | ✔ sin errores (lang, `h1` único, jerarquía, `alt`, ids, nombres accesibles) |
 | Cobertura real de traducciones | `pnpm locales` | pt: 4/4 títulos de programa, 32/80 semanas, **16.950 palabras**; en y ca: 0/80. El README publica estas mismas cifras y un test falla si miente |
+| Falsos positivos del escáner en el material | `python -m pytest -q tests/test_material_sin_secretos.py` | **157 passed**: réplica exacta de la regla `curl-auth-user` de gitleaks 8.24.3 sobre los 157 ficheros Markdown del campus, con sus `allowlists` |
+| Líneas versionadas | `git ls-files \| xargs wc -l` | **98.732** |
 
 ### 5.2 Solo verificable en CI (este entorno no tiene navegador)
 
 | Prueba | Resultado sobre `c0440d3` |
 |---|---|
 | Lighthouse (6 URLs × 3 pasadas, presupuesto ≥ 95 y CWV) | **success** (en `0aec835` y en `1a43b1b`) |
-| axe / WCAG 2.2 AA (Playwright) | **success** — 36 pruebas (16 rutas × escritorio y móvil). En `4f79372` este check **falló**: el contrato de accesibilidad fijaba `lang="pt"` y la elevación a `pt-BR` lo rompió. La CI lo cazó, se corrigió en `24ffab8` haciendo que la etiqueta esperada salga de la fuente única y el conjunto volvió a verde |
+| axe / WCAG 2.2 AA (Playwright) | **success** en `705e944` — 36 pruebas (16 rutas × escritorio y móvil). En `4f79372` este check **falló**: el contrato de accesibilidad fijaba `lang="pt"` y la elevación a `pt-BR` lo rompió. La CI lo cazó, se corrigió en `24ffab8` haciendo que la etiqueta esperada salga de la fuente única y el conjunto volvió a verde |
 | Cobertura como umbral de CI | **success** |
 | Escaneo de secretos | **success** — control negativo encontrado ≥ 3 hallazgos; veredicto con 1 aviso aceptado |
 
@@ -222,6 +227,28 @@ anotaciones del check.
 4. **Veredicto**: el SARIF debe contener **exactamente** los hallazgos conocidos y documentados. Cualquier otro
    falla el trabajo con `::error` indicando archivo y línea; los aceptados se publican como `::warning`. Un
    diagnóstico avisa si la lista blanca no suprimió nada (`control=final`).
+
+### 5.4 El falso positivo que encontró la propia CI (y cómo queda cerrado en tres capas)
+
+El 2026-10-11 el trabajo `secretos` se puso en rojo sobre `f0d03a7` con dos hallazgos nuevos de la regla
+`curl-auth-user` en `campus/cursos/ciber-ofensiva/semana-08.md:37` y su traducción. Diagnóstico reproducido en este
+entorno: el comentario «comprobación rápida con **curl**» quedaba a cinco líneas del `-u` de `ffuf`, y la regla —que
+busca `-u`/`--user` en una ventana de cinco líneas— leía la URL de laboratorio como un `usuario:clave`. Tres capas,
+ninguna de ellas debilitar el escáner:
+
+1. **El material se corrigió** en `e98b628`: el ejemplo usa `ffuf --url`, la forma larga. El disparador desaparece
+   del árbol y el ejemplo queda más legible.
+2. **El historial no se reescribe** (prohibido sin autorización), así que el hallazgo seguiría apareciendo por el
+   commit antiguo: la exclusión viaja en `.gitleaks.toml` dentro de la propia regla (`[[rules]] id = "curl-auth-user"`)
+   y acotada al dominio de laboratorio (`lab.ejemplo.test` / `lab.exemplo.test`) en los tres objetivos que gitleaks
+   admite (secreto, coincidencia exacta y línea). Un `curl -u usuario:clave` real en esos mismos ficheros sigue
+   rompiendo la CI.
+3. **Un control local lo detecta antes de empujar**: `tests/test_material_sin_secretos.py` replica la regla de
+   gitleaks 8.24.3 (patrón y `allowlists` incluidos) sobre el Markdown del campus. Su primera ejecución señaló los
+   mismos ficheros y las mismas líneas que la CI: la réplica y el binario real coinciden.
+
+Verificación de cierre: `secretos` pasó a **success** en `705e944`, con el control negativo intacto (sin lista
+blanca el escaneo ve cinco hallazgos, tres de ellos falsos positivos documentados).
 
 ---
 
@@ -262,7 +289,7 @@ anotaciones del check.
 ## 8. GIT EVIDENCE
 
 - **Rama**: `arena/a75428a2-secure-t` (no se ha creado ni empujado ninguna otra). **Árbol de trabajo limpio**.
-- **32 commits** desde `eb2b05e`, en orden (del más antiguo al más reciente):
+- **36 commits** desde `eb2b05e`, en orden (del más antiguo al más reciente):
 
 ```
 853f218 feat(estandares): capa de conformidad verificable sobre el campus AURUM
@@ -277,6 +304,10 @@ f3827a5 fix(ci): axe no espera a networkidle y Lighthouse publica sólo los fall
 2e00047 chore(ci): publica las auditorías SEO por debajo de 1 en la anotación del check
 7374d07 fix(a11y,seo,offline): consola limpia, hreflang absoluto y service worker con la carpeta real
 92ff620 feat(estandares): QTI 2.1 como paquete de contenido y la credencial en VC-JWT
+705e944 fix(seguridad): el falso positivo de `curl-auth-user` queda documentado y acotado
+e98b628 fix(campus): el ejemplo del proxy ya no parece una credencial
+f631097 feat(campus): las ocho primeras semanas de los cuatro programas, en portugués
+f0d03a7 feat(campus): 20 semanas en portugués y el bloque 5-8 con estructura de motor
 f354785 fix(ci,seguridad): la CI vuelve a ejecutarse, la URL publicada es la real y la cadena de suministro queda auditada
 ff4c03f chore(ci): publicar los hallazgos de gitleaks como anotaciones del check
 f67233c fix(seguridad): cierra los tres falsos positivos de gitleaks sin debilitar el escaneo
