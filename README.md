@@ -24,6 +24,7 @@ En línea: <https://belentani7.github.io/secure-t/> · Campus AURUM: `/app/` · 
 7.bis [Repaso espaciado](#repaso-espaciado-sm-2)
 8. [Cuatro idiomas, con honestidad](#cuatro-idiomas-con-honestidad)
 8.bis [La experiencia, medida](#la-experiencia-medida)
+8.ter [Requisitos: el contrato de la plataforma](#requisitos-el-contrato-de-la-plataforma)
 9. [Privacidad por diseño](#privacidad-por-diseño)
 10. [Estándares y credenciales](#estándares-y-credenciales)
 11. [Tests y verificación](#tests-y-verificación)
@@ -68,9 +69,9 @@ pnpm content:all                  # contenido + programas imprimibles + paquetes
 pnpm web:dev                      # http://localhost:3000
 
 # 3. Verificación completa
-pnpm test                         # 233 tests vitest en 19 ficheros (shared + agent + web + contratos)
+pnpm test                         # 30 ficheros, 382 tests (vitest): shared, ui, agente, web, requisitos y contratos
 pnpm typecheck                    # tsc --noEmit, TypeScript estricto
-python -m pytest -q tests/        # 117 tests del campus clásico
+python -m pytest -q tests/        # 274 tests del campus clásico
 ```
 
 Sin registro, sin claves y sin servicios externos: el único paso que toca la red es `git clone`.
@@ -169,6 +170,27 @@ HTML**: SVG en línea, cero peticiones de red, `aria-hidden`, siluetas más oscu
 luces de ciudad cada 7 s. Abre y cierra la portada (regla del pico-final), se queda quieto con movimiento reducido
 y desaparece con alto contraste. Veinte pruebas (`packages/ui/tests/psychology.test.ts`) exigen todo lo anterior
 **contra el CSS y los componentes reales**, incluido que no entre ninguna librería de animación.
+
+## Requisitos: el contrato de la plataforma
+
+Una plataforma seria debería poder decir **qué exige de sí misma, con qué norma y cómo se comprueba**. Eso es
+[`docs/REQUISITOS.md`](docs/REQUISITOS.md), generado por `pnpm requirements` desde
+[`packages/shared/src/requirements.ts`](packages/shared/src/requirements.ts), y publicado también en la página
+[`/requisitos`](apps/web/src/components/requirements-view.tsx):
+
+**90 requisitos en 12 dominios** —producto, currículo, pedagogía, accesibilidad, rendimiento, seguridad, privacidad,
+datos del estudiante, IA responsable, interoperabilidad, calidad y operación—, cada uno con nivel
+(**MUST / SHOULD / MAY**, RFC 2119), norma de origen, evidencia ejecutable y estado. Hoy: **73 en verde
+(81,1 %)**, 17 sin cerrar —todas con el motivo escrito— y **2 obligatorios abiertos**: la traducción del material al
+portugués de Brasil (32 de 80 semanas) y las 7 alertas de Dependabot de la rama por defecto, que dependen del
+propietario.
+
+Las reglas se aplican por test, no por buena voluntad: toda evidencia citada **existe** (fichero, script declarado en
+`package.json` o marca dentro del workflow); `VERIFIED` exige prueba o script ejecutable; `CI` exige evidencia de
+integración continua; y todo lo que no está en verde **obliga a escribir el motivo**. El listón es numérico y público:
+WCAG 2.2 AA con aspiración AAA en lectura, ASVS 5.0 nivel 2, Lighthouse ≥ 95 y accesibilidad 100, Core Web Vitals en
+el percentil 75, cobertura ≥ 80 %, ≤ 250 kB de JavaScript por página, **cero datos personales** y **cero
+vulnerabilidades críticas**.
 
 ## Laboratorio de IA
 
@@ -318,7 +340,7 @@ completa del material a EN/CA. Ver el apartado 8 de `docs/ESTANDARES.md`.
 ## Tests y verificación
 
 ```bash
-pnpm test                       # 29 ficheros, 358 tests (vitest): shared, ui, agente, web, contratos y estándares
+pnpm test                       # 30 ficheros, 382 tests (vitest): shared, ui, agente, web, requisitos y contratos
 python -m pytest -q tests/      # 274 tests del campus clásico (artefactos publicados)
 cd lib/edu-engine && node --test tests/quiz.test.mjs   # motor educativo
 pnpm typecheck && pnpm --filter @secure-t/web build
@@ -333,7 +355,7 @@ estén publicadas.
 
 `tests/test_campus.py` valida el esquema de los quizzes, la coherencia de la evaluación, la estructura de las
 páginas de curso, los enlaces reales de la portada, el SEO mínimo, la honestidad de `idiomas.md` y que el workflow
-de Pages no lleve tokens personales. **201 de los 358 tests** viven en los paquetes —incluidos los 32 de `packages/ui`, que exigen la capa de psicología contra el CSS real— y el resto en
+de Pages no lleve tokens personales. **201 de los 382 tests** viven en los paquetes —incluidos los 32 de `packages/ui`, que exigen la capa de psicología contra el CSS real— y el resto en
 los contratos de la raíz; entre ellos: calendario (Pascua 2024-2030,
 traslados, ICS plegado a 75 octetos), paridad de idiomas, renderizador Markdown seguro, BM25, expediente firmado y
 las garantías del agente (deny-list, SSRF, modo examen, citas, auditoría).
@@ -356,7 +378,7 @@ Medido en este repositorio (no prometido: medido):
 
 | Métrica | Valor | Cómo se obtiene |
 |---|---|---|
-| Cobertura de los módulos críticos | 91,3 % statements · 94,3 % líneas · 79,7 % ramas | `pnpm test:coverage` |
+| Cobertura de los módulos críticos | 92,6 % sentencias · 95,5 % líneas · 81,3 % ramas | `pnpm test:coverage` |
 | Accesibilidad estática de 476 páginas | **0 errores, 0 avisos** (lang, un solo `h1`, jerarquía, `alt`, ids únicos, botones con nombre, enlaces con `href`) | `pnpm audit:site` |
 | Componentes inventariados | 790, con SHA-512 de cada uno y 483 licencias declaradas | `/sbom.cdx.json` |
 | JavaScript en la primera carga | 200 kB comprimidos de mediana · 204 kB en la peor página | `pnpm audit:site` |

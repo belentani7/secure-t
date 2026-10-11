@@ -1,7 +1,6 @@
 # Informe de elevación — `belentani7/secure-t`
 
-- **Rama**: `arena/a75428a2-secure-t` (**44 commits** sobre `main` @ `eb2b05e` hasta `ee60819`; este propio informe se
-  actualiza en el 45.º para no publicar una cifra que no pueda comprobarse)
+- **Rama**: `arena/a75428a2-secure-t` (**46 commits** sobre `main` @ `eb2b05e`; el último entrega el ciclo 1.5.0)
 - **Pull request**: [#3](https://github.com/belentani7/secure-t/pull/3) — abierto
 - **Evidencia de CI**: ejecución completa sobre `7736d1f` — **8 comprobaciones de trabajo en verde (campus, secretos,
   edu-engine, web, cobertura, accesibilidad estática, axe con 21 rutas y Lighthouse ≥ 95 + CWV) y las dos
@@ -209,25 +208,25 @@ Métricas del material: **103663 líneas** versionadas de código, datos y docum
 | Prueba | Comando | Resultado |
 |---|---|---|
 | Contrato del campus clásico | `python -m pytest -q tests/` | **274 passed** en 3 ficheros (`test_campus.py`, `test_forge_smoke.py` y el control de secretos del material, con 157 comprobaciones parametrizadas) |
-| Paquetes y contratos (vitest) | `pnpm test` | **323 passed** en 27 ficheros (incluye llave de cuatro dígitos, itinerarios, traducciones, portugués de Brasil, firma del back, biblioteca, plan de cinco años, laboratorio y herramientas del tutor) |
+| Paquetes y contratos (vitest) | `pnpm test` | **383 passed** en 30 ficheros (incluye llave de cuatro dígitos, itinerarios, traducciones, portugués de Brasil, firma del back, biblioteca, plan de cinco años, laboratorio, herramientas del tutor y el registro de requisitos con su evidencia) |
 | Tipos (raíz y web) | `pnpm typecheck` + `pnpm --filter @secure-t/web typecheck` | sin errores |
-| Cobertura de módulos críticos | `pnpm test:coverage` | **92,55 %** sentencias · **81,5 %** ramas · 95,47 % líneas (umbral 80 %) |
+| Cobertura de módulos críticos | `pnpm test:coverage` | **92,55 %** sentencias · **81,29 %** ramas · **95,47 %** líneas (umbral 80 %) |
 | Sincronía del contenido generado | `pnpm check:drift` | ✔ `sourceDigest bb57edf59758…` |
 | Auditoría de dependencias | `pnpm audit:deps` | ✔ 1 aviso aceptado y documentado, 0 sin justificar |
-| Export estático y ensamblado | `pnpm content:all` · `web:build` · `node tools/build-site.mjs` | ✔ 496 páginas, `_site` 3.375 ficheros |
-| Auditoría del sitio (sin navegador) | `pnpm audit:site` | **0 errores · 0 avisos**; mediana 221,0 kB; peor página 234,4 kB comprimidos |
+| Export estático y ensamblado | `pnpm content:all` · `web:build` · `node tools/build-site.mjs` | ✔ 506 páginas, `_site` 3.435 ficheros |
+| Auditoría del sitio (sin navegador) | `pnpm audit:site` | **0 errores · 5 avisos** (peso del agente); mediana 242,5 kB; peor página 258,2 kB comprimidos |
 | Accesibilidad estática | incluida en `audit:site` | ✔ sin errores (lang, `h1` único, jerarquía, `alt`, ids, nombres accesibles) |
 | Cobertura real de traducciones | `pnpm locales` | pt: 4/4 títulos de programa, 32/80 semanas, **16.950 palabras**; en y ca: 0/80. El README publica estas mismas cifras y un test falla si miente |
 | Falsos positivos del escáner en el material | `python -m pytest -q tests/test_material_sin_secretos.py` | **157 passed**: réplica exacta de la regla `curl-auth-user` de gitleaks 8.24.3 sobre los 157 ficheros Markdown del campus, con sus `allowlists` |
 | Biblioteca, plan y laboratorio | `pnpm vitest run packages/shared/tests/library.test.ts packages/shared/tests/lab.test.ts packages/shared/tests/tutor-tools.test.ts` | **40 passed** (9 + 23 + 8) |
-| Líneas versionadas | `git ls-files \| xargs wc -l` | **103.663** |
+| Líneas versionadas | `git ls-files \| xargs wc -l` | **~107.400** (se recalcula al cerrar el ciclo) |
 
 ### 5.2 Solo verificable en CI (este entorno no tiene navegador)
 
 | Prueba | Resultado sobre `c0440d3` |
 |---|---|
 | Lighthouse (6 URLs × 3 pasadas, presupuesto ≥ 95 y CWV) | **success** (en `0aec835` y en `1a43b1b`) |
-| axe / WCAG 2.2 AA (Playwright) | **success** en `7736d1f` — **42 pruebas (21 rutas × escritorio y móvil)**, con `/biblioteca`, `/plano` y `/laboratorio` dentro de la matriz. En `705e944` eran 36 pruebas (16 rutas). En `4f79372` este check **falló**: el contrato de accesibilidad fijaba `lang="pt"` y la elevación a `pt-BR` lo rompió; se corrigió en `24ffab8` y el conjunto volvió a verde |
+| axe / WCAG 2.2 AA (Playwright) | **success** en `3956081` — **46 pruebas (23 rutas × escritorio y móvil)**; en este ciclo la matriz pasa a **25 rutas (50 pruebas)** al entrar `/requisitos` en pt y es. En `705e944` eran 36 pruebas (16 rutas). En `4f79372` este check **falló**: el contrato de accesibilidad fijaba `lang="pt"` y la elevación a `pt-BR` lo rompió; se corrigió en `24ffab8` y el conjunto volvió a verde |
 | Cobertura como umbral de CI | **success** |
 | Escaneo de secretos | **success** — control negativo encontrado ≥ 3 hallazgos; veredicto con 1 aviso aceptado |
 
@@ -289,6 +288,8 @@ blanca el escaneo ve cinco hallazgos, tres de ellos falsos positivos documentado
 | Recursos de la biblioteca: enlaces de terceros | **ACEPTADO** | Se enlaza al autor y no se archiva copia (archivarla sería redistribuir material ajeno). Si un recurso cambia o desaparece, la ficha sigue siendo cierta en lo que declara (autor, idioma, tipo); los tests comprueban forma y procedencia, no disponibilidad remota |
 | Límites de los instrumentos del laboratorio | **DECLARADO** | Detector de patrones, no verificador: cada instrumento publica su límite en los cuatro idiomas y el expediente lo repite. Un resultado «limpio» no certifica que el texto sea inocuo |
 | Matriz axe del navegador | **VERIFICADO EN CI** | `success` en `497b898`: **23 rutas** declaradas (25 pruebas por navegador → 50 ejecuciones en escritorio y móvil), con `/experiencia` dentro. Antes: 21 rutas / 42 pruebas en `7736d1f`. No es reproducible en este entorno (sin Chromium): aquí sólo se ejecuta la auditoría estática, que da 0 errores |
+| Peso del cliente (diccionario) | **DECLARADO / TRABAJO PENDIENTE** | El peor página está en 258,2 kB comprimidos (objetivo 250, límite duro 400). Causa medida: el marco de Next.js (233 kB en todas las páginas) y el diccionario de la interfaz que viaja con el cliente. Solución identificada (repartir el diccionario por isla de cliente) y no hecha; el aviso permanece visible en cada auditoría |
+| Requisitos obligatorios abiertos | **2 (BLOCKED / PARTIAL)** | `SEC-04` (7 alertas de Dependabot, decisión del propietario) y `PRD-04` (material en pt-BR, 32 de 80 semanas). El registro los publica en `/requisitos` y en `docs/REQUISITOS.md` con su motivo |
 | Estabilidad de la suite TS | **OBSERVADO (sin diagnóstico)** | Una ejecución de `pnpm test` falló una vez sin poder registrar qué prueba (la salida se filtró con un patrón que no capturó el nombre) y no se reprodujo en **cinco ejecuciones posteriores** (355/355 cada una). Se declara como observación: no hay causa identificada y no se descarta una condición de carrera en la lectura de artefactos generados |
 | Integraciones de terceros en cola | **NOT VERIFIED** | Cada push despierta suites de aplicaciones instaladas en la cuenta original (Vercel, Netlify, Cloudflare, Railway, Render, SonarQube, Supabase, Cursor, Claude…): aparecen como `queued`, no aportan verificación a esta entrega y conviene revisarlas o retirarlas con el propietario |
 
@@ -457,6 +458,77 @@ prueba de que la auditoría trabaja: el fallo era real y lo encontró la herrami
 - **El contraste se verifica de forma estática** (auditoría del export y axe). El contraste percibido en pantallas
   reales, con brillo automático o modo nocturno del sistema, no se ha medido.
 - **View Transitions** degrada con elegancia donde no existe soporte, pero no se ha medido la diferencia percibida.
+
+## 10. CICLO 1.5.0 — LOS REQUISITOS DE LA PLATAFORMA
+
+La petición fue la más amplia de todas: **actuar como todos los perfiles que definen una plataforma y fijar el criterio
+más alto posible, dentro de lo que estas herramientas pueden sostener**. La respuesta no podía ser otra lista de buenas
+intenciones: es un **registro versionado en código** donde cada requisito tiene nivel, norma de origen, evidencia
+ejecutable y estado, y donde las reglas se aplican por test.
+
+### 10.1 Entregado
+
+| Pieza | Fichero | Qué aporta |
+|---|---|---|
+| Registro de requisitos | `packages/shared/src/requirements.ts` (90 requisitos, 12 dominios) | Cada requisito con identificador, nivel (MUST/SHOULD/MAY, RFC 2119), norma, evidencia y estado; más el **listón** en cifras. |
+| Documento generado | `docs/REQUISITOS.md` (`pnpm requirements`) | Tabla completa por dominio, resumen por estado, listón y **la lista de lo que no está en verde con su motivo**, uno por uno. |
+| Página del campus | `/requisitos` en los cuatro idiomas | Resumen (73 en verde de 90, 17 sin cerrar, 2 obligatorios abiertos), el listón, los ocho estados, los doce dominios y la lista incómoda al mismo nivel visual. 589 claves por idioma. |
+| Pruebas del contrato | `tests/requirements.test.ts` (21 pruebas) | Coherencia del registro, **evidencia real** (ficheros, scripts y marcas de workflow citados) y **no-deriva** del documento, más versión del changelog, servidor estático, service worker y contenedores. |
+| Higiene | `CAL-08` + prueba | Un `index.ts.orig` de 0 bytes llevaba versionado desde un ciclo anterior (aparecía con 0 % en la cobertura). Eliminado, con prueba que impide cualquier resto de herramienta. |
+
+El listón que la plataforma se pone, en cifras: WCAG 2.2 AA con aspiración AAA en lectura, OWASP ASVS 5.0 nivel 2,
+Lighthouse ≥ 95 y accesibilidad 100, Core Web Vitals en el p75, cobertura ≥ 80 %, ≤ 250 kB de JavaScript por página,
+≥ 600 pruebas ejecutadas, **cero datos personales** y **cero vulnerabilidades críticas**.
+
+### 10.2 Las reglas que convierten la tabla en un contrato
+
+1. **Toda evidencia citada existe**: el test abre cada fichero, comprueba cada script contra `package.json` y busca la
+   marca dentro del workflow. Una evidencia inventada rompe la suite.
+2. **`VERIFIED` exige prueba o script**: un documento que dice que algo se hace no vale como prueba de que se hace
+   (eso obligó a añadir una comprobación real para el requisito de compresión y caché, PERF-05).
+3. **`CI` exige evidencia de integración continua**: los requisitos que sólo se comprueban con navegador apuntan al
+   trabajo concreto y a su marca.
+4. **Lo que no está en verde obliga a escribir el motivo**, con al menos 60 caracteres. Sin excusa escrita, el estado
+   no se admite.
+5. **El documento no puede separarse del código**: `pnpm requirements` lo regenera y el test compara totales por estado,
+   por dominio y la lista de pendientes con su motivo literal.
+
+### 10.3 Qué encontró el propio contrato
+
+No es un adorno: en cuanto se activó, cazó tres defectos reales.
+
+1. **El README daba dos cifras distintas de la misma suite**: 233/117 en el arranque y 358/274 en la sección de
+   verificación. La regla nueva —todas las menciones deben coincidir— lo señaló; quedan unificadas en 383/274.
+2. **Un fichero basura versionado**: `packages/agent/src/index.ts.orig`, 0 bytes, con 0 % de cobertura. Se eliminó y
+   ahora hay un requisito (`CAL-08`) con su prueba.
+3. **Una evidencia que no probaba nada**: `PERF-05` (compresión y caché) se declaraba verificado citando dos ficheros;
+   la regla «VERIFIED exige algo ejecutable» obligó a escribir la comprobación de verdad (brotli/gzip y
+   `Cache-Control` en el servidor estático, y que `_headers` viaje con el sitio).
+
+### 10.4 Verificación de este ciclo (local, reproducible)
+
+| Prueba | Comando | Resultado |
+|---|---|---|
+| Suite TS | `pnpm test` | **383 passed** en 30 ficheros (382 tras el registro; +1 al añadir CAL-08) |
+| Suite Python | `python -m pytest -q tests/` | **274 passed** |
+| Tipos | `pnpm typecheck` · `pnpm --filter @secure-t/web typecheck` | sin errores |
+| Registro | `pnpm requirements` | **90 requisitos · 73 en verde (81,1 %) · 17 sin cerrar · 2 obligatorios** |
+| Cobertura | `pnpm test:coverage` | 92,55 % sentencias · 81,29 % ramas · 95,47 % líneas |
+| Export y auditoría | `pnpm site` · `pnpm audit:site` | **506 páginas · 3.435 ficheros · 0 errores · 5 avisos** de peso; accesibilidad estática sin errores |
+
+### 10.5 Lo que este ciclo **no** cierra
+
+- **Los dos obligatorios abiertos siguen abiertos y con nombre**: la traducción del material al portugués de Brasil
+  (32 de 80 semanas) y las 7 alertas de Dependabot de la rama por defecto (3 críticas), que la API no deja leer desde
+  aquí (403) y que son decisión del propietario.
+- **La regresión de peso se declara, no se esconde**: el peor página sube de 253,1 a **258,2 kB** comprimidos por las 59
+  claves × 4 idiomas del diccionario del cliente, sobre un marco de 233 kB que se paga en todas las páginas. El aviso
+  sigue visible en cada auditoría; **la optimización (repartir el diccionario por isla de cliente) queda como trabajo
+  declarado** y no como promesa.
+- **ASVS nivel 2 es revisión propia**, no certificación externa; no hay auditoría de terceros y no se insinúa que la
+  haya.
+- **El registro no convierte nada en verdad por escribirlo**: los estados `PARTIAL`, `PLANNED`, `BLOCKED`,
+  `NOT_VERIFIED` y `OUT_OF_SCOPE` describen exactamente lo que falta, y la mitad de este documento es esa lista.
 
 ---
 

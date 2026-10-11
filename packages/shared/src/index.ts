@@ -4,6 +4,7 @@ export * from "./markdown";
 export * from "./search";
 export * from "./knowledge";
 export * from "./progress";
+export * from "./requirements";
 export * from "./identity";
 export * from "./tracks";
 export * from "./review";

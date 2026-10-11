@@ -22,6 +22,8 @@ const RUTAS = [
   { path: "/app/laboratorio", name: "laboratorio IA PT" },
   { path: "/app/experiencia", name: "experiencia PT" },
   { path: "/app/en/experiencia", name: "experiencia EN" },
+  { path: "/app/requisitos", name: "requisitos PT" },
+  { path: "/app/es/requisitos", name: "requisitos ES" },
   { path: "/app/ca/laboratorio", name: "laboratorio IA CA" },
   { path: "/app/en/itinerarios", name: "itinerarios EN" },
   { path: "/app/pt/programas/ciber-defensiva", name: "programa" },

@@ -66,6 +66,7 @@ export const NAV: NavItem[] = [
   { key: "nav.lab", path: "/laboratorio", primary: true },
   { key: "nav.agent", path: "/agente", primary: true },
   { key: "nav.experience", path: "/experiencia" },
+  { key: "nav.requirements", path: "/requisitos" },
   { key: "nav.calendar", path: "/calendario" },
   { key: "nav.review", path: "/repaso" },
   { key: "nav.progress", path: "/progreso" },

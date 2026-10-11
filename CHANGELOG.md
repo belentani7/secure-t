@@ -3,6 +3,51 @@
 Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versionado: [SemVer](https://semver.org/lang/es/).
 Los commits siguen Conventional Commits (`feat:`, `fix:`, `docs:`, `test:`, `chore:`).
 
+## [1.5.0] — 2026-10-11
+
+El contrato de la plataforma consigo misma. Hasta ahora el repositorio sabía qué normas aplicaba (EPUB, SCORM, WCAG,
+RGPD…) y lo demostraba, pero no tenía un registro único que dijera **qué exige de sí mismo**, con qué nivel, con qué
+evidencia y en qué estado está cada cosa. Este ciclo lo crea: **90 requisitos en 12 dominios**, con las reglas
+aplicadas por test y con la lista de lo que no está cerrado publicada junto a la de lo que sí.
+
+### Añadido
+- **Registro de requisitos** (`packages/shared/src/requirements.ts`): 90 requisitos con identificador, dominio, nivel
+  (MUST / SHOULD / MAY según RFC 2119 y RFC 8174), norma o fuente, evidencia y estado, más el **listón** en cifras
+  (WCAG 2.2 AA con aspiración AAA, ASVS 5.0 nivel 2, Lighthouse ≥ 95, Core Web Vitals, cobertura ≥ 80 %, ≤ 250 kB de
+  JS por página, cero datos personales, cero críticas). Doce dominios: producto, currículo, pedagogía, accesibilidad,
+  rendimiento, seguridad, privacidad, datos del estudiante, IA responsable, interoperabilidad, calidad y operación.
+- **Documento generado** (`docs/REQUISITOS.md`, `pnpm requirements`): tabla completa por dominio, resumen por estado,
+  el listón y **la lista de lo que no está en verde con su motivo**, uno por uno. Se regenera desde el código y un test
+  detecta cualquier deriva.
+- **Página `/requisitos`** en los cuatro idiomas: resumen (73 en verde de 90, 17 sin cerrar, 2 obligatorios abiertos),
+  el listón, los ocho estados explicados, los doce dominios y la lista incómoda con el mismo peso visual que el resto.
+  530 → **589 claves** por idioma.
+- **Veinte pruebas nuevas** (`tests/requirements.test.ts`) en tres familias: coherencia del registro, **evidencia real**
+  (cada fichero, script y marca de workflow citados existen) y **no-deriva** del documento. Además comprueban la
+  versión del changelog contra el manifiesto, el servidor estático, el service worker, los contenedores y que las
+  cifras de pruebas publicadas en el README suman al menos el suelo declarado.
+
+### Cambiado
+- La matriz de accesibilidad de CI pasa de 23 a **25 rutas** (escritorio y móvil): entran `/requisitos` en pt y es.
+- El menú, el pie y el mapa del sitio incorporan `/requisitos`; el export pasa a **506 páginas**.
+- `docs/ESTANDARES.md` remite al registro de requisitos como contrato completo, quedándose con la interoperabilidad.
+
+### Corregido
+- **Un `index.ts.orig` de cero bytes llevaba versionado desde un ciclo anterior.** Se descubrió al revisar la
+  cobertura (aparecía con 0 %) y se elimina; un requisito nuevo (`CAL-08`) y su prueba impiden que vuelva ningún
+  resto de herramienta (`.orig`, `.rej`, `.bak`, `*~`) al árbol.
+- **El README daba dos cifras distintas de la misma suite** (233/117 en el arranque y 358/274 en la verificación). Lo
+  detectó la regla nueva —todas las menciones deben coincidir— y quedan unificadas; también se corrigen las cifras de
+  cobertura citadas en el README.
+- El suelo de pruebas se declara en dos cifras honestas: **382 ejecutadas en vitest + 274 en pytest = 656**, con un
+  suelo de 600; y un suelo aparte de 380 **casos escritos** contables, porque la parametrización de pytest multiplica
+  los casos y comparar peras con manzanas sería hacer trampa.
+
+### Medido (y no escondido)
+- El peor página del export sube de **253,1 a 258,2 kB** comprimidos: es el coste real de 59 claves × 4 idiomas en el
+  diccionario del cliente sobre el marco de Next.js (233 kB en todas las páginas). La auditoría avisa, el límite duro
+  (400 kB) queda lejos y la cifra se publica en el requisito PRD-07 en lugar de relajar el umbral.
+
 ## [1.4.1] — 2026-10-11
 
 La experiencia como ingeniería. El campus deja de ser «una web negra y dorada» y pasa a ser una obra con

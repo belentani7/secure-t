@@ -6,6 +6,12 @@ prueba ejecutable que lo demuestre, y lo que aún no está se marca como PLANIFI
 
 Última revisión: **2026-10-11** · Página correspondiente del campus: `/es/estandares` (y `/pt`, `/en`, `/ca`).
 
+> Este documento cubre la **interoperabilidad** (qué formatos y especificaciones se implementan). El contrato completo
+> de la plataforma —89 requisitos con nivel, norma, evidencia y estado, incluidos accesibilidad, seguridad, privacidad,
+> rendimiento, IA responsable y operación— vive en [`REQUISITOS.md`](REQUISITOS.md) y en la página `/requisitos`. Si
+> los dos documentos se contradijeran, manda el registro en código: `tests/requirements.test.ts` compara este árbol con
+> lo que el registro declara.
+
 ---
 
 ## 1. Resumen

@@ -527,3 +527,43 @@ describe("el README documenta la capa de experiencia", () => {
     expect(readme).toContain("docs/PSICOLOGIA-Y-EXPERIENCIA.md");
   });
 });
+
+/* ------------------- requisitos: la página y su documento, contra el código */
+
+describe("requisitos de plataforma publicados", () => {
+  it("la página existe en los cuatro idiomas y está enlazada", () => {
+    expect(hay("apps/web/src/app/(landing)/requisitos/page.tsx")).toBe(true);
+    expect(hay("apps/web/src/app/[locale]/requisitos/page.tsx")).toBe(true);
+    expect(leer("apps/web/src/lib/site.ts")).toContain('path: "/requisitos"');
+    expect(leer("apps/web/src/app/sitemap.ts")).toContain('"/requisitos"');
+    expect(leer("apps/web/src/components/site-footer.tsx")).toContain('localePath(locale, "/requisitos")');
+    for (const locale of ["pt", "es", "en", "ca"]) {
+      const diccionario = leer(`packages/shared/src/i18n/${locale}.ts`);
+      for (const clave of ["nav.requirements", "req.title", "req.status.BLOCKED", "req.domain.ia", "req.level.MUST"]) {
+        expect(diccionario, `falta ${clave} en ${locale}`).toContain(`"${clave}"`);
+      }
+    }
+  });
+
+  it("el documento generado existe y declara que se genera", () => {
+    expect(hay("docs/REQUISITOS.md")).toBe(true);
+    const doc = leer("docs/REQUISITOS.md");
+    expect(doc).toContain("pnpm requirements");
+    expect(doc).toContain("No se edita a mano");
+    expect(leer("package.json")).toContain('"requirements"');
+  });
+
+  it("la matriz axe cubre las dos rutas nuevas", () => {
+    const matriz = leer("e2e/a11y.spec.ts");
+    expect(matriz).toContain("/app/requisitos");
+    expect(matriz).toContain("/app/es/requisitos");
+  });
+
+  it("el registro no se queda en adjetivos: hay MUST, y hay requisitos sin cerrar y con motivo", () => {
+    const registro = leer("packages/shared/src/requirements.ts");
+    expect((registro.match(/"MUST"/g) ?? []).length).toBeGreaterThan(30);
+    expect((registro.match(/"SHOULD"/g) ?? []).length).toBeGreaterThan(10);
+    expect(registro).toContain("BLOCKED");
+    expect(registro).toContain("OUT_OF_SCOPE");
+  });
+});

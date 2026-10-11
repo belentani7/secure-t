@@ -13,6 +13,7 @@ const SECTIONS = [
   "/biblioteca",
   "/plano",
   "/experiencia",
+  "/requisitos",
   "/laboratorio",
   "/agente",
   "/calendario",
