@@ -5,11 +5,12 @@ import { SITE, localePath } from "@/lib/site";
 export function SiteFooter({ locale }: { locale: Locale }) {
   const t = translator(locale);
   return (
-    <footer className="no-print mt-16 border-t border-[var(--aurum-line)] py-10">
-      <div className="wrap grid gap-8 md:grid-cols-[1.2fr_1fr_1fr]">
+    <footer className="no-print mt-16 py-10">
+      <div className="wrap aurum-glass grid gap-8 p-6 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
           <p className="gold-text text-lg font-semibold">secure T</p>
           <p className="muted text-sm">{t("about.p1")}</p>
+          <p className="mt-3 text-sm italic text-[var(--color-gold-bright)]">{t("footer.love")}</p>
           <p className="mono mt-3 text-[0.72rem] text-[var(--aurum-muted)]">
             {t("footer.honesty")}
           </p>

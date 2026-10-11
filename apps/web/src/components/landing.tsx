@@ -23,7 +23,9 @@ export function Landing({ locale }: { locale: Locale }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdScript(websiteJsonLd(baseUrl, ["pt", "es", "en", "ca"])) }}
       />
-      <section className="wrap section">
+      <section className="wrap section relative isolate overflow-hidden">
+        {/* Luz dorada liquida: decorativa, por detras del contenido, nunca encima. */}
+        <span aria-hidden="true" className="aurum-luz" />
         <p className="eyebrow">{t("hero.eyebrow")}</p>
         <h1 className="fade-up max-w-[20ch]">
           <span className="gold-text">{t("hero.title")}</span>
@@ -150,8 +152,14 @@ export function Landing({ locale }: { locale: Locale }) {
       <section className="wrap section" aria-labelledby="about">
         <h2 id="about">{t("about.title")}</h2>
         <div className="grid-2 mt-5">
-          <p className="muted">{t("about.p1")}</p>
-          <p className="muted">{t("about.p2")}</p>
+          <div className="aurum-glass p-5">
+            <p className="muted">{t("about.p1")}</p>
+            {/* La historia, en una linea y sin nombres: quien la reconozca, la reconocera. */}
+            <p className="muted mt-3 text-[0.95rem] italic">{t("about.love")}</p>
+          </div>
+          <div className="aurum-glass p-5">
+            <p className="muted">{t("about.p2")}</p>
+          </div>
         </div>
         <div className="card mt-6">
           <p className="eyebrow">{t("eval.title")}</p>

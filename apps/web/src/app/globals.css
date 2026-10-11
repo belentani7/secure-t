@@ -40,6 +40,19 @@
   --aurum-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --aurum-mono: ui-monospace, "SFMono-Regular", "Cascadia Code", Consolas, "Liberation Mono", monospace;
   --aurum-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+
+  /* Cristal y luz liquida. El dorado no es un color plano: es una luz que se
+     mueve muy despacio detras del contenido. Todo lo animado vive dentro de
+     `prefers-reduced-motion: no-preference`, asi que quien pide quietud ve la
+     misma composicion, congelada, y sin un fotograma de mas. */
+  --aurum-glass: rgb(18 18 26 / 58%);
+  --aurum-glass-strong: rgb(22 22 31 / 82%);
+  --aurum-glass-blur: 16px;
+  --aurum-glass-line: rgb(242 212 119 / 22%);
+  --aurum-glass-sheen: rgb(255 255 255 / 7%);
+  --aurum-luz-a: rgb(212 175 55 / 30%);
+  --aurum-luz-b: rgb(242 212 119 / 20%);
+  --aurum-luz-c: rgb(61 125 255 / 16%);
 }
 
 [data-contrast="high"] {
@@ -592,4 +605,124 @@ caption a {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
+}
+
+/* ============================================================================
+   Cristal vivo y luz dorada liquida
+   ============================================================================
+   Piezas sueltas, ninguna obligatoria:
+
+   - .aurum-glass: superficie de cristal (esmerilado, brillo interior y filo
+     dorado tenue). Va SIN @layer a proposito: asi ninguna utilidad de Tailwind
+     puede aflojarle el borde ni el desenfoque.
+   - .aurum-luz: halos dorados y un azul lejano que derivan muy despacio.
+     Decorativos (aria-hidden), sin puntero y siempre por detras del texto.
+   - .aurum-filo: la linea de oro que separa el encabezado.
+*/
+
+.aurum-glass {
+  background:
+    linear-gradient(158deg, var(--aurum-glass-sheen) 0%, transparent 42%),
+    var(--aurum-glass);
+  border: 1px solid var(--aurum-glass-line);
+  border-radius: var(--aurum-radius);
+  -webkit-backdrop-filter: blur(var(--aurum-glass-blur)) saturate(135%);
+  backdrop-filter: blur(var(--aurum-glass-blur)) saturate(135%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 6%),
+    0 24px 60px -34px rgb(0 0 0 / 85%);
+}
+
+.aurum-glass-strong {
+  background:
+    linear-gradient(158deg, var(--aurum-glass-sheen) 0%, transparent 42%),
+    var(--aurum-glass-strong);
+}
+
+/* El encabezado es una banda, no una tarjeta: cristal sin esquinas. */
+.aurum-glass-flat {
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+}
+
+.aurum-luz {
+  position: absolute;
+  inset: -30% -12% auto -12%;
+  height: 150%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurum-luz::before,
+.aurum-luz::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(64px);
+}
+
+.aurum-luz::before {
+  width: 44rem;
+  height: 44rem;
+  left: -12rem;
+  top: -16rem;
+  background: radial-gradient(circle at 42% 42%, var(--aurum-luz-b), transparent 62%);
+}
+
+.aurum-luz::after {
+  width: 34rem;
+  height: 34rem;
+  right: -9rem;
+  top: -6rem;
+  background:
+    radial-gradient(circle at 60% 40%, var(--aurum-luz-a), transparent 60%),
+    radial-gradient(circle at 30% 70%, var(--aurum-luz-c), transparent 62%);
+}
+
+.aurum-filo {
+  background: linear-gradient(90deg,
+    transparent,
+    var(--aurum-luz-a) 18%,
+    var(--aurum-luz-b) 50%,
+    var(--aurum-luz-a) 82%,
+    transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .aurum-luz::before {
+    animation: aurum-deriva-a 28s ease-in-out infinite alternate;
+  }
+
+  .aurum-luz::after {
+    animation: aurum-deriva-b 36s ease-in-out infinite alternate;
+  }
+
+  /* Un brillo que recorre el boton principal SOLO al pasar el puntero. Va como
+     imagen de fondo, no como pseudo-elemento: asi pasa por DETRAS del texto y
+     el contraste de la etiqueta no cambia ni un instante. */
+  .btn {
+    background-image: linear-gradient(105deg, transparent 40%, rgb(255 255 255 / 22%) 50%, transparent 60%);
+    background-repeat: no-repeat;
+    background-size: 220% 100%;
+    background-position: 165% 0;
+    transition: background-position 700ms ease;
+  }
+
+  .btn:hover,
+  .btn:focus-visible {
+    background-position: -65% 0;
+  }
+}
+
+@keyframes aurum-deriva-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(5.5rem, 3rem, 0) scale(1.12); }
+}
+
+@keyframes aurum-deriva-b {
+  from { transform: translate3d(0, 0, 0) scale(1.06); }
+  to   { transform: translate3d(-4.5rem, 2.5rem, 0) scale(0.94); }
 }

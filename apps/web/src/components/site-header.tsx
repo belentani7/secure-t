@@ -7,7 +7,8 @@ import { LangSwitcher } from "./lang-switcher";
 export function SiteHeader({ locale }: { locale: Locale }) {
   const t = translator(locale);
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--aurum-line)] bg-[color-mix(in_srgb,var(--color-ink)_88%,transparent)] backdrop-blur-md">
+    <header className="aurum-glass aurum-glass-strong aurum-glass-flat sticky top-0 z-40">
+      <span aria-hidden="true" className="aurum-filo absolute inset-x-0 bottom-0 h-px" />
       <div className="wrap flex min-h-[68px] flex-wrap items-center gap-x-4 gap-y-2 py-2">
         <Link
           href={localePath(locale, "/")}
