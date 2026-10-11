@@ -2,7 +2,8 @@
 
 - **Rama**: `arena/a75428a2-secure-t` (21 commits sobre `main` @ `eb2b05e`)
 - **Pull request**: [#3](https://github.com/belentani7/secure-t/pull/3) — abierto
-- **Evidencia de CI**: ejecución completa sobre el commit `1a43b1b` (10 comprobaciones, todas en verde)
+- **Evidencia de CI**: ejecución completa sobre el commit `0aec835` — **8 comprobaciones de trabajo en verde y las dos
+  suites de workflow (`CI` y `Calidad`) en verde** (sobre el commit de código `1a43b1b` el conjunto fue idéntico)
 - **Fecha**: 2026-10-11
 - **Alcance de este informe**: el ciclo de endurecimiento (seguridad de la cadena de suministro y escaneo real de
   secretos) sobre el campus ya elevado. Todo lo que aquí se afirma tiene su comando o su URL; lo que no se ha podido
@@ -22,7 +23,7 @@ aviso en **cada** ejecución.
 
 | Área | Estado | Evidencia |
 |---|---|---|
-| CI del repositorio | **Verde completa** (10/10) | checks de `1a43b1b`: campus, secretos, edu-engine, web, cobertura, accesibilidad estática, axe (32 pruebas), Lighthouse ≥ 95 + CWV, `CI`, `Calidad` |
+| CI del repositorio | **Verde completa** | checks con conclusión `success`: campus, secretos, edu-engine, web, cobertura, accesibilidad estática, axe (32 pruebas) y Lighthouse ≥ 95 + CWV; las dos suites de workflow (`CI`, `Calidad`) en verde. Sólo Sourcery aparece como `skipped` (revisión de terceros, no forma parte de las puertas) |
 | Escaneo de secretos | **Real y verificable** | binario oficial `gitleaks 8.24.3` (MIT) verificado por SHA-256, `--config .gitleaks.toml`, control negativo, veredicto por conjunto conocido |
 | Cadena de suministro | **Fijada y al día** | 7 acciones de GitHub fijadas por commit (todas en Node 24), `pnpm audit:deps` como puerta obligatoria, SBOM CycloneDX 1.5 con 778 componentes |
 | Campus AURUM | **Verificado** | 476 páginas exportadas, `_site` con 3.216 ficheros, `audit:site` = 0 errores y 0 avisos |
@@ -185,9 +186,9 @@ Métricas del material: **74.450 líneas** versionadas de código, datos y docum
 
 ### 5.2 Solo verificable en CI (este entorno no tiene navegador)
 
-| Prueba | Resultado sobre `1a43b1b` |
+| Prueba | Resultado sobre `1a43b1b` (y `0aec835` para Lighthouse/axe) |
 |---|---|
-| Lighthouse (6 URLs × 3 pasadas, presupuesto ≥ 95 y CWV) | **success** |
+| Lighthouse (6 URLs × 3 pasadas, presupuesto ≥ 95 y CWV) | **success** (en `0aec835` y en `1a43b1b`) |
 | axe / WCAG 2.2 AA (Playwright) | **success** — `32 passed (52.2s)` |
 | Cobertura como umbral de CI | **success** |
 | Escaneo de secretos | **success** — control negativo encontrado ≥ 3 hallazgos; veredicto con 1 aviso aceptado |
@@ -224,6 +225,7 @@ anotaciones del check.
 | Lighthouse/CWV | **VERIFICADO EN CI** | Depende de la ejecución con navegador; no reproducible en este entorno |
 | Aviso cosmético de CI | **ABIERTO (menor)** | `upload-artifact` de Lighthouse avisa de que `.lighthouseci/` no existe al subir el artefacto: el check pasa, el artefacto no se publica |
 | Superficie legada (`secure-t-app/`, etc.) | **DECISIÓN DEL PROPIETARIO** | Material que ya no se publica ni se toca sin autorización explícita |
+| Integraciones de terceros en cola | **NOT VERIFIED** | Cada push despierta suites de aplicaciones instaladas en la cuenta original (Vercel, Netlify, Cloudflare, Railway, Render, SonarQube, Supabase, Cursor, Claude…): aparecen como `queued`, no aportan verificación a esta entrega y conviene revisarlas o retirarlas con el propietario |
 
 ---
 
@@ -280,8 +282,8 @@ f67233c fix(seguridad): cierra los tres falsos positivos de gitleaks sin debilit
   código nuevo) ni la identidad del propietario; `lib/edu-engine` conserva AGPL-3.0-only (contradicción documentada
   en ADR-0004).
 - **URLs**: PR [#3](https://github.com/belentani7/secure-t/pull/3) · sitio
-  [belentani7.github.io/secure-t/](https://belentani7.github.io/secure-t/) · checks de `1a43b1b` en
-  `https://github.com/belentani7/secure-t/commit/1a43b1b/checks`.
+  [belentani7.github.io/secure-t/](https://belentani7.github.io/secure-t/) · checks de `0aec835` en
+  `https://github.com/belentani7/secure-t/commit/0aec835/checks`.
 
 ---
 
