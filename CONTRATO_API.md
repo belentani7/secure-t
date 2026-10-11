@@ -53,9 +53,44 @@ content-type: application/json
   ],
   "followUps": ["…"],
   "notices": ["provider:fallback:timeout"],
+  // Herramientas deterministas que el tutor ejecutó (opcional). Sólo lectura:
+  // ninguna escribe, publica ni gasta, y ninguna sale del dispositivo.
+  "tools": [
+    {
+      "tool": "resumen_semana",
+      "effect": "lectura",
+      "summary": "semana 12 de ia-aplicada-segura",
+      "items": [
+        {
+          "label": "Semana 12 · Seguridad de RAG",
+          "detail": "fuente: campus/cursos/ia-aplicada-segura/semana-12.md",
+          "url": "/pt/programas/ia-aplicada-segura/semana/12",
+          "week": 12,
+          "course": "ia-aplicada-segura"
+        }
+      ]
+    }
+  ],
   "audit": { "authorization": "allowed", "result": "success", "action": "agent.answer", "at": "2026-10-11T20:00:00.000Z" }
 }
 ```
+
+### Herramientas del tutor (`tools`)
+
+Cinco herramientas de **sólo lectura** (`packages/shared/src/tutor-tools.ts`), disparadas por la propia pregunta sin
+que el modelo decida nada:
+
+| `tool` | Qué devuelve | Disparadores (extracto) |
+|---|---|---|
+| `listar_programas` | los cuatro programas del campus con enlace | «qué programas hay», «catálogo» |
+| `resumen_semana` | el fragmento de la semana citada, del corpus publicado | «semana 12», «repásame la semana 3» |
+| `recomendar_biblioteca` | recursos abiertos ordenados por encaje, con enlace al autor | «recomiéndame un canal», «qué leo» |
+| `ruta_itinerario` | itinerario con sus cursos en orden y semanas reales | «por dónde empiezo», «itinerario» |
+| `plan_estudio` | las diez franjas del plan de cinco años con su estado real | «plan de cinco años», «qué es el año 3» |
+
+Reglas del contrato: el campo es **opcional** (ausente si ninguna herramienta se dispara); `effect` es siempre
+`"lectura"`; `week` se acota a 1–200 y `items` a doce elementos como máximo; y toda herramienta cita material que
+existe (nunca inventa identificadores de curso, semana o recurso).
 
 ### Códigos y cabeceras
 

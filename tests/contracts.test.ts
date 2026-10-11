@@ -12,6 +12,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { CSP, CSP_DIRECTIVES, CSP_META, META_HEADERS, SECURITY_HEADERS } from "../apps/web/src/lib/security-headers";
 import { LOCALES } from "../packages/shared/src/i18n";
+import { TOOL_IDS } from "../packages/shared/src/tutor-tools";
 
 const root = join(__dirname, "..");
 const leer = (rel: string) => readFileSync(join(root, rel), "utf8");
@@ -440,5 +441,13 @@ describe("biblioteca abierta, plan de cinco años y laboratorio de IA", () => {
     expect(leer("packages/shared/tests/lab.test.ts")).toContain("declara su límite");
     // Los instrumentos se integran en la consola del agente, no en una página suelta.
     expect(leer("apps/web/src/components/agent-console.tsx")).toContain("tool.panel.title");
+  });
+
+  it("el contrato de la API documenta las herramientas del tutor", () => {
+    const contrato = leer("CONTRATO_API.md");
+    expect(contrato).toContain('"tools"');
+    for (const herramienta of TOOL_IDS) expect(contrato).toContain(`\`${herramienta}\``);
+    expect(contrato).toContain("sólo lectura");
+    expect(contrato).toContain("plan_estudio");
   });
 });

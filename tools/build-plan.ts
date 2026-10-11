@@ -50,7 +50,7 @@ for (const ano of [1, 2, 3, 4, 5]) {
       "",
       `- **Estado**: ${estado}`,
       `- **Modo**: \`${fase.mode}\`${fase.course ? ` · curso \`${fase.course}\`` : ""}`,
-      `- **Nivel**: ${fase.level}`,
+      `- **Alcance**: ${fase.from === 1 && fase.published > 0 ? "fundamentos publicados" : fase.mode === "laboratorio" ? "práctica dirigida en entorno propio" : "entrega con informe y defensa"}`,
       `- **Se alinea con**: ${fase.aligns.join(" · ")}`,
       fase.capstone ? "- **Capstone**: sí, cierre del quinquenio con defensa pública." : "",
       "- **Recursos que la sostienen**:",
@@ -74,6 +74,6 @@ lineas.push(
   "```"
 );
 
-const contenido = `${lineas.filter((linea) => linea !== "").join("\n").replace(/\n(##|###)/g, "\n\n$1")}\n`.replace(/\n{3,}/g, "\n\n");
+const contenido = `${lineas.join("\n").replace(/\n{3,}/g, "\n\n").trim()}\n`;
 writeFileSync(join(root, "docs/PLAN-QUINQUENAL.md"), contenido, "utf8");
 console.log(`PLAN-QUINQUENAL.md → ${CURRICULUM_5Y.length} franjas · ${TOTAL_WEEKS} semanas · ${stats.publishedWeeks} publicadas`);
