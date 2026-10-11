@@ -25,7 +25,7 @@ export default defineConfig({
     { name: "movil", use: { ...devices["Pixel 7"] } }
   ],
   webServer: {
-    command: "node tools/serve-static.mjs --port 4173",
+    command: "node tools/serve-static.mjs --port 4173 --root apps/web/out --base /app",
     url: "http://127.0.0.1:4173/app/",
     reuseExistingServer: !process.env.CI,
     timeout: 60_000

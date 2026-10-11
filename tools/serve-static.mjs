@@ -6,7 +6,12 @@
  * directorio que se le indique), resuelve `/app/…` y devuelve el 404 del sitio
  * cuando la ruta no existe. Sin dependencias: sólo `node:http`.
  *
- *   node tools/serve-static.mjs --port 4173 [--root _site]
+ *   node tools/serve-static.mjs --port 4173 [--root _site] [--base /app]
+ *
+ * `--base` sirve un export que **no** está montado en subcarpeta (por ejemplo
+ * `apps/web/out`, cuyos enlaces internos ya llevan el prefijo `/app`): el
+ * prefijo se quita antes de buscar el fichero. Con `_site`, que sí monta la web
+ * en `app/`, no se usa.
  */
 
 import { createReadStream } from "node:fs";
@@ -18,6 +23,16 @@ const args = process.argv.slice(2);
 const port = Number(args[args.indexOf("--port") + 1]) || 4173;
 const rootIndex = args.indexOf("--root");
 const root = resolve(rootIndex === -1 ? "_site" : args[rootIndex + 1] ?? "_site");
+const baseIndex = args.indexOf("--base");
+const base = (baseIndex === -1 ? "" : args[baseIndex + 1] ?? "").replace(/\/$/, "");
+
+/** Ruta dentro del directorio servido, o `null` si no pertenece al prefijo. */
+function rutaInterna(pathname) {
+  if (!base) return pathname;
+  if (pathname === base || pathname === `${base}/`) return "/";
+  if (pathname.startsWith(`${base}/`)) return pathname.slice(base.length);
+  return null;
+}
 
 const TIPOS = {
   ".html": "text/html; charset=utf-8",
@@ -37,7 +52,9 @@ const TIPOS = {
 };
 
 async function resolver(pathname) {
-  const limpio = normalize(decodeURIComponent(pathname)).replace(/^(\.\.[/\\])+/, "");
+  const interna = rutaInterna(decodeURIComponent(pathname));
+  if (interna === null) return null;
+  const limpio = normalize(interna).replace(/^(\.\.[/\\])+/, "");
   const candidatos = [];
   if (limpio.endsWith("/")) candidatos.push(join(root, limpio, "index.html"));
   else {
@@ -83,5 +100,5 @@ const server = createServer(async (request, response) => {
 });
 
 server.listen(port, "0.0.0.0", () => {
-  console.log(`static: http://0.0.0.0:${port} (root: ${root})`);
+  console.log(`static: http://0.0.0.0:${port} (root: ${root}${base ? `, base: ${base}` : ""})`);
 });
