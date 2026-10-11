@@ -51,6 +51,18 @@ externa, y lo que no está se dice en voz alta. Nada se marca conforme sin un te
 
 ### Corregido
 
+- **La CI del repositorio nunca se ejecutaba**: `ci.yml` tenía un YAML inválido (un paso con dos puntos sin
+  comillas), así que GitHub no lanzaba ninguno de sus cuatro trabajos —pytest del campus, gitleaks, motor educativo
+  y web— y el repositorio llevaba desde entonces sin esa red. Corregido y validado con el analizador de YAML.
+- **La URL publicada del sitio**: el flujo de Pages, el 404 y el contrato de pytest usaban
+  `secure-t-university`, un nombre que ya no existe (su URL responde 404); la API de Pages del repositorio devuelve
+  `https://belentani7.github.io/secure-t/`. Ahora los metadatos (canónico, hreflang, JSON-LD), los enlaces del 404 y
+  el contrato apuntan a la URL real.
+- **La comprobación de contenido generado** fallaba en cada ejecución por comparar un `git diff` sobre ficheros que
+  llevan `generatedAt`: ahora compara el material (`sourceDigest`) e ignora la fecha, que no identifica a la fuente.
+- **Cadena de suministro**: de 11 avisos de dependencias a 1 (aceptado con motivo, sin parche publicado), acciones de
+  los workflows fijadas por commit, Dependabot para npm/pip/actions y `pnpm audit:deps` como puerta obligatoria de CI.
+
 - **Accesibilidad con navegador** (axe, WCAG 2.2 AA): dos regiones de navegación compartían etiqueta
   (`landmark-unique`), los enlaces dentro de texto sólo se distinguían por color (`link-in-text-block`; ahora se
   subrayan desde una regla única de la hoja de estilos) y las zonas con desplazamiento no eran alcanzables con el

@@ -23,8 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.12"
       - name: Instalar pytest
@@ -40,11 +40,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
       - name: Gitleaks (historial completo)
-        uses: gitleaks/gitleaks-action@v2
+        uses: gitleaks/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7 # v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -59,8 +59,8 @@ jobs:
       run:
         working-directory: lib/edu-engine
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: "22"
       - name: Tests del motor educativo
@@ -73,17 +73,19 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
         with:
           version: 10
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: "22"
           cache: "pnpm"
       - name: Instalar dependencias
         run: pnpm install --frozen-lockfile
-      - name: Generar el contenido (fuente unica: campus/)
+      - name: Auditoria de dependencias (lista blanca con motivos)
+        run: pnpm audit:deps
+      - name: "Generar el contenido (fuente unica: campus/)"
         run: pnpm content:all
       - name: Typecheck (raiz y web)
         run: |
@@ -96,6 +98,6 @@ jobs:
       - name: Export estatico (mismo codigo que va a Pages)
         run: pnpm --filter @secure-t/web build:pages
       - name: El contenido generado no quedo desincronizado
-        run: |
-          git diff --exit-code -- apps/web/public/content \
-            || (echo "::error::El material cambio: vuelve a ejecutar pnpm content"; exit 1)
+        # Compara el material (sourceDigest), no la fecha de generacion: el
+        # `git diff` anterior fallaba en cada ejecucion por el reloj.
+        run: pnpm check:drift

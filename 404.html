@@ -24,7 +24,9 @@
 <script>
   // rutas seguras bajo subpath (project pages): base derivada de la URL real
   var base = location.pathname.replace(/\/[^/]*\/?$/, "");
-  if (!/(secure-t-university)$/i.test(base)) base = "";
+  // El sitio se publica en /secure-t/; el nombre antiguo se acepta por si
+  // quedara algún enlace publicado, pero la comprobación es la URL real.
+  if (!/(secure-t(-university)?)$/i.test(base)) base = "";
   document.getElementById("ir-inicio").href = (base || ".") + "/";
   document.getElementById("ir-campus").href = (base || ".") + "/campus/";
 </script>

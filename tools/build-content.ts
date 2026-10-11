@@ -34,6 +34,18 @@ const ARTIFACTS: { file: string; kind: ArtifactKind; title: string }[] = [
   { file: "recursos.md", kind: "resources", title: "Recursos" }
 ];
 
+/**
+ * Fecha de la generación. Con `SOURCE_DATE_EPOCH` —la convención de las
+ * construcciones reproducibles— se fija; sin ella, es la hora actual. La fecha
+ * **no** forma parte del material: lo que identifica a la fuente es el
+ * `sourceDigest`, y eso permite comparar el contenido generado con el publicado
+ * sin que el reloj haga fallar la comprobación.
+ */
+function fechaGeneracion(): string {
+  const epoch = Number(process.env.SOURCE_DATE_EPOCH);
+  return Number.isFinite(epoch) && epoch > 0 ? new Date(epoch * 1000).toISOString() : new Date().toISOString();
+}
+
 interface WeekSummary {
   index: number;
   title: string;
@@ -236,7 +248,7 @@ const words = chunks.reduce((sum, chunk) => sum + chunk.text.split(/\s+/).filter
 
 const knowledge: KnowledgePack = {
   version: 1,
-  generatedAt: new Date().toISOString(),
+  generatedAt: fechaGeneracion(),
   sourceDigest,
   counts: { courses: courses.length, weeks: courses.reduce((sum, course) => sum + course.weeks.length, 0), chunks: chunks.length, words },
   chunks

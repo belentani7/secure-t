@@ -370,8 +370,15 @@ def test_comparacion_plugins_documentada():
 def test_pages_workflow_sin_secrets_externos():
     wf = (ROOT / ".github" / "workflows" / "pages.yml").read_text(encoding="utf-8")
     assert "id-token: write" in wf and "pages: write" in wf
-    assert "actions/deploy-pages@v4" in wf, "no usa la acción oficial de Pages"
-    assert "belentani7.github.io/secure-t-university" in wf, "SITE_URL real ausente"
+    # Las acciones van fijadas por su commit (con la etiqueta en el comentario),
+    # que es lo que exige la cadena de suministro; la acción sigue siendo la
+    # oficial de Pages. Se aceptan las dos formas para no atarse a la política
+    # de fijado concreta.
+    assert re.search(r"actions/deploy-pages@([0-9a-f]{40} # v4|v4)\b", wf), "no usa la acción oficial de Pages"
+    # La API de Pages del repositorio devuelve https://belentani7.github.io/secure-t/
+    # (el nombre «secure-t-university» ya no existe: su URL da 404). El contrato
+    # comprueba la URL de verdad, no la de un nombre antiguo.
+    assert "belentani7.github.io/secure-t/" in wf, "SITE_URL real ausente"
     # sin tokens personales: solo OIDC con GITHUB_TOKEN
     assert "TOKEN" not in wf.replace("GITHUB_TOKEN", "")
 

@@ -71,3 +71,31 @@ se resuelve al actualizar Tailwind, no forzando el árbol.
 1. `pnpm outdated` y `pnpm audit` en cada iteración; los resultados se anotan aquí.
 2. Dependabot agrupa los parches semanales; una vulnerabilidad crítica tiene prioridad sobre cualquier tarea.
 3. Toda dependencia nueva pasa por esta tabla **antes** de entrar en `package.json`.
+
+## 7. Auditoría de dependencias y sobrescrituras
+
+`pnpm audit:deps` (paso obligatorio de CI, `tools/audit-deps.mjs`) ejecuta `pnpm audit` y compara el resultado con
+una lista blanca escrita en el propio script: **cualquier aviso nuevo rompe la construcción**; los aceptados llevan su
+motivo y el script también falla si alguien borra las sobrescrituras de seguridad de `package.json`.
+
+Estado de la última ejecución (2026-10-11): **11 avisos → 1**. Los `high` y `moderate` que quedaban salían de la
+cadena de herramientas de desarrollo y se cerraron con sobrescrituras **por rango** (sólo afectan a las versiones
+vulnerables, no a todo el árbol):
+
+| Sobrescritura | Qué cierra |
+|---|---|
+| `tmp@<0.2.6 → ^0.2.6` | Escritura arbitraria por enlace simbólico (`@lhci/cli → inquirer → external-editor`) |
+| `basic-ftp@<6.2.1 → ^6.2.1` | Denegación de servicio cuadrática en `Client.list()` (`@lhci/cli → proxy-agent`) |
+| `source-map-js@<1.2.2 → ^1.2.2` | DoS por recorrido indexado (cadena de compilación de Tailwind) |
+| `uuid@<11.1.1 → ^11.1.1` | Comprobación de límites del búfer en `v3/v5/v6` |
+| `@puppeteer/browsers@<3.2.4 → ^3.2.4` | Retira `extract-zip` (traversal por enlaces simbólicos) del árbol de Lighthouse CI |
+| `storybook>@vitest/mocker → ^4.1.11` | Lectura arbitraria de ficheros en el mockeador de vitest que usa Storybook |
+
+Lo que queda aceptado, con su razón (única entrada de la lista blanca):
+
+- **`sprintf-js` (GHSA-hp3w-g68c-fv3c, moderate)**: no existe versión parcheada (`patched: <0.0.0`). Entra sólo por
+  `@lhci/cli → js-yaml → argparse`, y argparse da formato a sus propios textos, nunca a cadenas de terceros. Es
+  herramienta de desarrollo: no forma parte del sitio publicado.
+
+Las acciones de los workflows van **fijadas por commit** (con la etiqueta en el comentario) y `github-actions` está en
+`.github/dependabot.yml`, de modo que las actualizaciones llegan como PR revisable.

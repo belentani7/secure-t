@@ -24,7 +24,9 @@
     "syllabus": "tsx tools/build-syllabus.ts",
     "content:all": "pnpm content && pnpm syllabus && pnpm packages && pnpm sbom",
     "packages": "tsx tools/build-packages.ts",
-    "sbom": "node tools/build-sbom.mjs"
+    "sbom": "node tools/build-sbom.mjs",
+    "audit:deps": "node tools/audit-deps.mjs",
+    "check:drift": "node tools/check-drift.mjs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.20",
@@ -90,5 +92,15 @@
     "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.56.0",
     "@vitest/coverage-v8": "^5.0.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "tmp@<0.2.6": "^0.2.6",
+      "basic-ftp@<6.2.1": "^6.2.1",
+      "source-map-js@<1.2.2": "^1.2.2",
+      "uuid@<11.1.1": "^11.1.1",
+      "storybook>@vitest/mocker": "^4.1.11",
+      "@puppeteer/browsers@<3.2.4": "^3.2.4"
+    }
   }
 }
