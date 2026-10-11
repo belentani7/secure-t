@@ -11,6 +11,7 @@ import {
   type AgentSource
 } from "@secure-t/agent";
 import {
+  SPEECH_LOCALES,
   buildIndex,
   knowledgeToSearchDocs,
   translator,
@@ -97,7 +98,7 @@ export function AgentConsole({ locale, course }: { locale: Locale; course?: stri
     const recorded = new Audio(asset(voiceAssetPath(locale, "welcome")));
     recorded.onerror = () => {
       const utterance = new SpeechSynthesisUtterance(text.slice(0, 900) || voiceFallbackText(locale, "lecturer"));
-      utterance.lang = locale === "pt" ? "pt-PT" : locale === "es" ? "es-ES" : locale === "ca" ? "ca-ES" : "en-GB";
+      utterance.lang = SPEECH_LOCALES[locale];
       utterance.rate = 0.98;
       window.speechSynthesis.speak(utterance);
     };

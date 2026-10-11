@@ -32,6 +32,7 @@ export const en: Dict = {
   "about.p1": "An open institute publishing university-level technical training. No account, no email and no tracking: progress stays in your own browser behind an anonymous token that never leaves your device.",
   "about.p2": "Assessment follows the 30 % participation, 30 % formative quizzes and 40 % evidence-based project model. Nothing is passed by guessing: you pass by demonstrating.",
   "about.p3": "Every week cites verifiable open sources. Anything not ready yet is labelled PLANNED, never finished.",
+  "about.love": "This campus was born from a love story: someone decided that what had been learned should be given away, not kept. Wisdom only grows when it is shared.",
 
   "pillars.title": "Four programmes, one profession",
   "pillars.lead": "Each programme stands alone; together they cover the full cycle of modern security.",
@@ -198,6 +199,7 @@ export const en: Dict = {
 
   "footer.license": "Code under the MIT licence. Teaching material cites its sources every week.",
   "footer.attribution": "Based on the original belentani7/secure-t repository by Pedro Belentani.",
+  "footer.love": "Inspired by a true story: knowledge belongs to whoever seeks it.",
   "footer.source": "Auditable source code",
   "nav.review": "Review",
   "review.title": "Spaced review",

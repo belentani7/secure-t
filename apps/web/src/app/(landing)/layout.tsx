@@ -1,13 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { LOCALES } from "@secure-t/shared";
+import { LOCALES, OG_LOCALES, alternateLanguages } from "@secure-t/shared";
 import { SiteChrome } from "@/components/site-chrome";
 import { SITE } from "@/lib/site";
 import "../globals.css";
 
 /**
- * Layout raíz de la portada en portugués (idioma por defecto del ecosistema).
- * Es un layout raíz propio para que `lang="pt"` sea cierto sin necesidad de
- * JavaScript, tal y como exige WCAG 2.2 (3.1.1 Language of Page).
+ * Layout raíz de la portada en **portugués de Brasil** (idioma por defecto del
+ * ecosistema: PT > ES > EN > CA). Es un layout raíz propio para que
+ * `lang="pt-BR"` sea cierto sin necesidad de JavaScript, tal y como exige
+ * WCAG 2.2 (3.1.1 Language of Page).
  */
 
 export const metadata: Metadata = {
@@ -34,13 +35,13 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: `${SITE.basePath}/`,
-    languages: Object.fromEntries(LOCALES.map((locale) => [locale, `${SITE.basePath}/${locale}`]))
+    languages: alternateLanguages(SITE.basePath)
   },
   openGraph: {
     type: "website",
     siteName: "secure T",
-    locale: "pt_PT",
-    alternateLocale: ["es_ES", "en_US", "ca_ES"],
+    locale: OG_LOCALES.pt,
+    alternateLocale: (["es", "en", "ca"] as const).map((key) => OG_LOCALES[key]),
     title: "secure T — Instituto aberto de cibersegurança e IA",
     description: "Quatro programas de vinte semanas, gratuitos, sem registo e funcionais sem conexão.",
     url: "/"
@@ -69,7 +70,7 @@ export const viewport: Viewport = {
 
 export default function LandingLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt" data-contrast="normal" suppressHydrationWarning>
+    <html lang="pt-BR" data-contrast="normal" suppressHydrationWarning>
       <body>
         <SiteChrome locale="pt">{children}</SiteChrome>
       </body>

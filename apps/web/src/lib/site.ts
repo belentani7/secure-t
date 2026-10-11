@@ -1,4 +1,4 @@
-import { LOCALES, type Locale, type TranslationKey } from "@secure-t/shared";
+import { LOCALES, SPEECH_LOCALES, alternateLanguages, type Locale, type TranslationKey } from "@secure-t/shared";
 
 /** Datos del sitio y utilidades de rutas (con soporte de `basePath`). */
 
@@ -42,9 +42,9 @@ export function canonicalPath(locale: Locale, pathname = "/"): string {
   return absolutePath(localePath(locale, pathname));
 }
 
-/** Alternativas `hreflang` para una misma página en los cuatro idiomas. */
+/** Alternativas `hreflang` para una misma página en los cuatro idiomas (con `x-default`). */
 export function alternates(pathname: string): Record<string, string> {
-  return Object.fromEntries(LOCALES.map((locale) => [locale, canonicalPath(locale, pathname)]));
+  return alternateLanguages(SITE.basePath, pathname);
 }
 
 export interface NavItem {
@@ -67,4 +67,4 @@ export const NAV: NavItem[] = [
 
 export const PROGRAM_ORDER = ["ciber-defensiva", "gobernanza-compliance", "ciber-ofensiva", "ia-aplicada-segura"] as const;
 
-export const HUMAN_LOCALES: Record<Locale, string> = { pt: "pt-PT", es: "es-ES", en: "en", ca: "ca-ES" };
+export const HUMAN_LOCALES: Record<Locale, string> = SPEECH_LOCALES;

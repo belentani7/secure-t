@@ -9,12 +9,48 @@ export type Locale = "pt" | "es" | "en" | "ca";
 export const LOCALES: readonly Locale[] = ["pt", "es", "en", "ca"] as const;
 export const DEFAULT_LOCALE: Locale = "pt";
 
+/**
+ * Etiquetas BCP-47 que se publican en el HTML (`lang`) y en `hreflang`.
+ * El portugués del proyecto es **de Brasil** (`pt-BR`): es el idioma por defecto
+ * del ecosistema (PT > ES > EN > CA) y así queda declarado, no supuesto.
+ */
 export const LOCALE_LABELS: Record<Locale, { name: string; native: string; htmlLang: string; hreflang: string }> = {
-  pt: { name: "Portuguese", native: "Português", htmlLang: "pt", hreflang: "pt-PT" },
+  pt: { name: "Portuguese (Brazil)", native: "Português (Brasil)", htmlLang: "pt-BR", hreflang: "pt-BR" },
   es: { name: "Spanish", native: "Español", htmlLang: "es", hreflang: "es-ES" },
   en: { name: "English", native: "English", htmlLang: "en", hreflang: "en" },
   ca: { name: "Catalan", native: "Català", htmlLang: "ca", hreflang: "ca-ES" }
 };
+
+/** `og:locale` usa guiones bajos y no admite una región ausente. */
+export const OG_LOCALES: Record<Locale, string> = {
+  pt: "pt_BR",
+  es: "es_ES",
+  en: "en_US",
+  ca: "ca_ES"
+};
+
+/** BCP-47 para la síntesis de voz del navegador: sin ella, el portugués de
+ *  Brasil se leería con acento de Portugal. */
+export const SPEECH_LOCALES: Record<Locale, string> = {
+  pt: "pt-BR",
+  es: "es-ES",
+  en: "en-GB",
+  ca: "ca-ES"
+};
+
+/**
+ * Alternativas `hreflang` de una página, con `x-default` apuntando al idioma por
+ * defecto: sin esa entrada los buscadores eligen por su cuenta.
+ */
+export function alternateLanguages(basePath: string, pathname = ""): Record<string, string> {
+  const limpio = pathname && pathname !== "/" ? pathname : "";
+  const mapa: Record<string, string> = {};
+  for (const locale of LOCALES) {
+    mapa[LOCALE_LABELS[locale].hreflang] = `${basePath}/${locale}${limpio}`;
+  }
+  mapa["x-default"] = `${basePath}/${DEFAULT_LOCALE}${limpio}`;
+  return mapa;
+}
 
 export const dictionaries: Record<Locale, Dict> = { pt, es, en, ca };
 

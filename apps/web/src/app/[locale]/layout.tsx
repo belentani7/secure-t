@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { LOCALES, isLocale, type Locale } from "@secure-t/shared";
+import { LOCALE_LABELS, LOCALES, OG_LOCALES, alternateLanguages, isLocale, type Locale } from "@secure-t/shared";
 import { SiteChrome } from "@/components/site-chrome";
 import { SITE } from "@/lib/site";
 import "../globals.css";
@@ -37,12 +37,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: descriptions[locale],
     alternates: {
       canonical: `${SITE.basePath}/${locale}`,
-      languages: Object.fromEntries(LOCALES.map((key) => [key, `${SITE.basePath}/${key}`]))
+      languages: alternateLanguages(SITE.basePath)
     },
     openGraph: {
       type: "website",
       siteName: SITE.name,
-      locale: locale === "pt" ? "pt_PT" : locale === "es" ? "es_ES" : locale === "ca" ? "ca_ES" : "en_US",
+      locale: OG_LOCALES[locale],
       title: titles[locale],
       url: `/${locale}`
     }
@@ -59,7 +59,7 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   return (
-    <html lang={locale} data-contrast="normal" suppressHydrationWarning>
+    <html lang={LOCALE_LABELS[locale].htmlLang} data-contrast="normal" suppressHydrationWarning>
       <body>
         <SiteChrome locale={locale}>{children}</SiteChrome>
       </body>

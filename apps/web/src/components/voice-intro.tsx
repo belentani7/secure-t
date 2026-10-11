@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { translator, type Locale } from "@secure-t/shared";
+import { SPEECH_LOCALES, translator, type Locale } from "@secure-t/shared";
 import { currentToken } from "@/lib/progress-store";
 import { recordVoiceListened } from "@/lib/xapi-store";
 import { asset } from "@/lib/site";
@@ -25,7 +25,7 @@ const WELCOME: Record<Locale, string> = {
   ca: "Benvingut al campus secure T. Quatre programes de vint setmanes, gratuïts i sense registre. L'agent AURUM respon amb el material del campus i diu quan no ho sap."
 };
 
-const BCP47: Record<Locale, string> = { pt: "pt-PT", es: "es-ES", en: "en-GB", ca: "ca-ES" };
+
 
 export function VoiceIntro({ locale, assetName = "welcome" }: { locale: Locale; assetName?: string }) {
   const t = translator(locale);
@@ -46,7 +46,7 @@ export function VoiceIntro({ locale, assetName = "welcome" }: { locale: Locale; 
       return;
     }
     const utterance = new SpeechSynthesisUtterance(WELCOME[locale]);
-    utterance.lang = BCP47[locale];
+    utterance.lang = SPEECH_LOCALES[locale];
     utterance.rate = 0.98;
     utterance.onend = () => setPlaying(false);
     utterance.onerror = () => setPlaying(false);

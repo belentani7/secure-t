@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { lecturerFor } from "@secure-t/agent";
-import { translator, type Locale } from "@secure-t/shared";
+import { SPEECH_LOCALES, translator, type Locale } from "@secure-t/shared";
 import { currentToken } from "@/lib/progress-store";
 import { recordVoiceListened } from "@/lib/xapi-store";
 import { asset } from "@/lib/site";
@@ -62,7 +62,7 @@ export function VoiceLesson({
     }
     const body = text || (lecturer ? `${lecturer.label[locale]}. ${lecturer.script[locale]}` : t("week.noTranscript"));
     const utterance = new SpeechSynthesisUtterance(body.slice(0, 1200));
-    utterance.lang = locale === "pt" ? "pt-PT" : locale === "es" ? "es-ES" : locale === "ca" ? "ca-ES" : "en-GB";
+    utterance.lang = SPEECH_LOCALES[locale];
     utterance.rate = 0.97;
     utterance.pitch = 1.02;
     utterance.onend = () => setPlaying(false);

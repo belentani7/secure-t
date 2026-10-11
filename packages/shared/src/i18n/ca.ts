@@ -32,6 +32,7 @@ export const ca: Dict = {
   "about.p1": "Un institut obert que publica formació tècnica de nivell universitari. Sense compte, sense correu i sense seguiment: el progrés queda al teu navegador, protegit per un testimoni anònim que no surt mai del teu dispositiu.",
   "about.p2": "L'avaluació segueix el model de participació 30 %, qüestionaris formatius 30 % i projecte amb evidència 40 %. No s'aprova endevinant: s'aprova demostrant.",
   "about.p3": "Cada setmana cita fonts obertes verificables. Si alguna cosa encara no està a punt, apareix marcada com a PLANIFICAT, mai com a acabada.",
+  "about.love": "Aquest campus va néixer d'una història d'amor: algú va decidir que el que havia après s'havia de lliurar, no guardar. La saviesa només creix quan es comparteix.",
 
   "pillars.title": "Quatre programes, una professió",
   "pillars.lead": "Cada programa és autònom; junts cobreixen el cicle complet de la seguretat moderna.",
@@ -198,6 +199,7 @@ export const ca: Dict = {
 
   "footer.license": "Codi sota llicència MIT. El material didàctic cita les seves fonts cada setmana.",
   "footer.attribution": "Basat en el repositori original belentani7/secure-t de Pedro Belentani.",
+  "footer.love": "Inspirat en una història real: el coneixement pertany a qui el busca.",
   "footer.source": "Codi font auditable",
   "nav.review": "Repàs",
   "review.title": "Repàs espaiat",
