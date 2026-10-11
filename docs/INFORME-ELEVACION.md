@@ -1,6 +1,7 @@
 # Informe de elevación — `belentani7/secure-t`
 
-- **Rama**: `arena/a75428a2-secure-t` (42 commits sobre `main` @ `eb2b05e`; el último cierra el ciclo 1.4.1)
+- **Rama**: `arena/a75428a2-secure-t` (**44 commits** sobre `main` @ `eb2b05e` hasta `ee60819`; este propio informe se
+  actualiza en el 45.º para no publicar una cifra que no pueda comprobarse)
 - **Pull request**: [#3](https://github.com/belentani7/secure-t/pull/3) — abierto
 - **Evidencia de CI**: ejecución completa sobre `7736d1f` — **8 comprobaciones de trabajo en verde (campus, secretos,
   edu-engine, web, cobertura, accesibilidad estática, axe con 21 rutas y Lighthouse ≥ 95 + CWV) y las dos
@@ -313,7 +314,7 @@ blanca el escaneo ve cinco hallazgos, tres de ellos falsos positivos documentado
 ## 8. GIT EVIDENCE
 
 - **Rama**: `arena/a75428a2-secure-t` (no se ha creado ni empujado ninguna otra). **Árbol de trabajo limpio**.
-- **42 commits** desde `eb2b05e`, en orden (del más antiguo al más reciente):
+- **44 commits** desde `eb2b05e` hasta `ee60819`, en orden (del más antiguo al más reciente):
 
 ```
 853f218 feat(estandares): capa de conformidad verificable sobre el campus AURUM
@@ -356,13 +357,16 @@ c0440d3 feat(contenido): traducciones incrementales, con la verdad por delante
 e81b449 docs(informe): evidencia de CI del ciclo 1.4.0 y actualización de cifras
 a4773b1 docs(contrato): las herramientas del tutor entran en el contrato de la API
 497b898 feat(experiencia): psicología aplicada verificable, dos escalones y el guiño de Río
+cc124b1 docs(informe): la CI del ciclo 1.4.1 en verde y el estado real de la matriz axe
+ee60819 docs(readme): la capa de experiencia entra en el README, con sus cifras al día
 ```
 
-El commit `497b898` entrega el ciclo 1.4.1 completo. La CI se ejecutó sobre él y **las 8 comprobaciones de trabajo
-quedaron en verde** (`CI`: web, edu-engine, secretos, campus — ejecución `38145327384`; `Calidad`: axe · WCAG 2.2 AA,
-Lighthouse ≥ 95 y CWV, Cobertura, Accesibilidad y peso sin navegador — ejecución `38145327370`).
+El commit `497b898` entrega el ciclo 1.4.1 completo y los dos siguientes son su documentación. La CI se ejecutó
+sobre `497b898` y sobre `ee60819` y **las 8 comprobaciones de trabajo quedaron en verde en ambas** (`CI`: web,
+edu-engine, secretos, campus — ejecuciones `38145327384` y `38146258189`; `Calidad`: axe · WCAG 2.2 AA,
+Lighthouse ≥ 95 y CWV, Cobertura, Accesibilidad y peso sin navegador — ejecuciones `38145327370` y `38146258148`).
 
-- **Ciclo I (1.4.1)**: el último commit entrega la capa de psicología con sus veinte pruebas, el guiño de Río en
+- **Ciclo I (1.4.1)**: `497b898` entrega la capa de psicología con sus veinte pruebas, el guiño de Río en
   SVG en línea, el ritmo de aparición progresivo, la navegación en dos escalones, las transiciones nativas y la
   página `/experiencia` en cuatro idiomas. La verificación local completa está en §9.3; el `pnpm audit:site` de este
   ciclo encontró y ayudó a cerrar cinco errores reales de `id` duplicado antes de llegar al árbol limpio.
@@ -405,7 +409,7 @@ que sigue es lo que se hizo, con su comprobación.
 | Transiciones entre páginas | `apps/web/src/app/globals.css` (`@view-transition`) | Fundido de 220 ms con la plataforma, sin dependencias nuevas. |
 | Página del método | `/experiencia` en los cuatro idiomas | Publica la tabla principio → cifra → fichero y enlaza la investigación completa. 5 páginas nuevas, 501 en el export. |
 | Documentación | `docs/PSICOLOGIA-Y-EXPERIENCIA.md` | Trazabilidad completa y límites honestos. |
-| Pruebas | `packages/ui/tests/psychology.test.ts` (20), `tests/contracts.test.ts` (+6) | Exigen los tokens **contra el CSS y los componentes reales**, no contra sí mismos. |
+| Pruebas | `packages/ui/tests/psychology.test.ts` (20), `tests/contracts.test.ts` (+9) | Exigen los tokens **contra el CSS y los componentes reales**, no contra sí mismos; las últimas vigilan que el README siga contando la verdad. |
 
 La cifra que resume el ciclo: **1.953 líneas añadidas en 27 ficheros**, 0 dependencias nuevas.
 
@@ -429,13 +433,13 @@ La cifra que resume el ciclo: **1.953 líneas añadidas en 27 ficheros**, 0 depe
 
 | Prueba | Comando | Resultado |
 |---|---|---|
-| Suite TS | `pnpm test` | **355 passed** en 29 ficheros (327 → 355; +28 nuevas) |
+| Suite TS | `pnpm test` | **358 passed** en 29 ficheros (327 → 358; +31 nuevas) |
 | Suite Python | `python -m pytest -q tests/` | **274 passed** |
 | Tipos (raíz y web) | `pnpm typecheck` · `pnpm --filter @secure-t/web typecheck` | sin errores |
 | Export estático | `pnpm site` | **`_site` 3.405 ficheros**; barrera anti-secretos: 3.368 ficheros revisados |
 | Auditoría del export | `pnpm audit:site` | **501 páginas · 0 errores · 5 avisos** (los mismos de siempre: el agente en los cuatro idiomas + pt, 253,1 kB). Mediana 237,5 kB; peor página 253,1 kB. Accesibilidad estática sin errores |
 | Cobertura de traducciones | `pnpm locales` | pt 4/4 títulos · 32/80 semanas · **16.950 palabras**; en y ca 0/80 (sin cambios) |
-| Líneas versionadas | `git ls-files \| xargs wc -l` | **106.551** (103.663 en el ciclo anterior) |
+| Líneas versionadas | `git ls-files \| xargs wc -l` | **106.649** (103.663 en el ciclo anterior) |
 
 El primer `pnpm audit:site` de este ciclo **falló con 5 errores** (`ids duplicados: rio-bruma, rio-filo, rio-lejos` en
 las cinco portadas) y pasó a 0 al dar espacio de nombres a los degradados por instancia. Se documenta porque es la
