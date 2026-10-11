@@ -34,6 +34,15 @@ function newToken(): string {
 let cache: ProgressRecord | null = null;
 const listeners = new Set<() => void>();
 
+/**
+ * Instantánea del servidor: **una sola instancia** para toda la vida del
+ * proceso. `useSyncExternalStore` exige que `getServerSnapshot` devuelva siempre
+ * el mismo objeto; crear uno nuevo en cada llamada provoca un error de
+ * hidratación («should be cached») y, con él, una consola sucia y una penalización
+ * de Lighthouse en buenas prácticas.
+ */
+const SSR_PLACEHOLDER: ProgressRecord = emptyProgress("ssr-placeholder");
+
 function emit() {
   for (const listener of listeners) listener();
 }
@@ -41,7 +50,7 @@ function emit() {
 function read(): ProgressRecord {
   if (cache) return cache;
   if (typeof window === "undefined") {
-    cache = emptyProgress("ssr-placeholder");
+    cache = SSR_PLACEHOLDER;
     return cache;
   }
   try {
@@ -76,7 +85,7 @@ export function getSnapshot(): ProgressRecord {
 /** Hook de lectura: cualquier componente ve el mismo expediente actualizado. */
 export function useProgress(): ProgressRecord {
   // El servidor no tiene expediente: se usa un marcador y el cliente hidrata.
-  return useSyncExternalStore(subscribe, getSnapshot, () => emptyProgress("ssr-placeholder"));
+  return useSyncExternalStore(subscribe, getSnapshot, () => SSR_PLACEHOLDER);
 }
 
 /** Token anónimo del expediente: identifica al estudiante en xAPI sin nombrarlo. */

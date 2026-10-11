@@ -156,7 +156,7 @@ export function StandardsView({ locale, index }: { locale: Locale; index: Packag
 
       <section className="mt-12" aria-labelledby="cumplimiento">
         <h2 id="cumplimiento">{t("standards.title")}</h2>
-        <div className="table-wrap mt-4">
+        <div tabIndex={0} className="table-wrap mt-4">
           <table>
             <caption className="sr-only">{t("standards.title")}</caption>
             <thead>

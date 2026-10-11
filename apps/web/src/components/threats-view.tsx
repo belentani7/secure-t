@@ -148,7 +148,7 @@ export function ThreatsView({ locale, intel }: { locale: Locale; intel: ThreatIn
         </label>
       </div>
 
-      <div className="table-wrap mt-4 max-h-[70vh]">
+      <div tabIndex={0} className="table-wrap mt-4 max-h-[70vh]">
         <table>
           <caption className="sr-only">{tab === "exploited" ? t("threats.exploited") : t("threats.recent")}</caption>
           <thead>

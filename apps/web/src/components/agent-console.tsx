@@ -175,7 +175,7 @@ export function AgentConsole({ locale, course }: { locale: Locale; course?: stri
           </span>
         </div>
 
-        <div ref={listRef} className="mt-4 flex-1 space-y-4 overflow-y-auto pr-1" style={{ maxHeight: "52vh" }} aria-live="polite">
+        <div ref={listRef} tabIndex={0} className="mt-4 flex-1 space-y-4 overflow-y-auto pr-1" style={{ maxHeight: "52vh" }} aria-live="polite">
           {turns.length === 0 ? (
             <div className="maintenance-note">
               <p className="m-0">{t("agent.lead")}</p>

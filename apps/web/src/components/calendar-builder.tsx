@@ -219,7 +219,7 @@ export function CalendarBuilder({
           </ul>
         ) : null}
 
-        <div className="table-wrap mt-5 max-h-[60vh]">
+        <div tabIndex={0} className="table-wrap mt-5 max-h-[60vh]">
           <table>
             <caption className="sr-only">{t("calendar.sessionsPlanned")}</caption>
             <thead>

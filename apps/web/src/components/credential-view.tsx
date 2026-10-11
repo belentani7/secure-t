@@ -183,7 +183,7 @@ export function CredentialView({ locale, courses }: { locale: Locale; courses: C
                 <dd className="m-0 break-all">{String(badge.serialized.jwk.kid)}</dd>
               </div>
             </dl>
-            <pre className="mono mt-3 max-h-32 overflow-auto break-all text-[0.68rem] whitespace-pre-wrap">{badge.serialized.jws}</pre>
+            <pre tabIndex={0} className="mono mt-3 max-h-32 overflow-auto break-all text-[0.68rem] whitespace-pre-wrap">{badge.serialized.jws}</pre>
             {badge.problems.length ? (
               <p className="mono text-[0.72rem] text-[var(--color-coral)]">⚠ {badge.problems.join(" · ")}</p>
             ) : (
@@ -200,7 +200,7 @@ export function CredentialView({ locale, courses }: { locale: Locale; courses: C
         {credential ? (
           <article className="credential mt-6">
             <p className="eyebrow">secure T · SHA-256</p>
-            <pre className="mono m-0 overflow-x-auto text-[0.78rem] whitespace-pre-wrap">{credential.text}</pre>
+            <pre tabIndex={0} className="mono m-0 overflow-x-auto text-[0.78rem] whitespace-pre-wrap">{credential.text}</pre>
             <p className="mono mt-3 break-all text-[0.72rem] text-[var(--color-gold-bright)]">
               {t("credential.verify")}: {hash ?? "—"}
             </p>

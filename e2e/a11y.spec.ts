@@ -20,7 +20,10 @@ const RUTAS = [
   { path: "/app/pt/calendario", name: "calendario" },
   { path: "/app/pt/progreso", name: "progreso" },
   { path: "/app/pt/credencial", name: "credencial" },
-  { path: "/app/pt/amenazas", name: "amenazas" }
+  { path: "/app/pt/amenazas", name: "amenazas" },
+  { path: "/app/es/estandares", name: "estándares" },
+  { path: "/app/ca/privacidad", name: "privacidad" },
+  { path: "/app/pt/repaso", name: "repaso" }
 ];
 
 for (const ruta of RUTAS) {

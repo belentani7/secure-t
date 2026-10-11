@@ -118,7 +118,7 @@ export function Landing({ locale }: { locale: Locale }) {
           <p className="mono text-[0.8rem] text-[var(--aurum-muted)]">
             {CALENDARS.length - 1} países · {CALENDARS.reduce((sum, calendar) => sum + (calendar.regions?.length ?? 0), 0)} regiones
           </p>
-          <div className="table-wrap mt-4">
+          <div tabIndex={0} className="table-wrap mt-4">
             <table>
               <caption className="sr-only">{t("calendar.title")}</caption>
               <thead>
