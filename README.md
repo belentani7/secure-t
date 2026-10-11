@@ -350,3 +350,6 @@ Lo que está terminado se puede comprobar con un comando. Lo que no, dice `PLANN
 | LTI 1.3 como herramienta externa en un LMS | `PLANNED` | `docs/ESTANDARES.md` |
 
 La regla del proyecto es la del repositorio original, y no cambia: **REALITY > CLAIMS**.
+
+El informe de la última elevación —estado, hallazgos de seguridad, evidencia de pruebas, riesgo residual y
+readiness— está en [`docs/INFORME-ELEVACION.md`](docs/INFORME-ELEVACION.md).
