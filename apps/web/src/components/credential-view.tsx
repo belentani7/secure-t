@@ -125,7 +125,14 @@ export function CredentialView({ locale, courses }: { locale: Locale; courses: C
           <div className="maintenance-note mt-4">
             <p className="m-0 font-semibold text-[var(--color-saffron)]">{t("credential.incomplete")}</p>
             <p className="mono m-0 text-[0.78rem]">{report.missing.join(" · ")}</p>
-            <div className="progress mt-2" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={report.percent}>
+            <div
+              className="progress mt-2"
+              role="progressbar"
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={report.percent}
+              aria-label={t("progress.completed")}
+            >
               <span style={{ width: `${report.percent}%` }} />
             </div>
             <p className="mono m-0 mt-2 text-[0.72rem] text-[var(--aurum-muted)]">

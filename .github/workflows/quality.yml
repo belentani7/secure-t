@@ -115,14 +115,25 @@ jobs:
         run: pnpm --filter @secure-t/web build:pages
       - name: Ensamblar el sitio tal como se publica
         run: node tools/build-site.mjs --sin-web
+      - name: Comprobar el sitio antes de auditarlo
+        run: |
+          test -f _site/app/index.html || echo "::error title=Sitio::falta _site/app/index.html"
+          node tools/serve-static.mjs --port 4173 --root _site &
+          sleep 2
+          for ruta in /app/ /app/pt/ /app/es/programas /app/pt/agente; do
+            echo "$ruta -> $(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:4173$ruta")"
+          done
+          kill %1 || true
       - name: Lighthouse CI
         run: |
           set +e
           pnpm exec lhci autorun 2>&1 | tee "$RUNNER_TEMP/lhci.log"
           codigo=${PIPESTATUS[0]}
           if [ "$codigo" -ne 0 ]; then
-            resumen=$(tail -c 3500 "$RUNNER_TEMP/lhci.log" | tr '\r\n' '  ' | sed 's/%/%25/g')
-            echo "::error title=Lighthouse::${resumen}"
+            inicio=$(head -c 1200 "$RUNNER_TEMP/lhci.log" | tr '\r\n' '  ' | sed 's/%/%25/g')
+            final=$(tail -c 2500 "$RUNNER_TEMP/lhci.log" | tr '\r\n' '  ' | sed 's/%/%25/g')
+            echo "::error title=Lighthouse inicio::${inicio}"
+            echo "::error title=Lighthouse final::${final}"
           fi
           exit "$codigo"
       - uses: actions/upload-artifact@v4

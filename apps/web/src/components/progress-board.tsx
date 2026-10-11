@@ -200,6 +200,7 @@ export function ProgressBoard({ locale, courses }: { locale: Locale; courses: Co
           type="file"
           accept="application/json"
           className="sr-only"
+          aria-label={t("progress.import")}
           onChange={(event) => {
             const file = event.target.files?.[0];
             if (file) void doImport(file);
