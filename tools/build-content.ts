@@ -1,4 +1,9 @@
 /**
+ * Compilacion del campus (back). La firma del autor vive en tools/firma.ts:
+ * este proceso la conoce, la pagina publicada no.
+ */
+
+/**
  * Generador de contenido del campus elevado.
  *
  * Lee el material **publicado** en `campus/` (una sola fuente de verdad: el

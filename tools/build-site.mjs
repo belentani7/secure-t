@@ -134,3 +134,6 @@ main().catch((error) => {
   console.error(error);
   process.exit(1);
 });
+
+// La firma del back, en el log de la compilacion: nunca en el HTML publicado.
+console.log("\n  ->  A Pedro, para T.  -  el conocimiento pertenece a quien lo busca.\n");
