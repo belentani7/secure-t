@@ -16,6 +16,10 @@
  *                                con webcontent y la evaluación en QTI 1.2.
  *   · `<curso>-qti12.xml`       — QTI 1.2 (IMS) suelto, por si se quiere
  *                                importar solo el cuestionario.
+ *   · `<curso>-qti21.zip`       — paquete de contenido QTI 2.1 (IMS) con
+ *                                `imsmanifest.xml`, el test y sus seis ítems:
+ *                                es el formato que importan las plataformas
+ *                                actuales, donde QTI 1.2 ya es legado.
  *   · `<curso>-xapi.json`       — plantillas de declaraciones xAPI 1.0.3 (ADL,
  *                                IEEE 9274.1.1) para conectar con cualquier LRS.
  *
@@ -737,6 +741,102 @@ export function xapiTemplates(course: PackageCourse, meta: { baseUrl: string; to
   )}\n`;
 }
 
+
+/* ------------------------------------------------- IMS QTI 2.1 (paquete) */
+
+/**
+ * Cuestionario del programa en **IMS QTI 2.1**.
+ *
+ * QTI 2.1 no define un fichero suelto: la unidad de intercambio es un paquete
+ * de contenido con su `imsmanifest.xml`, un `assessmentTest` y un
+ * `assessmentItem` por pregunta. Es lo que importan las plataformas actuales
+ * (Moodle, Canvas, Blackboard); QTI 1.2 se mantiene al lado por compatibilidad
+ * con instalaciones antiguas, pero ya es formato legado.
+ */
+export function qti21Item(course: PackageCourse, item: PackageCourse["quiz"][number], position: number): string {
+  const letra = (indice: number) => String.fromCharCode(65 + indice);
+  const identificador = (sufijo: string) => `${course.slug}-${position}-${sufijo}`;
+  const opciones = item.opciones
+    .map(
+      (opcion, indice) =>
+        `      <simpleChoice identifier="${identificador(`CHOICE-${letra(indice)}`)}">${xmlEscape(opcion)}</simpleChoice>`
+    )
+    .join("\n");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 imsqti_v2p1.xsd" identifier="${identificador("ITEM")}" title="${xmlAttribute(`Pregunta ${position} · ${course.title}`)}" adaptive="false" timeDependent="false" xml:lang="es">
+  <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="identifier">
+    <correctResponse>
+      <value>${identificador(`CHOICE-${letra(item.correcta)}`)}</value>
+    </correctResponse>
+  </responseDeclaration>
+  <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+  <itemBody>
+    <choiceInteraction responseIdentifier="RESPONSE" shuffle="false" maxChoices="1">
+      <prompt>${xmlEscape(item.pregunta)}</prompt>
+${opciones}
+    </choiceInteraction>
+  </itemBody>
+  <responseProcessing template="http://www.imsglobal.org/question/qti_v2p1/rptemplates/match_correct"/>
+</assessmentItem>
+`;
+}
+
+/** `assessmentTest` que reúne las preguntas del programa. */
+export function qti21Test(course: PackageCourse): string {
+  const referencias = course.quiz
+    .map(
+      (_, indice) =>
+        `      <assessmentItemRef identifier="${course.slug}-${indice + 1}-ITEM" href="items/item-${indice + 1}.xml"/>`
+    )
+    .join("\n");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<assessmentTest xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 imsqti_v2p1.xsd" identifier="${course.slug}-TEST" title="${xmlAttribute(`Evaluación · ${course.title}`)}" xml:lang="es">
+  <testPart identifier="${course.slug}-PART" navigationMode="linear" submissionMode="individual">
+    <assessmentSection identifier="${course.slug}-SECTION" title="${xmlAttribute("Evaluación del programa")}" visible="true" keepTogether="false">
+${referencias}
+    </assessmentSection>
+  </testPart>
+</assessmentTest>
+`;
+}
+
+/** `imsmanifest.xml` del paquete (IMS Content Packaging 1.1.4). */
+export function qti21Manifest(course: PackageCourse): string {
+  const ficheros = [
+    '      <file href="assessment-test.xml"/>',
+    ...course.quiz.map((_, indice) => `      <file href="items/item-${indice + 1}.xml"/>`)
+  ].join("\n");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<manifest xmlns="http://www.imsglobal.org/xsd/imscp_v1p1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.imsglobal.org/xsd/imscp_v1p1 imscp_v1p1.xsd" identifier="${course.slug}-MANIFEST">
+  <metadata>
+    <schema>IMS Content</schema>
+    <schemaversion>1.1.4</schemaversion>
+  </metadata>
+  <organizations/>
+  <resources>
+    <resource identifier="${course.slug}-RES-TEST" type="imsqti_test_xmlv2p1" href="assessment-test.xml">
+${ficheros}
+    </resource>
+  </resources>
+</manifest>
+`;
+}
+
+/** Paquete `.zip` listo para importar: manifiesto, test y un ítem por pregunta. */
+export function buildQti21(course: PackageCourse): Buffer {
+  return createZip([
+    { name: "imsmanifest.xml", data: qti21Manifest(course) },
+    { name: "assessment-test.xml", data: qti21Test(course) },
+    ...course.quiz.map((item, indice) => ({
+      name: `items/item-${indice + 1}.xml`,
+      data: qti21Item(course, item, indice + 1)
+    }))
+  ]);
+}
+
 /* ------------------------------------------------------------------ orquesta */
 
 /**
@@ -787,6 +887,7 @@ export function buildPackages(options: BuildOptions = {}): { files: PackageFile[
     escribir(`${course.slug}-scorm2004.zip`, buildScorm(course, { generatedAt }));
     escribir(`${course.slug}.imscc`, buildCommonCartridge(course, { generatedAt }));
     escribir(`${course.slug}-qti12.xml`, qti12(course, { assessmentId: `${course.slug}-quiz` }));
+    escribir(`${course.slug}-qti21.zip`, buildQti21(course));
     escribir(`${course.slug}-xapi.json`, xapiTemplates(course, { baseUrl, toca: generatedAt }));
   }
 
@@ -813,6 +914,7 @@ export function buildPackages(options: BuildOptions = {}): { files: PackageFile[
           scorm: "SCORM 2004 4th Edition (ADL)",
           commonCartridge: "IMS Common Cartridge 1.3",
           qti: "IMS QTI 1.2",
+          qti21: "IMS QTI 2.1 (paquete de contenido con imsmanifest.xml)",
           xapi: "xAPI 1.0.3 (ADL, IEEE 9274.1.1-2023)"
         },
         courses: courses.map((course) => ({

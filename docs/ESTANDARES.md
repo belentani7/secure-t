@@ -16,9 +16,11 @@ prueba ejecutable que lo demuestre, y lo que aún no está se marca como PLANIFI
 | SCORM 2004 4th Edition (ADL) | APLICADA | `tests/packages-contract.test.ts` |
 | IMS Common Cartridge 1.3 | APLICADA | `tests/packages-contract.test.ts` |
 | IMS QTI 1.2 (ASI) | APLICADA | `tests/packages-contract.test.ts` |
+| IMS QTI 2.1 (paquete de contenido) | APLICADA | `tests/packages-contract.test.ts` |
 | xAPI 1.0.3 (ADL / IEEE 9274.1.1-2023) | APLICADA | `packages/shared/tests/xapi.test.ts` |
 | Open Badges 2.0 (1EdTech) | APLICADA | `packages/shared/tests/badges.test.ts` |
-| Open Badges 3.0 / W3C VC (vista) | APLICADA (vista de datos) | `packages/shared/tests/badges.test.ts` |
+| Open Badges 3.0 / W3C VC (VC-JWT firmada) | APLICADA | `packages/shared/tests/badges.test.ts` |
+| RFC 7519 — JWT (claims `iss`/`sub`/`jti`/`nbf` de la VC-JWT) | APLICADA | `packages/shared/tests/badges.test.ts` |
 | schema.org — Course, CourseInstance, Syllabus | APLICADA | `packages/shared/tests/seo.test.ts` |
 | WCAG 2.2 AA | APLICADA | `packages/ui/tests/tokens.test.ts`, `tools/audit-site.mjs`, `.github/workflows/quality.yml` |
 | RGPD (UE) 2016/679 — minimización y transparencia | APLICADA | `apps/web/src/components/privacy-view.tsx`, `tests/contracts.test.ts` |
@@ -47,6 +49,7 @@ generados desde la **fuente única** (`campus/`) por `pnpm packages`:
 | SCORM 2004 4th Ed. | `<curso>-scorm2004.zip` | `imsmanifest.xml` con organización jerárquica, 1 SCO de presentación + 20 semanas, `adlcp:scormType="sco"`, `imsss:sequencing` con reglas de flujo, SCO en XHTML transitorio accediendo a la API `LMSInitialize`/`cmi.*` |
 | IMS Common Cartridge 1.3 | `<curso>.imscc` | `imsmanifest.xml`, `webcontent` por semana, evaluación como `imsqti_xmlv1p2`, `<lomimscc:lom>` con metadatos |
 | IMS QTI 1.2 | `<curso>-qti12.xml` | `questestinterop`, `response_lid` de una respuesta, `resprocessing` con puntuación 100 y `itemfeedback` correcto/incorrecto contrastado con `campus/cursos/*/quiz.json` |
+| IMS QTI 2.1 | `<curso>-qti21.zip` | Paquete de contenido: `imsmanifest.xml` (IMS Content Packaging 1.1.4, `type="imsqti_test_xmlv2p1"`), `assessmentTest` con `submissionMode="individual"`, seis `assessmentItem` con `responseDeclaration` de una respuesta, `choiceInteraction` y `responseProcessing` `match_correct`; la correcta se contrasta con `campus/cursos/*/quiz.json` |
 | xAPI 1.0.3 | `<curso>-xapi.json` | Plantillas de declaración con verbos del vocabulario de ADL, actividad con `activityType`, duración ISO 8601, actor anónimo con `account` |
 | Insignia SVG | `/badges/<curso>.svg` | Emblema accesible (`role="img"`, `title`, `desc`), sin texto incrustado que dependa del idioma |
 

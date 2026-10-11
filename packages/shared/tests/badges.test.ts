@@ -9,11 +9,13 @@ import {
   fromBase64Url,
   keyIdFor,
   signAssertion,
+  signCredentialJwt,
   toBase64Url,
   toOpenBadges3,
   validateAssertion,
   validateBadgeClass,
   verifyBadgeJws,
+  verifyCredentialJwt,
   type Assertion,
   type PublicJwk
 } from "../src/badges";
@@ -173,5 +175,46 @@ describe("insignia visual y vista 3.0", () => {
     expect(vista.type).toEqual(["VerifiableCredential", "OpenBadgeCredential"]);
     expect(vista.credentialSubject.achievement.name).toContain("Ciberseguridad Defensiva");
     expect(vista.credentialStatus.type).toContain("PLANNED");
+  });
+});
+
+describe("Open Badges 3.0 en VC-JWT", () => {
+  it("la credencial firmada se verifica con la clave pública y conserva el contexto 3.0", async () => {
+    const emisor = buildIssuer(BASE, `RS256:${jwk.kid}`);
+    const credencial = {
+      ...toOpenBadges3({ baseUrl: BASE, assertion: asercion(), badgeClass: clase, issuer: emisor }),
+      iss: emisor.id
+    };
+
+    const jwt = await signCredentialJwt(credencial, pareja.privateKey, `RS256:${jwk.kid}`);
+    expect(jwt.split(".")).toHaveLength(3);
+
+    const resultado = await verifyCredentialJwt(jwt, jwk);
+    expect(resultado.valid, resultado.reason).toBe(true);
+    expect(resultado.credential?.type).toContain("OpenBadgeCredential");
+    expect(String((resultado.credential?.["@context"] as string[]).join(" "))).toContain("ob/v3p0");
+  });
+
+  it("una carga útil manipulada se detecta", async () => {
+    const jwt = await signCredentialJwt({ id: "urn:uuid:prueba" }, pareja.privateKey, "RS256:kid-de-prueba");
+    const [cabecera, , firma] = jwt.split(".") as [string, string, string];
+    const manipulada = Buffer.from(JSON.stringify({ id: "urn:uuid:otra" })).toString("base64url");
+
+    const resultado = await verifyCredentialJwt(`${cabecera}.${manipulada}.${firma}`, jwk);
+    expect(resultado.valid).toBe(false);
+    expect(resultado.reason).toBe("firma_no_valida");
+  });
+
+  it("otra clave no valida la firma aunque el algoritmo sea el mismo", async () => {
+    const jwt = await signCredentialJwt({ id: "urn:uuid:prueba" }, pareja.privateKey, "RS256:kid-de-prueba");
+    const resultado = await verifyCredentialJwt(jwt, otroJwk);
+    expect(resultado.valid).toBe(false);
+    expect(resultado.reason).toBe("firma_no_valida");
+  });
+
+  it("un texto que no es un JWT se rechaza sin intentar verificar", async () => {
+    const resultado = await verifyCredentialJwt("no-es-un-jwt", jwk);
+    expect(resultado.valid).toBe(false);
+    expect(resultado.reason).toBe("jwt_mal_formado");
   });
 });

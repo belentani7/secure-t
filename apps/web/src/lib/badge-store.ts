@@ -1,6 +1,26 @@
 "use client";
 
-import { PublicJwk, buildAssertion, buildBadgeClass, buildIssuer, createIssuerKey, exportPublicJwk, keyIdFor, signAssertion, toOpenBadges3, type Assertion, type BadgeClass, type IssuerProfile, type SerializedBadge, type VerificationResult, validateAssertion, validateBadgeClass, verifyBadgeJws } from "@secure-t/shared";
+import {
+  PublicJwk,
+  buildAssertion,
+  buildBadgeClass,
+  buildIssuer,
+  createIssuerKey,
+  exportPublicJwk,
+  keyIdFor,
+  signAssertion,
+  signCredentialJwt,
+  toOpenBadges3,
+  validateAssertion,
+  validateBadgeClass,
+  verifyBadgeJws,
+  verifyCredentialJwt,
+  type Assertion,
+  type BadgeClass,
+  type IssuerProfile,
+  type SerializedBadge,
+  type VerificationResult
+} from "@secure-t/shared";
 import { SITE } from "./site";
 
 /**
@@ -86,6 +106,8 @@ export interface IssuedBadge {
   issuer: IssuerProfile;
   assertion: Assertion;
   ob3: Record<string, unknown>;
+  /** La misma credencial OB 3.0 en VC-JWT (JOSE, RFC 7515), para monederos. */
+  ob3Jwt: string;
   problems: string[];
 }
 
@@ -124,6 +146,20 @@ export async function issueBadge(input: IssueInput): Promise<IssuedBadge> {
 
   const problemas = [...validateBadgeClass(badgeClass), ...validateAssertion(assertion)];
   const jws = await signAssertion(assertion, clavePrivada, keyId);
+  const credencialOb3 = toOpenBadges3({ baseUrl: base, assertion, badgeClass, issuer });
+  // La VC-JWT añade los claims de JWT (RFC 7519) que la credencial usa como
+  // identificadores; el resto del documento es el de Open Badges 3.0.
+  const ob3Jwt = await signCredentialJwt(
+    {
+      ...credencialOb3,
+      iss: issuer.id,
+      sub: assertion.recipient.identity,
+      jti: assertion.id,
+      nbf: Math.floor(Date.parse(assertion.issuedOn) / 1000)
+    },
+    clavePrivada,
+    keyId
+  );
 
   const serialized: SerializedBadge = {
     jws,
@@ -147,13 +183,37 @@ export async function issueBadge(input: IssueInput): Promise<IssuedBadge> {
     badgeClass,
     issuer,
     assertion,
-    ob3: toOpenBadges3({ baseUrl: base, assertion, badgeClass, issuer }),
+    ob3: credencialOb3,
+    ob3Jwt,
     problems: problemas
   };
 }
 
-/** Verifica una credencial pegada por el estudiante: sólo firma y forma. */
+/** Un VC-JWT compacto: tres segmentos y ningún carácter JSON. */
+function esJwtCompacto(texto: string): boolean {
+  return /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(texto);
+}
+
+/**
+ * Verifica una credencial pegada por el estudiante: firma y forma.
+ *
+ * Se aceptan las dos serializaciones del campus: el sobre de Open Badges 2.0
+ * (`jws` + clave pública, verificable por cualquiera sin conexión) y la
+ * credencial de Open Badges 3.0 en VC-JWT. Un VC-JWT no lleva la clave dentro,
+ * así que se comprueba contra la clave de este dispositivo; si no es esa, se
+ * dice por qué en lugar de dar un resultado ambiguo.
+ */
 export async function verifyBadge(texto: string): Promise<VerificationResult> {
+  const limpio = texto.trim();
+
+  if (esJwtCompacto(limpio)) {
+    const almacenada = readKey();
+    if (!almacenada) return { valid: false, reason: "jwt_sin_clave" };
+    const resultado = await verifyCredentialJwt(limpio, almacenada.publicJwk);
+    if (!resultado.valid) return { valid: false, reason: resultado.reason };
+    return { valid: true, ...(resultado.credential ? { credential: resultado.credential } : {}) };
+  }
+
   let datos: Partial<SerializedBadge>;
   try {
     datos = JSON.parse(texto) as Partial<SerializedBadge>;

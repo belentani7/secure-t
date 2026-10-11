@@ -9,6 +9,12 @@ Capa de estándares oficiales sobre el campus: lo que el repositorio afirma se p
 externa, y lo que no está se dice en voz alta. Nada se marca conforme sin un test que lo demuestre.
 
 ### Añadido
+- **QTI 2.1**: además del XML suelto de QTI 1.2 (legado), cada programa publica un paquete de contenido
+  (`<curso>-qti21.zip`) con `imsmanifest.xml`, el `assessmentTest` y sus seis ítems, que es lo que importan las
+  plataformas actuales. Seis pruebas nuevas contrastan la respuesta correcta contra `campus/cursos/*/quiz.json`.
+- **Open Badges 3.0 en VC-JWT**: la credencial del estudiante se firma también como JWT (RFC 7519) con los claims
+  `iss`/`sub`/`jti`/`nbf`, se descarga con un botón propio y el verificador acepta tanto el sobre de OB 2.0 como un
+  VC-JWT. Cuatro pruebas nuevas cubren firma, manipulación de la carga útil, clave ajena y formato inválido.
 
 - **Paquetes interoperables** (`pnpm packages`, `tools/build-packages.ts`): EPUB 3.3 + Accessibility 1.1, SCORM 2004
   4th Edition con SCO en XHTML y API `cmi.*`, IMS Common Cartridge 1.3, IMS QTI 1.2 y plantillas xAPI 1.0.3 para los

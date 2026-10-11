@@ -48,12 +48,13 @@ afterAll(() => {
 });
 
 describe("manifiesto de paquetes", () => {
-  it("declara los cinco estándares aplicados", () => {
+  it("declara los seis estándares aplicados", () => {
     expect(indice.standards).toMatchObject({
       epub: "EPUB 3.3 (W3C) + EPUB Accessibility 1.1",
       scorm: "SCORM 2004 4th Edition (ADL)",
       commonCartridge: "IMS Common Cartridge 1.3",
       qti: "IMS QTI 1.2",
+      qti21: "IMS QTI 2.1 (paquete de contenido con imsmanifest.xml)",
       xapi: "xAPI 1.0.3 (ADL, IEEE 9274.1.1-2023)"
     });
   });
@@ -211,6 +212,54 @@ describe("IMS Common Cartridge 1.3 + QTI 1.2", () => {
       const bloque = qti.slice(qti.indexOf(`ident="ciber-defensiva-pregunta-${indice + 1}"`));
       const fin = bloque.indexOf("</item>");
       expect(bloque.slice(0, fin)).toContain(`>opcion-${pregunta.correcta + 1}</varequal>`);
+    });
+  });
+});
+
+describe("IMS QTI 2.1 (paquete de contenido)", () => {
+  for (const slug of CURSOS) {
+    it(`${slug}: manifiesto, test y seis ítems válidos`, () => {
+      const nombre = `${slug}-qti21.zip`;
+      const entradas = readZipEntries(leer(nombre)).map((entrada) => entrada.name);
+      expect(entradas).toContain("imsmanifest.xml");
+      expect(entradas).toContain("assessment-test.xml");
+      expect(entradas.filter((ruta) => ruta.startsWith("items/"))).toHaveLength(6);
+
+      const manifiesto = xmlDe(nombre, "imsmanifest.xml");
+      expect(isWellFormedXml(manifiesto), xmlErrors(manifiesto).join("; ")).toBe(true);
+      expect(manifiesto).toContain('type="imsqti_test_xmlv2p1"');
+      expect(manifiesto).toContain("http://www.imsglobal.org/xsd/imscp_v1p1");
+      expect(manifiesto).toContain("<schemaversion>1.1.4</schemaversion>");
+
+      const test = xmlDe(nombre, "assessment-test.xml");
+      expect(isWellFormedXml(test), xmlErrors(test).join("; ")).toBe(true);
+      expect(test).toContain('xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"');
+      expect(test.match(/<assessmentItemRef /g)).toHaveLength(6);
+      expect(test).toContain('submissionMode="individual"');
+
+      for (let posicion = 1; posicion <= 6; posicion += 1) {
+        const item = xmlDe(nombre, `items/item-${posicion}.xml`);
+        expect(isWellFormedXml(item), xmlErrors(item).join("; ")).toBe(true);
+        expect(item).toContain('cardinality="single"');
+        expect(item).toContain('baseType="identifier"');
+        expect(item).toContain("<choiceInteraction");
+        expect(item.match(/<simpleChoice /g)?.length ?? 0).toBeGreaterThanOrEqual(2);
+        expect(item.match(/<correctResponse>/g)).toHaveLength(1);
+        expect(item).toContain("rptemplates/match_correct");
+      }
+    });
+  }
+
+  it("la respuesta correcta de QTI 2.1 apunta al índice real de quiz.json", () => {
+    const fuente = JSON.parse(readFileSync("campus/cursos/ciber-defensiva/quiz.json", "utf8")) as {
+      correcta: number;
+      opciones: string[];
+    }[];
+    fuente.forEach((pregunta, indice) => {
+      const item = xmlDe("ciber-defensiva-qti21.zip", `items/item-${indice + 1}.xml`);
+      const letra = String.fromCharCode(65 + pregunta.correcta);
+      expect(item).toContain(`<value>ciber-defensiva-${indice + 1}-CHOICE-${letra}</value>`);
+      expect(item.match(/<simpleChoice /g)).toHaveLength(pregunta.opciones.length);
     });
   });
 });

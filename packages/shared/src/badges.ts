@@ -240,6 +240,8 @@ export async function signAssertion(assertion: Assertion, privateKey: CryptoKey,
 export interface VerificationResult {
   valid: boolean;
   assertion?: Assertion;
+  /** Credencial Open Badges 3.0, cuando lo verificado es un VC-JWT. */
+  credential?: Record<string, unknown>;
   reason?: string;
 }
 
@@ -414,4 +416,68 @@ export function toOpenBadges3(options: {
       type: "PLANNED · sin registro público de revocación"
     }
   };
+}
+
+/* -------------------------------------------- Open Badges 3.0 · VC-JWT */
+
+/**
+ * Credencial **Open Badges 3.0 serializada como VC-JWT**.
+ *
+ * Open Badges 3.0 se apoya en Verifiable Credentials y admite varias formas de
+ * firma; la que no necesita un registro central ni un canonizador RDF es la
+ * JWT (JOSE, RFC 7515): la credencial viaja como carga útil firmada con RS256,
+ * exactamente igual que una aserción firmada de OB 2.0, pero con el contexto y
+ * los campos de la versión 3. Es lo que aceptan los verificadores y monederos
+ * modernos.
+ */
+export async function signCredentialJwt(
+  credential: Record<string, unknown>,
+  privateKey: CryptoKey,
+  keyId: string
+): Promise<string> {
+  const header = { alg: "RS256", kid: keyId, typ: "JWT" };
+  const cabecera = toBase64Url(encoder.encode(JSON.stringify(header)));
+  const carga = toBase64Url(encoder.encode(JSON.stringify(credential)));
+  const firma = await crypto.subtle.sign("RSASSA-PKCS1-v1_5", privateKey, encoder.encode(`${cabecera}.${carga}`));
+  return `${cabecera}.${carga}.${toBase64Url(new Uint8Array(firma))}`;
+}
+
+export interface CredentialVerification {
+  valid: boolean;
+  credential?: Record<string, unknown>;
+  reason?: string;
+}
+
+/** Verifica un VC-JWT y devuelve la credencial si la firma es auténtica. */
+export async function verifyCredentialJwt(jws: string, jwk: PublicJwk): Promise<CredentialVerification> {
+  const partes = jws.trim().split(".");
+  if (partes.length !== 3) return { valid: false, reason: "jwt_mal_formado" };
+  const [cabecera, carga, firma] = partes as [string, string, string];
+
+  let credential: Record<string, unknown>;
+  try {
+    credential = JSON.parse(new TextDecoder().decode(fromBase64Url(carga))) as Record<string, unknown>;
+  } catch {
+    return { valid: false, reason: "carga_ilegible" };
+  }
+
+  try {
+    const clave = await crypto.subtle.importKey(
+      "jwk",
+      { ...jwk, alg: "RS256", ext: true },
+      { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" },
+      false,
+      ["verify"]
+    );
+    const valida = await crypto.subtle.verify(
+      "RSASSA-PKCS1-v1_5",
+      clave,
+      fromBase64Url(firma),
+      encoder.encode(`${cabecera}.${carga}`)
+    );
+    if (!valida) return { valid: false, reason: "firma_no_valida" };
+    return { valid: true, credential };
+  } catch (error) {
+    return { valid: false, reason: error instanceof Error ? error.message : "error_de_verificacion" };
+  }
 }

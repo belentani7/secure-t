@@ -166,6 +166,14 @@ export function CredentialView({ locale, courses }: { locale: Locale; courses: C
           >
             {t("badge.ob3")}
           </button>
+          <button
+            type="button"
+            className="btn btn-ghost"
+            onClick={() => badge && downloadText(`credencial-ob3-${course?.slug}.jwt`, badge.ob3Jwt)}
+            disabled={!badge}
+          >
+            {t("badge.jwt")}
+          </button>
         </div>
 
         {badge ? (

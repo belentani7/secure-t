@@ -13,9 +13,10 @@
   | SCORM 2004 4th Edition | `imsmanifest.xml` con secuenciación y SCO XHTML contra la API `cmi.*` | idem |
   | IMS Common Cartridge 1.3 | `imsmanifest.xml` + `webcontent` + evaluación incrustada | idem |
   | IMS QTI 1.2 | `questestinterop` con `resprocessing` y `itemfeedback` | idem |
+  | IMS QTI 2.1 | Paquete de contenido (`imsmanifest.xml` + `assessmentTest` + ítems) | `buildQti21()` |
   | xAPI 1.0.3 | `packages/shared/src/xapi.ts` + registro local en el navegador | `packages/shared/tests/xapi.test.ts` |
   | Open Badges 2.0 (JWS RS256, verificación sin servidor) | `packages/shared/src/badges.ts` + `badge-store.ts` | `packages/shared/tests/badges.test.ts` |
-  | Open Badges 3.0 / VC | `toOpenBadges3()` (vista de datos, sin duplicar lógica) | idem |
+  | Open Badges 3.0 / VC | `toOpenBadges3()` y `signCredentialJwt()` (VC-JWT firmada con la clave del dispositivo) | idem |
   | schema.org (Course, Syllabus, BreadcrumbList, Organization) | `packages/shared/src/seo.ts` | `packages/shared/tests/seo.test.ts` |
   | RFC 9457 (Problem Details) | `apps/web/src/lib/problem.ts` en la API del agente | `tests/agent-api.test.ts` |
   | RFC 9116 (`security.txt`) | `apps/web/public/.well-known/security.txt` | `tests/contracts.test.ts` |

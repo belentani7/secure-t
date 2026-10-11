@@ -85,6 +85,7 @@ const ETIQUETA: Record<string, string> = {
   scorm: "SCORM 2004",
   cc: "Common Cartridge",
   qti: "QTI 1.2",
+  qti21: "QTI 2.1",
   xapi: "xAPI"
 };
 
@@ -106,6 +107,7 @@ function descomponer(path: string): [string, string | null] {
   if (path.endsWith("-scorm2004.zip")) return [path.replace(/-scorm2004\.zip$/, ""), "scorm"];
   if (path.endsWith(".imscc")) return [path.replace(/\.imscc$/, ""), "cc"];
   if (path.endsWith("-qti12.xml")) return [path.replace(/-qti12\.xml$/, ""), "qti"];
+  if (path.endsWith("-qti21.zip")) return [path.replace(/-qti21\.zip$/, ""), "qti21"];
   if (path.endsWith("-xapi.json")) return [path.replace(/-xapi\.json$/, ""), "xapi"];
   return ["", null];
 }

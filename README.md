@@ -213,7 +213,7 @@ tabla completa, con lo aplicado y lo que sigue `PLANNED`).
 
 | Qué | Dónde | Cómo se comprueba |
 |---|---|---|
-| EPUB 3.3 + Accessibility 1.1, SCORM 2004 4th Ed., Common Cartridge 1.3, QTI 1.2, plantillas xAPI | `apps/web/public/packages/` (21 ficheros, `/estandares` en el campus) | `tests/packages-contract.test.ts` (22 tests) |
+| EPUB 3.3 + Accessibility 1.1, SCORM 2004 4th Ed., Common Cartridge 1.3, QTI 1.2 y 2.1, plantillas xAPI | `apps/web/public/packages/` (25 ficheros, `/estandares` en el campus) | `tests/packages-contract.test.ts` (27 tests) |
 | Insignia firmada **Open Badges 2.0** con JWS RS256, verificable sin servidor; vista **OB 3.0** | `/credencial` (la clave privada nunca sale del navegador) | `packages/shared/tests/badges.test.ts` (14 tests) |
 | Registro de actividad **xAPI 1.0.3** en el dispositivo, con exportación a JSON-LD | `/progreso` | `packages/shared/tests/xapi.test.ts` (15) y `tests/contracts.test.ts` |
 | Datos estructurados **schema.org** (Course, Syllabus, BreadcrumbList, Organization) | JSON-LD en las páginas de programa | `packages/shared/tests/seo.test.ts` (11) |
@@ -333,7 +333,7 @@ Lo que está terminado se puede comprobar con un comando. Lo que no, dice `PLANN
 | Web AURUM (476 páginas estáticas) | **VERIFIED** | `pnpm --filter @secure-t/web build` |
 | Repaso espaciado SM-2 | **VERIFIED** | `pnpm test` (14 casos del algoritmo) |
 | Programas imprimibles (HTML A4 + LaTeX) | **VERIFIED** | `pnpm syllabus` y sus 9 tests de contrato |
-| Paquetes interoperables (EPUB, SCORM, CC, QTI, xAPI) | **VERIFIED** | `pnpm packages` y 22 tests de contrato |
+| Paquetes interoperables (EPUB, SCORM, CC, QTI 1.2/2.1, xAPI) | **VERIFIED** | `pnpm packages` y 27 tests de contrato |
 | Credenciales Open Badges 2.0/3.0 firmadas y verificables | **VERIFIED** | 14 tests de firma, manipulación y forma |
 | SBOM CycloneDX y cabeceras de seguridad (CSP) | **VERIFIED** | `pnpm sbom` · `tests/contracts.test.ts` |
 | Traducción del material docente (EN/CA) | `PLANNED` | `campus/idiomas.md` |
