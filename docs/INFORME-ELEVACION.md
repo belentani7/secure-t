@@ -287,7 +287,8 @@ blanca el escaneo ve cinco hallazgos, tres de ellos falsos positivos documentado
 | 120 semanas del plan sin material publicado | **DECLARADO** | La franjas 5.ª a 10.ª (especialidades, arquitectura, CISO, capstone y docencia) están descritas pero no escritas; la página `/plano` lo dice franja por franja y no se anuncia ninguna como disponible |
 | Recursos de la biblioteca: enlaces de terceros | **ACEPTADO** | Se enlaza al autor y no se archiva copia (archivarla sería redistribuir material ajeno). Si un recurso cambia o desaparece, la ficha sigue siendo cierta en lo que declara (autor, idioma, tipo); los tests comprueban forma y procedencia, no disponibilidad remota |
 | Límites de los instrumentos del laboratorio | **DECLARADO** | Detector de patrones, no verificador: cada instrumento publica su límite en los cuatro idiomas y el expediente lo repite. Un resultado «limpio» no certifica que el texto sea inocuo |
-| Matriz axe del navegador | **VERIFICADO EN CI** | `success` en `7736d1f`: 42 pruebas (21 rutas × escritorio y móvil). No es reproducible en este entorno (sin Chromium): aquí sólo se ejecuta la auditoría estática, que da 0 errores |
+| Matriz axe del navegador | **VERIFICADO EN CI** | `success` en `497b898`: **23 rutas** declaradas (25 pruebas por navegador → 50 ejecuciones en escritorio y móvil), con `/experiencia` dentro. Antes: 21 rutas / 42 pruebas en `7736d1f`. No es reproducible en este entorno (sin Chromium): aquí sólo se ejecuta la auditoría estática, que da 0 errores |
+| Estabilidad de la suite TS | **OBSERVADO (sin diagnóstico)** | Una ejecución de `pnpm test` falló una vez sin poder registrar qué prueba (la salida se filtró con un patrón que no capturó el nombre) y no se reprodujo en **cinco ejecuciones posteriores** (355/355 cada una). Se declara como observación: no hay causa identificada y no se descarta una condición de carrera en la lectura de artefactos generados |
 | Integraciones de terceros en cola | **NOT VERIFIED** | Cada push despierta suites de aplicaciones instaladas en la cuenta original (Vercel, Netlify, Cloudflare, Railway, Render, SonarQube, Supabase, Cursor, Claude…): aparecen como `queued`, no aportan verificación a esta entrega y conviene revisarlas o retirarlas con el propietario |
 
 ---
@@ -354,10 +355,12 @@ c0440d3 feat(contenido): traducciones incrementales, con la verdad por delante
 7736d1f feat(biblioteca): veinte recursos más y documento generado del plan quinquenal
 e81b449 docs(informe): evidencia de CI del ciclo 1.4.0 y actualización de cifras
 a4773b1 docs(contrato): las herramientas del tutor entran en el contrato de la API
+497b898 feat(experiencia): psicología aplicada verificable, dos escalones y el guiño de Río
 ```
 
-El commit que entrega el ciclo 1.4.1 (y la actualización de este informe con su evidencia de CI) se añaden al final
-de esta lista en cuanto la CI confirma el resultado, para que la cifra publicada sea la verificada y no la prevista.
+El commit `497b898` entrega el ciclo 1.4.1 completo. La CI se ejecutó sobre él y **las 8 comprobaciones de trabajo
+quedaron en verde** (`CI`: web, edu-engine, secretos, campus — ejecución `38145327384`; `Calidad`: axe · WCAG 2.2 AA,
+Lighthouse ≥ 95 y CWV, Cobertura, Accesibilidad y peso sin navegador — ejecución `38145327370`).
 
 - **Ciclo I (1.4.1)**: el último commit entrega la capa de psicología con sus veinte pruebas, el guiño de Río en
   SVG en línea, el ritmo de aparición progresivo, la navegación en dos escalones, las transiciones nativas y la
@@ -444,8 +447,9 @@ prueba de que la auditoría trabaja: el fallo era real y lo encontró la herrami
   personas reales sobre este campus. `NOT VERIFIED`: el efecto emocional («se siente mejor») es una hipótesis
   razonada, no un resultado medido aquí.
 - **axe y Lighthouse siguen ejecutándose sólo en CI** (este entorno no tiene navegador). La matriz crece de 21 a
-  **23 rutas** (25 pruebas por navegador → 50 ejecuciones en los dos perfiles); su resultado se confirma en el
-  workflow, no aquí.
+  **23 rutas** (25 pruebas por navegador → 50 ejecuciones en los dos perfiles) y su resultado **ya está confirmado
+  sobre `497b898`**: los cuatro trabajos de `Calidad` y los cuatro de `CI`, en verde. El detalle por regla sólo se ve
+  en las anotaciones del check cuando hay violaciones; aquí no las hay.
 - **El contraste se verifica de forma estática** (auditoría del export y axe). El contraste percibido en pantallas
   reales, con brillo automático o modo nocturno del sistema, no se ha medido.
 - **View Transitions** degrada con elegancia donde no existe soporte, pero no se ha medido la diferencia percibida.
