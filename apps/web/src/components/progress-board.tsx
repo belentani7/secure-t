@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { KeyPanel } from "./key-panel";
 import { useEffect, useRef, useState } from "react";
 import { completionOf, translator, type Locale } from "@secure-t/shared";
 import {
@@ -73,6 +74,8 @@ export function ProgressBoard({ locale, courses }: { locale: Locale; courses: Co
           {global}% · {t("progress.anonymous")} · {t("progress.saved")} {new Date(record.updatedAt ?? record.createdAt).toLocaleDateString(locale)}
         </p>
       </section>
+
+      <KeyPanel locale={locale} />
 
       <div className="grid gap-4 md:grid-cols-2">
         {reports.map(({ course, report, doneWeeks, quiz }) => (

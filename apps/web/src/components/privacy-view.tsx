@@ -34,7 +34,8 @@ const SECCIONES: Record<Locale, { updated: string; intro: string; secciones: Sec
           "Progreso del campus: qué semanas has marcado, resultado del cuestionario, laboratorio, proyecto y examen, junto a un identificador aleatorio anónimo (crypto.randomUUID).",
           "Mazo de repaso espaciado (SM-2): qué tarjetas te tocan y con qué facilidad las recuerdas.",
           "Registro xAPI local: tus acciones en el vocabulario estándar, sin enviarlas a ningún servidor.",
-          "Clave de firma de credenciales: un par RSA generado en tu navegador para firmar tus propias insignias. Nunca se transmite."
+          "Clave de firma de credenciales: un par RSA generado en tu navegador para firmar tus propias insignias. Nunca se transmite.",
+          "Llave de cuatro dígitos (opcional): si la usas, los cuatro últimos dígitos de tu móvil se usan en memoria para derivar tu token con PBKDF2-SHA256 (210 000 iteraciones y una semilla aleatoria de este dispositivo). Los dígitos no se guardan ni se envían: lo único que queda es la semilla y el token derivado."
         ]
       },
       {
@@ -103,7 +104,8 @@ const SECCIONES: Record<Locale, { updated: string; intro: string; secciones: Sec
           "Progresso: semanas marcadas, resultado do questionário, laboratório, projeto e exame, com um identificador aleatório anônimo (crypto.randomUUID).",
           "Baralho de revisão espaçada (SM-2): quais cartões estão pendentes e com que facilidade você se lembra deles.",
           "Registro xAPI local: as suas ações no vocabulário padrão, sem enviá-las a nenhum servidor.",
-          "Chave de assinatura de credenciais: um par RSA gerado no seu navegador para assinar as suas próprias credenciais. Nunca é transmitida."
+          "Chave de assinatura de credenciais: um par RSA gerado no seu navegador para assinar as suas próprias credenciais. Nunca é transmitida.",
+          "Chave de quatro dígitos (opcional): se você usar, os quatro últimos dígitos do seu celular são usados na memória para derivar o seu token com PBKDF2-SHA256 (210 000 iterações e uma semente aleatória deste dispositivo). Os dígitos não são salvos nem enviados: o que fica é apenas a semente e o token derivado."
         ]
       },
       {
@@ -172,7 +174,8 @@ const SECCIONES: Record<Locale, { updated: string; intro: string; secciones: Sec
           "Course progress: weeks marked, quiz result, lab, project and exam, together with an anonymous random identifier (crypto.randomUUID).",
           "Spaced-review deck (SM-2): which cards are due and how easily you recall them.",
           "Local xAPI log: your actions in the standard vocabulary, never sent to any server.",
-          "Credential signing key: an RSA key pair generated in your browser to sign your own badges. It is never transmitted."
+          "Credential signing key: an RSA key pair generated in your browser to sign your own badges. It is never transmitted.",
+          "Four-digit key (optional): if you use it, the last four digits of your phone are used in memory to derive your token with PBKDF2-SHA256 (210,000 iterations and a random seed for this device). The digits are neither stored nor sent: only the seed and the derived token remain."
         ]
       },
       {
@@ -241,7 +244,8 @@ const SECCIONES: Record<Locale, { updated: string; intro: string; secciones: Sec
           "Progrés: setmanes marcades, resultat del qüestionari, laboratori, projecte i examen, amb un identificador aleatori anònim (crypto.randomUUID).",
           "Baralla de repàs espaiat (SM-2): quines targetes et toquen i amb quina facilitat les recordes.",
           "Registre xAPI local: les teves accions en el vocabulari estàndard, sense enviar-les a cap servidor.",
-          "Clau de signatura de credencials: una parella RSA generada al teu navegador per signar les teves insígnies. No es transmet mai."
+          "Clau de signatura de credencials: una parella RSA generada al teu navegador per signar les teves insígnies. No es transmet mai.",
+          "Clau de quatre xifres (opcional): si la fas servir, les quatre últimes xifres del teu mòbil s'usen en memòria per derivar el teu testimoni amb PBKDF2-SHA256 (210.000 iteracions i una llavor aleatòria d'aquest dispositiu). Les xifres no es guarden ni s'envien: només queden la llavor i el testimoni derivat."
         ]
       },
       {

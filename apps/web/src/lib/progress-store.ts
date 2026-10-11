@@ -114,6 +114,21 @@ export function resetProgress() {
   write(emptyProgress(newToken()));
 }
 
+/**
+ * Cambia el token anónimo del expediente: es lo que ocurre cuando alguien
+ * adopta su llave de cuatro dígitos o decide volver al azar. El token viejo no
+ * se conserva en ningún sitio, y la llave nunca llega hasta aquí: sólo el token
+ * ya derivado.
+ */
+export function adoptToken(token: string) {
+  write({ ...read(), token });
+}
+
+/** Token aleatorio nuevo, para «volver al azar» sin tocar el resto del expediente. */
+export function tokenAleatorio(): string {
+  return newToken();
+}
+
 export function progressFor(record: ProgressRecord, slug: string, weeks = 20): CompletionReport {
   return completionOf(record, slug, weeks);
 }
