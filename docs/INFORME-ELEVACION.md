@@ -508,7 +508,16 @@ No es un adorno: en cuanto se activó, cazó tres defectos reales.
    la regla «VERIFIED exige algo ejecutable» obligó a escribir la comprobación de verdad (brotli/gzip y
    `Cache-Control` en el servidor estático, y que `_headers` viaje con el sitio).
 
-### 10.4 Verificación de este ciclo (local, reproducible)
+### 10.4 Evidencia de CI del ciclo
+
+La CI se ejecutó sobre `c4fb627` (el commit que entrega el registro) y sobre `d35a000` (la actualización de este
+informe), con **las 8 comprobaciones de trabajo en verde en ambas** (`CI`: web, edu-engine, secretos y campus;
+`Calidad`: axe · WCAG 2.2 AA —ya con **25 rutas**, 50 ejecuciones en escritorio y móvil—, Lighthouse ≥ 95 y CWV,
+Cobertura y Accesibilidad y peso sin navegador). Ejecuciones de `d35a000`: CI `38156303116` · Calidad `38156303115`.
+Este párrafo se actualiza en un commit posterior, así que la ejecución que corresponde al último estado siempre
+está enlazada desde el PR #3.
+
+### 10.5 Verificación de este ciclo (local, reproducible)
 
 | Prueba | Comando | Resultado |
 |---|---|---|
@@ -516,10 +525,11 @@ No es un adorno: en cuanto se activó, cazó tres defectos reales.
 | Suite Python | `python -m pytest -q tests/` | **274 passed** |
 | Tipos | `pnpm typecheck` · `pnpm --filter @secure-t/web typecheck` | sin errores |
 | Registro | `pnpm requirements` | **90 requisitos · 73 en verde (81,1 %) · 17 sin cerrar · 2 obligatorios** |
+| Página publicada | `curl` sobre el export servido | `/requisitos` responde 200 en los cuatro idiomas, con el listón, los estados, los dominios y la lista de pendientes |
 | Cobertura | `pnpm test:coverage` | 92,55 % sentencias · 81,29 % ramas · 95,47 % líneas |
 | Export y auditoría | `pnpm site` · `pnpm audit:site` | **506 páginas · 3.435 ficheros · 0 errores · 5 avisos** de peso; accesibilidad estática sin errores |
 
-### 10.5 Lo que este ciclo **no** cierra
+### 10.6 Lo que este ciclo **no** cierra
 
 - **Los dos obligatorios abiertos siguen abiertos y con nombre**: la traducción del material al portugués de Brasil
   (32 de 80 semanas) y las 7 alertas de Dependabot de la rama por defecto (3 críticas), que la API no deja leer desde
