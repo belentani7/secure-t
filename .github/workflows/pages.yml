@@ -1,4 +1,5 @@
-# Publica SOLO el sitio (portada + campus + datos abiertos) en GitHub Pages.
+# Publica SOLO el sitio (portada + campus clásico + campus AURUM + datos
+# abiertos) en GitHub Pages.
 # Evita que los scripts, los tests y el material de trabajo queden accesibles por URL.
 # Requisito unico: Settings -> Pages -> Source = "GitHub Actions".
 name: Pages
@@ -19,21 +20,36 @@ concurrency:
 
 env:
   SITE_URL: https://belentani7.github.io/secure-t-university/
+  NEXT_TELEMETRY_DISABLED: "1"
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
-      - name: Ensamblar _site con lista blanca
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+      - name: Dependencias y contenido
         run: |
-          set -e
-          mkdir -p _site
-          cp index.html 404.html _site/
-          cp -r campus ui _site/
-          if [ -d public ]; then mkdir -p _site/public && cp -r public/. _site/public/; fi
-          touch _site/.nojekyll
-          # Barrera final: ningun secreto llega a produccion
+          pnpm install --frozen-lockfile
+          pnpm content:all
+      - name: Compilar el campus AURUM como sitio estatico
+        env:
+          NEXT_PUBLIC_BASE_PATH: /app
+          NEXT_PUBLIC_SITE_URL: ${{ env.SITE_URL }}app
+        run: pnpm --filter @secure-t/web build:pages
+      - name: Ensamblar _site con lista blanca
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ env.SITE_URL }}app
+        run: node tools/build-site.mjs --sin-web
+      - name: Barrera final anti-secretos
+        run: |
           if grep -rEn "sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{30,}|AKIA[0-9A-Z]{16}|BEGIN [A-Z ]*PRIVATE KEY" _site; then
             echo "::error::Posible secreto en el sitio"; exit 1
           fi

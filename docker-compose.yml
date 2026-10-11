@@ -1,23 +1,55 @@
+# Todo el campus en local con un solo comando.
+#
+#   docker compose up --build          → web AURUM en http://localhost:3000
+#   docker compose --profile llm up    → añade Ollama (proveedor LLM opcional)
+#
+# Sin perfil `llm`, el agente funciona igual: el motor local corre dentro de la
+# web y no necesita ninguna red. Ollama es estrictamente opcional.
+
 services:
-  postgres:
-    image: pgvector/pgvector:pg16
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: secure-t/aurum:1.0.0
+    container_name: secure-t-web
+    ports:
+      - "3000:3000"
     environment:
-      POSTGRES_DB: secure_t
-      POSTGRES_USER: secure_t
-      POSTGRES_PASSWORD: change-me-local-only
-    ports: ["5432:5432"]
-    volumes: [secure_t_pg:/var/lib/postgresql/data]
-  redis:
-    image: redis:7-alpine
-    ports: ["6379:6379"]
-  minio:
-    image: minio/minio:latest
-    command: server /data --console-address ":9001"
-    environment:
-      MINIO_ROOT_USER: secure-t-local
-      MINIO_ROOT_PASSWORD: change-me-local-only
-    ports: ["9000:9000", "9001:9001"]
-    volumes: [secure_t_minio:/data]
+      NODE_ENV: production
+      # El agente arranca en modo local; para usar un LLM, descomenta y ajusta:
+      # SECURE_T_LLM_URL: http://ollama:11434/api/generate
+      # SECURE_T_LLM_KIND: ollama
+      # SECURE_T_LLM_MODEL: qwen2.5:7b
+      # SECURE_T_LLM_ALLOW_HOSTS: ollama
+      SECURE_T_LLM_ALLOW_HOSTS: ""
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    restart: unless-stopped
+
+  # Perfil opcional: proveedor LLM local, sin que nada salga de la máquina.
+  ollama:
+    image: ollama/ollama:latest
+    container_name: secure-t-ollama
+    profiles: ["llm"]
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    restart: unless-stopped
+
+  # Comprobación del contrato del campus clásico, sin instalar nada en el host.
+  tests:
+    image: python:3.12-slim
+    profiles: ["test"]
+    working_dir: /repo
+    volumes:
+      - .:/repo:ro
+    command: ["sh", "-c", "pip install --quiet pytest && python -m pytest -q tests/"]
+
 volumes:
-  secure_t_pg:
-  secure_t_minio:
+  ollama-data:

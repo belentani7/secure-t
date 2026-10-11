@@ -1,6 +1,6 @@
 {
   "name": "secure-t",
-  "version": "0.2.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,7 +8,23 @@
     "build": "vite build",
     "start": "tsx index.ts",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "content": "tsx tools/build-content.ts",
+    "web:dev": "pnpm --filter @secure-t/web dev",
+    "web:build": "pnpm --filter @secure-t/web build",
+    "web:typecheck": "pnpm --filter @secure-t/web typecheck",
+    "site": "node tools/build-site.mjs",
+    "site:clasico": "node tools/build-site.mjs --clasico",
+    "serve:site": "node tools/serve-static.mjs --port 4173",
+    "test:coverage": "vitest run --coverage",
+    "test:a11y": "playwright test",
+    "storybook": "pnpm --filter @secure-t/ui storybook",
+    "audit:site": "node tools/audit-site.mjs --dir apps/web/out --base /app",
+    "check": "pnpm typecheck && pnpm test && pnpm audit:site",
+    "syllabus": "tsx tools/build-syllabus.ts",
+    "content:all": "pnpm content && pnpm syllabus && pnpm packages && pnpm sbom",
+    "packages": "tsx tools/build-packages.ts",
+    "sbom": "node tools/build-sbom.mjs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.20",
@@ -69,6 +85,10 @@
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
     "vite": "^8.3.1",
-    "vitest": "^5.0.2"
+    "vitest": "^5.0.2",
+    "@axe-core/playwright": "^4.11.0",
+    "@lhci/cli": "^0.15.1",
+    "@playwright/test": "^1.56.0",
+    "@vitest/coverage-v8": "^5.0.2"
   }
 }

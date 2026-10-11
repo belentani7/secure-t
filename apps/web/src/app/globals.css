@@ -1,0 +1,582 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   AURUM — identidad de secure T
+   Negro profundo + dorado + azul como acento secundario.
+   Reglas: contraste AA en todo el texto, foco siempre visible, sin animación
+   obligatoria, y tipografía del sistema (cero peticiones a terceros: la
+   promesa de privacidad también cubre las fuentes).
+   ========================================================================== */
+
+@theme {
+  --color-ink: #07070a;
+  --color-ink-soft: #0b0b10;
+  --color-surface: #101017;
+  --color-raised: #16161f;
+  --color-line: #2a2621;
+  --color-gold: #d4af37;
+  --color-gold-bright: #f2d477;
+  --color-gold-deep: #8a6f22;
+  --color-azure: #3d7dff;
+  --color-azure-soft: #16233d;
+  --color-parchment: #f5f1e6;
+  --color-muted: #b7b1a2;
+  --color-success: #4ade80;
+  --color-danger: #f87171;
+  --color-warning: #fbbf24;
+}
+
+:root {
+  color-scheme: dark;
+  --aurum-bg: var(--color-ink);
+  --aurum-surface: var(--color-surface);
+  --aurum-raised: var(--color-raised);
+  --aurum-text: var(--color-parchment);
+  --aurum-muted: var(--color-muted);
+  --aurum-line: rgb(212 175 55 / 18%);
+  --aurum-line-strong: rgb(212 175 55 / 38%);
+  --aurum-glow: 0 0 0 1px rgb(212 175 55 / 22%), 0 18px 48px -24px rgb(212 175 55 / 32%);
+  --aurum-radius: 14px;
+  --aurum-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --aurum-mono: ui-monospace, "SFMono-Regular", "Cascadia Code", Consolas, "Liberation Mono", monospace;
+  --aurum-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+}
+
+[data-contrast="high"] {
+  --aurum-surface: #000;
+  --aurum-raised: #0a0a0a;
+  --aurum-text: #fff;
+  --aurum-muted: #e6e1d5;
+  --aurum-line: rgb(242 212 119 / 70%);
+  --aurum-line-strong: rgb(242 212 119 / 95%);
+}
+
+* {
+  min-width: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--aurum-bg);
+  color: var(--aurum-text);
+  font-family: var(--aurum-font);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Fondo: retícula dorada muy tenue + halo azul lejano (sin imágenes). */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgb(212 175 55 / 8%), transparent 70%),
+    radial-gradient(900px 500px at 100% 0%, rgb(61 125 255 / 6%), transparent 65%),
+    linear-gradient(rgb(212 175 55 / 3%) 1px, transparent 1px) 0 0 / 100% 3.25rem;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
+}
+
+a {
+  color: var(--color-gold-bright);
+  text-decoration-color: rgb(212 175 55 / 45%);
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  text-decoration-color: var(--color-gold);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: #14100a;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--aurum-display);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  margin: 0 0 0.6em;
+}
+
+h1 {
+  font-size: clamp(2.1rem, 5.2vw, 3.6rem);
+}
+
+h2 {
+  font-size: clamp(1.55rem, 3.4vw, 2.3rem);
+}
+
+h3 {
+  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+}
+
+p {
+  max-width: 68ch;
+}
+
+code,
+pre,
+kbd {
+  font-family: var(--aurum-mono);
+  font-size: 0.92em;
+}
+
+pre {
+  background: #0a0a0f;
+  border: 1px solid var(--aurum-line);
+  border-radius: 12px;
+  padding: 1rem 1.15rem;
+  overflow-x: auto;
+}
+
+:not(pre) > code {
+  background: rgb(212 175 55 / 10%);
+  border: 1px solid var(--aurum-line);
+  border-radius: 6px;
+  padding: 0.05em 0.4em;
+}
+
+/* ----------------------------- utilidades ------------------------------- */
+
+.wrap {
+  width: min(78rem, 100% - 2rem);
+  margin-inline: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.wrap-narrow {
+  width: min(52rem, 100% - 2rem);
+  margin-inline: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  font-family: var(--aurum-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin: 0 0 0.75rem;
+}
+
+.gold-text {
+  background: linear-gradient(96deg, var(--color-gold-bright) 0%, var(--color-gold) 45%, var(--color-gold-deep) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lead {
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  color: var(--aurum-muted);
+  max-width: 62ch;
+}
+
+.muted {
+  color: var(--aurum-muted);
+}
+
+.mono {
+  font-family: var(--aurum-mono);
+  font-size: 0.85rem;
+}
+
+.section {
+  padding-block: clamp(2.5rem, 6vw, 5rem);
+}
+
+.hairline {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(90deg, transparent, var(--aurum-line-strong), transparent);
+  margin-block: 2.5rem;
+}
+
+/* ------------------------------ componentes ----------------------------- */
+
+.card {
+  background: linear-gradient(180deg, var(--aurum-surface), var(--color-ink-soft));
+  border: 1px solid var(--aurum-line);
+  border-radius: var(--aurum-radius);
+  padding: 1.5rem;
+  transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.card:hover {
+  border-color: var(--aurum-line-strong);
+  box-shadow: var(--aurum-glow);
+}
+
+.card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.card-title {
+  font-family: var(--aurum-display);
+  font-size: 1.25rem;
+  margin-bottom: 0.35rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.7rem 1.35rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: linear-gradient(180deg, var(--color-gold-bright), var(--color-gold));
+  color: #14100a;
+  font-weight: 650;
+  font-size: 0.98rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 140ms ease, filter 140ms ease, border-color 140ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--aurum-line-strong);
+  color: var(--aurum-text);
+}
+
+.btn-ghost:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold-bright);
+}
+
+.btn-azure {
+  background: linear-gradient(180deg, #5c93ff, var(--color-azure));
+  color: #04060f;
+}
+
+.btn-sm {
+  min-height: 38px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.9rem;
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--aurum-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  border: 1px solid var(--aurum-line-strong);
+  border-radius: 999px;
+  padding: 0.18rem 0.6rem;
+  background: rgb(212 175 55 / 6%);
+}
+
+.badge-planned {
+  color: var(--color-warning);
+  border-color: rgb(251 191 36 / 45%);
+  background: rgb(251 191 36 / 8%);
+}
+
+.badge-verified {
+  color: var(--color-success);
+  border-color: rgb(74 222 128 / 45%);
+  background: rgb(74 222 128 / 8%);
+}
+
+.badge-azure {
+  color: #9cc0ff;
+  border-color: rgb(61 125 255 / 45%);
+  background: rgb(61 125 255 / 10%);
+}
+
+.grid-3 {
+  display: grid;
+  gap: 1.15rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr));
+}
+
+.grid-2 {
+  display: grid;
+  gap: 1.15rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(24rem, 100%), 1fr));
+}
+
+.stack > * + * {
+  margin-top: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.field label {
+  font-size: 0.9rem;
+  color: var(--aurum-muted);
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  color: var(--aurum-text);
+  background: #0b0b11;
+  border: 1px solid var(--aurum-line);
+  border-radius: 10px;
+  padding: 0.6rem 0.8rem;
+  min-height: 44px;
+  width: 100%;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--color-gold);
+  outline: none;
+  box-shadow: 0 0 0 3px rgb(212 175 55 / 25%);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--aurum-line);
+  border-radius: 12px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.95rem;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.6rem 0.85rem;
+  border-bottom: 1px solid var(--aurum-line);
+}
+
+th {
+  font-family: var(--aurum-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  background: rgb(212 175 55 / 5%);
+}
+
+.prose-aurum {
+  max-width: 74ch;
+}
+
+.prose-aurum h2 {
+  margin-top: 2.4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--aurum-line);
+  color: var(--color-gold-bright);
+}
+
+.prose-aurum h3 {
+  margin-top: 1.8rem;
+}
+
+.prose-aurum ul,
+.prose-aurum ol {
+  padding-left: 1.3rem;
+}
+
+.prose-aurum li + li {
+  margin-top: 0.35rem;
+}
+
+.prose-aurum blockquote {
+  margin: 1.5rem 0;
+  padding: 0.9rem 1.2rem;
+  border-left: 3px solid var(--color-gold);
+  background: rgb(212 175 55 / 5%);
+  border-radius: 0 10px 10px 0;
+  color: var(--aurum-muted);
+}
+
+.prose-aurum img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+mark {
+  background: rgb(212 175 55 / 30%);
+  color: var(--aurum-text);
+  border-radius: 4px;
+  padding: 0 0.15em;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--color-gold);
+  color: #14100a;
+  padding: 0.6rem 1rem;
+  border-radius: 0 0 10px 0;
+  z-index: 50;
+  font-weight: 650;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, rgb(212 175 55 / 6%), rgb(212 175 55 / 14%), rgb(212 175 55 / 6%));
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+  border-radius: 8px;
+  min-height: 1rem;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.fade-up {
+  animation: fadeUp 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.chat-bubble {
+  border: 1px solid var(--aurum-line);
+  border-radius: 14px;
+  padding: 0.85rem 1.05rem;
+  background: var(--aurum-surface);
+  white-space: pre-wrap;
+}
+
+.chat-bubble-user {
+  background: var(--color-azure-soft);
+  border-color: rgb(61 125 255 / 35%);
+}
+
+.cite {
+  font-family: var(--aurum-mono);
+  font-size: 0.75rem;
+  color: var(--color-gold-bright);
+  border: 1px solid var(--aurum-line-strong);
+  border-radius: 6px;
+  padding: 0 0.3rem;
+  margin-left: 0.2rem;
+}
+
+.meter {
+  height: 0.55rem;
+  border-radius: 999px;
+  background: #1b1b24;
+  overflow: hidden;
+  border: 1px solid var(--aurum-line);
+}
+
+.meter > i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-gold-deep), var(--color-gold-bright));
+  transition: width 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.holiday-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
+  padding: 0.35rem 0;
+  border-bottom: 1px dashed var(--aurum-line);
+}
+
+.maintenance-note {
+  border: 1px dashed var(--aurum-line-strong);
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem;
+  background: rgb(212 175 55 / 4%);
+}
+
+@media print {
+  body::before,
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #111;
+  }
+  .card,
+  .chat-bubble {
+    border-color: #999;
+    background: #fff;
+    color: #111;
+  }
+  a {
+    color: #111;
+    text-decoration: underline;
+  }
+}

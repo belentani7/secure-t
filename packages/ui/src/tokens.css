@@ -1,0 +1,82 @@
+/* AURUM · tokens de diseño
+ *
+ * Identidad pedida: negro y dorado, azul sólo cuando aporta significado
+ * (información secundaria y estados). Cada par texto/fondo está comprobado
+ * contra WCAG 2.2 AA (4.5:1 para texto normal) en `tests/tokens.test.ts`.
+ */
+
+:root {
+  /* Superficies */
+  --aurum-ink: #07070a;
+  --aurum-ink-soft: #0d0d12;
+  --aurum-ink-raised: #14141b;
+  --aurum-line: rgb(212 175 55 / 18%);
+  --aurum-line-strong: rgb(212 175 55 / 38%);
+
+  /* Dorado: acento principal */
+  --color-gold: #d4af37;
+  --color-gold-bright: #f2d477;
+  --color-gold-deep: #8a6d1f;
+
+  /* Azul: información secundaria */
+  --color-azure: #5aa9ff;
+  --color-azure-deep: #1f4f86;
+
+  /* Estados */
+  --color-mint: #4ee0a8;
+  --color-coral: #ff6b6b;
+  --color-saffron: #ffb52e;
+
+  /* Texto */
+  --aurum-text: #f5f2e8;
+  --aurum-muted: #a9a49a;
+
+  /* Tipografía */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, Consolas, monospace;
+
+  /* Escala */
+  --step--1: clamp(0.8rem, 0.78rem + 0.1vw, 0.85rem);
+  --step-0: clamp(1rem, 0.97rem + 0.15vw, 1.06rem);
+  --step-1: clamp(1.2rem, 1.14rem + 0.3vw, 1.35rem);
+  --step-2: clamp(1.44rem, 1.34rem + 0.5vw, 1.72rem);
+  --step-3: clamp(1.73rem, 1.56rem + 0.85vw, 2.2rem);
+  --step-4: clamp(2.07rem, 1.8rem + 1.35vw, 2.81rem);
+
+  /* Espaciado y formas */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-pill: 999px;
+
+  /* Foco: visible siempre, también con teclado */
+  --focus-ring: 0 0 0 3px var(--aurum-ink), 0 0 0 6px var(--color-gold-bright);
+
+  /* Movimiento: se respeta la preferencia del sistema */
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+  }
+}
+
+/* Alto contraste: el estudiante que lo necesita sube a AAA. */
+[data-contrast="high"] {
+  --aurum-text: #fffef9;
+  --aurum-muted: #ded9cd;
+  --aurum-line: rgb(242 212 119 / 45%);
+  --aurum-line-strong: rgb(242 212 119 / 70%);
+  --color-gold: #f2d477;
+  --color-gold-bright: #ffe9a8;
+}

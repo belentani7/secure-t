@@ -1,0 +1,37 @@
+{
+  "ci": {
+    "collect": {
+      "staticDistDir": "apps/web/out",
+      "url": [
+        "http://localhost/app/",
+        "http://localhost/app/pt/",
+        "http://localhost/app/es/programas",
+        "http://localhost/app/pt/agente",
+        "http://localhost/app/pt/calendario",
+        "http://localhost/app/pt/programas/ciber-defensiva/semana/1"
+      ],
+      "numberOfRuns": 3,
+      "settings": {
+        "preset": "desktop",
+        "skipAudits": ["canonical", "is-crawlable", "robots-txt", "uses-http2"]
+      }
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": ["error", { "minScore": 0.95 }],
+        "categories:accessibility": ["error", { "minScore": 0.95 }],
+        "categories:best-practices": ["error", { "minScore": 0.95 }],
+        "categories:seo": ["error", { "minScore": 0.95 }],
+        "largest-contentful-paint": ["error", { "maxNumericValue": 2500 }],
+        "interaction-to-next-paint": ["error", { "maxNumericValue": 200 }],
+        "cumulative-layout-shift": ["error", { "maxNumericValue": 0.1 }],
+        "total-blocking-time": ["error", { "maxNumericValue": 200 }],
+        "unused-javascript": ["warn", { "maxNumericValue": 20480 }],
+        "uses-responsive-images": "warn"
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

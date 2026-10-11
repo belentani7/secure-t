@@ -1,0 +1,119 @@
+# Calidad de la experiencia: rendimiento, accesibilidad y cobertura.
+#
+# Los umbrales son los del encargo y no se negocian a la baja en el propio
+# workflow: si bajan, se cambia el código, no el número.
+#   · Lighthouse ≥ 95 en las cuatro categorías
+#   · Core Web Vitals: LCP < 2,5 s · INP < 200 ms · CLS < 0,1
+#   · WCAG 2.2 AA con axe en las rutas principales
+#   · Cobertura ≥ 80 % en los módulos críticos (calendario, agente, progreso)
+name: Calidad
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  NEXT_TELEMETRY_DISABLED: "1"
+
+jobs:
+  cobertura:
+    name: Cobertura de los módulos críticos
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - name: Tests con cobertura (umbral 80 % en lo crítico)
+        run: pnpm test:coverage
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cobertura
+          path: coverage/
+          retention-days: 14
+
+  auditoria-estatica:
+    name: Accesibilidad y peso sin navegador
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm content:all
+      - name: Export estático
+        run: pnpm --filter @secure-t/web build:pages
+      - name: Auditoría de las 457 páginas (lang, h1, alt, ids, foco, peso)
+        run: pnpm audit:site
+
+  accesibilidad:
+    name: axe · WCAG 2.2 AA
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm content:all
+      - name: Export estático de la web
+        run: pnpm --filter @secure-t/web build:pages
+      - name: Instalar navegador
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Auditoría de accesibilidad
+        run: pnpm test:a11y
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: accesibilidad
+          path: e2e/salida/
+          retention-days: 14
+
+  lighthouse:
+    name: Lighthouse ≥ 95 y Core Web Vitals
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm content:all
+      - name: Export estático con la misma base que producción
+        run: pnpm --filter @secure-t/web build:pages
+      - name: Lighthouse CI
+        run: pnpm exec lhci autorun
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse
+          path: .lighthouseci/
+          retention-days: 14
