@@ -30,6 +30,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     ca: "Institut obert de ciberseguretat i intel·ligència artificial: quatre programes de vint setmanes, gratuïts, sense registre i funcionals sense connexió."
   };
   return {
+    // Sin `metadataBase` Next deja `canonical` y `hreflang` como rutas
+    // relativas, y Lighthouse lo rechaza: el enlace tiene que ser absoluto.
+    metadataBase: new URL(SITE.pagesUrl),
     title: { default: titles[locale], template: "%s · secure T" },
     description: descriptions[locale],
     alternates: {

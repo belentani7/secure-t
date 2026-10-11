@@ -36,6 +36,18 @@ export const CSP_DIRECTIVES = [
 
 export const CSP = CSP_DIRECTIVES.join("; ");
 
+/**
+ * Directivas que un `<meta http-equiv>` no puede aplicar. Chrome avisa de cada
+ * una en la consola («directive is ignored when delivered via a <meta>
+ * element»), y una consola con errores es, además de un defecto real, una
+ * auditoría de Lighthouse en rojo.
+ */
+const NO_VALIDAS_EN_META = new Set(["frame-ancestors"]);
+
+export const CSP_META = CSP_DIRECTIVES.filter(
+  (directiva) => !NO_VALIDAS_EN_META.has(directiva.split(" ")[0] ?? "")
+).join("; ");
+
 /** Cabeceras comunes a todas las respuestas. */
 export const SECURITY_HEADERS: { key: string; value: string }[] = [
   { key: "Content-Security-Policy", value: CSP },
@@ -54,7 +66,6 @@ export const SECURITY_HEADERS: { key: string; value: string }[] = [
  * estático, donde el alojamiento no permite cabeceras).
  */
 export const META_HEADERS: { httpEquiv: string; content: string }[] = [
-  { httpEquiv: "Content-Security-Policy", content: CSP },
-  { httpEquiv: "X-Content-Type-Options", content: "nosniff" },
+  { httpEquiv: "Content-Security-Policy", content: CSP_META },
   { httpEquiv: "Referrer-Policy", content: "strict-origin-when-cross-origin" }
 ];

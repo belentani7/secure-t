@@ -15,9 +15,10 @@
  */
 
 import { createReadStream } from "node:fs";
-import { stat } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import { createServer } from "node:http";
 import { extname, join, normalize, resolve } from "node:path";
+import { brotliCompressSync, gzipSync } from "node:zlib";
 
 const args = process.argv.slice(2);
 const port = Number(args[args.indexOf("--port") + 1]) || 4173;
@@ -50,6 +51,23 @@ const TIPOS = {
   ".md": "text/markdown; charset=utf-8",
   ".xml": "application/xml; charset=utf-8"
 };
+
+/** Extensiones que se comprimen (como hace cualquier alojamiento real). */
+const COMPRIMIBLES = new Set([".html", ".css", ".js", ".mjs", ".json", ".svg", ".txt", ".md", ".xml", ".webmanifest", ".ics"]);
+
+/** Caché de cuerpos comprimidos: clave = fichero + tamaño + fecha. */
+const comprimido = new Map();
+
+async function cuerpoComprimido(file, info, codificacion) {
+  const clave = `${file}:${info.size}:${info.mtimeMs}:${codificacion}`;
+  const guardado = comprimido.get(clave);
+  if (guardado) return guardado;
+  const origen = await readFile(file);
+  const cuerpo = codificacion === "br" ? brotliCompressSync(origen) : gzipSync(origen);
+  if (comprimido.size > 64) comprimido.clear();
+  comprimido.set(clave, cuerpo);
+  return cuerpo;
+}
 
 async function resolver(pathname) {
   const interna = rutaInterna(decodeURIComponent(pathname));
@@ -96,8 +114,31 @@ const server = createServer(async (request, response) => {
     return;
   }
 
+  const info = await stat(file);
+  const tipo = TIPOS[extname(file)] ?? "application/octet-stream";
+  const acepta = String(request.headers["accept-encoding"] ?? "");
+  const extension = extname(file);
+
+  if (COMPRIMIBLES.has(extension) && info.size > 1024) {
+    const codificacion = /\bbr\b/.test(acepta) ? "br" : /\bgzip\b/.test(acepta) ? "gzip" : null;
+    if (codificacion) {
+      const cuerpo = await cuerpoComprimido(file, info, codificacion);
+      response.writeHead(200, {
+        "content-type": tipo,
+        "content-encoding": codificacion,
+        "content-length": String(cuerpo.byteLength),
+        "vary": "accept-encoding",
+        "cache-control": "public, max-age=0, must-revalidate"
+      });
+      response.end(cuerpo);
+      return;
+    }
+  }
+
   response.writeHead(200, {
-    "content-type": TIPOS[extname(file)] ?? "application/octet-stream",
+    "content-type": tipo,
+    "content-length": String(info.size),
+    "vary": "accept-encoding",
     "cache-control": "public, max-age=0, must-revalidate"
   });
   createReadStream(file).pipe(response);

@@ -54,6 +54,12 @@ externa, y lo que no está se dice en voz alta. Nada se marca conforme sin un te
 - El servidor estático de pruebas sirve el export con su prefijo (`--base /app`): axe y Lighthouse reciben el sitio
   real y no un 404 en cada ruta.
 - `security.txt` ya no anuncia una clave PGP inexistente y su `Policy` apunta a una página real.
+- **Consola limpia y metadatos correctos**: la CSP del sitio estático ya no incluye `frame-ancestors` (un `<meta>`
+  no puede aplicarla y el navegador lo denuncia en la consola), `canonical` y `hreflang` son absolutos en las cuatro
+  lenguas (Lighthouse exige enlaces completos), el logotipo de la cabecera se nombra con su propio texto visible y el
+  sitio publica por fin un icono.
+- El service worker deriva sus rutas de la carpeta real del despliegue: publicado en `/app`, precargaba `/pt` y no
+  guardaba nada, así que el modo sin conexión no llegaba a funcionar.
 - Las utilidades del paquete compartido exigen `ArrayBuffer` explícito en las llamadas a WebCrypto (compatibilidad
   con TypeScript 7) y `PublicJwk` declara `kid`, en lugar de castings repartidos.
 

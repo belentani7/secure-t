@@ -4,9 +4,18 @@
  * que es una promesa del proyecto desde su primera versión (P3 del contrato).
  * No se cachea nada que pueda contener datos del estudiante: el expediente vive
  * en `localStorage` y nunca cruza la red.
+ *
+ * El sitio se publica en una subcarpeta (`/app` en GitHub Pages), así que todas
+ * las rutas se construyen a partir de la ubicación real del propio service
+ * worker: cachear `/pt` cuando la web vive en `/app/pt` no guardaba nada.
  */
 
-const VERSION = "secure-t-v1";
+const VERSION = "secure-t-v2";
+const BASE = self.location.pathname.replace(/\/sw\.js$/, "");
+
+/** Ruta absoluta dentro del despliegue real. */
+const ruta = (camino) => `${BASE}${camino}`;
+
 const SHELL = [
   "/",
   "/pt",
@@ -27,7 +36,6 @@ const SHELL = [
   "/pt/estandares",
   "/privacidad",
   "/pt/privacidad",
-  "/content/catalog.json",
   "/credencial",
   "/pt/credencial",
   "/amenazas",
@@ -35,9 +43,12 @@ const SHELL = [
   "/content/catalog.json",
   "/content/knowledge.json",
   "/manifest.webmanifest"
-];
+].map(ruta);
 
-const CACHEABLE_PREFIXES = ["/content/", "/campus/", "/voice/", "/_next/static/"];
+const PREFIJOS_CACHEABLES = ["/content/", "/campus/", "/voice/", "/_next/static/"].map(ruta);
+
+const esRecursoEstatico = (pathname) =>
+  PREFIJOS_CACHEABLES.some((prefijo) => pathname.startsWith(prefijo)) || pathname.includes("/_next/static/");
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -45,9 +56,7 @@ self.addEventListener("install", (event) => {
       .open(VERSION)
       .then((cache) =>
         Promise.all(
-          SHELL.map((path) =>
-            cache.add(new Request(path, { cache: "reload" })).catch(() => undefined)
-          )
+          SHELL.map((path) => cache.add(new Request(path, { cache: "reload" })).catch(() => undefined))
         )
       )
       .then(() => self.skipWaiting())
@@ -63,6 +72,12 @@ self.addEventListener("activate", (event) => {
   );
 });
 
+/** Última red de seguridad: la portada guardada, o un error de red honesto. */
+async function respuestaSinRed() {
+  const cache = await caches.open(VERSION);
+  return (await cache.match(ruta("/pt"))) || (await cache.match(ruta("/"))) || Response.error();
+}
+
 self.addEventListener("fetch", (event) => {
   const request = event.request;
   if (request.method !== "GET") return;
@@ -71,7 +86,7 @@ self.addEventListener("fetch", (event) => {
   // El endpoint del agente jamás se cachea: cada pregunta es una pregunta.
   if (url.pathname.endsWith("/api/agent")) return;
 
-  const isStatic = CACHEABLE_PREFIXES.some((prefix) => url.pathname.includes(prefix)) || url.pathname.startsWith("/_next/");
+  const estatico = esRecursoEstatico(url.pathname);
 
   event.respondWith(
     caches.match(request).then((cached) => {
@@ -79,22 +94,23 @@ self.addEventListener("fetch", (event) => {
         event.waitUntil(
           fetch(request)
             .then((response) => {
-              if (response.ok) return caches.open(VERSION).then((cache) => cache.put(request, response.clone()));
-              return undefined;
+              if (!response.ok) return undefined;
+              return caches.open(VERSION).then((cache) => cache.put(request, response.clone()));
             })
             .catch(() => undefined)
         );
         return cached;
       }
+
       return fetch(request)
         .then((response) => {
-          if (response.ok && isStatic) {
+          if (response.ok && estatico) {
             const copy = response.clone();
             event.waitUntil(caches.open(VERSION).then((cache) => cache.put(request, copy)));
           }
           return response;
         })
-        .catch(() => caches.match("/pt") || caches.match("/"));
+        .catch(() => respuestaSinRed());
     })
   );
 });

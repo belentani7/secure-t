@@ -12,7 +12,6 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         <Link
           href={localePath(locale, "/")}
           className="flex items-center gap-2 text-[var(--aurum-text)] no-underline"
-          aria-label={`${t("app.name")} — ${t("nav.campus")}`}
         >
           <span aria-hidden="true" className="grid size-8 place-items-center rounded-lg border border-[var(--aurum-line-strong)] bg-[rgb(212_175_55_/_8%)] text-[0.95rem]">
             ▲

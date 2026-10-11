@@ -138,18 +138,28 @@ jobs:
               const fs = require("node:fs");
               if (!fs.existsSync(".lighthouseci")) process.exit(0);
               const porCategoria = {};
+              const detalle = [];
               for (const fichero of fs.readdirSync(".lighthouseci").filter((f) => f.endsWith(".json"))) {
                 const informe = JSON.parse(fs.readFileSync(`.lighthouseci/${fichero}`, "utf8"));
+                const url = informe.finalDisplayedUrl ?? informe.finalUrl ?? fichero;
                 for (const [nombre, categoria] of Object.entries(informe.categories ?? {})) {
                   for (const ref of categoria.auditRefs ?? []) {
+                    if (!ref.weight) continue;
                     const auditoria = informe.audits[ref.id];
                     if (!auditoria || auditoria.score === null || auditoria.score >= 1) continue;
                     (porCategoria[nombre] ??= new Set()).add(`${ref.id}=${auditoria.score}`);
+                    for (const item of (auditoria.details?.items ?? []).slice(0, 3)) {
+                      const texto = item.description ?? item.node?.snippet ?? item.node?.selector ??
+                        item.source?.url ?? JSON.stringify(item);
+                      detalle.push(`${ref.id} @ ${url}: ${String(texto).replace(/\s+/g, " ").slice(0, 180)}`);
+                    }
                   }
                 }
               }
               const resumen = Object.entries(porCategoria).map(([k, v]) => `${k}: ${[...v].join(", ")}`).join(" | ");
               if (resumen) console.log(`::error title=Auditorías por debajo de 1::${resumen.replace(/%/g, "%25")}`);
+              const unicos = [...new Set(detalle)].slice(0, 12);
+              if (unicos.length) console.log(`::error title=Lighthouse detalle::${unicos.join(" · ").replace(/%/g, "%25")}`);
             '
           fi
           exit "$codigo"

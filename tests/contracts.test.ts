@@ -10,7 +10,7 @@
 import { readFileSync, existsSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { CSP, CSP_DIRECTIVES, META_HEADERS, SECURITY_HEADERS } from "../apps/web/src/lib/security-headers";
+import { CSP, CSP_DIRECTIVES, CSP_META, META_HEADERS, SECURITY_HEADERS } from "../apps/web/src/lib/security-headers";
 import { LOCALES } from "../packages/shared/src/i18n";
 
 const root = join(__dirname, "..");
@@ -121,19 +121,31 @@ describe("cabeceras de seguridad (una sola política, tres consumidores)", () =>
     }
   });
 
-  it("el sitio estático aplica la política como metadatos (GitHub Pages no admite cabeceras)", () => {
+  it("el sitio estático aplica la política como metadatos, sin lo que un <meta> no admite", () => {
     expect(chrome).toContain("META_HEADERS");
     const cspMeta = META_HEADERS.find((meta) => meta.httpEquiv === "Content-Security-Policy");
-    expect(cspMeta?.content).toBe(CSP);
-    // El aviso honesto: `frame-ancestors` no se puede expresar como metadato.
-    const lib = leer("apps/web/src/lib/security-headers.ts").replace(/^\s*\*\s?/gm, "").replace(/\s+/g, " ");
-    expect(lib).toMatch(/frame-ancestors[^.]{0,80}no puede aplicarse/i);
+    expect(cspMeta?.content).toBe(CSP_META);
+    // `frame-ancestors` sólo viaja como cabecera: dentro de un `<meta>` Chrome
+    // lo ignora y lo denuncia en la consola, que es un error de verdad y además
+    // una auditoría de Lighthouse en rojo.
+    expect(CSP).toContain("frame-ancestors 'none'");
+    expect(cspMeta?.content).not.toContain("frame-ancestors");
+    expect(CSP_META.split("; ")).toHaveLength(CSP_DIRECTIVES.length - 1);
   });
 
   it("el service worker no precarga nada externo ni el propio SBOM", () => {
     const sw = leer("apps/web/public/sw.js");
     expect(sw).not.toMatch(/https?:\/\//);
     expect(sw).not.toContain("sbom.cdx.json");
+  });
+
+  it("el service worker monta sus rutas sobre la carpeta real del despliegue", () => {
+    // Publicado en `/app`, cachear `/pt` no guardaba nada: las rutas se derivan
+    // de dónde vive el propio `sw.js`.
+    const sw = leer("apps/web/public/sw.js");
+    expect(sw).toContain("self.location.pathname");
+    expect(sw).toMatch(/SHELL\s*=\s*\[[\s\S]*?\]\.map\(ruta\)/);
+    expect(sw).toMatch(/PREFIJOS_CACHEABLES[\s\S]*?\.map\(ruta\)/);
   });
 });
 
