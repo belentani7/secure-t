@@ -20,6 +20,8 @@ const RUTAS = [
   { path: "/app/es/biblioteca", name: "biblioteca ES" },
   { path: "/app/plano", name: "plan de 5 años PT" },
   { path: "/app/laboratorio", name: "laboratorio IA PT" },
+  { path: "/app/experiencia", name: "experiencia PT" },
+  { path: "/app/en/experiencia", name: "experiencia EN" },
   { path: "/app/ca/laboratorio", name: "laboratorio IA CA" },
   { path: "/app/en/itinerarios", name: "itinerarios EN" },
   { path: "/app/pt/programas/ciber-defensiva", name: "programa" },

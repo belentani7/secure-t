@@ -741,3 +741,381 @@ caption a {
   from { transform: translate3d(0, 0, 0) scale(1.06); }
   to   { transform: translate3d(-4.5rem, 2.5rem, 0) scale(0.94); }
 }
+
+/* ============================================================================
+   PSICOLOGÍA APLICADA — tokens que se pueden comprobar
+   Cada número de este bloque está en `packages/ui/src/psychology.ts`, con su
+   fuente y su límite, y hay un test que exige que sigan de acuerdo. La idea es
+   sencilla: el diseño no decide por gusto, decide por evidencia sobre cómo
+   percibe y cómo elige una persona.
+
+   60·30·10 · Fitts · Hick · Miller · Von Restorff · pico-final · WCAG 2.3.3
+   ========================================================================== */
+
+:root {
+  /* Escala tipográfica modular (razón 1.25) y ritmo vertical de 8 px. */
+  --psy-ratio: 1.25;
+  --psy-step-micro: 0.68rem;
+  --psy-step-small: 0.85rem;
+  --psy-step-lead: 1.25rem;
+  --psy-step-h3: 1.5625rem;
+  --psy-step-h2: 1.953rem;
+  --psy-step-h1: 2.441rem;
+
+  --psy-unit: 0.5rem;
+  --psy-space-1: calc(var(--psy-unit) * 1);
+  --psy-space-2: calc(var(--psy-unit) * 3);
+  --psy-space-3: calc(var(--psy-unit) * 5);
+  --psy-space-4: calc(var(--psy-unit) * 8);
+  --psy-space-5: calc(var(--psy-unit) * 12);
+
+  /* Duraciones: 90 ms se siente inmediato, 140 ms es reacción, 320 ms es calma.
+     Nada de interacción por encima de 400 ms: se percibe como lentitud. */
+  --psy-instant: 90ms;
+  --psy-quick: 140ms;
+  --psy-calm: 320ms;
+  --psy-ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --psy-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Movimiento mínimo: 12 px de entrada, 2 px de elevación. Sin parallax. */
+  --psy-shift: 12px;
+  --psy-lift: 2px;
+  --psy-delay: 0ms;
+
+  /* Objetivos táctiles (ley de Fitts · WCAG 2.2 2.5.8). */
+  --psy-target: 44px;
+  --psy-target-gap: 8px;
+
+  /* Medida de lectura: 45-80 caracteres por línea. */
+  --psy-measure-body: 68ch;
+  --psy-measure-lead: 62ch;
+}
+
+/* Jerarquía con la escala modular, no con tamaños sueltos. */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+h2 {
+  font-size: clamp(1.55rem, 3.4vw, var(--psy-step-h2));
+}
+
+/* La primera línea de un párrafo de entrada no se separa de su título:
+   ley de proximidad aplicada al espacio (0.35em, no 1em). */
+.lead,
+.section > p:first-of-type {
+  margin-top: 0.35em;
+}
+
+/* Declaración explícita de objetivos: cualquier control mide al menos 44 px. */
+button,
+summary,
+[role="button"] {
+  min-height: var(--psy-target);
+}
+
+/* Y lo pequeño se separa: nunca dos objetivos pegados. */
+.btn + .btn,
+.btn + a,
+summary + a {
+  margin-inline-start: var(--psy-target-gap);
+}
+
+/* ------------------------------------------- panel «más» de la navegación */
+
+.nav-more {
+  position: relative;
+}
+
+.nav-more > summary {
+  display: inline-flex;
+  gap: 0.35rem;
+  list-style: none;
+  cursor: pointer;
+}
+
+.nav-more > summary::-webkit-details-marker {
+  display: none;
+}
+
+.nav-more > summary::marker {
+  content: "";
+}
+
+.nav-more__flecha {
+  transition: transform var(--psy-quick) var(--psy-ease-out);
+}
+
+.nav-more[open] > summary .nav-more__flecha {
+  transform: rotate(180deg);
+}
+
+.nav-more[open] > summary {
+  border-color: var(--color-gold);
+  color: var(--color-gold-bright);
+}
+
+.nav-more__panel {
+  position: absolute;
+  inset-inline-end: 0;
+  z-index: 50;
+  margin-top: 0.4rem;
+  padding: 0.5rem;
+  width: min(18rem, calc(100vw - 2rem));
+  display: grid;
+  gap: 2px;
+  border-radius: var(--aurum-radius);
+  box-shadow: 0 24px 60px -30px rgb(0 0 0 / 90%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nav-more__panel {
+    animation: psy-panel var(--psy-quick) var(--psy-ease-out) both;
+  }
+}
+
+@keyframes psy-panel {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--psy-shift) / 2));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------ ritmo de aparición (reveal) */
+
+/*
+  Sólo se oculta cuando el componente `MotionRhythm` confirma que hay
+  JavaScript y que no se pidió movimiento reducido (`html[data-psy="on"]`).
+  Sin JS: todo visible. Es la diferencia entre una animación y una promesa rota.
+*/
+html[data-psy="on"] .psy-reveal {
+  opacity: 0;
+  transform: translateY(var(--psy-shift));
+}
+
+html[data-psy="on"] .psy-reveal.psy-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--psy-calm) var(--psy-ease-out) var(--psy-delay),
+    transform var(--psy-calm) var(--psy-ease-out) var(--psy-delay);
+}
+
+@media print {
+  html[data-psy="on"] .psy-reveal,
+  html[data-psy="on"] .psy-reveal.psy-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ------------------------------------- microinteracciones (reacción, no adorno) */
+
+.card {
+  transition:
+    border-color var(--psy-quick) var(--psy-ease-out),
+    box-shadow var(--psy-quick) var(--psy-ease-out);
+}
+
+.btn {
+  transition:
+    transform var(--psy-quick) var(--psy-ease-out),
+    filter var(--psy-quick) var(--psy-ease-out),
+    border-color var(--psy-quick) var(--psy-ease-out),
+    color var(--psy-quick) var(--psy-ease-out);
+}
+
+.btn:hover {
+  transform: translateY(calc(var(--psy-lift) * -1));
+}
+
+/*
+  La tarjeta no se agranda al pasar el ratón: el texto que se mueve se lee peor,
+  y el escalado es uno de los gestos que más molesta a quien tiene sensibilidad
+  vestibular. Se ilumina el borde, que informa igual y no mueve nada.
+*/
+.card:hover,
+.card-link:hover .card {
+  border-color: var(--aurum-line-strong);
+  box-shadow: var(--aurum-glow);
+}
+
+/* ============================================================================
+   HORIZONTE DE RÍO — el guiño, escondido
+   El Cristo Redentor y el Pan de Azúcar como sombras dentro del propio HTML:
+   cero imágenes, cero peticiones, cero peso. Es decoración: va `aria-hidden`,
+   no recibe el puntero y vive por detrás del texto. Su movimiento es deriva de
+   bruma y parpadeo de luces de ciudad; con `prefers-reduced-motion` se queda
+   quieto y se ve igual de bien.
+   ========================================================================== */
+
+.aurum-rio {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: min(34%, 22rem);
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.42;
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 42%, #000 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 42%, #000 100%);
+}
+
+.aurum-rio__lienzo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.aurum-rio__bruma,
+.aurum-rio__luces circle,
+.aurum-rio__halo,
+.aurum-rio__filo {
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Bruma: 96 segundos. Cuando termina, empieza de nuevo sin que se note. */
+  .aurum-rio__bruma {
+    animation: rio-bruma 96s ease-in-out infinite alternate;
+  }
+
+  /* Luces de la ciudad: cada una con su propio retardo (va en el SVG). */
+  .aurum-rio__luces circle {
+    animation: rio-luz 7s ease-in-out infinite;
+  }
+
+  /* El halo del Cristo respira muy despacio, como una vela lejana. */
+  .aurum-rio__halo {
+    animation: rio-halo 18s ease-in-out infinite alternate;
+  }
+
+  /* La cabina del teleférico cruza el hueco entre los dos morros. */
+  .aurum-rio__cabina {
+    animation: rio-cabina 52s ease-in-out infinite alternate;
+  }
+
+  /* El filo del horizonte late con la bruma. */
+  .aurum-rio__filo {
+    animation: rio-filo 96s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes rio-bruma {
+  from {
+    transform: translate3d(-1.6%, 0, 0);
+    opacity: 0.75;
+  }
+  to {
+    transform: translate3d(1.6%, -1.2%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes rio-luz {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes rio-halo {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 0.85;
+  }
+}
+
+@keyframes rio-cabina {
+  from {
+    transform: translateX(-6px);
+  }
+  to {
+    transform: translateX(6px);
+  }
+}
+
+@keyframes rio-filo {
+  from {
+    opacity: 0.55;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* La despedida de la portada: una banda baja con el horizonte, sin texto. */
+.rio-cierre {
+  position: relative;
+  height: 15rem;
+  overflow: hidden;
+  border-top: 1px solid var(--aurum-line);
+}
+
+.rio-cierre .aurum-rio {
+  height: 100%;
+  opacity: 0.55;
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 34%, #000 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 34%, #000 100%);
+}
+
+@media (max-height: 640px) {
+  .rio-cierre {
+    height: 11rem;
+  }
+}
+
+/* El horizonte sólo aparece donde hay sitio: en pantallas muy cortas se acorta. */
+@media (max-height: 640px) {
+  .aurum-rio {
+    height: 26%;
+  }
+}
+
+/* Alto contraste: el guiño desaparece. La accesibilidad manda sobre el guiño. */
+[data-contrast="high"] .aurum-rio {
+  display: none;
+}
+
+/* ============================================================================
+   TRANSICIONES ENTRE PÁGINAS — nativo, sin librería
+   View Transitions del navegador: un fundido de 200 ms entre documentos. Cero
+   JavaScript, cero dependencias, cero peso. Donde no existe, no pasa nada: la
+   navegación sigue siendo instantánea y completa. Con movimiento reducido, el
+   fundido se acorta a la nada.
+   ========================================================================== */
+
+@view-transition {
+  navigation: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: psy-cross-fade 160ms var(--psy-ease-out) both reverse;
+  }
+
+  ::view-transition-new(root) {
+    animation: psy-cross-fade 220ms var(--psy-ease-out) both;
+  }
+}
+
+@keyframes psy-cross-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -1,12 +1,13 @@
 # Informe de elevación — `belentani7/secure-t`
 
-- **Rama**: `arena/a75428a2-secure-t` (40 commits sobre `main` @ `eb2b05e`; el último es este informe)
+- **Rama**: `arena/a75428a2-secure-t` (42 commits sobre `main` @ `eb2b05e`; el último cierra el ciclo 1.4.1)
 - **Pull request**: [#3](https://github.com/belentani7/secure-t/pull/3) — abierto
 - **Evidencia de CI**: ejecución completa sobre `7736d1f` — **8 comprobaciones de trabajo en verde (campus, secretos,
   edu-engine, web, cobertura, accesibilidad estática, axe con 21 rutas y Lighthouse ≥ 95 + CWV) y las dos
   suites de workflow (`CI` y `Calidad`) en verde** (el detalle, en §5.2). La CI también cazó, en `f0d03a7`, un
   falso positivo nuevo del escáner de secretos y el trabajo en rojo permaneció visible hasta corregirlo en `705e944`
-- **Versión**: 1.4.0 (ciclo H: currículo de cinco años, biblioteca abierta y laboratorio de IA)
+- **Versión**: 1.4.1 (ciclo I: la experiencia como ingeniería — psicología aplicada y verificada, navegación en dos
+  escalones, movimiento respetuoso y el guiño de Río de Janeiro en el propio HTML)
 - **Fecha**: 2026-10-11
 - **Alcance de este informe**: tres ciclos sobre el campus ya elevado. **(H) Producto completo**: la malla de
   cinco años (200 semanas) con lo escrito y lo pendiente en la misma página, la biblioteca abierta de 79 recursos con
@@ -311,7 +312,7 @@ blanca el escaneo ve cinco hallazgos, tres de ellos falsos positivos documentado
 ## 8. GIT EVIDENCE
 
 - **Rama**: `arena/a75428a2-secure-t` (no se ha creado ni empujado ninguna otra). **Árbol de trabajo limpio**.
-- **40 commits** desde `eb2b05e`, en orden (del más antiguo al más reciente):
+- **42 commits** desde `eb2b05e`, en orden (del más antiguo al más reciente):
 
 ```
 853f218 feat(estandares): capa de conformidad verificable sobre el campus AURUM
@@ -351,7 +352,17 @@ b1a340b feat(identidad): la llave de cuatro dígitos, sin guardar nada
 c0440d3 feat(contenido): traducciones incrementales, con la verdad por delante
 6e5c268 feat(producto): currículo de cinco años, biblioteca abierta y laboratorio de IA
 7736d1f feat(biblioteca): veinte recursos más y documento generado del plan quinquenal
+e81b449 docs(informe): evidencia de CI del ciclo 1.4.0 y actualización de cifras
+a4773b1 docs(contrato): las herramientas del tutor entran en el contrato de la API
 ```
+
+El commit que entrega el ciclo 1.4.1 (y la actualización de este informe con su evidencia de CI) se añaden al final
+de esta lista en cuanto la CI confirma el resultado, para que la cifra publicada sea la verificada y no la prevista.
+
+- **Ciclo I (1.4.1)**: el último commit entrega la capa de psicología con sus veinte pruebas, el guiño de Río en
+  SVG en línea, el ritmo de aparición progresivo, la navegación en dos escalones, las transiciones nativas y la
+  página `/experiencia` en cuatro idiomas. La verificación local completa está en §9.3; el `pnpm audit:site` de este
+  ciclo encontró y ayudó a cerrar cinco errores reales de `id` duplicado antes de llegar al árbol limpio.
 
 - **Ciclo H (1.4.0)**: `6e5c268` entrega la malla de cinco años, la biblioteca y el
   laboratorio de IA con sus pruebas; `7736d1f` amplía la biblioteca a 79 recursos,
@@ -372,6 +383,72 @@ c0440d3 feat(contenido): traducciones incrementales, con la verdad por delante
 - **URLs**: PR [#3](https://github.com/belentani7/secure-t/pull/3) · sitio
   [belentani7.github.io/secure-t/](https://belentani7.github.io/secure-t/) · checks de `0aec835` en
   `https://github.com/belentani7/secure-t/commit/0aec835/checks`.
+
+## 9. CICLO 1.4.1 — LA EXPERIENCIA COMO INGENIERÍA
+
+La orden de este ciclo fue hacer de todo el sitio «una obra de arte impresionante» aplicando la psicología de la
+percepción, **sin perder nada del contenido ni del código ya escrito**, e incluir un guiño a Río de Janeiro —el Cristo
+Redentor y el Pan de Azúcar— como sombra discreta en el fondo de la portada, hecha en el propio HTML y animada. Lo
+que sigue es lo que se hizo, con su comprobación.
+
+### 9.1 Entregado
+
+| Pieza | Fichero | Qué aporta |
+|---|---|---|
+| Tokens de psicología | `packages/ui/src/psychology.ts` (nuevo, 259 líneas) | Balance 60·30·10, escala modular 1,25, medida de lectura en `ch`, ritmo de 8 px, troceado de decisiones (Hick/Miller), tiempos y límites de movimiento, mínimos táctiles, bloque de Río. Cada número con su fuente y su límite. |
+| Guiño de Río | `apps/web/src/components/rio-horizon.tsx` (nuevo, 179 líneas) | Corcovado con el Cristo y el Pan de Azúcar en SVG **en línea**: cero peticiones de red, `aria-hidden`, siluetas más oscuras que el fondo, bruma de 96 s, luces cada 7 s. `scope` por instancia para no repetir `id`s. |
+| Ritmo de aparición | `apps/web/src/components/motion-rhythm.tsx` (nuevo, 95 líneas) | Mejora progresiva: `html[data-psy="on"]` sólo con JS y sin `prefers-reduced-motion`; desplazamiento de 12 px como máximo. |
+| Navegación en dos escalones | `apps/web/src/components/site-header.tsx` | Seis destinos primarios y el resto en un `<details>` nativo (Hick y Miller), accesible por teclado y funcional sin JS. |
+| Transiciones entre páginas | `apps/web/src/app/globals.css` (`@view-transition`) | Fundido de 220 ms con la plataforma, sin dependencias nuevas. |
+| Página del método | `/experiencia` en los cuatro idiomas | Publica la tabla principio → cifra → fichero y enlaza la investigación completa. 5 páginas nuevas, 501 en el export. |
+| Documentación | `docs/PSICOLOGIA-Y-EXPERIENCIA.md` | Trazabilidad completa y límites honestos. |
+| Pruebas | `packages/ui/tests/psychology.test.ts` (20), `tests/contracts.test.ts` (+6) | Exigen los tokens **contra el CSS y los componentes reales**, no contra sí mismos. |
+
+La cifra que resume el ciclo: **1.953 líneas añadidas en 27 ficheros**, 0 dependencias nuevas.
+
+### 9.2 Decisiones y su porqué
+
+1. **Ninguna librería de animación.** Se evaluaron Motion (~12 kB), GSAP core (~22-23 kB) y `@formkit/auto-animate`
+   (no aplica al export estático). Se descartaron: la casa promete funcionar sin JS, sin conexión y con peso vigilado
+   (`audit:site` avisa por encima de 250 kB), y las View Transitions nativas ya dan el fundido. Coste real medido de
+   las constantes compartidas en el cliente: **0,4 kB comprimidos** (medido sobre el export, no estimado).
+2. **El guiño es HTML, no imagen.** SVG en línea: no hay petición de red que contradiga el aviso de privacidad ni
+   imagen que se rompa sin conexión. Es decoración, así que es invisible para lectores de pantalla y no contiene texto.
+3. **El efecto nunca puede quitar contenido.** El reveal se activa *después* de comprobar el soporte y la preferencia,
+   y vive detrás de `html[data-psy="on"]`: sin JavaScript no hay nada oculto. Hay un test que lo exige y la auditoría
+   del export lo verifica sobre el HTML real.
+4. **La accesibilidad manda sobre el guiño.** Con movimiento reducido la bruma se detiene; con alto contraste el
+   horizonte desaparece. Ambas cosas están en el CSS y en las pruebas.
+5. **Los `id` no se repiten.** La portada lleva el horizonte dos veces (pico-final), y el validador de la casa detectó
+   los `id` duplicados: se resolvió con espacio de nombres por instancia en lugar de debilitar la comprobación.
+
+### 9.3 Verificación de este ciclo (local, reproducible)
+
+| Prueba | Comando | Resultado |
+|---|---|---|
+| Suite TS | `pnpm test` | **355 passed** en 29 ficheros (327 → 355; +28 nuevas) |
+| Suite Python | `python -m pytest -q tests/` | **274 passed** |
+| Tipos (raíz y web) | `pnpm typecheck` · `pnpm --filter @secure-t/web typecheck` | sin errores |
+| Export estático | `pnpm site` | **`_site` 3.405 ficheros**; barrera anti-secretos: 3.368 ficheros revisados |
+| Auditoría del export | `pnpm audit:site` | **501 páginas · 0 errores · 5 avisos** (los mismos de siempre: el agente en los cuatro idiomas + pt, 253,1 kB). Mediana 237,5 kB; peor página 253,1 kB. Accesibilidad estática sin errores |
+| Cobertura de traducciones | `pnpm locales` | pt 4/4 títulos · 32/80 semanas · **16.950 palabras**; en y ca 0/80 (sin cambios) |
+| Líneas versionadas | `git ls-files \| xargs wc -l` | **106.551** (103.663 en el ciclo anterior) |
+
+El primer `pnpm audit:site` de este ciclo **falló con 5 errores** (`ids duplicados: rio-bruma, rio-filo, rio-lejos` en
+las cinco portadas) y pasó a 0 al dar espacio de nombres a los degradados por instancia. Se documenta porque es la
+prueba de que la auditoría trabaja: el fallo era real y lo encontró la herramienta, no una revisión a ojo.
+
+### 9.4 Lo que este ciclo **no** prueba
+
+- **No hay estudio con usuarios.** Las cifras aplicadas salen de literatura publicada y de normas, no de pruebas con
+  personas reales sobre este campus. `NOT VERIFIED`: el efecto emocional («se siente mejor») es una hipótesis
+  razonada, no un resultado medido aquí.
+- **axe y Lighthouse siguen ejecutándose sólo en CI** (este entorno no tiene navegador). La matriz crece de 21 a
+  **23 rutas** (25 pruebas por navegador → 50 ejecuciones en los dos perfiles); su resultado se confirma en el
+  workflow, no aquí.
+- **El contraste se verifica de forma estática** (auditoría del export y axe). El contraste percibido en pantallas
+  reales, con brillo automático o modo nocturno del sistema, no se ha medido.
+- **View Transitions** degrada con elegancia donde no existe soporte, pero no se ha medido la diferencia percibida.
 
 ---
 

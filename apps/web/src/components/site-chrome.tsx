@@ -1,5 +1,6 @@
 import { translator, type Locale } from "@secure-t/shared";
 import { META_HEADERS } from "@/lib/security-headers";
+import { MotionRhythm } from "./motion-rhythm";
 import { ScrollableFocus } from "./scrollable-focus";
 import { OfflineRegister } from "./offline-register";
 import { SiteFooter } from "./site-footer";
@@ -38,6 +39,7 @@ export function SiteChrome({ locale, children }: { locale: Locale; children: Rea
         <meta key={meta.httpEquiv} httpEquiv={meta.httpEquiv} content={meta.content} />
       ))}
       <ScrollableFocus />
+      <MotionRhythm />
       <script dangerouslySetInnerHTML={{ __html: PREFERENCES_SCRIPT }} />
       <a className="skip-link" href="#main">
         {t("a11y.skip")}

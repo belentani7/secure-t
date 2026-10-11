@@ -50,16 +50,22 @@ export function alternates(pathname: string): Record<string, string> {
 export interface NavItem {
   key: TranslationKey;
   path: string;
+  /**
+   * Destino primario: los seis que caben en la memoria de trabajo (ley de
+   * Miller) y que aparecen siempre en la cabecera. El resto vive en «más».
+   */
+  primary?: boolean;
   external?: boolean;
 }
 
 export const NAV: NavItem[] = [
-  { key: "nav.campus", path: "/programas" },
-  { key: "nav.tracks", path: "/itinerarios" },
-  { key: "nav.agent", path: "/agente" },
-  { key: "nav.library", path: "/biblioteca" },
-  { key: "nav.plan", path: "/plano" },
-  { key: "nav.lab", path: "/laboratorio" },
+  { key: "nav.campus", path: "/programas", primary: true },
+  { key: "nav.tracks", path: "/itinerarios", primary: true },
+  { key: "nav.library", path: "/biblioteca", primary: true },
+  { key: "nav.plan", path: "/plano", primary: true },
+  { key: "nav.lab", path: "/laboratorio", primary: true },
+  { key: "nav.agent", path: "/agente", primary: true },
+  { key: "nav.experience", path: "/experiencia" },
   { key: "nav.calendar", path: "/calendario" },
   { key: "nav.review", path: "/repaso" },
   { key: "nav.progress", path: "/progreso" },

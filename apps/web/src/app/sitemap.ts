@@ -12,6 +12,7 @@ const SECTIONS = [
   "/itinerarios",
   "/biblioteca",
   "/plano",
+  "/experiencia",
   "/laboratorio",
   "/agente",
   "/calendario",

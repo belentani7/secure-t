@@ -3,6 +3,53 @@
 Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versionado: [SemVer](https://semver.org/lang/es/).
 Los commits siguen Conventional Commits (`feat:`, `fix:`, `docs:`, `test:`, `chore:`).
 
+## [1.4.1] — 2026-10-11
+
+La experiencia como ingeniería. El campus deja de ser «una web negra y dorada» y pasa a ser una obra con
+fundamento publicado: cada decisión visual (color, tamaño, distancia, movimiento) existe como token tipado, tiene
+su fuente citada y **un test que la exige contra el CSS real**. Incluye el guiño pedido a Río de Janeiro —el Cristo
+Redentor y el Pan de Azúcar como sombra en el propio HTML— y una página que publica el método, para que nadie tenga
+que creernos.
+
+### Añadido
+- **Capa de psicología aplicada** (`packages/ui/src/psychology.ts`, exportada como `@secure-t/ui/psychology`):
+  balance de color 60·30·10, escala tipográfica modular (razón 1,25), medida de lectura en `ch`, ritmo de 8 px,
+  troceado de decisiones (`maxPrimary: 6`), tiempos y límites de movimiento, mínimos táctiles y el bloque del
+  horizonte de Río. Cada número declara su fuente —Zhou et al. (2025, *Journal of Consumer Research*) sobre
+  saturación y estatus percibido, Hick, Miller, Fitts, Von Restorff, efecto estético-usabilidad, regla del
+  pico-final, WCAG 2.3.3— y sus límites.
+- **Veinte pruebas nuevas** (`packages/ui/tests/psychology.test.ts`) que recorren esos tokens y los contrastan con
+  `globals.css`, `site.ts`, `motion-rhythm.tsx`, `rio-horizon.tsx` y `landing.tsx`: la navegación respeta el máximo
+  primario, todo lo animado vive dentro de `prefers-reduced-motion`, el reveal no existe sin JavaScript, no entra
+  ninguna librería de animación en `apps/web` y el guiño de Río es decoración pura.
+- **Guiño a Río de Janeiro** (`apps/web/src/components/rio-horizon.tsx`): Corcovado con el Cristo y el Pan de Azúcar
+  dibujados en **SVG en línea** (cero peticiones de red), en siluetas más oscuras que el fondo, con filo dorado de un
+  píxel, bruma que deriva durante 96 s y luces de ciudad cada 7 s. `aria-hidden`, sin `<text>` ni `<title>`. Con
+  movimiento reducido queda quieto y con alto contraste desaparece. Abre y cierra la portada (regla del pico-final)
+  y los `id` de sus degradados llevan espacio de nombres por instancia para que el HTML siga siendo válido.
+- **Ritmo de aparición** (`apps/web/src/components/motion-rhythm.tsx`): mejora progresiva. El contenido aparece
+  desplazándose 12 px como máximo, y sólo después de comprobar `IntersectionObserver` y que el sistema no pide
+  movimiento reducido; con `data-psy="on"` en `html`. Sin JavaScript, todo es visible desde el primer píxel.
+- **Navegación en dos escalones** (`site-header.tsx`): seis destinos primarios y el resto en un `<details>` nativo
+  (Hick y Miller aplicados), accesible por teclado y funcional sin JavaScript.
+- **Transiciones entre páginas nativas** (`@view-transition`): fundido de 220 ms sin añadir dependencias.
+- **Página `/experiencia`** en los cuatro idiomas (5 páginas nuevas), que publica el método, las cifras y dónde
+  comprobarlas, con siete claves nuevas por idioma y un guiño reproducible del horizonte.
+- `docs/PSICOLOGIA-Y-EXPERIENCIA.md`: tabla de trazabilidad principio → fuente → token → fichero → test, más los
+  límites honestos de la capa (sin estudio con usuarios; contraste verificado de forma estática).
+
+### Cambiado
+- **471 → 530 claves de interfaz por idioma**, con paridad exacta en los cuatro diccionarios.
+- `apps/web` declara `@secure-t/ui` como dependencia del monorepo (antes sólo se usaba en Storybook): el sistema de
+  diseño es ahora la fuente única de los tokens que la web aplica.
+- La matriz de accesibilidad de CI pasa de 21 a **23 rutas** (escritorio y móvil): entran `/experiencia` en pt y en.
+- El menú, el pie y el mapa del sitio incorporan `/experiencia`; el mapa pasa a 501 páginas en el export.
+
+### Corregido
+- La documentación interna de los mínimos táctiles distinguía mal las normas: se separa el mínimo de la casa
+  (44 px, guía de plataforma y WCAG 2.1 SC 2.5.5 AAA) del mínimo legal de WCAG 2.2 SC 2.5.8 AA (24×24 px CSS), que
+  queda citado en el código como `wcagMinimumPx`.
+
 ## [1.4.0] — 2026-10-11
 
 Los cinco años: el campus pasa de tener cuatro programas sueltos a tener una malla completa, una biblioteca de

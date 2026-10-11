@@ -451,3 +451,50 @@ describe("biblioteca abierta, plan de cinco años y laboratorio de IA", () => {
     expect(contrato).toContain("plan_estudio");
   });
 });
+
+/* ------------------------ experiencia: psicología aplicada y el guiño de Río */
+
+describe("experiencia medida y guiño de Río", () => {
+  const CLAVES = [
+    "nav.experience",
+    "experience.title",
+    "experience.color.why",
+    "experience.laws.title",
+    "experience.motion.note",
+    "experience.rio.lead",
+    "experience.proof.title"
+  ];
+
+  for (const locale of ["pt", "es", "en", "ca"]) {
+    it(`la página de experiencia existe con traducción en ${locale}`, () => {
+      expect(hay(`apps/web/src/app/(landing)/experiencia/page.tsx`)).toBe(true);
+      expect(hay(`apps/web/src/app/[locale]/experiencia/page.tsx`)).toBe(true);
+      const diccionario = leer(`packages/shared/src/i18n/${locale}.ts`);
+      for (const clave of CLAVES) expect(diccionario).toContain(`"${clave}"`);
+    });
+  }
+
+  it("la ruta está en el menú, el mapa del sitio y el pie", () => {
+    expect(leer("apps/web/src/lib/site.ts")).toContain('path: "/experiencia"');
+    expect(leer("apps/web/src/app/sitemap.ts")).toContain('"/experiencia"');
+    expect(leer("apps/web/src/components/site-footer.tsx")).toContain('localePath(locale, "/experiencia")');
+  });
+
+  it("el horizonte de Río es decoración y viaja en el HTML", () => {
+    const horizonte = leer("apps/web/src/components/rio-horizon.tsx");
+    expect(horizonte).toContain('aria-hidden="true"');
+    expect(horizonte).toContain("<svg");
+    const codigo = horizonte.replace(/\/\*[\s\S]*?\*\//g, "");
+    expect(codigo).not.toMatch(/<img|\.svg|\.png|\.jpg|background-image/);
+    // Y abre y cierra la portada, como manda la regla del pico-final.
+    const landing = leer("apps/web/src/components/landing.tsx");
+    expect((landing.match(/<RioHorizon /g) ?? []).length).toBe(2);
+  });
+
+  it("la matriz de accesibilidad cubre las tres rutas nuevas", () => {
+    const matriz = leer("e2e/a11y.spec.ts");
+    for (const ruta of ["/app/biblioteca", "/app/plano", "/app/laboratorio", "/app/experiencia"]) {
+      expect(matriz, `falta ${ruta} en la matriz axe`).toContain(ruta);
+    }
+  });
+});

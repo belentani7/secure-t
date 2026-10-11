@@ -2,6 +2,7 @@ import Link from "next/link";
 import { CALENDARS, jsonLdScript, organizationJsonLd, websiteJsonLd, translator, type Locale } from "@secure-t/shared";
 import { allCourses, readCatalog } from "@/lib/content";
 import { SITE, localePath } from "@/lib/site";
+import { RioHorizon } from "./rio-horizon";
 import { VoiceIntro } from "./voice-intro";
 
 /**
@@ -26,6 +27,8 @@ export function Landing({ locale }: { locale: Locale }) {
       <section className="wrap section relative isolate overflow-hidden">
         {/* Luz dorada liquida: decorativa, por detras del contenido, nunca encima. */}
         <span aria-hidden="true" className="aurum-luz" />
+        {/* El guiño de la casa: Cristo Redentor y Pan de Azúcar en sombra. */}
+        <RioHorizon scope="hero" />
         <p className="eyebrow">{t("hero.eyebrow")}</p>
         <h1 className="fade-up max-w-[20ch]">
           <span className="gold-text">{t("hero.title")}</span>
@@ -176,6 +179,11 @@ export function Landing({ locale }: { locale: Locale }) {
             {t("footer.source")}
           </a>
         </div>
+      </section>
+
+      {/* Regla del pico-final: la sesión se recuerda por su despedida. */}
+      <section aria-hidden="true" data-psy-off className="rio-cierre">
+        <RioHorizon scope="cierre" />
       </section>
     </>
   );

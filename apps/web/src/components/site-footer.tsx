@@ -34,6 +34,9 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               <Link href={localePath(locale, "/laboratorio")}>{t("nav.lab")}</Link>
             </li>
             <li>
+              <Link href={localePath(locale, "/experiencia")}>{t("nav.experience")}</Link>
+            </li>
+            <li>
               <Link href={localePath(locale, "/calendario")}>{t("nav.calendar")}</Link>
             </li>
             <li>

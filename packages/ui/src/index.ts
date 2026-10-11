@@ -5,6 +5,27 @@ export { Badge } from "./components/badge";
 export { Progress } from "./components/progress";
 export { Callout } from "./components/callout";
 export {
+  BALANCE,
+  CHUNKING,
+  DURATION,
+  EASING,
+  MEASURE,
+  MOTION,
+  PEAK_END,
+  RIO,
+  SPACING,
+  TARGETS,
+  TYPE_SCALE,
+  ATTENTION,
+  balanceShare,
+  clampMeasure,
+  fittsOk,
+  hickTime,
+  motionIsGentle,
+  type Balance,
+  type MotionCheck
+} from "./psychology";
+export {
   TOKENS,
   PAIRS,
   contrastRatio,
