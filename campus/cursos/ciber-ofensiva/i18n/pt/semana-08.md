@@ -39,7 +39,7 @@ curl -sv -x http://127.0.0.1:8080 https://lab.exemplo.test/orders/1042 -H 'Cooki
 # Teste de IDOR: a mesma requisição com o identificador de outro usuário
 curl -s -b 'sid=...' https://lab.exemplo.test/orders/1043 | head -c 400
 # Fuzzing controlado de parâmetros com ffuf (0,3 req/s, dentro do RoE)
-ffuf -u 'https://lab.exemplo.test/item?id=FUZZ' -w ids.txt -rate 1 -mc all -fc 404
+ffuf --url 'https://lab.exemplo.test/item?id=FUZZ' -w ids.txt -rate 1 -mc all -fc 404
 ```
 
 Duas regras: a primeira requisição estranha é olhada à mão antes de automatizar; e **tudo que você descobre é demonstrado com o dano mínimo** (ler um registro seu, não despejar a tabela).

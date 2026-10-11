@@ -1,7 +1,7 @@
 {
  "version": 1,
- "generatedAt": "2026-10-11T06:58:35.605Z",
- "sourceDigest": "510ad318f079316986d54938fd8c2ce9c342fdb1e1b86c1d48ae818ad583e30c",
+ "generatedAt": "2026-10-11T07:00:04.340Z",
+ "sourceDigest": "f54fafbb03ad638623cfc83a39c6efc05f3a514e011abf4af5822bf61779e09c",
  "locale": "es",
  "courses": [
   {
@@ -467,7 +467,7 @@
       "Recursos abiertos"
      ],
      "words": 628,
-     "hash": "a3d0c3ea6ff93fdf"
+     "hash": "a14ca8fc53fd62d3"
     },
     {
      "index": 9,
