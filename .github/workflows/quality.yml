@@ -114,7 +114,15 @@ jobs:
       - name: Export estático con la misma base que producción
         run: pnpm --filter @secure-t/web build:pages
       - name: Lighthouse CI
-        run: pnpm exec lhci autorun
+        run: |
+          set +e
+          pnpm exec lhci autorun 2>&1 | tee "$RUNNER_TEMP/lhci.log"
+          codigo=${PIPESTATUS[0]}
+          if [ "$codigo" -ne 0 ]; then
+            resumen=$(tail -c 3500 "$RUNNER_TEMP/lhci.log" | tr '\r\n' '  ' | sed 's/%/%25/g')
+            echo "::error title=Lighthouse::${resumen}"
+          fi
+          exit "$codigo"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

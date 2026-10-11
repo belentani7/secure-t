@@ -38,6 +38,13 @@ for (const ruta of RUTAS) {
         body: JSON.stringify(resultados.violations, null, 2),
         contentType: "application/json"
       });
+      // Además del informe adjunto, se emite una anotación del flujo de trabajo:
+      // así el detalle exacto (regla y selector) se ve en el propio check, sin
+      // depender de descargar el artefacto.
+      const resumen = resultados.violations
+        .map((v) => `${v.id} [${v.impact}]: ${v.nodes.slice(0, 3).map((n) => n.target.join(" ")).join(" | ")}`)
+        .join(" ;; ");
+      console.error(`::error title=axe ${ruta.name}::${resumen.replace(/%/g, "%25").replace(/\r?\n/g, " ")}`);
     }
     expect(resultados.violations, JSON.stringify(resultados.violations.map((v) => v.id), null, 2)).toEqual([]);
   });
