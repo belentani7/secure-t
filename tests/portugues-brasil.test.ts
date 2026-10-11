@@ -25,6 +25,7 @@ const root = join(__dirname, "..");
 const leer = (rel: string) => readFileSync(join(root, rel), "utf8");
 
 const CARPETAS = [
+  "e2e",
   "apps/web/src",
   "packages/shared/src",
   "packages/agent/src",

@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
+import { LOCALE_LABELS } from "../packages/shared/src/i18n";
 
 /**
  * Auditoría de accesibilidad con axe sobre el export estático.
@@ -63,13 +64,15 @@ test("el foco es visible y la navegación por teclado llega al contenido", async
 });
 
 test("el idioma del documento es el correcto en cada ruta", async ({ page }) => {
-  for (const [path, lang] of [
+  // La etiqueta esperada sale de la fuente única (LOCALE_LABELS): el portugués
+  // de esta casa es el de Brasil y el <html lang> lo dice, no un «pt» a secas.
+  for (const [path, locale] of [
     ["/app/", "pt"],
     ["/app/es", "es"],
     ["/app/en", "en"],
     ["/app/ca", "ca"]
   ] as const) {
     await page.goto(path);
-    await expect(page.locator("html")).toHaveAttribute("lang", lang);
+    await expect(page.locator("html")).toHaveAttribute("lang", LOCALE_LABELS[locale].htmlLang);
   }
 });
