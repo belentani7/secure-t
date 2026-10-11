@@ -15,6 +15,8 @@ const RUTAS = [
   { path: "/app/es", name: "portada ES" },
   { path: "/app/en/programas", name: "campus EN" },
   { path: "/app/ca/programas", name: "campus CA" },
+  { path: "/app/itinerarios", name: "itinerarios PT" },
+  { path: "/app/en/itinerarios", name: "itinerarios EN" },
   { path: "/app/pt/programas/ciber-defensiva", name: "programa" },
   { path: "/app/pt/programas/ciber-defensiva/semana/1", name: "lección" },
   { path: "/app/pt/agente", name: "agente" },

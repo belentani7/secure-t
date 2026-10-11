@@ -55,6 +55,7 @@ export interface NavItem {
 
 export const NAV: NavItem[] = [
   { key: "nav.campus", path: "/programas" },
+  { key: "nav.tracks", path: "/itinerarios" },
   { key: "nav.agent", path: "/agente" },
   { key: "nav.calendar", path: "/calendario" },
   { key: "nav.review", path: "/repaso" },
