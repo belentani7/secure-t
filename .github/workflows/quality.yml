@@ -130,10 +130,10 @@ jobs:
           pnpm exec lhci autorun 2>&1 | tee "$RUNNER_TEMP/lhci.log"
           codigo=${PIPESTATUS[0]}
           if [ "$codigo" -ne 0 ]; then
-            inicio=$(head -c 1200 "$RUNNER_TEMP/lhci.log" | tr '\r\n' '  ' | sed 's/%/%25/g')
-            final=$(tail -c 2500 "$RUNNER_TEMP/lhci.log" | tr '\r\n' '  ' | sed 's/%/%25/g')
+            fallos=$(grep -a "✘" "$RUNNER_TEMP/lhci.log" | head -30 | sed 's/\x1b\[[0-9;]*m//g' | tr '\r\n' '  ' | sed 's/%/%25/g')
+            inicio=$(head -c 800 "$RUNNER_TEMP/lhci.log" | tr '\r\n' '  ' | sed 's/%/%25/g')
+            echo "::error title=Lighthouse fallos::${fallos}"
             echo "::error title=Lighthouse inicio::${inicio}"
-            echo "::error title=Lighthouse final::${final}"
           fi
           exit "$codigo"
       - uses: actions/upload-artifact@v4

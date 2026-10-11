@@ -28,7 +28,10 @@ const RUTAS = [
 
 for (const ruta of RUTAS) {
   test(`${ruta.name} cumple WCAG 2.2 AA`, async ({ page }, testInfo) => {
-    await page.goto(ruta.path, { waitUntil: "networkidle" });
+    // `networkidle` es frágil con un service worker activo: se espera a la
+    // carga y a que el contenido principal esté pintado.
+    await page.goto(ruta.path, { waitUntil: "load" });
+    await page.locator("main").first().waitFor({ state: "visible" });
     const resultados = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa", "best-practice"])
       .analyze();
