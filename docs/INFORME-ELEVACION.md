@@ -1,12 +1,14 @@
 # Informe de elevación — `belentani7/secure-t`
 
-- **Rama**: `arena/a75428a2-secure-t` (21 commits sobre `main` @ `eb2b05e`)
+- **Rama**: `arena/a75428a2-secure-t` (32 commits sobre `main` @ `eb2b05e`)
 - **Pull request**: [#3](https://github.com/belentani7/secure-t/pull/3) — abierto
-- **Evidencia de CI**: ejecución completa sobre el commit `0aec835` — **8 comprobaciones de trabajo en verde y las dos
-  suites de workflow (`CI` y `Calidad`) en verde** (sobre el commit de código `1a43b1b` el conjunto fue idéntico)
+- **Evidencia de CI**: ejecución completa sobre el commit de código `c0440d3` — **8 comprobaciones de trabajo en
+  verde y las dos suites de workflow (`CI` y `Calidad`) en verde** (el detalle, en §5.2)
 - **Fecha**: 2026-10-11
-- **Alcance de este informe**: el ciclo de endurecimiento (seguridad de la cadena de suministro y escaneo real de
-  secretos) sobre el campus ya elevado. Todo lo que aquí se afirma tiene su comando o su URL; lo que no se ha podido
+- **Alcance de este informe**: dos ciclos sobre el campus ya elevado. (1) **Endurecimiento**: seguridad de la cadena
+  de suministro y escaneo real de secretos. (2) **Producto**: portugués de Brasil por defecto, cristal negro vivo con
+  luz dorada líquida, identidad por llave de cuatro dígitos sin guardar nada, itinerarios abiertos y traducción
+  incremental del material con la cobertura medida, no prometida. Todo lo que aquí se afirma tiene su comando o su URL; lo que no se ha podido
   comprobar figura como `NOT VERIFIED`, `FAILED` o `BLOCKED`.
 
 ---
@@ -28,7 +30,12 @@ aviso en **cada** ejecución.
 | Cadena de suministro | **Fijada y al día** | 7 acciones de GitHub fijadas por commit (todas en Node 24), `pnpm audit:deps` como puerta obligatoria, SBOM CycloneDX 1.5 con 778 componentes |
 | Campus AURUM | **Verificado** | 476 páginas exportadas, `_site` con 3.216 ficheros, `audit:site` = 0 errores y 0 avisos |
 | Estándares abiertos | **Aplicados con test** | QTI 1.2 y 2.1, SCORM 2004, IMS CC 1.3, EPUB 3.3, xAPI 1.0.3, Open Badges 2.0 y 3.0 (VC-JWT), schema.org, RFC 9116 |
-| Idiomas del contenido docente | **PLANNED** (PT/EN/CA) | sólo la interfaz está traducida; el material de las semanas, no |
+| Idioma por defecto | **Portugués de Brasil** | `pt-BR` en `lang`, `hreflang`, `x-default`, Open Graph y voz; el vocabulario del diccionario y del contenido se vigila con test (`tests/portugues-brasil.test.ts`) |
+| Idiomas del material docente | **Parcial y medido** | interfaz y agente completos en pt-BR/es/en/ca (285 claves, paridad con test); material: 1/80 semanas y 4/4 títulos de programa en pt-BR. Lo mide `pnpm locales` y lo vigila `tests/content-i18n.test.ts` |
+| Identidad sin datos personales | **Llave de cuatro dígitos** | `PBKDF2-SHA256` con 210.000 iteraciones y semilla del dispositivo; el PIN se usa en memoria y no se guarda (lo comprueba `tests/identity.test.ts`) |
+| Front | **Cristal vivo con luz dorada líquida** | `.aurum-glass` y `.aurum-luz` en `globals.css`; todo lo animado vive en `prefers-reduced-motion: no-preference` |
+| Estructura profesional abierta | **Itinerarios** | 4 itinerarios con prerrequisitos sin ciclos y competencias acreditadas (`/itinerarios` + 4 rutas de idioma) |
+| Firma del autor | **Sólo en el back** | `tools/firma.ts` y el log de compilación; `tests/firma.test.ts` demuestra que no aparece en el front |
 | Rotación de la clave filtrada | **BLOCKED** | requiere al propietario; aquí sólo se documenta y se vigila |
 
 ---
@@ -162,9 +169,15 @@ pruebas (UUID de ejemplo, hoy generados con `crypto.randomUUID()`: ningún liter
 | SBOM CycloneDX + auditoría de dependencias | `tools/build-sbom.mjs`, `tools/audit-deps.mjs` | `pnpm audit:deps` en CI |
 | Sincronía contenido↔sitio | `tools/check-drift.mjs` | `pnpm check:drift` en CI (`sourceDigest bb57edf59758…`) |
 | Escaneo de secretos real | `.github/workflows/ci.yml` + `.gitleaks.toml` | control negativo + veredicto (ver §5) |
+| Itinerarios abiertos (orden, prerrequisitos y competencias) | `packages/shared/src/tracks.ts`, `apps/web/src/app/**/itinerarios/` | `tests/tracks.test.ts` (8) |
+| Llave de cuatro dígitos (identidad seudónima) | `packages/shared/src/identity.ts`, `/progreso`, `src/lib/key-store.ts` | `tests/identity.test.ts` (7) |
+| Traducción incremental del material, con cobertura medida | `campus/cursos/*/i18n/<idioma>/`, `tools/report-locales.ts`, `/itinerarios` y fichas | `tests/content-i18n.test.ts` (5) |
+| Idioma real del contenido sin traducir (WCAG 3.1.2) | `apps/web/src/components/teaching-text.tsx` | `tests/tracks.test.ts` y `lang` en el HTML exportado |
+| Cristal negro vivo con luz dorada líquida | `apps/web/src/app/globals.css` (+ encabezado, portada y pie) | axe y Lighthouse en CI; movimiento reducido respetado por construcción |
 | Documentación exigida | `README.md`, `ANALISIS_ORIGINAL.md`, `CONTRATO_API.md`, `DEPENDENCIAS.md`, `CHANGELOG.md`, `docs/decisions/` (12 ADR), `docs/ESTANDARES.md` | `tests/contracts.test.ts` |
 
-Métricas del material: **74.450 líneas** versionadas de código, datos y documentación; **3.216 ficheros** en `_site`.
+Métricas del material: **95828 líneas** versionadas de código, datos y documentación; **3.251 ficheros** en `_site`;
+**481 páginas** auditadas.
 
 ---
 
@@ -175,21 +188,22 @@ Métricas del material: **74.450 líneas** versionadas de código, datos y docum
 | Prueba | Comando | Resultado |
 |---|---|---|
 | Contrato del campus clásico | `python -m pytest -q tests/` | **117 passed** |
-| Paquetes y contratos (vitest) | `pnpm test` | **243 passed** en 19 ficheros |
+| Paquetes y contratos (vitest) | `pnpm test` | **274 passed** en 24 ficheros (incluye llave de cuatro dígitos, itinerarios, traducciones, portugués de Brasil y firma del back) |
 | Tipos (raíz y web) | `pnpm typecheck` + `pnpm --filter @secure-t/web typecheck` | sin errores |
 | Cobertura de módulos críticos | `pnpm test:coverage` | **92,55 %** sentencias · **81,5 %** ramas · 95,47 % líneas (umbral 80 %) |
 | Sincronía del contenido generado | `pnpm check:drift` | ✔ `sourceDigest bb57edf59758…` |
 | Auditoría de dependencias | `pnpm audit:deps` | ✔ 1 aviso aceptado y documentado, 0 sin justificar |
-| Export estático y ensamblado | `pnpm content:all` · `web:build` · `build:pages` · `node tools/build-site.mjs` | ✔ 476 páginas, `_site` 3.216 ficheros |
-| Auditoría del sitio (sin navegador) | `pnpm audit:site` | **0 errores · 0 avisos**; JS 0,82 MB; peor página 204,2 kB comprimidos |
+| Export estático y ensamblado | `pnpm content:all` · `web:build` · `node tools/build-site.mjs` | ✔ 481 páginas, `_site` 3.251 ficheros |
+| Auditoría del sitio (sin navegador) | `pnpm audit:site` | **0 errores · 0 avisos**; mediana 204,7 kB; peor página 208,6 kB comprimidos |
 | Accesibilidad estática | incluida en `audit:site` | ✔ sin errores (lang, `h1` único, jerarquía, `alt`, ids, nombres accesibles) |
+| Cobertura real de traducciones | `pnpm locales` | pt: 4/4 títulos de programa, 1/80 semanas, **867 palabras**; en y ca: 0/80. El README publica estas mismas cifras y un test falla si miente |
 
 ### 5.2 Solo verificable en CI (este entorno no tiene navegador)
 
-| Prueba | Resultado sobre `1a43b1b` (y `0aec835` para Lighthouse/axe) |
+| Prueba | Resultado sobre `c0440d3` |
 |---|---|
 | Lighthouse (6 URLs × 3 pasadas, presupuesto ≥ 95 y CWV) | **success** (en `0aec835` y en `1a43b1b`) |
-| axe / WCAG 2.2 AA (Playwright) | **success** — `32 passed (52.2s)` |
+| axe / WCAG 2.2 AA (Playwright) | **success** — 36 pruebas (16 rutas × escritorio y móvil). En `4f79372` este check **falló**: el contrato de accesibilidad fijaba `lang="pt"` y la elevación a `pt-BR` lo rompió. La CI lo cazó, se corrigió en `24ffab8` haciendo que la etiqueta esperada salga de la fuente única y el conjunto volvió a verde |
 | Cobertura como umbral de CI | **success** |
 | Escaneo de secretos | **success** — control negativo encontrado ≥ 3 hallazgos; veredicto con 1 aviso aceptado |
 
@@ -218,7 +232,7 @@ anotaciones del check.
 | Clave de API real en el historial (F-1) | **ABIERTO / BLOCKED** | Rotación y eventual reescritura del historial: decisión del propietario |
 | Manifiestos legados sin auditar (F-3) | **PARCIAL** | 17 avisos medidos, ninguno de producción por encima de «bajo»; Dependabot con 7 avisos sin detalle (API 403) |
 | `sprintf-js` sin parche | **ACEPTADO** | Sólo desarrollo (`@lhci/cli` → `js-yaml` → `argparse`); sin versión corregida publicada |
-| PT/EN/CA del contenido docente | **PLANNED** | La interfaz está traducida; el material de las semanas no, y se dice en voz alta |
+| Cobertura de traducción del material | **PLANNED (parcial)** | 1 de 80 semanas y 4 de 4 títulos de programa en pt-BR; en y ca empiezan de cero. El pipeline, la cobertura medida y el marcado `lang` ya están: lo que falta es texto, y mientras falta se dice en pantalla |
 | Credenciales sin registro público ni revocación | **PLANNED** | OB 2.0/3.0 se firman y verifican en el navegador; sin registro central por diseño de anonimato |
 | xAPI local y exportable | **ACEPTADO** | «Local-first»: el estudiante exporta su historial; no hay LRS remoto |
 | Voz humanizada | **PARCIAL** | Publicada en español y portugués; el resto, pendiente |
@@ -248,7 +262,7 @@ anotaciones del check.
 ## 8. GIT EVIDENCE
 
 - **Rama**: `arena/a75428a2-secure-t` (no se ha creado ni empujado ninguna otra). **Árbol de trabajo limpio**.
-- **21 commits** desde `eb2b05e`, en orden (del más antiguo al más reciente):
+- **32 commits** desde `eb2b05e`, en orden (del más antiguo al más reciente):
 
 ```
 853f218 feat(estandares): capa de conformidad verificable sobre el campus AURUM
@@ -272,6 +286,16 @@ f67233c fix(seguridad): cierra los tres falsos positivos de gitleaks sin debilit
 5b48cef fix(seguridad): la lista blanca viaja dentro de la regla (la forma global no se aplicaba)
 33aa55e chore(ci): todas las acciones al día y sin avisos de Node 20
 1a43b1b fix(tests): el contrato de Pages comprueba la política de fijado, no una versión
+0aec835 docs(informe): informe de elevación con hallazgos, evidencia y riesgo residual
+bda7627 docs(informe): cifras exactas de la CI y suites de terceros en cola
+f5d43b9 feat(i18n): el portugués del campus es el de Brasil, y es el que abre la casa
+7bcda24 feat(web): cristal negro vivo con luz dorada líquida
+5650f20 feat(back): la firma del autor, y sólo en el back
+4f79372 fix(i18n): el contenido portugués también es de Brasil, no sólo la etiqueta
+24ffab8 fix(e2e): el idioma esperado sale de la fuente única, y es pt-BR
+b1a340b feat(identidad): la llave de cuatro dígitos, sin guardar nada
+4b61a34 feat(campus): itinerarios abiertos con prerrequisitos y competencias
+c0440d3 feat(contenido): traducciones incrementales, con la verdad por delante
 ```
 
 - **Honestidad de la secuencia**: `33aa55e` se subió con un test de contrato en rojo (el contrato exigía literalmente

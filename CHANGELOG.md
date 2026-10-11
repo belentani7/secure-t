@@ -3,6 +3,38 @@
 Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versionado: [SemVer](https://semver.org/lang/es/).
 Los commits siguen Conventional Commits (`feat:`, `fix:`, `docs:`, `test:`, `chore:`).
 
+## [1.2.0] — 2026-10-11
+
+Fase de producto: el campus abre en portugués de Brasil, con cristal negro vivo, identidad sin datos personales y
+una estructura abierta con itinerarios. La traducción del material es incremental y su cobertura se mide.
+
+### Añadido
+- **Portugués de Brasil por defecto** (PT > ES > EN > CA): `pt-BR` en `lang`, `hreflang`, `x-default`, Open Graph,
+  manifiesto PWA y voces. `LOCALE_LABELS`, `OG_LOCALES`, `SPEECH_LOCALES` y `alternateLanguages()` son la fuente
+  única; el diccionario portugués se reescribió en pt-BR (arquivo, registro, anônimo, baixar, salvar, baralho,
+  revisão, LGPD junto al RGPD) y un test impide que vuelvan las formas de Portugal.
+- **Cristal negro vivo con luz dorada líquida**: `.aurum-glass`, `.aurum-luz` y `.aurum-filo`, con el brillo del
+  botón por detrás del texto. Todo lo animado vive en `prefers-reduced-motion: no-preference`: con movimiento
+  reducido la composición es la misma, congelada.
+- **Llave de cuatro dígitos** (`packages/shared/src/identity.ts`): identidad seudónima derivada con PBKDF2-SHA256
+  (210.000 iteraciones) a partir de los cuatro últimos dígitos del móvil y una semilla del dispositivo. El PIN no se
+  guarda —el almacén sólo admite semilla y token— y la interfaz dice en voz alta que cuatro dígitos no son un
+  secreto. Siete pruebas, incluida la que comprueba sobre el código que el panel no persiste nada.
+- **Itinerarios abiertos** (`packages/shared/src/tracks.ts`, `/itinerarios`): cuatro caminos con prerrequisitos sin
+  ciclos y competencias acreditadas. Son el orden recomendado, nunca un requisito para entrar.
+- **Traducción incremental del material**: `campus/cursos/<slug>/i18n/<idioma>/`. Si la traducción no existe, la
+  página sirve el español marcado con `lang="es"` y un distintivo visible (WCAG 2.2, 3.1.2). `pnpm locales` publica
+  la cobertura real y el README la repite bajo vigilancia de test. Primer contenido: 4/4 títulos de programa y la
+  semana 1 completa del programa ofensivo en pt-BR.
+- **Firma del autor en el back** (`tools/firma.ts`), con la dedicatoria completa fuera del front y un test que lo
+  demuestra.
+- **Contenido docente con su idioma real** en la lección, el índice del campus y los itinerarios.
+
+### Cambiado
+- El contrato de accesibilidad lee la etiqueta de idioma de la fuente única (`LOCALE_LABELS`) en vez de fijarla a
+  mano: fue lo que cazó la CI cuando el portugués pasó a `pt-BR`.
+- `campus/idiomas.md` y el README dicen la cobertura exacta del material, idioma a idioma.
+
 ## [1.1.0] — 2026-10-11
 
 Capa de estándares oficiales sobre el campus: lo que el repositorio afirma se puede verificar con una herramienta
