@@ -37,27 +37,85 @@ jobs:
           echo "JSON del campus correcto"
 
   secretos:
+    # El binario oficial de gitleaks (licencia MIT) en lugar de una accion de
+    # terceros: el escaneo queda fijado por version y verificado por SHA-256, la
+    # lista blanca se pasa con `--config` (sin depender de que la accion la
+    # descubra sola) y un control negativo demuestra que el escaneo si ve los
+    # hallazgos cuando la lista blanca no esta. Sin este ultimo paso, un «verde»
+    # no probaria nada.
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
-      - name: Gitleaks (historial completo)
-        uses: gitleaks/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7 # v2
+      - name: Instalar gitleaks (version y SHA-256 fijados)
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Sin esta variable la acción no usa .gitleaks.toml y la lista blanca
-          # de falsos positivos no se aplica.
-          GITLEAKS_CONFIG: .gitleaks.toml
+          GITLEAKS_VERSION: "8.24.3"
+          # SHA-256 de gitleaks_8.24.3_linux_x64.tar.gz, tomado del
+          # gitleaks_8.24.3_checksums.txt de la misma release.
+          GITLEAKS_SHA256: "9991e0b2903da4c8f6122b5c3186448b927a5da4deef1fe45271c3793f4ee29c"
+        run: |
+          set -euo pipefail
+          tarball="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          curl -sSfL -o "$tarball" \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/${tarball}"
+          echo "${GITLEAKS_SHA256}  ${tarball}" | sha256sum -c -
+          mkdir -p "$RUNNER_TEMP/gitleaks"
+          tar -xzf "$tarball" -C "$RUNNER_TEMP/gitleaks" gitleaks
+          echo "$RUNNER_TEMP/gitleaks" >> "$GITHUB_PATH"
+          "$RUNNER_TEMP/gitleaks/gitleaks" version
+      - name: Control negativo (sin lista blanca el escaneo debe encontrar los falsos positivos)
+        run: |
+          set -euo pipefail
+          printf '[extend]\nuseDefault = true\n' > "$RUNNER_TEMP/sin-lista-blanca.toml"
+          if gitleaks detect \
+              --config "$RUNNER_TEMP/sin-lista-blanca.toml" \
+              --no-banner --redact --exit-code=2 --log-level=error \
+              --report-format=sarif --report-path="$RUNNER_TEMP/control.sarif"; then
+            echo "::error title=gitleaks::el control negativo no encontro nada: el escaneo no esta leyendo el historial"
+            exit 1
+          fi
+          node -e '
+            const fs = require("node:fs");
+            const sarif = JSON.parse(fs.readFileSync(process.argv[1], "utf8"));
+            const hallazgos = sarif.runs?.[0]?.results ?? [];
+            const reglas = [...new Set(hallazgos.map((h) => h.ruleId))];
+            console.log(`Control negativo: ${hallazgos.length} hallazgo(s), reglas: ${reglas.join(", ") || "ninguna"}`);
+            if (hallazgos.length < 3) {
+              console.log("::error title=gitleaks::el control negativo encontro menos hallazgos de los tres falsos positivos conocidos");
+              process.exit(1);
+            }
+          ' "$RUNNER_TEMP/control.sarif"
+      - name: Gitleaks (historial completo con la lista blanca del repositorio)
+        id: escaneo
+        run: |
+          set -euo pipefail
+          gitleaks detect \
+            --config .gitleaks.toml \
+            --no-banner --redact --exit-code=2 --log-level=info \
+            --report-format=sarif --report-path=gitleaks-results.sarif
+      - name: Publicar el informe SARIF de gitleaks
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: gitleaks-results.sarif
+          path: gitleaks-results.sarif
+          if-no-files-found: ignore
       - name: Publicar los hallazgos de gitleaks como anotaciones
         # El resumen del job no es accesible por API: el SARIF se convierte en
         # anotaciones para poder arreglar el hallazgo sin abrir la interfaz.
         if: always()
+        env:
+          RESULTADO_ESCANEO: ${{ steps.escaneo.outcome }}
         run: |
           informe=$(ls ./*.sarif 2>/dev/null | head -1)
           if [ -z "$informe" ]; then
-            echo "::warning title=gitleaks::sin informe SARIF en el directorio de trabajo"
+            if [ "$RESULTADO_ESCANEO" = "success" ]; then
+              echo "Sin informe SARIF: el escaneo termino sin hallazgos"
+            else
+              echo "::warning title=gitleaks::el escaneo fallo sin dejar informe SARIF"
+            fi
             exit 0
           fi
           node -e '

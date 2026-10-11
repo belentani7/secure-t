@@ -11,6 +11,12 @@
 # cualquier hallazgo del historial.
 #
 # Referencia: https://github.com/gitleaks/gitleaks#configuration
+#
+# `minVersion` avisa (no aborta) si alguien ejecuta una version antigua de
+# gitleaks: `[[allowlists]]` con `targetRules` existe desde 8.21, y en versiones
+# anteriores la lista blanca se ignoraria en silencio.
+minVersion = "8.21"
+
 [extend]
 useDefault = true
 

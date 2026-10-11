@@ -48,7 +48,7 @@ se resuelve al actualizar Tailwind, no forzando el árbol.
 | Herramienta | Uso | Licencia |
 |---|---|---|
 | `pytest` | contrato del campus clásico (117 tests) | MIT |
-| `gitleaks` | escaneo de secretos en el historial | MIT |
+| `gitleaks` 8.24.3 | escaneo de secretos del historial completo; el binario oficial se descarga en CI y se verifica por **SHA-256** (`gitleaks_8.24.3_checksums.txt`), sin depender de una acción de terceros | MIT |
 | `@lhci/cli` (Lighthouse CI) | presupuesto ≥ 95 en las cuatro categorías | Apache-2.0 |
 | `@axe-core/playwright` | WCAG 2.2 AA en las rutas principales | MPL-2.0 |
 | `@vitest/coverage-v8` | cobertura ≥ 80 % en los módulos críticos | MIT |

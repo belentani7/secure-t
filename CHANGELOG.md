@@ -62,8 +62,16 @@ externa, y lo que no está se dice en voz alta. Nada se marca conforme sin un te
   llevan `generatedAt`: ahora compara el material (`sourceDigest`) e ignora la fecha, que no identifica a la fuente.
 - **gitleaks**: el escaneo de secretos encontró tres «claves» que son falsos positivos verificados uno a uno (dos
   identificadores anónimos de prueba y una frase de la interfaz en inglés). Los identificadores se generan ahora en
-  ejecución —ningún literal en el repositorio— y `.gitleaks.toml` acota la lista blanca a esa regla, ese fichero y esa
-  línea: cualquier otro hallazgo, también en el historial, sigue rompiendo la construcción.
+  ejecución —ningún literal en el repositorio— y `.gitleaks.toml` acota la lista blanca a esa regla y a ese texto:
+  cualquier otro hallazgo, también en el historial, sigue rompiendo la construcción.
+- **El escaneo de secretos ya no depende de una acción de terceros**: se descarga el binario oficial de gitleaks
+  8.24.3 —licencia MIT, verificada su **SHA-256** contra el `checksums.txt` de la misma release— y se ejecuta a mano
+  con `--config .gitleaks.toml`. La acción anterior (`gitleaks/gitleaks-action`) ignoraba la lista blanca y no era
+  inspeccionable desde fuera; con el binario fijado se sabe exactamente qué versión escanea y con qué configuración.
+  Además se añade un **control negativo** en el propio trabajo: si el escaneo no ve los tres falsos positivos cuando
+  la lista blanca no está, la CI falla. Sin ese control, un «verde» no probaría nada.
+- **Acciones de los workflows al día**: `actions/checkout` pasa de v4.4.0 a **v7.0.1** (fijada por commit), lo que
+  retira el aviso de obsolescencia de Node 20 en todos los trabajos.
 - **Cadena de suministro**: de 11 avisos de dependencias a 1 (aceptado con motivo, sin parche publicado), acciones de
   los workflows fijadas por commit, Dependabot para npm/pip/actions y `pnpm audit:deps` como puerta obligatoria de CI.
 

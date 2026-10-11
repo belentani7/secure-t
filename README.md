@@ -252,7 +252,7 @@ las garantías del agente (deny-list, SSRF, modo examen, citas, auditoría).
 
 | Workflow | Qué comprueba |
 |---|---|
-| `ci.yml` | pytest, JSON del campus, gitleaks sobre el historial, eduforge, vitest + tsc, build de la web |
+| `ci.yml` | pytest, JSON del campus, gitleaks sobre el historial completo (binario fijado por SHA-256 y control negativo de la lista blanca), eduforge, vitest + tsc, build de la web |
 | `pages.yml` | ensambla `_site` con lista blanca y barrera anti-secretos antes de publicar |
 | `quality.yml` | auditoría estática sin navegador, axe/WCAG 2.2 AA, Lighthouse (≥ 95 en las cuatro categorías), cobertura ≥ 80 % |
 
