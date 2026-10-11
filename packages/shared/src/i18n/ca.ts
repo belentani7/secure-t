@@ -303,4 +303,5 @@ export const ca: Dict = {
   "skill.riesgo": "Risc i compliment",
   "skill.hardening": "Hardening verificable",
   "content.inSpanish": "en espanyol (traducció planificada)",
+  "content.coverage": "Material traduït",
 };

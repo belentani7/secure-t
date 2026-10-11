@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { toPlainText, translator, type Locale } from "@secure-t/shared";
 import { courseBySlug, readWeek } from "@/lib/content";
 import { SITE, localePath } from "@/lib/site";
+import { TeachingBadge, TeachingText } from "./teaching-text";
 import { MarkWeekDone } from "./week-checklist";
 import { VoiceLesson } from "./voice-lesson";
 
@@ -14,7 +15,7 @@ import { VoiceLesson } from "./voice-lesson";
 export function WeekView({ locale, slug, week }: { locale: Locale; slug: string; week: number }) {
   const t = translator(locale);
   const course = courseBySlug(slug);
-  const content = readWeek(slug, week);
+  const content = readWeek(slug, week, locale);
   if (!course || !content) notFound();
 
   const previous = week > 1 ? week - 1 : null;
@@ -34,7 +35,10 @@ export function WeekView({ locale, slug, week }: { locale: Locale; slug: string;
           <p className="eyebrow">
             {t("campus.weekOf")} {week} · {course.weeks.length}
           </p>
-          <h1 className="mt-1 max-w-[24ch]">{content.title}</h1>
+          <h1 className="mt-1 max-w-[24ch]">
+            <TeachingText locale={locale}>{content.title}</TeachingText>
+            {content.translated ? null : <span className="ml-3 align-middle"><TeachingBadge locale={locale} /></span>}
+          </h1>
           <p className="mono text-[0.75rem] text-[var(--aurum-muted)]">
             {content.words.toLocaleString(locale)} {t("campus.words")} · {summary?.hash ?? ""} ·{" "}
             {t("week.minutes")} ≈ {Math.max(45, Math.round(content.words / 150) * 5)} min
@@ -51,11 +55,20 @@ export function WeekView({ locale, slug, week }: { locale: Locale; slug: string;
           <h2 id="objectives" className="card-title">
             {t("week.objectives")}
           </h2>
-          <div className="prose" dangerouslySetInnerHTML={{ __html: `<p>${objectives.body.replace(/\n- /g, "<br>• ")}</p>` }} />
+          <div
+            lang={content.sourceLocale}
+            className="prose"
+            dangerouslySetInnerHTML={{ __html: `<p>${objectives.body.replace(/\n- /g, "<br>• ")}</p>` }}
+          />
         </aside>
       ) : null}
 
-      <article className="prose mt-8" dangerouslySetInnerHTML={{ __html: content.html }} />
+      {/* El idioma del texto es el que es: si aún no hay traducción, `lang="es"` lo dice. */}
+      <article
+        lang={content.sourceLocale}
+        className="prose mt-8"
+        dangerouslySetInnerHTML={{ __html: content.html }}
+      />
 
       <nav className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--aurum-line)] pt-5" aria-label={t("campus.plan")}>
         {previous ? (

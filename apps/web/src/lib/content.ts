@@ -1,4 +1,4 @@
-import { readFileSync, existsSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { firstHeading, renderMarkdown, splitSections, toPlainText } from "@secure-t/shared";
 
@@ -112,13 +112,22 @@ export interface WeekContent {
   html: string;
   sections: { title: string; body: string }[];
   words: number;
+  /** ¿Esta semana viene traducida al idioma pedido? */
+  translated: boolean;
+  /** Idioma en el que está de verdad el texto que se va a leer. */
+  sourceLocale: string;
+  /** Fichero traducido del que sale el texto, si existe. */
+  translationSource?: string;
 }
 
-export function readWeek(slug: string, week: number): WeekContent | null {
-  const file = join(campusDir(), "cursos", slug, `semana-${String(week).padStart(2, "0")}.md`);
-  if (!existsSync(file)) return null;
-  const markdown = readFileSync(file, "utf8");
-  const heading = firstHeading(markdown) ?? `Semana ${week}`;
+export function readWeek(slug: string, week: number, locale = "es"): WeekContent | null {
+  const nombre = `semana-${String(week).padStart(2, "0")}.md`;
+  const original = join(campusDir(), "cursos", slug, nombre);
+  if (!existsSync(original)) return null;
+  const traducido = join(campusDir(), "cursos", slug, "i18n", locale, nombre);
+  const hayTraduccion = locale !== "es" && existsSync(traducido);
+  const markdown = readFileSync(hayTraduccion ? traducido : original, "utf8");
+  const heading = firstHeading(markdown) ?? (hayTraduccion ? `Semana ${week}` : `Semana ${week}`);
   return {
     index: week,
     title: heading.replace(/^Semana\s+\d+\s*[:·-]\s*/i, "").trim() || heading,
@@ -126,7 +135,11 @@ export function readWeek(slug: string, week: number): WeekContent | null {
     // `headingOffset: 1`: el material empieza con «#», y la página ya tiene su `<h1>`.
     html: renderMarkdown(markdown, { headingIds: true, headingOffset: 1 }),
     sections: splitSections(markdown, 2),
-    words: toPlainText(markdown).split(/\s+/).filter(Boolean).length
+    words: toPlainText(markdown).split(/\s+/).filter(Boolean).length,
+    translated: hayTraduccion,
+    // La verdad sin adornos: si no hay traducción, lo que se lee está en español.
+    sourceLocale: hayTraduccion ? locale : "es",
+    translationSource: hayTraduccion ? `campus/cursos/${slug}/i18n/${locale}/${nombre}` : undefined
   };
 }
 
@@ -245,4 +258,95 @@ export function readPackages(): PackageIndex | null {
 export function buildStamp(): string {
   const catalog = readCatalog();
   return catalog.generatedAt.slice(0, 10);
+}
+
+/* ───────────────────── Traducciones del material docente ────────────────────
+ *
+ * El temario vive en `campus/cursos/<slug>/semana-NN.md`, en español. La
+ * traducción **no duplica el temario**: se guarda al lado, y sólo cuando existe
+ * de verdad:
+ *
+ *   campus/cursos/<slug>/i18n/<lang>/curso.json    → título y resumen
+ *   campus/cursos/<slug>/i18n/<lang>/semana-NN.md  → la semana traducida
+ *
+ * Si la traducción no está, la página lo dice: se sirve el español, marcado con
+ * `lang="es"` y con un distintivo visible. Nada se declara traducido sin serlo.
+ */
+
+export const TRANSLATION_LANGS = ["pt", "en", "ca"] as const;
+export type TranslationLang = (typeof TRANSLATION_LANGS)[number];
+
+export interface CourseText {
+  title?: string;
+  summary?: string;
+}
+
+/** Título y resumen traducidos del programa, si existen. */
+export function courseText(slug: string, locale: string): CourseText | null {
+  if (locale === "es") return null;
+  const file = join(campusDir(), "cursos", slug, "i18n", locale, "curso.json");
+  if (!existsSync(file)) return null;
+  try {
+    const datos = JSON.parse(readFileSync(file, "utf8")) as CourseText;
+    return { title: datos.title, summary: datos.summary };
+  } catch {
+    return null;
+  }
+}
+
+/** Semanas traducidas de un programa, en orden. */
+export function translatedWeeks(slug: string, locale: string): number[] {
+  if (locale === "es") return [];
+  const dir = join(campusDir(), "cursos", slug, "i18n", locale);
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir)
+    .filter((nombre) => /^semana-\d{2}\.md$/.test(nombre))
+    .map((nombre) => Number(/semana-(\d{2})\.md/.exec(nombre)?.[1] ?? 0))
+    .filter((numero) => Number.isInteger(numero) && numero > 0)
+    .sort((a, b) => a - b);
+}
+
+export interface LocaleCoverage {
+  lang: TranslationLang;
+  /** Programas con al menos el título traducido. */
+  courses: number;
+  /** Semanas traducidas de verdad, contando todos los programas. */
+  weeks: number;
+  /** Palabras traducidas (medidas, no estimadas). */
+  words: number;
+  detail: { slug: string; weeks: number[]; title: boolean }[];
+}
+
+/**
+ * Cobertura real de traducciones, leída del disco: es la cifra que se publica
+ * en el campus y en el README, y la que comprueba `tests/content-i18n.test.ts`.
+ */
+export function localeCoverage(idiomas: readonly TranslationLang[] = TRANSLATION_LANGS): LocaleCoverage[] {
+  const cursos = readdirSync(join(campusDir(), "cursos")).filter((nombre) =>
+    statSync(join(campusDir(), "cursos", nombre)).isDirectory()
+  );
+  return idiomas.map((lang) => {
+    const detail = cursos.map((slug) => {
+      const semanas = translatedWeeks(slug, lang);
+      return { slug, weeks: semanas, title: Boolean(courseText(slug, lang)?.title) };
+    });
+    const weeks = detail.reduce((total, entrada) => total + entrada.weeks.length, 0);
+    const words = detail.reduce((total, entrada) => {
+      return (
+        total +
+        entrada.weeks.reduce((suma, numero) => {
+          const file = join(campusDir(), "cursos", entrada.slug, "i18n", lang, `semana-${String(numero).padStart(2, "0")}.md`);
+          const markdown = existsSync(file) ? readFileSync(file, "utf8") : "";
+          return suma + toPlainText(markdown).split(/\s+/).filter(Boolean).length;
+        }, 0)
+      );
+    }, 0);
+    return {
+      lang,
+      courses: detail.filter((entrada) => entrada.title || entrada.weeks.length > 0).length,
+      weeks,
+      words,
+      detail
+    };
+  });
 }

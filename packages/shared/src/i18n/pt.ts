@@ -315,6 +315,7 @@ export const pt = {
   "skill.riesgo": "Risco e conformidade",
   "skill.hardening": "Hardening verificável",
   "content.inSpanish": "em espanhol (tradução planejada)",
+  "content.coverage": "Material traduzido",
 } as const;
 
 export type TranslationKey = keyof typeof pt;

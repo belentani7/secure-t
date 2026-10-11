@@ -1,13 +1,24 @@
 import Link from "next/link";
 import { jsonLdScript, programListJsonLd, translator, type Locale } from "@secure-t/shared";
-import { allCourses, buildStamp, readCatalog } from "@/lib/content";
+import { allCourses, buildStamp, courseText, localeCoverage, readCatalog, translatedWeeks } from "@/lib/content";
 import { SITE, asset, localePath } from "@/lib/site";
 import { CampusSearch } from "./campus-search";
+import { TeachingBadge, TeachingText } from "./teaching-text";
 
 export function CampusIndex({ locale }: { locale: Locale }) {
   const t = translator(locale);
   const catalog = readCatalog();
   const courses = allCourses();
+
+  // Traducciones reales del programa: si no están, el texto se marca en español.
+  const textos = new Map(courses.map((course) => [course.slug, courseText(course.slug, locale)]));
+  const cobertura = localeCoverage().find((entrada) => entrada.lang === locale) ?? {
+    lang: locale,
+    courses: 0,
+    weeks: 0,
+    words: 0,
+    detail: []
+  };
 
   const lista = programListJsonLd({
     baseUrl: SITE.pagesUrl.replace(/\/$/, ""),
@@ -28,18 +39,34 @@ export function CampusIndex({ locale }: { locale: Locale }) {
         · build {buildStamp()} · digest {catalog.sourceDigest.slice(0, 12)}
       </p>
 
+      {locale !== "es" ? (
+        <p className="mono mt-2 text-[0.75rem] text-[var(--aurum-muted)]">
+          {t("content.coverage")}: {cobertura.weeks}/{catalog.totals.weeks} {t("campus.weeks")} ·{" "}
+          {cobertura.words.toLocaleString(locale)} {t("campus.words")}
+        </p>
+      ) : null}
+
       <div className="mt-8 grid-2">
         {courses.map((course) => (
           <article key={course.slug} className="card flex flex-col" id={course.slug}>
             <div className="flex flex-wrap items-center gap-2">
               <h2 className="card-title m-0">
-                <Link href={localePath(locale, `/programas/${course.slug}`)}>{course.title}</Link>
+                <Link href={localePath(locale, `/programas/${course.slug}`)}>
+                  <TeachingText locale={locale}>{textos.get(course.slug)?.title ?? course.title}</TeachingText>
+                </Link>
               </h2>
               <span className="badge">
                 {course.hours} h · {course.weeks.length} {t("campus.weeks")}
               </span>
+              {locale === "es" ? null : translatedWeeks(course.slug, locale).length > 0 ? (
+                <span className="badge">
+                  {locale.toUpperCase()} {translatedWeeks(course.slug, locale).length}/{course.weeks.length}
+                </span>
+              ) : (
+                <TeachingBadge locale={locale} />
+              )}
             </div>
-            <p className="muted mt-2 text-[0.95rem]">{course.summary}</p>
+            <p className="muted mt-2 text-[0.95rem]"><TeachingText locale={locale}>{textos.get(course.slug)?.summary ?? course.summary}</TeachingText></p>
             <ol className="mono mt-3 grid grid-cols-2 gap-x-4 text-[0.78rem] text-[var(--aurum-muted)] sm:grid-cols-3">
               {course.weeks.map((week) => (
                 <li key={week.index}>

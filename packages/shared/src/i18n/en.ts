@@ -303,4 +303,5 @@ export const en: Dict = {
   "skill.riesgo": "Risk and compliance",
   "skill.hardening": "Verifiable hardening",
   "content.inSpanish": "in Spanish (translation planned)",
+  "content.coverage": "Translated material",
 };

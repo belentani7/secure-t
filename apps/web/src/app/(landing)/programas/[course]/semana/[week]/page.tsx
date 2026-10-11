@@ -11,6 +11,6 @@ export function generateStaticParams() {
 export default async function WeekPt({ params }: { params: Promise<{ course: string; week: string }> }) {
   const { course, week } = await params;
   const parsed = Number.parseInt(week, 10);
-  if (!Number.isInteger(parsed) || !readWeek(course, parsed)) notFound();
+  if (!Number.isInteger(parsed) || !readWeek(course, parsed, "pt")) notFound();
   return <WeekView locale="pt" slug={course} week={parsed} />;
 }

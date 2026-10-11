@@ -191,10 +191,23 @@ publica la huella SHA-256 de cada fichero para que dos copias se puedan comparar
 
 ## Cuatro idiomas, con honestidad
 
-La interfaz, el agente y el calendario hablan **portugués, español, inglés y catalán** con paridad auditada por
-tests (179 claves idénticas en los cuatro diccionarios). El **material docente** está en portugués y español; la
-matriz de `campus/idiomas.md` dice la verdad idioma a idioma y no se marca como traducido nada que no lo esté.
-La regla es simple: `PLANNED` significa planificado, no hecho.
+La interfaz, el agente y el calendario hablan **portugués de Brasil (primero), español, inglés y catalán** con
+paridad auditada por tests (285 claves idénticas en los cuatro diccionarios). El campus abre en `pt-BR` porque el
+portugués de esta casa es el de Brasil, no el de Portugal: etiquetas, `hreflang`, vocabulario y voces.
+
+El **material docente** (las 80 semanas) está escrito en español. La traducción es incremental y sólo se publica
+cuando existe de verdad. Esta tabla la genera `pnpm locales` leyendo el disco, y `tests/content-i18n.test.ts`
+falla si el README dice otra cosa que lo que hay:
+
+| Idioma | Programas con título | Semanas traducidas | Palabras traducidas |
+| --- | --- | --- | --- |
+| pt | 4/4 | 1/80 | 867 |
+| en | 0/4 | 0/80 | 0 |
+| ca | 0/4 | 0/80 | 0 |
+
+Mientras una semana no esté traducida, la página lo dice: sirve el texto en español, lo marca con `lang="es"`
+(WCAG 2.2, 3.1.2 Language of Parts) y muestra un distintivo «em espanhol». Nada se anuncia como traducido sin
+estarlo, y el recorrido no se rompe: el orden, los objetivos y las credenciales no dependen del idioma.
 
 ## Privacidad por diseño
 

@@ -18,7 +18,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; course: string; week: string }> }) {
   const { locale, course, week } = await params;
   if (!isLocale(locale)) return {};
-  const content = readWeek(course, Number(week));
+  const content = readWeek(course, Number(week), locale);
   if (!content) return {};
   return { title: content.title, description: content.sections[0]?.title };
 }

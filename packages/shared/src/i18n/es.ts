@@ -303,4 +303,5 @@ export const es: Dict = {
   "skill.riesgo": "Riesgo y cumplimiento",
   "skill.hardening": "Hardening verificable",
   "content.inSpanish": "en español",
+  "content.coverage": "Material traducido",
 };

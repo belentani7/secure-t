@@ -26,7 +26,8 @@
     "packages": "tsx tools/build-packages.ts",
     "sbom": "node tools/build-sbom.mjs",
     "audit:deps": "node tools/audit-deps.mjs",
-    "check:drift": "node tools/check-drift.mjs"
+    "check:drift": "node tools/check-drift.mjs",
+    "locales": "tsx tools/report-locales.ts"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.20",
