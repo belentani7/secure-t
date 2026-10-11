@@ -1,8 +1,9 @@
 # Informe de elevación — `belentani7/secure-t`
 
-- **Rama**: `arena/a75428a2-secure-t` (36 commits sobre `main` @ `eb2b05e`)
+- **Rama**: `arena/a75428a2-secure-t` (40 commits sobre `main` @ `eb2b05e`; el último es este informe)
 - **Pull request**: [#3](https://github.com/belentani7/secure-t/pull/3) — abierto
-- **Evidencia de CI**: ejecución completa sobre `705e944` — **8 comprobaciones de trabajo en verde y las dos
+- **Evidencia de CI**: ejecución completa sobre `7736d1f` — **8 comprobaciones de trabajo en verde (campus, secretos,
+  edu-engine, web, cobertura, accesibilidad estática, axe con 21 rutas y Lighthouse ≥ 95 + CWV) y las dos
   suites de workflow (`CI` y `Calidad`) en verde** (el detalle, en §5.2). La CI también cazó, en `f0d03a7`, un
   falso positivo nuevo del escáner de secretos y el trabajo en rojo permaneció visible hasta corregirlo en `705e944`
 - **Versión**: 1.4.0 (ciclo H: currículo de cinco años, biblioteca abierta y laboratorio de IA)
@@ -32,7 +33,7 @@ aviso en **cada** ejecución.
 
 | Área | Estado | Evidencia |
 |---|---|---|
-| CI del repositorio | **Verde completa** | checks con conclusión `success`: campus, secretos, edu-engine, web, cobertura, accesibilidad estática, axe (32 pruebas) y Lighthouse ≥ 95 + CWV; las dos suites de workflow (`CI`, `Calidad`) en verde. Sólo Sourcery aparece como `skipped` (revisión de terceros, no forma parte de las puertas) |
+| CI del repositorio | **Verde completa en `7736d1f`** | checks con conclusión `success`: campus, secretos, edu-engine, web, cobertura, accesibilidad estática, axe (42 pruebas, 21 rutas × escritorio y móvil) y Lighthouse ≥ 95 + CWV; las dos suites de workflow (`CI`, `Calidad`) en verde. Sólo Sourcery aparece como `skipped` (revisión de terceros, no forma parte de las puertas) |
 | Escaneo de secretos | **Real y verificable** | binario oficial `gitleaks 8.24.3` (MIT) verificado por SHA-256, `--config .gitleaks.toml`, control negativo, veredicto por conjunto conocido |
 | Cadena de suministro | **Fijada y al día** | 7 acciones de GitHub fijadas por commit (todas en Node 24), `pnpm audit:deps` como puerta obligatoria, SBOM CycloneDX 1.5 con 778 componentes |
 | Campus AURUM | **Verificado** | 496 páginas exportadas, `_site` con 3.375 ficheros, `audit:site` = 0 errores y 0 avisos |
@@ -224,7 +225,7 @@ Métricas del material: **103663 líneas** versionadas de código, datos y docum
 | Prueba | Resultado sobre `c0440d3` |
 |---|---|
 | Lighthouse (6 URLs × 3 pasadas, presupuesto ≥ 95 y CWV) | **success** (en `0aec835` y en `1a43b1b`) |
-| axe / WCAG 2.2 AA (Playwright) | **success** en `705e944` — 36 pruebas (16 rutas × escritorio y móvil); la matriz pasa a **42 pruebas (21 rutas)** con `/biblioteca`, `/plano` y `/laboratorio` en los idiomas que se auditan. Estado de la nueva matriz: `NOT VERIFIED` en este entorno (sin navegador); la auditoría estática de las mismas páginas da 0 errores. En `4f79372` este check **falló**: el contrato de accesibilidad fijaba `lang="pt"` y la elevación a `pt-BR` lo rompió. La CI lo cazó, se corrigió en `24ffab8` haciendo que la etiqueta esperada salga de la fuente única y el conjunto volvió a verde |
+| axe / WCAG 2.2 AA (Playwright) | **success** en `7736d1f` — **42 pruebas (21 rutas × escritorio y móvil)**, con `/biblioteca`, `/plano` y `/laboratorio` dentro de la matriz. En `705e944` eran 36 pruebas (16 rutas). En `4f79372` este check **falló**: el contrato de accesibilidad fijaba `lang="pt"` y la elevación a `pt-BR` lo rompió; se corrigió en `24ffab8` y el conjunto volvió a verde |
 | Cobertura como umbral de CI | **success** |
 | Escaneo de secretos | **success** — control negativo encontrado ≥ 3 hallazgos; veredicto con 1 aviso aceptado |
 
@@ -285,7 +286,7 @@ blanca el escaneo ve cinco hallazgos, tres de ellos falsos positivos documentado
 | 120 semanas del plan sin material publicado | **DECLARADO** | La franjas 5.ª a 10.ª (especialidades, arquitectura, CISO, capstone y docencia) están descritas pero no escritas; la página `/plano` lo dice franja por franja y no se anuncia ninguna como disponible |
 | Recursos de la biblioteca: enlaces de terceros | **ACEPTADO** | Se enlaza al autor y no se archiva copia (archivarla sería redistribuir material ajeno). Si un recurso cambia o desaparece, la ficha sigue siendo cierta en lo que declara (autor, idioma, tipo); los tests comprueban forma y procedencia, no disponibilidad remota |
 | Límites de los instrumentos del laboratorio | **DECLARADO** | Detector de patrones, no verificador: cada instrumento publica su límite en los cuatro idiomas y el expediente lo repite. Un resultado «limpio» no certifica que el texto sea inocuo |
-| Matriz axe de las rutas nuevas | **NOT VERIFIED (entorno)** | 21 rutas × escritorio y móvil quedan configuradas en `e2e/a11y.spec.ts`; sin navegador aquí no se han ejecutado (`pnpm test:a11y` en CI). La auditoría estática de las mismas páginas da 0 errores |
+| Matriz axe del navegador | **VERIFICADO EN CI** | `success` en `7736d1f`: 42 pruebas (21 rutas × escritorio y móvil). No es reproducible en este entorno (sin Chromium): aquí sólo se ejecuta la auditoría estática, que da 0 errores |
 | Integraciones de terceros en cola | **NOT VERIFIED** | Cada push despierta suites de aplicaciones instaladas en la cuenta original (Vercel, Netlify, Cloudflare, Railway, Render, SonarQube, Supabase, Cursor, Claude…): aparecen como `queued`, no aportan verificación a esta entrega y conviene revisarlas o retirarlas con el propietario |
 
 ---
@@ -310,7 +311,7 @@ blanca el escaneo ve cinco hallazgos, tres de ellos falsos positivos documentado
 ## 8. GIT EVIDENCE
 
 - **Rama**: `arena/a75428a2-secure-t` (no se ha creado ni empujado ninguna otra). **Árbol de trabajo limpio**.
-- **36 commits** desde `eb2b05e`, en orden (del más antiguo al más reciente):
+- **40 commits** desde `eb2b05e`, en orden (del más antiguo al más reciente):
 
 ```
 853f218 feat(estandares): capa de conformidad verificable sobre el campus AURUM
@@ -348,7 +349,18 @@ f5d43b9 feat(i18n): el portugués del campus es el de Brasil, y es el que abre l
 b1a340b feat(identidad): la llave de cuatro dígitos, sin guardar nada
 4b61a34 feat(campus): itinerarios abiertos con prerrequisitos y competencias
 c0440d3 feat(contenido): traducciones incrementales, con la verdad por delante
+6e5c268 feat(producto): currículo de cinco años, biblioteca abierta y laboratorio de IA
+7736d1f feat(biblioteca): veinte recursos más y documento generado del plan quinquenal
 ```
+
+- **Ciclo H (1.4.0)**: `6e5c268` entrega la malla de cinco años, la biblioteca y el
+  laboratorio de IA con sus pruebas; `7736d1f` amplía la biblioteca a 79 recursos,
+  añade `pnpm plan` y el documento generado `docs/PLAN-QUINQUENAL.md` con su test de
+  coherencia. La CI de `7736d1f` cierra con **las 8 comprobaciones de trabajo en verde**
+  y las dos suites de workflow (`CI` y `Calidad`) verdes, incluida la matriz axe de 21
+  rutas y Lighthouse ≥ 95. Este informe se actualiza en el último commit de la rama,
+  de modo que las cifras de arriba corresponden al estado verificado y no a una
+  intención.
 
 - **Honestidad de la secuencia**: `33aa55e` se subió con un test de contrato en rojo (el contrato exigía literalmente
   `v4` de `actions/deploy-pages`). La CI lo detectó (`campus` ❌) y se corrigió en `1a43b1b`. Se documenta porque forma
