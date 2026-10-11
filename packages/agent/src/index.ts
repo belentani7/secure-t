@@ -1,9 +1,11 @@
 import {
   buildIndex,
   knowledgeToSearchDocs,
+  runTutorTools,
   type KnowledgePack,
   type SearchDoc,
-  type SearchIndex
+  type SearchIndex,
+  type ToolResult
 } from "@secure-t/shared";
 import { createAuditEvent, type SanitizedAuditEvent } from "./audit";
 import { AGENT_MESSAGES, composeLocalAnswer, denialAnswer } from "./compose";
@@ -163,6 +165,16 @@ export async function askAgent(request: AgentRequest, context: AgentContext): Pr
     maxSources: Math.min(request.maxSources ?? AGENT_LIMITS.maxSources, AGENT_LIMITS.maxSources)
   });
 
+  // Herramientas del tutor: deterministas, de sólo lectura y sobre datos que ya
+  // están en el dispositivo. Se ejecutan siempre, aunque haya proveedor externo:
+  // así el material extra (biblioteca, plan, itinerario) nunca depende del modelo.
+  const tools: ToolResult[] = runTutorTools({
+    question,
+    locale,
+    knowledge: context.knowledge,
+    ...(request.course ? { course: request.course } : {})
+  });
+
   const courseTitle = request.course ? context.courseTitles?.[request.course] ?? request.course : undefined;
   const composeInput = {
     question,
@@ -192,6 +204,7 @@ export async function askAgent(request: AgentRequest, context: AgentContext): Pr
           sources,
           followUps: composed.followUps,
           notices: [...composed.notices, "provider:used"],
+          ...(tools.length ? { tools } : {}),
           audit: audit(context, {
             actorType: "agent",
             action: "agent.answer",
@@ -214,6 +227,7 @@ export async function askAgent(request: AgentRequest, context: AgentContext): Pr
           sources,
           followUps: composed.followUps,
           notices: [...composed.notices, `provider:fallback:${detail}`],
+          ...(tools.length ? { tools } : {}),
           audit: audit(context, {
             actorType: "agent",
             action: "agent.answer",
@@ -238,6 +252,7 @@ export async function askAgent(request: AgentRequest, context: AgentContext): Pr
       sources,
       followUps: composed.followUps,
       notices: [...composed.notices, ...(insufficient ? ["retrieval:insufficient"] : [])],
+      ...(tools.length ? { tools } : {}),
       audit: audit(context, {
         actorType: "agent",
         action: "agent.answer",

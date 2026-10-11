@@ -25,6 +25,15 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               <Link href={localePath(locale, "/agente")}>{t("nav.agent")}</Link>
             </li>
             <li>
+              <Link href={localePath(locale, "/biblioteca")}>{t("nav.library")}</Link>
+            </li>
+            <li>
+              <Link href={localePath(locale, "/plano")}>{t("nav.plan")}</Link>
+            </li>
+            <li>
+              <Link href={localePath(locale, "/laboratorio")}>{t("nav.lab")}</Link>
+            </li>
+            <li>
               <Link href={localePath(locale, "/calendario")}>{t("nav.calendar")}</Link>
             </li>
             <li>

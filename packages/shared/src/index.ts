@@ -10,3 +10,7 @@ export * from "./review";
 export * from "./badges";
 export * from "./xapi";
 export * from "./seo";
+export * from "./library";
+export * from "./curriculum-5y";
+export * from "./tutor-tools";
+export * from "./lab";

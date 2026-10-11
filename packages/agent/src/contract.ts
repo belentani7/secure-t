@@ -1,4 +1,4 @@
-import type { Locale } from "@secure-t/shared";
+import type { Locale, ToolResult } from "@secure-t/shared";
 import type { AgentId } from "./governance";
 
 /**
@@ -45,6 +45,13 @@ export interface AgentResponse {
   sources: AgentSource[];
   followUps: string[];
   notices: string[];
+  /**
+   * Herramientas deterministas que el tutor ejecutó para esta pregunta
+   * (listar programas, resumir una semana, recomendar biblioteca, explicar un
+   * itinerario, proponer el plan de cinco años). Todas son de sólo lectura y se
+   * ejecutan en el dispositivo: ninguna envía datos fuera ni cambia nada.
+   */
+  tools?: ToolResult[];
   audit: {
     authorization: "allowed" | "denied" | "human_review";
     result: "success" | "failure" | "blocked";

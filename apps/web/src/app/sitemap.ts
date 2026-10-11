@@ -6,7 +6,21 @@ import { SITE } from "@/lib/site";
 // Se genera en tiempo de build también en la exportación estática.
 export const dynamic = "force-static";
 
-const SECTIONS = ["", "/programas", "/agente", "/calendario", "/progreso", "/credencial", "/amenazas"];
+const SECTIONS = [
+  "",
+  "/programas",
+  "/itinerarios",
+  "/biblioteca",
+  "/plano",
+  "/laboratorio",
+  "/agente",
+  "/calendario",
+  "/progreso",
+  "/credencial",
+  "/amenazas",
+  "/estandares",
+  "/privacidad"
+];
 
 /** Mapa del sitio: sólo rutas que existen de verdad, en los cuatro idiomas. */
 export default function sitemap(): MetadataRoute.Sitemap {

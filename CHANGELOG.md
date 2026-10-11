@@ -3,6 +3,48 @@
 Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versionado: [SemVer](https://semver.org/lang/es/).
 Los commits siguen Conventional Commits (`feat:`, `fix:`, `docs:`, `test:`, `chore:`).
 
+## [1.4.0] — 2026-10-11
+
+Los cinco años: el campus pasa de tener cuatro programas sueltos a tener una malla completa, una biblioteca de
+recursos abiertos verificada por test y un laboratorio de IA con instrumentos que hacen trabajo de verdad. Nada de
+esto se declara terminado donde no lo está: la página del plan dice, en la misma tabla, cuántas semanas están escritas
+y cuántas faltan.
+
+### Añadido
+- **Currículo de cinco años, 200 semanas en 10 franjas de 20** (`packages/shared/src/curriculum-5y.ts`): los cuatro
+  programas publicados son las cuatro primeras franjas (`CAMPUS_WEEKS_PUBLISHED = 80`); las seis restantes
+  —especialidad en defensa, especialidad en ofensiva, arquitectura y nube, dirección de seguridad (CISO), proyecto
+  final y docencia— quedan declaradas con su modo, sus competencias y sus recursos. `validateCurriculum()` demuestra
+  que la cobertura 1..200 no tiene huecos ni solapes y `phaseAt(semana)` responde qué se estudia cada semana del
+  quinquenio.
+- **Página del plan** (`/plano` y `/es|en|ca/plano`) con las cinco años desplegados, leyenda por modo de estudio,
+  enlace al programa de cada franja y aviso explícito de lo que aún no tiene texto.
+- **Biblioteca abierta de 59 recursos** (`packages/shared/src/library.ts`) y su página (`/biblioteca`): 24 canales,
+  5 plataformas de práctica, 4 cursos abiertos, 6 laboratorios, 2 CTF y 18 documentos oficiales, con filtro por tipo,
+  idioma del contenido, nivel, acceso y programa. `DOMINIOS_PROHIBIDOS` y un test impiden que entre un espejo o un
+  agregador de cursos de pago.
+- **Laboratorio de IA** (`packages/shared/src/lab.ts` y `/laboratorio`): cinco instrumentos deterministas que se
+  ejecutan en el dispositivo —auditoría de prompt contra OWASP LLM01/ATLAS/CWE con evidencia y mitigación, redacción
+  de datos personales con dígitos verificadores (CPF/CNPJ) y Luhn, auditoría de fundamento frase a frase, presupuesto
+  de contexto sobre modelos abiertos y evaluación ponderada de salvaguardas— más exportación del expediente en
+  Markdown. Ningún instrumento promete de más: cada uno publica su límite y su referencia normativa.
+- **Herramientas del tutor de sólo lectura** (`packages/shared/src/tutor-tools.ts`): `listar_programas`,
+  `resumen_semana`, `recomendar_biblioteca`, `ruta_itinerario` y `plan_estudio` se ejecutan en cada pregunta y viajan
+  en el campo `tools` del contrato del agente; la consola las muestra («Qué hizo el tutor») con su resumen y sus
+  elementos citados. Sin red, sin escritura y sin datos personales.
+- **Claves de interfaz en los cuatro idiomas**: 285 → **471** claves, con paridad exacta auditada por test.
+
+### Cambiado
+- El mapa del sitio pasa de 7 a 13 secciones y el menú, el pie y la matriz de accesibilidad incorporan las tres rutas
+  nuevas (21 rutas × escritorio y móvil en axe).
+- El agente devuelve `tools` además de `answer`, `sources`, `followUps` y `audit`; en modo proveedor externo las
+  herramientas se ejecutan igual, de modo que el material extra nunca depende del modelo.
+
+### Corregido
+- Enlaces internos del plan con `Link`/`localePath` (el `basePath` lo añade Next): `audit:site` vuelve a 0 avisos.
+- Vocabulario de Brasil en las claves nuevas: «arquivo» y «anônimo», no «ficheiro» ni «anónimo»
+  (`tests/portugues-brasil.test.ts` lo vigila).
+
 ## [1.3.0] — 2026-10-11
 
 Fase docente: el campus deja de tener promesas sueltas y pasa a tener material. Las ocho primeras semanas de los

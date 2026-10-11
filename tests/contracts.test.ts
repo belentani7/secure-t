@@ -368,3 +368,77 @@ describe("voz humanizada aprobada y publicada", () => {
     expect(xapi).not.toMatch(/fetch\(/);
   });
 });
+
+/* ------------------------------- biblioteca, plan quinquenal y laboratorio -- */
+
+/**
+ * Las tres páginas nuevas existen en los cuatro idiomas y sus claves están en
+ * los cuatro diccionarios. Se comprueba contra el fichero, no contra la
+ * intención: una ruta sin traducción es una ruta a medio hacer.
+ */
+
+describe("biblioteca abierta, plan de cinco años y laboratorio de IA", () => {
+  const CLAVES = [
+    "nav.library",
+    "nav.plan",
+    "nav.lab",
+    "library.title",
+    "library.rule.title",
+    "plan.title",
+    "plan.phase.capstone.title",
+    "lab.title",
+    "lab.guard.injection",
+    "lab.limit.patterns",
+    "tool.panel.title",
+    "tool.listar_programas"
+  ];
+
+  for (const locale of ["pt", "es", "en", "ca"]) {
+    it(`las tres rutas y sus claves existen en ${locale}`, () => {
+      for (const ruta of ["biblioteca", "plano", "laboratorio"]) {
+        expect(hay(`apps/web/src/app/(landing)/${ruta}/page.tsx`), `falta la portada PT de ${ruta}`).toBe(true);
+        expect(hay(`apps/web/src/app/[locale]/${ruta}/page.tsx`), `falta la ruta con idioma de ${ruta}`).toBe(true);
+      }
+      const diccionario = leer(`packages/shared/src/i18n/${locale}.ts`);
+      for (const clave of CLAVES) expect(diccionario).toContain(`"${clave}"`);
+    });
+  }
+
+  it("las rutas están en el menú, el mapa del sitio y el pie", () => {
+    const site = leer("apps/web/src/lib/site.ts");
+    const sitemap = leer("apps/web/src/app/sitemap.ts");
+    const footer = leer("apps/web/src/components/site-footer.tsx");
+    for (const ruta of ["/biblioteca", "/plano", "/laboratorio"]) {
+      expect(site).toContain(`path: "${ruta}"`);
+      expect(sitemap).toContain(`"${ruta}"`);
+      expect(footer).toContain(`localePath(locale, "${ruta}")`);
+    }
+  });
+
+  it("la biblioteca enlaza autores y no espejos de cursos de pago", () => {
+    const biblioteca = leer("packages/shared/src/library.ts");
+    expect(biblioteca).toContain("DOMINIOS_PROHIBIDOS");
+    expect(biblioteca).toMatch(/drivedepobre\.com/);
+    expect(biblioteca).toMatch(/youtube\.com\/@/);
+    // La regla vive en el dato y en el test: sin lista negra no hay promesa.
+    expect(leer("packages/shared/tests/library.test.ts")).toContain("DOMINIOS_PROHIBIDOS");
+  });
+
+  it("el plan cubre 200 semanas y dice cuántas están publicadas", () => {
+    const plan = leer("packages/shared/src/curriculum-5y.ts");
+    expect(plan).toContain("TOTAL_WEEKS = 200");
+    expect(plan).toContain("CAMPUS_WEEKS_PUBLISHED");
+    expect(plan).toContain("validateCurriculum");
+    expect(leer("packages/shared/tests/library.test.ts")).toContain("validateCurriculum");
+  });
+
+  it("el laboratorio son cinco instrumentos y ninguno promete de más", () => {
+    const lab = leer("packages/shared/src/lab.ts");
+    expect(lab).toContain("LAB_INSTRUMENTS");
+    expect(lab).toContain("lab.limit.patterns");
+    expect(lab).not.toMatch(/\bfetch\s*\(/);
+    expect(leer("packages/shared/tests/lab.test.ts")).toContain("declara su límite");
+    // Los instrumentos se integran en la consola del agente, no en una página suelta.
+    expect(leer("apps/web/src/components/agent-console.tsx")).toContain("tool.panel.title");
+  });
+});

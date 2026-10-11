@@ -117,6 +117,55 @@ Cada curso tiene veinte semanas con lectura, práctica guiada y caso real, más 
 **30 % P1 + 30 % P2 + 40 % P3**, y el examen final exige proyecto, defensa y entregables: no se aprueba marcando
 casillas.
 
+## El plan de cinco años
+
+El campus publica hoy **cuatro programas de veinte semanas**. Detrás hay una malla declarada de **cinco años: 200
+semanas en 10 franjas de 20** (`packages/shared/src/curriculum-5y.ts`), y la página [`/plano`](apps/web/src/app/%5Blocale%5D/plano/page.tsx)
+la enseña entera **diciendo cuáles están escritas y cuáles no**:
+
+| Año | Franjas | Modo | Estado |
+|---|---|---|---|
+| 1 | Defensa · IA aplicada segura | programa publicado | **80 semanas escritas** (4 × 20) |
+| 2 | Ofensiva · Gobernanza y compliance | programa publicado | incluidas en las 80 |
+| 3 | Especialidad en defensa · Especialidad en ofensiva | laboratorio | material por escribir |
+| 4 | Arquitectura y nube · Dirección de seguridad (CISO) | proyecto | material por escribir |
+| 5 | Proyecto final (capstone) · Docencia y comunidad | proyecto | material por escribir |
+
+`validateCurriculum()` demuestra que la cobertura de la semana 1 a la 200 no tiene huecos ni solapes, y
+`phaseAt(n)` responde qué se estudia cualquier semana del quinquenio: es la misma fuente que usa el tutor para
+proponer el plan, así que la página, el agente y los tests no pueden contar cosas distintas.
+
+## Biblioteca abierta
+
+[`/biblioteca`](apps/web/src/app/%5Blocale%5D/biblioteca/page.tsx) reúne **59 recursos abiertos** que merecen el
+tiempo: 24 canales (ofensiva, defensa, redes, IA, y la escena brasileña), 5 plataformas de práctica, 4 cursos
+abiertos, 6 laboratorios, 2 CTF y 18 documentos oficiales (NIST, OWASP, MITRE, CISA, ENISA, ISO). Cada ficha dice su
+idioma, su nivel, si exige registro y por qué encaja; el filtro es local y determinista, sin peticiones ni cuentas.
+
+La regla está en el dato y en un test: **se enlaza al autor, nunca a un espejo**. `DOMINIOS_PROHIBIDOS` recoge los
+agregadores que redistribuyen cursos de pago sin autorización, y `packages/shared/tests/library.test.ts` falla si
+alguno aparece en la lista. Es la misma ética que enseña la semana 1 de ofensiva —permiso por escrito— aplicada al
+propio campus.
+
+## Laboratorio de IA
+
+El módulo de IA no es un chat con adornos: [`/laboratorio`](apps/web/src/app/%5Blocale%5D/laboratorio/page.tsx) es
+una mesa de trabajo con **cinco instrumentos que hacen el trabajo de verdad**, todos deterministas y todos dentro del
+dispositivo (`packages/shared/src/lab.ts`):
+
+| Instrumento | Qué hace | Base |
+|---|---|---|
+| Auditoría de prompt | Aplica una a una las reglas de inyección y devuelve evidencia, referencia y mitigación | OWASP LLM01 · MITRE ATLAS · CWE |
+| Redacción de datos personales | Encuentra y tapa datos personales y credenciales antes de pegar nada en un modelo | LGPD/RGPD · ASVS 14.2 · PCI DSS · Luhn y dígitos verificadores |
+| Auditoría de fundamento | Mide, frase a frase, si la respuesta está sostenida por las fuentes citadas | Regla del campus: citar o callar |
+| Presupuesto de contexto | Estima tokens y calcula la holgura en modelos abiertos antes de enviar un material entero | Ventanas declaradas por cada autor, con su documentación |
+| Salvaguardas | Puntúa un diseño contra 12 controles ponderados y produce expediente | NIST AI RMF · EU AI Act · OWASP LLM06 · ASVS |
+
+Cada instrumento publica su **límite declarado** en los cuatro idiomas, y el expediente se exporta a Markdown. El
+tutor usa las mismas piezas: cinco **herramientas de sólo lectura** (`listar_programas`, `resumen_semana`,
+`recomendar_biblioteca`, `ruta_itinerario`, `plan_estudio`) se ejecutan en cada pregunta y la consola enseña qué hizo
+el tutor, con qué fuentes y sin escribir nada.
+
 ## Agente AURUM
 
 Nueve agentes con permisos distintos, deny-list global y **auditoría de cada respuesta**:
@@ -146,6 +195,9 @@ Garantías, verificadas por tests:
   (`provider:fallback:<motivo>`).
 - **Modo local por defecto**: el índice y la composición viajan con la página, así que el agente funciona sin
   conexión y la pregunta nunca sale del dispositivo.
+- **Herramientas de sólo lectura**: cinco herramientas deterministas (`listar_programas`, `resumen_semana`,
+  `recomendar_biblioteca`, `ruta_itinerario`, `plan_estudio`) se ejecutan en cada pregunta y viajan en el campo
+  `tools` de la respuesta; ninguna escribe, publica ni gasta (OWASP LLM06, mínimo privilegio).
 
 Detalle del transporte y del contrato: [CONTRATO_API.md](CONTRATO_API.md).
 
@@ -192,7 +244,7 @@ publica la huella SHA-256 de cada fichero para que dos copias se puedan comparar
 ## Cuatro idiomas, con honestidad
 
 La interfaz, el agente y el calendario hablan **portugués de Brasil (primero), español, inglés y catalán** con
-paridad auditada por tests (285 claves idénticas en los cuatro diccionarios). El campus abre en `pt-BR` porque el
+paridad auditada por tests (471 claves idénticas en los cuatro diccionarios). El campus abre en `pt-BR` porque el
 portugués de esta casa es el de Brasil, no el de Portugal: etiquetas, `hreflang`, vocabulario y voces.
 
 El **material docente** (las 80 semanas) está escrito en español. La traducción es incremental y sólo se publica
@@ -350,7 +402,10 @@ Lo que está terminado se puede comprobar con un comando. Lo que no, dice `PLANN
 | i18n PT/ES/EN/CA (interfaz) | **VERIFIED** | `pnpm test` (paridad de claves) |
 | Calendario + `.ics` | **VERIFIED** | tests de Pascua, traslados y plegado |
 | Agente, gobernanza y auditoría | **VERIFIED** | 18 tests de garantías |
-| Web AURUM (476 páginas estáticas) | **VERIFIED** | `pnpm --filter @secure-t/web build` |
+| Web AURUM (496 páginas estáticas) | **VERIFIED** | `pnpm --filter @secure-t/web build` · `pnpm audit:site` |
+| Malla de cinco años (200 semanas, 10 franjas) | **VERIFIED** (80 semanas escritas, 120 declaradas) | `packages/shared/tests/library.test.ts` |
+| Biblioteca abierta (59 recursos, sin espejos) | **VERIFIED** | `pnpm test` (regla de procedencia) |
+| Laboratorio de IA (5 instrumentos con límite declarado) | **VERIFIED** | `pnpm vitest run packages/shared/tests/lab.test.ts` |
 | Repaso espaciado SM-2 | **VERIFIED** | `pnpm test` (14 casos del algoritmo) |
 | Programas imprimibles (HTML A4 + LaTeX) | **VERIFIED** | `pnpm syllabus` y sus 9 tests de contrato |
 | Paquetes interoperables (EPUB, SCORM, CC, QTI 1.2/2.1, xAPI) | **VERIFIED** | `pnpm packages` y 27 tests de contrato |

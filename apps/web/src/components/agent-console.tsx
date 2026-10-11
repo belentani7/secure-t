@@ -18,7 +18,8 @@ import {
   type KnowledgePack,
   type Locale,
   type SearchDoc,
-  type SearchIndex
+  type SearchIndex,
+  type TranslationKey
 } from "@secure-t/shared";
 import { SITE, asset } from "@/lib/site";
 
@@ -215,6 +216,41 @@ export function AgentConsole({ locale, course }: { locale: Locale; course?: stri
                       </li>
                     ))}
                   </ol>
+                ) : null}
+                {turn.response?.tools?.length ? (
+                  <section className="mt-3 border-t border-[var(--aurum-line)] pt-3">
+                    <h3 className="mono m-0 text-[0.7rem] uppercase tracking-[0.14em] text-[var(--color-gold)]">
+                      {t("tool.panel.title")}
+                    </h3>
+                    <p className="mono mt-1 text-[0.66rem] text-[var(--aurum-muted)]">{t("tool.panel.hint")}</p>
+                    <ul className="mt-2 space-y-3">
+                      {turn.response.tools.map((herramienta) => (
+                        <li key={herramienta.tool}>
+                          <p className="m-0 text-[0.86rem] font-semibold text-[var(--color-gold-bright)]">
+                            {t(`tool.${herramienta.tool}` as TranslationKey)}
+                            <span className="mono ml-2 text-[0.66rem] font-normal text-[var(--aurum-muted)]">
+                              {herramienta.effect}/{herramienta.tool} · {herramienta.items.length}
+                            </span>
+                          </p>
+                          <p className="muted m-0 text-[0.8rem]">{herramienta.summary}</p>
+                          <ol className="mt-1 space-y-1 text-[0.82rem]">
+                            {herramienta.items.slice(0, 4).map((item, posicion) => (
+                              <li key={`${herramienta.tool}-${posicion}`}>
+                                {item.url ? (
+                                  <a href={asset(item.url)} className="font-semibold">
+                                    {item.label}
+                                  </a>
+                                ) : (
+                                  <span className="font-semibold">{item.label}</span>
+                                )}
+                                {item.detail ? <span className="muted"> — {item.detail}</span> : null}
+                              </li>
+                            ))}
+                          </ol>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
                 ) : null}
                 {turn.response ? (
                   <p className="mono mt-2 flex flex-wrap items-center gap-3 text-[0.68rem] text-[var(--aurum-muted)]">

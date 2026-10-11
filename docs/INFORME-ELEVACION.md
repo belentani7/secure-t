@@ -5,8 +5,12 @@
 - **Evidencia de CI**: ejecución completa sobre `705e944` — **8 comprobaciones de trabajo en verde y las dos
   suites de workflow (`CI` y `Calidad`) en verde** (el detalle, en §5.2). La CI también cazó, en `f0d03a7`, un
   falso positivo nuevo del escáner de secretos y el trabajo en rojo permaneció visible hasta corregirlo en `705e944`
+- **Versión**: 1.4.0 (ciclo H: currículo de cinco años, biblioteca abierta y laboratorio de IA)
 - **Fecha**: 2026-10-11
-- **Alcance de este informe**: dos ciclos sobre el campus ya elevado. (1) **Endurecimiento**: seguridad de la cadena
+- **Alcance de este informe**: tres ciclos sobre el campus ya elevado. **(H) Producto completo**: la malla de
+  cinco años (200 semanas) con lo escrito y lo pendiente en la misma página, la biblioteca abierta de 59 recursos con
+  regla de procedencia verificada, y el laboratorio de IA con cinco instrumentos deterministas que además alimentan al
+  tutor como herramientas de sólo lectura. **(1) Endurecimiento**… (1) **Endurecimiento**: seguridad de la cadena
   de suministro y escaneo real de secretos. (2) **Producto**: portugués de Brasil por defecto, cristal negro vivo con
   luz dorada líquida, identidad por llave de cuatro dígitos sin guardar nada, itinerarios abiertos y traducción
   incremental del material con la cobertura medida, no prometida. (3) **Docencia**: las ocho primeras semanas de los
@@ -31,12 +35,16 @@ aviso en **cada** ejecución.
 | CI del repositorio | **Verde completa** | checks con conclusión `success`: campus, secretos, edu-engine, web, cobertura, accesibilidad estática, axe (32 pruebas) y Lighthouse ≥ 95 + CWV; las dos suites de workflow (`CI`, `Calidad`) en verde. Sólo Sourcery aparece como `skipped` (revisión de terceros, no forma parte de las puertas) |
 | Escaneo de secretos | **Real y verificable** | binario oficial `gitleaks 8.24.3` (MIT) verificado por SHA-256, `--config .gitleaks.toml`, control negativo, veredicto por conjunto conocido |
 | Cadena de suministro | **Fijada y al día** | 7 acciones de GitHub fijadas por commit (todas en Node 24), `pnpm audit:deps` como puerta obligatoria, SBOM CycloneDX 1.5 con 778 componentes |
-| Campus AURUM | **Verificado** | 476 páginas exportadas, `_site` con 3.216 ficheros, `audit:site` = 0 errores y 0 avisos |
+| Campus AURUM | **Verificado** | 496 páginas exportadas, `_site` con 3.375 ficheros, `audit:site` = 0 errores y 0 avisos |
 | Estándares abiertos | **Aplicados con test** | QTI 1.2 y 2.1, SCORM 2004, IMS CC 1.3, EPUB 3.3, xAPI 1.0.3, Open Badges 2.0 y 3.0 (VC-JWT), schema.org, RFC 9116 |
 | Idioma por defecto | **Portugués de Brasil** | `pt-BR` en `lang`, `hreflang`, `x-default`, Open Graph y voz; el vocabulario del diccionario y del contenido se vigila con test (`tests/portugues-brasil.test.ts`) |
-| Idiomas del material docente | **Parcial y medido** | interfaz y agente completos en pt-BR/es/en/ca (285 claves, paridad con test); material: 32/80 semanas (las ocho primeras de los cuatro programas) y 4/4 títulos de programa en pt-BR. Lo mide `pnpm locales` y lo vigila `tests/content-i18n.test.ts` |
+| Idiomas del material docente | **Parcial y medido** | interfaz y agente completos en pt-BR/es/en/ca (471 claves, paridad con test); material: 32/80 semanas (las ocho primeras de los cuatro programas) y 4/4 títulos de programa en pt-BR. Lo mide `pnpm locales` y lo vigila `tests/content-i18n.test.ts` |
 | Identidad sin datos personales | **Llave de cuatro dígitos** | `PBKDF2-SHA256` con 210.000 iteraciones y semilla del dispositivo; el PIN se usa en memoria y no se guarda (lo comprueba `tests/identity.test.ts`) |
 | Front | **Cristal vivo con luz dorada líquida** | `.aurum-glass` y `.aurum-luz` en `globals.css`; todo lo animado vive en `prefers-reduced-motion: no-preference` |
+| Currículo de cinco años | **200 semanas declaradas, 80 escritas** | `curriculum-5y.ts` + `validateCurriculum()` (cobertura 1..200 sin huecos ni solapes) y página `/plano` con el estado de cada franja |
+| Biblioteca abierta | **59 recursos, sin espejos** | `/biblioteca`; `DOMINIOS_PROHIBIDOS` y `packages/shared/tests/library.test.ts` fallan si entra un agregador de cursos de pago |
+| Laboratorio de IA | **Cinco instrumentos deterministas** | `/laboratorio`; `packages/shared/tests/lab.test.ts` (23 pruebas) exige límite declarado, referencia normativa y cero red |
+| Tutor con herramientas | **Sólo lectura, en el contrato** | campo `tools` de la respuesta del agente; `resumen_semana`, `plan_estudio`… con datos del corpus, no del modelo |
 | Estructura profesional abierta | **Itinerarios** | 4 itinerarios con prerrequisitos sin ciclos y competencias acreditadas (`/itinerarios` + 4 rutas de idioma) |
 | Firma del autor | **Sólo en el back** | `tools/firma.ts` y el log de compilación; `tests/firma.test.ts` demuestra que no aparece en el front |
 | Rotación de la clave filtrada | **BLOCKED** | requiere al propietario; aquí sólo se documenta y se vigila |
@@ -53,8 +61,12 @@ aviso en **cada** ejecución.
   /{pt,es,en,ca}         portada y páginas por idioma
   /programas/[course]    cuatro programas, 20 semanas cada uno
   /programas/[course]/semana/[week]
+  /biblioteca           59 recursos abiertos (canales, cursos, laboratorios, documentación) con filtro local
+  /plano                malla de cinco años: 200 semanas en 10 franjas, con lo escrito y lo pendiente
+  /laboratorio          cinco instrumentos de IA deterministas (prompt, datos, fundamento, contexto, salvaguardas)
   /agente  /calendario  /progreso  /credencial  /amenazas  /repaso  /estandares  /privacidad
-packages/shared          i18n, badges (OB 2.0 + OB 3.0 VC-JWT), xAPI, SM-2, calendario, BM25…
+packages/shared          i18n, badges (OB 2.0 + OB 3.0 VC-JWT), xAPI, SM-2, calendario, BM25,
+                         biblioteca abierta, currículo de cinco años, herramientas del tutor y laboratorio de IA
 packages/agent           agente IA con deny-list, anti-SSRF, modo examen, citas y auditoría
 packages/ui              design system (tokens negros/dorados) + Storybook
 tools/                   contenido, paquetes interoperables, programas imprimibles, SBOM, ensamblado, auditorías
@@ -162,7 +174,7 @@ pruebas (UUID de ejemplo, hoy generados con `crypto.randomUUID()`: ningún liter
 
 | Entrega | Ubicación | Cómo se comprueba |
 |---|---|---|
-| Campus AURUM (4 idiomas, 4 programas × 20 semanas, 13 rutas) | `apps/web/src/app/**` | 476 páginas exportadas; `audit:site` 0/0; axe 32 pruebas en CI |
+| Campus AURUM (4 idiomas, 4 programas × 20 semanas, 16 rutas) | `apps/web/src/app/**` | 496 páginas exportadas; `audit:site` 0/0; axe 42 pruebas en CI (21 rutas × 2) |
 | Paquetes interoperables (EPUB 3.3, SCORM 2004 4.ª ed., IMS CC 1.3, QTI 1.2 y 2.1, plantillas xAPI) | `tools/build-packages.ts` → `apps/web/public/packages/` | `tests/packages-contract.test.ts` (27) |
 | Credenciales: Open Badges 2.0 y **OB 3.0 en VC-JWT** | `packages/shared/src/badges.ts` | tests de firma, manipulación, clave ajena y formato inválido |
 | Contenido de datos estructurados schema.org | `apps/web/src/lib/schema.ts` | contratos de página de estándares |
@@ -177,10 +189,13 @@ pruebas (UUID de ejemplo, hoy generados con `crypto.randomUUID()`: ningún liter
 | Traducción incremental del material, con cobertura medida | `campus/cursos/*/i18n/<idioma>/`, `tools/report-locales.ts`, `/itinerarios` y fichas | `tests/content-i18n.test.ts` (5) |
 | Idioma real del contenido sin traducir (WCAG 3.1.2) | `apps/web/src/components/teaching-text.tsx` | `tests/tracks.test.ts` y `lang` en el HTML exportado |
 | Cristal negro vivo con luz dorada líquida | `apps/web/src/app/globals.css` (+ encabezado, portada y pie) | axe y Lighthouse en CI; movimiento reducido respetado por construcción |
-| Documentación exigida | `README.md`, `ANALISIS_ORIGINAL.md`, `CONTRATO_API.md`, `DEPENDENCIAS.md`, `CHANGELOG.md`, `docs/decisions/` (12 ADR), `docs/ESTANDARES.md` | `tests/contracts.test.ts` |
+| Malla de cinco años (10 franjas, 200 semanas) | `packages/shared/src/curriculum-5y.ts`, `/plano` | `packages/shared/tests/library.test.ts` (9) y contratos de ruta |
+| Biblioteca abierta (59 recursos) y regla de procedencia | `packages/shared/src/library.ts`, `/biblioteca` | `packages/shared/tests/library.test.ts` + contratos |
+| Laboratorio de IA (5 instrumentos) y herramientas del tutor | `packages/shared/src/lab.ts`, `tutor-tools.ts`, `/laboratorio`, consola | `packages/shared/tests/lab.test.ts` (23) y `tutor-tools.test.ts` (8) |
+| Documentación exigida | `README.md`, `ANALISIS_ORIGINAL.md`, `CONTRATO_API.md`, `DEPENDENCIAS.md`, `CHANGELOG.md`, `docs/decisions/` (13 ADR), `docs/ESTANDARES.md` | `tests/contracts.test.ts` |
 
-Métricas del material: **95828 líneas** versionadas de código, datos y documentación; **3.251 ficheros** en `_site`;
-**481 páginas** auditadas.
+Métricas del material: **103663 líneas** versionadas de código, datos y documentación; **3.251 ficheros** en `_site`;
+**496 páginas** auditadas.
 
 ---
 
@@ -191,24 +206,25 @@ Métricas del material: **95828 líneas** versionadas de código, datos y docume
 | Prueba | Comando | Resultado |
 |---|---|---|
 | Contrato del campus clásico | `python -m pytest -q tests/` | **274 passed** en 3 ficheros (`test_campus.py`, `test_forge_smoke.py` y el control de secretos del material, con 157 comprobaciones parametrizadas) |
-| Paquetes y contratos (vitest) | `pnpm test` | **275 passed** en 24 ficheros (incluye llave de cuatro dígitos, itinerarios, traducciones, portugués de Brasil y firma del back) |
+| Paquetes y contratos (vitest) | `pnpm test` | **323 passed** en 27 ficheros (incluye llave de cuatro dígitos, itinerarios, traducciones, portugués de Brasil, firma del back, biblioteca, plan de cinco años, laboratorio y herramientas del tutor) |
 | Tipos (raíz y web) | `pnpm typecheck` + `pnpm --filter @secure-t/web typecheck` | sin errores |
 | Cobertura de módulos críticos | `pnpm test:coverage` | **92,55 %** sentencias · **81,5 %** ramas · 95,47 % líneas (umbral 80 %) |
 | Sincronía del contenido generado | `pnpm check:drift` | ✔ `sourceDigest bb57edf59758…` |
 | Auditoría de dependencias | `pnpm audit:deps` | ✔ 1 aviso aceptado y documentado, 0 sin justificar |
-| Export estático y ensamblado | `pnpm content:all` · `web:build` · `node tools/build-site.mjs` | ✔ 481 páginas, `_site` 3.251 ficheros |
-| Auditoría del sitio (sin navegador) | `pnpm audit:site` | **0 errores · 0 avisos**; mediana 204,7 kB; peor página 208,6 kB comprimidos |
+| Export estático y ensamblado | `pnpm content:all` · `web:build` · `node tools/build-site.mjs` | ✔ 496 páginas, `_site` 3.375 ficheros |
+| Auditoría del sitio (sin navegador) | `pnpm audit:site` | **0 errores · 0 avisos**; mediana 221,0 kB; peor página 234,4 kB comprimidos |
 | Accesibilidad estática | incluida en `audit:site` | ✔ sin errores (lang, `h1` único, jerarquía, `alt`, ids, nombres accesibles) |
 | Cobertura real de traducciones | `pnpm locales` | pt: 4/4 títulos de programa, 32/80 semanas, **16.950 palabras**; en y ca: 0/80. El README publica estas mismas cifras y un test falla si miente |
 | Falsos positivos del escáner en el material | `python -m pytest -q tests/test_material_sin_secretos.py` | **157 passed**: réplica exacta de la regla `curl-auth-user` de gitleaks 8.24.3 sobre los 157 ficheros Markdown del campus, con sus `allowlists` |
-| Líneas versionadas | `git ls-files \| xargs wc -l` | **98.732** |
+| Biblioteca, plan y laboratorio | `pnpm vitest run packages/shared/tests/library.test.ts packages/shared/tests/lab.test.ts packages/shared/tests/tutor-tools.test.ts` | **40 passed** (9 + 23 + 8) |
+| Líneas versionadas | `git ls-files \| xargs wc -l` | **103.663** |
 
 ### 5.2 Solo verificable en CI (este entorno no tiene navegador)
 
 | Prueba | Resultado sobre `c0440d3` |
 |---|---|
 | Lighthouse (6 URLs × 3 pasadas, presupuesto ≥ 95 y CWV) | **success** (en `0aec835` y en `1a43b1b`) |
-| axe / WCAG 2.2 AA (Playwright) | **success** en `705e944` — 36 pruebas (16 rutas × escritorio y móvil). En `4f79372` este check **falló**: el contrato de accesibilidad fijaba `lang="pt"` y la elevación a `pt-BR` lo rompió. La CI lo cazó, se corrigió en `24ffab8` haciendo que la etiqueta esperada salga de la fuente única y el conjunto volvió a verde |
+| axe / WCAG 2.2 AA (Playwright) | **success** en `705e944` — 36 pruebas (16 rutas × escritorio y móvil); la matriz pasa a **42 pruebas (21 rutas)** con `/biblioteca`, `/plano` y `/laboratorio` en los idiomas que se auditan. Estado de la nueva matriz: `NOT VERIFIED` en este entorno (sin navegador); la auditoría estática de las mismas páginas da 0 errores. En `4f79372` este check **falló**: el contrato de accesibilidad fijaba `lang="pt"` y la elevación a `pt-BR` lo rompió. La CI lo cazó, se corrigió en `24ffab8` haciendo que la etiqueta esperada salga de la fuente única y el conjunto volvió a verde |
 | Cobertura como umbral de CI | **success** |
 | Escaneo de secretos | **success** — control negativo encontrado ≥ 3 hallazgos; veredicto con 1 aviso aceptado |
 
@@ -266,6 +282,10 @@ blanca el escaneo ve cinco hallazgos, tres de ellos falsos positivos documentado
 | Lighthouse/CWV | **VERIFICADO EN CI** | Depende de la ejecución con navegador; no reproducible en este entorno |
 | Aviso cosmético de CI | **ABIERTO (menor)** | `upload-artifact` de Lighthouse avisa de que `.lighthouseci/` no existe al subir el artefacto: el check pasa, el artefacto no se publica |
 | Superficie legada (`secure-t-app/`, etc.) | **DECISIÓN DEL PROPIETARIO** | Material que ya no se publica ni se toca sin autorización explícita |
+| 120 semanas del plan sin material publicado | **DECLARADO** | La franjas 5.ª a 10.ª (especialidades, arquitectura, CISO, capstone y docencia) están descritas pero no escritas; la página `/plano` lo dice franja por franja y no se anuncia ninguna como disponible |
+| Recursos de la biblioteca: enlaces de terceros | **ACEPTADO** | Se enlaza al autor y no se archiva copia (archivarla sería redistribuir material ajeno). Si un recurso cambia o desaparece, la ficha sigue siendo cierta en lo que declara (autor, idioma, tipo); los tests comprueban forma y procedencia, no disponibilidad remota |
+| Límites de los instrumentos del laboratorio | **DECLARADO** | Detector de patrones, no verificador: cada instrumento publica su límite en los cuatro idiomas y el expediente lo repite. Un resultado «limpio» no certifica que el texto sea inocuo |
+| Matriz axe de las rutas nuevas | **NOT VERIFIED (entorno)** | 21 rutas × escritorio y móvil quedan configuradas en `e2e/a11y.spec.ts`; sin navegador aquí no se han ejecutado (`pnpm test:a11y` en CI). La auditoría estática de las mismas páginas da 0 errores |
 | Integraciones de terceros en cola | **NOT VERIFIED** | Cada push despierta suites de aplicaciones instaladas en la cuenta original (Vercel, Netlify, Cloudflare, Railway, Render, SonarQube, Supabase, Cursor, Claude…): aparecen como `queued`, no aportan verificación a esta entrega y conviene revisarlas o retirarlas con el propietario |
 
 ---
@@ -280,7 +300,8 @@ blanca el escaneo ve cinco hallazgos, tres de ellos falsos positivos documentado
   2. Decidir el destino de los directorios legados (F-3) o añadirlos a Dependabot.
   3. Fusionar el PR #3 y comprobar el despliegue de Pages (`https://belentani7.github.io/secure-t/`).
   4. Revisar los 7 avisos de Dependabot en `main` (3 críticos) — el detalle no es accesible por API desde aquí.
-- **Siguiente incremento (ya decidido, no incluido aquí)**: que el campus **consuma** los paquetes publicados
+- **Siguiente incremento (ya decidido, no incluido aquí)**: escribir el material de las franjas 5.ª a 10.ª del plan
+  de cinco años (120 semanas) y traducir al pt-BR las semanas 9-20 de los cuatro programas; además, que el campus **consuma** los paquetes publicados
   (`xapi-store.ts` / `progress-store.ts` no referencian todavía `apps/web/public/packages/`), y añadir tests que
   comprueben que el progreso del campus exporta xAPI contra el propio sitio.
 
@@ -353,7 +374,7 @@ python -m pytest -q tests/    # 117 pruebas del contrato del campus
 pnpm check:drift              # contenido generado en sincronía (sourceDigest)
 pnpm audit:deps               # avisos de dependencias justificados uno a uno
 pnpm web:build && pnpm --filter @secure-t/web build:pages && node tools/build-site.mjs
-pnpm audit:site               # 476 páginas: 0 errores y 0 avisos
+pnpm audit:site               # 496 páginas: 0 errores y 0 avisos
 ```
 
 Lighthouse y axe se ejecutan en CI (`.github/workflows/quality.yml`); este entorno no tiene navegador para repetirlos

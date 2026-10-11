@@ -639,6 +639,21 @@ caption a {
     var(--aurum-glass-strong);
 }
 
+/* Chips de filtro: pastilla de cristal. El estado lo lleva `aria-pressed`, no el
+   color suelto, así el contraste y el foco son los mismos en los dos idiomas. */
+.aurum-chip {
+  background: rgb(18 18 26 / 46%);
+  border: 1px solid var(--aurum-glass-line);
+  border-radius: 999px;
+  color: var(--aurum-muted);
+}
+
+.aurum-chip[aria-pressed="true"] {
+  color: var(--color-gold-bright);
+  border-color: var(--color-gold);
+  box-shadow: inset 0 0 0 1px rgb(212 175 55 / 26%);
+}
+
 /* El encabezado es una banda, no una tarjeta: cristal sin esquinas. */
 .aurum-glass-flat {
   border-radius: 0;
