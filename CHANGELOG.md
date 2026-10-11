@@ -88,8 +88,10 @@ externa, y lo que no está se dice en voz alta. Nada se marca conforme sin un te
   exclusiones viajan **dentro de la regla** (`[[rules.allowlists]]` sobre `generic-api-key`), que es la ruta que
   `extend()` fusiona de verdad, y el control negativo recorta el fichero en la marca `# ===SIN-LISTA-BLANCA===` para
   comprobar que sin ellas el escaneo sí ve los tres falsos positivos.
-- **Acciones de los workflows al día**: `actions/checkout` pasa de v4.4.0 a **v7.0.1** (fijada por commit), lo que
-  retira el aviso de obsolescencia de Node 20 en todos los trabajos.
+- **Acciones de los workflows al día** (todas fijadas por commit y con sus entradas comprobadas antes de subir):
+  `checkout` v4.4.0 → **v7.0.1**, `setup-node` v4 → **v7.1.0**, `setup-python` v5 → **v7.0.0**,
+  `pnpm/action-setup` v4 → **v6.1.0**, `upload-artifact` v4 → **v7.0.2**, `upload-pages-artifact` v3 → **v5.0.0**
+  y `deploy-pages` v4 → **v5.0.1**. Con ellas desaparecen los avisos de obsolescencia de Node 20 en todos los trabajos.
 - **Cadena de suministro**: de 11 avisos de dependencias a 1 (aceptado con motivo, sin parche publicado), acciones de
   los workflows fijadas por commit, Dependabot para npm/pip/actions y `pnpm audit:deps` como puerta obligatoria de CI.
 
