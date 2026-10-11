@@ -1,0 +1,23 @@
+# Cabeceras de seguridad para alojamientos que las admiten (Netlify, Cloudflare
+# Pages). Se generan desde src/lib/security-headers.ts para que la política sea
+# una sola y no se desincronice.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self'; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-DNS-Prefetch-Control: off
+
+# El agente no se cachea jamás
+/api/agent
+  Cache-Control: no-store
+
+# Los paquetes y el contenido son inmutables por compilación: se pueden cachear
+/packages/*
+  Cache-Control: public, max-age=31536000, immutable
+/content/*
+  Cache-Control: public, max-age=86400

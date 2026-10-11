@@ -1,5 +1,6 @@
 {
   "include": [
+    "packages/**/*",
     "client/src/**/*",
     "notifications/**/*",
     "ai/**/*",
@@ -11,23 +12,50 @@
     "vite.config.ts",
     "vitest.config.ts"
   ],
-  "exclude": ["node_modules", "build", "dist"],
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist"
+  ],
   "compilerOptions": {
     "incremental": true,
     "tsBuildInfoFile": "./node_modules/typescript/tsbuildinfo",
     "noEmit": true,
     "module": "ESNext",
     "strict": true,
-    "lib": ["esnext", "dom", "dom.iterable"],
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ],
     "jsx": "preserve",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "allowImportingTsExtensions": true,
     "moduleResolution": "bundler",
-    "types": ["node", "vite/client"],
+    "types": [
+      "node",
+      "vite/client"
+    ],
     "paths": {
-      "@/*": ["./client/src/*"],
-      "@notifications": ["./notifications/index.ts"]
+      // Path exacto (no comodín): los tests de la raíz importan la ruta de la API
+      // de la web, y su import interno necesita resolverse sin pisar el alias `@`
+      // del cliente clásico, que sigue apuntando a client/src.
+      "@/lib/problem": [
+        "./apps/web/src/lib/problem.ts"
+      ],
+      "@/*": [
+        "./client/src/*"
+      ],
+      "@notifications": [
+        "./notifications/index.ts"
+      ],
+      "@secure-t/shared": [
+        "./packages/shared/src/index.ts"
+      ],
+      "@secure-t/agent": [
+        "./packages/agent/src/index.ts"
+      ]
     }
   }
 }

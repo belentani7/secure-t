@@ -1,37 +1,47 @@
 # Semana 8: Extraccion de modelo y proteccion de PI
 
-Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 8 de 20
+Curso: [IA Aplicada Segura: Construir con Responsabilidad](../syllabus.md) · Semana 8 de 20
 
-## LECTURA: Teoria: Extraccion de modelo y proteccion de PI
+## Objetivos de aprendizaje
 
-Contenido teorico detallado para extraccion de modelo y proteccion de pi. Incluye frameworks, comandos y referencias.
+- Reconocer que una API de modelo es un canal de extraccion, no solo de servicio
+- Medir el coste de un atacante que quiere copiar tu modelo o sacar tus datos
+- Defender con limites, ruido y deteccion, sin romper la utilidad
 
-## EJERCICIO: Practica guiada: Extraccion de modelo y proteccion de PI
+## La API como canal de fuga
 
-Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para extraccion de modelo y proteccion de pi.
+Cada respuesta de un modelo lleva informacion: la etiqueta, el texto, las probabilidades si las expones, la latencia, el numero de tokens. Con suficientes consultas bien elegidas, esa informacion permite:
 
-## CASO: Caso real: Extraccion de modelo y proteccion de PI
+- **Extraer el modelo** (model stealing): entrenar un sustituto que imite al original sin haber pagado su entrenamiento.
+- **Inferir pertenencia** (membership inference): saber si un registro concreto estuvo en el entrenamiento. Con datos sensibles, eso ya es un incidente de privacidad.
+- **Reconstruir contenido memorizado**: pedir variaciones hasta que el modelo recite fragmentos de sus datos.
 
-Analisis de incidente real donde extraccion de modelo y proteccion de pi fue factor clave. Lecciones aprendidas.
+Defensas proporcionales, de menos a mas coste: limites por identidad y por ventana; no devolver probabilidades crudas; redondear o anadir ruido a puntuaciones; marcas de agua en las salidas; deteccion de patrones de extraccion (muchas consultas similes, cuentas nuevas, vocabularios sonda). Y sobre todo: **no entrenar con datos que no puedan filtrarse**. La mejor defensa de privacidad es no tener el dato.
 
-## 🎯 Objetivo de la semana
+**Referencias:**
+- NIST AI 100-2 — Privacy
+- MITRE ATLAS — AML.T0024 Exfiltration via ML Inference API
+- OWASP LLM Top 10 — LLM02 Sensitive Information Disclosure
 
-Proteger la propiedad intelectual del modelo frente a extracción y distilación no autorizada, midiendo el riesgo real.
+## Caso real: robar parte de un modelo en produccion (2024)
 
-## 📖 Lectura principal
+Un equipo de investigacion publico un ataque que, con acceso a una API comercial, logro reconstruir informacion sobre los parametros de salida del modelo explotando un canal lateral de puntuaciones. El coste fue de miles de consultas, no de millones de euros de entrenamiento. Leccion de gestion: si el modelo es el negocio, la API debe tratarse como una frontera con tasa, telemetria y deteccion, y la PI debe protegerse con contratos y marcas de agua, no con optimismo.
 
-Un modelo desplegado es un oráculo: consultando bastante (y con presupuesto) se puede reconstruir su comportamiento — extracción de membresía ('este dato estaba en el entrenamiento' — riesgo RGPD directo), robo de funcionalidad por distilación (un modelo estudiante imita al tuyo), o inversión de datos de entrenamiento (reconstruir ejemplos memorizados). Mitigaciones con coste: limitación de tasa y presupuestos por identidad (la nube ofrece cuotas), ruido en salidas o predicciones top-k recortadas (menos información por consulta), regularización contra memorización, y monitoreo del patrón de consultas — quien pide esquinas sistemáticas del espacio de entrada no es un usuario. La pregunta de negocio decide: ¿qué pierdo si me copian el modelo? Si la respuesta es 'nada crítico', el control correcto es mínimo; si es 'la ventaja competitiva', el blindaje justifica su coste.
+## Ejercicio guiado: mide tu propia superficie de extraccion
 
-## 🛠️ Práctica guiada
-
-Para tu caso de uso: tabla de activos (pesos, datos, prompts propietarios) × riesgo (extracción/distilación/membresía) × impacto. Propón 3 controles con su coste y qué patrón de consultas usarías como alarma. Media página con decisión explícita.
-
----
-[Volver al syllabus](../syllabus.md)
+1. Monta un modelo pequeno detras de una API local
+2. Define una politica de cuota: por identidad, por minuto y por dia
+3. Escribe un cliente que haga 200 consultas dirigidas y anota que informacion obtiene
+4. Repite exponiendo probabilidades y despues sin exponerlas: compara la fuga
+5. Disena 3 reglas de deteccion de extraccion y prueba cada una con trafico simulado
+6. Anade una marca de agua simple y comprueba que sigue siendo detectable
+7. Redacta la ficha de riesgos: que se pierde si te copian, y que harias en las primeras 24 horas
 
 ## Recursos abiertos
 
-- Fuente verificada del contenido del curso.
+- [NIST AI 100-2](https://csrc.nist.gov/pubs/ai/100/2/e2025/final)
+- [MITRE ATLAS](https://atlas.mitre.org/)
+- [OWASP LLM Top 10](https://genai.owasp.org/llm-top-10/)
 
 ---
 [Volver al syllabus](../syllabus.md)

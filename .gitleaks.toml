@@ -1,0 +1,103 @@
+# Configuracion de gitleaks del repositorio: las reglas del motor mas una lista
+# blanca **estrecha** para tres falsos positivos verificados uno a uno. No son
+# secretos:
+#
+#   · un identificador anónimo de las pruebas (un UUID de ejemplo, sin valor
+#     como credencial), y
+#   · una frase de la interfaz en inglés («…RS256-signed…»), que es prosa dentro
+#     de una cadena de traducción: RS256 es un algoritmo, no una clave, y
+#   · dos URLs de laboratorio del material docente (`…ejemplo.test…`) que la
+#     regla `curl-auth-user` leyó como usuario:clave porque el `-u` de `ffuf`
+#     caía a menos de cinco líneas de un comentario con la palabra `curl`.
+#
+# POR QUE LA LISTA BLANCA VA DENTRO DE LA REGLA: en gitleaks 8.24.3 la forma
+# global documentada (`[[allowlists]]` con `targetRules`) no suprimía nada
+# cuando la configuración extiende la del motor —medido en CI: «control=4,
+# final=4»—, mientras que `extend()` fusiona esta definición con la regla del
+# fichero por defecto y le añade sus listas blancas (`baseRule.Allowlists =
+# append(baseRule.Allowlists, currentRule.Allowlists...)`). Por eso se define la
+# regla con su mismo `id` y sólo se aportan las exclusiones; el resto de la
+# regla (expresión, entropía y palabras clave) lo pone el motor.
+#
+# Cada entrada acota **la regla y el texto exacto**, nunca el fichero entero: un
+# secreto de verdad en esos mismos ficheros sigue rompiendo la CI, igual que
+# cualquier otro hallazgo del historial.
+#
+# Referencia: https://github.com/gitleaks/gitleaks#configuration
+#
+# `minVersion` avisa (no aborta) si alguien ejecuta una version antigua de
+# gitleaks: en versiones anteriores la lista blanca se ignoraria en silencio.
+minVersion = "8.21"
+
+[extend]
+useDefault = true
+
+# ===SIN-LISTA-BLANCA===
+# La marca de arriba no es decorativa: el **control negativo** de la CI recorta
+# el fichero en ella (`sed '/^# ===SIN-LISTA-BLANCA===$/,$d'`) para escanear el
+# historial sin ninguna exclusión. Si sin lista blanca el escaneo no encuentra
+# los falsos positivos conocidos, el trabajo falla: un veredicto «verde» no
+# significaria nada.
+
+[[rules]]
+id = "generic-api-key"
+
+# ── Falso positivo 1 · UUID de ejemplo de las pruebas ───────────────────────
+# El árbol actual ya no contiene el literal (se genera con `crypto.randomUUID()`
+# en `packages/shared/tests/`), pero el historial conserva la versión antigua en
+# el commit 853f218.
+[[rules.allowlists]]
+description = "UUID de ejemplo de los tests: identificador anónimo, no una credencial"
+regexes = ['''^7f3c1a2e-9b44-4f77-8a10-2c5e6d9f0c31$''']
+
+[[rules.allowlists]]
+description = "UUID de ejemplo de los tests, comparado con la coincidencia completa"
+regexTarget = "match"
+regexes = ['''7f3c1a2e-9b44-4f77-8a10-2c5e6d9f0c31''']
+
+[[rules.allowlists]]
+description = "UUID de ejemplo de los tests, comparado con la línea"
+regexTarget = "line"
+regexes = ['''7f3c1a2e-9b44-4f77-8a10-2c5e6d9f0c31''']
+
+# ── Falso positivo 2 · prosa en inglés de la interfaz (`badge.lead`) ────────
+# «…RS256-signed on your device…» encaja con la forma «clave: valor» de la regla
+# genérica, pero `RS256-signed` es el nombre del algoritmo de firma.
+[[rules.allowlists]]
+description = "Prosa de la interfaz: RS256-signed es un algoritmo, no una clave"
+regexes = ['''^RS256-signed$''']
+
+[[rules.allowlists]]
+description = "Prosa de la interfaz, comparada con la coincidencia completa"
+regexTarget = "match"
+regexes = ['''credential, RS256-signed''']
+
+[[rules.allowlists]]
+description = "Prosa de la interfaz, comparada con la línea"
+regexTarget = "line"
+regexes = ['''public key it carries''']
+
+# ── Falso positivo 3 · ejemplos del campus en la regla `curl-auth-user` ─────
+# Medido en el commit f0d03a7: en `campus/cursos/ciber-ofensiva/semana-08.md`
+# (y su traducción), el `-u` de `ffuf` quedaba a cinco líneas de un comentario
+# que decía «curl», así que la regla capturó `'https://lab.ejemplo.test/…'`
+# como si fuera un usuario:clave. El ejemplo se corrigió a `ffuf --url` en
+# e98b628 (más legible y ya no dispara la regla), pero el historial conserva la
+# versión antigua. La exclusión acota **el dominio de laboratorio** del campus:
+# un `curl -u usuario:clave` real en esos mismos ficheros sigue rompiendo la CI.
+[[rules]]
+id = "curl-auth-user"
+
+[[rules.allowlists]]
+description = "URLs de laboratorio del campus capturadas como credencial (semana 8 de ciber-ofensiva)"
+regexes = ['''lab\.(?:ejemplo|exemplo)\.test''']
+
+[[rules.allowlists]]
+description = "El mismo falso positivo, comparado con la coincidencia completa (incluye el comentario con «curl»)"
+regexTarget = "match"
+regexes = ['''lab\.(?:ejemplo|exemplo)\.test''']
+
+[[rules.allowlists]]
+description = "El mismo falso positivo, comparado con la línea del comando"
+regexTarget = "line"
+regexes = ['''ffuf (?:-u|--url) ['\"]https://lab\.(?:ejemplo|exemplo)\.test''']

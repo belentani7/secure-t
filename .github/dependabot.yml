@@ -1,0 +1,51 @@
+# Actualizaciones de dependencias controladas por PR (revisables) en vez de
+# depender de que alguien mire el registro a mano. Los grupos evitan una lluvia
+# de PRs por cada parche de la constelación de Radix.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      radix-ui:
+        patterns: ["@radix-ui/*"]
+      herramientas-de-desarrollo:
+        dependency-type: development
+    labels: ["dependencias", "seguridad"]
+
+  - package-ecosystem: npm
+    directory: "/apps/web"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      next-react:
+        patterns: ["next", "react", "react-dom", "eslint-config-next"]
+    labels: ["dependencias", "seguridad"]
+
+  - package-ecosystem: npm
+    directory: "/packages/ui"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 3
+    labels: ["dependencias", "seguridad"]
+
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 3
+    labels: ["dependencias", "seguridad"]
+
+  # Las acciones van fijadas por SHA; Dependabot es quien propone subirlas.
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+    labels: ["dependencias", "seguridad"]

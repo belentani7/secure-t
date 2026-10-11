@@ -352,3 +352,19 @@ build/
 coverage/
 *.log
 .DS_Store
+
+# Artefactos de construcción y salidas locales (nunca se publican)
+_site/
+storybook-static/
+coverage/
+e2e/salida/
+apps/web/out/
+apps/web/.next/
+apps/web/.api-oculta-en-export/
+apps/web/public/plan/
+apps/web/public/packages/
+apps/web/public/badges/
+apps/web/public/sbom.cdx.json
+*.tsbuildinfo
+# El catálogo y el índice generados SÍ se versionan: son lo que se sirve en
+# producción y así el CI puede detectar material desincronizado.

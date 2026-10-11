@@ -1,0 +1,171 @@
+# Calidad de la experiencia: rendimiento, accesibilidad y cobertura.
+#
+# Los umbrales son los del encargo y no se negocian a la baja en el propio
+# workflow: si bajan, se cambia el código, no el número.
+#   · Lighthouse ≥ 95 en las cuatro categorías
+#   · Core Web Vitals: LCP < 2,5 s · INP < 200 ms · CLS < 0,1
+#   · WCAG 2.2 AA con axe en las rutas principales
+#   · Cobertura ≥ 80 % en los módulos críticos (calendario, agente, progreso)
+name: Calidad
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  NEXT_TELEMETRY_DISABLED: "1"
+
+jobs:
+  cobertura:
+    name: Cobertura de los módulos críticos
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: pnpm/action-setup@d9184bf108216479bc5a137cc391f4d7b14c870b # v6.1.0
+        with:
+          version: 10
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      # Los contratos leen los artefactos publicados (contenido, paquetes,
+      # programas imprimibles y SBOM): se generan antes de medir la cobertura.
+      - name: Contenido y artefactos de los contratos
+        run: pnpm content:all
+      - name: Tests con cobertura (umbral 80 % en lo crítico)
+        run: pnpm test:coverage
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: cobertura
+          path: coverage/
+          retention-days: 14
+
+  auditoria-estatica:
+    name: Accesibilidad y peso sin navegador
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: pnpm/action-setup@d9184bf108216479bc5a137cc391f4d7b14c870b # v6.1.0
+        with:
+          version: 10
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm content:all
+      - name: Export estático
+        run: pnpm --filter @secure-t/web build:pages
+      - name: Auditoría de las 457 páginas (lang, h1, alt, ids, foco, peso)
+        run: pnpm audit:site
+
+  accesibilidad:
+    name: axe · WCAG 2.2 AA
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: pnpm/action-setup@d9184bf108216479bc5a137cc391f4d7b14c870b # v6.1.0
+        with:
+          version: 10
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm content:all
+      - name: Export estático de la web
+        run: pnpm --filter @secure-t/web build:pages
+      - name: Instalar navegador
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Auditoría de accesibilidad
+        run: pnpm test:a11y
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: accesibilidad
+          path: e2e/salida/
+          retention-days: 14
+
+  lighthouse:
+    name: Lighthouse ≥ 95 y Core Web Vitals
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: pnpm/action-setup@d9184bf108216479bc5a137cc391f4d7b14c870b # v6.1.0
+        with:
+          version: 10
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm content:all
+      - name: Export estático con la misma base que producción
+        run: pnpm --filter @secure-t/web build:pages
+      - name: Ensamblar el sitio tal como se publica
+        run: node tools/build-site.mjs --sin-web
+      - name: Comprobar el sitio antes de auditarlo
+        run: |
+          test -f _site/app/index.html || echo "::error title=Sitio::falta _site/app/index.html"
+          node tools/serve-static.mjs --port 4173 --root _site &
+          sleep 2
+          for ruta in /app/ /app/pt/ /app/es/programas /app/pt/agente; do
+            echo "$ruta -> $(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:4173$ruta")"
+          done
+          kill %1 || true
+      - name: Lighthouse CI
+        run: |
+          set +e
+          pnpm exec lhci autorun 2>&1 | tee "$RUNNER_TEMP/lhci.log"
+          codigo=${PIPESTATUS[0]}
+          if [ "$codigo" -ne 0 ]; then
+            fallos=$(grep -a "✘" "$RUNNER_TEMP/lhci.log" | head -30 | sed 's/\x1b\[[0-9;]*m//g' | tr '\r\n' '  ' | sed 's/%/%25/g')
+            echo "::error title=Lighthouse fallos::${fallos}"
+            # Auditorías concretas por debajo de 1, categoría a categoría: es el
+            # dato que permite arreglar la causa en lugar de adivinarla.
+            node -e '
+              const fs = require("node:fs");
+              if (!fs.existsSync(".lighthouseci")) process.exit(0);
+              const porCategoria = {};
+              const detalle = [];
+              for (const fichero of fs.readdirSync(".lighthouseci").filter((f) => f.endsWith(".json"))) {
+                const informe = JSON.parse(fs.readFileSync(`.lighthouseci/${fichero}`, "utf8"));
+                const url = informe.finalDisplayedUrl ?? informe.finalUrl ?? fichero;
+                for (const [nombre, categoria] of Object.entries(informe.categories ?? {})) {
+                  for (const ref of categoria.auditRefs ?? []) {
+                    if (!ref.weight) continue;
+                    const auditoria = informe.audits[ref.id];
+                    if (!auditoria || auditoria.score === null || auditoria.score >= 1) continue;
+                    (porCategoria[nombre] ??= new Set()).add(`${ref.id}=${auditoria.score}`);
+                    for (const item of (auditoria.details?.items ?? []).slice(0, 3)) {
+                      const texto = item.description ?? item.node?.snippet ?? item.node?.selector ??
+                        item.source?.url ?? JSON.stringify(item);
+                      detalle.push(`${ref.id} @ ${url}: ${String(texto).replace(/\s+/g, " ").slice(0, 180)}`);
+                    }
+                  }
+                }
+              }
+              const resumen = Object.entries(porCategoria).map(([k, v]) => `${k}: ${[...v].join(", ")}`).join(" | ");
+              if (resumen) console.log(`::error title=Auditorías por debajo de 1::${resumen.replace(/%/g, "%25")}`);
+              const unicos = [...new Set(detalle)].slice(0, 12);
+              if (unicos.length) console.log(`::error title=Lighthouse detalle::${unicos.join(" · ").replace(/%/g, "%25")}`);
+            '
+          fi
+          exit "$codigo"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: lighthouse
+          path: .lighthouseci/
+          retention-days: 14

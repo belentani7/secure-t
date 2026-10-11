@@ -1,39 +1,47 @@
 # Semana 6: Robustez adversaria y testing
 
-Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 6 de 20
+Curso: [IA Aplicada Segura: Construir con Responsabilidad](../syllabus.md) · Semana 6 de 20
 
-## LECTURA: Teoria: Robustez adversaria y testing
+## Objetivos de aprendizaje
 
-Contenido teorico detallado para robustez adversaria y testing. Incluye frameworks, comandos y referencias.
+- Distinguir robustez, seguridad y fiabilidad: tres propiedades que se miden distinto
+- Probar un modelo con entradas disenadas para enganarlo, no solo con datos de test
+- Convertir esas pruebas en un conjunto de regresion que corre en cada version
 
-## EJERCICIO: Practica guiada: Robustez adversaria y testing
+## Un buen rendimiento no es seguridad
 
-Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para robustez adversaria y testing.
+Un modelo con 98 % de acierto en test puede fallar sistematicamente ante entradas que un atacante elige. La razon es geometrica: si mover un pixel o cambiar una palabra cruza la frontera de decision, existe una direccion de ataque, aunque la media siga siendo alta.
 
-## CASO: Caso real: Robustez adversaria y testing
+- **Evasion**: entradas modificadas que el modelo clasifica mal (adversarial examples). Importantes en vision y audio; en texto, equivalentes como homoglifos o espaciado raro.
+- **Prompt injection**: instrucciones escondidas dentro de contenido que el modelo lee (paginas, PDF, correos). Convierte al modelo en el ejecutor del atacante.
+- **Envenenamiento**: el fallo esta en el entrenamiento, no en la inferencia (semana 7).
+- **Filtraciones de privacidad**: el modelo memoriza datos de entrenamiento y los devuelve (semana 8).
 
-Analisis de incidente real donde robustez adversaria y testing fue factor clave. Lecciones aprendidas.
+**Regla de testing:** cada propiedad se prueba con el **peor caso plausible**, no con el caso promedio. Y toda prueba que descubra un fallo real entra al conjunto de regresion: un fallo arreglado sin prueba vuelve.
 
-## 🎯 Objetivo de la semana
+**Referencias:**
+- OWASP LLM Top 10 — LLM01 Prompt Injection, LLM09 Misinformation
+- NIST AI 100-2 (Adversarial Machine Learning Taxonomy)
+- MITRE ATLAS — atlas.mitre.org
 
-Someter un modelo a pruebas de robustez adversaria y cuantificar su degradación antes de que lo haga un atacante.
+## Caso real: contenido externo como vector de inyeccion (2023)
 
-## 📖 Lectura principal
+En 2023 se demostro repetidamente que contenido de una pagina web o de un PDF podia contener instrucciones que un asistente con acceso a esos datos ejecutaba: exfiltrar la conversacion, llamar a una accion no autorizada o cambiar su propio comportamiento. El fallo no estaba en el modelo, sino en tratarlo como una frontera de confianza: texto de fuera no debe tener el mismo peso que una instruccion del usuario. Contramedidas que si funcionan: separar canales con marcas de origen, exigir confirmacion humana antes de acciones con efecto y no dar al agente credenciales mas amplias de las que necesita la tarea.
 
-La robustez se testea como se testea la criptografía: asumiendo el peor caso. Para imágenes, perturbaciones imperceptibles (ataques L∞ tipo FGSM/PGD) voltean la predicción: la pegatina hace que la señal de STOP desaparezca para el modelo. Para tablas y texto, la pregunta es qué pasa con entradas fuera de distribución — el modelo contesta con confianza de siempre. El testeo práctico usa herramientas abiertas (Adversarial Robustness Toolbox de IBM, Foolbox) sobre TUS datos y mide: tasa de éxito del ataque, distancia de la perturbación y degradación de métrica global. Defender cuesta: entrenamiento adversarial y detección de out-of-distribution añaden coste y a veces accuracy — la decisión informada es cuánta robustez compra el caso de uso (un filtro de spam tolera más que un sistema de conducción). Documentar el nivel aceptado es la entrega, no 'hemos probado que es robusto'.
+## Ejercicio guiado: pruebas de robustez con evidencia
 
-## 🛠️ Práctica guiada
+1. Elige un clasificador o un asistente de laboratorio propio
+2. Construye 20 entradas de peor caso: ruido, homoglifos, texto escondido, instrucciones inyectadas
+3. Mide la caida de rendimiento por tipo de ataque, en tabla
+4. Para las 3 peores, escribe la contramedida y vuelve a medir
+5. Empaqueta las entradas como conjunto de regresion ejecutable
+6. Documenta en una ficha de modelo: que se probo, que fallo, que se acepto como riesgo
 
-Con ART y un modelo pequeño entrenado en clase (o un MNIST público): ejecuta FGSM y PGD, y reporta accuracy limpio vs atacado y ejemplo de perturbación mínima que engaña. Escribe el párrafo de decisión: nivel de robustez aceptado para un caso de uso real y por qué.
-
----
 ## Recursos abiertos
 
-- IBM Adversarial Robustness Toolbox — adversarial-robustness-toolbox
-- Foolbox — foolbox.jonasrauber.de
-- NIST AI 100-1 — AI Risk Management Framework
-- OWASP Machine Learning Security Top 10
-- CleverHans — cleverhans.readthedocs.io
+- [OWASP LLM Top 10](https://genai.owasp.org/llm-top-10/)
+- [MITRE ATLAS](https://atlas.mitre.org/)
+- [NIST AI 100-2](https://csrc.nist.gov/pubs/ai/100/2/e2025/final)
 
 ---
 [Volver al syllabus](../syllabus.md)

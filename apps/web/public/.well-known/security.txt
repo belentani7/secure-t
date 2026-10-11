@@ -1,0 +1,17 @@
+# security.txt — RFC 9116
+# Cómo informar de una vulnerabilidad en este campus. Sin formularios, sin
+# pedir credenciales en el canal y sin prometer recompensas que no existan.
+#
+# Alcance: el sitio publicado (campus AURUM y campus clásico), los paquetes
+# generados y el código del repositorio. Fuera de alcance: la infraestructura
+# de GitHub, los proveedores de LLM opcionales del agente y los laboratorios
+# que el estudiante ejecuta en su propia máquina y a su riesgo.
+
+Contact: mailto:security@secure-t.dev
+Contact: https://github.com/belentani7/secure-t/security/advisories/new
+Expires: 2027-09-30T23:59:59.000Z
+Canonical: https://belentani7.github.io/secure-t/.well-known/security.txt
+Preferred-Languages: es, pt, en, ca
+Policy: https://belentani7.github.io/secure-t/privacidad
+Acknowledgments: https://github.com/belentani7/secure-t/security/advisories
+Hiring: https://github.com/belentani7/secure-t/blob/main/CONTRIBUTING.md

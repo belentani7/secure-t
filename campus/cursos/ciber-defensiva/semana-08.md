@@ -1,37 +1,55 @@
-# Semana 8: Inteligencia de amenazas y TIP
+# Semana 8: Hardening de sistemas
 
-Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 8 de 20
+Curso: [Ciberseguridad Defensiva: Construir y Defender](../syllabus.md) · Semana 8 de 20
 
-## LECTURA: Teoria: Inteligencia de amenazas y TIP
+## Objetivos de aprendizaje
 
-Contenido teorico detallado para inteligencia de amenazas y tip. Incluye frameworks, comandos y referencias.
+- Reducir superficie de ataque con criterio: menos servicios, menos permisos, menos rutas
+- Aplicar una linea base verificable en lugar de una lista de deseos
+- Medir el antes y el despues con una comprobacion automatica
 
-## EJERCICIO: Practica guiada: Inteligencia de amenazas y TIP
+## Menos es mas: las cuatro reducciones
 
-Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para inteligencia de amenazas y tip.
+1. **Servicios**: lo que no se usa, se apaga y se desinstala.
+2. **Permisos**: privilegio minimo por usuario, servicio y proceso; `sudo` con lista blanca.
+3. **Rutas**: cierra lo que no necesita estar expuesto; el acceso interno pasa por un punto controlado.
+4. **Credenciales**: sin contrasenas compartidas, sin claves en el codigo, rotacion con registro.
 
-## CASO: Caso real: Inteligencia de amenazas y TIP
+El hardening se sostiene con **linea base**: un documento ejecutable que dice como debe estar el sistema, y una comprobacion que lo verifica. Sin comprobacion, en tres meses el sistema vuelve a su estado original.
 
-Analisis de incidente real donde inteligencia de amenazas y tip fue factor clave. Lecciones aprendidas.
+```bash
+# Linea base minima en un servidor Linux
+sudo ss -tulpn                                    # que escucha y quien
+sudo systemctl list-unit-files --state=enabled    # que arranca solo
+sudo grep -rE '^\s*PermitRootLogin|^\s*PasswordAuthentication' /etc/ssh/sshd_config
+# Comprobacion automatica del estado esperado (falla si algo cambio)
+sudo test "$(ss -tulpnH | wc -l)" -le 8 && echo 'OK: superficie bajo control'
+```
 
-## 🎯 Objetivo de la semana
+**Referencias:**
+- CIS Benchmarks — cisecurity.org/cis-benchmarks
+- NIST SP 800-123 — Guide to General Server Security
+- ANSSI — Recomendaciones de configuracion
 
-Consumir inteligencia de amenazas con escepticismo operativo: enriquecer, priorizar y cerrar el ciclo de feedback.
+## Medir el antes y el despues
 
-## 📖 Lectura principal
+Un panel de hardening que nadie ejecuta no protege nada. La prueba de que esta semana sirvio es simple: guarda la salida de las comprobaciones antes y despues, y compara. Lo que no se puede medir, no se puede mantener.
 
-La inteligencia útil responde preguntas de decisión, no colecciona IOCs: estratégica (qué actores atacan mi sector y con qué motivación), táctica (qué TTPs de ATT&CK debo cubrir) y operativa (estos hashes/ IPs/dominalos son malos PARA MÍ ahora). Un TIP mínimo ingesta feeds (AlienVault OTX abierta, MISP autoalojado), deduplica, aplica expiración — un IOC de 2023 bloqueado hoy genera falsos positivos y calma falsa — y sobre todo se enriquece con lo propio: el IP que te escaneó ayer vale más que mil genéricos. Pirámide del dolor: bloquear hash es trivial para el atacante de esquivar; degradar sus TTPs es caro. El ciclo termina midiendo qué IOC disparó detección real y alimentando el tuning: inteligencia sin feedback es decoración cara.
+## Ejercicio guiado: endurece un servidor y demuestralo
 
-## 🛠️ Práctica guiada
-
-Configura una cuenta OTX y suscríbate a 2 pulses relevantes para tu sector. Exporta 20 IOC, aplícales expiración razonable y clasifícalos en la pirámide del dolor. Diseña en una página tu TIP mínimo: fuentes, deduplicación, expiración, y el informe semanal que justificaría su coste.
-
----
-[Volver al syllabus](../syllabus.md)
+1. Parte de una maquina virtual recien instalada (o un contenedor con SSH)
+2. Levanta el inventario: puertos a la escucha, servicios habilitados, usuarios con shell
+3. Aplica las cuatro reducciones y documenta cada cambio con su motivo
+4. Escribe un script de comprobacion que devuelva OK o FALLO por cada regla
+5. Ejecutalo antes y despues y guarda las dos salidas
+6. Anade el script a una tarea programada y define quien revisa los fallos
+7. Cierra con una tabla: cambio, riesgo que reduce, como se comprueba
 
 ## Recursos abiertos
 
-- Fuente verificada del contenido del curso.
+- [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks)
+- [NIST SP 800-123](https://csrc.nist.gov/pubs/sp/800/123/final)
+- [OpenSCAP](https://www.open-scap.org/)
 
 ---
 [Volver al syllabus](../syllabus.md)

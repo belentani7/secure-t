@@ -1,0 +1,31 @@
+{
+  "name": "@secure-t/ui",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Sistema de diseño AURUM: identidad negro/dorado, componentes accesibles y catálogo de historias.",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./psychology": "./src/psychology.ts",
+    "./tokens.css": "./src/tokens.css"
+  },
+  "scripts": {
+    "storybook": "storybook dev -p 6006 --host 0.0.0.0",
+    "build-storybook": "storybook build -o storybook-static",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@storybook/react": "9.1.0",
+    "@storybook/react-vite": "9.1.0",
+    "@types/react": "19.3.0",
+    "typescript": "7.0.2",
+    "vitest": "5.0.2"
+  },
+  "sideEffects": false
+}

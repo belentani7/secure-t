@@ -1,0 +1,1121 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   AURUM — identidad de secure T
+   Negro profundo + dorado + azul como acento secundario.
+   Reglas: contraste AA en todo el texto, foco siempre visible, sin animación
+   obligatoria, y tipografía del sistema (cero peticiones a terceros: la
+   promesa de privacidad también cubre las fuentes).
+   ========================================================================== */
+
+@theme {
+  --color-ink: #07070a;
+  --color-ink-soft: #0b0b10;
+  --color-surface: #101017;
+  --color-raised: #16161f;
+  --color-line: #2a2621;
+  --color-gold: #d4af37;
+  --color-gold-bright: #f2d477;
+  --color-gold-deep: #8a6f22;
+  --color-azure: #3d7dff;
+  --color-azure-soft: #16233d;
+  --color-parchment: #f5f1e6;
+  --color-muted: #b7b1a2;
+  --color-success: #4ade80;
+  --color-danger: #f87171;
+  --color-warning: #fbbf24;
+}
+
+:root {
+  color-scheme: dark;
+  --aurum-bg: var(--color-ink);
+  --aurum-surface: var(--color-surface);
+  --aurum-raised: var(--color-raised);
+  --aurum-text: var(--color-parchment);
+  --aurum-muted: var(--color-muted);
+  --aurum-line: rgb(212 175 55 / 18%);
+  --aurum-line-strong: rgb(212 175 55 / 38%);
+  --aurum-glow: 0 0 0 1px rgb(212 175 55 / 22%), 0 18px 48px -24px rgb(212 175 55 / 32%);
+  --aurum-radius: 14px;
+  --aurum-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --aurum-mono: ui-monospace, "SFMono-Regular", "Cascadia Code", Consolas, "Liberation Mono", monospace;
+  --aurum-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+
+  /* Cristal y luz liquida. El dorado no es un color plano: es una luz que se
+     mueve muy despacio detras del contenido. Todo lo animado vive dentro de
+     `prefers-reduced-motion: no-preference`, asi que quien pide quietud ve la
+     misma composicion, congelada, y sin un fotograma de mas. */
+  --aurum-glass: rgb(18 18 26 / 58%);
+  --aurum-glass-strong: rgb(22 22 31 / 82%);
+  --aurum-glass-blur: 16px;
+  --aurum-glass-line: rgb(242 212 119 / 22%);
+  --aurum-glass-sheen: rgb(255 255 255 / 7%);
+  --aurum-luz-a: rgb(212 175 55 / 30%);
+  --aurum-luz-b: rgb(242 212 119 / 20%);
+  --aurum-luz-c: rgb(61 125 255 / 16%);
+}
+
+[data-contrast="high"] {
+  --aurum-surface: #000;
+  --aurum-raised: #0a0a0a;
+  --aurum-text: #fff;
+  --aurum-muted: #e6e1d5;
+  --aurum-line: rgb(242 212 119 / 70%);
+  --aurum-line-strong: rgb(242 212 119 / 95%);
+}
+
+* {
+  min-width: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--aurum-bg);
+  color: var(--aurum-text);
+  font-family: var(--aurum-font);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Fondo: retícula dorada muy tenue + halo azul lejano (sin imágenes). */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgb(212 175 55 / 8%), transparent 70%),
+    radial-gradient(900px 500px at 100% 0%, rgb(61 125 255 / 6%), transparent 65%),
+    linear-gradient(rgb(212 175 55 / 3%) 1px, transparent 1px) 0 0 / 100% 3.25rem;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
+}
+
+a {
+  color: var(--color-gold-bright);
+  text-decoration-color: rgb(212 175 55 / 45%);
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  text-decoration-color: var(--color-gold);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: #14100a;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--aurum-display);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  margin: 0 0 0.6em;
+}
+
+h1 {
+  font-size: clamp(2.1rem, 5.2vw, 3.6rem);
+}
+
+h2 {
+  font-size: clamp(1.55rem, 3.4vw, 2.3rem);
+}
+
+h3 {
+  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+}
+
+p {
+  max-width: 68ch;
+}
+
+code,
+pre,
+kbd {
+  font-family: var(--aurum-mono);
+  font-size: 0.92em;
+}
+
+pre {
+  background: #0a0a0f;
+  border: 1px solid var(--aurum-line);
+  border-radius: 12px;
+  padding: 1rem 1.15rem;
+  overflow-x: auto;
+}
+
+:not(pre) > code {
+  background: rgb(212 175 55 / 10%);
+  border: 1px solid var(--aurum-line);
+  border-radius: 6px;
+  padding: 0.05em 0.4em;
+}
+
+/* ----------------------------- utilidades ------------------------------- */
+
+.wrap {
+  width: min(78rem, 100% - 2rem);
+  margin-inline: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.wrap-narrow {
+  width: min(52rem, 100% - 2rem);
+  margin-inline: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  font-family: var(--aurum-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin: 0 0 0.75rem;
+}
+
+.gold-text {
+  background: linear-gradient(96deg, var(--color-gold-bright) 0%, var(--color-gold) 45%, var(--color-gold-deep) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lead {
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  color: var(--aurum-muted);
+  max-width: 62ch;
+}
+
+.muted {
+  color: var(--aurum-muted);
+}
+
+.mono {
+  font-family: var(--aurum-mono);
+  font-size: 0.85rem;
+}
+
+.section {
+  padding-block: clamp(2.5rem, 6vw, 5rem);
+}
+
+.hairline {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(90deg, transparent, var(--aurum-line-strong), transparent);
+  margin-block: 2.5rem;
+}
+
+/* ------------------------------ componentes ----------------------------- */
+
+.card {
+  background: linear-gradient(180deg, var(--aurum-surface), var(--color-ink-soft));
+  border: 1px solid var(--aurum-line);
+  border-radius: var(--aurum-radius);
+  padding: 1.5rem;
+  transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.card:hover {
+  border-color: var(--aurum-line-strong);
+  box-shadow: var(--aurum-glow);
+}
+
+.card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.card-title {
+  font-family: var(--aurum-display);
+  font-size: 1.25rem;
+  margin-bottom: 0.35rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.7rem 1.35rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: linear-gradient(180deg, var(--color-gold-bright), var(--color-gold));
+  color: #14100a;
+  font-weight: 650;
+  font-size: 0.98rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 140ms ease, filter 140ms ease, border-color 140ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--aurum-line-strong);
+  color: var(--aurum-text);
+}
+
+.btn-ghost:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold-bright);
+}
+
+.btn-azure {
+  background: linear-gradient(180deg, #5c93ff, var(--color-azure));
+  color: #04060f;
+}
+
+.btn-sm {
+  min-height: 38px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.9rem;
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--aurum-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  border: 1px solid var(--aurum-line-strong);
+  border-radius: 999px;
+  padding: 0.18rem 0.6rem;
+  background: rgb(212 175 55 / 6%);
+}
+
+.badge-planned {
+  color: var(--color-warning);
+  border-color: rgb(251 191 36 / 45%);
+  background: rgb(251 191 36 / 8%);
+}
+
+.badge-verified {
+  color: var(--color-success);
+  border-color: rgb(74 222 128 / 45%);
+  background: rgb(74 222 128 / 8%);
+}
+
+.badge-azure {
+  color: #9cc0ff;
+  border-color: rgb(61 125 255 / 45%);
+  background: rgb(61 125 255 / 10%);
+}
+
+.grid-3 {
+  display: grid;
+  gap: 1.15rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr));
+}
+
+.grid-2 {
+  display: grid;
+  gap: 1.15rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(24rem, 100%), 1fr));
+}
+
+.stack > * + * {
+  margin-top: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.field label {
+  font-size: 0.9rem;
+  color: var(--aurum-muted);
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  color: var(--aurum-text);
+  background: #0b0b11;
+  border: 1px solid var(--aurum-line);
+  border-radius: 10px;
+  padding: 0.6rem 0.8rem;
+  min-height: 44px;
+  width: 100%;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--color-gold);
+  outline: none;
+  box-shadow: 0 0 0 3px rgb(212 175 55 / 25%);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--aurum-line);
+  border-radius: 12px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.95rem;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.6rem 0.85rem;
+  border-bottom: 1px solid var(--aurum-line);
+}
+
+th {
+  font-family: var(--aurum-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  background: rgb(212 175 55 / 5%);
+}
+
+.prose-aurum {
+  max-width: 74ch;
+}
+
+.prose-aurum h2 {
+  margin-top: 2.4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--aurum-line);
+  color: var(--color-gold-bright);
+}
+
+.prose-aurum h3 {
+  margin-top: 1.8rem;
+}
+
+.prose-aurum ul,
+.prose-aurum ol {
+  padding-left: 1.3rem;
+}
+
+.prose-aurum li + li {
+  margin-top: 0.35rem;
+}
+
+.prose-aurum blockquote {
+  margin: 1.5rem 0;
+  padding: 0.9rem 1.2rem;
+  border-left: 3px solid var(--color-gold);
+  background: rgb(212 175 55 / 5%);
+  border-radius: 0 10px 10px 0;
+  color: var(--aurum-muted);
+}
+
+.prose-aurum img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+mark {
+  background: rgb(212 175 55 / 30%);
+  color: var(--aurum-text);
+  border-radius: 4px;
+  padding: 0 0.15em;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--color-gold);
+  color: #14100a;
+  padding: 0.6rem 1rem;
+  border-radius: 0 0 10px 0;
+  z-index: 50;
+  font-weight: 650;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, rgb(212 175 55 / 6%), rgb(212 175 55 / 14%), rgb(212 175 55 / 6%));
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+  border-radius: 8px;
+  min-height: 1rem;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.fade-up {
+  animation: fadeUp 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.chat-bubble {
+  border: 1px solid var(--aurum-line);
+  border-radius: 14px;
+  padding: 0.85rem 1.05rem;
+  background: var(--aurum-surface);
+  white-space: pre-wrap;
+}
+
+.chat-bubble-user {
+  background: var(--color-azure-soft);
+  border-color: rgb(61 125 255 / 35%);
+}
+
+.cite {
+  font-family: var(--aurum-mono);
+  font-size: 0.75rem;
+  color: var(--color-gold-bright);
+  border: 1px solid var(--aurum-line-strong);
+  border-radius: 6px;
+  padding: 0 0.3rem;
+  margin-left: 0.2rem;
+}
+
+.meter {
+  height: 0.55rem;
+  border-radius: 999px;
+  background: #1b1b24;
+  overflow: hidden;
+  border: 1px solid var(--aurum-line);
+}
+
+.meter > i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-gold-deep), var(--color-gold-bright));
+  transition: width 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.holiday-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
+  padding: 0.35rem 0;
+  border-bottom: 1px dashed var(--aurum-line);
+}
+
+.maintenance-note {
+  border: 1px dashed var(--aurum-line-strong);
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem;
+  background: rgb(212 175 55 / 4%);
+}
+
+@media print {
+  body::before,
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #111;
+  }
+  .card,
+  .chat-bubble {
+    border-color: #999;
+    background: #fff;
+    color: #111;
+  }
+  a {
+    color: #111;
+    text-decoration: underline;
+  }
+}
+
+/* Enlaces dentro de texto corrido: se subrayan para no depender sólo del color
+   (WCAG 1.4.1, regla «link-in-text-block» de axe). Los botones y la navegación
+   quedan fuera de la regla. */
+p a:not(.btn),
+.mono a:not(.btn),
+figcaption a,
+dd a,
+caption a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+/* ============================================================================
+   Cristal vivo y luz dorada liquida
+   ============================================================================
+   Piezas sueltas, ninguna obligatoria:
+
+   - .aurum-glass: superficie de cristal (esmerilado, brillo interior y filo
+     dorado tenue). Va SIN @layer a proposito: asi ninguna utilidad de Tailwind
+     puede aflojarle el borde ni el desenfoque.
+   - .aurum-luz: halos dorados y un azul lejano que derivan muy despacio.
+     Decorativos (aria-hidden), sin puntero y siempre por detras del texto.
+   - .aurum-filo: la linea de oro que separa el encabezado.
+*/
+
+.aurum-glass {
+  background:
+    linear-gradient(158deg, var(--aurum-glass-sheen) 0%, transparent 42%),
+    var(--aurum-glass);
+  border: 1px solid var(--aurum-glass-line);
+  border-radius: var(--aurum-radius);
+  -webkit-backdrop-filter: blur(var(--aurum-glass-blur)) saturate(135%);
+  backdrop-filter: blur(var(--aurum-glass-blur)) saturate(135%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 6%),
+    0 24px 60px -34px rgb(0 0 0 / 85%);
+}
+
+.aurum-glass-strong {
+  background:
+    linear-gradient(158deg, var(--aurum-glass-sheen) 0%, transparent 42%),
+    var(--aurum-glass-strong);
+}
+
+/* Chips de filtro: pastilla de cristal. El estado lo lleva `aria-pressed`, no el
+   color suelto, así el contraste y el foco son los mismos en los dos idiomas. */
+.aurum-chip {
+  background: rgb(18 18 26 / 46%);
+  border: 1px solid var(--aurum-glass-line);
+  border-radius: 999px;
+  color: var(--aurum-muted);
+}
+
+.aurum-chip[aria-pressed="true"] {
+  color: var(--color-gold-bright);
+  border-color: var(--color-gold);
+  box-shadow: inset 0 0 0 1px rgb(212 175 55 / 26%);
+}
+
+/* El encabezado es una banda, no una tarjeta: cristal sin esquinas. */
+.aurum-glass-flat {
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+}
+
+.aurum-luz {
+  position: absolute;
+  inset: -30% -12% auto -12%;
+  height: 150%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurum-luz::before,
+.aurum-luz::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(64px);
+}
+
+.aurum-luz::before {
+  width: 44rem;
+  height: 44rem;
+  left: -12rem;
+  top: -16rem;
+  background: radial-gradient(circle at 42% 42%, var(--aurum-luz-b), transparent 62%);
+}
+
+.aurum-luz::after {
+  width: 34rem;
+  height: 34rem;
+  right: -9rem;
+  top: -6rem;
+  background:
+    radial-gradient(circle at 60% 40%, var(--aurum-luz-a), transparent 60%),
+    radial-gradient(circle at 30% 70%, var(--aurum-luz-c), transparent 62%);
+}
+
+.aurum-filo {
+  background: linear-gradient(90deg,
+    transparent,
+    var(--aurum-luz-a) 18%,
+    var(--aurum-luz-b) 50%,
+    var(--aurum-luz-a) 82%,
+    transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .aurum-luz::before {
+    animation: aurum-deriva-a 28s ease-in-out infinite alternate;
+  }
+
+  .aurum-luz::after {
+    animation: aurum-deriva-b 36s ease-in-out infinite alternate;
+  }
+
+  /* Un brillo que recorre el boton principal SOLO al pasar el puntero. Va como
+     imagen de fondo, no como pseudo-elemento: asi pasa por DETRAS del texto y
+     el contraste de la etiqueta no cambia ni un instante. */
+  .btn {
+    background-image: linear-gradient(105deg, transparent 40%, rgb(255 255 255 / 22%) 50%, transparent 60%);
+    background-repeat: no-repeat;
+    background-size: 220% 100%;
+    background-position: 165% 0;
+    transition: background-position 700ms ease;
+  }
+
+  .btn:hover,
+  .btn:focus-visible {
+    background-position: -65% 0;
+  }
+}
+
+@keyframes aurum-deriva-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(5.5rem, 3rem, 0) scale(1.12); }
+}
+
+@keyframes aurum-deriva-b {
+  from { transform: translate3d(0, 0, 0) scale(1.06); }
+  to   { transform: translate3d(-4.5rem, 2.5rem, 0) scale(0.94); }
+}
+
+/* ============================================================================
+   PSICOLOGÍA APLICADA — tokens que se pueden comprobar
+   Cada número de este bloque está en `packages/ui/src/psychology.ts`, con su
+   fuente y su límite, y hay un test que exige que sigan de acuerdo. La idea es
+   sencilla: el diseño no decide por gusto, decide por evidencia sobre cómo
+   percibe y cómo elige una persona.
+
+   60·30·10 · Fitts · Hick · Miller · Von Restorff · pico-final · WCAG 2.3.3
+   ========================================================================== */
+
+:root {
+  /* Escala tipográfica modular (razón 1.25) y ritmo vertical de 8 px. */
+  --psy-ratio: 1.25;
+  --psy-step-micro: 0.68rem;
+  --psy-step-small: 0.85rem;
+  --psy-step-lead: 1.25rem;
+  --psy-step-h3: 1.5625rem;
+  --psy-step-h2: 1.953rem;
+  --psy-step-h1: 2.441rem;
+
+  --psy-unit: 0.5rem;
+  --psy-space-1: calc(var(--psy-unit) * 1);
+  --psy-space-2: calc(var(--psy-unit) * 3);
+  --psy-space-3: calc(var(--psy-unit) * 5);
+  --psy-space-4: calc(var(--psy-unit) * 8);
+  --psy-space-5: calc(var(--psy-unit) * 12);
+
+  /* Duraciones: 90 ms se siente inmediato, 140 ms es reacción, 320 ms es calma.
+     Nada de interacción por encima de 400 ms: se percibe como lentitud. */
+  --psy-instant: 90ms;
+  --psy-quick: 140ms;
+  --psy-calm: 320ms;
+  --psy-ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --psy-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Movimiento mínimo: 12 px de entrada, 2 px de elevación. Sin parallax. */
+  --psy-shift: 12px;
+  --psy-lift: 2px;
+  --psy-delay: 0ms;
+
+  /* Objetivos táctiles (ley de Fitts · WCAG 2.2 2.5.8). */
+  --psy-target: 44px;
+  --psy-target-gap: 8px;
+
+  /* Medida de lectura: 45-80 caracteres por línea. */
+  --psy-measure-body: 68ch;
+  --psy-measure-lead: 62ch;
+}
+
+/* Jerarquía con la escala modular, no con tamaños sueltos. */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+h2 {
+  font-size: clamp(1.55rem, 3.4vw, var(--psy-step-h2));
+}
+
+/* La primera línea de un párrafo de entrada no se separa de su título:
+   ley de proximidad aplicada al espacio (0.35em, no 1em). */
+.lead,
+.section > p:first-of-type {
+  margin-top: 0.35em;
+}
+
+/* Declaración explícita de objetivos: cualquier control mide al menos 44 px. */
+button,
+summary,
+[role="button"] {
+  min-height: var(--psy-target);
+}
+
+/* Y lo pequeño se separa: nunca dos objetivos pegados. */
+.btn + .btn,
+.btn + a,
+summary + a {
+  margin-inline-start: var(--psy-target-gap);
+}
+
+/* ------------------------------------------- panel «más» de la navegación */
+
+.nav-more {
+  position: relative;
+}
+
+.nav-more > summary {
+  display: inline-flex;
+  gap: 0.35rem;
+  list-style: none;
+  cursor: pointer;
+}
+
+.nav-more > summary::-webkit-details-marker {
+  display: none;
+}
+
+.nav-more > summary::marker {
+  content: "";
+}
+
+.nav-more__flecha {
+  transition: transform var(--psy-quick) var(--psy-ease-out);
+}
+
+.nav-more[open] > summary .nav-more__flecha {
+  transform: rotate(180deg);
+}
+
+.nav-more[open] > summary {
+  border-color: var(--color-gold);
+  color: var(--color-gold-bright);
+}
+
+.nav-more__panel {
+  position: absolute;
+  inset-inline-end: 0;
+  z-index: 50;
+  margin-top: 0.4rem;
+  padding: 0.5rem;
+  width: min(18rem, calc(100vw - 2rem));
+  display: grid;
+  gap: 2px;
+  border-radius: var(--aurum-radius);
+  box-shadow: 0 24px 60px -30px rgb(0 0 0 / 90%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nav-more__panel {
+    animation: psy-panel var(--psy-quick) var(--psy-ease-out) both;
+  }
+}
+
+@keyframes psy-panel {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--psy-shift) / 2));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------ ritmo de aparición (reveal) */
+
+/*
+  Sólo se oculta cuando el componente `MotionRhythm` confirma que hay
+  JavaScript y que no se pidió movimiento reducido (`html[data-psy="on"]`).
+  Sin JS: todo visible. Es la diferencia entre una animación y una promesa rota.
+*/
+html[data-psy="on"] .psy-reveal {
+  opacity: 0;
+  transform: translateY(var(--psy-shift));
+}
+
+html[data-psy="on"] .psy-reveal.psy-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--psy-calm) var(--psy-ease-out) var(--psy-delay),
+    transform var(--psy-calm) var(--psy-ease-out) var(--psy-delay);
+}
+
+@media print {
+  html[data-psy="on"] .psy-reveal,
+  html[data-psy="on"] .psy-reveal.psy-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ------------------------------------- microinteracciones (reacción, no adorno) */
+
+.card {
+  transition:
+    border-color var(--psy-quick) var(--psy-ease-out),
+    box-shadow var(--psy-quick) var(--psy-ease-out);
+}
+
+.btn {
+  transition:
+    transform var(--psy-quick) var(--psy-ease-out),
+    filter var(--psy-quick) var(--psy-ease-out),
+    border-color var(--psy-quick) var(--psy-ease-out),
+    color var(--psy-quick) var(--psy-ease-out);
+}
+
+.btn:hover {
+  transform: translateY(calc(var(--psy-lift) * -1));
+}
+
+/*
+  La tarjeta no se agranda al pasar el ratón: el texto que se mueve se lee peor,
+  y el escalado es uno de los gestos que más molesta a quien tiene sensibilidad
+  vestibular. Se ilumina el borde, que informa igual y no mueve nada.
+*/
+.card:hover,
+.card-link:hover .card {
+  border-color: var(--aurum-line-strong);
+  box-shadow: var(--aurum-glow);
+}
+
+/* ============================================================================
+   HORIZONTE DE RÍO — el guiño, escondido
+   El Cristo Redentor y el Pan de Azúcar como sombras dentro del propio HTML:
+   cero imágenes, cero peticiones, cero peso. Es decoración: va `aria-hidden`,
+   no recibe el puntero y vive por detrás del texto. Su movimiento es deriva de
+   bruma y parpadeo de luces de ciudad; con `prefers-reduced-motion` se queda
+   quieto y se ve igual de bien.
+   ========================================================================== */
+
+.aurum-rio {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: min(34%, 22rem);
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.42;
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 42%, #000 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 42%, #000 100%);
+}
+
+.aurum-rio__lienzo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.aurum-rio__bruma,
+.aurum-rio__luces circle,
+.aurum-rio__halo,
+.aurum-rio__filo {
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Bruma: 96 segundos. Cuando termina, empieza de nuevo sin que se note. */
+  .aurum-rio__bruma {
+    animation: rio-bruma 96s ease-in-out infinite alternate;
+  }
+
+  /* Luces de la ciudad: cada una con su propio retardo (va en el SVG). */
+  .aurum-rio__luces circle {
+    animation: rio-luz 7s ease-in-out infinite;
+  }
+
+  /* El halo del Cristo respira muy despacio, como una vela lejana. */
+  .aurum-rio__halo {
+    animation: rio-halo 18s ease-in-out infinite alternate;
+  }
+
+  /* La cabina del teleférico cruza el hueco entre los dos morros. */
+  .aurum-rio__cabina {
+    animation: rio-cabina 52s ease-in-out infinite alternate;
+  }
+
+  /* El filo del horizonte late con la bruma. */
+  .aurum-rio__filo {
+    animation: rio-filo 96s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes rio-bruma {
+  from {
+    transform: translate3d(-1.6%, 0, 0);
+    opacity: 0.75;
+  }
+  to {
+    transform: translate3d(1.6%, -1.2%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes rio-luz {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes rio-halo {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 0.85;
+  }
+}
+
+@keyframes rio-cabina {
+  from {
+    transform: translateX(-6px);
+  }
+  to {
+    transform: translateX(6px);
+  }
+}
+
+@keyframes rio-filo {
+  from {
+    opacity: 0.55;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* La despedida de la portada: una banda baja con el horizonte, sin texto. */
+.rio-cierre {
+  position: relative;
+  height: 15rem;
+  overflow: hidden;
+  border-top: 1px solid var(--aurum-line);
+}
+
+.rio-cierre .aurum-rio {
+  height: 100%;
+  opacity: 0.55;
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 34%, #000 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 34%, #000 100%);
+}
+
+@media (max-height: 640px) {
+  .rio-cierre {
+    height: 11rem;
+  }
+}
+
+/* El horizonte sólo aparece donde hay sitio: en pantallas muy cortas se acorta. */
+@media (max-height: 640px) {
+  .aurum-rio {
+    height: 26%;
+  }
+}
+
+/* Alto contraste: el guiño desaparece. La accesibilidad manda sobre el guiño. */
+[data-contrast="high"] .aurum-rio {
+  display: none;
+}
+
+/* ============================================================================
+   TRANSICIONES ENTRE PÁGINAS — nativo, sin librería
+   View Transitions del navegador: un fundido de 200 ms entre documentos. Cero
+   JavaScript, cero dependencias, cero peso. Donde no existe, no pasa nada: la
+   navegación sigue siendo instantánea y completa. Con movimiento reducido, el
+   fundido se acorta a la nada.
+   ========================================================================== */
+
+@view-transition {
+  navigation: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: psy-cross-fade 160ms var(--psy-ease-out) both reverse;
+  }
+
+  ::view-transition-new(root) {
+    animation: psy-cross-fade 220ms var(--psy-ease-out) both;
+  }
+}
+
+@keyframes psy-cross-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

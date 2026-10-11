@@ -1,37 +1,53 @@
 # Semana 7: Envenenamiento de datos y supply chain
 
-Curso: [Inteligencia Artificial Aplicada y Segura](../syllabus.md) · Semana 7 de 20
+Curso: [IA Aplicada Segura: Construir con Responsabilidad](../syllabus.md) · Semana 7 de 20
 
-## LECTURA: Teoria: Envenenamiento de datos y supply chain
+## Objetivos de aprendizaje
 
-Contenido teorico detallado para envenenamiento de datos y supply chain. Incluye frameworks, comandos y referencias.
+- Entender por que el envenenamiento sobrevive a las pruebas de validacion
+- Revisar la cadena de suministro de un modelo como se revisa una dependencia
+- Elegir formatos y fuentes que no ejecuten codigo al cargar
 
-## EJERCICIO: Practica guiada: Envenenamiento de datos y supply chain
+## El fallo que viaja en el dataset
 
-Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para envenenamiento de datos y supply chain.
+Envenenar datos no es «meter ejemplos malos»: es introducir una asociacion que el modelo aprende y que solo se activa cuando el atacante quiere. Un **backdoor** tipico enseña al modelo a comportarse bien salvo ante un disparador (una palabra, un patron). Por eso el modelo pasa las pruebas normales: la puerta solo se abre con la llave.
 
-## CASO: Caso real: Envenenamiento de datos y supply chain
+Dos hechos incomodos hacen esto practico: (1) los conjuntos de datos publicos se rastrean de la web y son envenenables a distancia; (2) los modelos y pesos se comparten en formatos que, historicamente, **ejecutan codigo al cargarse** (Pickle). Cargar un modelo de un repositorio publico es ejecutar codigo de terceros salvo que se elija un formato seguro.
 
-Analisis de incidente real donde envenenamiento de datos y supply chain fue factor clave. Lecciones aprendidas.
+Controles que reducen el riesgo de verdad:
 
-## 🎯 Objetivo de la semana
+| Control | Que ataca |
+|---|---|
+| Formato seguro al cargar (safetensors, ONNX) | Ejecucion de codigo |
+| Linaje y hash de cada dataset | Trazabilidad de origen |
+| Muestreo y auditoria de disparadores | Backdoors conocidos |
+| Modelo y pesos firmados | Sustitucion |
+| Reproducir el entrenamiento desde cero | Datos contaminados |
 
-Blindar el suministro de datos y modelos contra envenenamiento y sustitución, aplicando las lecciones de la supply chain clásica.
+**Referencias:**
+- NIST AI 100-2 — Poisoning
+- MITRE ATLAS — AML.T0020 Poison Training Data
+- OWASP ML Top 10 — ML07 Transfer Learning Attack
 
-## 📖 Lectura principal
+## Caso real: malware en el hub de modelos (2024)
 
-El envenenamiento corrompe el aprendizaje: datos falsos insertados en el corpus (etiquetas cambiadas, backdoors activables con un trigger) o dependencias ML adulteradas — la lección de event-stream/PyPI aplica a datasets y pesos descargados: ¿quién firmó ese .safetensors? Las defensas son aburridas y efectivas: fuentes allowlisteadas con hash fijado, análisis de datos antes de entrenar (distribución, duplicados sospechosos, outlier forense), separación de quien aporta datos de quien aprueba entrenar (four-eyes), y canaries en datasets — registros sintéticos únicos que, si aparecen en la salida de un modelo ajeno, delatan robo o memorización. Para modelos preentrenados de terceros: preferir fuentes con atestación, re-entrenar la última capa en dominio propio reduce superficie, y monitorear comportamiento en producción contra una batería dorada de casos conocidos.
+Investigadores encontraron mas de un centenar de modelos publicos en un gran repositorio comunitario que, al cargarse, ejecutaban codigo malicioso mediante el mecanismo de serializacion clasico. No exploitaban el modelo: exploitaban la **costumbre** de cargar pesos sin comprobar origen ni formato. La leccion se aplica igual a datasets y a plugins de frameworks: la cadena de suministro de IA es tan fuerte como el eslabon que nadie reviso.
 
-## 🛠️ Práctica guiada
+## Ejercicio guiado: audita el origen de un modelo
 
-Diseña el manifiesto de suministro de tu proyecto ML: qué datasets/pesos/bibliotecas entran, con qué hash y de qué fuente, quién aprueba cambios. Añade 3 canaries sintéticos a tu dataset y describe la alarma que dispararían. Doc: media página.
-
----
-[Volver al syllabus](../syllabus.md)
+1. Elige un modelo publico pequeno que uses o quieras usar
+2. Averigua en que formato se distribuye y si ese formato ejecuta codigo al cargar
+3. Localiza la ficha del dataset de entrenamiento: hay linhaje? hay licencia? hay filtrado?
+4. Busca quien subio los pesos y si hay versiones previas o firmas
+5. Convierte el modelo a un formato seguro y compara rendimiento antes y despues
+6. Documenta un plan de respuesta: si se descubre envenenamiento, como se retira y que se sustituye
+7. Escribe las 5 preguntas que haras de ahora en adelante antes de cargar cualquier modelo
 
 ## Recursos abiertos
 
-- Fuente verificada del contenido del curso.
+- [safetensors](https://github.com/huggingface/safetensors)
+- [MITRE ATLAS](https://atlas.mitre.org/)
+- [OWASP ML Top 10](https://owasp.org/www-project-machine-learning-security-top-10/)
 
 ---
 [Volver al syllabus](../syllabus.md)

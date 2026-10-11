@@ -1,37 +1,56 @@
 # Semana 5: Gestion de riesgos (ISO 31000, NIST 800-39)
 
-Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 5 de 20
-
-## LECTURA: Teoria: Gestion de riesgos (ISO 31000, NIST 800-39)
-
-Contenido teorico detallado para gestion de riesgos (iso 31000, nist 800-39). Incluye frameworks, comandos y referencias.
-
-## EJERCICIO: Practica guiada: Gestion de riesgos (ISO 31000, NIST 800-39)
-
-Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para gestion de riesgos (iso 31000, nist 800-39).
-
-## CASO: Caso real: Gestion de riesgos (ISO 31000, NIST 800-39)
-
-Analisis de incidente real donde gestion de riesgos (iso 31000, nist 800-39) fue factor clave. Lecciones aprendidas.
+Curso: [Gobernanza y Compliance: Dirigir con Evidencia](../syllabus.md) · Semana 5 de 20
 
 ## 🎯 Objetivo de la semana
 
-Gestionar el riesgo con un proceso repetible (ISO 31000 / NIST 800-39) donde cada riesgo tiene dueño, fecha y evidencia.
+Traducir activos y amenazas a riesgo comparable, con decisiones firmadas y seguimiento.
+
+- Traducir activos y amenazas a riesgo con criterio explicito y comparable
+- Aplicar el ciclo de NIST 800-39: enmarcar, evaluar, responder, monitorizar
+- Escribir un registro de riesgos que un comite pueda decidir, no solo leer
 
 ## 📖 Lectura principal
 
-ISO 31000 da el proceso (identificar → analizar → valorar → tratar → monitorear) y NIST 800-39 lo aterriza en seguridad con cuatro respuestas posibles: mitigar, compartir, aceptar o evitar. La práctica que separa el papel de la gestión: el registro de riesgos vivo — cada fila con activo, amenaza, controles actuales, probabilidad × impacto con escala definida (¿qué significa 'alto' aquí, con criterio numérico?), decisión, dueño con nombre y apellido, y fecha de revisión. Los riesgos aceptados se firman por quien asume la consecuencia, no por quien los encontró. Y el marco se calibra: riesgo residual después de controles, no riesgo bruto de catálogo. La auditoría madura pregunta por el ciclo: muéstrame un riesgo cerrado el trimestre pasado con su evidencia de tratamiento — no una matriz bonita sin historia.
+### Riesgo no es miedo: es una cuenta
 
-## 🛠️ Práctica guiada
+Riesgo = **probabilidad × impacto**, con el alcance y el apetito escritos al lado. Sin esas dos anclas, cualquier cifra vale y ninguna decide. ISO 31000 aporta el proceso y el vocabulario; NIST 800-39 aporta los cuatro niveles (organizacion, mision, sistema, informacion) y la idea de que el riesgo **se acepta o se trata a un nivel concreto**, no en abstracto.
 
-Construye el registro de 8 riesgos reales de la plataforma (fuga de material, token robado, caída de CDN, abuso de API…). Escala definida, valoración bruto/residual, decisión, dueño y revisión. Firma (simulada) los 2 aceptados y explica por qué esa persona.
+| Elemento | Pregunta | Salida |
+|---|---|---|
+| Activo | Que protege y cuanto vale | Inventario priorizado |
+| Amenaza | Quien o que puede danarlo | Escenarios plausibles |
+| Vulnerabilidad | Por donde entra | Control que falta o falla |
+| Probabilidad | Cada cuanto, con que evidencia | Escala con criterio |
+| Impacto | Cuanto duele, en negocio | Dinero, plazo, reputacion, legal |
+| Respuesta | Evitar, reducir, transferir, aceptar | Decision con dueño y fecha |
 
----
-[Volver al syllabus](../syllabus.md)
+**El error mas caro** es la matriz de colores sin criterio: si «probabilidad alta» no esta definida con datos, el resultado depende de quien pinta la casilla. Se define antes de evaluar.
+
+**Referencias:**
+- ISO 31000:2018 — Risk management
+- NIST SP 800-39 — Managing Information Security Risk
+- ISO/IEC 27005 — Information security risk management
+
+### Caso real: el riesgo que se acepto sin saberlo
+
+Multitud de brechas empiezan con un sistema antiguo, sin parches, en una red plana que «ya nadie usa». Nadie decidio formalmente aceptar ese riesgo: simplemente no estaba en el registro, y lo que no esta en el registro no se decide. Cuando el incidente ocurre, la pregunta del comite no es «que fallo» sino «quien acepto esto y cuando»; sin registro no hay respuesta, y sin respuesta se paga dos veces (tecnica y reputacional).
+
+## 🛠️ Práctica guiada: registro de riesgos con decisiones
+
+1. Elige un sistema real o de laboratorio y lista 10 activos de informacion
+2. Escribe 8 escenarios de amenaza plausibles y asignales vulnerabilidad
+3. Define escalas de probabilidad e impacto con **criterios numericos** antes de puntuar
+4. Puntua y ordena; marca los 3 primeros como prioritarios
+5. Para cada prioritario, escribe la respuesta (evitar, reducir, transferir, aceptar) con dueño y fecha
+6. Anade un plan de monitorizacion: que indicador avisa de que el riesgo crece
+7. Presenta el registro en una pagina: alguien de negocio debe poder decidir con el
 
 ## Recursos abiertos
 
-- Fuente verificada del contenido del curso.
+- [ISO 31000](https://www.iso.org/iso-31000-risk-management.html)
+- [NIST SP 800-39](https://csrc.nist.gov/pubs/sp/800/39/final)
+- [FAIR Institute](https://www.fairinstitute.org/)
 
 ---
 [Volver al syllabus](../syllabus.md)

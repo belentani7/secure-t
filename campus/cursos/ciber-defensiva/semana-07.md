@@ -1,37 +1,52 @@
-# Semana 7: Respuesta a incidentes (NIST 800-61r3)
+# Semana 7: Forense digital basico
 
-Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 7 de 20
+Curso: [Ciberseguridad Defensiva: Construir y Defender](../syllabus.md) · Semana 7 de 20
 
-## LECTURA: Teoria: Respuesta a incidentes (NIST 800-61r3)
+## Objetivos de aprendizaje
 
-Contenido teorico detallado para respuesta a incidentes (nist 800-61r3). Incluye frameworks, comandos y referencias.
+- Aplicar el orden de volatilidad al recoger evidencia
+- Trabajar con imagenes y artefactos sin modificarlos (cadena de custodia)
+- Reconstruir una linea de tiempo minima de un equipo comprometido
 
-## EJERCICIO: Practica guiada: Respuesta a incidentes (NIST 800-61r3)
+## Orden de volatilidad: que se pierde primero
 
-Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para respuesta a incidentes (nist 800-61r3).
+La evidencia se recoge de lo que desaparece antes a lo que aguanta mas: **memoria y procesos → conexiones → disco → copias y logs remotos**. Apagar el equipo destruye la primera capa. Si el equipo esta cifrado con clave en memoria, apagarlo puede dejar los datos inaccesibles para siempre.
 
-## CASO: Caso real: Respuesta a incidentes (NIST 800-61r3)
+Toda captura se documenta: quien, cuando, con que herramienta, hash del resultado. Un fichero sin hash no es evidencia; es una copia.
 
-Analisis de incidente real donde respuesta a incidentes (nist 800-61r3) fue factor clave. Lecciones aprendidas.
+```bash
+# Memoria y conexiones (nunca escribir en el disco investigado)
+ss -tunap > /mnt/evidencia/conexiones.txt
+# Imagen forense con hash y verificacion
+sudo dd if=/dev/sda of=/mnt/evidencia/disco.img bs=4M conv=noerror,sync status=progress
+sha256sum /mnt/evidencia/disco.img > /mnt/evidencia/disco.img.sha256
+# Linea de tiempo simple a partir de metadatos
+find /mnt/evidencia/montaje -printf '%T@ %p\n' | sort -n | head -50
+```
 
-## 🎯 Objetivo de la semana
+**Referencias:**
+- NIST SP 800-86 — Guide to Integrating Forensic Techniques into Incident Response
+- RFC 3227 — Guidelines for Evidence Collection and Archiving
 
-Dirigir la respuesta a un incidente real siguiendo NIST 800-61r3 sin destruir evidencia por el camino.
+## Linea de tiempo: el relato minimo
 
-## 📖 Lectura principal
+Una investigacion no termina con «encontre un fichero raro», sino con una secuencia: primero esto, despues aquello. Con marcas de tiempo de ficheros, logs de autenticacion y registros de procesos se construye esa secuencia. Ordenar bien ya descarta explicaciones innocentes: a veces el «ataque» es una tarea de mantenimiento.
 
-El ciclo moderno (Preparación → Detección y análisis → Contención, erradicación y recuperación → Actividad post-incidente) cambia el énfasis: la contención se decide con una matriz de opciones (aislar host, bloquear cuenta, cortar C2) valoradas por impacto en negocio y velocidad, porque apagar todo es contenerse uno mismo. La evidencia se preserva ANTES de limpiar: memoria y disco del host comprometido, logs del salto previo y posterior, y cadena de custodia con hashes — el forense que llega tarde solo encuentra el incendio extinguido y las huellas barridas. La comunicación es parte del incidente: quién informa a quién, cada cuánto, y qué NO se escribe en canales no privilegiados. El post-incidente no es optional: lecciones, plazos y dueños; sin él el mismo atacante vuelve por el mismo agujero.
+## Ejercicio guiado: linea de tiempo de un compromiso simulado
 
-## 🛠️ Práctica guiada
-
-Juego de rol cronometrado: ransomware detectado en 3 equipos. Escribe tus primeras 6 decisiones en orden con timestamp, la lista de evidencia a preservar antes de limpiar, y el borrador de post-incidente (causa raíz hipótesis, 3 acciones con dueño y fecha). Contrasta con el caso real de tu elección (hay transparencias públicas de incidentes).
-
----
-[Volver al syllabus](../syllabus.md)
+1. En tu laboratorio, monta una maquina virtual y deja dos o tres «huellas» controladas
+2. Antes de tocar nada, anota el orden de volatilidad que vas a seguir
+3. Captura conexiones y procesos, y guarda el hash de cada salida
+4. Haz una imagen del disco con `dd` y verifica su integridad
+5. Monta la imagen en solo lectura y extrae marcas de tiempo de `/var/log` y `/tmp`
+6. Ordena los hechos en una linea de tiempo con su explicacion
+7. Cierra el informe con tres recomendaciones de mejora para el proximo caso
 
 ## Recursos abiertos
 
-- Fuente verificada del contenido del curso.
+- [RFC 3227](https://www.rfc-editor.org/rfc/rfc3227)
+- [NIST SP 800-86](https://csrc.nist.gov/pubs/sp/800/86/final)
+- [The Sleuth Kit](https://www.sleuthkit.org/sleuthkit/)
 
 ---
 [Volver al syllabus](../syllabus.md)

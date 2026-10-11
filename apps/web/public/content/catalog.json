@@ -1,0 +1,1372 @@
+{
+ "version": 1,
+ "generatedAt": "2026-10-11T16:33:13.764Z",
+ "sourceDigest": "f54fafbb03ad638623cfc83a39c6efc05f3a514e011abf4af5822bf61779e09c",
+ "locale": "es",
+ "courses": [
+  {
+   "slug": "ciber-defensiva",
+   "title": "Ciberseguridad Defensiva: Operar como SOC",
+   "summary": "Tríada CIA, telemetría y logs, mini-SOC con herramientas abiertas, respuesta a incidentes NIST 800-61 y hardening verificable con matriz CIS.",
+   "hours": 60,
+   "weeks": [
+    {
+     "index": 1,
+     "title": "Fundamentos: triada CIA y controles",
+     "slack": "Semana 1: Fundamentos: triada CIA y controles Curso: Ciberseguridad Defensiva: Operar como SOC · Semana 1 de 20 Objetivos de aprendizaje Explicar la triada CIA y aplicarla a la clasificación de activos Distinguir controles preventivos, dete",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "La triada CIA: el fundamento de toda decisión de seguridad",
+      "Taxonomía de controles: preventivo, detectivo, correctivo",
+      "Caso real: Target 2013: falló la detección, no la prevención",
+      "Ejercicio guiado: Clasifica 10 activos de una ONG ficticia",
+      "Recursos abiertos"
+     ],
+     "words": 550,
+     "hash": "cb898794671b764a"
+    },
+    {
+     "index": 2,
+     "title": "Telemetría: logs y detección",
+     "slack": "Semana 2: Telemetría: logs y detección Curso: Ciberseguridad Defensiva: Operar como SOC · Semana 2 de 20 Objetivos de aprendizaje Configurar recolección de logs desde múltiples fuentes en un SIEM Escribir reglas de detección básicas (Sigma/",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "El log es el testigo: fuentes y formatos",
+      "SIEM y reglas de detección (Wazuh / Sigma)",
+      "Caso real: NotPetya 2017: sin logs, sin cronología, sin recuperación",
+      "Ejercicio guiado: Mini-SOC con Wazuh: detecta 3 eventos de seguridad",
+      "Recursos abiertos"
+     ],
+     "words": 578,
+     "hash": "4f3a1e3fc61d2f96"
+    },
+    {
+     "index": 3,
+     "title": "Respuesta a incidentes (NIST 800-61)",
+     "slack": "Semana 3: Respuesta a incidentes (NIST 800-61) Curso: Ciberseguridad Defensiva: Operar como SOC · Semana 3 de 20 Objetivos de aprendizaje Ejecutar las 6 fases del ciclo de respuesta a incidentes NIST 800-61 Desarrollar playbooks para ransom",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "NIST 800-61: el ciclo completo de respuesta",
+      "Playbooks: respuesta guiada por escenario",
+      "Caso real: WannaCry 2017: NHS sin playbook, sin backup, sin parche",
+      "Ejercicio guiado: Simulación de incidente: ransomware en la ONG",
+      "Recursos abiertos"
+     ],
+     "words": 528,
+     "hash": "74de8d878cfbe5c0"
+    },
+    {
+     "index": 4,
+     "title": "Hardening y continuidad",
+     "slack": "Semana 4: Hardening y continuidad Curso: Ciberseguridad Defensiva: Operar como SOC · Semana 4 de 20 Objetivos de aprendizaje Aplicar CIS Benchmarks nivel 1 para endurecer un servidor Linux Verificar hardening con checklist de evidencia ante",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "Hardening: reducir la superficie de ataque",
+      "Backup 3-2-1 y continuidad de negocio",
+      "Caso real: Maersk 2017 (NotPetya): el backup que salvó a la empresa",
+      "Ejercicio guiado: Auditoría de hardening CIS Level 1 sobre una VM",
+      "Recursos abiertos"
+     ],
+     "words": 453,
+     "hash": "75c8a29ef35552ff"
+    },
+    {
+     "index": 5,
+     "title": "Deteccion y monitorizacion",
+     "slack": "Semana 5: Deteccion y monitorizacion Curso: Ciberseguridad Defensiva: Construir y Defender · Semana 5 de 20 🎯 Objetivo de la semana Pasar de acumular registros a detectar lo que importa, con reglas probadas y no con listas de deseos. Disti",
+     "sections": [
+      "🎯 Objetivo de la semana",
+      "📖 Lectura principal",
+      "🛠️ Práctica guiada: tu primera regla de deteccion",
+      "Recursos abiertos"
+     ],
+     "words": 336,
+     "hash": "839925f48fbf44cd"
+    },
+    {
+     "index": 6,
+     "title": "Respuesta a incidentes",
+     "slack": "Semana 6: Respuesta a incidentes Curso: Ciberseguridad Defensiva: Construir y Defender · Semana 6 de 20 Objetivos de aprendizaje Recorrer el ciclo NIST de respuesta: preparar, detectar, contener, erradicar, recuperar, aprender Escribir un r",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "El ciclo, y las decisiones que no se improvisan",
+      "Runbook: cuatro lineas que salvan el turno de noche",
+      "Ejercicio guiado: simulacro de mesa",
+      "Recursos abiertos"
+     ],
+     "words": 328,
+     "hash": "7ef320deac09d507"
+    },
+    {
+     "index": 7,
+     "title": "Forense digital basico",
+     "slack": "Semana 7: Forense digital basico Curso: Ciberseguridad Defensiva: Construir y Defender · Semana 7 de 20 Objetivos de aprendizaje Aplicar el orden de volatilidad al recoger evidencia Trabajar con imagenes y artefactos sin modificarlos (caden",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "Orden de volatilidad: que se pierde primero",
+      "Linea de tiempo: el relato minimo",
+      "Ejercicio guiado: linea de tiempo de un compromiso simulado",
+      "Recursos abiertos"
+     ],
+     "words": 313,
+     "hash": "52b996e9af0c0a42"
+    },
+    {
+     "index": 8,
+     "title": "Hardening de sistemas",
+     "slack": "Semana 8: Hardening de sistemas Curso: Ciberseguridad Defensiva: Construir y Defender · Semana 8 de 20 Objetivos de aprendizaje Reducir superficie de ataque con criterio: menos servicios, menos permisos, menos rutas Aplicar una linea base v",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "Menos es mas: las cuatro reducciones",
+      "Medir el antes y el despues",
+      "Ejercicio guiado: endurece un servidor y demuestralo",
+      "Recursos abiertos"
+     ],
+     "words": 310,
+     "hash": "ebaac82cbd17d918"
+    },
+    {
+     "index": 9,
+     "title": "Deteccion y respuesta en endpoints (EDR)",
+     "slack": "Semana 9: Deteccion y respuesta en endpoints (EDR) Curso: Ciberseguridad Defensiva: Operar como SOC · Semana 9 de 20 Objetivo de la semana Comprender los fundamentos, la arquitectura y las capacidades operativas de las soluciones EDR (Endpo",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 1010,
+     "hash": "4e61f395177db062"
+    },
+    {
+     "index": 10,
+     "title": "Analisis de trafico de red con Zeek/Suricata",
+     "slack": "Semana 10: Analisis de trafico de red con Zeek/Suricata Curso: Ciberseguridad Defensiva: Operar como SOC · Semana 10 de 20 Objetivo de la semana Comprender los fundamentos del análisis de tráfico de red mediante herramientas IDS/NSM como Ze",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 855,
+     "hash": "c574a32591ae46a0"
+    },
+    {
+     "index": 11,
+     "title": "Analisis basico de malware",
+     "slack": "Semana 11: Analisis basico de malware Curso: Ciberseguridad Defensiva: Operar como SOC · Semana 11 de 20 Objetivo de la semana Comprender los fundamentos del análisis de malware desde una perspectiva defensiva, diferenciando entre análisis ",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 1010,
+     "hash": "3851d9c2c42d018b"
+    },
+    {
+     "index": 12,
+     "title": "Forense digital y manejo de evidencias",
+     "slack": "Semana 12: Forense digital y manejo de evidencias Curso: Ciberseguridad Defensiva: Operar como SOC · Semana 12 de 20 Objetivo de la semana Comprender los fundamentos del forense digital y la cadena de custodia, aplicando metodologías recono",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 1033,
+     "hash": "cfec7ea0d33573d2"
+    },
+    {
+     "index": 13,
+     "title": "Gestion del ciclo de vida de vulnerabilidades",
+     "slack": "Semana 13: Gestion del ciclo de vida de vulnerabilidades Curso: Ciberseguridad Defensiva: Operar como SOC · Semana 13 de 20 Objetivo de la semana Comprender el ciclo de vida completo de la gestión de vulnerabilidades, desde el descubrimient",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 736,
+     "hash": "827983dbf3db08b6"
+    },
+    {
+     "index": 14,
+     "title": "Hardening y lineas base de configuracion",
+     "slack": "Semana 14: Hardening y lineas base de configuracion Curso: Ciberseguridad Defensiva: Operar como SOC · Semana 14 de 20 Objetivo de la semana Comprender los fundamentos del hardening de sistemas y la definición de líneas base de configuració",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO"
+     ],
+     "words": 1147,
+     "hash": "ac293ef2c424b028"
+    },
+    {
+     "index": 15,
+     "title": "Gestion de identidades y acceso (IAM)",
+     "slack": "Semana 15: Gestion de identidades y acceso (IAM) Curso: Ciberseguridad Defensiva: Operar como SOC · Semana 15 de 20 Objetivo de la semana Comprender los fundamentos de la Gestión de Identidades y Accesos (IAM), su rol crítico como control p",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 1104,
+     "hash": "a08997fef2b31231"
+    },
+    {
+     "index": 16,
+     "title": "Postura de seguridad en cloud (CSPM/CWPP)",
+     "slack": "Semana 16: Postura de seguridad en cloud (CSPM/CWPP) Curso: Ciberseguridad Defensiva: Operar como SOC · Semana 16 de 20 Objetivo de la semana Comprender los pilares de la postura de seguridad en entornos cloud mediante las disciplinas CSPM ",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 1028,
+     "hash": "eae8f7edcbfd51bc"
+    },
+    {
+     "index": 17,
+     "title": "Seguridad de aplicaciones y DevSecOps",
+     "slack": "Semana 17: Seguridad de aplicaciones y DevSecOps Curso: Ciberseguridad Defensiva: Operar como SOC · Semana 17 de 20 Objetivo de la semana Comprender los principios de la seguridad de aplicaciones modernas y la integración de prácticas de se",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 890,
+     "hash": "e1aed695e4ee4558"
+    },
+    {
+     "index": 18,
+     "title": "Proteccion de datos y DLP",
+     "slack": "Semana 18: Proteccion de datos y DLP Curso: Ciberseguridad Defensiva: Operar como SOC · Semana 18 de 20 Objetivo de la semana Comprender los principios de clasificación, protección y prevención de fuga de datos (DLP) en entornos empresarial",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 1034,
+     "hash": "5e01235c863fccab"
+    },
+    {
+     "index": 19,
+     "title": "Resiliencia: backup, DR y continuidad",
+     "slack": "Semana 19: Resiliencia: backup, DR y continuidad Curso: Ciberseguridad Defensiva: Operar como SOC · Semana 19 de 20 Objetivo de la semana Comprender los principios de resiliencia operativa y recuperación ante desastres dentro de un SOC mode",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 956,
+     "hash": "45a8eea2b05a925a"
+    },
+    {
+     "index": 20,
+     "title": "Capstone: Ejercicio Purple Team",
+     "slack": "Semana 20: Capstone: Ejercicio Purple Team Curso: Ciberseguridad Defensiva: Operar como SOC · Semana 20 de 20 Objetivo de la semana Diseñar, ejecutar y documentar un ejercicio Purple Team que integre las tácticas, técnicas y procedimientos ",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 1077,
+     "hash": "a45f818ef5c3af4f"
+    }
+   ],
+   "quizCount": 6,
+   "artifacts": [
+    {
+     "kind": "syllabus",
+     "title": "Programa",
+     "words": 723,
+     "hash": "2fea047a7ca68f15"
+    },
+    {
+     "kind": "lab",
+     "title": "Laboratorio",
+     "words": 191,
+     "hash": "42c26afa678af745"
+    },
+    {
+     "kind": "rubric",
+     "title": "Rúbrica",
+     "words": 237,
+     "hash": "e6c85210fdcd132b"
+    },
+    {
+     "kind": "glossary",
+     "title": "Glosario",
+     "words": 197,
+     "hash": "024b7e3791a19a31"
+    },
+    {
+     "kind": "cheatsheet",
+     "title": "Chuleta",
+     "words": 196,
+     "hash": "3ad84ff9c3c279f5"
+    },
+    {
+     "kind": "exam",
+     "title": "Examen final",
+     "words": 326,
+     "hash": "e405bdd5d127fab2"
+    },
+    {
+     "kind": "resources",
+     "title": "Recursos",
+     "words": 234,
+     "hash": "661e0e3963a17289"
+    }
+   ],
+   "url": "/campus/ciber-defensiva",
+   "source": "campus/cursos/ciber-defensiva/"
+  },
+  {
+   "slug": "ciber-ofensiva",
+   "title": "Ciberseguridad Ofensiva: Pensar como Atacante",
+   "summary": "Ética y legalidad desde el día 1, reconocimiento pasivo y OSINT, OWASP Top 10 y laboratorio final con informe de hallazgos reproducibles.",
+   "hours": 60,
+   "weeks": [
+    {
+     "index": 1,
+     "title": "Ética, legalidad y alcance del test",
+     "slack": "Semana 1: Ética, legalidad y alcance del test Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 1 de 20 Objetivos de aprendizaje Distinguir hacking ético de actividad delictiva con base legal concreta Redactar un documento de al",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "Regla número uno: permiso escrito",
+      "Las fases de un pentest profesional (PTES)",
+      "Metodologías complementarias: OWASP WSTG y ATT&CK",
+      "Caso real: El pentester que fue a prisión: caso Aaron Swartz y lecciones",
+      "Ejercicio guiado: Redacta tu documento de alcance (RoE)",
+      "Recursos abiertos"
+     ],
+     "words": 843,
+     "hash": "a733249500f64c2c"
+    },
+    {
+     "index": 2,
+     "title": "Reconocimiento pasivo y OSINT",
+     "slack": "Semana 2: Reconocimiento pasivo y OSINT Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 2 de 20 Objetivos de aprendizaje Ejecutar reconocimiento pasivo sin enviar un solo paquete al objetivo Usar Google dorks, crt.sh, Wayback ",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "Reconocimiento pasivo: ver sin tocar",
+      "Herramientas OSINT: el arsenal pasivo",
+      "Documentación de hallazgos OSINT",
+      "Caso real: Capital One 2019: el recon que reveló una brecha de 100M de registros",
+      "Ejercicio guiado: Perfil OSINT completo de un dominio propio",
+      "Recursos abiertos"
+     ],
+     "words": 682,
+     "hash": "c3f450c69b63cbfa"
+    },
+    {
+     "index": 3,
+     "title": "Los 10 riesgos web (OWASP Top 10)",
+     "slack": "Semana 3: Los 10 riesgos web (OWASP Top 10) Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 3 de 20 Objetivos de aprendizaje Explicar los 10 riesgos web OWASP Top 10 (2021) con ejemplos reales Reproducir una inyección SQL y un",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "OWASP Top 10 (2021): los riesgos que más brechas causan",
+      "OWASP Top 10: riesgos A05 a A10",
+      "Laboratorio práctico: SQLi y XSS en Juice Shop",
+      "Caso real: Equifax 2017: CVE-2017-5638 (Apache Struts) — 147M registros",
+      "Ejercicio guiado: Encuentra y documenta 3 vulnerabilidades en Juice Shop",
+      "Recursos abiertos"
+     ],
+     "words": 742,
+     "hash": "d33c2350450e2e41"
+    },
+    {
+     "index": 4,
+     "title": "Laboratorio final: máquina vulnerable + informe",
+     "slack": "Semana 4: Laboratorio final: máquina vulnerable + informe Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 4 de 20 Objetivos de aprendizaje Ejecutar un pentest completo de recon a reporte sobre una máquina vulnerable Usar nmap,",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "El laboratorio: máquina vulnerable en red local",
+      "De recon a explotación: flujo completo con herramientas",
+      "El informe: el producto real del pentester",
+      "Caso real: SolarWinds 2020: la post-explotación más sofisticada documentada",
+      "Ejercicio guiado: Pentest completo de Metasploitable 2 con informe",
+      "Recursos abiertos"
+     ],
+     "words": 596,
+     "hash": "9426299ed6209ae3"
+    },
+    {
+     "index": 5,
+     "title": "Reconocimiento avanzado y OSINT",
+     "slack": "Semana 5: Reconocimiento avanzado y OSINT Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 5 de 20 🎯 Objetivo de la semana Convertir información pública dispersa en un mapa accionable del objetivo, sin dejar huella que el clie",
+     "sections": [
+      "🎯 Objetivo de la semana",
+      "📖 Lectura principal",
+      "🛠️ Práctica guiada: perfil avanzado de un dominio autorizado",
+      "Recursos abiertos"
+     ],
+     "words": 683,
+     "hash": "9a5071f6e180d188"
+    },
+    {
+     "index": 6,
+     "title": "Modelado de amenazas y árboles de ataque",
+     "slack": "Semana 6: Modelado de amenazas y árboles de ataque Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 6 de 20 Objetivos de aprendizaje Dibujar el sistema (flujo de datos y fronteras de confianza) antes de atacarlo Aplicar STRIDE ",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "El mapa antes del ataque",
+      "Del modelo a la prueba",
+      "Caso real: Target 2013, la frontera que nadie dibujó",
+      "Ejercicio guiado: modela una aplicación de reservas",
+      "Recursos abiertos"
+     ],
+     "words": 666,
+     "hash": "41195a551e4722ea"
+    },
+    {
+     "index": 7,
+     "title": "Escaneo de vulnerabilidades y validacion",
+     "slack": "Semana 7: Escaneo de vulnerabilidades y validacion Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 7 de 20 Objetivos de aprendizaje Distinguir escaneo autenticado de no autenticado y saber cuándo usar cada uno Configurar Nmap ",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "Escanear sin hacer daño",
+      "Validar antes de escribir",
+      "Caso real: Log4Shell, el escaneo que no bastaba",
+      "Ejercicio guiado: escanea, valida y prioriza tres hallazgos",
+      "Recursos abiertos"
+     ],
+     "words": 589,
+     "hash": "7bbd4d29781e5a3c"
+    },
+    {
+     "index": 8,
+     "title": "Ataques a aplicaciones web (OWASP Top 10)",
+     "slack": "Semana 8: Ataques a aplicaciones web (OWASP Top 10) Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 8 de 20 Objetivos de aprendizaje Explicar y probar las categorías del OWASP Top 10 2021 en un entorno propio Diferenciar contr",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "Las diez familias, con la mirada de quien ataca",
+      "Herramientas: el proxy como cuaderno de laboratorio",
+      "Caso real: Capital One 2019, la SSRF que cruzó la frontera",
+      "Ejercicio guiado: caza las diez familias en Juice Shop",
+      "Recursos abiertos"
+     ],
+     "words": 628,
+     "hash": "a14ca8fc53fd62d3"
+    },
+    {
+     "index": 9,
+     "title": "Explotacion de red y servicios",
+     "slack": "Semana 9: Explotacion de red y servicios Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 9 de 20 Objetivo de la semana Comprender y aplicar técnicas de explotación de servicios de red en entornos controlados, identificando vul",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 635,
+     "hash": "b2357721c03f53d9"
+    },
+    {
+     "index": 10,
+     "title": "Escalada de privilegios Windows y Linux",
+     "slack": "Semana 10: Escalada de privilegios Windows y Linux Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 10 de 20 Objetivo de la semana Comprender y aplicar técnicas de escalada de privilegios en sistemas Windows y Linux, identifica",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 766,
+     "hash": "9b079b2cd5f576f8"
+    },
+    {
+     "index": 11,
+     "title": "Movimiento lateral y pivoting",
+     "slack": "Semana 11: Movimiento lateral y pivoting Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 11 de 20 Objetivo de la semana Comprender y ejecutar técnicas de movimiento lateral y pivoting dentro de una red comprometida, utilizando",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 955,
+     "hash": "f442be54edc86d0d"
+    },
+    {
+     "index": 12,
+     "title": "Mecanismos de persistencia",
+     "slack": "Semana 12: Mecanismos de persistencia Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 12 de 20 Objetivo de la semana Comprender los mecanismos que permiten a un atacante mantener el acceso a un sistema comprometido tras reinic",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 749,
+     "hash": "078e2586e770ec19"
+    },
+    {
+     "index": 13,
+     "title": "Evasion de defensas",
+     "slack": "Semana 13: Evasion de defensas Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 13 de 20 Objetivo de la semana Comprender los fundamentos técnicos y tácticos de la evasión de defensas en operaciones de red teaming y pentesting,",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 1059,
+     "hash": "de4a0ea5df81cc5e"
+    },
+    {
+     "index": 14,
+     "title": "Acceso a credenciales y volcado",
+     "slack": "Semana 14: Acceso a credenciales y volcado Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 14 de 20 Objetivo de la semana Comprender las técnicas que los atacantes utilizan para obtener, extraer y reutilizar credenciales almac",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 836,
+     "hash": "a44ce46e257da895"
+    },
+    {
+     "index": 15,
+     "title": "Exfiltracion e impacto",
+     "slack": "Semana 15: Exfiltracion e impacto Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 15 de 20 Objetivo de la semana Comprender las fases finales de una intrusión: la exfiltración de datos y las acciones de impacto sobre la confid",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 933,
+     "hash": "e583834ca2a5d3ab"
+    },
+    {
+     "index": 16,
+     "title": "Ataques a cloud y contenedores",
+     "slack": "Semana 16: Ataques a cloud y contenedores Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 16 de 20 Objetivo de la semana Comprender las superficies de ataque específicas de entornos cloud (AWS, Azure, GCP) y plataformas de con",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 743,
+     "hash": "a70d1fb545824a2e"
+    },
+    {
+     "index": 17,
+     "title": "Red teaming wireless y fisico",
+     "slack": "Semana 17: Red teaming wireless y fisico Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 17 de 20 Objetivo de la semana El estudiante aprenderá a planificar y ejecutar operaciones de red teaming en los dominios inalámbrico y f",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 1154,
+     "hash": "f901ed612155b4d4"
+    },
+    {
+     "index": 18,
+     "title": "Ingenieria social y phishing",
+     "slack": "Semana 18: Ingenieria social y phishing Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 18 de 20 Objetivo de la semana Comprender los fundamentos psicológicos y técnicos de la ingeniería social y el phishing, identificando las",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 746,
+     "hash": "7cd3b9be8326a83d"
+    },
+    {
+     "index": 19,
+     "title": "Informes y seguimiento de remediacion",
+     "slack": "Semana 19: Informes y seguimiento de remediacion Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 19 de 20 Objetivo de la semana El estudiante aprenderá a transformar hallazgos técnicos de un pentest en informes profesionales o",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 830,
+     "hash": "5a8beff83e57e884"
+    },
+    {
+     "index": 20,
+     "title": "Capstone: Pentest completo end-to-end",
+     "slack": "Semana 20: Capstone: Pentest completo end-to-end Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 20 de 20 Objetivo de la semana Ejecutar un pentest completo end-to-end sobre un entorno simulado, integrando todas las fases del ",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 822,
+     "hash": "feb22c0f412d9e6a"
+    }
+   ],
+   "quizCount": 6,
+   "artifacts": [
+    {
+     "kind": "syllabus",
+     "title": "Programa",
+     "words": 677,
+     "hash": "f97dc9681076e867"
+    },
+    {
+     "kind": "lab",
+     "title": "Laboratorio",
+     "words": 192,
+     "hash": "b2d20d7a3322641c"
+    },
+    {
+     "kind": "rubric",
+     "title": "Rúbrica",
+     "words": 233,
+     "hash": "4fdc42f5763cca9f"
+    },
+    {
+     "kind": "glossary",
+     "title": "Glosario",
+     "words": 225,
+     "hash": "9d24ccd3bec90e69"
+    },
+    {
+     "kind": "cheatsheet",
+     "title": "Chuleta",
+     "words": 176,
+     "hash": "76078f308ba1fbd3"
+    },
+    {
+     "kind": "exam",
+     "title": "Examen final",
+     "words": 327,
+     "hash": "3f806f2a9a979504"
+    },
+    {
+     "kind": "resources",
+     "title": "Recursos",
+     "words": 234,
+     "hash": "f2bfa2f5e32ba688"
+    }
+   ],
+   "url": "/campus/ciber-ofensiva",
+   "source": "campus/cursos/ciber-ofensiva/"
+  },
+  {
+   "slug": "gobernanza-compliance",
+   "title": "Gobernanza y Compliance Digital",
+   "summary": "ISO 27001, NIST CSF y ENS, protección de datos con minimización extrema, gestión de riesgos y evidencia de control.",
+   "hours": 60,
+   "weeks": [
+    {
+     "index": 1,
+     "title": "Marcos: ISO 27001, NIST CSF, ENS",
+     "slack": "Semana 1: Marcos: ISO 27001, NIST CSF, ENS Curso: Gobernanza y Compliance Digital · Semana 1 de 20 Objetivos de aprendizaje Situar ISO 27001, NIST CSF y ENS en su papel real (lenguaje común, no checklist) Mapear un mismo control en los tres",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "ISO 27001, NIST CSF y ENS: para qué sirve cada marco",
+      "NIST CSF 2.0: las 6 funciones en detalle",
+      "Caso real: Marriott 2018: certificación ISO no evitó la brecha",
+      "Ejercicio guiado: Mapea un control en los tres marcos",
+      "Recursos abiertos"
+     ],
+     "words": 663,
+     "hash": "6ae6cf641b5ce17e"
+    },
+    {
+     "index": 2,
+     "title": "Datos personales y minimización extrema",
+     "slack": "Semana 2: Datos personales y minimización extrema Curso: Gobernanza y Compliance Digital · Semana 2 de 20 Objetivos de aprendizaje Aplicar los principios del RGPD: base legal, finalidad, minimización Diseñar un sistema sin PII (usuario como",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "RGPD: los 7 principios y su aplicación práctica",
+      "DPIA, derechos del interesado y DPO",
+      "Caso real: AEPD vs CaixaBank 2021: €6M por perfilado sin base legal",
+      "Ejercicio guiado: Rediseña un formulario eliminando toda PII innecesaria",
+      "Recursos abiertos"
+     ],
+     "words": 586,
+     "hash": "19700fb8bf026f4d"
+    },
+    {
+     "index": 3,
+     "title": "Gestión de riesgo con dueño y evidencia",
+     "slack": "Semana 3: Gestión de riesgo con dueño y evidencia Curso: Gobernanza y Compliance Digital · Semana 3 de 20 Objetivos de aprendizaje Construir una matriz de riesgo con probabilidad, impacto y tratamiento Asignar dueño y fecha de revisión a ca",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "Gestión de riesgo: la base de toda decisión de seguridad",
+      "Registro de riesgos: formato y ejemplo práctico",
+      "Caso real: Log4Shell 2021 (CVE-2021-44228): el riesgo que nadie tenía en su registro",
+      "Ejercicio guiado: Construye la matriz de riesgo de la plataforma",
+      "Recursos abiertos"
+     ],
+     "words": 478,
+     "hash": "ef0c617d57d1b06f"
+    },
+    {
+     "index": 4,
+     "title": "El expediente de compliance",
+     "slack": "Semana 4: El expediente de compliance Curso: Gobernanza y Compliance Digital · Semana 4 de 20 Objetivos de aprendizaje Producir un expediente de compliance con evidencia verificable por artefacto Construir la cadena afirmación → artefacto →",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "El expediente de compliance: sin evidencia no hay cumplimiento",
+      "Auditoría interna y defensa del expediente",
+      "Caso real: British Airways 2018: multa RGPD de £20M por evidencia insuficiente",
+      "Ejercicio guiado: Construye el expediente de compliance del caso práctico",
+      "Recursos abiertos"
+     ],
+     "words": 456,
+     "hash": "b0f34f8a0e655adc"
+    },
+    {
+     "index": 5,
+     "title": "Gestion de riesgos (ISO 31000, NIST 800-39)",
+     "slack": "Semana 5: Gestion de riesgos (ISO 31000, NIST 800-39) Curso: Gobernanza y Compliance: Dirigir con Evidencia · Semana 5 de 20 🎯 Objetivo de la semana Traducir activos y amenazas a riesgo comparable, con decisiones firmadas y seguimiento. Tr",
+     "sections": [
+      "🎯 Objetivo de la semana",
+      "📖 Lectura principal",
+      "🛠️ Práctica guiada: registro de riesgos con decisiones",
+      "Recursos abiertos"
+     ],
+     "words": 443,
+     "hash": "82b3b0f7166411fb"
+    },
+    {
+     "index": 6,
+     "title": "Analisis de impacto en el negocio y BCP",
+     "slack": "Semana 6: Analisis de impacto en el negocio y BCP Curso: Gobernanza y Compliance: Dirigir con Evidencia · Semana 6 de 20 Objetivos de aprendizaje Distinguir BIA, plan de continuidad (BCP) y plan de recuperacion (DRP) Fijar RTO y RPO con neg",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "Tres documentos, tres preguntas",
+      "Caso real: el rescate que tardo mas que el cifrado",
+      "Ejercicio guiado: BIA y simulacro para un servicio real",
+      "Recursos abiertos"
+     ],
+     "words": 375,
+     "hash": "6c5a417ce421de30"
+    },
+    {
+     "index": 7,
+     "title": "Riesgo de terceros y supply chain",
+     "slack": "Semana 7: Riesgo de terceros y supply chain Curso: Gobernanza y Compliance: Dirigir con Evidencia · Semana 7 de 20 Objetivos de aprendizaje Medir el riesgo que se hereda al integrar un proveedor o una dependencia Pedir evidencia en lugar de",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "El riesgo heredado no se ve en tu panel",
+      "Caso real: la actualizacion firmada que traia intrusion",
+      "Ejercicio guiado: expide el pasaporte de un proveedor",
+      "Recursos abiertos"
+     ],
+     "words": 384,
+     "hash": "ca85682ca4258051"
+    },
+    {
+     "index": 8,
+     "title": "Ingenieria de privacidad (RGPD, LGPD)",
+     "slack": "Semana 8: Ingenieria de privacidad (RGPD, LGPD) Curso: Gobernanza y Compliance: Dirigir con Evidencia · Semana 8 de 20 Objetivos de aprendizaje Aplicar minimizacion y limitacion de finalidad como decisiones de arquitectura Distinguir bases ",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "Privacidad se disena, no se promete",
+      "Caso real: la multa por transferencia internacional (2023)",
+      "Ejercicio guiado: ingenieria de privacidad de un formulario",
+      "Recursos abiertos"
+     ],
+     "words": 448,
+     "hash": "05dec2d876c2b55b"
+    },
+    {
+     "index": 9,
+     "title": "Programas de auditoria y assurance",
+     "slack": "Semana 9: Programas de auditoria y assurance Curso: Gobernanza y Compliance Digital · Semana 9 de 20 Objetivo de la semana Comprender cómo se diseña, ejecuta y reporta un programa de auditoría y assurance en materia de gobernanza digital, p",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 1007,
+     "hash": "4ee8cf21423dc3ae"
+    },
+    {
+     "index": 10,
+     "title": "Marco de politicas y jerarquia documental",
+     "slack": "Semana 10: Marco de politicas y jerarquia documental Curso: Gobernanza y Compliance Digital · Semana 10 de 20 Objetivo de la semana Comprender cómo se estructura un sistema documental de gobernanza, compliance y seguridad de la información,",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 927,
+     "hash": "8bca4cf51537eb16"
+    },
+    {
+     "index": 11,
+     "title": "Concienciacion y cultura de seguridad",
+     "slack": "Semana 11: Concienciacion y cultura de seguridad Curso: Gobernanza y Compliance Digital · Semana 11 de 20 Objetivo de la semana Comprender que la seguridad de la información es un problema sociotécnico donde el factor humano constituye la p",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 926,
+     "hash": "4aad1f8edde66999"
+    },
+    {
+     "index": 12,
+     "title": "Panorama regulatorio sectorial",
+     "slack": "Semana 12: Panorama regulatorio sectorial Curso: Gobernanza y Compliance Digital · Semana 12 de 20 Objetivo de la semana Comprender cómo los marcos regulatorios sectoriales (financiero, salud, energía, telecomunicaciones, sector público) co",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 887,
+     "hash": "610c01e206629d0a"
+    },
+    {
+     "index": 13,
+     "title": "Herramientas GRC y automatizacion",
+     "slack": "Semana 13: Herramientas GRC y automatizacion Curso: Gobernanza y Compliance Digital · Semana 13 de 20 Objetivo de la semana Comprender el ecosistema de herramientas GRC (Governance, Risk & Compliance) y su rol en la automatización del cumpl",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 965,
+     "hash": "feeab64d8fbc1b6c"
+    },
+    {
+     "index": 14,
+     "title": "Notificacion de incidentes y reporte regulatorio",
+     "slack": "Semana 14: Notificacion de incidentes y reporte regulatorio Curso: Gobernanza y Compliance Digital · Semana 14 de 20 Objetivo de la semana Comprender el ciclo completo de notificación de incidentes de seguridad desde la detección hasta el r",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 997,
+     "hash": "4f6257ea54ab0291"
+    },
+    {
+     "index": 15,
+     "title": "Preparacion para certificaciones (ISO 27001, SOC2)",
+     "slack": "Semana 15: Preparacion para certificaciones (ISO 27001, SOC2) Curso: Gobernanza y Compliance Digital · Semana 15 de 20 Objetivo de la semana Comprender el alcance, la estructura y los requisitos de las certificaciones ISO/IEC 27001 y SOC 2,",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 1308,
+     "hash": "f0c283b82c5d5fb0"
+    },
+    {
+     "index": 16,
+     "title": "Compliance en cloud y responsabilidad compartida",
+     "slack": "Semana 16: Compliance en cloud y responsabilidad compartida Curso: Gobernanza y Compliance Digital · Semana 16 de 20 Objetivo de la semana Comprender el modelo de responsabilidad compartida en entornos cloud y su impacto en la gobernanza, e",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 917,
+     "hash": "6e4e5cd5a8e28227"
+    },
+    {
+     "index": 17,
+     "title": "Metricas y reporte al consejo",
+     "slack": "Semana 17: Metricas y reporte al consejo Curso: Gobernanza y Compliance Digital · Semana 17 de 20 Objetivo de la semana El estudiante aprenderá a diseñar, seleccionar y comunicar métricas de gobernanza, riesgo y cumplimiento (GRC) y de segu",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 1007,
+     "hash": "64cfafb98c172d31"
+    },
+    {
+     "index": 18,
+     "title": "Gestion de crisis y wargaming",
+     "slack": "Semana 18: Gestion de crisis y wargaming Curso: Gobernanza y Compliance Digital · Semana 18 de 20 Objetivo de la semana El estudiante aprenderá a diseñar, ejecutar y evaluar ejercicios de simulación de crisis (wargaming) en el ámbito de la ",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 1092,
+     "hash": "af4d66d39c9e63d8"
+    },
+    {
+     "index": 19,
+     "title": "Regulaciones emergentes: AI Act, CRA, DSA",
+     "slack": "Semana 19: Regulaciones emergentes: AI Act, CRA, DSA Curso: Gobernanza y Compliance Digital · Semana 19 de 20 Objetivo de la semana Comprender el alcance, la estructura y las obligaciones de las tres regulaciones europeas emergentes que est",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 1076,
+     "hash": "02f9313954bbb308"
+    },
+    {
+     "index": 20,
+     "title": "Capstone: Construir programa GRC desde cero",
+     "slack": "Semana 20: Capstone: Construir programa GRC desde cero Curso: Gobernanza y Compliance Digital · Semana 20 de 20 Objetivo de la semana Diseñar, estructurar e implementar un programa integral de Gobernanza, Riesgo y Cumplimiento (GRC) desde c",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 1076,
+     "hash": "846ae43fa27a2be7"
+    }
+   ],
+   "quizCount": 6,
+   "artifacts": [
+    {
+     "kind": "syllabus",
+     "title": "Programa",
+     "words": 726,
+     "hash": "c733a34704f2ed8c"
+    },
+    {
+     "kind": "lab",
+     "title": "Laboratorio",
+     "words": 168,
+     "hash": "2735dedfadfd17f8"
+    },
+    {
+     "kind": "rubric",
+     "title": "Rúbrica",
+     "words": 237,
+     "hash": "546206bb3ff22ba3"
+    },
+    {
+     "kind": "glossary",
+     "title": "Glosario",
+     "words": 207,
+     "hash": "4c9909be9c0e5a23"
+    },
+    {
+     "kind": "cheatsheet",
+     "title": "Chuleta",
+     "words": 198,
+     "hash": "e77f3dfaa20677f6"
+    },
+    {
+     "kind": "exam",
+     "title": "Examen final",
+     "words": 332,
+     "hash": "a58447065292df1a"
+    },
+    {
+     "kind": "resources",
+     "title": "Recursos",
+     "words": 233,
+     "hash": "917d3931881804d7"
+    }
+   ],
+   "url": "/campus/gobernanza-compliance",
+   "source": "campus/cursos/gobernanza-compliance/"
+  },
+  {
+   "slug": "ia-aplicada-segura",
+   "title": "Inteligencia Artificial Aplicada y Segura",
+   "summary": "Fundamentos de aprendizaje automático, LLM y prompting responsable, ataques adversarios, RAG seguro y salvaguardas medibles.",
+   "hours": 60,
+   "weeks": [
+    {
+     "index": 1,
+     "title": "Fundamentos de ML sin humo",
+     "slack": "Semana 1: Fundamentos de ML sin humo Curso: Inteligencia Artificial Aplicada y Segura · Semana 1 de 20 Objetivos de aprendizaje Explicar el ciclo datos → modelo → predicción → error sin tecnicismos vacíos Distinguir aprendizaje supervisado,",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "El ciclo de vida de un modelo de ML",
+      "Sobreajuste, sesgo y fuga de datos",
+      "Caso real: Amazon 2018: el modelo de contratación que discriminaba mujeres",
+      "Ejercicio guiado: Clasificador de juguete con scikit-learn",
+      "Recursos abiertos"
+     ],
+     "words": 572,
+     "hash": "6053e885b65eb32e"
+    },
+    {
+     "index": 2,
+     "title": "LLMs y prompt engineering responsable",
+     "slack": "Semana 2: LLMs y prompt engineering responsable Curso: Inteligencia Artificial Aplicada y Segura · Semana 2 de 20 Objetivos de aprendizaje Explicar cómo funciona un LLM (predicción de token, no comprensión) Diseñar prompts estructurados (RO",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "Cómo funciona un LLM (y qué NO hace)",
+      "Prompt engineering responsable y OWASP LLM Top 10",
+      "Caso real: Air Canada chatbot 2024: alucinación con consecuencias legales",
+      "Ejercicio guiado: Diseña 5 prompts educativos y compara respuestas",
+      "Recursos abiertos"
+     ],
+     "words": 634,
+     "hash": "e87f12adbd616575"
+    },
+    {
+     "index": 3,
+     "title": "Ataques a sistemas de IA",
+     "slack": "Semana 3: Ataques a sistemas de IA Curso: Inteligencia Artificial Aplicada y Segura · Semana 3 de 20 Objetivos de aprendizaje Identificar ataques adversariales, poisoning y prompt injection con ejemplos Reproducir una prompt injection en un",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "Ataques adversariales y data poisoning",
+      "Prompt injection: el OWASP #1 de sistemas con LLM",
+      "Caso real: Bing Chat 2023: prompt injection vía páginas web",
+      "Ejercicio guiado: Inyección de prompt en laboratorio propio",
+      "Recursos abiertos"
+     ],
+     "words": 549,
+     "hash": "a9a02de19e515ce6"
+    },
+    {
+     "index": 4,
+     "title": "Proyecto: asistente educativo con salvaguardas",
+     "slack": "Semana 4: Proyecto: asistente educativo con salvaguardas Curso: Inteligencia Artificial Aplicada y Segura · Semana 4 de 20 Objetivos de aprendizaje Diseñar un asistente educativo con grounding y salvaguardas documentadas Implementar RAG bás",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "RAG: Retrieval-Augmented Generation",
+      "Checklist de IA responsable y defensa del proyecto",
+      "Caso real: GitHub Copilot: RAG implícito y los problemas de copyright",
+      "Ejercicio guiado: Construye un tutor IA del campus con salvaguardas",
+      "Recursos abiertos"
+     ],
+     "words": 459,
+     "hash": "265844daf03a714a"
+    },
+    {
+     "index": 5,
+     "title": "Pipeline MLOps seguro",
+     "slack": "Semana 5: Pipeline MLOps seguro Curso: IA Aplicada Segura: Construir con Responsabilidad · Semana 5 de 20 🎯 Objetivo de la semana Diseñar un pipeline MLOps donde la seguridad es un requisito del ciclo de vida, no un parche final. Versionar",
+     "sections": [
+      "🎯 Objetivo de la semana",
+      "📖 Lectura principal",
+      "🛠️ Práctica guiada: esboza tu pipeline",
+      "Recursos abiertos"
+     ],
+     "words": 459,
+     "hash": "351233dd0cd24fbb"
+    },
+    {
+     "index": 6,
+     "title": "Robustez adversaria y testing",
+     "slack": "Semana 6: Robustez adversaria y testing Curso: IA Aplicada Segura: Construir con Responsabilidad · Semana 6 de 20 Objetivos de aprendizaje Distinguir robustez, seguridad y fiabilidad: tres propiedades que se miden distinto Probar un modelo ",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "Un buen rendimiento no es seguridad",
+      "Caso real: contenido externo como vector de inyeccion (2023)",
+      "Ejercicio guiado: pruebas de robustez con evidencia",
+      "Recursos abiertos"
+     ],
+     "words": 441,
+     "hash": "877045990deaefb6"
+    },
+    {
+     "index": 7,
+     "title": "Envenenamiento de datos y supply chain",
+     "slack": "Semana 7: Envenenamiento de datos y supply chain Curso: IA Aplicada Segura: Construir con Responsabilidad · Semana 7 de 20 Objetivos de aprendizaje Entender por que el envenenamiento sobrevive a las pruebas de validacion Revisar la cadena d",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "El fallo que viaja en el dataset",
+      "Caso real: malware en el hub de modelos (2024)",
+      "Ejercicio guiado: audita el origen de un modelo",
+      "Recursos abiertos"
+     ],
+     "words": 440,
+     "hash": "82637264310b3786"
+    },
+    {
+     "index": 8,
+     "title": "Extraccion de modelo y proteccion de PI",
+     "slack": "Semana 8: Extraccion de modelo y proteccion de PI Curso: IA Aplicada Segura: Construir con Responsabilidad · Semana 8 de 20 Objetivos de aprendizaje Reconocer que una API de modelo es un canal de extraccion, no solo de servicio Medir el cos",
+     "sections": [
+      "Objetivos de aprendizaje",
+      "La API como canal de fuga",
+      "Caso real: robar parte de un modelo en produccion (2024)",
+      "Ejercicio guiado: mide tu propia superficie de extraccion",
+      "Recursos abiertos"
+     ],
+     "words": 441,
+     "hash": "916bab9649b7a6ac"
+    },
+    {
+     "index": 9,
+     "title": "ML que preserva privacidad",
+     "slack": "Semana 9: ML que preserva privacidad Curso: Inteligencia Artificial Aplicada y Segura · Semana 9 de 20 Objetivo de la semana Comprender los fundamentos y técnicas del aprendizaje automático que preserva la privacidad (Privacy-Preserving Mac",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 787,
+     "hash": "be98718bac2c7c73"
+    },
+    {
+     "index": 10,
+     "title": "Seguridad de LLM: inyeccion de prompts y jailbreaks",
+     "slack": "Semana 10: Seguridad de LLM: inyeccion de prompts y jailbreaks Curso: Inteligencia Artificial Aplicada y Segura · Semana 10 de 20 Objetivo de la semana Comprender los mecanismos de ataque dirigidos a Modelos de Lenguaje de Gran Escala (LLM)",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 788,
+     "hash": "946d3b580054b6e2"
+    },
+    {
+     "index": 11,
+     "title": "Supply chain de LLM y model cards",
+     "slack": "Semana 11: Supply chain de LLM y model cards Curso: Inteligencia Artificial Aplicada y Segura · Semana 11 de 20 Objetivo de la semana Comprender cómo la seguridad de los modelos de lenguaje (LLM) depende críticamente de su cadena de suminis",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 1039,
+     "hash": "edde2cfb995462d1"
+    },
+    {
+     "index": 12,
+     "title": "Seguridad de RAG y hardening de recuperacion",
+     "slack": "Semana 12: Seguridad de RAG y hardening de recuperacion Curso: Inteligencia Artificial Aplicada y Segura · Semana 12 de 20 Objetivo de la semana Comprender los riesgos específicos de seguridad que introduce la arquitectura RAG (Retrieval-Au",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 1049,
+     "hash": "60e8157ba80f32ff"
+    },
+    {
+     "index": 13,
+     "title": "Metodologia de Red Teaming para IA",
+     "slack": "Semana 13: Metodologia de Red Teaming para IA Curso: Inteligencia Artificial Aplicada y Segura · Semana 13 de 20 Objetivo de la semana Comprender y aplicar una metodología estructurada de Red Teaming ofensivo y defensivo específicamente dis",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 1004,
+     "hash": "bb20aa033b7df0e1"
+    },
+    {
+     "index": 14,
+     "title": "Gobernanza: EU AI Act y NIST AI RMF",
+     "slack": "Semana 14: Gobernanza: EU AI Act y NIST AI RMF Curso: Inteligencia Artificial Aplicada y Segura · Semana 14 de 20 Objetivo de la semana Comprender los marcos regulatorios y de gestión de riesgos que gobiernan los sistemas de IA, con foco en",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 984,
+     "hash": "cca864f7ac819c73"
+    },
+    {
+     "index": 15,
+     "title": "Explicabilidad y rastros de auditoria",
+     "slack": "Semana 15: Explicabilidad y rastros de auditoria Curso: Inteligencia Artificial Aplicada y Segura · Semana 15 de 20 Objetivo de la semana Comprender los fundamentos de la explicabilidad (XAI) en sistemas de inteligencia artificial y su rela",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 977,
+     "hash": "a0dcab2074a51c80"
+    },
+    {
+     "index": 16,
+     "title": "Despliegue seguro: on-prem y cloud",
+     "slack": "Semana 16: Despliegue seguro: on-prem y cloud Curso: Inteligencia Artificial Aplicada y Segura · Semana 16 de 20 Objetivo de la semana Comprender los principios, controles y arquitecturas de seguridad aplicables al despliegue de modelos de ",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 891,
+     "hash": "1e2984477bfe12ef"
+    },
+    {
+     "index": 17,
+     "title": "Monitoreo y deteccion de deriva",
+     "slack": "Semana 17: Monitoreo y deteccion de deriva Curso: Inteligencia Artificial Aplicada y Segura · Semana 17 de 20 Objetivo de la semana Esta semana el estudiante aprenderá a diseñar e implementar sistemas de monitoreo continuo para modelos de i",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 1145,
+     "hash": "852b00d9995004ea"
+    },
+    {
+     "index": 18,
+     "title": "Respuesta a incidentes en sistemas de IA",
+     "slack": "Semana 18: Respuesta a incidentes en sistemas de IA Curso: Inteligencia Artificial Aplicada y Segura · Semana 18 de 20 Objetivo de la semana Al finalizar esta semana, el estudiante será capaz de diseñar y ejecutar un plan de respuesta a inc",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 932,
+     "hash": "70601c75d9a308bb"
+    },
+    {
+     "index": 19,
+     "title": "Etica, sesgo y pruebas de equidad",
+     "slack": "Semana 19: Etica, sesgo y pruebas de equidad Curso: Inteligencia Artificial Aplicada y Segura · Semana 19 de 20 Objetivo de la semana Comprenderás cómo los sistemas de inteligencia artificial pueden amplificar sesgos sociales y producir res",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 859,
+     "hash": "1542c374576a14e0"
+    },
+    {
+     "index": 20,
+     "title": "Capstone: Sistema ML seguro end-to-end",
+     "slack": "Semana 20: Capstone: Sistema ML seguro end-to-end Curso: Inteligencia Artificial Aplicada y Segura · Semana 20 de 20 Objetivo de la semana Integrar todos los conocimientos del curso en un sistema ML end-to-end que sea seguro por diseño, apl",
+     "sections": [
+      "Objetivo de la semana",
+      "LECTURA",
+      "EJERCICIO",
+      "CASO",
+      "Recursos abiertos"
+     ],
+     "words": 822,
+     "hash": "6d592a7297ae19de"
+    }
+   ],
+   "quizCount": 6,
+   "artifacts": [
+    {
+     "kind": "syllabus",
+     "title": "Programa",
+     "words": 739,
+     "hash": "f77687198da74b67"
+    },
+    {
+     "kind": "lab",
+     "title": "Laboratorio",
+     "words": 216,
+     "hash": "6fcb33e47321bc01"
+    },
+    {
+     "kind": "rubric",
+     "title": "Rúbrica",
+     "words": 237,
+     "hash": "f722f7bfe29c0918"
+    },
+    {
+     "kind": "glossary",
+     "title": "Glosario",
+     "words": 198,
+     "hash": "a7fba961189d2b5e"
+    },
+    {
+     "kind": "cheatsheet",
+     "title": "Chuleta",
+     "words": 220,
+     "hash": "a6235554127150a2"
+    },
+    {
+     "kind": "exam",
+     "title": "Examen final",
+     "words": 336,
+     "hash": "982c93e876b8d3bf"
+    },
+    {
+     "kind": "resources",
+     "title": "Recursos",
+     "words": 234,
+     "hash": "3fb3e3582c881677"
+    }
+   ],
+   "url": "/campus/ia-aplicada-segura",
+   "source": "campus/cursos/ia-aplicada-segura/"
+  }
+ ],
+ "totals": {
+  "courses": 4,
+  "weeks": 80,
+  "words": 62223,
+  "quizItems": 24
+ }
+}

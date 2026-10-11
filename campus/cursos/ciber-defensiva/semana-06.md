@@ -1,37 +1,51 @@
-# Semana 6: Ingenieria de deteccion y reglas Sigma
+# Semana 6: Respuesta a incidentes
 
-Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 6 de 20
+Curso: [Ciberseguridad Defensiva: Construir y Defender](../syllabus.md) · Semana 6 de 20
 
-## LECTURA: Teoria: Ingenieria de deteccion y reglas Sigma
+## Objetivos de aprendizaje
 
-Contenido teorico detallado para ingenieria de deteccion y reglas sigma. Incluye frameworks, comandos y referencias.
+- Recorrer el ciclo NIST de respuesta: preparar, detectar, contener, erradicar, recuperar, aprender
+- Escribir un runbook que sirva a las 3 de la manana
+- Practicar con un ejercicio de mesa antes de necesitarlo de verdad
 
-## EJERCICIO: Practica guiada: Ingenieria de deteccion y reglas Sigma
+## El ciclo, y las decisiones que no se improvisan
 
-Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para ingenieria de deteccion y reglas sigma.
+| Fase | Pregunta que responde | Artefacto |
+|---|---|---|
+| Preparar | Quien decide y con que | Plan, contactos, accesos de emergencia |
+| Detectar | Que paso y desde cuando | Alerta triada + linea de tiempo |
+| Contener | Como deja de extenderse | Aislamiento de host o credencial |
+| Erradicar | Como se va del entorno | Causa raiz eliminada, no solo el sintoma |
+| Recuperar | Como se vuelve a operar | Restauracion verificada |
+| Aprender | Que cambia manana | Acciones con fecha y responsable |
 
-## CASO: Caso real: Ingenieria de deteccion y reglas Sigma
+**La contencion se decide antes del incidente, no durante.** Que se aislara (red, credencial, servicio), quien puede autorizarlo y que se acepta perder. El error habitual: contener tan tarde que el atacante ya esta en el backup.
 
-Analisis de incidente real donde ingenieria de deteccion y reglas sigma fue factor clave. Lecciones aprendidas.
+**Referencias:**
+- NIST SP 800-61r2 — Computer Security Incident Handling Guide
+- ATT&CK — Tactics y tecnicas para mapear lo observado
 
-## 🎯 Objetivo de la semana
+## Runbook: cuatro lineas que salvan el turno de noche
 
-Escribir detecciones traducibles a cualquier SIEM usando Sigma y pensar como ingeniero de detección, no como consumidor de reglas.
+1. **Senal**: como se reconoce el incidente y quien avisa.
+2. **Primeras acciones**: preservar evidencia (memoria, disco) y aislar sin destruir datos.
+3. **Escalado**: a quien se llama, con que reloj corriendo.
+4. **Criterio de cierre**: cuando se considera contenido y quien lo firma.
 
-## 📖 Lectura principal
+## Ejercicio guiado: simulacro de mesa
 
-Sigma es a la detección lo que SQL a las bases: un YAML declarativo que describe un patrón de log (evento, campos, condición) y se convierte automáticamente a la sintaxis de Splunk, Sentinel, Elastic o Wazuh. Escribir una regla propia obliga a conocer el log: selección (Image endsWith 'whoami.exe' y ParentImage contiene 'winword.exe' huele a macro ofimática ejecutando reconocimiento), filtros que restan falsos positivos legítimos, y nivel/Descripción que expliquen el porqué a quien la herede. La disciplina de detección incluye versionar reglas en git, probarlas contra logs de ataque conocidos (Atomic Red Team genera los eventos) y medir su ruido en 7 días antes de promoverlas a producción.
-
-## 🛠️ Práctica guiada
-
-Escribe una regla Sigma para 'creación de usuario y añadido a administradores en menos de 5 minutos'. Conviértela con sigma-cli a la sintaxis del SIEM de tu lab (o valida el YAML con el convertidor público). Genera el evento en tu VM y demuestra que dispara; genera también el uso legítimo y documenta cómo lo filtrarías.
-
----
-[Volver al syllabus](../syllabus.md)
+1. Situacion: un portatil cifra ficheros de red compartida (ransomware)
+2. Escribe las tres primeras acciones sin mirar el runbook
+3. Compara con el ciclo NIST: que fase saltaste y a que costo
+4. Redacta el runbook de esa situacion en una pagina
+5. Haz un ejercicio de mesa de 30 minutos con alguien que haga de «jefe de negocio»
+6. Anota las preguntas que no supiste responder y conviertelas en pendientes
 
 ## Recursos abiertos
 
-- Fuente verificada del contenido del curso.
+- [NIST SP 800-61r2](https://csrc.nist.gov/pubs/sp/800/61/r2/final)
+- [CISA — Incident Response Playbooks](https://www.cisa.gov/resources-tools/resources/incident-and-vulnerability-response-playbooks)
+- [SANS — Incident Handler's Handbook](https://www.sans.org/white-papers/33901/)
 
 ---
 [Volver al syllabus](../syllabus.md)

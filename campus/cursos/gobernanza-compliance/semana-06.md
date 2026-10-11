@@ -1,37 +1,48 @@
 # Semana 6: Analisis de impacto en el negocio y BCP
 
-Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 6 de 20
+Curso: [Gobernanza y Compliance: Dirigir con Evidencia](../syllabus.md) · Semana 6 de 20
 
-## LECTURA: Teoria: Analisis de impacto en el negocio y BCP
+## Objetivos de aprendizaje
 
-Contenido teorico detallado para analisis de impacto en el negocio y bcp. Incluye frameworks, comandos y referencias.
+- Distinguir BIA, plan de continuidad (BCP) y plan de recuperacion (DRP)
+- Fijar RTO y RPO con negocio, no con la infraestructura
+- Probar el plan: un plan sin simulacro es una hipotesis
 
-## EJERCICIO: Practica guiada: Analisis de impacto en el negocio y BCP
+## Tres documentos, tres preguntas
 
-Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para analisis de impacto en el negocio y bcp.
+| Documento | Pregunta | Decide |
+|---|---|---|
+| BIA | Que se cae si esto para, y cuanto duele por hora | Criticidad y prioridades |
+| BCP | Como seguimos operando mientras falta | Modos alternativos |
+| DRP | Como volvemos a la normalidad | Recuperacion tecnica |
 
-## CASO: Caso real: Analisis de impacto en el negocio y BCP
+**RTO** (cuanto tiempo se puede estar caido) y **RPO** (cuanto dato se puede perder) los fija el **negocio**, no el equipo tecnico: son decisiones de dinero y de tolerancia. Un RTO de 15 minutos con un sistema sin redundancia es una promesa que la proxima caida rompera.
 
-Analisis de incidente real donde analisis de impacto en el negocio y bcp fue factor clave. Lecciones aprendidas.
+La prueba es lo que separa el plan del papel: simulacros con hora fijada, criterio de exito escrito y acta. Sin simulacro, los numeros del plan son opinion.
 
-## 🎯 Objetivo de la semana
+**Referencias:**
+- ISO 22301 — Business continuity management systems
+- NIST SP 800-34 Rev.1 — Contingency Planning Guide
 
-Calcular el impacto en el negocio y diseñar continuidad que sobreviva al peor día, no al promedio.
+## Caso real: el rescate que tardo mas que el cifrado
 
-## 📖 Lectura principal
+En los incidentes de ransomware de los ultimos anos, las organizaciones con copias **no probadas** descubrieron dos cosas: que sus copias estaban dentro del mismo dominio de ataque (cifradas junto con lo demas) y que restaurar tardaba dias por dependencias olvidadas. Las que sobrevivieron mejor tenian copias inmutables y fuera de linea, y habian cronometrado la restauracion completa al menos una vez. Leccion: la copia que no has restaurado no es una copia; es una esperanza.
 
-El BIA (Business Impact Analysis) responde dos preguntas por proceso: cuánto aguanto parado (RTO — tiempo objetivo de recuperación) y cuánto pierdo por unidad de tiempo de datos (RPO — ventana de pérdida tolerable). Con eso se ordena la inversión: el proceso con RTO de minutos exige redundancia activa; el de días, un procedimiento manual documentado. La continuidad (BCP/DRP) se escribe para escenarios concretos — ransomware total, caída del proveedor cloud principal, pérdida del personal clave — y se valida el único modo honesto: probándolo. El test de restauración trimestral del backup es el ritual más rentable de la lista: el backup no probado es una esperanza. Métrica final: el plan se mide en el incidente (¿se recuperó dentro del RTO?), no en la página del PDF.
+## Ejercicio guiado: BIA y simulacro para un servicio real
 
-## 🛠️ Práctica guiada
-
-BIA de 5 procesos de la plataforma (serving del campus, generación, credenciales, búsqueda, deploy) con RTO/RPO justificados. Escenario ransomware: secuencia de recuperación paso a paso con responsables y el punto donde verificarías integridad antes de reabrir.
-
----
-[Volver al syllabus](../syllabus.md)
+1. Elige un servicio (por ejemplo, una tienda en linea o el correo corporativo)
+2. Escribe el BIA: proceso, dependencias, y coste por hora de indisponibilidad
+3. Fija RTO y RPO con dos personas de negocio y justifica el numero
+4. Disena el BCP: modo alternativo minimo para las primeras 72 horas
+5. Disena el DRP: pasos de restauracion y verificacion
+6. Haz un simulacro de una hora midiendo tiempos reales
+7. Compara medido con prometido, y corrige el plan donde no cuadre
 
 ## Recursos abiertos
 
-- Fuente verificada del contenido del curso.
+- [ISO 22301](https://www.iso.org/standard/75106.html)
+- [NIST SP 800-34 Rev.1](https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final)
+- [Ready.gov — Business Continuity](https://www.ready.gov/business-continuity-plan)
 
 ---
 [Volver al syllabus](../syllabus.md)
