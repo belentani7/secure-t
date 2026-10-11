@@ -219,7 +219,7 @@ Métricas del material: **103663 líneas** versionadas de código, datos y docum
 | Cobertura real de traducciones | `pnpm locales` | pt: 4/4 títulos de programa, 32/80 semanas, **16.950 palabras**; en y ca: 0/80. El README publica estas mismas cifras y un test falla si miente |
 | Falsos positivos del escáner en el material | `python -m pytest -q tests/test_material_sin_secretos.py` | **157 passed**: réplica exacta de la regla `curl-auth-user` de gitleaks 8.24.3 sobre los 157 ficheros Markdown del campus, con sus `allowlists` |
 | Biblioteca, plan y laboratorio | `pnpm vitest run packages/shared/tests/library.test.ts packages/shared/tests/lab.test.ts packages/shared/tests/tutor-tools.test.ts` | **40 passed** (9 + 23 + 8) |
-| Líneas versionadas | `git ls-files \| xargs wc -l` | **~107.400** (se recalcula al cerrar el ciclo) |
+| Líneas versionadas | `git ls-files \| xargs wc -l` | **109.166** (102.487 sin el contenido publicado de `apps/web/public`) |
 
 ### 5.2 Solo verificable en CI (este entorno no tiene navegador)
 
@@ -315,7 +315,7 @@ blanca el escaneo ve cinco hallazgos, tres de ellos falsos positivos documentado
 ## 8. GIT EVIDENCE
 
 - **Rama**: `arena/a75428a2-secure-t` (no se ha creado ni empujado ninguna otra). **Árbol de trabajo limpio**.
-- **44 commits** desde `eb2b05e` hasta `ee60819`, en orden (del más antiguo al más reciente):
+- **46 commits** desde `eb2b05e`, en orden (del más antiguo al más reciente):
 
 ```
 853f218 feat(estandares): capa de conformidad verificable sobre el campus AURUM
@@ -360,8 +360,11 @@ a4773b1 docs(contrato): las herramientas del tutor entran en el contrato de la A
 497b898 feat(experiencia): psicología aplicada verificable, dos escalones y el guiño de Río
 cc124b1 docs(informe): la CI del ciclo 1.4.1 en verde y el estado real de la matriz axe
 ee60819 docs(readme): la capa de experiencia entra en el README, con sus cifras al día
+3956081 docs(informe): cierre del ciclo 1.4.1 con las cifras y la CI de la rama al día
+c4fb627 feat(requisitos): el contrato de la plataforma, en código y aplicado por test
 ```
 
+`c4fb627` entrega el ciclo 1.5.0 (este informe se actualiza en el commit siguiente, que es el último de la rama).
 El commit `497b898` entrega el ciclo 1.4.1 completo y los dos siguientes son su documentación. La CI se ejecutó
 sobre `497b898` y sobre `ee60819` y **las 8 comprobaciones de trabajo quedaron en verde en ambas** (`CI`: web,
 edu-engine, secretos, campus — ejecuciones `38145327384` y `38146258189`; `Calidad`: axe · WCAG 2.2 AA,
