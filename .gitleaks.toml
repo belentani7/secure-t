@@ -1,28 +1,27 @@
 # Reglas por defecto de gitleaks + lista blanca **estrecha** para tres falsos
-# positivos ya verificados uno a uno. No son secretos:
+# positivos verificados uno a uno. No son secretos:
 #
-#   · dos identificadores anónimos de las pruebas (un UUID de ejemplo, sin
-#     valor como credencial), y
+#   · un identificador anónimo de las pruebas (un UUID de ejemplo, sin valor
+#     como credencial), y
 #   · una frase de la interfaz en inglés («…using the public key it carries.»),
 #     que es prosa dentro de una cadena de traducción.
 #
-# Cualquier otro hallazgo —también en el historial— sigue rompiendo la CI: la
-# lista blanca acota la regla, el fichero y la línea.
+# Cada entrada acota **la regla y el texto exacto**, no el fichero entero: un
+# secreto de verdad en esos mismos ficheros sigue rompiendo la CI, igual que
+# cualquier hallazgo del historial.
 #
 # Referencia: https://github.com/gitleaks/gitleaks#configuration
 [extend]
 useDefault = true
 
 [[allowlists]]
-description = "UUID de ejemplo de los tests (identificador anónimo, no una credencial)"
+description = "UUID de ejemplo de los tests: identificador anónimo, no una credencial"
 targetRules = ["generic-api-key"]
 regexTarget = "line"
-paths = ['''packages/shared/tests/badges\.test\.ts''', '''packages/shared/tests/xapi\.test\.ts''']
 regexes = ['''7f3c1a2e-9b44-4f77-8a10-2c5e6d9f0c31''']
 
 [[allowlists]]
-description = "Prosa de la interfaz en inglés: «public key it carries», no una clave"
+description = "Prosa de la interfaz en inglés («public key it carries»), no una clave"
 targetRules = ["generic-api-key"]
 regexTarget = "line"
-paths = ['''packages/shared/src/i18n/en\.ts''']
 regexes = ['''public key it carries''']

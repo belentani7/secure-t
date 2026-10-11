@@ -47,6 +47,9 @@ jobs:
         uses: gitleaks/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7 # v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Sin esta variable la acción no usa .gitleaks.toml y la lista blanca
+          # de falsos positivos no se aplica.
+          GITLEAKS_CONFIG: .gitleaks.toml
       - name: Publicar los hallazgos de gitleaks como anotaciones
         # El resumen del job no es accesible por API: el SARIF se convierte en
         # anotaciones para poder arreglar el hallazgo sin abrir la interfaz.
