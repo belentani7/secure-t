@@ -55,9 +55,13 @@ async function resolver(pathname) {
   const interna = rutaInterna(decodeURIComponent(pathname));
   if (interna === null) return null;
   const limpio = normalize(interna).replace(/^(\.\.[/\\])+/, "");
+  // Next exporta `/pt` como `pt.html`; con barra final (`/pt/`) hay que probar
+  // el fichero hermano antes de darlo por perdido.
   const candidatos = [];
-  if (limpio.endsWith("/")) candidatos.push(join(root, limpio, "index.html"));
-  else {
+  if (limpio.endsWith("/")) {
+    const sinBarra = limpio.replace(/\/$/, "");
+    candidatos.push(join(root, limpio, "index.html"), join(root, `${sinBarra}.html`));
+  } else {
     candidatos.push(join(root, limpio), join(root, `${limpio}.html`), join(root, limpio, "index.html"));
   }
   for (const candidato of candidatos) {
