@@ -90,7 +90,7 @@ export const PERSONAS: Record<AgentId, Persona> = {
       ca: "Proposa criteris d'avaluació; mai canvia notes"
     },
     opening: {
-      pt: "Propongo critérios, não altero notas.",
+      pt: "Proponho critérios, não altero notas.",
       es: "Propongo criterios, no altero notas.",
       en: "I propose criteria, I do not change grades.",
       ca: "Proposo criteris, no altero notes."
@@ -107,7 +107,7 @@ export const PERSONAS: Record<AgentId, Persona> = {
       ca: "Acompanya la pràctica guiada amb límits legals clars"
     },
     opening: {
-      pt: "Fica dentro do âmbito autorizado. Recorda a regra número um.",
+      pt: "Fique dentro do escopo autorizado. Lembre-se da regra número um.",
       es: "Quédate dentro del alcance autorizado. Recuerda la regla número uno.",
       en: "Stay inside the authorised scope. Remember rule number one.",
       ca: "Queda't dins l'abast autoritzat. Recorda la regla número u."
@@ -124,7 +124,7 @@ export const PERSONAS: Record<AgentId, Persona> = {
       ca: "Només cita fonts aprovades i verificables"
     },
     opening: {
-      pt: "Só afirme o que possa citar.",
+      pt: "Só afirme o que puder citar.",
       es: "Solo afirmo lo que puedo citar.",
       en: "I only state what I can cite.",
       ca: "Només afirmo el que puc citar."
@@ -152,7 +152,7 @@ export const PERSONAS: Record<AgentId, Persona> = {
     id: "voice",
     label: { pt: "VOZ · leitura", es: "VOZ · lectura", en: "VOICE · reading", ca: "VEU · lectura" },
     role: {
-      pt: "Lê o material em voz alta com transcrição",
+      pt: "Leia o material em voz alta com transcrição",
       es: "Lee el material en voz alta con transcripción",
       en: "Reads material aloud with a transcript",
       ca: "Llegeix el material en veu alta amb transcripció"
@@ -200,7 +200,7 @@ export const LECTURERS: Lecturer[] = [
       ca: "VEGA · ciberseguretat ofensiva"
     },
     script: {
-      pt: "Sou VEGA. Nesta aula vamos pensar como um atacante, mas sempre com âmbito assinado. Hoje: reconstruir a superfície de exposição de um alvo legal e escrever o achado de forma que outra pessoa o possa reproduzir.",
+      pt: "Sou VEGA. Nesta aula vamos pensar como um atacante, mas sempre com escopo assinado. Hoje: reconstruir a superfície de exposição de um alvo legal e escrever o achado de forma que outra pessoa o possa reproduzir.",
       es: "Soy VEGA. En esta clase vamos a pensar como un atacante, pero siempre con alcance firmado. Hoy: reconstruir la superficie de exposición de un objetivo legal y escribir el hallazgo de forma que otra persona pueda reproducirlo.",
       en: "I am VEGA. In this class we think like an attacker, always with a signed scope. Today: rebuild a legal target's exposure surface and write the finding so someone else can reproduce it.",
       ca: "Soc VEGA. En aquesta classe pensarem com un atacant, però sempre amb abast signat. Avui: reconstruir la superfície d'exposició d'un objectiu legal i escriure la troballa perquè una altra persona la pugui reproduir."
@@ -234,7 +234,7 @@ export const LECTURERS: Lecturer[] = [
       ca: "ALTAIR · IA aplicada i segura"
     },
     script: {
-      pt: "Sou ALTAIR. A segurança não é um acrescento no fim: é um requisito desde a primeira linha. Hoje: escrever o limite de um sistema de IA antes de o construir, e testar o que acontece quando o pedido sai desse limite.",
+      pt: "Sou ALTAIR. A segurança não é um extra no fim: é um requisito desde a primeira linha. Hoje: escrever o limite de um sistema de IA antes de o construir, e testar o que acontece quando o pedido sai desse limite.",
       es: "Soy ALTAIR. La seguridad no es un añadido al final: es un requisito desde la primera línea. Hoy: escribir el límite de un sistema de IA antes de construirlo, y probar qué pasa cuando la petición se sale de ese límite.",
       en: "I am ALTAIR. Security is not an add-on at the end: it is a requirement from line one. Today: write the boundary of an AI system before building it, and test what happens when a request leaves that boundary.",
       ca: "Soc ALTAIR. La seguretat no és un afegit al final: és un requisit des de la primera línia. Avui: escriure el límit d'un sistema d'IA abans de construir-lo i provar què passa quan la petició surt d'aquest límit."
@@ -276,7 +276,7 @@ export function voiceFallbackText(locale: Locale, kind: "welcome" | "lecturer", 
     if (lecturer) return `${lecturer.label[locale]}. ${lecturer.script[locale]}`;
   }
   const welcome: Record<Locale, string> = {
-    pt: "Bem-vindo ao campus secure T. Quatro programas de vinte semanas, gratuitos e sem registo. O agente AURUM responde com o material do campus e diz quando não sabe.",
+    pt: "Bem-vindo ao campus secure T. Quatro programas de vinte semanas, gratuitos e sem cadastro. O agente AURUM responde com o material do campus e diz quando não sabe.",
     es: "Bienvenido al campus secure T. Cuatro programas de veinte semanas, gratuitos y sin registro. El agente AURUM responde con el material del campus y dice cuándo no sabe.",
     en: "Welcome to the secure T campus. Four twenty-week programmes, free and with no sign-up. The AURUM agent answers from campus material and says when it does not know.",
     ca: "Benvingut al campus secure T. Quatre programes de vint setmanes, gratuïts i sense registre. L'agent AURUM respon amb el material del campus i diu quan no ho sap."

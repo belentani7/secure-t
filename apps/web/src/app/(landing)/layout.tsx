@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     locale: OG_LOCALES.pt,
     alternateLocale: (["es", "en", "ca"] as const).map((key) => OG_LOCALES[key]),
     title: "secure T — Instituto aberto de cibersegurança e IA",
-    description: "Quatro programas de vinte semanas, gratuitos, sem registo e funcionais sem conexão.",
+    description: "Quatro programas de vinte semanas, gratuitos, sem cadastro e funcionais sem conexão.",
     url: "/"
   },
   twitter: {

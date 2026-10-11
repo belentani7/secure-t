@@ -19,7 +19,7 @@ import { asset } from "@/lib/site";
  */
 
 const WELCOME: Record<Locale, string> = {
-  pt: "Bem-vindo ao campus secure T. Quatro programas de vinte semanas, gratuitos e sem registo. O agente AURUM responde com o material do campus e diz quando não sabe.",
+  pt: "Bem-vindo ao campus secure T. Quatro programas de vinte semanas, gratuitos e sem cadastro. O agente AURUM responde com o material do campus e diz quando não sabe.",
   es: "Bienvenido al campus secure T. Cuatro programas de veinte semanas, gratuitos y sin registro. El agente AURUM responde con el material del campus y dice cuándo no sabe.",
   en: "Welcome to the secure T campus. Four twenty-week programmes, free and with no sign-up. The AURUM agent answers from campus material and says when it does not know.",
   ca: "Benvingut al campus secure T. Quatre programes de vint setmanes, gratuïts i sense registre. L'agent AURUM respon amb el material del campus i diu quan no ho sap."

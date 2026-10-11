@@ -24,7 +24,7 @@ export default function NotFound() {
         </a>
         <main className="wrap section" id="main">
           <p className="eyebrow">404</p>
-          <h1>Esta página não existe (ou mudou de sítio)</h1>
+          <h1>Esta página não existe (ou mudou de endereço)</h1>
           <p className="lead">
             O campus continua inteiro: quatro programas de vinte semanas, materiais e agente, todos disponíveis offline.
           </p>

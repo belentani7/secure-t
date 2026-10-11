@@ -88,71 +88,71 @@ const SECCIONES: Record<Locale, { updated: string; intro: string; secciones: Sec
   pt: {
     updated: "Última revisão: 11 de outubro de 2026",
     intro:
-      "O campus secure T funciona sem contas, sem correio eletrónico e sem seguimento. O teu progresso, os teus repassos e as tuas credenciais vivem no teu dispositivo e só saem dele se tu os exportares. Esta página explica exatamente o que é guardado, onde e porquê, incluindo o que acontece fora do teu navegador.",
+      "O campus secure T funciona sem contas, sem e-mail e sem rastreamento. O seu progresso, as suas revisões e as suas credenciais ficam no seu dispositivo e só saem dele se você os exportar. Esta página explica exatamente o que é salvo, onde e por quê, incluindo o que acontece fora do seu navegador.",
     secciones: [
       {
         titulo: "1. Responsável e base jurídica",
         cuerpo: [
           "Responsável: o projeto aberto secure T (github.com/belentani7/secure-t), mantido por Pedro Belentani como autor original.",
-          "Como não tratamos dados pessoais, a maior parte deste serviço fica fora do âmbito do RGPD. Quando decides ativar a voz ou exportar o teu processo, o tratamento ocorre no teu dispositivo e sob o teu controlo: base jurídica, o teu próprio consentimento (art. 6.1.a)."
+          "Como não tratamos dados pessoais, a maior parte deste serviço fica fora do escopo da LGPD brasileira e do RGPD europeu. Quando você decide ativar a voz ou exportar o seu histórico, o tratamento acontece no seu dispositivo e sob o seu controle: base jurídica, o seu próprio consentimento (art. 6.1.a do RGPD)."
         ]
       },
       {
-        titulo: "2. O que é guardado no teu dispositivo",
+        titulo: "2. O que é salvo no seu dispositivo",
         cuerpo: [
-          "Progresso: semanas marcadas, resultado do questionário, laboratório, projeto e exame, com um identificador aleatório anónimo (crypto.randomUUID).",
-          "Baralho de repasso espaçado (SM-2): que cartões te tocam e com que facilidade os recordas.",
-          "Registo xAPI local: as tuas ações no vocabulário padrão, sem as enviar a nenhum servidor.",
-          "Chave de assinatura de credenciais: um par RSA gerado no teu navegador para assinar as tuas próprias insígnias. Nunca é transmitido."
+          "Progresso: semanas marcadas, resultado do questionário, laboratório, projeto e exame, com um identificador aleatório anônimo (crypto.randomUUID).",
+          "Baralho de revisão espaçada (SM-2): quais cartões estão pendentes e com que facilidade você se lembra deles.",
+          "Registro xAPI local: as suas ações no vocabulário padrão, sem enviá-las a nenhum servidor.",
+          "Chave de assinatura de credenciais: um par RSA gerado no seu navegador para assinar as suas próprias credenciais. Nunca é transmitida."
         ]
       },
       {
-        titulo: "3. O que NÃO é guardado nem enviado",
+        titulo: "3. O que NÃO é salvo nem enviado",
         cuerpo: [
-          "Não há contas, correio, nome, telefone nem identificadores de publicidade.",
-          "Não há cookies de terceiros, analítica, píxeis de seguimento nem perfilagem. Podes verificá-lo no código: não existe nenhuma dependência de analítica em DEPENDENCIAS.md.",
-          "O agente de IA funciona no teu navegador. Se um deployment ativar um fornecedor externo, isso é avisado na interface e em CONTRATO_API.md, e só é permitido contra hosts declarados."
+          "Não há contas, e-mail, nome, telefone nem identificadores de publicidade.",
+          "Não há cookies de terceiros, analytics, pixels de rastreamento nem perfilamento. Você pode conferir no código: não existe nenhuma dependência de analytics em DEPENDENCIAS.md.",
+          "O agente de IA funciona no seu navegador. Se alguma implantação ativar um provedor externo, isso é avisado na interface e em CONTRATO_API.md, e só é permitido contra hosts declarados."
         ]
       },
       {
-        titulo: "4. O que acontece fora do teu navegador",
+        titulo: "4. O que acontece fora do seu navegador",
         cuerpo: [
-          "Ao visitar o site, o fornecedor de alojamento (GitHub Pages) registra o endereço IP e o agente de utilizador nos seus registos, como qualquer servidor web. Isso é alheio ao projeto e não temos acesso a esses registos.",
-          "As ligações para GitHub e para fontes oficiais (NIST, CISA) levam-te a serviços de terceiros com políticas próprias.",
-          "Se instalares o campus no teu próprio servidor com o fornecedor de LLM opcional, a pergunta viajaria para esse fornecedor: a responsabilidade é tua."
+          "Ao visitar o site, o provedor de hospedagem (GitHub Pages) registra o endereço IP e o user agent nos seus logs, como qualquer servidor web. Isso é alheio ao projeto e não temos acesso a esses registros.",
+          "Os links para o GitHub e para fontes oficiais (NIST, CISA) levam você a serviços de terceiros com políticas próprias.",
+          "Se você instalar o campus no seu próprio servidor com o provedor de LLM opcional, a pergunta viajaria para esse fornecedor: a responsabilidade é sua."
         ]
       },
       {
-        titulo: "5. Os teus direitos",
+        titulo: "5. Os seus direitos",
         cuerpo: [
-          "Acesso, retificação, apagamento, portabilidade, limitação e oposição: todos se exercem diretamente e sem pedir permissão a ninguém, porque os dados estão no teu dispositivo.",
-          "Exporta o teu processo assinado em /progreso, importa-o onde quiseres e apaga-o com o botão de reinício ou limpando os dados do site.",
-          "Se algo não bate certo, escreve para security@secure-t.dev e corrige-se no repositório."
+          "Acesso, retificação, exclusão, portabilidade, limitação e oposição: todos se exercem diretamente e sem pedir permissão a ninguém, porque os dados estão no seu dispositivo.",
+          "Exporte o seu histórico assinado em /progreso, importe-o onde quiser e apague-o com o botão de reinício ou limpando os dados do site.",
+          "Se algo não estiver certo, escreva para security@secure-t.dev e corrigimos no repositório."
         ]
       },
       {
         titulo: "6. Menores e contexto educativo",
         cuerpo: [
-          "O campus destina-se a pessoas adultas e a estudantes do ensino superior. Como não há registo, não se trata nenhum dado de menores.",
-          "Os laboratórios de segurança ofensiva fazem-se em máquinas próprias ou ambientes isolados e com autorização expressa: a ética e a permissão fazem parte da avaliação."
+          "O campus destina-se a pessoas adultas e a estudantes do ensino superior. Como não há cadastro, não se trata nenhum dado de menores.",
+          "Os laboratórios de segurança ofensiva são feitos em máquinas próprias ou ambientes isolados e com autorização expressa: a ética e a permissão fazem parte da avaliação."
         ]
       },
       {
         titulo: "7. Segurança",
         cuerpo: [
-          "Cifragem em trânsito por HTTPS, sem segredos no cliente, sem chaves de API no repositório (o gitleaks verifica em cada alteração).",
-          "Cabeçalhos de segurança e política de conteúdo no deployment com servidor; no site estático, onde o alojamento não permite cabeçalhos, aplica-se a política por metadados e documenta-se a limitação.",
-          "Vulnerabilidades: informa segundo .well-known/security.txt (RFC 9116)."
+          "Criptografia em trânsito por HTTPS, sem segredos no cliente, sem chaves de API no repositório (o gitleaks verifica em cada alteração).",
+          "Cabeçalhos de segurança e política de conteúdo na implantação com servidor; no site estático, onde a hospedagem não permite cabeçalhos, a política é aplicada por metadados e a limitação fica documentada.",
+          "Vulnerabilidades: informe conforme o .well-known/security.txt (RFC 9116)."
         ]
       },
       {
         titulo: "8. Alterações",
         cuerpo: [
-          "Qualquer alteração a este aviso é registada em CHANGELOG.md e nos ADR. Se algum dia se acrescentasse algo que trate dados pessoais, teria de passar por um ADR, por este aviso e pelo consentimento explícito — e nunca pela porta de trás."
+          "Qualquer alteração neste aviso é registrada em CHANGELOG.md e nos ADR. Se algum dia se acrescentasse algo que trate dados pessoais, teria de passar por um ADR, por este aviso e pelo consentimento explícito — e nunca pela porta dos fundos."
         ]
       }
     ],
-    contacto: "Contacto: security@secure-t.dev · Repositório: github.com/belentani7/secure-t"
+    contacto: "Contato: security@secure-t.dev · Repositório: github.com/belentani7/secure-t"
   },
   en: {
     updated: "Last reviewed: 11 October 2026",

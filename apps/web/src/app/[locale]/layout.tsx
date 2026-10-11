@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     ca: "secure T — Institut obert de ciberseguretat i IA"
   };
   const descriptions: Record<Locale, string> = {
-    pt: "Instituto aberto de cibersegurança e inteligência artificial: quatro programas de vinte semanas, gratuitos, sem registo e funcionais sem conexão.",
+    pt: "Instituto aberto de cibersegurança e inteligência artificial: quatro programas de vinte semanas, gratuitos, sem cadastro e funcionais sem conexão.",
     es: "Instituto abierto de ciberseguridad e inteligencia artificial: cuatro programas de veinte semanas, gratuitos, sin registro y funcionales sin conexión.",
     en: "Open institute of cybersecurity and artificial intelligence: four twenty-week programmes, free, with no sign-up and working offline.",
     ca: "Institut obert de ciberseguretat i intel·ligència artificial: quatre programes de vint setmanes, gratuïts, sense registre i funcionals sense connexió."

@@ -7,16 +7,16 @@ export const dynamic = "force-static";
 /** Manifiesto PWA: instalable y utilizable sin conexión (promesa P3). */
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "secure T — Instituto aberto de ciberseguridade e IA",
+    name: "secure T — Instituto aberto de cibersegurança e IA",
     short_name: "secure T",
     description:
-      "Quatro programas de vinte semanas de ciberseguridade e IA, gratuitos, sem registo e funcionais sem conexão.",
+      "Quatro programas de vinte semanas de cibersegurança e IA, gratuitos, sem cadastro e funcionais sem conexão.",
     start_url: `${SITE.basePath}/`,
     scope: `${SITE.basePath}/`,
     display: "standalone",
     background_color: "#07070a",
     theme_color: "#07070a",
-    lang: "pt",
+    lang: "pt-BR",
     dir: "ltr",
     categories: ["education", "security", "productivity"],
     icons: [
