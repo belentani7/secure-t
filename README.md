@@ -23,6 +23,7 @@ En línea: <https://belentani7.github.io/secure-t/> · Campus AURUM: `/app/` · 
 7. [Calendario por país](#calendario-por-país)
 7.bis [Repaso espaciado](#repaso-espaciado-sm-2)
 8. [Cuatro idiomas, con honestidad](#cuatro-idiomas-con-honestidad)
+8.bis [La experiencia, medida](#la-experiencia-medida)
 9. [Privacidad por diseño](#privacidad-por-diseño)
 10. [Estándares y credenciales](#estándares-y-credenciales)
 11. [Tests y verificación](#tests-y-verificación)
@@ -95,8 +96,9 @@ Sin registro, sin claves y sin servicios externos: el único paso que toca la re
       ▼                             ▼                                      ▼
 @secure-t/shared            @secure-t/agent                        packages/ui
 i18n 4 idiomas             9 agentes + deny-list                  tokens negro/dorado
-calendario 15 países        RAG citado + auditoría                 componentes + Storybook
-markdown seguro             proveedor opcional (allowlist)         accesibilidad AA
+calendario 15 países        RAG citado + auditoría                 psicología aplicada
+markdown seguro             proveedor opcional (allowlist)         componentes + Storybook
+búsqueda BM25 propia        voz (MP3 o síntesis del navegador)     accesibilidad AA
 búsqueda BM25 propia        voz (MP3 o síntesis del navegador)
 expediente SHA-256
 ```
@@ -147,6 +149,26 @@ La regla está en el dato y en un test: **se enlaza al autor, nunca a un espejo*
 agregadores que redistribuyen cursos de pago sin autorización, y `packages/shared/tests/library.test.ts` falla si
 alguno aparece en la lista. Es la misma ética que enseña la semana 1 de ofensiva —permiso por escrito— aplicada al
 propio campus.
+
+## La experiencia, medida
+
+Ser una obra y no una web se decide en detalles que se pueden contar. El campus aplica una capa de **psicología del
+diseño** que no vive en un documento de intenciones sino en el código: `packages/ui/src/psychology.ts` (exportado
+como `@secure-t/ui/psychology`) declara el balance de color **60·30·10**, la escala tipográfica modular (1,25), la
+medida de lectura en `ch`, el ritmo de 8 px, el troceado de decisiones (seis destinos primarios, el resto en un
+`<details>` nativo), los límites de movimiento (12 px al aparecer, 2 px al pasar, nada de parallax ni rebote) y los
+mínimos táctiles (44 px de la casa, por encima de los 24 px que exige WCAG 2.2 SC 2.5.8 AA).
+
+[`/experiencia`](apps/web/src/components/experience-view.tsx) publica esa tabla con sus cifras y enlaza la
+investigación completa en [`docs/PSICOLOGIA-Y-EXPERIENCIA.md`](docs/PSICOLOGIA-Y-EXPERIENCIA.md), que incluye los
+límites honestos: no hay estudio con usuarios, el contraste se verifica de forma estática y axe/Lighthouse sólo se
+ejecutan en CI.
+
+El guiño a Río de Janeiro —el Cristo Redentor sobre el Corcovado y el Pan de Azúcar— es una **sombra en el propio
+HTML**: SVG en línea, cero peticiones de red, `aria-hidden`, siluetas más oscuras que el fondo, bruma de 96 s y
+luces de ciudad cada 7 s. Abre y cierra la portada (regla del pico-final), se queda quieto con movimiento reducido
+y desaparece con alto contraste. Veinte pruebas (`packages/ui/tests/psychology.test.ts`) exigen todo lo anterior
+**contra el CSS y los componentes reales**, incluido que no entre ninguna librería de animación.
 
 ## Laboratorio de IA
 
@@ -296,8 +318,8 @@ completa del material a EN/CA. Ver el apartado 8 de `docs/ESTANDARES.md`.
 ## Tests y verificación
 
 ```bash
-pnpm test                       # 19 ficheros, 233 tests (vitest): shared, agente, web, contratos y estándares
-python -m pytest -q tests/      # 117 tests del campus clásico (artefactos publicados)
+pnpm test                       # 29 ficheros, 358 tests (vitest): shared, ui, agente, web, contratos y estándares
+python -m pytest -q tests/      # 274 tests del campus clásico (artefactos publicados)
 cd lib/edu-engine && node --test tests/quiz.test.mjs   # motor educativo
 pnpm typecheck && pnpm --filter @secure-t/web build
 ```
@@ -311,7 +333,8 @@ estén publicadas.
 
 `tests/test_campus.py` valida el esquema de los quizzes, la coherencia de la evaluación, la estructura de las
 páginas de curso, los enlaces reales de la portada, el SEO mínimo, la honestidad de `idiomas.md` y que el workflow
-de Pages no lleve tokens personales. Los paquetes nuevos añaden **93 tests**: calendario (Pascua 2024-2030,
+de Pages no lleve tokens personales. **201 de los 358 tests** viven en los paquetes —incluidos los 32 de `packages/ui`, que exigen la capa de psicología contra el CSS real— y el resto en
+los contratos de la raíz; entre ellos: calendario (Pascua 2024-2030,
 traslados, ICS plegado a 75 octetos), paridad de idiomas, renderizador Markdown seguro, BM25, expediente firmado y
 las garantías del agente (deny-list, SSRF, modo examen, citas, auditoría).
 

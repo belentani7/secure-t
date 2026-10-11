@@ -238,6 +238,9 @@ def test_readme_documenta_la_realidad():
     assert len(rd) > 1500, "README esqueleto"
     for palabra in ("pytest", "eduforge", "audit", "PLANNED"):
         assert palabra in rd, f"README no documenta {palabra}"
+    # La capa de experiencia también forma parte de la realidad documentada.
+    for palabra in ("La experiencia, medida", "docs/PSICOLOGIA-Y-EXPERIENCIA.md"):
+        assert palabra in rd, f"README no documenta {palabra}"
     assert re.search(r"tests?[^.\n]{0,40}pendiente", rd, re.IGNORECASE) is None, \
         "README dice que los tests están pendientes (existen 37+)"
 

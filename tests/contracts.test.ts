@@ -9,6 +9,7 @@
 
 import { readFileSync, existsSync, statSync } from "node:fs";
 import { join } from "node:path";
+import { globSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { CSP, CSP_DIRECTIVES, CSP_META, META_HEADERS, SECURITY_HEADERS } from "../apps/web/src/lib/security-headers";
 import { LOCALES } from "../packages/shared/src/i18n";
@@ -496,5 +497,33 @@ describe("experiencia medida y guiño de Río", () => {
     for (const ruta of ["/app/biblioteca", "/app/plano", "/app/laboratorio", "/app/experiencia"]) {
       expect(matriz, `falta ${ruta} en la matriz axe`).toContain(ruta);
     }
+  });
+});
+
+describe("el README documenta la capa de experiencia", () => {
+  const readme = leer("README.md");
+
+  it("explica el método y enlaza la investigación", () => {
+    expect(readme).toContain("La experiencia, medida");
+    expect(readme).toContain("packages/ui/src/psychology.ts");
+    expect(readme).toContain("docs/PSICOLOGIA-Y-EXPERIENCIA.md");
+  });
+
+  it("publica las cifras de prueba que existen de verdad", () => {
+    // Los ficheros de test de vitest son la fuente: si crecen, el README tiene que decirlo.
+    // El número de tests no se puede contar desde dentro de la propia suite: se
+    // exige un suelo honesto (> 300) y lo que sí se puede comprobar —el número de
+    // ficheros— se comprueba exactamente contra el árbol real.
+    const declarados = Number(readme.match(/(\d+) ficheros, (\d+) tests \(vitest\)/)?.[2] ?? 0);
+    expect(declarados).toBeGreaterThan(300);
+    const ficheros = globSync(["packages/*/tests/**/*.test.ts", "tests/**/*.test.ts"]);
+    const numero = Number(readme.match(/(\d+) ficheros, \d+ tests \(vitest\)/)?.[1] ?? 0);
+    expect(ficheros.length, "el README declara un número de ficheros de test distinto del real").toBe(numero);
+  });
+
+  it("no promete nada del guiño que el código no haga", () => {
+    expect(readme).toContain("SVG en línea");
+    expect(readme).toContain("aria-hidden");
+    expect(readme).toContain("docs/PSICOLOGIA-Y-EXPERIENCIA.md");
   });
 });
