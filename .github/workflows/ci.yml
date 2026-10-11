@@ -40,9 +40,12 @@ jobs:
     # El binario oficial de gitleaks (licencia MIT) en lugar de una accion de
     # terceros: el escaneo queda fijado por version y verificado por SHA-256, la
     # lista blanca se pasa con `--config` (sin depender de que la accion la
-    # descubra sola) y un control negativo demuestra que el escaneo si ve los
-    # hallazgos cuando la lista blanca no esta. Sin este ultimo paso, un «verde»
-    # no probaria nada.
+    # descubra sola) y hay un control negativo que demuestra que el escaneo ve
+    # los hallazgos cuando la lista blanca no esta.
+    #
+    # El veredicto NO es «gitleaks no encontro nada»: es «el historial completo
+    # contiene exactamente los hallazgos conocidos y documentados». Cualquier
+    # otro hallazgo falla el trabajo, y los aceptados se publican como avisos.
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -66,6 +69,9 @@ jobs:
           echo "$RUNNER_TEMP/gitleaks" >> "$GITHUB_PATH"
           "$RUNNER_TEMP/gitleaks/gitleaks" version
       - name: Control negativo (sin lista blanca el escaneo debe encontrar los falsos positivos)
+        # Verifica la eficacia del control, no solo su resultado: si el escaneo
+        # no ve nada cuando la lista blanca no esta, un veredicto posterior no
+        # significaria nada.
         run: |
           set -euo pipefail
           printf '[extend]\nuseDefault = true\n' > "$RUNNER_TEMP/sin-lista-blanca.toml"
@@ -82,6 +88,7 @@ jobs:
             const hallazgos = sarif.runs?.[0]?.results ?? [];
             const reglas = [...new Set(hallazgos.map((h) => h.ruleId))];
             console.log(`Control negativo: ${hallazgos.length} hallazgo(s), reglas: ${reglas.join(", ") || "ninguna"}`);
+            fs.appendFileSync(process.env.GITHUB_ENV, `CONTROL_HALLAZGOS=${hallazgos.length}\n`);
             if (hallazgos.length < 3) {
               console.log("::error title=gitleaks::el control negativo encontro menos hallazgos de los tres falsos positivos conocidos");
               process.exit(1);
@@ -93,8 +100,53 @@ jobs:
           set -euo pipefail
           gitleaks detect \
             --config .gitleaks.toml \
-            --no-banner --redact --exit-code=2 --log-level=info \
+            --no-banner --redact --exit-code=0 --log-level=info \
             --report-format=sarif --report-path=gitleaks-results.sarif
+      - name: Veredicto del escaneo (solo los hallazgos conocidos y documentados)
+        # La exposicion historica aceptada es real y grave (una clave del autor
+        # original en un fichero que ya no existe). Se publica como aviso en
+        # cada ejecucion, nunca como exito silencioso: aceptarla no la borra.
+        if: always()
+        env:
+          RESULTADO_ESCANEO: ${{ steps.escaneo.outcome }}
+        run: |
+          set -euo pipefail
+          informe=$(ls ./*.sarif 2>/dev/null | head -1)
+          if [ -z "$informe" ]; then
+            if [ "$RESULTADO_ESCANEO" = "success" ]; then
+              echo "Sin informe SARIF: el escaneo termino sin hallazgos"
+            else
+              echo "::error title=gitleaks::el escaneo fallo sin dejar informe SARIF"
+              exit 1
+            fi
+            exit 0
+          fi
+          node -e '
+            const fs = require("node:fs");
+            const sarif = JSON.parse(fs.readFileSync(process.argv[1], "utf8"));
+            const hallazgos = sarif.runs?.[0]?.results ?? [];
+            const aceptados = [{ regla: "generic-api-key", archivo: "fix_weeks.py" }];
+            let inesperados = 0;
+            for (const hallazgo of hallazgos) {
+              const sitio = hallazgo.locations?.[0]?.physicalLocation ?? {};
+              const archivo = sitio.artifactLocation?.uri ?? "desconocido";
+              const linea = sitio.region?.startLine ?? 0;
+              const texto = (hallazgo.message?.text ?? "").replace(/\s+/g, " ").slice(0, 220);
+              const conocido = aceptados.some((a) => a.regla === hallazgo.ruleId && archivo.endsWith(a.archivo));
+              if (conocido) {
+                console.log(`::warning title=gitleaks exposicion historica aceptada::${archivo}:${linea} ${texto}`);
+              } else {
+                inesperados += 1;
+                console.log(`::error title=gitleaks::${archivo}:${linea} ${texto}`);
+              }
+            }
+            const control = Number(process.env.CONTROL_HALLAZGOS ?? "0");
+            if (control > 0 && hallazgos.length >= control) {
+              console.log(`::warning title=gitleaks diagnostico::la lista blanca no suprimio ningun hallazgo (control=${control}, final=${hallazgos.length})`);
+            }
+            console.log(`Hallazgos: ${hallazgos.length} (inesperados: ${inesperados})`);
+            if (inesperados > 0) process.exit(1);
+          ' "$informe"
       - name: Publicar el informe SARIF de gitleaks
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -102,37 +154,6 @@ jobs:
           name: gitleaks-results.sarif
           path: gitleaks-results.sarif
           if-no-files-found: ignore
-      - name: Publicar los hallazgos de gitleaks como anotaciones
-        # El resumen del job no es accesible por API: el SARIF se convierte en
-        # anotaciones para poder arreglar el hallazgo sin abrir la interfaz.
-        if: always()
-        env:
-          RESULTADO_ESCANEO: ${{ steps.escaneo.outcome }}
-        run: |
-          informe=$(ls ./*.sarif 2>/dev/null | head -1)
-          if [ -z "$informe" ]; then
-            if [ "$RESULTADO_ESCANEO" = "success" ]; then
-              echo "Sin informe SARIF: el escaneo termino sin hallazgos"
-            else
-              echo "::warning title=gitleaks::el escaneo fallo sin dejar informe SARIF"
-            fi
-            exit 0
-          fi
-          node -e '
-            const fs = require("node:fs");
-            const sarif = JSON.parse(fs.readFileSync(process.argv[1], "utf8"));
-            const corrida = sarif.runs?.[0] ?? {};
-            const reglas = new Map((corrida.tool?.driver?.rules ?? []).map((r) => [r.id, r.shortDescription?.text ?? ""]));
-            const hallazgos = corrida.results ?? [];
-            for (const hallazgo of hallazgos.slice(0, 20)) {
-              const sitio = hallazgo.locations?.[0]?.physicalLocation ?? {};
-              const archivo = sitio.artifactLocation?.uri ?? "desconocido";
-              const linea = sitio.region?.startLine ?? 0;
-              const texto = (hallazgo.message?.text ?? reglas.get(hallazgo.ruleId) ?? "").replace(/\s+/g, " ").slice(0, 200);
-              console.log(`::error title=gitleaks ${hallazgo.ruleId}::${archivo}:${linea} ${texto}`);
-            }
-            console.log(`Hallazgos en el SARIF: ${hallazgos.length}`);
-          ' "$informe"
 
   edu-engine:
     # lib/edu-engine/.github/workflows/ci.yml NUNCA se ejecutaba: GitHub

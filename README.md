@@ -256,6 +256,12 @@ las garantías del agente (deny-list, SSRF, modo examen, citas, auditoría).
 | `pages.yml` | ensambla `_site` con lista blanca y barrera anti-secretos antes de publicar |
 | `quality.yml` | auditoría estática sin navegador, axe/WCAG 2.2 AA, Lighthouse (≥ 95 en las cuatro categorías), cobertura ≥ 80 % |
 
+El trabajo `secretos` no se conforma con «no hay hallazgos»: el veredicto es **«el historial completo contiene
+exactamente los hallazgos conocidos y documentados»**, con un control negativo que demuestra que el escaneo sí ve los
+falsos positivos cuando la lista blanca no está. Hoy queda **una exposición histórica aceptada y visible**: una clave
+de API del autor original en `fix_weeks.py` (commit `732eba5`), un script que ya no existe en el árbol. Se publica como
+aviso en cada ejecución; rotarla y limpiar el historial corresponde al propietario del repositorio.
+
 Medido en este repositorio (no prometido: medido):
 
 | Métrica | Valor | Cómo se obtiene |

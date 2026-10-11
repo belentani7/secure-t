@@ -1,14 +1,20 @@
-# Reglas por defecto de gitleaks + lista blanca **estrecha** para tres falsos
+# Reglas por defecto de gitleaks + lista blanca **estrecha** para dos falsos
 # positivos verificados uno a uno. No son secretos:
 #
 #   · un identificador anónimo de las pruebas (un UUID de ejemplo, sin valor
 #     como credencial), y
-#   · una frase de la interfaz en inglés («…using the public key it carries.»),
-#     que es prosa dentro de una cadena de traducción.
+#   · una frase de la interfaz en inglés («…RS256-signed…»), que es prosa dentro
+#     de una cadena de traducción: RS256 es un algoritmo, no una clave.
 #
-# Cada entrada acota **la regla y el texto exacto**, no el fichero entero: un
+# Cada entrada acota **la regla y el texto exacto**, nunca el fichero entero: un
 # secreto de verdad en esos mismos ficheros sigue rompiendo la CI, igual que
-# cualquier hallazgo del historial.
+# cualquier otro hallazgo del historial.
+#
+# ¿Por qué tres entradas por falso positivo? Porque gitleaks compara la lista
+# blanca contra tres objetivos distintos según `regexTarget`: el secreto
+# (grupo capturado), la coincidencia completa (`match`) o la línea (`line`), y
+# la semántica de `line` en un escaneo de git no es la de un fichero suelto. Las
+# tres variantes acotan el mismo texto; basta con que una acierte.
 #
 # Referencia: https://github.com/gitleaks/gitleaks#configuration
 #
@@ -20,14 +26,44 @@ minVersion = "8.21"
 [extend]
 useDefault = true
 
+# ── Falso positivo 1 · UUID de ejemplo de las pruebas ───────────────────────
+# El árbol actual ya no contiene el literal (se genera con `crypto.randomUUID()`),
+# pero el historial conserva la versión antigua en el commit 853f218.
+
 [[allowlists]]
 description = "UUID de ejemplo de los tests: identificador anónimo, no una credencial"
+targetRules = ["generic-api-key"]
+regexes = ['''^7f3c1a2e-9b44-4f77-8a10-2c5e6d9f0c31$''']
+
+[[allowlists]]
+description = "UUID de ejemplo de los tests, comparado con la coincidencia completa"
+targetRules = ["generic-api-key"]
+regexTarget = "match"
+regexes = ['''7f3c1a2e-9b44-4f77-8a10-2c5e6d9f0c31''']
+
+[[allowlists]]
+description = "UUID de ejemplo de los tests, comparado con la línea"
 targetRules = ["generic-api-key"]
 regexTarget = "line"
 regexes = ['''7f3c1a2e-9b44-4f77-8a10-2c5e6d9f0c31''']
 
+# ── Falso positivo 2 · prosa en inglés de la interfaz (`badge.lead`) ────────
+# «…RS256-signed on your device…» coincide con la forma «clave: valor» de la
+# regla genérica, pero `RS256-signed` es el nombre del algoritmo de firma.
+
 [[allowlists]]
-description = "Prosa de la interfaz en inglés («public key it carries»), no una clave"
+description = "Prosa de la interfaz: RS256-signed es un algoritmo, no una clave"
+targetRules = ["generic-api-key"]
+regexes = ['''^RS256-signed$''']
+
+[[allowlists]]
+description = "Prosa de la interfaz, comparada con la coincidencia completa"
+targetRules = ["generic-api-key"]
+regexTarget = "match"
+regexes = ['''credential, RS256-signed''']
+
+[[allowlists]]
+description = "Prosa de la interfaz, comparada con la línea"
 targetRules = ["generic-api-key"]
 regexTarget = "line"
 regexes = ['''public key it carries''']

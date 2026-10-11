@@ -42,6 +42,19 @@ externa, y lo que no está se dice en voz alta. Nada se marca conforme sin un te
   estándares, rutas por idioma y voz publicada) y `tests/agent-api.test.ts` (8: errores RFC 9457, límites y
   ausencia de cookies). El workflow de integración verifica que paquetes, programas y SBOM están al día.
 
+### Seguridad
+
+- **Clave real en el historial (hallazgo abierto, no aceptado en silencio)**: al escanear el historial **completo**
+  —hasta ahora no se hacía: la acción de gitleaks sólo miraba el rango del último envío— aparece una clave de API de
+  DeepSeek en `fix_weeks.py` (commit `732eba5`), un script del autor original que ya no existe en el árbol. El
+  veredicto del trabajo `secretos` la publica como **aviso en cada ejecución** en vez de darla por buena, y queda
+  como riesgo residual: rotar la clave en el proveedor es cosa del propietario, y borrarla del historial exige
+  reescribirlo (acción destructiva que no se hace sin autorización).
+- **El veredicto del escaneo es un conjunto conocido, no una ausencia de hallazgos**: `secretos` exige que el
+  historial completo contenga exactamente los hallazgos documentados; cualquier otro —incluido uno nuevo en
+  cualquier rama— falla el trabajo. La lista blanca sólo acota dos falsos positivos verificados (un UUID de ejemplo y
+  la palabra «RS256-signed»), con la regla y el texto exactos, nunca el fichero entero.
+
 ### Cambiado
 
 - `pnpm content:all` reúne contenido, programas imprimibles, paquetes y SBOM; Docker, Pages y calidad lo usan.
