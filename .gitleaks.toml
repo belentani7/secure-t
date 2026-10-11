@@ -1,11 +1,14 @@
 # Configuracion de gitleaks del repositorio: las reglas del motor mas una lista
-# blanca **estrecha** para dos falsos positivos verificados uno a uno. No son
+# blanca **estrecha** para tres falsos positivos verificados uno a uno. No son
 # secretos:
 #
 #   · un identificador anónimo de las pruebas (un UUID de ejemplo, sin valor
 #     como credencial), y
 #   · una frase de la interfaz en inglés («…RS256-signed…»), que es prosa dentro
-#     de una cadena de traducción: RS256 es un algoritmo, no una clave.
+#     de una cadena de traducción: RS256 es un algoritmo, no una clave, y
+#   · dos URLs de laboratorio del material docente (`…ejemplo.test…`) que la
+#     regla `curl-auth-user` leyó como usuario:clave porque el `-u` de `ffuf`
+#     caía a menos de cinco líneas de un comentario con la palabra `curl`.
 #
 # POR QUE LA LISTA BLANCA VA DENTRO DE LA REGLA: en gitleaks 8.24.3 la forma
 # global documentada (`[[allowlists]]` con `targetRules`) no suprimía nada
@@ -73,3 +76,28 @@ regexes = ['''credential, RS256-signed''']
 description = "Prosa de la interfaz, comparada con la línea"
 regexTarget = "line"
 regexes = ['''public key it carries''']
+
+# ── Falso positivo 3 · ejemplos del campus en la regla `curl-auth-user` ─────
+# Medido en el commit f0d03a7: en `campus/cursos/ciber-ofensiva/semana-08.md`
+# (y su traducción), el `-u` de `ffuf` quedaba a cinco líneas de un comentario
+# que decía «curl», así que la regla capturó `'https://lab.ejemplo.test/…'`
+# como si fuera un usuario:clave. El ejemplo se corrigió a `ffuf --url` en
+# e98b628 (más legible y ya no dispara la regla), pero el historial conserva la
+# versión antigua. La exclusión acota **el dominio de laboratorio** del campus:
+# un `curl -u usuario:clave` real en esos mismos ficheros sigue rompiendo la CI.
+[[rules]]
+id = "curl-auth-user"
+
+[[rules.allowlists]]
+description = "URLs de laboratorio del campus capturadas como credencial (semana 8 de ciber-ofensiva)"
+regexes = ['''lab\.(?:ejemplo|exemplo)\.test''']
+
+[[rules.allowlists]]
+description = "El mismo falso positivo, comparado con la coincidencia completa (incluye el comentario con «curl»)"
+regexTarget = "match"
+regexes = ['''lab\.(?:ejemplo|exemplo)\.test''']
+
+[[rules.allowlists]]
+description = "El mismo falso positivo, comparado con la línea del comando"
+regexTarget = "line"
+regexes = ['''ffuf (?:-u|--url) ['\"]https://lab\.(?:ejemplo|exemplo)\.test''']
