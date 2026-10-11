@@ -31,7 +31,7 @@ aviso en **cada** ejecución.
 | Campus AURUM | **Verificado** | 476 páginas exportadas, `_site` con 3.216 ficheros, `audit:site` = 0 errores y 0 avisos |
 | Estándares abiertos | **Aplicados con test** | QTI 1.2 y 2.1, SCORM 2004, IMS CC 1.3, EPUB 3.3, xAPI 1.0.3, Open Badges 2.0 y 3.0 (VC-JWT), schema.org, RFC 9116 |
 | Idioma por defecto | **Portugués de Brasil** | `pt-BR` en `lang`, `hreflang`, `x-default`, Open Graph y voz; el vocabulario del diccionario y del contenido se vigila con test (`tests/portugues-brasil.test.ts`) |
-| Idiomas del material docente | **Parcial y medido** | interfaz y agente completos en pt-BR/es/en/ca (285 claves, paridad con test); material: 20/80 semanas y 4/4 títulos de programa en pt-BR. Lo mide `pnpm locales` y lo vigila `tests/content-i18n.test.ts` |
+| Idiomas del material docente | **Parcial y medido** | interfaz y agente completos en pt-BR/es/en/ca (285 claves, paridad con test); material: 32/80 semanas (las ocho primeras de los cuatro programas) y 4/4 títulos de programa en pt-BR. Lo mide `pnpm locales` y lo vigila `tests/content-i18n.test.ts` |
 | Identidad sin datos personales | **Llave de cuatro dígitos** | `PBKDF2-SHA256` con 210.000 iteraciones y semilla del dispositivo; el PIN se usa en memoria y no se guarda (lo comprueba `tests/identity.test.ts`) |
 | Front | **Cristal vivo con luz dorada líquida** | `.aurum-glass` y `.aurum-luz` en `globals.css`; todo lo animado vive en `prefers-reduced-motion: no-preference` |
 | Estructura profesional abierta | **Itinerarios** | 4 itinerarios con prerrequisitos sin ciclos y competencias acreditadas (`/itinerarios` + 4 rutas de idioma) |
@@ -196,7 +196,7 @@ Métricas del material: **95828 líneas** versionadas de código, datos y docume
 | Export estático y ensamblado | `pnpm content:all` · `web:build` · `node tools/build-site.mjs` | ✔ 481 páginas, `_site` 3.251 ficheros |
 | Auditoría del sitio (sin navegador) | `pnpm audit:site` | **0 errores · 0 avisos**; mediana 204,7 kB; peor página 208,6 kB comprimidos |
 | Accesibilidad estática | incluida en `audit:site` | ✔ sin errores (lang, `h1` único, jerarquía, `alt`, ids, nombres accesibles) |
-| Cobertura real de traducciones | `pnpm locales` | pt: 4/4 títulos de programa, 20/80 semanas, **10.249 palabras**; en y ca: 0/80. El README publica estas mismas cifras y un test falla si miente |
+| Cobertura real de traducciones | `pnpm locales` | pt: 4/4 títulos de programa, 32/80 semanas, **16.950 palabras**; en y ca: 0/80. El README publica estas mismas cifras y un test falla si miente |
 
 ### 5.2 Solo verificable en CI (este entorno no tiene navegador)
 
@@ -232,7 +232,7 @@ anotaciones del check.
 | Clave de API real en el historial (F-1) | **ABIERTO / BLOCKED** | Rotación y eventual reescritura del historial: decisión del propietario |
 | Manifiestos legados sin auditar (F-3) | **PARCIAL** | 17 avisos medidos, ninguno de producción por encima de «bajo»; Dependabot con 7 avisos sin detalle (API 403) |
 | `sprintf-js` sin parche | **ACEPTADO** | Sólo desarrollo (`@lhci/cli` → `js-yaml` → `argparse`); sin versión corregida publicada |
-| Cobertura de traducción del material | **PLANNED (parcial)** | 20 de 80 semanas y 4 de 4 títulos de programa en pt-BR; en y ca empiezan de cero. El pipeline, la cobertura medida y el marcado `lang` ya están: lo que falta es texto, y mientras falta se dice en pantalla |
+| Cobertura de traducción del material | **PLANNED (parcial)** | 32 de 80 semanas (semanas 1-8 de los cuatro programas) y 4 de 4 títulos de programa en pt-BR; en y ca empiezan de cero. El pipeline, la cobertura medida y el marcado `lang` ya están: lo que falta es texto, y mientras falta se dice en pantalla |
 | Credenciales sin registro público ni revocación | **PLANNED** | OB 2.0/3.0 se firman y verifican en el navegador; sin registro central por diseño de anonimato |
 | xAPI local y exportable | **ACEPTADO** | «Local-first»: el estudiante exporta su historial; no hay LRS remoto |
 | Voz humanizada | **PARCIAL** | Publicada en español y portugués; el resto, pendiente |

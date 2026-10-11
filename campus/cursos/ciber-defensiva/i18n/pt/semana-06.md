@@ -1,6 +1,6 @@
 # Semana 6: Resposta a incidentes
 
-Curso: [Cibersegurança Defensiva: Construir e Defender](../syllabus.md) · Semana 6 de 20
+Curso: [Cibersegurança Defensiva: Operar como SOC](../syllabus.md) · Semana 6 de 20
 
 ## Objetivos de aprendizagem
 

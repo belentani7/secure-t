@@ -1,6 +1,6 @@
 # Semana 6: Robustez adversária e testes
 
-Curso: [IA Aplicada Segura: Construir com Responsabilidade](../syllabus.md) · Semana 6 de 20
+Curso: [Inteligência Artificial Aplicada e Segura](../syllabus.md) · Semana 6 de 20
 
 ## Objetivos de aprendizagem
 

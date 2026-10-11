@@ -1,6 +1,6 @@
 # Semana 5: Gestão de riscos (ISO 31000, NIST 800-39)
 
-Curso: [Governança e Compliance: Liderar com Evidência](../syllabus.md) · Semana 5 de 20
+Curso: [Governança e Conformidade Digital](../syllabus.md) · Semana 5 de 20
 
 ## 🎯 Objetivo da semana
 

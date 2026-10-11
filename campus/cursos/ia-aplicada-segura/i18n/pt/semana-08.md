@@ -1,6 +1,6 @@
 # Semana 8: Extração de modelo e proteção de PI
 
-Curso: [IA Aplicada Segura: Construir com Responsabilidade](../syllabus.md) · Semana 8 de 20
+Curso: [Inteligência Artificial Aplicada e Segura](../syllabus.md) · Semana 8 de 20
 
 ## Objetivos de aprendizagem
 

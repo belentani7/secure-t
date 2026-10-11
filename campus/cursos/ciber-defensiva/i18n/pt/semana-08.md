@@ -1,6 +1,6 @@
 # Semana 8: Hardening de sistemas
 
-Curso: [Cibersegurança Defensiva: Construir e Defender](../syllabus.md) · Semana 8 de 20
+Curso: [Cibersegurança Defensiva: Operar como SOC](../syllabus.md) · Semana 8 de 20
 
 ## Objetivos de aprendizagem
 

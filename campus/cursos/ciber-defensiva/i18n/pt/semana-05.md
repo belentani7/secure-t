@@ -1,6 +1,6 @@
 # Semana 5: Detecção e monitoramento
 
-Curso: [Cibersegurança Defensiva: Construir e Defender](../syllabus.md) · Semana 5 de 20
+Curso: [Cibersegurança Defensiva: Operar como SOC](../syllabus.md) · Semana 5 de 20
 
 ## 🎯 Objetivo da semana
 

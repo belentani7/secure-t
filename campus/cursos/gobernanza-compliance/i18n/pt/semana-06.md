@@ -1,6 +1,6 @@
 # Semana 6: Análise de impacto no negócio e BCP
 
-Curso: [Governança e Compliance: Liderar com Evidência](../syllabus.md) · Semana 6 de 20
+Curso: [Governança e Conformidade Digital](../syllabus.md) · Semana 6 de 20
 
 ## Objetivos de aprendizagem
 

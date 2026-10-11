@@ -1,6 +1,6 @@
 # Semana 7: Risco de terceiros e cadeia de suprimentos
 
-Curso: [Governança e Compliance: Liderar com Evidência](../syllabus.md) · Semana 7 de 20
+Curso: [Governança e Conformidade Digital](../syllabus.md) · Semana 7 de 20
 
 ## Objetivos de aprendizagem
 

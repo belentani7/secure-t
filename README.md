@@ -196,14 +196,13 @@ paridad auditada por tests (285 claves idénticas en los cuatro diccionarios). E
 portugués de esta casa es el de Brasil, no el de Portugal: etiquetas, `hreflang`, vocabulario y voces.
 
 El **material docente** (las 80 semanas) está escrito en español. La traducción es incremental y sólo se publica
-cuando existe de verdad: hoy hay 20 de 80 semanas en portugués de Brasil — las ocho primeras de `ciber-ofensiva`
-y el bloque 5-8 de `ciber-defensiva`, `ia-aplicada-segura` y `gobernanza-compliance` —, traducidas a mano, no
-generadas en bloque. Esta tabla la genera `pnpm locales` leyendo el disco, y `tests/content-i18n.test.ts`
+cuando existe de verdad: hoy hay 32 de 80 semanas en portugués de Brasil — **las ocho primeras semanas de los
+cuatro programas**, traducidas a mano y una por una, no generadas en bloque. Esta tabla la genera `pnpm locales` leyendo el disco, y `tests/content-i18n.test.ts`
 falla si el README dice otra cosa que lo que hay:
 
 | Idioma | Programas con título | Semanas traducidas | Palabras traducidas |
 | --- | --- | --- | --- |
-| pt | 4/4 | 20/80 | 10249 |
+| pt | 4/4 | 32/80 | 16950 |
 | en | 0/4 | 0/80 | 0 |
 | ca | 0/4 | 0/80 | 0 |
 

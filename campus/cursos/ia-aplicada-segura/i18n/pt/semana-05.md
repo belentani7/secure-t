@@ -1,6 +1,6 @@
 # Semana 5: Pipeline MLOps seguro
 
-Curso: [IA Aplicada Segura: Construir con Responsabilidad](../syllabus.md) · Semana 5 de 20
+Curso: [Inteligência Artificial Aplicada e Segura](../syllabus.md) · Semana 5 de 20
 
 ## 🎯 Objetivo da semana
 

@@ -1,6 +1,6 @@
 # Semana 8: Engenharia de privacidade (RGPD, LGPD)
 
-Curso: [Governança e Compliance: Liderar com Evidência](../syllabus.md) · Semana 8 de 20
+Curso: [Governança e Conformidade Digital](../syllabus.md) · Semana 8 de 20
 
 ## Objetivos de aprendizagem
 

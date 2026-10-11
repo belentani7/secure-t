@@ -1,6 +1,6 @@
 # Semana 7: Envenenamento de dados e cadeia de suprimentos
 
-Curso: [IA Aplicada Segura: Construir com Responsabilidade](../syllabus.md) · Semana 7 de 20
+Curso: [Inteligência Artificial Aplicada e Segura](../syllabus.md) · Semana 7 de 20
 
 ## Objetivos de aprendizagem
 

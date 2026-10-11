@@ -1,6 +1,6 @@
 # Semana 7: Forense digital básico
 
-Curso: [Cibersegurança Defensiva: Construir e Defender](../syllabus.md) · Semana 7 de 20
+Curso: [Cibersegurança Defensiva: Operar como SOC](../syllabus.md) · Semana 7 de 20
 
 ## Objetivos de aprendizagem
 
