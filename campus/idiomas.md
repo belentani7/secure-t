@@ -11,7 +11,7 @@ sin estarlo.
 | Páginas de curso (UI + estructura) | VERIFIED | VERIFIED | VERIFIED | VERIFIED |
 | Itinerarios (UI: orden, prerrequisitos, competencias) | VERIFIED | VERIFIED | VERIFIED | VERIFIED |
 | Agente, voz, calendario, progreso, credencial (UI) | VERIFIED | VERIFIED | VERIFIED | VERIFIED |
-| Contenido docente (lecciones, semanas) | 1/80 semanas | VERIFIED (fuente) | 0/80 | 0/80 |
+| Contenido docente (lecciones, semanas) | 20/80 semanas | VERIFIED (fuente) | 0/80 | 0/80 |
 | Quizzes | PLANNED | VERIFIED (fuente) | PLANNED | — |
 | Glosarios / chuletas / rúbricas | PLANNED | VERIFIED (fuente) | PLANNED | — |
 | Laboratorios | PLANNED | VERIFIED (fuente) | PLANNED | — |
@@ -29,3 +29,16 @@ soporta la convención de rutas `cursos/<slug>/<lang>/`: al añadir la
 traducción al dato fuente, el generador emite la variante bajo su idioma y
 esta matriz pasa la celda a VERIFIED. Hasta entonces, cada celda honesta
 dice PLANNED.
+
+## Qué hay traducido hoy (20/80)
+
+| Programa | Semanas en pt-BR |
+|---|---|
+| `ciber-ofensiva` | 1-8 |
+| `ciber-defensiva` | 5-8 |
+| `ia-aplicada-segura` | 5-8 |
+| `gobernanza-compliance` | 5-8 |
+
+Cada fichero se traduce a mano, se revisa con los marcadores léxicos del portugués de Brasil
+(`tests/content-i18n.test.ts`) y sólo entonces aparece la celda como traducida. Las semanas que faltan
+siguen sirviendo el español marcado con `lang="es"` y su distintivo «em espanhol».

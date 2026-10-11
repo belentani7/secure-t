@@ -1,7 +1,7 @@
 {
  "version": 1,
- "generatedAt": "2026-10-11T04:41:00.581Z",
- "sourceDigest": "bb57edf597587508c24bf430b7baba5f6bd378aa291ade97eacb43c395793590",
+ "generatedAt": "2026-10-11T06:56:22.805Z",
+ "sourceDigest": "510ad318f079316986d54938fd8c2ce9c342fdb1e1b86c1d48ae818ad583e30c",
  "locale": "es",
  "courses": [
   {
@@ -72,67 +72,58 @@
     },
     {
      "index": 5,
-     "title": "Fundamentos de SOC y triaje de alertas",
-     "slack": "Semana 5: Fundamentos de SOC y triaje de alertas Curso: Ciberseguridad Defensiva: Operar como SOC · Semana 5 de 20 LECTURA: Teoria: Fundamentos de SOC y triaje de alertas Contenido teorico detallado para fundamentos de soc y triaje de alert",
+     "title": "Deteccion y monitorizacion",
+     "slack": "Semana 5: Deteccion y monitorizacion Curso: Ciberseguridad Defensiva: Construir y Defender · Semana 5 de 20 🎯 Objetivo de la semana Pasar de acumular registros a detectar lo que importa, con reglas probadas y no con listas de deseos. Disti",
      "sections": [
-      "LECTURA: Teoria: Fundamentos de SOC y triaje de alertas",
-      "EJERCICIO: Practica guiada: Fundamentos de SOC y triaje de alertas",
-      "CASO: Caso real: Fundamentos de SOC y triaje de alertas",
       "🎯 Objetivo de la semana",
       "📖 Lectura principal",
-      "🛠️ Práctica guiada",
+      "🛠️ Práctica guiada: tu primera regla de deteccion",
       "Recursos abiertos"
      ],
-     "words": 305,
-     "hash": "4ba6cb5c2dfaee3c"
+     "words": 336,
+     "hash": "839925f48fbf44cd"
     },
     {
      "index": 6,
-     "title": "Ingenieria de deteccion y reglas Sigma",
-     "slack": "Semana 6: Ingenieria de deteccion y reglas Sigma Curso: Ciberseguridad Defensiva: Operar como SOC · Semana 6 de 20 LECTURA: Teoria: Ingenieria de deteccion y reglas Sigma Contenido teorico detallado para ingenieria de deteccion y reglas sig",
+     "title": "Respuesta a incidentes",
+     "slack": "Semana 6: Respuesta a incidentes Curso: Ciberseguridad Defensiva: Construir y Defender · Semana 6 de 20 Objetivos de aprendizaje Recorrer el ciclo NIST de respuesta: preparar, detectar, contener, erradicar, recuperar, aprender Escribir un r",
      "sections": [
-      "LECTURA: Teoria: Ingenieria de deteccion y reglas Sigma",
-      "EJERCICIO: Practica guiada: Ingenieria de deteccion y reglas Sigma",
-      "CASO: Caso real: Ingenieria de deteccion y reglas Sigma",
-      "🎯 Objetivo de la semana",
-      "📖 Lectura principal",
-      "🛠️ Práctica guiada",
+      "Objetivos de aprendizaje",
+      "El ciclo, y las decisiones que no se improvisan",
+      "Runbook: cuatro lineas que salvan el turno de noche",
+      "Ejercicio guiado: simulacro de mesa",
       "Recursos abiertos"
      ],
-     "words": 306,
-     "hash": "d3b11d0dc597debe"
+     "words": 328,
+     "hash": "7ef320deac09d507"
     },
     {
      "index": 7,
-     "title": "Respuesta a incidentes (NIST 800-61r3)",
-     "slack": "Semana 7: Respuesta a incidentes (NIST 800-61r3) Curso: Ciberseguridad Defensiva: Operar como SOC · Semana 7 de 20 LECTURA: Teoria: Respuesta a incidentes (NIST 800-61r3) Contenido teorico detallado para respuesta a incidentes (nist 800-61r",
+     "title": "Forense digital basico",
+     "slack": "Semana 7: Forense digital basico Curso: Ciberseguridad Defensiva: Construir y Defender · Semana 7 de 20 Objetivos de aprendizaje Aplicar el orden de volatilidad al recoger evidencia Trabajar con imagenes y artefactos sin modificarlos (caden",
      "sections": [
-      "LECTURA: Teoria: Respuesta a incidentes (NIST 800-61r3)",
-      "EJERCICIO: Practica guiada: Respuesta a incidentes (NIST 800-61r3)",
-      "CASO: Caso real: Respuesta a incidentes (NIST 800-61r3)",
-      "🎯 Objetivo de la semana",
-      "📖 Lectura principal",
-      "🛠️ Práctica guiada",
+      "Objetivos de aprendizaje",
+      "Orden de volatilidad: que se pierde primero",
+      "Linea de tiempo: el relato minimo",
+      "Ejercicio guiado: linea de tiempo de un compromiso simulado",
       "Recursos abiertos"
      ],
-     "words": 314,
-     "hash": "ad655410b4d56a9a"
+     "words": 313,
+     "hash": "52b996e9af0c0a42"
     },
     {
      "index": 8,
-     "title": "Inteligencia de amenazas y TIP",
-     "slack": "Semana 8: Inteligencia de amenazas y TIP Curso: Ciberseguridad Defensiva: Operar como SOC · Semana 8 de 20 LECTURA: Teoria: Inteligencia de amenazas y TIP Contenido teorico detallado para inteligencia de amenazas y tip. Incluye frameworks, ",
+     "title": "Hardening de sistemas",
+     "slack": "Semana 8: Hardening de sistemas Curso: Ciberseguridad Defensiva: Construir y Defender · Semana 8 de 20 Objetivos de aprendizaje Reducir superficie de ataque con criterio: menos servicios, menos permisos, menos rutas Aplicar una linea base v",
      "sections": [
-      "LECTURA: Teoria: Inteligencia de amenazas y TIP",
-      "EJERCICIO: Practica guiada: Inteligencia de amenazas y TIP",
-      "CASO: Caso real: Inteligencia de amenazas y TIP",
-      "🎯 Objetivo de la semana",
-      "📖 Lectura principal",
-      "🛠️ Práctica guiada",
+      "Objetivos de aprendizaje",
+      "Menos es mas: las cuatro reducciones",
+      "Medir el antes y el despues",
+      "Ejercicio guiado: endurece un servidor y demuestralo",
       "Recursos abiertos"
      ],
-     "words": 294,
-     "hash": "c29424c6c67f2f2a"
+     "words": 310,
+     "hash": "ebaac82cbd17d918"
     },
     {
      "index": 9,
@@ -423,66 +414,60 @@
     {
      "index": 5,
      "title": "Reconocimiento avanzado y OSINT",
-     "slack": "Semana 5: Reconocimiento avanzado y OSINT Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 5 de 20 LECTURA: Teoria: Reconocimiento avanzado y OSINT Contenido teorico detallado para reconocimiento avanzado y osint. Incluye frame",
+     "slack": "Semana 5: Reconocimiento avanzado y OSINT Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 5 de 20 🎯 Objetivo de la semana Convertir información pública dispersa en un mapa accionable del objetivo, sin dejar huella que el clie",
      "sections": [
-      "LECTURA: Teoria: Reconocimiento avanzado y OSINT",
-      "EJERCICIO: Practica guiada: Reconocimiento avanzado y OSINT",
-      "CASO: Caso real: Reconocimiento avanzado y OSINT",
       "🎯 Objetivo de la semana",
       "📖 Lectura principal",
-      "🛠️ Práctica guiada",
+      "🛠️ Práctica guiada: perfil avanzado de un dominio autorizado",
       "Recursos abiertos"
      ],
-     "words": 297,
-     "hash": "498ad3de1ff853c2"
+     "words": 683,
+     "hash": "9a5071f6e180d188"
     },
     {
      "index": 6,
-     "title": "Modelado de amenazas y arboles de ataque",
-     "slack": "Semana 6: Modelado de amenazas y arboles de ataque Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 6 de 20 LECTURA: Teoria: Modelado de amenazas y arboles de ataque Contenido teorico detallado para modelado de amenazas y arbol",
+     "title": "Modelado de amenazas y árboles de ataque",
+     "slack": "Semana 6: Modelado de amenazas y árboles de ataque Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 6 de 20 Objetivos de aprendizaje Dibujar el sistema (flujo de datos y fronteras de confianza) antes de atacarlo Aplicar STRIDE ",
      "sections": [
-      "LECTURA: Teoria: Modelado de amenazas y arboles de ataque",
-      "EJERCICIO: Practica guiada: Modelado de amenazas y arboles de ataque",
-      "CASO: Caso real: Modelado de amenazas y arboles de ataque",
-      "🎯 Objetivo de la semana",
-      "📖 Lectura principal",
-      "🛠️ Práctica guiada",
+      "Objetivos de aprendizaje",
+      "El mapa antes del ataque",
+      "Del modelo a la prueba",
+      "Caso real: Target 2013, la frontera que nadie dibujó",
+      "Ejercicio guiado: modela una aplicación de reservas",
       "Recursos abiertos"
      ],
-     "words": 336,
-     "hash": "447746014304ec2b"
+     "words": 666,
+     "hash": "41195a551e4722ea"
     },
     {
      "index": 7,
      "title": "Escaneo de vulnerabilidades y validacion",
-     "slack": "Semana 7: Escaneo de vulnerabilidades y validacion Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 7 de 20 LECTURA: Teoria: Escaneo de vulnerabilidades y validacion Contenido teorico detallado para escaneo de vulnerabilidades ",
+     "slack": "Semana 7: Escaneo de vulnerabilidades y validacion Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 7 de 20 Objetivos de aprendizaje Distinguir escaneo autenticado de no autenticado y saber cuándo usar cada uno Configurar Nmap ",
      "sections": [
-      "LECTURA: Teoria: Escaneo de vulnerabilidades y validacion",
-      "EJERCICIO: Practica guiada: Escaneo de vulnerabilidades y validacion",
-      "CASO: Caso real: Escaneo de vulnerabilidades y validacion",
-      "🎯 Objetivo de la semana",
-      "📖 Lectura principal",
-      "🛠️ Práctica guiada",
+      "Objetivos de aprendizaje",
+      "Escanear sin hacer daño",
+      "Validar antes de escribir",
+      "Caso real: Log4Shell, el escaneo que no bastaba",
+      "Ejercicio guiado: escanea, valida y prioriza tres hallazgos",
       "Recursos abiertos"
      ],
-     "words": 293,
-     "hash": "a8aef10f52db72a5"
+     "words": 589,
+     "hash": "7bbd4d29781e5a3c"
     },
     {
      "index": 8,
      "title": "Ataques a aplicaciones web (OWASP Top 10)",
-     "slack": "Semana 8: Ataques a aplicaciones web (OWASP Top 10) Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 8 de 20 LECTURA: Teoria: Ataques a aplicaciones web (OWASP Top 10) Contenido teorico detallado para ataques a aplicaciones web",
+     "slack": "Semana 8: Ataques a aplicaciones web (OWASP Top 10) Curso: Ciberseguridad Ofensiva: Pensar como Atacante · Semana 8 de 20 Objetivos de aprendizaje Explicar y probar las categorías del OWASP Top 10 2021 en un entorno propio Diferenciar contr",
      "sections": [
-      "LECTURA: Teoria: Ataques a aplicaciones web (OWASP Top 10)",
-      "EJERCICIO: Practica guiada: Ataques a aplicaciones web (OWASP Top 10)",
-      "CASO: Caso real: Ataques a aplicaciones web (OWASP Top 10)",
-      "🎯 Objetivo de la semana",
-      "📖 Lectura principal",
-      "🛠️ Práctica guiada",
+      "Objetivos de aprendizaje",
+      "Las diez familias, con la mirada de quien ataca",
+      "Herramientas: el proxy como cuaderno de laboratorio",
+      "Caso real: Capital One 2019, la SSRF que cruzó la frontera",
+      "Ejercicio guiado: caza las diez familias en Juice Shop",
       "Recursos abiertos"
      ],
-     "words": 326,
-     "hash": "0d6910ba6445ec99"
+     "words": 628,
+     "hash": "a3d0c3ea6ff93fdf"
     },
     {
      "index": 9,
@@ -770,66 +755,57 @@
     {
      "index": 5,
      "title": "Gestion de riesgos (ISO 31000, NIST 800-39)",
-     "slack": "Semana 5: Gestion de riesgos (ISO 31000, NIST 800-39) Curso: Gobernanza y Compliance Digital · Semana 5 de 20 LECTURA: Teoria: Gestion de riesgos (ISO 31000, NIST 800-39) Contenido teorico detallado para gestion de riesgos (iso 31000, nist ",
+     "slack": "Semana 5: Gestion de riesgos (ISO 31000, NIST 800-39) Curso: Gobernanza y Compliance: Dirigir con Evidencia · Semana 5 de 20 🎯 Objetivo de la semana Traducir activos y amenazas a riesgo comparable, con decisiones firmadas y seguimiento. Tr",
      "sections": [
-      "LECTURA: Teoria: Gestion de riesgos (ISO 31000, NIST 800-39)",
-      "EJERCICIO: Practica guiada: Gestion de riesgos (ISO 31000, NIST 800-39)",
-      "CASO: Caso real: Gestion de riesgos (ISO 31000, NIST 800-39)",
       "🎯 Objetivo de la semana",
       "📖 Lectura principal",
-      "🛠️ Práctica guiada",
+      "🛠️ Práctica guiada: registro de riesgos con decisiones",
       "Recursos abiertos"
      ],
-     "words": 320,
-     "hash": "ca64a58e789d40ec"
+     "words": 443,
+     "hash": "82b3b0f7166411fb"
     },
     {
      "index": 6,
      "title": "Analisis de impacto en el negocio y BCP",
-     "slack": "Semana 6: Analisis de impacto en el negocio y BCP Curso: Gobernanza y Compliance Digital · Semana 6 de 20 LECTURA: Teoria: Analisis de impacto en el negocio y BCP Contenido teorico detallado para analisis de impacto en el negocio y bcp. Inc",
+     "slack": "Semana 6: Analisis de impacto en el negocio y BCP Curso: Gobernanza y Compliance: Dirigir con Evidencia · Semana 6 de 20 Objetivos de aprendizaje Distinguir BIA, plan de continuidad (BCP) y plan de recuperacion (DRP) Fijar RTO y RPO con neg",
      "sections": [
-      "LECTURA: Teoria: Analisis de impacto en el negocio y BCP",
-      "EJERCICIO: Practica guiada: Analisis de impacto en el negocio y BCP",
-      "CASO: Caso real: Analisis de impacto en el negocio y BCP",
-      "🎯 Objetivo de la semana",
-      "📖 Lectura principal",
-      "🛠️ Práctica guiada",
+      "Objetivos de aprendizaje",
+      "Tres documentos, tres preguntas",
+      "Caso real: el rescate que tardo mas que el cifrado",
+      "Ejercicio guiado: BIA y simulacro para un servicio real",
       "Recursos abiertos"
      ],
-     "words": 316,
-     "hash": "b9931359efdb20c7"
+     "words": 375,
+     "hash": "6c5a417ce421de30"
     },
     {
      "index": 7,
      "title": "Riesgo de terceros y supply chain",
-     "slack": "Semana 7: Riesgo de terceros y supply chain Curso: Gobernanza y Compliance Digital · Semana 7 de 20 LECTURA: Teoria: Riesgo de terceros y supply chain Contenido teorico detallado para riesgo de terceros y supply chain. Incluye frameworks, c",
+     "slack": "Semana 7: Riesgo de terceros y supply chain Curso: Gobernanza y Compliance: Dirigir con Evidencia · Semana 7 de 20 Objetivos de aprendizaje Medir el riesgo que se hereda al integrar un proveedor o una dependencia Pedir evidencia en lugar de",
      "sections": [
-      "LECTURA: Teoria: Riesgo de terceros y supply chain",
-      "EJERCICIO: Practica guiada: Riesgo de terceros y supply chain",
-      "CASO: Caso real: Riesgo de terceros y supply chain",
-      "🎯 Objetivo de la semana",
-      "📖 Lectura principal",
-      "🛠️ Práctica guiada",
+      "Objetivos de aprendizaje",
+      "El riesgo heredado no se ve en tu panel",
+      "Caso real: la actualizacion firmada que traia intrusion",
+      "Ejercicio guiado: expide el pasaporte de un proveedor",
       "Recursos abiertos"
      ],
-     "words": 307,
-     "hash": "5b3b4d26b7bed647"
+     "words": 384,
+     "hash": "ca85682ca4258051"
     },
     {
      "index": 8,
      "title": "Ingenieria de privacidad (RGPD, LGPD)",
-     "slack": "Semana 8: Ingenieria de privacidad (RGPD, LGPD) Curso: Gobernanza y Compliance Digital · Semana 8 de 20 LECTURA: Teoria: Ingenieria de privacidad (RGPD, LGPD) Contenido teorico detallado para ingenieria de privacidad (rgpd, lgpd). Incluye f",
+     "slack": "Semana 8: Ingenieria de privacidad (RGPD, LGPD) Curso: Gobernanza y Compliance: Dirigir con Evidencia · Semana 8 de 20 Objetivos de aprendizaje Aplicar minimizacion y limitacion de finalidad como decisiones de arquitectura Distinguir bases ",
      "sections": [
-      "LECTURA: Teoria: Ingenieria de privacidad (RGPD, LGPD)",
-      "EJERCICIO: Practica guiada: Ingenieria de privacidad (RGPD, LGPD)",
-      "CASO: Caso real: Ingenieria de privacidad (RGPD, LGPD)",
-      "🎯 Objetivo de la semana",
-      "📖 Lectura principal",
-      "🛠️ Práctica guiada",
+      "Objetivos de aprendizaje",
+      "Privacidad se disena, no se promete",
+      "Caso real: la multa por transferencia internacional (2023)",
+      "Ejercicio guiado: ingenieria de privacidad de un formulario",
       "Recursos abiertos"
      ],
-     "words": 314,
-     "hash": "7483681b5b38ec6a"
+     "words": 448,
+     "hash": "05dec2d876c2b55b"
     },
     {
      "index": 9,
@@ -1117,67 +1093,57 @@
     {
      "index": 5,
      "title": "Pipeline MLOps seguro",
-     "slack": "Semana 5: Pipeline MLOps seguro Curso: Inteligencia Artificial Aplicada y Segura · Semana 5 de 20 Objetivos de aprendizaje Diseñar un pipeline MLOps donde la seguridad es un requisito del ciclo de vida Versionar datos, código y modelo con f",
+     "slack": "Semana 5: Pipeline MLOps seguro Curso: IA Aplicada Segura: Construir con Responsabilidad · Semana 5 de 20 🎯 Objetivo de la semana Diseñar un pipeline MLOps donde la seguridad es un requisito del ciclo de vida, no un parche final. Versionar",
      "sections": [
-      "Objetivos de aprendizaje",
-      "LECTURA: Teoria: Pipeline MLOps seguro",
-      "EJERCICIO: Practica guiada: Pipeline MLOps seguro",
-      "CASO: Caso real: Pipeline MLOps seguro",
       "🎯 Objetivo de la semana",
       "📖 Lectura principal",
-      "🛠️ Práctica guiada",
+      "🛠️ Práctica guiada: esboza tu pipeline",
       "Recursos abiertos"
      ],
-     "words": 498,
-     "hash": "ee13446c9f9c0075"
+     "words": 459,
+     "hash": "351233dd0cd24fbb"
     },
     {
      "index": 6,
      "title": "Robustez adversaria y testing",
-     "slack": "Semana 6: Robustez adversaria y testing Curso: Inteligencia Artificial Aplicada y Segura · Semana 6 de 20 LECTURA: Teoria: Robustez adversaria y testing Contenido teorico detallado para robustez adversaria y testing. Incluye frameworks, com",
+     "slack": "Semana 6: Robustez adversaria y testing Curso: IA Aplicada Segura: Construir con Responsabilidad · Semana 6 de 20 Objetivos de aprendizaje Distinguir robustez, seguridad y fiabilidad: tres propiedades que se miden distinto Probar un modelo ",
      "sections": [
-      "LECTURA: Teoria: Robustez adversaria y testing",
-      "EJERCICIO: Practica guiada: Robustez adversaria y testing",
-      "CASO: Caso real: Robustez adversaria y testing",
-      "🎯 Objetivo de la semana",
-      "📖 Lectura principal",
-      "🛠️ Práctica guiada",
+      "Objetivos de aprendizaje",
+      "Un buen rendimiento no es seguridad",
+      "Caso real: contenido externo como vector de inyeccion (2023)",
+      "Ejercicio guiado: pruebas de robustez con evidencia",
       "Recursos abiertos"
      ],
-     "words": 332,
-     "hash": "b8cec5d2138d2142"
+     "words": 441,
+     "hash": "877045990deaefb6"
     },
     {
      "index": 7,
      "title": "Envenenamiento de datos y supply chain",
-     "slack": "Semana 7: Envenenamiento de datos y supply chain Curso: Inteligencia Artificial Aplicada y Segura · Semana 7 de 20 LECTURA: Teoria: Envenenamiento de datos y supply chain Contenido teorico detallado para envenenamiento de datos y supply cha",
+     "slack": "Semana 7: Envenenamiento de datos y supply chain Curso: IA Aplicada Segura: Construir con Responsabilidad · Semana 7 de 20 Objetivos de aprendizaje Entender por que el envenenamiento sobrevive a las pruebas de validacion Revisar la cadena d",
      "sections": [
-      "LECTURA: Teoria: Envenenamiento de datos y supply chain",
-      "EJERCICIO: Practica guiada: Envenenamiento de datos y supply chain",
-      "CASO: Caso real: Envenenamiento de datos y supply chain",
-      "🎯 Objetivo de la semana",
-      "📖 Lectura principal",
-      "🛠️ Práctica guiada",
+      "Objetivos de aprendizaje",
+      "El fallo que viaja en el dataset",
+      "Caso real: malware en el hub de modelos (2024)",
+      "Ejercicio guiado: audita el origen de un modelo",
       "Recursos abiertos"
      ],
-     "words": 301,
-     "hash": "485deb3725360d3a"
+     "words": 440,
+     "hash": "82637264310b3786"
     },
     {
      "index": 8,
      "title": "Extraccion de modelo y proteccion de PI",
-     "slack": "Semana 8: Extraccion de modelo y proteccion de PI Curso: Inteligencia Artificial Aplicada y Segura · Semana 8 de 20 LECTURA: Teoria: Extraccion de modelo y proteccion de PI Contenido teorico detallado para extraccion de modelo y proteccion ",
+     "slack": "Semana 8: Extraccion de modelo y proteccion de PI Curso: IA Aplicada Segura: Construir con Responsabilidad · Semana 8 de 20 Objetivos de aprendizaje Reconocer que una API de modelo es un canal de extraccion, no solo de servicio Medir el cos",
      "sections": [
-      "LECTURA: Teoria: Extraccion de modelo y proteccion de PI",
-      "EJERCICIO: Practica guiada: Extraccion de modelo y proteccion de PI",
-      "CASO: Caso real: Extraccion de modelo y proteccion de PI",
-      "🎯 Objetivo de la semana",
-      "📖 Lectura principal",
-      "🛠️ Práctica guiada",
+      "Objetivos de aprendizaje",
+      "La API como canal de fuga",
+      "Caso real: robar parte de un modelo en produccion (2024)",
+      "Ejercicio guiado: mide tu propia superficie de extraccion",
       "Recursos abiertos"
      ],
-     "words": 313,
-     "hash": "8530f85600d88623"
+     "words": 441,
+     "hash": "916bab9649b7a6ac"
     },
     {
      "index": 9,
@@ -1400,7 +1366,7 @@
  "totals": {
   "courses": 4,
   "weeks": 80,
-  "words": 60111,
+  "words": 62223,
   "quizItems": 24
  }
 }

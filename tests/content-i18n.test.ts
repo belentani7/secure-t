@@ -96,6 +96,35 @@ describe("traducciones del material", () => {
     expect(original?.sourceLocale).toBe("es");
   });
 
+  it("cada semana traducida del disco se sirve traducida, con su título real", () => {
+    const problemas: string[] = [];
+    let revisadas = 0;
+    for (const slug of cursos()) {
+      for (const lang of TRANSLATION_LANGS) {
+        const dir = join(cursosDir, slug, "i18n", lang);
+        if (!existsSync(dir)) continue;
+        for (const nombre of readdirSync(dir).filter((f) => /^semana-\d{2}\.md$/.test(f))) {
+          const numero = Number(/^semana-(\d{2})\.md$/.exec(nombre)?.[1]);
+          const semana = readWeek(slug, numero, lang);
+          revisadas += 1;
+          if (!semana?.translated || semana.sourceLocale !== lang) {
+            problemas.push(`${slug}/${lang}/${nombre}: la web no la sirve como traducida`);
+            continue;
+          }
+          if (semana.translationSource !== `campus/cursos/${slug}/i18n/${lang}/semana-${String(numero).padStart(2, "0")}.md`) {
+            problemas.push(`${slug}/${lang}/${nombre}: origen de traducción inesperado`);
+          }
+          const titulo = /^#\s+Semana\s+\d+:\s*(.+)$/m.exec(readFileSync(join(dir, nombre), "utf8"))?.[1]?.trim();
+          if (titulo && semana.title.trim() !== titulo) {
+            problemas.push(`${slug}/${lang}/${nombre}: el título servido («${semana.title}») no es el del fichero`);
+          }
+        }
+      }
+    }
+    expect(revisadas).toBeGreaterThan(0);
+    expect(problemas).toEqual([]);
+  });
+
   it("el README no presume de más", () => {
     const readme = leer("README.md");
     const filas: Record<string, { programas: number; semanas: number; palabras: number }> = {};

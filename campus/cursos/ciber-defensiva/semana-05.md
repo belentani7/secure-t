@@ -1,37 +1,54 @@
-# Semana 5: Fundamentos de SOC y triaje de alertas
+# Semana 5: Deteccion y monitorizacion
 
-Curso: [Ciberseguridad Defensiva: Operar como SOC](../syllabus.md) · Semana 5 de 20
-
-## LECTURA: Teoria: Fundamentos de SOC y triaje de alertas
-
-Contenido teorico detallado para fundamentos de soc y triaje de alertas. Incluye frameworks, comandos y referencias.
-
-## EJERCICIO: Practica guiada: Fundamentos de SOC y triaje de alertas
-
-Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para fundamentos de soc y triaje de alertas.
-
-## CASO: Caso real: Fundamentos de SOC y triaje de alertas
-
-Analisis de incidente real donde fundamentos de soc y triaje de alertas fue factor clave. Lecciones aprendidas.
+Curso: [Ciberseguridad Defensiva: Construir y Defender](../syllabus.md) · Semana 5 de 20
 
 ## 🎯 Objetivo de la semana
 
-Operar el triaje de un SOC: convertir una avalancha de alertas en una cola priorizada de incidentes reales.
+Pasar de acumular registros a detectar lo que importa, con reglas probadas y no con listas de deseos.
+
+- Distinguir registro, monitorizacion y deteccion: tres cosas distintas
+- Montar un laboratorio de deteccion con reglas propias y datos reales
+- Escribir una regla de deteccion con su caso de prueba y su tasa de falsos positivos
 
 ## 📖 Lectura principal
 
-El analista N1 vive del triaje: cada alerta se clasifica en segundos con un método fijo — ¿es de un activo que importa? ¿el comportamiento encaja en la línea base? ¿hay correlato en otros sistemas? ¿la severidad del artefacto coincide con el contexto? Las colas maduras separan verdaderos positivos, falsos positivos documentados (que alimentan el tuning) y ruido recurrente (candidato a supresión con justificación). La métrica sana no es 'alertas cerradas' sino tiempo medio de triaje y tasa de escalado con sentido: escalar todo es no escalar nada. El runbook por tipo de alerta (login fallido masivo, imposible travel, EICAR, creación de admin) convierte la intuición del veterano en procedimiento auditable que el nuevo puede ejecutar el primer día.
+### La cadena de la deteccion
 
-## 🛠️ Práctica guiada
+**Registrar** es guardar hechos; **monitorizar** es vigilarlos; **detectar** es decidir que un hecho importa. Sin la primera, las otras dos son imposibles: nadie detecta lo que no se registra. El error clasico es comprar una herramienta de deteccion antes de tener fuentes de datos ordenadas.
 
-Simula 10 alertas mezclando verdaderos y falsos positivos (usa las generadas en el lab de Wazuh). Triaje cada una en la plantilla: activo/criticidad, línea base, decisión (cerrar/escalar/suprimir) y justificación de una línea. Calcula tu tiempo medio por alerta.
+El diseno minimo de un laboratorio de deteccion caso de uso a cubrir, fuente de datos, regla, y **prueba**. La prueba es la parte que casi siempre falta y la que da valor: si no puedes provocar el evento a voluntad, no puedes saber si tu regla funciona.
 
----
-[Volver al syllabus](../syllabus.md)
+```bash
+# Fuente barata y realista: procesos y conexiones del propio equipo
+ps aux --sort=-%cpu | head -20
+ss -tunap | head -30
+# Con Auditd o Sysmon (Windows) se registra lo que de verdad importa
+sudo auditctl -a always,exit -F arch=b64 -S execve -F key=procesos
+```
+
+**Referencias:**
+- MITRE ATT&CK — Data Sources
+- Sigma — github.com/SigmaHQ/sigma
+- NIST SP 800-92 — Guide to Computer Security Log Management
+
+### De la alerta a la decision
+
+Una alerta solo es util si alguien sabe que hacer con ella. Cada regla deberia llevar escrito: **que significa**, **que decision dispara** (escalar, investigar, cerrar) y **que la hace inutil** (falsos positivos conocidos). Empezar por dos o tres reglas bien probadas rinde mas que doscientas importadas sin revisar.
+
+## 🛠️ Práctica guiada: tu primera regla de deteccion
+
+1. Elige un caso de uso: por ejemplo, un proceso que abre conexiones salientes raras
+2. Registra la evidencia con Auditd o Sysmon durante una hora de trabajo normal
+3. Disena la regla: que campos, que umbral, que ventana de tiempo
+4. Escribe su prueba: como provocaras el evento de forma controlada
+5. Ejecuta la prueba, mide aciertos y falsos positivos
+6. Documenta la regla como una ficha: nombre, fuente, logica, respuesta, limites
 
 ## Recursos abiertos
 
-- Fuente verificada del contenido del curso.
+- [Sigma](https://github.com/SigmaHQ/sigma)
+- [ATT&CK Data Sources](https://attack.mitre.org/datasources/)
+- [NIST SP 800-92](https://csrc.nist.gov/pubs/sp/800/92/final)
 
 ---
 [Volver al syllabus](../syllabus.md)

@@ -1,37 +1,46 @@
 # Semana 8: Ingenieria de privacidad (RGPD, LGPD)
 
-Curso: [Gobernanza y Compliance Digital](../syllabus.md) · Semana 8 de 20
+Curso: [Gobernanza y Compliance: Dirigir con Evidencia](../syllabus.md) · Semana 8 de 20
 
-## LECTURA: Teoria: Ingenieria de privacidad (RGPD, LGPD)
+## Objetivos de aprendizaje
 
-Contenido teorico detallado para ingenieria de privacidad (rgpd, lgpd). Incluye frameworks, comandos y referencias.
+- Aplicar minimizacion y limitacion de finalidad como decisiones de arquitectura
+- Distinguir bases legales y saber cuando hace falta una evaluacion de impacto
+- Disenar un sistema que no pueda filtrar lo que nunca guardo
 
-## EJERCICIO: Practica guiada: Ingenieria de privacidad (RGPD, LGPD)
+## Privacidad se disena, no se promete
 
-Ejercicio paso a paso (8-10 pasos) con comandos exactos, salidas esperadas y troubleshooting para ingenieria de privacidad (rgpd, lgpd).
+Los dos principios que mas reducen el riesgo legal y real son aburridos y poderosos: **minimizacion** (recoger solo lo necesario para una finalidad declarada) y **limitacion de finalidad** (no reutilizar los datos para otra cosa sin base nueva). Un sistema que no guarda el dato no puede filtrarlo, no puede venderlo y no tiene que protegerlo.
 
-## CASO: Caso real: Ingenieria de privacidad (RGPD, LGPD)
+**Bases legales** (art. 6 RGPD; art. 7 LGPD): consentimiento, contrato, obligacion legal, interes vital, interes publico, interes legitimo. Elegir bien la base evita el error tipico de pedir consentimiento para algo que en realidad se sostiene con contrato, con el ruido de gestion que eso genera.
 
-Analisis de incidente real donde ingenieria de privacidad (rgpd, lgpd) fue factor clave. Lecciones aprendidas.
+**Evaluacion de impacto (DPIA / RIPD)** es obligatoria cuando hay alto riesgo: perfilado, datos sensibles a gran escala, vigilancia sistematica. Se escribe **antes** de construir, no despues de la multa. Y dos derechos que definen la arquitectura: **acceso** (devolver al titular que datos tienes sobre el) y **supresion** (borrarlos de verdad, incluidos backups y derivados).
 
-## 🎯 Objetivo de la semana
+**Referencias:**
+- RGPD (UE) 2016/679 — arts. 5, 6, 25, 35
+- LGPD (Brasil) Lei 13.709/2018 — arts. 6, 7, 46, 48
+- AEPD — Guia de analisis de riesgos y evaluacion de impacto
 
-Aplicar ingeniería de privacidad: convertir el principio de minimización en decisiones de diseño medibles (RGPD y LGPD).
+## Caso real: la multa por transferencia internacional (2023)
 
-## 📖 Lectura principal
+En 2023, la autoridad irlandesa sanciono a una gran plataforma con 1.200 millones de euros por transferir datos personales a otro pais sin garantias suficientes, ademas de ordenar regularizar el tratamiento en meses. El detalle didactico: no fue un incidente de seguridad, fue una decision de arquitectura de datos mantenida durante anos. Leccion: donde vive y por donde viajan los datos es una decision de cumplimiento, y elegir mal tiene precio de millones y plazo obligatorio de correccion.
 
-La privacidad por diseño se demuestra en decisiones, no en párrafos: identificación temprana en el diseño (¿este dato es necesario para la finalidad? si no, no se recoge — el usuario-token de esta plataforma es la forma extrema), minimización en la exposición (devolver lo que la pantalla muestra, no el registro entero), limitación en la retención (TTL por tipo de dato con borrado verificable — incluidos los backups con plan), y transparencia real (qué se guarda, cuánto y cómo ejercer derechos, sin abogado intermediario). RGPD y LGPD comparten núcleo — ambos exigen base legal, finalidad declarada, seguridad proporcional y derechos efectivos — por lo que un diseño doble-obedece casi gratis. La técnica de QA: la auditoría del formulario de la semana pasada se repite como regression test de privacidad: cada campo que reaparece sin justificación rompe el build, no la promesa.
+## Ejercicio guiado: ingenieria de privacidad de un formulario
 
-## 🛠️ Práctica guiada
-
-Toma un flujo real con datos (registro o analytics) y aplica las 5 decisiones: campo a conservar/quitar, TTL, exposición minimizada, base legal y texto de transparencia de 3 líneas. Añade el test de regresión que falla si un campo injustificado reaparece.
-
----
-[Volver al syllabus](../syllabus.md)
+1. Elige un formulario o servicio propio (por ejemplo, registro a un curso)
+2. Lista cada campo y contesta: es necesario? para que finalidad? cual es la base legal?
+3. Elimina o transforma lo que se pueda (seudonimizar, agregar, dejar solo un hash)
+4. Escribe el aviso de privacidad en una pagina, en lenguaje claro
+5. Comprueba los derechos de acceso y supresion: recorrelos de punta a punta y anota donde fallan
+6. Fija plazos de conservacion y el proceso de borrado real (incluidos backups)
+7. Decide si hace falta DPIA y, si hace falta, escribe su seccion 1-3
 
 ## Recursos abiertos
 
-- Fuente verificada del contenido del curso.
+- [RGPD (EUR-Lex)](https://eur-lex.europa.eu/eli/reg/2016/679/oj)
+- [LGPD (Planalto)](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm)
+- [AEPD](https://www.aepd.es/)
+- [ANPD (Brasil)](https://www.gov.br/anpd/pt-br)
 
 ---
 [Volver al syllabus](../syllabus.md)
