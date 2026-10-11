@@ -372,9 +372,10 @@ def test_pages_workflow_sin_secrets_externos():
     assert "id-token: write" in wf and "pages: write" in wf
     # Las acciones van fijadas por su commit (con la etiqueta en el comentario),
     # que es lo que exige la cadena de suministro; la acción sigue siendo la
-    # oficial de Pages. Se aceptan las dos formas para no atarse a la política
-    # de fijado concreta.
-    assert re.search(r"actions/deploy-pages@([0-9a-f]{40} # v4|v4)\b", wf), "no usa la acción oficial de Pages"
+    # oficial de Pages. El contrato comprueba la **política de fijado**, no un
+    # número de versión concreto: subir de versión no debe romper el contrato.
+    assert re.search(r"actions/deploy-pages@[0-9a-f]{40} # v\d+(\.\d+)*", wf) or \
+        re.search(r"actions/deploy-pages@v\d+\b", wf), "no usa la acción oficial de Pages"
     # La API de Pages del repositorio devuelve https://belentani7.github.io/secure-t/
     # (el nombre «secure-t-university» ya no existe: su URL da 404). El contrato
     # comprueba la URL de verdad, no la de un nombre antiguo.
