@@ -137,9 +137,10 @@ proponer el plan, así que la página, el agente y los tests no pueden contar co
 
 ## Biblioteca abierta
 
-[`/biblioteca`](apps/web/src/app/%5Blocale%5D/biblioteca/page.tsx) reúne **59 recursos abiertos** que merecen el
-tiempo: 24 canales (ofensiva, defensa, redes, IA, y la escena brasileña), 5 plataformas de práctica, 4 cursos
-abiertos, 6 laboratorios, 2 CTF y 18 documentos oficiales (NIST, OWASP, MITRE, CISA, ENISA, ISO). Cada ficha dice su
+[`/biblioteca`](apps/web/src/app/%5Blocale%5D/biblioteca/page.tsx) reúne **79 recursos abiertos** que merecen el
+tiempo: 27 canales (ofensiva, defensa, redes, IA y la escena brasileña y española), 8 plataformas de práctica, 6
+cursos abiertos, 7 laboratorios, 2 CTF y 29 documentos oficiales y de comunidad (NIST, OWASP, MITRE, CISA, ENISA,
+ANPD, AEPD, CIS, SLSA, GTFOBins, LOLBAS…). Cada ficha dice su
 idioma, su nivel, si exige registro y por qué encaja; el filtro es local y determinista, sin peticiones ni cuentas.
 
 La regla está en el dato y en un test: **se enlaza al autor, nunca a un espejo**. `DOMINIOS_PROHIBIDOS` recoge los
@@ -404,7 +405,7 @@ Lo que está terminado se puede comprobar con un comando. Lo que no, dice `PLANN
 | Agente, gobernanza y auditoría | **VERIFIED** | 18 tests de garantías |
 | Web AURUM (496 páginas estáticas) | **VERIFIED** | `pnpm --filter @secure-t/web build` · `pnpm audit:site` |
 | Malla de cinco años (200 semanas, 10 franjas) | **VERIFIED** (80 semanas escritas, 120 declaradas) | `packages/shared/tests/library.test.ts` |
-| Biblioteca abierta (59 recursos, sin espejos) | **VERIFIED** | `pnpm test` (regla de procedencia) |
+| Biblioteca abierta (79 recursos, sin espejos) | **VERIFIED** | `pnpm test` (regla de procedencia) |
 | Laboratorio de IA (5 instrumentos con límite declarado) | **VERIFIED** | `pnpm vitest run packages/shared/tests/lab.test.ts` |
 | Repaso espaciado SM-2 | **VERIFIED** | `pnpm test` (14 casos del algoritmo) |
 | Programas imprimibles (HTML A4 + LaTeX) | **VERIFIED** | `pnpm syllabus` y sus 9 tests de contrato |

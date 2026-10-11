@@ -19,9 +19,9 @@ y cuántas faltan.
   quinquenio.
 - **Página del plan** (`/plano` y `/es|en|ca/plano`) con las cinco años desplegados, leyenda por modo de estudio,
   enlace al programa de cada franja y aviso explícito de lo que aún no tiene texto.
-- **Biblioteca abierta de 59 recursos** (`packages/shared/src/library.ts`) y su página (`/biblioteca`): 24 canales,
-  5 plataformas de práctica, 4 cursos abiertos, 6 laboratorios, 2 CTF y 18 documentos oficiales, con filtro por tipo,
-  idioma del contenido, nivel, acceso y programa. `DOMINIOS_PROHIBIDOS` y un test impiden que entre un espejo o un
+- **Biblioteca abierta de 79 recursos** (`packages/shared/src/library.ts`) y su página (`/biblioteca`): 27 canales,
+  8 plataformas de práctica, 6 cursos abiertos, 7 laboratorios, 2 CTF y 29 documentos oficiales y de comunidad, con
+  filtro por tipo, idioma del contenido, nivel, acceso y programa. `DOMINIOS_PROHIBIDOS` y un test impiden que entre un espejo o un
   agregador de cursos de pago.
 - **Laboratorio de IA** (`packages/shared/src/lab.ts` y `/laboratorio`): cinco instrumentos deterministas que se
   ejecutan en el dispositivo —auditoría de prompt contra OWASP LLM01/ATLAS/CWE con evidencia y mitigación, redacción

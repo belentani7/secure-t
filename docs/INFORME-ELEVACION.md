@@ -8,7 +8,7 @@
 - **Versión**: 1.4.0 (ciclo H: currículo de cinco años, biblioteca abierta y laboratorio de IA)
 - **Fecha**: 2026-10-11
 - **Alcance de este informe**: tres ciclos sobre el campus ya elevado. **(H) Producto completo**: la malla de
-  cinco años (200 semanas) con lo escrito y lo pendiente en la misma página, la biblioteca abierta de 59 recursos con
+  cinco años (200 semanas) con lo escrito y lo pendiente en la misma página, la biblioteca abierta de 79 recursos con
   regla de procedencia verificada, y el laboratorio de IA con cinco instrumentos deterministas que además alimentan al
   tutor como herramientas de sólo lectura. **(1) Endurecimiento**… (1) **Endurecimiento**: seguridad de la cadena
   de suministro y escaneo real de secretos. (2) **Producto**: portugués de Brasil por defecto, cristal negro vivo con
@@ -42,7 +42,7 @@ aviso en **cada** ejecución.
 | Identidad sin datos personales | **Llave de cuatro dígitos** | `PBKDF2-SHA256` con 210.000 iteraciones y semilla del dispositivo; el PIN se usa en memoria y no se guarda (lo comprueba `tests/identity.test.ts`) |
 | Front | **Cristal vivo con luz dorada líquida** | `.aurum-glass` y `.aurum-luz` en `globals.css`; todo lo animado vive en `prefers-reduced-motion: no-preference` |
 | Currículo de cinco años | **200 semanas declaradas, 80 escritas** | `curriculum-5y.ts` + `validateCurriculum()` (cobertura 1..200 sin huecos ni solapes) y página `/plano` con el estado de cada franja |
-| Biblioteca abierta | **59 recursos, sin espejos** | `/biblioteca`; `DOMINIOS_PROHIBIDOS` y `packages/shared/tests/library.test.ts` fallan si entra un agregador de cursos de pago |
+| Biblioteca abierta | **79 recursos, sin espejos** | `/biblioteca`; `DOMINIOS_PROHIBIDOS` y `packages/shared/tests/library.test.ts` fallan si entra un agregador de cursos de pago |
 | Laboratorio de IA | **Cinco instrumentos deterministas** | `/laboratorio`; `packages/shared/tests/lab.test.ts` (23 pruebas) exige límite declarado, referencia normativa y cero red |
 | Tutor con herramientas | **Sólo lectura, en el contrato** | campo `tools` de la respuesta del agente; `resumen_semana`, `plan_estudio`… con datos del corpus, no del modelo |
 | Estructura profesional abierta | **Itinerarios** | 4 itinerarios con prerrequisitos sin ciclos y competencias acreditadas (`/itinerarios` + 4 rutas de idioma) |
@@ -190,7 +190,7 @@ pruebas (UUID de ejemplo, hoy generados con `crypto.randomUUID()`: ningún liter
 | Idioma real del contenido sin traducir (WCAG 3.1.2) | `apps/web/src/components/teaching-text.tsx` | `tests/tracks.test.ts` y `lang` en el HTML exportado |
 | Cristal negro vivo con luz dorada líquida | `apps/web/src/app/globals.css` (+ encabezado, portada y pie) | axe y Lighthouse en CI; movimiento reducido respetado por construcción |
 | Malla de cinco años (10 franjas, 200 semanas) | `packages/shared/src/curriculum-5y.ts`, `/plano` | `packages/shared/tests/library.test.ts` (9) y contratos de ruta |
-| Biblioteca abierta (59 recursos) y regla de procedencia | `packages/shared/src/library.ts`, `/biblioteca` | `packages/shared/tests/library.test.ts` + contratos |
+| Biblioteca abierta (79 recursos) y regla de procedencia | `packages/shared/src/library.ts`, `/biblioteca` | `packages/shared/tests/library.test.ts` + contratos |
 | Laboratorio de IA (5 instrumentos) y herramientas del tutor | `packages/shared/src/lab.ts`, `tutor-tools.ts`, `/laboratorio`, consola | `packages/shared/tests/lab.test.ts` (23) y `tutor-tools.test.ts` (8) |
 | Documentación exigida | `README.md`, `ANALISIS_ORIGINAL.md`, `CONTRATO_API.md`, `DEPENDENCIAS.md`, `CHANGELOG.md`, `docs/decisions/` (13 ADR), `docs/ESTANDARES.md` | `tests/contracts.test.ts` |
 
