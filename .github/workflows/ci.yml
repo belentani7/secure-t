@@ -47,6 +47,31 @@ jobs:
         uses: gitleaks/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7 # v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publicar los hallazgos de gitleaks como anotaciones
+        # El resumen del job no es accesible por API: el SARIF se convierte en
+        # anotaciones para poder arreglar el hallazgo sin abrir la interfaz.
+        if: always()
+        run: |
+          informe=$(ls ./*.sarif 2>/dev/null | head -1)
+          if [ -z "$informe" ]; then
+            echo "::warning title=gitleaks::sin informe SARIF en el directorio de trabajo"
+            exit 0
+          fi
+          node -e '
+            const fs = require("node:fs");
+            const sarif = JSON.parse(fs.readFileSync(process.argv[1], "utf8"));
+            const corrida = sarif.runs?.[0] ?? {};
+            const reglas = new Map((corrida.tool?.driver?.rules ?? []).map((r) => [r.id, r.shortDescription?.text ?? ""]));
+            const hallazgos = corrida.results ?? [];
+            for (const hallazgo of hallazgos.slice(0, 20)) {
+              const sitio = hallazgo.locations?.[0]?.physicalLocation ?? {};
+              const archivo = sitio.artifactLocation?.uri ?? "desconocido";
+              const linea = sitio.region?.startLine ?? 0;
+              const texto = (hallazgo.message?.text ?? reglas.get(hallazgo.ruleId) ?? "").replace(/\s+/g, " ").slice(0, 200);
+              console.log(`::error title=gitleaks ${hallazgo.ruleId}::${archivo}:${linea} ${texto}`);
+            }
+            console.log(`Hallazgos en el SARIF: ${hallazgos.length}`);
+          ' "$informe"
 
   edu-engine:
     # lib/edu-engine/.github/workflows/ci.yml NUNCA se ejecutaba: GitHub
