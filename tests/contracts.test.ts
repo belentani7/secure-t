@@ -17,6 +17,16 @@ const root = join(__dirname, "..");
 const leer = (rel: string) => readFileSync(join(root, rel), "utf8");
 const hay = (rel: string) => existsSync(join(root, rel));
 
+/**
+ * Los contratos de estándares leen artefactos **generados**. Si no están,
+ * el error tiene que decir qué hacer en lugar de soltar un ENOENT críptico:
+ * en CI se ejecuta `pnpm content:all` antes de los tests.
+ */
+function leerGenerado(rel: string): string {
+  if (!hay(rel)) throw new Error(`Falta ${rel}: ejecuta «pnpm content:all» antes de los tests.`);
+  return leer(rel);
+}
+
 /* ------------------------------------------------------------- security.txt */
 
 describe("security.txt (RFC 9116)", () => {
@@ -130,7 +140,7 @@ describe("cabeceras de seguridad (una sola política, tres consumidores)", () =>
 /* --------------------------------------------------------------------- SBOM */
 
 describe("SBOM en CycloneDX 1.5", () => {
-  const sbom = JSON.parse(leer("apps/web/public/sbom.cdx.json")) as {
+  const sbom = JSON.parse(leerGenerado("apps/web/public/sbom.cdx.json")) as {
     bomFormat: string;
     specVersion: string;
     serialNumber: string;

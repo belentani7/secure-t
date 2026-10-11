@@ -35,6 +35,10 @@ jobs:
           node-version: "22"
           cache: "pnpm"
       - run: pnpm install --frozen-lockfile
+      # Los contratos leen los artefactos publicados (contenido, paquetes,
+      # programas imprimibles y SBOM): se generan antes de medir la cobertura.
+      - name: Contenido y artefactos de los contratos
+        run: pnpm content:all
       - name: Tests con cobertura (umbral 80 % en lo crítico)
         run: pnpm test:coverage
       - uses: actions/upload-artifact@v4
