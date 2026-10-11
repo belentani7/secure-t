@@ -156,6 +156,23 @@ async function presupuestoDePeso() {
 
 const PAGINAS_ESPERADAS = 460;
 
+/**
+ * WCAG 1.4.1 (uso del color) — regla «link-in-text-block» de axe.
+ *
+ * No se comprueba enlace a enlace: la garantía es una regla de la hoja de
+ * estilos que subraya todo enlace dentro de texto y deja fuera botones y
+ * navegación. Se verifica que esa regla siga ahí, porque sin ella axe falla en
+ * cuanto el contraste del enlace frente al texto no llega a 3:1.
+ */
+async function comprobarSubrayadoDeEnlaces() {
+  const css = await readFile(join(ROOT, "apps", "web", "src", "app", "globals.css"), "utf8");
+  for (const selector of ["p a:not(.btn)", ".mono a:not(.btn)", "text-decoration: underline"]) {
+    if (!css.includes(selector)) {
+      error(`falta la regla de subrayado de enlaces en texto: «${selector}» (WCAG 1.4.1)`);
+    }
+  }
+}
+
 async function main() {
   let htmls = [];
   try {
@@ -164,6 +181,8 @@ async function main() {
     console.error(`✖ No se pudo leer ${DIR}: ${error.message}`);
     process.exit(1);
   }
+
+  await comprobarSubrayadoDeEnlaces();
 
   for (const file of htmls) {
     analizarHtml(file, await readFile(file, "utf8"));

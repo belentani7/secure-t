@@ -1,15 +1,14 @@
 {
   "ci": {
     "collect": {
-      "startServerCommand": "node tools/serve-static.mjs --port 4173 --root apps/web/out --base /app",
-      "startServerReadyPattern": "static: http",
+      "staticDistDir": "_site",
       "url": [
-        "http://127.0.0.1:4173/app/",
-        "http://127.0.0.1:4173/app/pt/",
-        "http://127.0.0.1:4173/app/es/programas",
-        "http://127.0.0.1:4173/app/pt/agente",
-        "http://127.0.0.1:4173/app/pt/calendario",
-        "http://127.0.0.1:4173/app/pt/programas/ciber-defensiva/semana/1"
+        "http://localhost/app/",
+        "http://localhost/app/pt/",
+        "http://localhost/app/es/programas",
+        "http://localhost/app/pt/agente",
+        "http://localhost/app/pt/calendario",
+        "http://localhost/app/pt/programas/ciber-defensiva/semana/1"
       ],
       "numberOfRuns": 3,
       "settings": {

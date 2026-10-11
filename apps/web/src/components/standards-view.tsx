@@ -125,7 +125,7 @@ export function StandardsView({ locale, index }: { locale: Locale; index: Packag
         {index ? (
           <p className="mono text-[0.75rem] text-[var(--aurum-muted)]">
             {index.files.length} ficheros · {new Date(index.generatedAt).toISOString().slice(0, 10)} ·{" "}
-            <a href={asset("/packages/index.json")}>index.json</a> (huellas SHA-256)
+            <a className="underline" href={asset("/packages/index.json")}>index.json</a> (huellas SHA-256)
           </p>
         ) : null}
         <div className="grid-2 mt-4">
@@ -182,8 +182,17 @@ export function StandardsView({ locale, index }: { locale: Locale; index: Packag
         <p className="mono mt-3 text-[0.72rem] text-[var(--aurum-muted)]">
           Lo que <strong>no</strong> está: LTI 1.3 (integración con un LMS como herramienta externa), registro público de
           credenciales y revocación en línea. Se declaran como PLANIFICADOS en lugar de aparentarlos. Detalle completo en{" "}
-          <a href="https://github.com/belentani7/secure-t/blob/main/docs/ESTANDARES.md">docs/ESTANDARES.md</a> ·{ " " }
-          <a href="https://github.com/belentani7/secure-t/blob/main/docs/decisions/ADR-0011-cabeceras-y-csp.md">
+          <a
+            className="underline"
+            href="https://github.com/belentani7/secure-t/blob/main/docs/ESTANDARES.md"
+          >
+            docs/ESTANDARES.md
+          </a>{" "}
+          ·{" "}
+          <a
+            className="underline"
+            href="https://github.com/belentani7/secure-t/blob/main/docs/decisions/ADR-0011-cabeceras-y-csp.md"
+          >
             ADR-0011
           </a>.
         </p>

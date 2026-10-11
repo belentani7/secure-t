@@ -14,7 +14,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             {t("footer.honesty")}
           </p>
         </div>
-        <nav aria-label={t("a11y.nav")}>
+        <nav aria-label={t("a11y.footer")}>
           <p className="mono mb-2 text-[0.72rem] uppercase tracking-[0.14em] text-[var(--color-gold)]">{t("nav.campus")}</p>
           <ul className="space-y-1 text-sm">
             <li>

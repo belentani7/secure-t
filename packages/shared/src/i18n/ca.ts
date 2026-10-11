@@ -174,6 +174,7 @@ export const ca: Dict = {
   "threats.search": "Filtra per identificador o producte",
 
   "a11y.skip": "Salta al contingut principal",
+  "a11y.footer": "Enllaços del lloc",
   "a11y.nav": "Navegació principal",
   "a11y.lang": "Selecciona l'idioma",
   "a11y.theme": "Alterna el contrast alt",

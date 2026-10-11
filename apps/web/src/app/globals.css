@@ -580,3 +580,16 @@ mark {
     text-decoration: underline;
   }
 }
+
+/* Enlaces dentro de texto corrido: se subrayan para no depender sólo del color
+   (WCAG 1.4.1, regla «link-in-text-block» de axe). Los botones y la navegación
+   quedan fuera de la regla. */
+p a:not(.btn),
+.mono a:not(.btn),
+figcaption a,
+dd a,
+caption a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}

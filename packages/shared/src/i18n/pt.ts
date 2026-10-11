@@ -176,6 +176,7 @@ export const pt = {
   "threats.search": "Filtrar por identificador ou produto",
 
   "a11y.skip": "Saltar para o conteúdo principal",
+  "a11y.footer": "Ligações do sítio",
   "a11y.nav": "Navegação principal",
   "a11y.lang": "Selecionar idioma",
   "a11y.theme": "Alternar contraste alto",

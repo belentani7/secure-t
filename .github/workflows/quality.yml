@@ -113,6 +113,8 @@ jobs:
       - run: pnpm content:all
       - name: Export estático con la misma base que producción
         run: pnpm --filter @secure-t/web build:pages
+      - name: Ensamblar el sitio tal como se publica
+        run: node tools/build-site.mjs --sin-web
       - name: Lighthouse CI
         run: |
           set +e

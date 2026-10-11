@@ -174,6 +174,7 @@ export const es: Dict = {
   "threats.search": "Filtrar por identificador o producto",
 
   "a11y.skip": "Saltar al contenido principal",
+  "a11y.footer": "Enlaces del sitio",
   "a11y.nav": "Navegación principal",
   "a11y.lang": "Seleccionar idioma",
   "a11y.theme": "Alternar alto contraste",

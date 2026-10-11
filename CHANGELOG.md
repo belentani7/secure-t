@@ -45,6 +45,14 @@ externa, y lo que no está se dice en voz alta. Nada se marca conforme sin un te
 
 ### Corregido
 
+- **Accesibilidad con navegador** (axe, WCAG 2.2 AA): dos regiones de navegación compartían etiqueta
+  (`landmark-unique`), los enlaces dentro de texto sólo se distinguían por color (`link-in-text-block`; ahora se
+  subrayan desde una regla única de la hoja de estilos) y las zonas con desplazamiento no eran alcanzables con el
+  teclado (`scrollable-region-focusable`).
+- Hidratación: la instantánea de servidor del expediente estaba memoizada, así que React ya no avisa por
+  `getServerSnapshot` inestable en las páginas con progreso.
+- El servidor estático de pruebas sirve el export con su prefijo (`--base /app`): axe y Lighthouse reciben el sitio
+  real y no un 404 en cada ruta.
 - `security.txt` ya no anuncia una clave PGP inexistente y su `Policy` apunta a una página real.
 - Las utilidades del paquete compartido exigen `ArrayBuffer` explícito en las llamadas a WebCrypto (compatibilidad
   con TypeScript 7) y `PublicJwk` declara `kid`, en lugar de castings repartidos.

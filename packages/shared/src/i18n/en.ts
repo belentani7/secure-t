@@ -174,6 +174,7 @@ export const en: Dict = {
   "threats.search": "Filter by identifier or product",
 
   "a11y.skip": "Skip to main content",
+  "a11y.footer": "Site links",
   "a11y.nav": "Main navigation",
   "a11y.lang": "Select language",
   "a11y.theme": "Toggle high contrast",
