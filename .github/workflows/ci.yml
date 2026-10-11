@@ -74,7 +74,9 @@ jobs:
         # significaria nada.
         run: |
           set -euo pipefail
-          printf '[extend]\nuseDefault = true\n' > "$RUNNER_TEMP/sin-lista-blanca.toml"
+          # Se recorta el fichero real en la marca: el control escanea con las
+          # mismas reglas que se publican, pero sin ninguna exclusion.
+          sed '/^# ===SIN-LISTA-BLANCA===$/,$d' .gitleaks.toml > "$RUNNER_TEMP/sin-lista-blanca.toml"
           if gitleaks detect \
               --config "$RUNNER_TEMP/sin-lista-blanca.toml" \
               --no-banner --redact --exit-code=2 --log-level=error \

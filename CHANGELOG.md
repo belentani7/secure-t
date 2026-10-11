@@ -83,6 +83,11 @@ externa, y lo que no está se dice en voz alta. Nada se marca conforme sin un te
   inspeccionable desde fuera; con el binario fijado se sabe exactamente qué versión escanea y con qué configuración.
   Además se añade un **control negativo** en el propio trabajo: si el escaneo no ve los tres falsos positivos cuando
   la lista blanca no está, la CI falla. Sin ese control, un «verde» no probaría nada.
+- **La lista blanca de gitleaks no se aplicaba**: la forma global (`[[allowlists]]` con `targetRules`) no suprimía
+  nada cuando la configuración extiende la del motor —medido en la propia CI: «control=4, final=4»—. Ahora las
+  exclusiones viajan **dentro de la regla** (`[[rules.allowlists]]` sobre `generic-api-key`), que es la ruta que
+  `extend()` fusiona de verdad, y el control negativo recorta el fichero en la marca `# ===SIN-LISTA-BLANCA===` para
+  comprobar que sin ellas el escaneo sí ve los tres falsos positivos.
 - **Acciones de los workflows al día**: `actions/checkout` pasa de v4.4.0 a **v7.0.1** (fijada por commit), lo que
   retira el aviso de obsolescencia de Node 20 en todos los trabajos.
 - **Cadena de suministro**: de 11 avisos de dependencias a 1 (aceptado con motivo, sin parche publicado), acciones de
