@@ -20,11 +20,13 @@ import {
  */
 
 const BASE = "https://belentani7.github.io/secure-t/app";
+/** Identificador anónimo de prueba: se genera en ejecución, no vive en el repositorio. */
+const TOKEN = crypto.randomUUID();
 
 const declaracion = (extra: Partial<Parameters<typeof buildStatement>[0]> = {}): XapiStatement =>
   buildStatement({
     baseUrl: BASE,
-    token: "7f3c1a2e-9b44-4f77-8a10-2c5e6d9f0c31",
+    token: TOKEN,
     locale: "es",
     courseSlug: "ciber-defensiva",
     courseTitle: "Ciberseguridad Defensiva",
@@ -77,7 +79,7 @@ describe("declaración conforme", () => {
   it("identifica al estudiante sin revelar quién es", () => {
     const statement = declaracion();
     expect(statement.actor.objectType).toBe("Agent");
-    expect(statement.actor.account.name).toBe("secure-t:7f3c1a2e-9b44-4f77-8a10-2c5e6d9f0c31");
+    expect(statement.actor.account.name).toBe(`secure-t:${TOKEN}`);
     expect(JSON.stringify(statement)).not.toMatch(/@\w+\.\w+/);
   });
 

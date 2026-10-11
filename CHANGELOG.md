@@ -60,6 +60,10 @@ externa, y lo que no está se dice en voz alta. Nada se marca conforme sin un te
   el contrato apuntan a la URL real.
 - **La comprobación de contenido generado** fallaba en cada ejecución por comparar un `git diff` sobre ficheros que
   llevan `generatedAt`: ahora compara el material (`sourceDigest`) e ignora la fecha, que no identifica a la fuente.
+- **gitleaks**: el escaneo de secretos encontró tres «claves» que son falsos positivos verificados uno a uno (dos
+  identificadores anónimos de prueba y una frase de la interfaz en inglés). Los identificadores se generan ahora en
+  ejecución —ningún literal en el repositorio— y `.gitleaks.toml` acota la lista blanca a esa regla, ese fichero y esa
+  línea: cualquier otro hallazgo, también en el historial, sigue rompiendo la construcción.
 - **Cadena de suministro**: de 11 avisos de dependencias a 1 (aceptado con motivo, sin parche publicado), acciones de
   los workflows fijadas por commit, Dependabot para npm/pip/actions y `pnpm audit:deps` como puerta obligatoria de CI.
 

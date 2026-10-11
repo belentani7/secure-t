@@ -29,6 +29,8 @@ import {
  */
 
 const BASE = "https://belentani7.github.io/secure-t/app";
+/** Identificador anónimo de prueba: se genera en ejecución, no vive en el repositorio. */
+const TOKEN = crypto.randomUUID();
 let pareja: CryptoKeyPair;
 let jwk: PublicJwk;
 let otroJwk: PublicJwk;
@@ -50,7 +52,7 @@ const clase = buildBadgeClass({
 const asercion = (): Assertion =>
   buildAssertion({
     baseUrl: BASE,
-    token: "7f3c1a2e-9b44-4f77-8a10-2c5e6d9f0c31",
+    token: TOKEN,
     badgeClassId: clase.id,
     issuedOn: "2026-05-24T00:00:00.000Z",
     weeksDone: 20,
