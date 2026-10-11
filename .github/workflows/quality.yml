@@ -131,9 +131,26 @@ jobs:
           codigo=${PIPESTATUS[0]}
           if [ "$codigo" -ne 0 ]; then
             fallos=$(grep -a "✘" "$RUNNER_TEMP/lhci.log" | head -30 | sed 's/\x1b\[[0-9;]*m//g' | tr '\r\n' '  ' | sed 's/%/%25/g')
-            inicio=$(head -c 800 "$RUNNER_TEMP/lhci.log" | tr '\r\n' '  ' | sed 's/%/%25/g')
             echo "::error title=Lighthouse fallos::${fallos}"
-            echo "::error title=Lighthouse inicio::${inicio}"
+            # Auditorías concretas por debajo de 1, categoría a categoría: es el
+            # dato que permite arreglar la causa en lugar de adivinarla.
+            node -e '
+              const fs = require("node:fs");
+              if (!fs.existsSync(".lighthouseci")) process.exit(0);
+              const porCategoria = {};
+              for (const fichero of fs.readdirSync(".lighthouseci").filter((f) => f.endsWith(".json"))) {
+                const informe = JSON.parse(fs.readFileSync(`.lighthouseci/${fichero}`, "utf8"));
+                for (const [nombre, categoria] of Object.entries(informe.categories ?? {})) {
+                  for (const ref of categoria.auditRefs ?? []) {
+                    const auditoria = informe.audits[ref.id];
+                    if (!auditoria || auditoria.score === null || auditoria.score >= 1) continue;
+                    (porCategoria[nombre] ??= new Set()).add(`${ref.id}=${auditoria.score}`);
+                  }
+                }
+              }
+              const resumen = Object.entries(porCategoria).map(([k, v]) => `${k}: ${[...v].join(", ")}`).join(" | ");
+              if (resumen) console.log(`::error title=Auditorías por debajo de 1::${resumen.replace(/%/g, "%25")}`);
+            '
           fi
           exit "$codigo"
       - uses: actions/upload-artifact@v4
