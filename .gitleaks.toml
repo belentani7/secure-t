@@ -12,6 +12,15 @@ title = "secure-t"
 [extend]
 useDefault = true
 
+# Regla propia: las claves de DeepSeek tienen formato sk- seguido de 32 hex.
+# Las reglas por defecto de Gitleaks 8.30 NO las detectan (verificado): sin esta
+# regla, la clave que aparece en fix_weeks.py pasaba desapercibida.
+[[rules]]
+id = "deepseek-api-key"
+description = "Clave de API de DeepSeek (formato sk- + 32 hex)."
+regex = '''\bsk-[a-f0-9]{32}\b'''
+keywords = ["sk-"]
+
 [[allowlists]]
 description = "Textos de traduccion i18n: contienen literales que parecen claves."
 paths = [
