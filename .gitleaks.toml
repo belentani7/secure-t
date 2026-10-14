@@ -1,0 +1,43 @@
+# secure-t - configuracion de gitleaks
+#
+# MOTIVO: el job `secretos` del CI fallaba con 6 hallazgos. Al revisarlos uno a
+# uno, 5 son falsos positivos y 1 es real (ver nota al final).
+#
+# Estas reglas solo acotan RUTAS concretas. No se silencia ninguna regla de
+# forma global: si manana aparece una credencial de verdad en `tests/` o en un
+# texto i18n, dejara de detectarse solo por estar en esa ruta.
+
+title = "secure-t"
+
+# 1) Cadenas de traduccion. El detector ve literalmente `API_KEY = "..."` dentro
+#    de un texto de interfaz, no es una credencial.
+[[allowlists]]
+description = "Textos de traduccion i18n: contienen literales que parecen claves."
+paths = [
+  '''(?i)src/i18n/''',
+]
+
+# 2) Fixtures de tests: valores de ejemplo que el test necesita para pasar.
+[[allowlists]]
+description = "Fixtures de tests: valores de ejemplo, no credenciales reales."
+paths = [
+  '''(?i)(^|/)tests/''',
+]
+
+# 3) Material docente del curso de ciberofensiva: el ejemplo de `curl` lleva
+#    `-u usuario:clave` como parte de la explicacion, no es una cuenta real.
+[[allowlists]]
+description = "Material del curso: ejemplo curl con basic-auth para uso docente."
+ruleID = "curl-auth-user"
+paths = [
+  '''(?i)campus/cursos/ciber-ofensiva/''',
+]
+
+# ---------------------------------------------------------------------------
+# PENDIENTE (NO se silencia a proposito):
+#   fix_weeks.py:3  ->  API_KEY = "sk-..." de DeepSeek, commit 732eba5e (2026-09-25)
+# Es una credencial REAL. El fichero ya no existe en el codigo, pero sigue en el
+# historial, y el CI escanea el historial completo. Hay que ROTAR la clave en el
+# panel de DeepSeek; despues se puede purgar el historial o ignorar esa huella
+# concreta en .gitleaksignore.
+# ---------------------------------------------------------------------------
