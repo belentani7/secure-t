@@ -1,17 +1,87 @@
+# Dependabot Configuration — Belentani Ecosystem
 version: 2
 updates:
-  - package-ecosystem: npm
-    directory: /
+  # JavaScript/TypeScript (pnpm)
+  - package-ecosystem: "npm"
+    directory: "/"
     schedule:
-      interval: weekly
+      interval: "daily"
+      time: "03:00"
+      timezone: "Europe/Madrid"
+    labels:
+      - "dependencies"
+      - "javascript"
+    groups:
+      dev-dependencies:
+        patterns:
+          - "@types/*"
+          - "eslint*"
+          - "prettier*"
+          - "vitest*"
+          - "typescript*"
+          - "tailwind*"
+      radix-ui:
+        patterns:
+          - "@radix-ui/*"
+      react-ecosystem:
+        patterns:
+          - "react*"
+          - "@tanstack/*"
+          - "@hookform/*"
+    open-pull-requests-limit: 10
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+    ignore:
+      - dependency-name: "*"
+        update-type: "version-update:semver-major"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:00"
+      timezone: "Europe/Madrid"
+    labels:
+      - "dependencies"
+      - "github-actions"
     open-pull-requests-limit: 5
-    groups:
-      npm-prod:
-        dependency-type: production
-  - package-ecosystem: github-actions
-    directory: /
+
+  # Python (uv/pip)
+  - package-ecosystem: "pip"
+    directory: "/"
     schedule:
-      interval: weekly
+      interval: "weekly"
+      day: "monday"
+      time: "04:30"
+      timezone: "Europe/Madrid"
+    labels:
+      - "dependencies"
+      - "python"
     groups:
-      actions:
-        patterns: ['*']
+      fastapi-ecosystem:
+        patterns:
+          - "fastapi*"
+          - "pydantic*"
+          - "sqlmodel*"
+      dev-tools:
+        patterns:
+          - "pytest*"
+          - "ruff*"
+          - "mypy*"
+          - "black*"
+    open-pull-requests-limit: 8
+
+  # Docker
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      time: "05:00"
+      timezone: "Europe/Madrid"
+    labels:
+      - "dependencies"
+      - "docker"
+    open-pull-requests-limit: 3
