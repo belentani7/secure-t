@@ -2,32 +2,24 @@
 
 ## Reporting a Vulnerability
 
-If you find a security vulnerability in SecureTea, please **do not open a public issue**.
+Please report security vulnerabilities via email to belentani7pedro@gmail.com.
 
-Report it privately via:
+## Code Scanning
 
-- GitHub: https://github.com/belentani7/securetea/security/advisories/new
-- Or contact the maintainer directly.
+This project uses GitHub CodeQL for automated security scanning. All security issues detected by CodeQL will be addressed with priority.
 
-You should receive a response within 72 hours. Please include:
+## Dependabot
 
-1. A clear description of the vulnerability
-2. Steps to reproduce (proof of concept)
-3. Affected versions/components
-4. Any suggested fix
+Dependabot alerts security vulnerabilities in dependencies. Dependabot security updates will be accepted via Pull Request.
 
-## Supported Versions
+## Secret Protection
 
-| Version | Supported          |
-| ------- | ------------------ |
-| main    | :white_check_mark: |
-| develop | :white_check_mark: |
+GitHub Secret Protection scans for hardcoded secrets. Do not commit API keys, tokens, or passwords to this repository.
 
-## Security Model
+## Advanced Security
 
-- The web GUI and server backends are management tools and must be run on a
-  trusted network or behind authentication + TLS.
-- All secrets are configured via environment variables. Never commit real
-  credentials to the repository.
-- See `INFORME_DEBILIDADES_SECURETEA.md` (audit report) for the full security
-  history and remediation list.
+Enable GitHub Advanced Security for:
+- Dependabot alerts
+- CodeQL analysis
+- Secret scanning
+- Push protection
