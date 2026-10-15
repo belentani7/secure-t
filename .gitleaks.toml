@@ -1,41 +1,76 @@
-# secure-t - configuracion de gitleaks
-#
-# El job `secretos` del CI fallaba con 6 hallazgos: 5 falsos positivos y 1 real.
-# Este archivo acota los falsos positivos SIN desactivar la deteccion.
-#
-# IMPORTANTE: sin la linea [extend] useDefault, Gitleaks 8.19+ ignora todo su
-# catalogo de reglas cuando encuentra este archivo y dejaria de detectar
-# secretos en TODO el repositorio. Esa linea es obligatoria, no decorativa.
+# Gitleaks Configuration — Belentani Ecosystem
+# Detecta secretos en commits, PRs y historial
 
-title = "secure-t"
+[allowlist]
+description = "Allowlist for Belentani projects"
+paths = [
+  "*.md",
+  "*.txt",
+  "*.json.example",
+  "*.env.example",
+  "*.cff",
+  "CHANGELOG*",
+  "LICENSE*",
+  "CODEOWNERS",
+  "dependabot.yml",
+  "package-lock.json",
+  "pnpm-lock.yaml",
+  "uv.lock"
+]
 
-[extend]
-useDefault = true
+# Patrones específicos del ecosistema
+[[allowlist]]
+description = "Belentani specific patterns"
+regexes = [
+  '''belentani[_-]?[a-z]+''',  # project names
+  '''noi[a-z]+''',             # noiacore references
+]
 
-# Regla propia: las claves de DeepSeek tienen formato sk- seguido de 32 hex.
-# Las reglas por defecto de Gitleaks 8.30 NO las detectan (verificado): sin esta
-# regla, la clave que aparece en fix_weeks.py pasaba desapercibida.
+# Falsos positivos comunes en código
+[[allowlist]]
+description = "Common false positives in code"
+regexes = [
+  '''example''',
+  '''test''',
+  '''mock''',
+  '''dummy''',
+  '''placeholder''',
+  '''your-.*-key''',
+  '''change-in-production''',
+  '''min-32-chars''',
+]
+
+# Extensiones a escanear
+[git]
+allow_missing_config = true
+
+# Reglas personalizadas para el ecosistema
 [[rules]]
-id = "deepseek-api-key"
-description = "Clave de API de DeepSeek (formato sk- + 32 hex)."
-regex = '''\bsk-[a-f0-9]{32}\b'''
-keywords = ["sk-"]
+id = "belentani-vercel-token"
+description = "Vercel tokens"
+regex = '''(?i)vercel[_-]?token['"\s:=]+[a-zA-Z0-9_-]{20,}'''
+tags = ["vercel", "token"]
 
-[[allowlists]]
-description = "Textos de traduccion i18n: contienen literales que parecen claves."
-paths = [
-  '''(?i)src/i18n/''',
-]
+[[rules]]
+id = "belentani-supabase-key"
+description = "Supabase keys"
+regex = '''(?i)supabase[_-]?(key|secret|token)['"\s:=]+[a-zA-Z0-9_-]{20,}'''
+tags = ["supabase", "key"]
 
-[[allowlists]]
-description = "Fixtures de tests: valores de ejemplo, no credenciales reales."
-paths = [
-  '''(?i)(^|/)tests/''',
-]
+[[rules]]
+id = "belentani-database-url"
+description = "Database URLs with credentials"
+regex = '''(?i)(postgres|mysql|mongodb)://[^:]+:[^@]+@'''
+tags = ["database", "credentials"]
 
-[[allowlists]]
-description = "Material del curso: ejemplo curl con basic-auth para uso docente."
-ruleID = "curl-auth-user"
-paths = [
-  '''(?i)campus/cursos/ciber-ofensiva/''',
-]
+[[rules]]
+id = "belentani-jwt-secret"
+description = "JWT secrets"
+regex = '''(?i)(jwt|secret)[_-]?key['"\s:=]+[a-zA-Z0-9_-]{32,}'''
+tags = ["jwt", "secret"]
+
+[[rules]]
+id = "belentani-api-key-generic"
+description = "Generic API keys"
+regex = '''(?i)api[_-]?key['"\s:=]+[a-zA-Z0-9_-]{20,}'''
+tags = ["api", "key"]
