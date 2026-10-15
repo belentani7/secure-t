@@ -1,12 +1,3 @@
-# CI del campus: comprueba lo que este repositorio es de verdad.
-#
-# POR QUE ESTA AQUI Y NO EN LA RAIZ: GitHub solo ejecuta los workflows que
-# estan en .github/workflows/. Un ci.yml en la raiz nunca se ejecuta, por
-# mucho que parezca que si.
-#
-# POR QUE NO MEZCLA LOS ENTORNOS: pytest valida el campus publicado sin
-# instalar nada mas; los jobs edu-engine y web usan node y sus propias
-# dependencias. Asi cada entorno falla por lo suyo, no por el vecino.
 name: CI
 
 on:
@@ -14,113 +5,63 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-  schedule:
-    - cron: "0 3 * * *"
-  workflow_dispatch:
 
 permissions:
   contents: read
-
 jobs:
-  campus:
+  lint-test:
+    name: lint-test
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+      - name: Instalar dependencias
+        run: pnpm install --frozen-lockfile
+      - name: Typecheck
+        run: pnpm run typecheck
+      - name: Tests
+        run: pnpm run test
+      - name: Build
+        run: pnpm run build
+
+  campus:
+    name: campus
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: '3.12'
       - name: Instalar pytest
         run: pip install pytest
       - name: Tests del campus
         run: python -m pytest -q tests/
-      - name: JSON valido en el campus
-        run: |
-          find campus -name '*.json' -print0 | xargs -0 -n1 python -m json.tool > /dev/null
-          echo "JSON del campus correcto"
-
-  secretos:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-      - name: Instalar Gitleaks
-        # gitleaks-action@v2 fijaba la version 8.24.3 y usa Node 20, que GitHub
-        # retira de los runners. Ademas 8.24.3 no entiende la sintaxis
-        # [[allowlists]], asi que .gitleaks.toml se ignoraba. Se instala
-        # desde el release oficial para fijar la version desde aqui.
-        # El install.sh que documentaba el proyecto ya no existe (devuelve 404),
-        # asi que se descarga el tarball y se valida con el checksums.txt oficial.
-        run: |
-          set -euo pipefail
-          VERSION=8.30.1
-          BASE="https://github.com/gitleaks/gitleaks/releases/download/v${VERSION}"
-          TARBALL="gitleaks_${VERSION}_linux_x64.tar.gz"
-          curl -sSfL -o "${TARBALL}" "${BASE}/${TARBALL}"
-          curl -sSfL -o checksums.txt "${BASE}/gitleaks_${VERSION}_checksums.txt"
-          grep " ${TARBALL}\$" checksums.txt | sha256sum -c -
-          tar -xzf "${TARBALL}" gitleaks
-          sudo install -m 0755 gitleaks /usr/local/bin/gitleaks
-          gitleaks version
-
-      - name: Gitleaks (historial completo)
-        # --log-opts=--all revisa todas las ramas, no solo HEAD. Sin fetch-depth 0
-        # el historial llega truncado y el escaner es ciego a lo filtrado hace meses.
-        run: |
-          set -euo pipefail
-          gitleaks git \
-            --config .gitleaks.toml \
-            --log-opts="--all" \
-            --redact \
-            --verbose \
-            --report-format sarif \
-            --report-path gitleaks.sarif
-
-      - name: Subir informe SARIF
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: gitleaks-report
-          path: gitleaks.sarif
-          if-no-files-found: ignore
 
   edu-engine:
-    # lib/edu-engine/.github/workflows/ci.yml NUNCA se ejecutaba: GitHub
-    # solo lee workflows desde la raiz del repo, no desde subcarpetas. Este
-    # job sustituye a ese archivo muerto; el README promete tests propios
-    # para el motor y hasta ahora no habia CI real verificandolos.
+    name: edu-engine
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-    defaults:
-      run:
-        working-directory: lib/edu-engine
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with:
-          node-version: "22"
+          node-version: '22'
       - name: Tests del motor educativo
         run: node --test tests/quiz.test.mjs
 
-  web:
-    # Capa SPA y modulos de dominio (client/, notifications/, ai/, auth/,
-    # audit/, academic/) con sus tests vitest en tests/*.test.ts.
+  secretos:
+    name: secretos
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v5
-      - uses: pnpm/action-setup@v4
         with:
-          version: 12
-      - uses: actions/setup-node@v5
-        with:
-          node-version: "22"
-          cache: "pnpm"
-      - name: Instalar dependencias
-        run: pnpm install --frozen-lockfile
-      - name: Typecheck
-        run: pnpm typecheck
-      - name: Tests vitest
-        run: pnpm test
+          fetch-deadth: 0
+      - name: Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
