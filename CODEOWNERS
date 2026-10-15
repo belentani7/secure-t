@@ -1,0 +1,26 @@
+# Belentani Ecosystem — Code Owners
+# Requiere revisión de @belentani7 para todos los cambios
+
+* @belentani7
+
+# Documentación
+/docs/ @belentani7
+README.md @belentani7
+CHANGELOG.md @belentani7
+
+# Configuración crítica
+.github/ @belentani7
+*.yml @belentani7
+*.yaml @belentani7
+Dockerfile* @belentani7
+docker-compose* @belentani7
+
+# Seguridad
+SECURITY.md @belentani7
+.gitleaks.toml @belentani7
+
+# Dependencias
+package.json @belentani7
+pnpm-lock.yaml @belentani7
+pyproject.toml @belentani7
+uv.lock @belentani7
