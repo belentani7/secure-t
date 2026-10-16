@@ -56,10 +56,11 @@ pnpm build        # vite build -> dist/public
 
 ## CI
 
-El workflow vive en `.github/workflows/ci.yml` (no en la raiz: GitHub solo ejecuta
-los que estan en esa carpeta). Ejecuta pytest, valida el JSON del campus, pasa los
-tests del motor educativo y de la capa SPA (vitest + typecheck) y aplica
-**gitleaks** sobre el historial completo para que ningun secreto vuelva a entrar.
+`.github/workflows/ci.yml` instala dependencias fijadas, valida tipos y ejecuta
+los tests y la compilacion de la SPA local. Gitleaks comprueba el codigo actual
+sin imprimir valores secretos; este gate no certifica el historial completo.
+`campus-publication.yml` ejecuta pytest, el motor educativo y las pruebas offline,
+ensambla el campus y prueba los cuatro quizzes y el progreso en Chromium.
 
 ## Despliegue
 

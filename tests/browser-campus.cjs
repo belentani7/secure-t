@@ -42,7 +42,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   });
   await context.setOffline(true);
   await page.reload();
-  assert.match(await page.locator('h1').innerText(), /Ofensiva/);
+  assert.match(await page.locator('h1').first().innerText(), /Ofensiva/);
   await context.setOffline(false);
   await page.setViewportSize({width:390,height:844});
   await page.goto(base);
