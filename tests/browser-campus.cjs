@@ -11,18 +11,24 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   await page.goto(base);
   await page.locator('a[href="./conceptos/index.html"]').click();
   assert.match(page.url(), /conceptos/);
-  await page.goto(base);
-  await page.locator('a[href^="campus/cursos/ciber-ofensiva/"]').first().click();
-  await page.locator('#quiz').scrollIntoViewIfNeeded();
-  const answers = await page.evaluate(() => QUIZ.map(q => q.correcta));
-  for (const correct of answers) {
-    await page.locator('#q-opciones button').nth(correct).click();
-    await page.locator('#q-next').click();
+  let answered = 0;
+  const courses = ['ciber-ofensiva', 'ciber-defensiva', 'ia-aplicada-segura', 'gobernanza-compliance'];
+  for (const slug of courses) {
+    await page.goto(base);
+    await page.locator(`a[href^="campus/cursos/${slug}/"]`).first().click();
+    await page.locator('#quiz').scrollIntoViewIfNeeded();
+    assert.deepEqual(errors, [], `Course ${slug} must initialize without errors`);
+    const answers = await page.evaluate(() => QUIZ.map(q => q.opciones[q.correcta]));
+    for (const answer of answers) {
+      await page.getByRole('button', {name:answer,exact:true}).click();
+      await page.locator('#q-next').click();
+    }
+    assert.match(await page.locator('#q-titulo').innerText(), /Terminado/);
+    assert.equal(await page.evaluate(slug => JSON.parse(localStorage.getItem('stt-progreso'))[slug + '/quiz'], slug), true);
+    answered += answers.length;
   }
-  assert.match(await page.locator('#q-titulo').innerText(), /Terminado/);
-  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('stt-progreso'))['ciber-ofensiva/quiz']), true);
   await page.goto(base + '/campus/progreso.html');
-  assert.equal(await page.locator('input[type="checkbox"]:checked').count(), 1);
+  assert.equal(await page.locator('input[type="checkbox"]:checked').count(), courses.length);
   await page.goto(base + '/campus/');
   await page.evaluate(() => navigator.serviceWorker.ready);
   await page.reload();
@@ -43,6 +49,6 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
   await page.screenshot({path:'campus-mobile.png',fullPage:true});
   assert.deepEqual(errors, []);
-  console.log(JSON.stringify({journey:'home → concepts → course → quiz → progress → offline lesson',quizQuestions:answers.length,mobileWidth:390,pageErrors:errors.length}));
+  console.log(JSON.stringify({journey:'home → concepts → course → quiz → progress → offline lesson',quizQuestions:answered,courses:courses.length,mobileWidth:390,pageErrors:errors.length}));
   await browser.close();
 })().catch(e => { console.error(e); process.exit(1); });
