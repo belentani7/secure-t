@@ -66,10 +66,21 @@ tests del motor educativo y de la capa SPA (vitest + typecheck) y aplica
 Dos destinos, una sola fuente:
 
 - **GitHub Pages** via `.github/workflows/pages.yml`, que publica unicamente
-  `index.html`, `404.html`, `campus/` y `ui/`. Antes de subir, comprueba que no
+  el campus completo con `python3 scripts/build_site.py --destination _site`.
+  Antes de subir, comprueba que no
   haya secretos en lo que va a publicarse.
-- **Netlify**, con `publish = "public"`. Nunca la raiz del repositorio: eso dejaria
+- **Netlify**, con `publish = "site-dist"` y el mismo ensamblador. Nunca la raiz del repositorio: eso dejaria
   accesibles por URL los scripts, los tests y el material de trabajo.
+
+El ensamblador usa la portada y los cursos vigentes de la raiz, incluye conceptos,
+recursos de voz y metadatos publicos, y comprueba sus referencias HTML locales.
+No publica la copia incompleta de `public/campus/`. Si una comprobacion falla,
+conserva el artefacto anterior. Para probar exactamente la entrega:
+
+```bash
+python3 scripts/build_site.py
+python3 -m http.server 8000 --directory site-dist
+```
 
 ## Motor educativo (eduforge)
 

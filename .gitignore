@@ -5,6 +5,9 @@ bower_components/
 # Production
 build/
 dist/
+site-dist/
+__pycache__/
+.pytest_cache/
 
 docs/
 
