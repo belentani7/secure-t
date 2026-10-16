@@ -2,7 +2,8 @@
   # El sitio es estatico: portada, campus y datos abiertos.
   # NO publicar la raiz del repositorio: dejaria accesibles por URL los
   # scripts de Python, los volcados de terminal y las notas internas.
-  publish = "public"
+  command = "python3 scripts/build_site.py"
+  publish = "site-dist"
 
 # 404 real: la ruta inexistente sirve 404.html con status 404
 # (nunca status 200 sobre index.html: enmascararia enlaces rotos).

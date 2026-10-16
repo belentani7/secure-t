@@ -740,7 +740,7 @@ Al superar 70 %, márcalo en tu progreso.</p>
       const q = QUIZ[qi];
       qt.textContent = (qi + 1) + '/' + QUIZ.length + ' · ' + q.pregunta;
       qo.innerHTML = ''; qf.textContent = ''; qb.hidden = true;
-      const orden = baraja(q.opciones.map((_, i) => i));
+      const orden = barajar(q.opciones.map((_, i) => i));
       orden.forEach(i => {
         const b = document.createElement('button');
         b.textContent = q.opciones[i];

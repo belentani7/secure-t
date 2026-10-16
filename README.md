@@ -56,20 +56,32 @@ pnpm build        # vite build -> dist/public
 
 ## CI
 
-El workflow vive en `.github/workflows/ci.yml` (no en la raiz: GitHub solo ejecuta
-los que estan en esa carpeta). Ejecuta pytest, valida el JSON del campus, pasa los
-tests del motor educativo y de la capa SPA (vitest + typecheck) y aplica
-**gitleaks** sobre el historial completo para que ningun secreto vuelva a entrar.
+`.github/workflows/ci.yml` instala dependencias fijadas, valida tipos y ejecuta
+los tests y la compilacion de la SPA local. Gitleaks comprueba el codigo actual
+sin imprimir valores secretos; este gate no certifica el historial completo.
+`campus-publication.yml` ejecuta pytest, el motor educativo y las pruebas offline,
+ensambla el campus y prueba los cuatro quizzes y el progreso en Chromium.
 
 ## Despliegue
 
 Dos destinos, una sola fuente:
 
 - **GitHub Pages** via `.github/workflows/pages.yml`, que publica unicamente
-  `index.html`, `404.html`, `campus/` y `ui/`. Antes de subir, comprueba que no
+  el campus completo con `python3 scripts/build_site.py --destination _site`.
+  Antes de subir, comprueba que no
   haya secretos en lo que va a publicarse.
-- **Netlify**, con `publish = "public"`. Nunca la raiz del repositorio: eso dejaria
+- **Netlify**, con `publish = "site-dist"` y el mismo ensamblador. Nunca la raiz del repositorio: eso dejaria
   accesibles por URL los scripts, los tests y el material de trabajo.
+
+El ensamblador usa la portada y los cursos vigentes de la raiz, incluye conceptos,
+recursos de voz y metadatos publicos, y comprueba sus referencias HTML locales.
+No publica la copia incompleta de `public/campus/`. Si una comprobacion falla,
+conserva el artefacto anterior. Para probar exactamente la entrega:
+
+```bash
+python3 scripts/build_site.py
+python3 -m http.server 8000 --directory site-dist
+```
 
 ## Motor educativo (eduforge)
 
