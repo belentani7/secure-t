@@ -34,7 +34,7 @@ jobs:
             echo "::error::Posible secreto en el sitio"; exit 1
           fi
           echo "Publicando $(find _site -type f | wc -l) archivos en $SITE_URL"
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
 
