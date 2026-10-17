@@ -51,7 +51,7 @@ const VALID_IDS = new Set(CURSOS.flatMap(c => c.items.map(it => c.slug + "/" + i
 const status = document.getElementById("estado");
 const storage = (() => { try { return window.localStorage; } catch (_) { return null; } })();
 function read(key, fallback) { try { return storage ? storage.getItem(key) : fallback; } catch (_) { return fallback; } }
-function write(key, value) { try { if (storage) storage.setItem(key, value); return true; } catch (_) { return false; } }
+function write(key, value) { try { if (!storage) return false; storage.setItem(key, value); return true; } catch (_) { return false; } }
 function normalize(value) {
   if (!value || typeof value !== "object" || Array.isArray(value)) return {};
   return Object.fromEntries(Object.entries(value).filter(([id, done]) => VALID_IDS.has(id) && done === true));
@@ -61,7 +61,7 @@ let estado = parseState(read(KEY, "{}"));
 
 // Token anónimo local (nunca se envía a ningún sitio); no bloquea el uso sin almacenamiento.
 let token = read("stt-token", "");
-if (!/^anon-[a-z0-9-]{8,}$/i.test(token)) {
+if (!(/^(?:anon-[a-z0-9-]{8,}|[0-9a-f]{8}-[0-9a-f-]{27,})$/i.test(token))) {
   token = "anon-" + (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36));
   write("stt-token", token);
 }
@@ -133,9 +133,11 @@ document.getElementById("importar").onclick = () => {
     if (!file || file.size > 1024 * 1024) { announce("Archivo no válido o demasiado grande (máximo 1 MiB).", true); return; }
     try {
       const d = JSON.parse(await file.text());
-      if (!d || typeof d !== "object" || !d.estado || typeof d.estado !== "object" || Array.isArray(d.estado)) throw new Error("schema");
-      estado = normalize(d.estado);
-      if (typeof d.token === "string" && /^anon-[a-z0-9-]{8,}$/i.test(d.token)) {
+      if (!d || typeof d !== "object" || (d.version !== undefined && d.version !== 1) || !d.estado || typeof d.estado !== "object" || Array.isArray(d.estado)) throw new Error("schema");
+      const imported = normalize(d.estado);
+      if (Object.keys(d.estado).some(id => !VALID_IDS.has(id) || d.estado[id] !== true)) throw new Error("values");
+      estado = imported;
+      if (typeof d.token === "string" && /^(?:anon-[a-z0-9-]{8,}|[0-9a-f]{8}-[0-9a-f-]{27,})$/i.test(d.token)) {
         token = d.token; write("stt-token", token);
         document.getElementById("token").textContent = "token anónimo: " + token;
       }
