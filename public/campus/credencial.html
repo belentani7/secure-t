@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Credencial — Campus secure-t-university</title>
+  <meta name="description" content="Genera y verifica una credencial con sello hash SHA-256, sin servidor.">
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    .env { max-width: 46rem; margin: 0 auto; padding: var(--sp-6) var(--sp-4) var(--sp-12); }
+    .grid-cur { display: grid; gap: var(--sp-4); }
+    .progreso-item { display: flex; gap: var(--sp-3); align-items: baseline;
+      padding: var(--sp-2) 0; border-bottom: 1px dashed var(--border); }
+    .barra { height: .55rem; border-radius: 999px; background: var(--bg-muted); overflow: hidden; }
+    .barra > i { display: block; height: 100%; background: var(--accent);
+      transition: width var(--dur-slow) var(--ease-out); }
+    input[type="text"], textarea, select {
+      width: 100%; padding: var(--sp-3); border-radius: var(--r-md);
+      border: 1px solid var(--border); background: var(--bg-sunken);
+      color: var(--text-1); font: inherit; }
+    .resultado { background: var(--bg-sunken); border: 1px solid var(--border);
+      border-radius: var(--r-md); padding: var(--sp-4); font-family: var(--font-mono);
+      font-size: var(--fs-sm); word-break: break-all; }
+    .ok { color: var(--success); } .mal { color: var(--danger); }
+    .fila-botones { display: flex; gap: var(--sp-3); flex-wrap: wrap; margin: var(--sp-4) 0; }
+  </style>
+</head>
+<body>
+<header class="topbar"><div class="bar">
+  <a class="brand" href="index.html">← Campus</a>
+  <span class="brand"><span>credencial</span></span>
+</div></header>
+<main class="env" id="app">
+  <h1>Credencial verificable</h1>
+  <p class="t2">Al superar un curso con evidencia, generas aquí tu credencial. El sello es
+  un <strong>SHA-256</strong> calculado en tu navegador: cualquiera puede verificarlo
+  recomputando el hash, sin servidor y sin confiar en nosotros.</p>
+  <p class="meta">Anti-atajo: el sellado comprueba tu progreso local (semanas, quiz,
+  laboratorio, proyecto y examen completos). Revisión humana de evidencias: PLANNED.
+  Fase actual: sello hash verificable offline. Anclaje en blockchain: fase 2 (roadmap).</p>
+
+  <h2 id="generar">Generar</h2>
+  <label class="meta">Curso superado</label>
+  <select id="curso">
+    <option value="ciber-ofensiva">Ciberseguridad Ofensiva: Pensar como Atacante</option>
+    <option value="ciber-defensiva">Ciberseguridad Defensiva: Operar como SOC</option>
+    <option value="ia-aplicada-segura">Inteligencia Artificial Aplicada y Segura</option>
+    <option value="gobernanza-compliance">Gobernanza y Compliance Digital</option>
+  </select>
+  <label class="meta">Tu token anónimo (de la página de progreso)</label>
+  <input type="text" id="token" placeholder="ej. 3f2a... (uuid local)">
+  <label class="meta">Resumen de la evidencia (qué entregaste)</label>
+  <input type="text" id="evidencia" placeholder="ej. mini-SOC: 3 alertas detectadas + timeline">
+  <div class="fila-botones"><button class="btn" id="sellar">Sellar credencial</button></div>
+  <div class="resultado" id="salida" hidden></div>
+
+  <h2 id="verificar">Verificar</h2>
+  <p class="t2">Pega el bloque de credencial completo:</p>
+  <textarea id="bloque" rows="8" placeholder='{"v":1,"curso":"...",...}'></textarea>
+  <div class="fila-botones"><button class="btn" id="btn-verificar">Verificar sello</button></div>
+  <div class="resultado" id="veredicto" hidden></div>
+</main>
+<script>
+const REQUISITOS = {"ciber-ofensiva": ["semana-01", "semana-02", "semana-03", "semana-04", "semana-05", "semana-06", "semana-07", "semana-08", "semana-09", "semana-10", "semana-11", "semana-12", "semana-13", "semana-14", "semana-15", "semana-16", "semana-17", "semana-18", "semana-19", "semana-20", "quiz", "laboratorio", "proyecto", "examen"], "ciber-defensiva": ["semana-01", "semana-02", "semana-03", "semana-04", "semana-05", "semana-06", "semana-07", "semana-08", "semana-09", "semana-10", "semana-11", "semana-12", "semana-13", "semana-14", "semana-15", "semana-16", "semana-17", "semana-18", "semana-19", "semana-20", "quiz", "laboratorio", "proyecto", "examen"], "ia-aplicada-segura": ["semana-01", "semana-02", "semana-03", "semana-04", "semana-05", "semana-06", "semana-07", "semana-08", "semana-09", "semana-10", "semana-11", "semana-12", "semana-13", "semana-14", "semana-15", "semana-16", "semana-17", "semana-18", "semana-19", "semana-20", "quiz", "laboratorio", "proyecto", "examen"], "gobernanza-compliance": ["semana-01", "semana-02", "semana-03", "semana-04", "semana-05", "semana-06", "semana-07", "semana-08", "semana-09", "semana-10", "semana-11", "semana-12", "semana-13", "semana-14", "semana-15", "semana-16", "semana-17", "semana-18", "semana-19", "semana-20", "quiz", "laboratorio", "proyecto", "examen"]};
+async function sha256(txt) {
+  const buf = await crypto.subtle.digest("SHA-256",
+    new TextEncoder().encode(txt));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+}
+function canonico(c, t, e, f) {
+  return ["secure-t/v1", c, t, e, f].join("|");
+}
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, ch => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[ch]));
+}
+document.getElementById("sellar").onclick = async () => {
+  const c = document.getElementById("curso").value;
+  const t = document.getElementById("token").value.trim();
+  const e = document.getElementById("evidencia").value.trim();
+  const out = document.getElementById("salida");
+  if (!t || !e) { out.hidden = false; out.innerHTML =
+    '<span class="mal">Falta token o evidencia.</span>'; return; }
+  // anti-atajo: sin recorrido completo no hay sello (verificación local)
+  const req = REQUISITOS[c] || [];
+  let est = {};
+  try { est = JSON.parse(localStorage.getItem("stt-progreso") || "{}"); } catch (err) {}
+  const faltan = req.filter(r => !est[c + "/" + r]);
+  if (faltan.length) {
+    out.hidden = false;
+    out.innerHTML = '<span class="mal">Recorrido incompleto: faltan ' + faltan.length +
+      ' de ' + req.length + ' hitos (' + faltan.slice(0, 3).join(", ") +
+      (faltan.length > 3 ? "…" : "") + '). Completa semanas, quiz, laboratorio,' +
+      ' proyecto y examen (progreso.html). La credencial exige el trabajo.</span>';
+    return;
+  }
+  const f = new Date().toISOString().slice(0, 10);
+  const sello = await sha256(canonico(c, t, e, f));
+  const bloque = {v: 1, curso: c, token: t.slice(0, 8) + "…", evidencia: e,
+    fecha: f, sello};
+  out.hidden = false;
+  out.textContent = "Sello SHA-256:\n" + sello +
+    "\n\nBloque verificable (cópialo entero):\n" +
+    JSON.stringify(bloque, null, 2);
+};
+document.getElementById("btn-verificar").onclick = async () => {
+  const v = document.getElementById("veredicto");
+  try {
+    const b = JSON.parse(document.getElementById("bloque").value);
+    const recomputado = await sha256(canonico(b.curso, b.token, b.evidencia, b.fecha));
+    const ok = recomputado === b.sello;
+    v.hidden = false;
+    v.innerHTML = ok
+      ? '<span class="ok">✓ Sello válido: la credencial no fue modificada.</span>'
+      : '<span class="mal">✗ Sello inválido: el bloque fue alterado o es falso.</span>';
+  } catch (err) {
+    v.hidden = false;
+    v.innerHTML = '<span class="mal">Bloque ilegible: ' + esc(err.message) + "</span>";
+  }
+};
+</script>
+</body>
+</html>

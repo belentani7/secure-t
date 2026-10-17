@@ -1,0 +1,24 @@
+{
+  "schema": "secure-t.education.v1",
+  "language": "es",
+  "tracks": [
+    {"id":"digital-literacy","title":"Alfabetización Digital","level":"L0-L1","modules":6},
+    {"id":"cyber-foundations","title":"Ciberseguridad Fundamental","level":"L1-L3","modules":10},
+    {"id":"blue-team","title":"SOC / Blue Team","level":"L2-L4","modules":8},
+    {"id":"ai-foundations","title":"IA desde cero","level":"L0-L3","modules":8},
+    {"id":"genai-applied","title":"IA Generativa Aplicada","level":"L1-L4","modules":9},
+    {"id":"secure-web","title":"Desarrollo Web Seguro","level":"L1-L4","modules":10},
+    {"id":"digital-career","title":"Carrera Digital","level":"L0-L4","modules":8}
+  ],
+  "lesson_contract": {
+    "required": ["id","title","objective","level","content","assessment"],
+    "optional": ["video","resources","lab","project","transcript","translations"],
+    "video": {"type":"external","policy":"store-url-and-metadata-only"}
+  },
+  "assessment": ["diagnostic","quiz","practical","capstone"],
+  "safety": {
+    "cyber_labs":"authorized-targets-and-isolated-environments-only",
+    "secrets":"never-store-real-credentials",
+    "third_party_media":"link-and-cite; do-not-download-or-rehost-without-permission"
+  }
+}

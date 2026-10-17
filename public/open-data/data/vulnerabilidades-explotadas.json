@@ -1,0 +1,83 @@
+{
+  "tema": "vulnerabilidades-explotadas",
+  "portal": "secure-t-university",
+  "registros": [
+    {
+      "fuente": "CISA KEV",
+      "spec": "cisa_kev",
+      "ok": true,
+      "datos": [
+        {
+          "cve": "CVE-2026-76461",
+          "producto": "Secure Email Gateway",
+          "nombre": "Cisco Secure Email Gateway SQL Injection Vulnerability",
+          "accion": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA’s “Forensics Triage Requirements” (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+          "fecha": "2026-09-14"
+        },
+        {
+          "cve": "CVE-2026-84869",
+          "producto": "ScreenConnect",
+          "nombre": "ConnectWise ScreenConnect Improper Privilege Management and Missing Authorization Vulnerability",
+          "accion": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA’s “Forensics Triage Requirements” (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+          "fecha": "2026-09-11"
+        },
+        {
+          "cve": "CVE-2026-42016",
+          "producto": "Artifactory",
+          "nombre": "JFrog Artifactory Incorrect Authorization Vulnerability",
+          "accion": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA’s “Forensics Triage Requirements” (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+          "fecha": "2026-09-11"
+        },
+        {
+          "cve": "CVE-2026-42018",
+          "producto": "Artifactory",
+          "nombre": "JFrog Artifactory Improper Authentication Vulnerability",
+          "accion": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA’s “Forensics Triage Requirements” (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+          "fecha": "2026-09-11"
+        },
+        {
+          "cve": "CVE-2026-85706",
+          "producto": "Community Edition and Enterprise Edition",
+          "nombre": "GitLab Community Edition and Enterprise Edition Path Traversal Vulnerability",
+          "accion": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA’s “Forensics Triage Requirements” (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+          "fecha": "2026-09-11"
+        },
+        {
+          "cve": "CVE-2026-86060",
+          "producto": "RouterOS",
+          "nombre": "MikroTik RouterOS Improper Neutralization of Argument Delimiters in a Command Vulnerability",
+          "accion": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA’s “Forensics Triage Requirements” (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+          "fecha": "2026-09-10"
+        },
+        {
+          "cve": "CVE-2026-67277",
+          "producto": "RouterOS",
+          "nombre": "MikroTik RouterOS Missing Authentication for Critical Function Vulnerability",
+          "accion": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA’s “Forensics Triage Requirements” (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+          "fecha": "2026-09-10"
+        },
+        {
+          "cve": "CVE-2026-19490",
+          "producto": "NetScaler",
+          "nombre": "Citrix NetScaler Authentication Bypass Using an Alternate Path or Channel Vulnerability",
+          "accion": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA’s “Forensics Triage Requirements” (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+          "fecha": "2026-09-09"
+        },
+        {
+          "cve": "CVE-2025-25249",
+          "producto": "Multiple Products",
+          "nombre": "Fortinet Multiple Products Heap-based Buffer Overflow Vulnerability",
+          "accion": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA’s “Forensics Triage Requirements” (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+          "fecha": "2026-09-09"
+        },
+        {
+          "cve": "CVE-2026-87491",
+          "producto": "Chromium V8",
+          "nombre": "Google Chromium V8 Out of Bounds Write Vulnerability",
+          "accion": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA’s “Forensics Triage Requirements” (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+          "fecha": "2026-09-09"
+        }
+      ]
+    }
+  ]
+}

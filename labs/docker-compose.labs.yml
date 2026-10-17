@@ -1,0 +1,25 @@
+version: "3.8"
+# Labs Secure-T — open literal
+# Uso: docker compose -f ../docker-compose.yml -f labs/docker-compose.labs.yml up -d
+services:
+  juice-shop:
+    image: bkimminich/juice-shop:latest
+    container_name: secure-t-juice
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    environment:
+      NODE_ENV: ctf
+
+  dvwa:
+    image: vulnerables/web-dvwa:latest
+    container_name: secure-t-dvwa
+    restart: unless-stopped
+    ports:
+      - "3002:80"
+
+  # Atomic Red Team + DetectionLab = scripts, no container fijo.
+  # Fuentes:
+  # https://github.com/redcanaryco/atomic-red-team (MIT)
+  # https://github.com/DetectionLab (MIT)
+  # https://github.com/freeCodeCamp/freeCodeCamp (BSD, cert InfoSec en academic/)

@@ -1,0 +1,49 @@
+# Publica SOLO el sitio (portada + campus + datos abiertos) en GitHub Pages.
+# Evita que los scripts, los tests y el material de trabajo queden accesibles por URL.
+# Requisito unico: Settings -> Pages -> Source = "GitHub Actions".
+name: Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+env:
+  SITE_URL: https://belentani7.github.io/secure-t-university/
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Ensamblar _site con lista blanca
+        run: |
+          set -e
+          python3 scripts/build_site.py --destination _site
+          # Barrera final: ningun secreto llega a produccion
+          if grep -rEn "sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{30,}|AKIA[0-9A-Z]{16}|BEGIN [A-Z ]*PRIVATE KEY" _site; then
+            echo "::error::Posible secreto en el sitio"; exit 1
+          fi
+          echo "Publicando $(find _site -type f | wc -l) archivos en $SITE_URL"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

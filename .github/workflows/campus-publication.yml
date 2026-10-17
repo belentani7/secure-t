@@ -1,0 +1,52 @@
+name: Campus publication
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-campus:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python -m pip install pytest==8.3.4
+      - name: Campus and publication tests
+        run: python -m pytest -q tests/
+      - name: Offline isolation and education engine
+        run: node --test tests/service-worker.test.mjs lib/edu-engine/tests/quiz.test.mjs
+      - name: Build and validate actual publication artifact
+        run: python scripts/build_site.py
+      - name: Prepare isolated browser test runner
+        run: |
+          npm install --prefix "$RUNNER_TEMP/campus-browser" --no-package-lock --ignore-scripts playwright@1.56.1
+          node "$RUNNER_TEMP/campus-browser/node_modules/playwright/cli.js" install --with-deps chromium
+      - name: Student journey, mobile layout and offline lesson
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 --directory site-dist > /tmp/campus-http.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --silent --fail http://127.0.0.1:8765/ > /dev/null; then break; fi
+            sleep 1
+          done
+          PLAYWRIGHT_MODULE="$RUNNER_TEMP/campus-browser/node_modules/playwright" node tests/browser-campus.cjs
+      - name: Preserve mobile screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: campus-mobile
+          path: campus-mobile.png
+          if-no-files-found: ignore

@@ -1,0 +1,9 @@
+slug: ciberseguridad
+nombre: Ciberseguridad Defensiva
+descripcion: Fundamentos de defensa, redes, hacking ético controlado y respuesta a incidentes.
+domain: ciberseguridad
+cursos: 1
+escala:
+  smoke: { modulos: 1, lecciones_por_modulo: 4 }
+  medium: { modulos: 4, lecciones_por_modulo: 4 }
+  giga: { modulos: 12, lecciones_por_modulo: 4 }

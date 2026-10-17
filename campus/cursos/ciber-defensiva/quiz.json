@@ -1,0 +1,68 @@
+[
+  {
+    "pregunta": "La triada CIA significa...",
+    "opciones": [
+      "Central Intelligence Agency",
+      "Confidencialidad, Integridad, Disponibilidad",
+      "Cifrado, Identidad, Acceso",
+      "Control, Inspección, Auditoría"
+    ],
+    "correcta": 1,
+    "explicacion": "Las tres propiedades que todo control protege."
+  },
+  {
+    "pregunta": "El ciclo NIST 800-61 termina con...",
+    "opciones": [
+      "La contención",
+      "El pago del rescate",
+      "Lecciones aprendidas",
+      "El reinicio"
+    ],
+    "correcta": 2,
+    "explicacion": "Sin post-incidente el ciclo está incompleto."
+  },
+  {
+    "pregunta": "Backup 3-2-1 significa...",
+    "opciones": [
+      "3 copias, 2 medios, 1 fuera de sitio",
+      "3 firewalls, 2 DMZ, 1 VPN",
+      "3 usuarios, 2 roles, 1 admin",
+      "3 hashes, 2 claves, 1 token"
+    ],
+    "correcta": 0,
+    "explicacion": "Tres copias en dos medios distintos y una copia externa."
+  },
+  {
+    "pregunta": "Sin hora sincronizada (NTP) en los logs, falla...",
+    "opciones": [
+      "El disco",
+      "La correlación de eventos",
+      "El firewall",
+      "El antivirus"
+    ],
+    "correcta": 1,
+    "explicacion": "Sin relojes coordinados no se puede reconstruir la cronología de un incidente."
+  },
+  {
+    "pregunta": "Un control detectivo (frente a preventivo) es...",
+    "opciones": [
+      "Un cifrado en reposo",
+      "Un sistema SIEM que alerta",
+      "Un parche",
+      "Un backup"
+    ],
+    "correcta": 1,
+    "explicacion": "Detecta lo que ya está pasando; no impide que empiece."
+  },
+  {
+    "pregunta": "La primera decisión en un incidente activo de ransomware es...",
+    "opciones": [
+      "Pagar el rescate",
+      "Contener (aislar máquinas afectadas)",
+      "Borrar los logs",
+      "Reinstalar todo"
+    ],
+    "correcta": 1,
+    "explicacion": "Contener para frenar la propagación; el rescate no se paga como regla y borrar evidencia destruye la investigación."
+  }
+]

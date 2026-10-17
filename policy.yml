@@ -1,0 +1,23 @@
+version: 1
+mode: report-first
+permissions:
+  read_repository: true
+  write_main: false
+  create_branch: true
+  create_patch: true
+  delete_files: false
+  change_secrets: false
+  change_permissions: false
+  change_billing: false
+findings:
+  auto_fix:
+    - formatting
+    - documentation
+    - missing_test_fixture
+  require_review:
+    - authentication
+    - authorization
+    - database
+    - dependency_major_upgrade
+    - production_configuration
+    - personal_data

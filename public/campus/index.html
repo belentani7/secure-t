@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c1018">
+  <meta name="description" content="Campus abierto secure-t-university: cursos gratuitos estilo Harvard/Coursera, offline-first.">
+  <title>Campus secure-t-university</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="tokens.css">
+</head>
+<body>
+  <a class="skip-link" href="#cursos">Saltar al contenido</a>
+  <header class="topbar">
+    <div class="brand">Campus <span>secure-t-university</span></div>
+    <nav aria-label="Principal">
+      <a class="btn btn-ghost" href="#cursos">Cursos</a>
+      <a class="btn btn-ghost" href="#quiz">Quiz</a>
+      <a class="btn btn-ghost" href="#voz">Voz IA</a>
+      <a class="btn btn-ghost" href="buscar.html">Buscar</a>
+      <a class="btn btn-ghost" href="progreso.html">Progreso</a>
+      <a class="btn btn-ghost" href="credencial.html">Credencial</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Educación abierta, sin barreras.</h1>
+      <p class="lead">Cursos modulares con evidencia, material de bancos
+      abiertos y voz humana en 4 idiomas. Funciona sin conexión.</p>
+    </section>
+
+    <section id="cursos" class="grid-cursos">
+      <article class="card">
+        <span class="badge">ES · universitario</span>
+        <h3><a href="cursos/ciber-ofensiva/index.html">Ciberseguridad Ofensiva: Pensar como Atacante</a></h3>
+        <p>Curso universitario de seguridad ofensiva con ética desde el día 1: recon pasivo, OSINT, OWASP Top 10 y laboratorio con máquina vu…</p>
+        <p class="meta">20 semanas · 60 h · quiz 6 items</p>
+        <p class="meta">
+          <a href="cursos/ciber-ofensiva/glosario.md">Glosario</a> ·
+          <a href="cursos/ciber-ofensiva/chuleta.md">Chuleta</a> ·
+          <a href="cursos/ciber-ofensiva/laboratorio.md">Laboratorio</a> ·
+          <a href="cursos/ciber-ofensiva/rubrica.md">Rúbrica</a> ·
+          <a href="cursos/ciber-ofensiva/examen.md">Examen final</a>
+        </p>
+        <div><a class="btn" href="cursos/ciber-ofensiva/index.html">Entrar al curso</a></div>
+      </article>
+      <article class="card">
+        <span class="badge">ES · universitario</span>
+        <h3><a href="cursos/ciber-defensiva/index.html">Ciberseguridad Defensiva: Operar como SOC</a></h3>
+        <p>Curso universitario de defensa: triada CIA, telemetría y logs, SIEM, respuesta a incidentes NIST y hardening. El estudiante opera …</p>
+        <p class="meta">20 semanas · 60 h · quiz 6 items</p>
+        <p class="meta">
+          <a href="cursos/ciber-defensiva/glosario.md">Glosario</a> ·
+          <a href="cursos/ciber-defensiva/chuleta.md">Chuleta</a> ·
+          <a href="cursos/ciber-defensiva/laboratorio.md">Laboratorio</a> ·
+          <a href="cursos/ciber-defensiva/rubrica.md">Rúbrica</a> ·
+          <a href="cursos/ciber-defensiva/examen.md">Examen final</a>
+        </p>
+        <div><a class="btn" href="cursos/ciber-defensiva/index.html">Entrar al curso</a></div>
+      </article>
+      <article class="card">
+        <span class="badge">ES · universitario</span>
+        <h3><a href="cursos/ia-aplicada-segura/index.html">Inteligencia Artificial Aplicada y Segura</a></h3>
+        <p>IA aplicada con seguridad como requisito, no como añadido: fundamentos de ML, LLMs y prompt engineering responsable, ataques adver…</p>
+        <p class="meta">20 semanas · 48 h · quiz 6 items</p>
+        <p class="meta">
+          <a href="cursos/ia-aplicada-segura/glosario.md">Glosario</a> ·
+          <a href="cursos/ia-aplicada-segura/chuleta.md">Chuleta</a> ·
+          <a href="cursos/ia-aplicada-segura/laboratorio.md">Laboratorio</a> ·
+          <a href="cursos/ia-aplicada-segura/rubrica.md">Rúbrica</a> ·
+          <a href="cursos/ia-aplicada-segura/examen.md">Examen final</a>
+        </p>
+        <div><a class="btn" href="cursos/ia-aplicada-segura/index.html">Entrar al curso</a></div>
+      </article>
+      <article class="card">
+        <span class="badge">ES · universitario</span>
+        <h3><a href="cursos/gobernanza-compliance/index.html">Gobernanza y Compliance Digital</a></h3>
+        <p>Marcos de gobierno de la seguridad (ISO 27001, NIST CSF, ENS), protección de datos con principio de minimización extrema, gestión …</p>
+        <p class="meta">20 semanas · 40 h · quiz 6 items</p>
+        <p class="meta">
+          <a href="cursos/gobernanza-compliance/glosario.md">Glosario</a> ·
+          <a href="cursos/gobernanza-compliance/chuleta.md">Chuleta</a> ·
+          <a href="cursos/gobernanza-compliance/laboratorio.md">Laboratorio</a> ·
+          <a href="cursos/gobernanza-compliance/rubrica.md">Rúbrica</a> ·
+          <a href="cursos/gobernanza-compliance/examen.md">Examen final</a>
+        </p>
+        <div><a class="btn" href="cursos/gobernanza-compliance/index.html">Entrar al curso</a></div>
+      </article>
+    </section>
+
+    <section id="quiz" aria-label="Quiz de ejemplo">
+      <h2>Quiz interactivo</h2>
+      <div class="quiz-box quiz-json"
+           data-src="cursos/ciber-ofensiva/quiz.json">
+        <h3 class="quiz-titulo">Cargando quiz…</h3>
+        <div class="opciones"></div>
+        <p class="feedback" aria-live="polite"></p>
+        <p class="marcador"></p>
+        <button class="btn quiz-siguiente" hidden>Siguiente</button>
+      </div>
+    </section>
+
+    <section id="voz" aria-label="Voz IA">
+      <h2>Voz humana por idioma</h2>
+      <div class="voz-player">
+        <label for="idioma">Idioma:</label>
+        <select id="idioma" class="opcion" style="width:auto;min-height:44px">
+          <option value="pt">PT</option>
+          <option value="es">ES</option>
+          <option value="en">EN</option>
+          <option value="ca">CA</option>
+        </select>
+        <audio id="audio" controls aria-label="Reproducir bienvenida">
+          <source id="audio-src" src="voces/pt/bienvenida.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+      <p class="meta">Voces generadas por edge-tts (gratuito) o Kokoro vía
+      Hugging Face. Sin coste, con acento humano real.</p>
+    </section>
+
+    <section id="gobierno" aria-label="Gobierno académico">
+      <h2>Gobierno académico</h2>
+      <p class="meta">
+        <a href="calendario.md">Calendario académico (4 años)</a> ·
+        <a href="mapa-curricular.md">Mapa curricular NICE/CAE</a>
+      </p>
+    </section>
+
+    <section id="agente" aria-label="Agente tutor">
+      <h2>Agente tutor vivo en GitHub</h2>
+      <p>Este campus tiene un agente IA que vive en GitHub Actions
+      (caja Linux): responde issues etiquetados <code>tutor</code> y publica
+      una cápsula didáctica diaria en <code>campus/capsulas/</code>.</p>
+      <p class="meta">Cero secretos: usa el token efímero de GitHub y modelos
+      gratuitos con fallback local.</p>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <p>Material abierto y verificado: Khan Academy · Parla.cat · GCF Global ·
+    MIT OCW · OWASP WSTG · Juice Shop · freeCodeCamp. Generado por edu-forge.</p>
+  </footer>
+  <script>
+    const sel = document.getElementById('idioma');
+    if (sel) sel.addEventListener('change', e => {
+      const a = document.getElementById('audio-src');
+      a.src = `voces/${e.target.value}/bienvenida.mp3`;
+      document.getElementById('audio').load();
+    });
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
