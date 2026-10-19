@@ -29,6 +29,31 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   }
   await page.goto(base + '/campus/progreso.html');
   assert.equal(await page.locator('input[type="checkbox"]:checked').count(), courses.length);
+  // Exercise the complete local-only verification path; never mistake a hash
+  // for an issuer's signature or a diploma.
+  await page.evaluate(() => {
+    const p = JSON.parse(localStorage.getItem('stt-progreso') || '{}');
+    for (let week = 1; week <= 20; week++) {
+      p['ciber-ofensiva/semana-' + String(week).padStart(2, '0')] = true;
+    }
+    for (const part of ['quiz', 'laboratorio', 'proyecto', 'examen']) {
+      p['ciber-ofensiva/' + part] = true;
+    }
+    localStorage.setItem('stt-progreso', JSON.stringify(p));
+  });
+  await page.goto(base + '/campus/credencial.html');
+  await page.locator('#evidencia').fill('Laboratorio local SOC: análisis documentado de alertas.');
+  await page.locator('#sellar').click();
+  const output = await page.locator('#salida').innerText();
+  const block = JSON.parse(output.slice(output.indexOf('{')));
+  assert.equal(block.v, 2);
+  assert.equal('token' in block, false);
+  await page.locator('#bloque').fill(JSON.stringify(block));
+  await page.locator('#btn-verificar').click();
+  assert.match(await page.locator('#veredicto').innerText(), /Huella coherente/);
+  await page.locator('#bloque').fill(JSON.stringify({...block, evidencia: 'alterado'}));
+  await page.locator('#btn-verificar').click();
+  assert.match(await page.locator('#veredicto').innerText(), /Huella diferente/);
   await page.goto(base + '/campus/');
   await page.evaluate(() => navigator.serviceWorker.ready);
   await page.reload();
