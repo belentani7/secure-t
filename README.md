@@ -7,6 +7,23 @@ URL prevista para GitHub Pages: <https://belentani7.github.io/secure-t/> (no se 
 La publicacion desde un repositorio privado requiere un plan de GitHub compatible;
 no se cambia la visibilidad del codigo para habilitar Pages.
 
+
+## Campus digital de cinco años (fase de desarrollo)
+
+- **Entrada principal:** `campus/academia/index.html` — interfaz con **portugués de Brasil por defecto**, traducciones de navegación, materias y lecciones al español y al inglés.
+- **Mapa académico:** 5 años, 10 semestres, 60 asignaturas y **240 unidades planificadas**, en ciberseguridad, desarrollo web e idiomas.
+- **Contenido redactado y utilizable actualmente:** **72 unidades de los tres primeros semestres**, con explicación original y ejercicio específico por unidad en PT/ES/EN, incluidos los cambios `lesson-content.js`, `lesson-content-2.js` y `lesson-content-3.js`. **Las otras 168 son temarios pendientes de desarrollar, revisar y evaluar**; no presentarlas como lecciones realizadas.
+- **Biblioteca:** fuentes externas y clases largas atribuidas, sin copiar obras ni prometer contenidos de terceros bajo licencia Secure-T.
+- **Laboratorios:** simulación de alertas SOC e interfaz HTML/CSS aislada, sin acceso a sistemas de terceros.
+- **Tutor:** orientación curricular interactiva local y preguntas formativas; lectura de voz y dictado con consentimiento y capacidades del navegador. El modelo lingüístico local es experimental y opcional. No existe IA remota gratuita universal ni corrección institucional.
+- **Repaso:** 72 tarjetas de evocación espaciada, almacenamiento únicamente en el navegador, sin notas oficiales.
+- **Fusos:** Rio de Janeiro (`America/Sao_Paulo`), Barcelona (`Europe/Madrid`) y Dublin (`Europe/Dublin`); utilizan `Intl.DateTimeFormat` para cambios estacionales.
+- **Origen humano:** la página “Sobre” reconoce discretamente que la idea nació inspirada por el amor, sin atribuirse a terceros ni exponer identidades.
+- **Acreditación:** Secure-T sigue siendo un proyecto educativo independiente, **no una universidad oficialmente acreditada** ni un emisor de títulos académicos.
+- **Revisión editorial:** las 72 lecciones son materiales introductorios escritos, pendientes de revisión docente externa; aún no equivalen a 5 años completos de docencia.
+
+Validación puntual ejecutada: 72 identificadores pertenecen al mapa de 240, sus seis campos de lectura y actividad PT/ES/EN están presentes, el repaso local inicia como `1/72`, acepta autoevaluación y permite cambio de idioma; ejecución completa de CI/Playwright pendiente. No fusionar ni declarar producción validada por estas pruebas aisladas.
+
 ## Que es este repositorio
 
 Un campus estatico. La portada `index.html` enlaza los cuatro programas y todo el
