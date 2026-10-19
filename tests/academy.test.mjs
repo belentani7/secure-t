@@ -62,6 +62,22 @@ test('opt-in speech and local model and offline curricular fallback',()=>{
   assert.ok(app.includes('window.LanguageModel'));
   assert.ok(!/(sk-[A-Za-z0-9_-]{20,}|github_pat_[A-Za-z0-9_]{30,})/.test(app+html));
 });
+test('every learning unit has native PT, ES and EN topic titles',()=>{
+  const localizedIds=new Set;
+  for(const c of academy.courses){
+    assert.ok(c.topicsI18n,'Missing translated topic titles: '+c.id);
+    for(const language of ['pt','es','en']){
+      assert.equal(c.topicsI18n[language].length,4,c.id+' / '+language);
+      c.topicsI18n[language].forEach((title,index)=>{
+        assert.ok(typeof title==='string'&&title.length>=5,c.id+' / '+language+' / '+index);
+        localizedIds.add(c.id+':'+language+':'+index);
+      });
+    }
+  }
+  assert.equal(localizedIds.size,720);
+  assert.ok(app.includes('localizedTopics(c).forEach'));
+});
+
 test('learning progress is private and self-reported',()=>{
   assert.ok(app.includes('permittedIds.has(key) && value===true'));
   assert.ok(app.includes('stt-academia-progress'));
