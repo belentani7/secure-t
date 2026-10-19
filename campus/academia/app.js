@@ -74,6 +74,9 @@
   Object.assign(WORDS.pt,{"hero.authored":"{n} unidades com aulas e atividades originais · {remaining} planos em desenvolvimento."});
   Object.assign(WORDS.es,{"hero.authored":"{n} unidades con clases y actividades propias · {remaining} temarios en preparación."});
   Object.assign(WORDS.en,{"hero.authored":"{n} units with original readings and activities · {remaining} developing syllabi."});
+  Object.assign(WORDS.pt,{"tutor.voiceAutoOff":"Envio por voz: manual","tutor.voiceAutoOn":"Envio por voz: automático"});
+  Object.assign(WORDS.es,{"tutor.voiceAutoOff":"Envío por voz: manual","tutor.voiceAutoOn":"Envío por voz: automático"});
+  Object.assign(WORDS.en,{"tutor.voiceAutoOff":"Voice send: manual","tutor.voiceAutoOn":"Voice send: automatic"});
   const el = id => document.getElementById(id);
   const text = (node,value) => { node.textContent = String(value); return node; };
   const make = (tag,cls) => { const node=document.createElement(tag); if(cls)node.className=cls; return node; };
@@ -82,6 +85,7 @@
   const readLang = persist("stt-academia-lang");
   let lang = LANGS.includes(readLang) ? readLang : "pt"; // Never infer another initial language.
   let selectedYear=0, selectedTrack="all", search="", selected=null, voice=false, listening=false, aiSession=null, aiInitializing=false, chatHistory=[];
+  let autoVoiceSend=false, activeRecognition=null;
   const permittedIds = new Set(dataset.courses.flatMap(c=>c.topics.map((_,i)=>c.id+"/"+i)));
   let progress={};
   try {
@@ -114,6 +118,8 @@
     el("tutor-input").placeholder=tr("tutor.placeholder");
     el("tutor-engine").textContent=tr(aiSession?"tutor.engineAI":"tutor.engine");
     el("voice-toggle").querySelector("[data-i18n]").textContent=tr(voice?"tutor.audioOn":"tutor.audioOff");
+    const voiceAutoButton=el("voice-auto-send");
+    if(voiceAutoButton)voiceAutoButton.textContent=tr(autoVoiceSend?"tutor.voiceAutoOn":"tutor.voiceAutoOff");
     renderFilters();renderCourses();renderResources();if(selected)renderDetail();
     chatHistory.forEach(m=>{if(m.intro)m.node.querySelector("p").textContent=tr("tutor.hello")});
     if(window.speechSynthesis)window.speechSynthesis.cancel();
@@ -354,6 +360,21 @@
     addMessage("assistant",tr("tutor.hello"),true);
     el("tutor-form").addEventListener("submit",onSubmit);
     el("tutor-input").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();el("tutor-form").requestSubmit();}});
+    // The learner must opt in to submitting dictated text; microphone permission
+    // remains a separate per-session consent action, never a background listener.
+    const voiceAuto=button(tr("tutor.voiceAutoOff"),"control",()=>{
+      autoVoiceSend=!autoVoiceSend;
+      voiceAuto.setAttribute("aria-pressed",String(autoVoiceSend));
+      voiceAuto.textContent=tr(autoVoiceSend?"tutor.voiceAutoOn":"tutor.voiceAutoOff");
+      if(autoVoiceSend&&!voice){
+        voice=true;
+        el("voice-toggle").setAttribute("aria-pressed","true");
+        el("voice-toggle").querySelector("[data-i18n]").textContent=tr("tutor.audioOn");
+      }
+    });
+    voiceAuto.id="voice-auto-send";
+    voiceAuto.setAttribute("aria-pressed","false");
+    document.querySelector(".tutor-controls").appendChild(voiceAuto);
     const btn=button("IA LOCAL ◇","control",()=>enableModel(btn));
     btn.id="local-ai-optin";btn.setAttribute("aria-label","Opt in to an on-device language model if your browser supports it");
     document.querySelector(".tutor-controls").appendChild(btn);
@@ -362,7 +383,11 @@
       el("voice-toggle").querySelector("[data-i18n]").textContent=tr(voice?"tutor.audioOn":"tutor.audioOff");
       if(!voice&&window.speechSynthesis)window.speechSynthesis.cancel();
     });
-    el("voice-stop").addEventListener("click",()=>{if(window.speechSynthesis)window.speechSynthesis.cancel();document.querySelector(".tutor-portrait").classList.remove("speaking");});
+    el("voice-stop").addEventListener("click",()=>{
+      if(activeRecognition){try{activeRecognition.abort();}catch{} activeRecognition=null;listening=false;el("voice-listen").setAttribute("aria-pressed","false");}
+      if(window.speechSynthesis)window.speechSynthesis.cancel();
+      document.querySelector(".tutor-portrait").classList.remove("speaking");
+    });
     el("open-tutor").addEventListener("click",()=>el("tutor").scrollIntoView({behavior:"smooth"}));
     el("ask-course").addEventListener("click",()=>{
       el("tutor").scrollIntoView({behavior:"smooth"});
@@ -376,9 +401,19 @@
       if(listening)return;
       if(!window.confirm(tr("tutor.consent")))return;
       const rec=new recognitionCtor();rec.lang=lang==="pt"?"pt-BR":lang==="es"?"es-ES":"en-GB";rec.maxAlternatives=1;rec.interimResults=false;
-      rec.onresult=e=>{const transcript=e.results?.[0]?.[0]?.transcript||"";el("tutor-input").value=transcript;el("tutor-input").focus();};
-      rec.onend=rec.onerror=()=>{listening=false;mic.setAttribute("aria-pressed","false");};
-      try{rec.start();listening=true;mic.setAttribute("aria-pressed","true");}catch{listening=false;}
+      let heard="",failed=false;
+      rec.onresult=e=>{
+        heard=String(e.results?.[0]?.[0]?.transcript||"").trim().slice(0,1200);
+        if(heard){el("tutor-input").value=heard;el("tutor-input").focus();}
+      };
+      rec.onerror=()=>{failed=true;listening=false;mic.setAttribute("aria-pressed","false");};
+      rec.onend=()=>{
+        if(activeRecognition===rec)activeRecognition=null;
+        listening=false;mic.setAttribute("aria-pressed","false");
+        if(!failed&&heard&&autoVoiceSend)el("tutor-form").requestSubmit();
+      };
+      try{activeRecognition=rec;rec.start();listening=true;mic.setAttribute("aria-pressed","true");}
+      catch{activeRecognition=null;listening=false;mic.setAttribute("aria-pressed","false");}
     });
   }
   document.querySelectorAll("[data-lang]").forEach(node=>node.addEventListener("click",()=>setLang(node.dataset.lang)));
