@@ -62,7 +62,7 @@ let estado = parseState(read(KEY, "{}"));
 // Token anónimo local (nunca se envía a ningún sitio); no bloquea el uso sin almacenamiento.
 let token = read("stt-token", "");
 if (!(/^(?:anon-[a-z0-9-]{8,}|[0-9a-f]{8}-[0-9a-f-]{27,})$/i.test(token))) {
-  token = "anon-" + (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36));
+  token = "anon-" + (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function' ? crypto.randomUUID() : Date.now().toString(36));
   write("stt-token", token);
 }
 document.getElementById("token").textContent = "token anónimo: " + token;

@@ -51,7 +51,7 @@ function allowTutor(ip: string): { allowed: boolean; retryAfter: number } {
 
 
 const catalog = {
-  program: { title: "Bachelor of Cybersecurity", credits: 120, duration: "4 years", standard: "secure T academic framework" },
+  program: { title: "Secure T — illustrative cybersecurity study roadmap", credits: 0, duration: "five-year plan", standard: "independent, non-accredited curriculum", demo: true },
   courses: [
     { code: "CY-101", title: "Fundamentos de Ciberseguridad", credits: 3, term: "Year 1 · Fall", status: "active" },
     { code: "CS-110", title: "Programación para Defensa", credits: 4, term: "Year 1 · Fall", status: "active" },

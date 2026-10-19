@@ -56,6 +56,13 @@ async function withApi(environment, callback) {
 
 test('production tutor is private by default, public progress is labelled demo', async () => {
   await withApi({SECURE_T_TUTOR_API_KEY: ''}, async origin => {
+    const catalogResponse = await fetch(origin + '/api/catalog');
+    const catalog = await catalogResponse.json();
+    assert.equal(catalog.program.demo, true);
+    assert.equal(catalog.program.credits, 0);
+    assert.match(catalog.program.standard, /non-accredited/);
+    assert.doesNotMatch(catalog.program.title, /Bachelor|Master|Degree/i);
+
     const progress = await fetch(origin + '/api/progress');
     assert.equal(progress.status, 200);
     assert.equal(progress.headers.get('x-content-type-options'), 'nosniff');
