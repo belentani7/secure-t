@@ -55,6 +55,42 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   assert.match(await page.locator('#review-task').innerText(), /Inspect your device/);
   assert.deepEqual(errors, [], 'Spaced-repetition room must not throw browser errors');
 
+  // Complete privacy lifecycle: export notes + review schedule, restore
+  // validated data, then erase only this academy's records.
+  await page.evaluate(() => {
+    const original = URL.createObjectURL.bind(URL);
+    URL.createObjectURL = blob => {
+      window.__academyBackupBlob = blob;
+      return original(blob);
+    };
+  });
+  await page.locator('#export-progress').click();
+  const portableBackup = await page.evaluate(async () => JSON.parse(await window.__academyBackupBlob.text()));
+  assert.equal(portableBackup.version, 1);
+  assert.equal(portableBackup.progress['ST-011/0'],true);
+  assert.ok(portableBackup.evidence['ST-011/0'].length >= 80);
+  assert.equal(portableBackup.review['ST-011/0'].count, 1);
+  const beforeLocale = await page.evaluate(() => localStorage.getItem('stt-academia-lang'));
+
+  page.once('dialog',dialog=>dialog.accept());
+  await page.locator('#clear-learning-data').click();
+  await page.waitForLoadState();
+  assert.deepEqual(await page.evaluate(() => ({
+    progress:localStorage.getItem('stt-academia-progress'),
+    evidence:localStorage.getItem('stt-academia-evidence'),
+    review:localStorage.getItem('stt-academia-review-v1'),
+  })),{progress:null,evidence:null,review:null});
+  assert.equal(await page.evaluate(() => localStorage.getItem('stt-academia-lang')),beforeLocale);
+  const importPromise = page.waitForEvent('filechooser');
+  await page.locator('#import-progress').click();
+  const backupPicker = await importPromise;
+  await backupPicker.setFiles({name:'academy-backup.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(portableBackup))});
+  await page.waitForLoadState();
+  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('stt-academia-progress'))['ST-011/0']),true);
+  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('stt-academia-review-v1'))['ST-011/0'].count),1);
+  assert.deepEqual(errors, [], 'The backup, restore, and erase operations must not throw browser errors');
+
+
   // Third semester lesson: real reading and exercise, localized across PT/ES/EN.
   await page.goto(base + '/campus/academia/');
   await page.locator('#year-filters button').nth(2).click();
