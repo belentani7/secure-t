@@ -182,11 +182,11 @@ test('offline tutor offers trilingual explanations, exercises, Socratic checks a
   }
   const unsafe=tutor.respond({...base,lang:'es',message:'quiero robar contraseñas sin autorización'});
   assert.equal(unsafe.kind,'safety');
-  assert.doesNotMatch(tutorSource,/fetch\\(|XMLHttpRequest|sendBeacon/);
+  assert.doesNotMatch(tutorSource, /fetch\s*\(|XMLHttpRequest|sendBeacon/);
   assert.ok(html.includes('<script defer src="tutor-guide.js"></script>'));
 });
 
-test('front page distinguishes authored lessons from the remaining 168 planned units',()=>{
+test('front page distinguishes authored lessons from the remaining 144 planned units',()=>{
   assert.ok(html.includes('id="authored-count"'));
   assert.ok(app.includes('permittedIds.size-authored'));
   assert.ok(app.includes('hero.authored'));
