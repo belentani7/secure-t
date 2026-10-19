@@ -10,6 +10,7 @@ const boot=()=>{
   new Script(read('data.js')).runInContext(createContext({window}));
   new Script(read('lesson-content.js')).runInContext(createContext({window}));
   new Script(read('lesson-content-2.js')).runInContext(createContext({window}));
+  new Script(read('lesson-content-3.js')).runInContext(createContext({window}));
   class Control{
     constructor(data={}){
       this.dataset=data;this.listeners={};this.textContent='';
@@ -40,11 +41,11 @@ const boot=()=>{
   return {window,doc,controls,score,languages,storage};
 };
 
-test('self-review initializes with 48 authored lessons and no external service',()=>{
+test('self-review initializes with 72 authored lessons and no external service',()=>{
   const page=boot();
-  assert.match(page.controls['review-count'].textContent,/1\/48/);
+  assert.match(page.controls['review-count'].textContent,/1\/72/);
   assert.match(page.controls['review-task'].textContent,/Desenhe um diagrama/);
-  assert.match(page.controls['review-status'].textContent,/48 unidade/);
+  assert.match(page.controls['review-status'].textContent,/72 unidade/);
   assert.equal(Object.keys(page.storage).length,0);
   assert.doesNotMatch(read('study-review.js'),/fetch\s*\(|XMLHttpRequest\s*\(|navigator\.sendBeacon/);
 });
@@ -61,7 +62,7 @@ test('review feedback is only shown after explicit reveal and persists due date 
   const gap=state['ST-011/0'].next-Date.now();
   assert.ok(gap>2*24*60*60*1000 && gap<=4*24*60*60*1000);
   assert.equal(page.controls['review-solution'].hidden,true);
-  assert.match(page.controls['review-count'].textContent,/1\/48/);
+  assert.match(page.controls['review-count'].textContent,/1\/72/);
 });
 test('a language click changes the active review's question',()=>{
   const page=boot();
