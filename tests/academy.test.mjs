@@ -118,6 +118,25 @@ test('second semester now has authored and localized readings and practice',()=>
   assert.ok(html.includes('<script defer src="lesson-content-2.js"></script>'));
 });
 
+test('third semester adds 24 original units in all three languages',()=>{
+  const ctx=createContext({window:{}});
+  for(const file of ['lesson-content.js','lesson-content-2.js','lesson-content-3.js']){
+    new Script(readFileSync(new URL('../campus/academia/'+file,import.meta.url),'utf8')).runInContext(ctx);
+  }
+  const guides=ctx.window.SecureTStudyGuides;
+  assert.equal(Object.keys(guides).length,72);
+  const third=Object.entries(guides).filter(([key])=>key.startsWith('ST-03'));
+  assert.equal(third.length,24);
+  for(const [key,g] of third){
+    assert.equal(academy.courses.find(c=>c.id===key.split('/')[0]).semester,3);
+    for(const l of ['pt','es','en']){
+      assert.ok(g.read[l].length>=110,key+':'+l);
+      assert.ok(g.exercise[l].length>=65,key+':'+l);
+    }
+  }
+  assert.ok(html.includes('<script defer src="lesson-content-3.js"></script>'));
+});
+
 test('offline tutor offers trilingual explanations, exercises, Socratic checks and credits',()=>{
   const guideSource=readFileSync(new URL('../campus/academia/lesson-content.js',import.meta.url),'utf8');
   const tutorSource=readFileSync(new URL('../campus/academia/tutor-guide.js',import.meta.url),'utf8');
