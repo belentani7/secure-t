@@ -8,6 +8,7 @@ root landing, campus and concept sources without publishing the repository.
 from __future__ import annotations
 
 import argparse
+import os
 from html.parser import HTMLParser
 from pathlib import Path
 import re
@@ -17,6 +18,35 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DESTINATION = ROOT / "site-dist"
+
+
+# Intended Pages project path. A deployment may override this with SITE_URL.
+DEFAULT_SITE_URL = "https://belentani7.github.io/secure-t"
+
+
+def public_site_url() -> str:
+    """Require an explicit, safe HTTPS origin for generated public metadata."""
+    value = os.environ.get("SITE_URL", DEFAULT_SITE_URL).strip().rstrip("/")
+    url = urlsplit(value)
+    if (url.scheme != "https" or not url.netloc or url.username or url.password
+            or url.query or url.fragment or not url.hostname
+            or any(part in {".", ".."} for part in url.path.split("/"))):
+        raise ValueError("SITE_URL must be a plain HTTPS origin and optional path")
+    return value
+
+
+def render_public_metadata(stage: Path) -> None:
+    """No unresolved URL placeholders or stale project paths in the output."""
+    site_url = public_site_url()
+    for name in ("robots.txt", "sitemap.xml"):
+        path = stage / name
+        source = path.read_text(encoding="utf-8")
+        if "__BASE_URL__" not in source:
+            raise RuntimeError(f"Missing expected metadata placeholder: {name}")
+        path.write_text(source.replace("__BASE_URL__", site_url), encoding="utf-8")
+    landing = stage / "index.html"
+    source = landing.read_text(encoding="utf-8")
+    landing.write_text(source.replace(DEFAULT_SITE_URL + "/", site_url + "/"), encoding="utf-8")
 
 
 class _References(HTMLParser):
@@ -104,6 +134,7 @@ def build_site(destination: Path = DEFAULT_DESTINATION) -> tuple[int, int]:
             else:
                 shutil.copy2(source, stage / name)
         (stage / ".nojekyll").touch()
+        render_public_metadata(stage)
         validate_public_files(stage)
         errors = validate_local_html(stage)
         if errors:

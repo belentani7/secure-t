@@ -18,7 +18,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  SITE_URL: https://belentani7.github.io/secure-t-university/
+  SITE_URL: https://belentani7.github.io/secure-t/
 
 jobs:
   build:
@@ -28,7 +28,7 @@ jobs:
       - name: Ensamblar _site con lista blanca
         run: |
           set -e
-          python3 scripts/build_site.py --destination _site
+          SITE_URL="$SITE_URL" python3 scripts/build_site.py --destination _site
           # Barrera final: ningun secreto llega a produccion
           if grep -rEn "sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{30,}|AKIA[0-9A-Z]{16}|BEGIN [A-Z ]*PRIVATE KEY" _site; then
             echo "::error::Posible secreto en el sitio"; exit 1

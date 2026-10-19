@@ -113,3 +113,61 @@ def test_security_reference_urls_are_not_treated_as_tokens(tmp_path):
         "https://www.nist.gov/itl/ai-risk-management-framework"
     )
     module.validate_public_files(tmp_path)
+
+
+def test_generated_metadata_has_resolved_urls(tmp_path, monkeypatch):
+    module = builder()
+    monkeypatch.setenv("SITE_URL", "https://learn.example.test/secure-t")
+    output = tmp_path / "site"
+    module.build_site(output)
+    expected = "https://learn.example.test/secure-t"
+    robots = (output / "robots.txt").read_text(encoding="utf-8")
+    sitemap = (output / "sitemap.xml").read_text(encoding="utf-8")
+    landing = (output / "index.html").read_text(encoding="utf-8")
+    assert "__BASE_URL__" not in robots + sitemap
+    assert "Sitemap: " + expected + "/sitemap.xml" in robots
+    assert "<loc>" + expected + "/campus/</loc>" in sitemap
+    assert 'rel="canonical" href="' + expected + '/"' in landing
+    assert 'property="og:url" content="' + expected + '/"' in landing
+
+
+@pytest.mark.parametrize("site_url", [
+    "http://insecure.example.test",
+    "https://username:password@example.test",
+    "https://example.test/#fragment",
+    "https://example.test/../secret",
+])
+def test_invalid_public_site_url_is_rejected(monkeypatch, site_url):
+    module = builder()
+    monkeypatch.setenv("SITE_URL", site_url)
+    with pytest.raises(ValueError, match="SITE_URL"):
+        module.public_site_url()
+
+
+def test_credentials_are_only_local_integrity_not_institutional_claims():
+    page = (ROOT / "campus" / "credencial.html").read_text(encoding="utf-8")
+    assert "const subject = await sha256(t)" in page
+    assert "const block = {v: 2" in page
+    assert "canonico(block.curso, block.sujeto, block.evidencia, block.fecha)" in page
+    assert 'token: t.slice' not in page
+    assert "NO acredita emisor, identidad ni aprendizaje." in page
+
+
+def test_legacy_remote_securetea_docker_is_not_used():
+    docker = (ROOT / "Dockerfile").read_text(encoding="utf-8")
+    railway = (ROOT / "railway.json").read_text(encoding="utf-8")
+    assert "node:22-" in docker
+    assert "USER node" in docker
+    assert "--frozen-lockfile" in docker
+    assert "SecureTea-Project" not in docker
+    assert "code-server" not in docker
+    assert "node dist/index.js" not in railway
+    assert "index.ts" in railway
+
+
+def test_local_services_require_secrets_and_do_not_listen_publicly():
+    compose = (ROOT / "docker-compose.yml").read_text(encoding="utf-8")
+    for variable in ("POSTGRES_PASSWORD", "MINIO_ROOT_USER", "MINIO_ROOT_PASSWORD"):
+        assert "${" + variable + ":?" in compose
+    for port in ("5432", "6379", "9000", "9001"):
+        assert "127.0.0.1:" + port + ":" + port in compose
