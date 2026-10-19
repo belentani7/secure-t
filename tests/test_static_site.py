@@ -142,3 +142,12 @@ def test_invalid_public_site_url_is_rejected(monkeypatch, site_url):
     monkeypatch.setenv("SITE_URL", site_url)
     with pytest.raises(ValueError, match="SITE_URL"):
         module.public_site_url()
+
+
+def test_credentials_are_only_local_integrity_not_institutional_claims():
+    page = (ROOT / "campus" / "credencial.html").read_text(encoding="utf-8")
+    assert "const subject = await sha256(t)" in page
+    assert "const block = {v: 2" in page
+    assert "canonico(block.curso, block.sujeto, block.evidencia, block.fecha)" in page
+    assert 'token: t.slice' not in page
+    assert "NO acredita emisor, identidad ni aprendizaje." in page
