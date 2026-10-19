@@ -284,5 +284,8 @@
     el("video-mount").replaceChildren();el("video-viewer").hidden=true;
   });
   el("year").textContent=String(new Date().getFullYear());
+  if("serviceWorker" in navigator && location.protocol!=="file:"){
+    navigator.serviceWorker.register("../sw.js").catch(()=>{});
+  }
   setupTutor();setLang(lang);renderStats();renderClocks();setInterval(renderClocks,30000);
 })();
