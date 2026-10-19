@@ -8,8 +8,37 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   const errors = [];
   page.on('pageerror', e => errors.push(e.message));
   const base = 'http://127.0.0.1:8765';
+  // Five-year academy: actual Portuguese entry, filters, study evidence and offline shell.
+  await page.goto(base + '/campus/academia/');
+  assert.equal(await page.locator('html').getAttribute('lang'), 'pt-BR');
+  assert.equal(await page.locator('.course-card').count(), 60);
+  assert.match(await page.locator('#clock-rio').innerText(), /\d{2}:\d{2}/);
+  assert.match(await page.locator('#clock-barcelona').innerText(), /\d{2}:\d{2}/);
+  assert.match(await page.locator('#clock-dublin').innerText(), /\d{2}:\d{2}/);
+  await page.locator('#year-filters button').nth(1).click();
+  assert.equal(await page.locator('.course-card').count(), 12);
+  await page.locator('#year-filters button').first().click();
+  await page.locator('button[data-lang="es"]').click();
+  assert.equal(await page.locator('html').getAttribute('lang'), 'es');
+  assert.match(await page.locator('#hero-title').innerText(), /conocimiento/i);
+  await page.locator('button[data-lang="pt"]').click();
+  await page.locator('.course-card').first().locator('button').click();
+  assert.equal(await page.locator('.lesson').count(), 4);
+  const firstLesson = page.locator('.lesson').first();
+  assert.equal(await firstLesson.locator('input[type="checkbox"]').isDisabled(), true);
+  await firstLesson.locator('textarea').fill('Estudei os objetivos do módulo com atenção. Registrei um exemplo documentado, os limites e como validaria as evidências num laboratório autorizado.');
+  await firstLesson.locator('input[type="checkbox"]').check();
+  assert.equal(await page.locator('#count-progress').innerText(), '0%'); // One of 240 units rounds to zero; persistent record confirms.
+  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('stt-academia-progress'))['ST-011/0']), true);
+  const academyUpload = page.waitForEvent('filechooser');
+  await page.locator('#import-progress').click();
+  const academyChooser = await academyUpload;
+  await academyChooser.setFiles({name:'academia-bad.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({version:1,progress:{'outside':true},evidence:{'outside':'x'.repeat(90)}}))});
+  assert.match(await page.locator('#data-status').innerText(), /inválido|inválida/i);
+  assert.deepEqual(errors, [], 'New academy must not throw browser exceptions');
+
   await page.goto(base);
-  await page.locator('a[href="./conceptos/index.html"]').click();
+  await page.locator('a[href="conceptos/index.html"]').first().click();
   assert.match(page.url(), /conceptos/);
   let answered = 0;
   const courses = ['ciber-ofensiva', 'ciber-defensiva', 'ia-aplicada-segura', 'gobernanza-compliance'];
