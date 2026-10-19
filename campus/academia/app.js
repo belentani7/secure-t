@@ -78,6 +78,7 @@
     }
   }catch{evidence={}}
   const tr=(key,args={}) => (WORDS[lang][key] || WORDS.pt[key] || key).replace(/\{(\w+)\}/g,(_,x)=>String(args[x]??""));
+  const localizedTopics = c => c.topicsI18n?.[lang] || c.topics;
   const tracks = () => ({cyber:tr("filter.cyber"),web:tr("filter.web"),languages:tr("filter.languages")});
   const append=(parent,child)=>{parent.appendChild(child);return child};
   const button=(label,cls,handler)=>{const b=make("button",cls);b.type="button";b.textContent=label;b.addEventListener("click",handler);return b};
@@ -107,7 +108,7 @@
   function renderCourses(){
     const grid=el("course-grid");grid.replaceChildren();
     const needle=search.trim().toLocaleLowerCase();
-    const matches=dataset.courses.filter(c=>(!selectedYear||c.year===selectedYear)&&(selectedTrack==="all"||c.track===selectedTrack)&&(!needle||[c.id,c.title[lang],c.title.pt,c.title.es,c.title.en,...c.topics].join(" ").toLocaleLowerCase().includes(needle)));
+    const matches=dataset.courses.filter(c=>(!selectedYear||c.year===selectedYear)&&(selectedTrack==="all"||c.track===selectedTrack)&&(!needle||[c.id,c.title[lang],c.title.pt,c.title.es,c.title.en,...c.topics,...localizedTopics(c)].join(" ").toLocaleLowerCase().includes(needle)));
     for(const c of matches){
       const article=make("article","course-card");article.dataset.track=c.track;
       const top=append(article,make("div","course-top"));
@@ -137,7 +138,7 @@
     text(el("detail-outcome"),tr("detail.outcome")+": "+c.outcome[lang]);
     text(el("detail-assessment-text"),c.assessment[lang]);
     const lessons=el("detail-lessons");lessons.replaceChildren();
-    c.topics.forEach((topic,i)=>{
+    localizedTopics(c).forEach((topic,i)=>{
       const card=append(lessons,make("article","lesson"));
       const col=append(card,make("div"));
       text(append(col,make("span","lesson-number")),tr("detail.lesson",{n:i+1}));
@@ -277,14 +278,14 @@
   }
   function localTutor(question){
     const normalized=question.toLocaleLowerCase();
-    const course=selected || dataset.courses.find(c=>[c.title.pt,c.title.es,c.title.en,c.id,...c.topics].some(t=>normalized.includes(t.toLocaleLowerCase()))) || dataset.courses.find(c=>normalized.includes("web")?c.track==="web":normalized.includes("idiom")||normalized.includes("english")?c.track==="languages":c.track==="cyber");
+    const course=selected || dataset.courses.find(c=>[c.title.pt,c.title.es,c.title.en,c.id,...c.topics,...localizedTopics(c)].some(t=>normalized.includes(t.toLocaleLowerCase()))) || dataset.courses.find(c=>normalized.includes("web")?c.track==="web":normalized.includes("idiom")||normalized.includes("english")?c.track==="languages":c.track==="cyber");
     if(!course)return tr("tutor.ask");
-    const topic=course.topics.find(t=>normalized.includes(t.toLocaleLowerCase()))||course.topics[0];
+    const topic=localizedTopics(course).find(t=>normalized.includes(t.toLocaleLowerCase()))||localizedTopics(course)[0];
     return tr("tutor.reply",{course:course.title[lang],topic});
   }
   async function tutorReply(message){
     if(!aiSession)return localTutor(message);
-    const course=selected;const context=course?course.title[lang]+" / "+course.topics.join("; "):"Cybersecurity, secure web development, technical languages";
+    const course=selected;const context=course?course.title[lang]+" / "+localizedTopics(course).join("; "):"Cybersecurity, secure web development, technical languages";
     const prompt="You are a Socratic study tutor for an open, unaccredited cybersecurity and web development academy. Reply in "+lang+". Never claim grades or credentials. Do not give harmful intrusion instructions or fabricate citations. Curriculum: "+context+". Learner question: "+message.slice(0,1200);
     try {return (await aiSession.prompt(prompt)).slice(0,1400);}
     catch {return localTutor(message);}
@@ -327,7 +328,7 @@
     el("open-tutor").addEventListener("click",()=>el("tutor").scrollIntoView({behavior:"smooth"}));
     el("ask-course").addEventListener("click",()=>{
       el("tutor").scrollIntoView({behavior:"smooth"});
-      if(selected)el("tutor-input").value=selected.title[lang]+" — "+selected.topics[0]+"?";
+      if(selected)el("tutor-input").value=selected.title[lang]+" — "+localizedTopics(selected)[0]+"?";
       el("tutor-input").focus();
     });
     const recognitionCtor=window.SpeechRecognition||window.webkitSpeechRecognition;
