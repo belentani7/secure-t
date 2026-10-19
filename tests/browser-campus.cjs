@@ -32,7 +32,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   assert.equal(await firstLesson.locator('input[type="checkbox"]').isDisabled(), true);
   await firstLesson.locator('textarea').fill('Estudei os objetivos do módulo com atenção. Registrei um exemplo documentado, os limites e como validaria as evidências num laboratório autorizado.');
   await firstLesson.locator('input[type="checkbox"]').check();
-  assert.equal(await page.locator('#count-progress').innerText(), '0%'); // One of 240 units rounds to zero; persistent record confirms.
+  assert.equal(await page.locator('#count-progress').innerText(), '0.4%'); // First of 240 units must be visible to the learner.
   assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('stt-academia-progress'))['ST-011/0']), true);
   const academyUpload = page.waitForEvent('filechooser');
   await page.locator('#import-progress').click();
@@ -54,6 +54,20 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   await page.locator('button[data-lang="en"]').click();
   assert.match(await page.locator('#review-task').innerText(), /Inspect your device/);
   assert.deepEqual(errors, [], 'Spaced-repetition room must not throw browser errors');
+
+  // Third semester lesson: real reading and exercise, localized across PT/ES/EN.
+  await page.goto(base + '/campus/academia/');
+  await page.locator('#year-filters button').nth(2).click();
+  assert.equal(await page.locator('.course-card').count(), 12);
+  await page.locator('.course-card').first().locator('button').click();
+  assert.match(await page.locator('.lesson h4').first().innerText(), /Hash e integridade/);
+  assert.match(await page.locator('.lesson-reading').first().innerText(), /função hash criptográfica/i);
+  assert.match(await page.locator('.lesson-practice').first().innerText(), /impressão digital/i);
+  await page.locator('button[data-lang="es"]').click();
+  assert.match(await page.locator('.lesson-reading').first().innerText(), /función hash criptográfica/i);
+  await page.locator('button[data-lang="en"]').click();
+  assert.match(await page.locator('.lesson-reading').first().innerText(), /cryptographic hash/i);
+  assert.deepEqual(errors, [], 'Third-semester authored lessons must render without exceptions');
 
   await page.goto(base);
   await page.locator('a[href="conceptos/index.html"]').first().click();
