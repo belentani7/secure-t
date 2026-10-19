@@ -384,7 +384,7 @@
       if(!voice&&window.speechSynthesis)window.speechSynthesis.cancel();
     });
     el("voice-stop").addEventListener("click",()=>{
-      if(activeRecognition){try{activeRecognition.abort();}catch{} activeRecognition=null;listening=false;el("voice-listen").setAttribute("aria-pressed","false");}
+      if(activeRecognition){const previous=activeRecognition;activeRecognition=null;try{previous.abort();}catch{} listening=false;el("voice-listen").setAttribute("aria-pressed","false");}
       if(window.speechSynthesis)window.speechSynthesis.cancel();
       document.querySelector(".tutor-portrait").classList.remove("speaking");
     });
