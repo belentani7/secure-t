@@ -69,6 +69,37 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   assert.match(await page.locator('.lesson-reading').first().innerText(), /cryptographic hash/i);
   assert.deepEqual(errors, [], 'Third-semester authored lessons must render without exceptions');
 
+  // Consent-based speech tutor: one microphone gesture yields one question,
+  // and Stop must suppress any late transcript from a cancelled session.
+  await page.addInitScript(() => {
+    window.confirm = () => true;
+    window.SpeechRecognition = class SyntheticRecognition {
+      start() {
+        setTimeout(() => {
+          this.onresult?.({results:[[{transcript:'Explique Zero Trust'}]]});
+          this.onend?.();
+        }, 25);
+      }
+      abort() { this.onend?.(); }
+    };
+  });
+  await page.goto(base + '/campus/academia/');
+  const voiceAuto = page.locator('#voice-auto-send');
+  await voiceAuto.click();
+  assert.equal(await voiceAuto.getAttribute('aria-pressed'),'true');
+  await page.locator('#voice-listen').click();
+  await page.locator('.chat-message.mine').last().waitFor();
+  assert.match(await page.locator('.chat-message.mine').last().innerText(), /Explique Zero Trust/);
+  await page.locator('.chat-message:not(.mine)').last().waitFor();
+  const voiceCount = await page.locator('.chat-message.mine').count();
+  await page.locator('#voice-listen').click();
+  await page.locator('#voice-stop').click();
+  await page.waitForTimeout(80);
+  assert.equal(await page.locator('.chat-message.mine').count(),voiceCount,
+    'Stopping the mic must not send late recognized text');
+  assert.deepEqual(errors, [], 'Voice tutor must not throw in the browser');
+
+
   await page.goto(base);
   await page.locator('a[href="conceptos/index.html"]').first().click();
   assert.match(page.url(), /conceptos/);
