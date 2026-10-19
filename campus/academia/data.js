@@ -2103,7 +2103,7 @@ window.SecureTAcademyData = {
       },
       "topics": [
         "SAST e DAST",
-        "SBOM",
+        "SBOM e inventário de componentes",
         "Supply chain",
         "Pipelines com gates"
       ],
@@ -2129,19 +2129,19 @@ window.SecureTAcademyData = {
       "topicsI18n": {
         "pt": [
           "SAST e DAST",
-          "SBOM",
+          "SBOM e inventário de componentes",
           "Supply chain",
           "Pipelines com gates"
         ],
         "es": [
           "SAST y DAST",
-          "SBOM",
+          "SBOM e inventario de componentes",
           "Cadena de suministro",
           "Pipelines con controles"
         ],
         "en": [
           "SAST and DAST",
-          "SBOM",
+          "SBOM and component inventory",
           "Software supply chain",
           "Pipelines with gates"
         ]
