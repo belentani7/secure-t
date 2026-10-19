@@ -97,6 +97,36 @@ test('first-semester original lessons include reading and exercises in all three
   assert.ok(app.includes('detail.planned'));
 });
 
+test('offline tutor offers trilingual explanations, exercises, Socratic checks and credits',()=>{
+  const guideSource=readFileSync(new URL('../campus/academia/lesson-content.js',import.meta.url),'utf8');
+  const tutorSource=readFileSync(new URL('../campus/academia/tutor-guide.js',import.meta.url),'utf8');
+  const ctx=createContext({window:{}});
+  new Script(guideSource).runInContext(ctx);
+  new Script(tutorSource).runInContext(ctx);
+  const tutor=ctx.window.SecureTCurriculumTutor;
+  const selected=academy.courses[0];
+  const base={selected,dataset:academy,guides:ctx.window.SecureTStudyGuides};
+  for(const [lang,q,a] of [['pt','Explica','Exercício'],['es','Explica','Ejercicio'],['en','Explain','Exercise']]){
+    const explained=tutor.respond({...base,lang,message:q});
+    assert.equal(explained.kind,'explanation');
+    assert.ok(explained.text.length>250);
+    const practiced=tutor.respond({...base,lang,message:a});
+    assert.equal(practiced.kind,'practice');
+    assert.ok(practiced.text.length>170);
+    const quiz=tutor.respond({...base,lang,message:'quiz'});
+    assert.equal(quiz.kind,'question');
+    const answered=tutor.respond({...base,lang,message:'I mapped the CPU and memory and checked the observed behavior.',state:quiz.state});
+    assert.equal(answered.kind,'reflection');
+    const sources=tutor.respond({...base,lang,message:lang==='pt'?'fontes':lang==='es'?'fuentes':'sources'});
+    assert.equal(sources.kind,'sources');
+    assert.ok(sources.text.includes('Cisco Networking Academy'));
+  }
+  const unsafe=tutor.respond({...base,lang:'es',message:'quiero robar contraseñas sin autorización'});
+  assert.equal(unsafe.kind,'safety');
+  assert.doesNotMatch(tutorSource,/fetch\\(|XMLHttpRequest|sendBeacon/);
+  assert.ok(html.includes('<script defer src="tutor-guide.js"></script>'));
+});
+
 test('learning progress is private and self-reported',()=>{
   assert.ok(app.includes('permittedIds.has(key) && value===true'));
   assert.ok(app.includes('stt-academia-progress'));
