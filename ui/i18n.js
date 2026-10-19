@@ -426,6 +426,50 @@
     try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
   }
 
+
+  // Historically commissioned three-language landing: the full programme is a
+  // five-year curricular roadmap; only the original four courses have lessons.
+  // Never claim that a checksum is a signed academic diploma.
+  Object.assign(I18N.pt, {
+    "five.label": "NOVA ACADEMIA · PERCURSO DE 5 ANOS",
+    "five.title": "Cibersegurança · Desenvolvimento Web · PT / ES / EN",
+    "five.subtitle": "10 semestres, 60 disciplinas e 240 unidades de aprendizagem planejadas. Tutor com voz e horários de Rio, Barcelona e Dublin. Sem diplomas oficiais.",
+    "five.cta": "Entrar na academia digital ↗",
+    "about.p1": "<strong>Quem somos.</strong> Um projeto educativo digital independente, dedicado à cibersegurança, desenvolvimento web, IA responsável e idiomas. O campus de entrada é aberto, sem conta obrigatória; o programa de cinco anos ainda está em construção.",
+    "about.p2": "<strong>O que fazemos.</strong> Reunimos quatro cursos originais de 20 semanas com aulas e projetos e construímos uma matriz de cinco anos com novas disciplinas, competências e práticas. As novas disciplinas são planos de estudo, não aulas integralmente produzidas. Nenhum diploma universitário oficial é emitido.",
+    "about.p3": "<strong>Por que existimos.</strong> O criador encontrou no amor a inspiração inicial desta ideia: transformar o que sentiu em uma oportunidade de aprender para outras pessoas, sem pedir reconhecimento por isso.",
+    "courses.h2": "Quatro cursos com aulas. Uma academia que continua crescendo.",
+    "courses.lead": "As quatro disciplinas originais têm percursos de 20 semanas. A academia estende o mapa a dez semestres em cibersegurança, web e idiomas — veja o novo portal.",
+    "access.s3d": "Registre seu próprio progresso e gere uma constância local de integridade SHA-256. Não é diploma emitido por instituição nem prova de aprendizagem.",
+    "doc.desc": "Campus digital independente: quatro cursos com aulas e roteiro curricular de cinco anos em cibersegurança, desenvolvimento web e idiomas. Sem títulos oficiais."
+  });
+  Object.assign(I18N.es, {
+    "five.label": "NUEVA ACADEMIA · ITINERARIO DE 5 AÑOS",
+    "five.title": "Ciberseguridad · Desarrollo web · PT / ES / EN",
+    "five.subtitle": "10 semestres, 60 asignaturas y 240 unidades planificadas. Tutor con voz y husos de Río, Barcelona y Dublín. Sin títulos oficiales.",
+    "five.cta": "Entrar en la academia digital ↗",
+    "about.p1": "<strong>Quiénes somos.</strong> Un proyecto educativo digital independiente sobre ciberseguridad, desarrollo web, IA responsable e idiomas. El campus está abierto y el itinerario de cinco años sigue en construcción.",
+    "about.p2": "<strong>Qué hacemos.</strong> Ofrecemos cuatro cursos originales con veinte semanas de contenidos y desarrollamos una malla de cinco años con asignaturas, actividades y competencias previstas. Las asignaturas nuevas todavía no son clases completas. No se emiten títulos universitarios oficiales.",
+    "about.p3": "<strong>Por qué existimos.</strong> El amor fue la inspiración inicial de quien creó esta idea: convertir algo íntimo en una oportunidad de aprender para otras personas, sin buscar reconocimiento.",
+    "courses.h2": "Cuatro cursos con clases. Una academia en expansión.",
+    "courses.lead": "Los cuatro cursos originales incluyen veinte semanas de contenido. La nueva academia extiende la planificación a diez semestres de ciberseguridad, web e idiomas.",
+    "access.s3d": "Registra tu progreso local y genera una constancia SHA-256 de integridad. No es un título expedido por una institución ni prueba de aprendizaje.",
+    "doc.desc": "Campus abierto con cuatro cursos y programa de cinco años en desarrollo. Ciberseguridad, desarrollo web e idiomas, sin títulos oficiales."
+  });
+  Object.assign(I18N.en, {
+    "five.label": "NEW ACADEMY · FIVE-YEAR ROADMAP",
+    "five.title": "Cybersecurity · Web Development · PT / ES / EN",
+    "five.subtitle": "Ten semesters, 60 planned subjects and 240 learning units. Voice-enabled tutor and Rio, Barcelona and Dublin time zones. No accredited degrees.",
+    "five.cta": "Enter the digital academy ↗",
+    "about.p1": "<strong>Who we are.</strong> An independent digital learning project for cybersecurity, web development, responsible AI and languages. The campus is open; the five-year curriculum is in development.",
+    "about.p2": "<strong>What we do.</strong> Four original courses contain twenty weeks of lessons each. The five-year pathway adds planned subjects, activities and competencies. New subjects are syllabi, not yet complete lectures. No accredited university degrees are issued.",
+    "about.p3": "<strong>Why we exist.</strong> Love was the creator's first inspiration: turning something personal into learning opportunities for others, without asking for recognition.",
+    "courses.h2": "Four lesson-based courses. A growing academy.",
+    "courses.lead": "The original four courses contain twenty weeks of content each. The academy extends the planned pathway to ten semesters across cybersecurity, web and languages.",
+    "access.s3d": "Track your learning locally and create a SHA-256 integrity record. This is not an institutionally issued credential or proof of learning.",
+    "doc.desc": "Open digital campus with four lesson-based courses and a five-year curriculum in development. Cybersecurity, web and languages, no accredited degrees."
+  });
+
   window.SecureTI18n = {
     LANGS: LANGS,
     DEFAULT_LANG: DEFAULT_LANG,
