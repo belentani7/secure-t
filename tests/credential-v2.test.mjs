@@ -9,6 +9,11 @@ const html = readFileSync(resolve('campus/credencial.html'), 'utf8');
 const scripts = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)];
 assert.equal(scripts.length, 1, 'the static credential contains exactly one inline script');
 
+test('v2 receipt uses a versioned, domain-separated checksum input', () => {
+  assert.match(html, /secure-t\\/v2/);
+  assert.doesNotMatch(html, /secure-t\\/v1/);
+});
+
 function instance({ complete = true, token = 'anon-example-course-2026', evidence = 'Portfolio and reflections' } = {}) {
   const milestones = Array.from({ length: 20 }, (_, i) => `semana-${String(i + 1).padStart(2, '0')}`)
     .concat(['quiz', 'laboratorio', 'proyecto', 'examen']);
