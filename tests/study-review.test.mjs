@@ -65,7 +65,7 @@ test('review feedback is only shown after explicit reveal and persists due date 
   assert.equal(page.controls['review-solution'].hidden,true);
   assert.match(page.controls['review-count'].textContent,/1\/96/);
 });
-test('a language click changes the active review's question',()=>{
+test('switching language translates the active study-review question',()=>{
   const page=boot();
   page.doc.documentElement.lang='es';
   page.languages[1].click();
