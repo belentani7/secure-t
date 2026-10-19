@@ -272,7 +272,9 @@
   }
   function renderStats(){
     el("count-courses").textContent=String(dataset.courses.length);
-    el("count-progress").textContent=(Math.round(Object.keys(progress).length/permittedIds.size*100))+"%";
+    const value=Object.keys(progress).length/permittedIds.size*100;
+    // The first completed unit is 0.4% of the roadmap: never display 0%.
+    el("count-progress").textContent=(value>0&&value<1?value.toFixed(1):String(Math.round(value)))+"%";
   }
   const zoneFormats=[
     ["rio","America/Sao_Paulo"],["barcelona","Europe/Madrid"],["dublin","Europe/Dublin"]
