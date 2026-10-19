@@ -49,6 +49,10 @@
   Object.assign(WORDS.pt,{"resources.watch":"Assistir aqui ▶","resources.videoPrivacy":"O player do YouTube só carrega após clicar. Políticas de terceiros podem aplicar-se; a fonte original continua disponível."});
   Object.assign(WORDS.es,{"resources.watch":"Ver aquí ▶","resources.videoPrivacy":"El reproductor de YouTube solo se carga al pulsar. Pueden aplicarse políticas de terceros; la fuente original sigue disponible."});
   Object.assign(WORDS.en,{"resources.watch":"Watch here ▶","resources.videoPrivacy":"The YouTube player only loads after you click. Third-party policies may apply; the original resource remains available."});
+
+  Object.assign(WORDS.pt,{"progress.note":"Seu caderno e seus marcos ficam apenas no navegador. Exporte para continuar em outro dispositivo. Não inclua segredos nas anotações.","progress.export":"Exportar caderno JSON","progress.import":"Importar caderno JSON","progress.importOk":"Caderno importado com validação.","progress.importBad":"Ficheiro inválido (máx. 1 MiB).","progress.exportOk":"Caderno exportado.","detail.notes":"Evidência de estudo (mínimo de 80 caracteres para autodeclarar esta unidade):"});
+  Object.assign(WORDS.es,{"progress.note":"Tu cuaderno y tu progreso se guardan solo en el navegador. Exporta una copia para seguir en otro dispositivo. No guardes secretos.","progress.export":"Exportar cuaderno JSON","progress.import":"Importar cuaderno JSON","progress.importOk":"Cuaderno importado y validado.","progress.importBad":"Archivo no válido (máx. 1 MiB).","progress.exportOk":"Cuaderno exportado.","detail.notes":"Evidencia de estudio (mínimo 80 caracteres para marcar esta unidad):"});
+  Object.assign(WORDS.en,{"progress.note":"Your notebook and progress live only in this browser. Export a copy to continue on another device. Never store secrets.","progress.export":"Export notebook JSON","progress.import":"Import notebook JSON","progress.importOk":"Notebook validated and imported.","progress.importBad":"Invalid file (max 1 MiB).","progress.exportOk":"Notebook exported.","detail.notes":"Study evidence (at least 80 characters before self-reporting this unit):"});
   const el = id => document.getElementById(id);
   const text = (node,value) => { node.textContent = String(value); return node; };
   const make = (tag,cls) => { const node=document.createElement(tag); if(cls)node.className=cls; return node; };
@@ -65,6 +69,14 @@
       for(const [key,value] of Object.entries(candidate))if(permittedIds.has(key) && value===true)progress[key]=true;
     }
   }catch{progress={}}
+  let evidence={};
+  try {
+    const stored=JSON.parse(persist("stt-academia-evidence")||"{}");
+    if(stored && typeof stored==="object" && !Array.isArray(stored)){
+      for(const [key,value] of Object.entries(stored))
+        if(permittedIds.has(key)&&typeof value==="string"&&value.length<=4000)evidence[key]=value;
+    }
+  }catch{evidence={}}
   const tr=(key,args={}) => (WORDS[lang][key] || WORDS.pt[key] || key).replace(/\{(\w+)\}/g,(_,x)=>String(args[x]??""));
   const tracks = () => ({cyber:tr("filter.cyber"),web:tr("filter.web"),languages:tr("filter.languages")});
   const append=(parent,child)=>{parent.appendChild(child);return child};
@@ -132,10 +144,26 @@
       text(append(col,make("h4")),topic);
       text(append(col,make("p")),tr("detail.guide"));
       const extra=append(col,make("p"));extra.style.marginTop="7px";extra.textContent=tr("detail.activity");
-      const checkbox=append(card,make("label"));
-      const input=append(checkbox,make("input"));input.type="checkbox";input.checked=Boolean(progress[c.id+"/"+i]);input.setAttribute("aria-label",topic+" · "+tr("detail.mark"));
+      const key=c.id+"/"+i;
+      const notebook=append(card,make("div","lesson-notebook"));
+      const label=append(notebook,make("label"));label.textContent=tr("detail.notes");label.htmlFor="evidence-"+key;
+      const field=append(notebook,make("textarea"));field.id="evidence-"+key;field.maxLength=4000;field.rows=4;field.value=evidence[key]||"";
+      field.placeholder=tr("detail.guide");
+      const checkbox=append(notebook,make("label","lesson-complete"));
+      const input=append(checkbox,make("input"));input.type="checkbox";input.checked=Boolean(progress[key]);input.disabled=field.value.trim().length<80;input.setAttribute("aria-label",topic+" · "+tr("detail.mark"));
       append(checkbox,make("span")).textContent=tr("detail.mark");
-      input.addEventListener("change",()=>{const key=c.id+"/"+i;if(input.checked)progress[key]=true;else delete progress[key];save("stt-academia-progress",JSON.stringify(progress));renderStats()});
+      field.addEventListener("input",()=>{
+        evidence[key]=field.value;
+        save("stt-academia-evidence",JSON.stringify(evidence));
+        if(field.value.trim().length<80){
+          input.disabled=true;if(input.checked){input.checked=false;delete progress[key];save("stt-academia-progress",JSON.stringify(progress));renderStats();}
+        }else input.disabled=false;
+      });
+      input.addEventListener("change",()=>{
+        if(field.value.trim().length<80){input.checked=false;return;}
+        if(input.checked)progress[key]=true;else delete progress[key];
+        save("stt-academia-progress",JSON.stringify(progress));renderStats();
+      });
     });
     const refs=el("detail-resources");refs.replaceChildren();
     for(const id of c.resources){const r=dataset.resources.find(x=>x.id===id);if(!r)continue;const a=append(refs,make("a"));a.href=r.url;a.target="_blank";a.rel="noopener noreferrer";a.textContent=r.creator+" ↗";}
@@ -174,6 +202,44 @@
     frame.setAttribute("allow","accelerometer; encrypted-media; gyroscope; picture-in-picture");
     text(el("video-title"),title);
     area.hidden=false;area.scrollIntoView({behavior:"smooth",block:"center"});
+  }
+  function setupNotebook(){
+    const status=el("data-status");
+    const announce=message=>{status.textContent=message};
+    el("export-progress").addEventListener("click",()=>{
+      const data={version:1,progress,evidence};
+      const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+      const url=URL.createObjectURL(blob);
+      const link=make("a");link.href=url;link.download="secure-t-caderno.json";document.body.appendChild(link);link.click();link.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),5000);
+      announce(tr("progress.exportOk"));
+    });
+    el("import-progress").addEventListener("click",()=>el("import-file").click());
+    el("import-file").addEventListener("change",async event=>{
+      const file=event.target.files?.[0];event.target.value="";
+      if(!file||file.size>1024*1024){announce(tr("progress.importBad"));return;}
+      try{
+        const incoming=JSON.parse(await file.text());
+        if(!incoming||incoming.version!==1||typeof incoming.progress!=="object"||!incoming.progress||
+           Array.isArray(incoming.progress)||typeof incoming.evidence!=="object"||!incoming.evidence||
+           Array.isArray(incoming.evidence))throw Error("schema");
+        const nextEvidence={}, nextProgress={};
+        if(Object.keys(incoming.progress).length>240||Object.keys(incoming.evidence).length>240)throw Error("entries");
+        for(const [key,value] of Object.entries(incoming.evidence)){
+          if(!permittedIds.has(key)||typeof value!=="string"||value.length>4000)throw Error("evidence");
+          nextEvidence[key]=value;
+        }
+        for(const [key,value] of Object.entries(incoming.progress)){
+          if(!permittedIds.has(key)||value!==true||(nextEvidence[key]||"").trim().length<80)throw Error("progress");
+          nextProgress[key]=true;
+        }
+        evidence=nextEvidence;progress=nextProgress;
+        save("stt-academia-evidence",JSON.stringify(evidence));
+        save("stt-academia-progress",JSON.stringify(progress));
+        renderStats();if(selected)renderDetail();
+        announce(tr("progress.importOk"));
+      }catch{announce(tr("progress.importBad"));}
+    });
   }
   function renderStats(){
     el("count-courses").textContent=String(dataset.courses.length);
@@ -287,5 +353,5 @@
   if("serviceWorker" in navigator && location.protocol!=="file:"){
     navigator.serviceWorker.register("../sw.js").catch(()=>{});
   }
-  setupTutor();setLang(lang);renderStats();renderClocks();setInterval(renderClocks,30000);
+  setupNotebook();setupTutor();setLang(lang);renderStats();renderClocks();setInterval(renderClocks,30000);
 })();
