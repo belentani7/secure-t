@@ -95,7 +95,7 @@
     const guide=guides[course.id+"/"+guideIndex];
     const vars={course:course.title[language],topic,semester:course.semester};
     const recognizedIntent=/(quiz|test|pergunta|pregunta|question|desafio|challenge|reto|exame|preguntame)/.test(q)?"quiz":
-       /(exerc|pratic|pract|actividad|laboratori|exercise|projeto|project|tarea)/.test(q)?"practice":
+       /(exerc|ejerc|pratic|pract|actividad|laboratori|exercise|projeto|project|tarea)/.test(q)?"practice":
        /(fonte|fuente|source|bibliograf|referenc|video|youtu|lesson|aula|clase)/.test(q)?"sources":
        /(plano|plan|roteiro|itiner|ruta|roadmap|semestre|semester)/.test(q)?"plan":
        /(feedback|corrig|revis|review|evalua|avalie|check my)/.test(q)?"review":
