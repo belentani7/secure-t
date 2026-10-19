@@ -14,6 +14,8 @@ servicio online disponible.
 
 El campus incluye **72 de 240 unidades** con lectura propia y práctica específica en portugués, español e inglés, repartidas entre semestres 1, 2 y 3. Las restantes 168 son itinerarios planificados; el programa de cinco años sigue incompleto y no equivale a una titulación académica acreditada. El tutor y el repaso son orientaciones educativas locales, no calificaciones de profesorado.
 
+**Nuevo laboratorio real:** comparación SHA-256 local mediante `crypto.subtle.digest`, con tres idiomas, valores de prueba y pruebas de regresión en `tests/lab-hash.test.mjs`. El cálculo de hashes no implica una firma digital o acreditación. El código no hace llamadas de red.
+
 **Prueba aislada ejecutada:** JavaScript del contenido y de repaso cargado sobre entorno simulado, 72 claves válidas, sin lecturas o actividades ausentes, transición de repaso y traducción al español sin errores. **Pendiente:** tests completos de Python, Node y Playwright, validación accesibilidad manual, seguridad de despliegue, firma de credenciales y revisión académica externa.
 
 La fuente `drivedopobre.com.br` indicada como candidata no se pudo inspeccionar en línea. No se han descargado ni republicado contenidos sin comprobar autoría o licencias.
