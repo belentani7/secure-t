@@ -71,6 +71,9 @@
     "detail.planned":"This unit is a developing syllabus. Complete teaching material has not yet been written.",
     "filter.authored":"authored lessons","filter.syllabus":"developing syllabus"
   });
+  Object.assign(WORDS.pt,{"hero.authored":"{n} unidades com aulas e atividades originais · {remaining} planos em desenvolvimento."});
+  Object.assign(WORDS.es,{"hero.authored":"{n} unidades con clases y actividades propias · {remaining} temarios en preparación."});
+  Object.assign(WORDS.en,{"hero.authored":"{n} units with original readings and activities · {remaining} developing syllabi."});
   const el = id => document.getElementById(id);
   const text = (node,value) => { node.textContent = String(value); return node; };
   const make = (tag,cls) => { const node=document.createElement(tag); if(cls)node.className=cls; return node; };
@@ -105,6 +108,8 @@
     lang=next;save("stt-academia-lang",lang);document.documentElement.lang=lang==="pt"?"pt-BR":lang;
     document.querySelectorAll("[data-i18n]").forEach(node=>{ const v=WORDS[lang][node.dataset.i18n];if(v!==undefined)text(node,v); });
     document.querySelectorAll("[data-lang]").forEach(node=>node.setAttribute("aria-pressed",String(node.dataset.lang===lang)));
+    const authored=Object.keys(authoredGuides).filter(key=>permittedIds.has(key)).length;
+    text(el("authored-count"),tr("hero.authored",{n:authored,remaining:permittedIds.size-authored}));
     el("search-courses").placeholder=tr("courses.searchPlaceholder");
     el("tutor-input").placeholder=tr("tutor.placeholder");
     el("tutor-engine").textContent=tr(aiSession?"tutor.engineAI":"tutor.engine");
