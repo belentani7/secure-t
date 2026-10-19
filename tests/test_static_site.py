@@ -151,3 +151,23 @@ def test_credentials_are_only_local_integrity_not_institutional_claims():
     assert "canonico(block.curso, block.sujeto, block.evidencia, block.fecha)" in page
     assert 'token: t.slice' not in page
     assert "NO acredita emisor, identidad ni aprendizaje." in page
+
+
+def test_legacy_remote_securetea_docker_is_not_used():
+    docker = (ROOT / "Dockerfile").read_text(encoding="utf-8")
+    railway = (ROOT / "railway.json").read_text(encoding="utf-8")
+    assert "node:22-" in docker
+    assert "USER node" in docker
+    assert "--frozen-lockfile" in docker
+    assert "SecureTea-Project" not in docker
+    assert "code-server" not in docker
+    assert "node dist/index.js" not in railway
+    assert "index.ts" in railway
+
+
+def test_local_services_require_secrets_and_do_not_listen_publicly():
+    compose = (ROOT / "docker-compose.yml").read_text(encoding="utf-8")
+    for variable in ("POSTGRES_PASSWORD", "MINIO_ROOT_USER", "MINIO_ROOT_PASSWORD"):
+        assert "${" + variable + ":?" in compose
+    for port in ("5432", "6379", "9000", "9001"):
+        assert "127.0.0.1:" + port + ":" + port in compose
