@@ -46,6 +46,9 @@
       "filter.all":"All","filter.year":"Year {n}","filter.cyber":"Cybersecurity","filter.web":"Web development","filter.languages":"Languages","filter.result":"{n} subject(s) · current selection","filter.open":"Explore modules ↗","filter.modules":"4 units · {hours} planned hours","filter.semester":"Semester {n}","detail.assessment":"Project & evidence","detail.ask":"Ask about this subject","detail.policy":"Checking a module records a local self-report, not course approval, external assessment or a credential.","detail.label":"COURSE SYLLABUS","detail.outcome":"Learning objective","detail.lesson":"Unit {n}","detail.activity":"Exercise: explain the concept in your own words, compare two approaches and produce a traceable example in an authorized environment.","detail.mark":"I studied and documented evidence","detail.guide":"Guiding question: what problem does this concept solve, what are its limitations and how would you demonstrate it?","detail.reference":"Related references","detail.back":"Close details","resources.visit":"Open source ↗","resources.language":"Language","resources.external":"External resource"
     }
   };
+  Object.assign(WORDS.pt,{"resources.watch":"Assistir aqui ▶","resources.videoPrivacy":"O player do YouTube só carrega após clicar. Políticas de terceiros podem aplicar-se; a fonte original continua disponível."});
+  Object.assign(WORDS.es,{"resources.watch":"Ver aquí ▶","resources.videoPrivacy":"El reproductor de YouTube solo se carga al pulsar. Pueden aplicarse políticas de terceros; la fuente original sigue disponible."});
+  Object.assign(WORDS.en,{"resources.watch":"Watch here ▶","resources.videoPrivacy":"The YouTube player only loads after you click. Third-party policies may apply; the original resource remains available."});
   const el = id => document.getElementById(id);
   const text = (node,value) => { node.textContent = String(value); return node; };
   const make = (tag,cls) => { const node=document.createElement(tag); if(cls)node.className=cls; return node; };
@@ -147,7 +150,30 @@
       text(append(article,make("h3")),r.title);
       text(append(article,make("p")),r.creator+" · "+tr("resources.external"));
       const link=append(article,make("a"));link.href=r.url;link.rel="noopener noreferrer";link.target="_blank";link.textContent=tr("resources.visit");
+      // Privacy: activate third-party iframe only in response to an explicit user click.
+      try{
+        const original=new URL(r.url);
+        const id=original.hostname==="www.youtube.com" && original.pathname==="/watch"
+          ? original.searchParams.get("v") : null;
+        if(id && /^[a-zA-Z0-9_-]{11}$/.test(id)){
+          append(article,button(tr("resources.watch"),"watch-button",()=>openVideo(id,r.title)));
+        }
+      }catch{ /* External references may be unavailable offline. */ }
     }
+  }
+  function openVideo(id,title){
+    if(!/^[A-Za-z0-9_-]{11}$/.test(id))return;
+    const area=el("video-viewer"),mount=el("video-mount");
+    mount.replaceChildren();
+    const frame=append(mount,make("iframe"));
+    frame.src="https://www.youtube-nocookie.com/embed/"+id+"?rel=0";
+    frame.title=title+" — YouTube";
+    frame.setAttribute("allowfullscreen","");
+    frame.setAttribute("loading","lazy");
+    frame.setAttribute("referrerpolicy","strict-origin-when-cross-origin");
+    frame.setAttribute("allow","accelerometer; encrypted-media; gyroscope; picture-in-picture");
+    text(el("video-title"),title);
+    area.hidden=false;area.scrollIntoView({behavior:"smooth",block:"center"});
   }
   function renderStats(){
     el("count-courses").textContent=String(dataset.courses.length);
@@ -254,6 +280,9 @@
   el("search-courses").addEventListener("input",e=>{search=e.target.value.slice(0,120);renderCourses();});
   el("close-detail").addEventListener("click",()=>{el("course-detail").hidden=true;selected=null;});
   document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!el("course-detail").hidden){el("course-detail").hidden=true;selected=null;}});
+  el("video-close").addEventListener("click",()=>{
+    el("video-mount").replaceChildren();el("video-viewer").hidden=true;
+  });
   el("year").textContent=String(new Date().getFullYear());
   setupTutor();setLang(lang);renderStats();renderClocks();setInterval(renderClocks,30000);
 })();
