@@ -80,6 +80,9 @@
   Object.assign(WORDS.pt,{"privacy.clear":"Apagar dados de estudo","privacy.confirm":"Apagar definitivamente o caderno de estudo e as revisões guardadas neste dispositivo? Esta ação não pode ser desfeita. Exporte antes se quiser conservar uma cópia.","privacy.cleared":"Dados académicos locais apagados. A preferência de idioma foi preservada.","privacy.storageBad":"Não foi possível gravar todos os dados neste navegador. O armazenamento pode estar cheio ou bloqueado."});
   Object.assign(WORDS.es,{"privacy.clear":"Borrar datos de estudio","privacy.confirm":"¿Borrar permanentemente notas, progreso y repasos guardados en este dispositivo? No se puede deshacer. Exporta antes si quieres conservar una copia.","privacy.cleared":"Datos académicos locales borrados. Se conserva el idioma elegido.","privacy.storageBad":"No se pudieron guardar todos los datos en este navegador. Puede estar lleno o bloqueado."});
   Object.assign(WORDS.en,{"privacy.clear":"Erase learning data","privacy.confirm":"Permanently erase notes, progress and reviews saved on this device? This cannot be undone. Export first if you want a backup.","privacy.cleared":"Local learning data erased. Your language preference is preserved.","privacy.storageBad":"Not all data could be saved on this browser. Storage may be full or disabled."});
+  Object.assign(WORDS.pt,{"check.short":"Testar compreensão"});
+  Object.assign(WORDS.es,{"check.short":"Comprobar comprensión"});
+  Object.assign(WORDS.en,{"check.short":"Check understanding"});
   const el = id => document.getElementById(id);
   const text = (node,value) => { node.textContent = String(value); return node; };
   const make = (tag,cls) => { const node=document.createElement(tag); if(cls)node.className=cls; return node; };
@@ -434,6 +437,12 @@
       document.querySelector(".tutor-portrait").classList.remove("speaking");
     });
     el("open-tutor").addEventListener("click",()=>el("tutor").scrollIntoView({behavior:"smooth"}));
+    el("course-self-check").addEventListener("click",()=>{
+      if(!selected)return;
+      if(!window.SecureTFormative?.selectCourse(selected.id)){
+        el("autoevaluacao").scrollIntoView({behavior:"smooth"});
+      }
+    });
     el("ask-course").addEventListener("click",()=>{
       el("tutor").scrollIntoView({behavior:"smooth"});
       if(selected)el("tutor-input").value=selected.title[lang]+" — "+localizedTopics(selected)[0]+"?";
