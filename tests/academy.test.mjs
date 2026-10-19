@@ -78,6 +78,25 @@ test('every learning unit has native PT, ES and EN topic titles',()=>{
   assert.ok(app.includes('localizedTopics(c).forEach'));
 });
 
+test('first-semester original lessons include reading and exercises in all three languages',()=>{
+  const guideSource=readFileSync(new URL('../campus/academia/lesson-content.js',import.meta.url),'utf8');
+  const guideContext=createContext({window:{}});
+  new Script(guideSource,{filename:'academy/lesson-content.js'}).runInContext(guideContext);
+  const guides=guideContext.window.SecureTStudyGuides;
+  const ids=Object.keys(guides);
+  assert.equal(ids.length,24);
+  for(const id of ids){
+    assert.ok(academy.courses.some(c=>c.id===id.split('/')[0] && c.semester===1));
+    for(const language of ['pt','es','en']){
+      assert.ok(guides[id].read[language].length>=100,id+' reading '+language);
+      assert.ok(guides[id].exercise[language].length>=60,id+' activity '+language);
+    }
+  }
+  assert.ok(html.includes('<script defer src="lesson-content.js"></script>'));
+  assert.ok(app.includes('authoredGuides[key]'));
+  assert.ok(app.includes('detail.planned'));
+});
+
 test('learning progress is private and self-reported',()=>{
   assert.ok(app.includes('permittedIds.has(key) && value===true'));
   assert.ok(app.includes('stt-academia-progress'));
