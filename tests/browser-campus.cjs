@@ -29,6 +29,23 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   }
   await page.goto(base + '/campus/progreso.html');
   assert.equal(await page.locator('input[type="checkbox"]:checked').count(), courses.length);
+  // Broken browser storage must not crash progress or permit malformed imports.
+  const previousProgress = await page.evaluate(() => localStorage.getItem('stt-progreso'));
+  await page.evaluate(() => localStorage.setItem('stt-progreso', '{not-json'));
+  await page.reload();
+  assert.deepEqual(errors, [], 'Corrupted localStorage must be handled safely');
+  const uploadPromise = page.waitForEvent('filechooser');
+  await page.locator('#importar').click();
+  const chooser = await uploadPromise;
+  await chooser.setFiles({
+    name: 'malformed-progress.json', mimeType: 'application/json',
+    buffer: Buffer.from(JSON.stringify({version:1,estado:{"outside/unsafe":true}})),
+  });
+  assert.match(await page.locator('#estado').innerText(), /No se pudo importar/);
+  await page.evaluate(previous => localStorage.setItem('stt-progreso', previous), previousProgress);
+  await page.reload();
+  assert.deepEqual(errors, [], 'Restoring progress must not create JS errors');
+
   // Exercise the complete local-only verification path; never mistake a hash
   // for an issuer's signature or a diploma.
   await page.evaluate(() => {
