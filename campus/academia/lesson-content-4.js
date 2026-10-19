@@ -191,5 +191,197 @@
     "scope": "fourth semester",
     "estimatedStudyMinutes": 105,
     "review": "editorial-review-needed"
+  },
+  "ST-044/0": {
+    "read": {
+      "pt": "TypeScript explicita contratos e estados de código durante a compilação, mas os tipos deixam de existir quando JavaScript é executado. Dados recebidos de APIs precisam de verificação em runtime. Uniões discriminadas tornam estados de carregamento, sucesso e erro mais previsíveis.",
+      "es": "TypeScript define contratos y estados durante la compilación, pero los tipos desaparecen al ejecutar JavaScript. Las entradas de API deben validarse en tiempo real. Las uniones discriminadas permiten modelar carga, éxito y fallo.",
+      "en": "TypeScript expresses compile-time contracts and states, but types vanish at runtime. API responses still require validation. Discriminated unions make loading, success, and failure states easier to model and test."
+    },
+    "exercise": {
+      "pt": "Modele um catálogo de cursos com união discriminada de sucesso, carregamento e falha. Descreva onde validaria uma resposta JSON desconhecida.",
+      "es": "Modela un catálogo con estados de carga, éxito y error y explica dónde validarías una respuesta JSON desconocida.",
+      "en": "Model a course catalog with loading, success, and failure states; explain where an unknown JSON response is validated."
+    },
+    "status": "authored",
+    "scope": "fourth semester",
+    "estimatedStudyMinutes": 105,
+    "review": "editorial-review-needed"
+  },
+  "ST-044/1": {
+    "read": {
+      "pt": "React permite construir interfaces a partir de componentes com propriedades e estado. Separação coerente de responsabilidades facilita testes e acessibilidade. O estado partilhado deve ter um proprietário claro e efeitos assíncronos devem impedir que respostas antigas substituam resultados recentes.",
+      "es": "React compone interfaces con propiedades y estado. Separar responsabilidades ayuda al mantenimiento y a la accesibilidad. El estado compartido necesita un dueño claro, y los efectos deben evitar que una respuesta antigua sobrescriba información actual.",
+      "en": "React composes interfaces from components with props and state. Clear boundaries improve maintainability, testing, and accessibility. Shared state should have an obvious owner and asynchronous effects should prevent stale results from replacing new data."
+    },
+    "exercise": {
+      "pt": "Desenhe quatro componentes para uma biblioteca de aulas. Defina quem guarda filtros, resultados e erro e como impedir uma atualização assíncrona obsoleta.",
+      "es": "Dibuja cuatro componentes para una biblioteca. Define dónde viven filtros, resultados y errores y cómo descartar respuestas obsoletas.",
+      "en": "Diagram four components for a lecture library. Specify where filters, results, and errors live and how to discard stale asynchronous responses."
+    },
+    "status": "authored",
+    "scope": "fourth semester",
+    "estimatedStudyMinutes": 105,
+    "review": "editorial-review-needed"
+  },
+  "ST-044/2": {
+    "read": {
+      "pt": "Um servidor Node recebe pedidos e deve verificar identidade, autorização, formatos e limites antes de operar. Erros precisam de respostas claras sem expor detalhes internos. Chaves de serviços externos pertencem ao servidor e nunca ao código entregue ao navegador.",
+      "es": "Un servidor Node debe comprobar identidad, autorización, formatos y límites antes de actuar. Los errores necesitan respuestas consistentes sin filtrar detalles internos. Las claves externas solo deben residir en servidor.",
+      "en": "A Node server should verify identity, authorization, formats, and limits before performing operations. Errors need consistent responses without leaking internals. External service keys belong on the server, never inside browser bundles."
+    },
+    "exercise": {
+      "pt": "Desenhe o fluxo de um endpoint de tutoria fictício com validação, quota, autorização e timeout. Defina respostas 400, 401 e 429.",
+      "es": "Diseña el flujo de una API ficticia de tutor con validación, cuota y timeout, incluyendo 400, 401 y 429.",
+      "en": "Diagram a fictional tutor endpoint with validation, quota, authorization, and timeout handling. Specify 400, 401, and 429 responses."
+    },
+    "status": "authored",
+    "scope": "fourth semester",
+    "estimatedStudyMinutes": 105,
+    "review": "editorial-review-needed"
+  },
+  "ST-044/3": {
+    "read": {
+      "pt": "Um teste end-to-end percorre ações reais do utilizador e verifica o resultado observável. Navegação, idioma, erros, persistência e acessibilidade fazem parte do contrato. Uma captura de ecrã isolada ou a ausência de exceções não prova que uma tarefa foi concluída.",
+      "es": "Las pruebas de extremo a extremo recorren acciones reales y comprueban resultados visibles. Navegación, idioma, fallos, persistencia y accesibilidad forman el contrato. Una captura o ausencia de errores no prueba que funcione el flujo.",
+      "en": "End-to-end testing follows real user actions and checks observable outcomes. Navigation, language, errors, persistence, and accessibility form part of the contract. A screenshot or absence of exceptions alone does not prove a journey works."
+    },
+    "exercise": {
+      "pt": "Crie uma especificação Playwright para entrar em português, estudar um módulo, guardar evidência, alternar para espanhol e recarregar sem perder dados.",
+      "es": "Diseña una prueba Playwright que entre en portugués, guarde evidencia, cambie a español y recargue conservando el progreso.",
+      "en": "Specify a Playwright journey: enter in Portuguese, study a module, save evidence, switch to Spanish, and reload without losing progress."
+    },
+    "status": "authored",
+    "scope": "fourth semester",
+    "estimatedStudyMinutes": 105,
+    "review": "editorial-review-needed"
+  },
+  "ST-045/0": {
+    "read": {
+      "pt": "Nuvem oferece recursos sob procura com responsabilidades divididas entre fornecedor e cliente. Identidade, rede, região de dados, resiliência e custos devem ser definidos antes do lançamento. O serviço estático e a API de tutoria têm perfis de risco e custo distintos.",
+      "es": "La nube ofrece recursos bajo demanda con responsabilidades compartidas. Identidad, red, región de datos, resiliencia y costes deben planificarse antes de lanzar. Un sitio estático y una API de tutor tienen riesgos distintos.",
+      "en": "Cloud delivers on-demand resources under a shared responsibility model. Identity, networking, data residency, resilience, and costs require planning. A static learning site and a tutor API have distinct risk and cost profiles."
+    },
+    "exercise": {
+      "pt": "Compare um campus estático e um tutor em servidor num cenário imaginário. Indique responsabilidades, custos, residência de dados e como suspender despesas.",
+      "es": "Compara campus estático y API de tutor ficticios: responsabilidades, costes, residencia y mecanismos para detener gastos.",
+      "en": "Compare a fictional static campus and server-side tutor API: responsibilities, cost drivers, data location, and a shutdown strategy."
+    },
+    "status": "authored",
+    "scope": "fourth semester",
+    "estimatedStudyMinutes": 105,
+    "review": "editorial-review-needed"
+  },
+  "ST-045/1": {
+    "read": {
+      "pt": "Containers agrupam aplicação e dependências, mas não fornecem isolamento absoluto do host. Imagens mínimas, utilizador não privilegiado, versões fixadas e portas limitadas reduzem a exposição. Os segredos nunca devem ser copiados para as camadas da imagem.",
+      "es": "Los contenedores empaquetan aplicaciones y dependencias sin ofrecer aislamiento perfecto del anfitrión. Imágenes mínimas, usuario no privilegiado, versiones fijas y puertos restringidos reducen exposición. Las claves no deben integrarse en las capas.",
+      "en": "Containers package applications and dependencies without being perfect host isolation boundaries. Minimal images, non-root users, pinned packages, and restricted ports reduce exposure. Secrets must not be copied into image layers."
+    },
+    "exercise": {
+      "pt": "Esboce um Dockerfile multi-stage fictício com utilizador não root e portas limitadas. Explique como verificaria a presença de segredos antes de publicar.",
+      "es": "Dibuja un Dockerfile ficticio multi-etapa con usuario no root y puertos mínimos. Explica cómo detectarías secretos antes de publicarlo.",
+      "en": "Sketch a fictional multi-stage Dockerfile with a non-root user and restricted ports. Explain how to scan for secrets before release."
+    },
+    "status": "authored",
+    "scope": "fourth semester",
+    "estimatedStudyMinutes": 105,
+    "review": "editorial-review-needed"
+  },
+  "ST-045/2": {
+    "read": {
+      "pt": "Configurações públicas e segredos privados precisam de tratamentos distintos. Uma variável incorporada no JavaScript enviado ao navegador deve ser considerada pública. Serviços sensíveis exigem gestor de segredos, controlo de acesso e rotação após qualquer suspeita de exposição.",
+      "es": "La configuración pública y los secretos privados requieren controles diferentes. Una variable incluida en JavaScript del navegador es pública. Las claves sensibles necesitan almacén seguro, permisos y rotación cuando se expongan.",
+      "en": "Public settings and private secrets require different handling. Variables bundled into browser JavaScript are effectively public. Sensitive keys need secure stores, restricted access, and rotation after suspected exposure."
+    },
+    "exercise": {
+      "pt": "Monte uma matriz de variáveis de ambiente fictícias, identificando valores públicos e privados. Proponha uma rotina de rotação e scan do artefacto publicado.",
+      "es": "Haz una matriz de variables de configuración públicas y privadas, con rotación y escaneo del paquete publicado.",
+      "en": "Make a fictional environment variable matrix for public and private settings, then propose rotation and output-artifact scanning."
+    },
+    "status": "authored",
+    "scope": "fourth semester",
+    "estimatedStudyMinutes": 105,
+    "review": "editorial-review-needed"
+  },
+  "ST-045/3": {
+    "read": {
+      "pt": "Infraestrutura como código descreve recursos e regras em arquivos versionados. O plano proposto deve ser revisto antes de aplicar, sobretudo em permissões e custos. Drift, rollback e política de mudanças são essenciais para manter consistência entre a intenção e o ambiente real.",
+      "es": "La infraestructura como código describe recursos y políticas en archivos versionados. Antes de ejecutar se revisa el plan, especialmente permisos y costes. Desviaciones, reversión y aprobación son esenciales para mantener coherencia.",
+      "en": "Infrastructure as code defines resources and policies in versioned files. Plans should be reviewed before application, especially permissions and cost. Drift detection, rollback, and change approval help align intention with reality."
+    },
+    "exercise": {
+      "pt": "Produza um plano de IaC fictício com rede privada, storage e site estático. Marque dois riscos de custo e dois riscos de permissão antes da aprovação.",
+      "es": "Diseña un plan IaC ficticio de red privada, almacenamiento y sitio estático. Señala dos riesgos de coste y dos permisos peligrosos.",
+      "en": "Draft fictional IaC for private networking, storage, and a static site. Flag two cost risks and two unsafe permissions before approval."
+    },
+    "status": "authored",
+    "scope": "fourth semester",
+    "estimatedStudyMinutes": 105,
+    "review": "editorial-review-needed"
+  },
+  "ST-046/0": {
+    "read": {
+      "pt": "Reuniões técnicas internacionais devem começar com objetivo e agenda. Em inglês, pedir esclarecimento é preferível a assumir entendimento, especialmente sobre prazos e responsabilidades. Um resumo escrito de decisões ajuda a reduzir riscos interculturais e operacionais.",
+      "es": "Las reuniones técnicas internacionales necesitan objetivo y agenda. En inglés, pedir aclaraciones es mejor que suponer, especialmente para plazos y responsables. Un resumen escrito de decisiones reduce errores operativos e interculturales.",
+      "en": "International technical meetings work best with an objective and agenda. Asking for clarification in English is better than assuming, particularly about deadlines and ownership. Written decision summaries reduce operational and cross-cultural confusion."
+    },
+    "exercise": {
+      "pt": "Faça uma simulação trilingue de reunião sobre uma universidade digital. Registe duas decisões em inglês, responsáveis, prazo e perguntas de esclarecimento.",
+      "es": "Simula una reunión trilingüe sobre una universidad digital. Anota dos decisiones en inglés, responsables, plazos y preguntas.",
+      "en": "Role-play a trilingual digital-university meeting. Record two English decisions, owners, deadlines, and clarifying questions."
+    },
+    "status": "authored",
+    "scope": "fourth semester",
+    "estimatedStudyMinutes": 105,
+    "review": "editorial-review-needed"
+  },
+  "ST-046/1": {
+    "read": {
+      "pt": "Um relatório técnico distingue objetivo, método, resultado e recomendação. Em inglês, expressões como evidence suggests e not yet confirmed qualificam incertezas sem exagero. Gráficos precisam de unidade, origem e contexto para evitar falsas conclusões.",
+      "es": "Un informe técnico separa objetivo, método, resultados y recomendación. En inglés, evidence suggests y not yet confirmed transmiten incertidumbre. Los gráficos necesitan unidades, fuentes y contexto.",
+      "en": "Technical reports distinguish objective, method, results, and recommendations. English phrases such as evidence suggests and not yet confirmed express uncertainty. Charts need units, sources, and context to avoid misleading readers."
+    },
+    "exercise": {
+      "pt": "Redija um relatório em inglês de 250 palavras sobre incidente simulado, separando dois factos verificados, uma hipótese e próximos passos autorizados.",
+      "es": "Redacta en inglés 250 palabras sobre un incidente ficticio: dos hechos, una hipótesis y pasos autorizados.",
+      "en": "Write a 250-word English report about a synthetic incident, separating two verified facts, one hypothesis, and authorized next steps."
+    },
+    "status": "authored",
+    "scope": "fourth semester",
+    "estimatedStudyMinutes": 105,
+    "review": "editorial-review-needed"
+  },
+  "ST-046/2": {
+    "read": {
+      "pt": "RFCs e padrões descrevem protocolos, interoperabilidade e requisitos. MUST, SHOULD e MAY têm significados normativos específicos quando definidos no documento. Verificar versão, âmbito e linguagem evita interpretar recomendações como obrigações inexistentes.",
+      "es": "Las RFC y normas describen protocolos y requisitos. MUST, SHOULD y MAY tienen significados normativos cuando se definen así. Comprobar versión y alcance evita confundir recomendaciones con obligaciones.",
+      "en": "RFCs and standards describe protocols and requirements. MUST, SHOULD, and MAY can have defined normative meanings. Checking version, scope, and definitions avoids inventing requirements."
+    },
+    "exercise": {
+      "pt": "Selecione uma RFC pública e prepare um resumo original em português com três termos normativos, contexto, referência e uma limitação.",
+      "es": "Selecciona una RFC pública y escribe un resumen original con tres términos normativos, contexto, referencia y una limitación.",
+      "en": "Select a public RFC and write an attributed original summary identifying three normative terms, context, and a limitation."
+    },
+    "status": "authored",
+    "scope": "fourth semester",
+    "estimatedStudyMinutes": 105,
+    "review": "editorial-review-needed"
+  },
+  "ST-046/3": {
+    "read": {
+      "pt": "A defesa oral de projeto exige explicar problema, método, evidências e limitações com clareza. Em inglês, reconhecer incerteza é mais profissional do que fabricar uma resposta. A apresentação deve terminar com resultados verificáveis e um plano para avaliar questões em aberto.",
+      "es": "Defender un proyecto requiere explicar problema, método, pruebas y límites con claridad. En inglés, reconocer dudas es preferible a inventar respuestas. Termina con resultados verificables y un plan para investigar lo pendiente.",
+      "en": "An oral project defense explains problem, method, evidence, and limitations clearly. Acknowledging uncertainty in English is more credible than inventing answers. Finish with verifiable results and a plan for unresolved questions."
+    },
+    "exercise": {
+      "pt": "Grave uma apresentação privada em inglês de quatro minutos sobre projeto fictício, antecipando duas perguntas difíceis e respondendo com honestidade.",
+      "es": "Graba una presentación privada en inglés de cuatro minutos, anticipando dos preguntas difíciles y respuestas honestas.",
+      "en": "Record a private four-minute English presentation of a fictional project, including two difficult questions and honest answers."
+    },
+    "status": "authored",
+    "scope": "fourth semester",
+    "estimatedStudyMinutes": 105,
+    "review": "editorial-review-needed"
   }
 };if(!window.SecureTStudyGuides)return;for(const [key,value] of Object.entries(catalog)){if(!key.startsWith('ST-04')||Object.prototype.hasOwnProperty.call(window.SecureTStudyGuides,key))continue;window.SecureTStudyGuides[key]=value;}})();
