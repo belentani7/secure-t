@@ -1,4 +1,4 @@
-/* Secure T Academy · syllabus and external original-source media, not a degree. */
+/* Secure T Academy · authored study plan & externally attributed video references. Not a degree. */
 window.SecureTAcademyData = {
   "schema": "secure-t.academia.v1",
   "planning": true,
@@ -73,12 +73,13 @@ window.SecureTAcademyData = {
     {
       "id": "lang-pt",
       "track": "languages",
-      "language": "es",
-      "title": "Curso de Portugués para Principiantes — 100 Clases",
-      "creator": "Curso de Línguas Brasil",
-      "url": "https://www.youtube.com/watch?v=HHUxxj-M-HU",
-      "kind": "100 classes",
-      "status": "verified"
+      "language": "pt-PT",
+      "title": "Plataforma de Português Online — 24 módulos",
+      "creator": "AIMA (Agência para a Integração, Migrações e Asilo) · Portugal",
+      "url": "https://aima.gov.pt/pt/lingua-portuguesa/plataforma-de-portugues-online",
+      "kind": "24 módulos · português europeu · acesso gratuito",
+      "status": "verified",
+      "verifiedAt": "2026-10-19"
     },
     {
       "id": "fcc-front-21h",
@@ -109,6 +110,117 @@ window.SecureTAcademyData = {
       "url": "https://www.freecodecamp.org/news/html-full-course-for-beginners",
       "kind": "2-hour class",
       "status": "verified"
+    },
+    {
+      "id": "harvard-cs50-cyber",
+      "track": "cyber",
+      "language": "en",
+      "title": "CS50's Introduction to Cybersecurity — aulas completas",
+      "creator": "David J. Malan · Harvard CS50 / freeCodeCamp.org",
+      "url": "https://www.youtube.com/watch?v=9HOpanT0GRs",
+      "kind": "aprox. 8 h · vídeo original",
+      "status": "verified",
+      "verifiedAt": "2026-10-19",
+      "source": "https://cs50.harvard.edu/cybersecurity/"
+    },
+    {
+      "id": "harvard-cs50-programming",
+      "track": "web",
+      "language": "en",
+      "title": "CS50: Computer Science — edição integral",
+      "creator": "David J. Malan · Harvard CS50 / freeCodeCamp.org",
+      "url": "https://www.freecodecamp.org/news/harvard-university-cs50-computer-science-course-2023",
+      "kind": "aprox. 26 h · aulas de programação",
+      "status": "verified",
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "id": "fcc-networking",
+      "track": "cyber",
+      "language": "en",
+      "title": "Computer Networking Fundamentals — curso integral",
+      "creator": "Shrathir Sharma · freeCodeCamp.org",
+      "url": "https://www.freecodecamp.org/news/computer-networking-fundamentals",
+      "kind": "aprox. 12 h · redes",
+      "status": "verified",
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "id": "fcc-infrastructure",
+      "track": "cyber",
+      "language": "en",
+      "title": "Ultimate IT Fundamentals Bootcamp",
+      "creator": "DolfinED Academy / freeCodeCamp.org",
+      "url": "https://www.freecodecamp.org/news/learn-hardware-cloud-devops-networking-security-databases-dns-git-and-linux",
+      "kind": "aprox. 13 h · infra e segurança",
+      "status": "verified",
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "id": "fcc-deploy",
+      "track": "web",
+      "language": "en",
+      "title": "Deploy, Secure & Automate Full-Stack Applications",
+      "creator": "Imad Saddik · freeCodeCamp.org",
+      "url": "https://www.freecodecamp.org/news/learn-how-to-deploy-secure-and-automate-full-stack-web-apps",
+      "kind": "aprox. 11 h · deployment & DevSecOps",
+      "status": "verified",
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "id": "guanabara-playlist",
+      "track": "web",
+      "language": "pt-BR",
+      "title": "HTML5 e CSS3 — Módulo 01 (playlist oficial)",
+      "creator": "Gustavo Guanabara · Curso em Vídeo",
+      "url": "https://www.youtube.com/playlist?list=PLHz_AreHm4dkZ9-atkcmcBaMZdmLHft8n",
+      "kind": "playlist de aulas · português brasileiro",
+      "status": "verified",
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "id": "lang-spanish-video",
+      "track": "languages",
+      "language": "es",
+      "title": "Dreaming Spanish — Superbeginner Compilation",
+      "creator": "Dreaming Spanish",
+      "url": "https://www.youtube.com/watch?v=AI997gnz-1U",
+      "kind": "aprox. 1 h · compreensão oral",
+      "status": "verified",
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "id": "lang-spanish-library",
+      "track": "languages",
+      "language": "es",
+      "title": "Dreaming Spanish — biblioteca graduada",
+      "creator": "Dreaming Spanish",
+      "url": "https://www.dreaming.com/spanish",
+      "kind": "conteúdo aberto e premium; acesso segundo o autor",
+      "status": "verified",
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "id": "lang-english",
+      "track": "languages",
+      "language": "en",
+      "title": "BBC Learning English — aulas e exercícios",
+      "creator": "BBC Learning English",
+      "url": "https://feeds.bbci.co.uk/learningenglish",
+      "kind": "curso web gratuito e séries em vídeo",
+      "status": "verified",
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "id": "lang-portuguese-br",
+      "track": "languages",
+      "language": "pt-BR",
+      "title": "Introduction to Portuguese — 5 video lessons",
+      "creator": "PortuguesePod101",
+      "url": "https://www.portuguesepod101.com/lesson-library/introduction-to-portuguese",
+      "kind": "aulas curtas; condições de acesso do autor",
+      "status": "verified",
+      "verifiedAt": "2026-10-19"
     }
   ],
   "courses": [
@@ -132,7 +244,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking"
       ],
       "hours": 64,
       "outcome": {
@@ -166,7 +280,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking"
       ],
       "hours": 64,
       "outcome": {
@@ -200,7 +316,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking"
       ],
       "hours": 64,
       "outcome": {
@@ -236,7 +354,9 @@ window.SecureTAcademyData = {
         "fcc-html-2h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "guanabara-playlist",
+        "harvard-cs50-programming"
       ],
       "hours": 64,
       "outcome": {
@@ -272,7 +392,9 @@ window.SecureTAcademyData = {
         "fcc-html-2h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "guanabara-playlist",
+        "harvard-cs50-programming"
       ],
       "hours": 64,
       "outcome": {
@@ -305,7 +427,11 @@ window.SecureTAcademyData = {
       "requires": null,
       "resources": [
         "lang-pt",
-        "cisco"
+        "cisco",
+        "lang-spanish-video",
+        "lang-english",
+        "lang-portuguese-br",
+        "lang-spanish-library"
       ],
       "hours": 64,
       "outcome": {
@@ -339,7 +465,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking"
       ],
       "hours": 64,
       "outcome": {
@@ -373,7 +501,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking"
       ],
       "hours": 64,
       "outcome": {
@@ -407,7 +537,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking"
       ],
       "hours": 64,
       "outcome": {
@@ -443,7 +575,9 @@ window.SecureTAcademyData = {
         "fcc-html-2h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "guanabara-playlist",
+        "harvard-cs50-programming"
       ],
       "hours": 64,
       "outcome": {
@@ -479,7 +613,9 @@ window.SecureTAcademyData = {
         "fcc-html-2h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "guanabara-playlist",
+        "harvard-cs50-programming"
       ],
       "hours": 64,
       "outcome": {
@@ -512,7 +648,11 @@ window.SecureTAcademyData = {
       "requires": "ST-016",
       "resources": [
         "lang-pt",
-        "cisco"
+        "cisco",
+        "lang-spanish-video",
+        "lang-english",
+        "lang-portuguese-br",
+        "lang-spanish-library"
       ],
       "hours": 64,
       "outcome": {
@@ -546,7 +686,10 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -580,7 +723,10 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -614,7 +760,10 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -650,7 +799,9 @@ window.SecureTAcademyData = {
         "fcc-html-2h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "guanabara-playlist",
+        "harvard-cs50-programming"
       ],
       "hours": 64,
       "outcome": {
@@ -686,7 +837,9 @@ window.SecureTAcademyData = {
         "fcc-html-2h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "guanabara-playlist",
+        "harvard-cs50-programming"
       ],
       "hours": 64,
       "outcome": {
@@ -719,7 +872,11 @@ window.SecureTAcademyData = {
       "requires": "ST-026",
       "resources": [
         "lang-pt",
-        "cisco"
+        "cisco",
+        "lang-spanish-video",
+        "lang-english",
+        "lang-portuguese-br",
+        "lang-spanish-library"
       ],
       "hours": 64,
       "outcome": {
@@ -753,7 +910,10 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -787,7 +947,10 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -821,7 +984,10 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -856,7 +1022,9 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "guanabara-playlist",
+        "harvard-cs50-programming"
       ],
       "hours": 64,
       "outcome": {
@@ -891,7 +1059,9 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "guanabara-playlist",
+        "harvard-cs50-programming"
       ],
       "hours": 64,
       "outcome": {
@@ -924,7 +1094,11 @@ window.SecureTAcademyData = {
       "requires": "ST-036",
       "resources": [
         "lang-pt",
-        "cisco"
+        "cisco",
+        "lang-spanish-video",
+        "lang-english",
+        "lang-portuguese-br",
+        "lang-spanish-library"
       ],
       "hours": 64,
       "outcome": {
@@ -958,7 +1132,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -992,7 +1167,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -1026,7 +1202,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -1061,7 +1238,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1096,7 +1274,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1129,7 +1308,11 @@ window.SecureTAcademyData = {
       "requires": "ST-046",
       "resources": [
         "lang-pt",
-        "cisco"
+        "cisco",
+        "lang-spanish-video",
+        "lang-english",
+        "lang-portuguese-br",
+        "lang-spanish-library"
       ],
       "hours": 64,
       "outcome": {
@@ -1163,7 +1346,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -1197,7 +1381,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -1231,7 +1416,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -1266,7 +1452,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1301,7 +1488,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1334,7 +1522,11 @@ window.SecureTAcademyData = {
       "requires": "ST-056",
       "resources": [
         "lang-pt",
-        "cisco"
+        "cisco",
+        "lang-spanish-video",
+        "lang-english",
+        "lang-portuguese-br",
+        "lang-spanish-library"
       ],
       "hours": 64,
       "outcome": {
@@ -1368,7 +1560,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1402,7 +1596,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1436,7 +1632,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1471,7 +1669,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1506,7 +1705,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1539,7 +1739,11 @@ window.SecureTAcademyData = {
       "requires": "ST-066",
       "resources": [
         "lang-pt",
-        "cisco"
+        "cisco",
+        "lang-spanish-video",
+        "lang-english",
+        "lang-portuguese-br",
+        "lang-spanish-library"
       ],
       "hours": 64,
       "outcome": {
@@ -1573,7 +1777,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1607,7 +1813,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1641,7 +1849,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1676,7 +1886,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1711,7 +1922,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1744,7 +1956,11 @@ window.SecureTAcademyData = {
       "requires": "ST-076",
       "resources": [
         "lang-pt",
-        "cisco"
+        "cisco",
+        "lang-spanish-video",
+        "lang-english",
+        "lang-portuguese-br",
+        "lang-spanish-library"
       ],
       "hours": 64,
       "outcome": {
@@ -1778,7 +1994,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1812,7 +2029,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1846,7 +2064,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1881,7 +2100,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1916,7 +2136,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1949,7 +2170,11 @@ window.SecureTAcademyData = {
       "requires": "ST-086",
       "resources": [
         "lang-pt",
-        "cisco"
+        "cisco",
+        "lang-spanish-video",
+        "lang-english",
+        "lang-portuguese-br",
+        "lang-spanish-library"
       ],
       "hours": 64,
       "outcome": {
@@ -1983,7 +2208,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -2017,7 +2243,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -2051,7 +2278,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -2086,7 +2314,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -2121,7 +2350,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -2154,7 +2384,11 @@ window.SecureTAcademyData = {
       "requires": "ST-096",
       "resources": [
         "lang-pt",
-        "cisco"
+        "cisco",
+        "lang-spanish-video",
+        "lang-english",
+        "lang-portuguese-br",
+        "lang-spanish-library"
       ],
       "hours": 64,
       "outcome": {
