@@ -1,4 +1,4 @@
-/* Secure T Academy · five-year curricular scaffold; no fake enrollment or titles. */
+/* Secure T Academy · syllabus and external original-source media, not a degree. */
 window.SecureTAcademyData = {
   "schema": "secure-t.academia.v1",
   "planning": true,
@@ -78,6 +78,36 @@ window.SecureTAcademyData = {
       "creator": "Curso de Línguas Brasil",
       "url": "https://www.youtube.com/watch?v=HHUxxj-M-HU",
       "kind": "100 classes",
+      "status": "verified"
+    },
+    {
+      "id": "fcc-front-21h",
+      "track": "web",
+      "language": "en",
+      "title": "Frontend Web Developer 21-Hour Bootcamp",
+      "creator": "freeCodeCamp.org / Zach Gollwitzer",
+      "url": "https://www.freecodecamp.org/news/frontend-web-developer-bootcamp",
+      "kind": "21-hour video course",
+      "status": "verified"
+    },
+    {
+      "id": "fcc-html-pt",
+      "track": "web",
+      "language": "pt",
+      "title": "Curso introdutório de HTML em português",
+      "creator": "freeCodeCamp em Português / Nielda Karla",
+      "url": "https://www.freecodecamp.org/portuguese/news/curso-introdutorio-de-html-em-portugues/",
+      "kind": "mais de 2 horas de projeto",
+      "status": "verified"
+    },
+    {
+      "id": "fcc-html-2h",
+      "track": "web",
+      "language": "en",
+      "title": "HTML Basics: A Free Full-Length Course",
+      "creator": "freeCodeCamp.org / Mike Dane",
+      "url": "https://www.freecodecamp.org/news/html-full-course-for-beginners",
+      "kind": "2-hour class",
       "status": "verified"
     }
   ],
@@ -202,6 +232,8 @@ window.SecureTAcademyData = {
       ],
       "requires": null,
       "resources": [
+        "fcc-html-pt",
+        "fcc-html-2h",
         "guanabara",
         "fcc-fullstack",
         "fcc-es"
@@ -236,6 +268,8 @@ window.SecureTAcademyData = {
       ],
       "requires": null,
       "resources": [
+        "fcc-html-pt",
+        "fcc-html-2h",
         "guanabara",
         "fcc-fullstack",
         "fcc-es"
@@ -405,6 +439,8 @@ window.SecureTAcademyData = {
       ],
       "requires": "ST-014",
       "resources": [
+        "fcc-html-pt",
+        "fcc-html-2h",
         "guanabara",
         "fcc-fullstack",
         "fcc-es"
@@ -439,6 +475,8 @@ window.SecureTAcademyData = {
       ],
       "requires": "ST-015",
       "resources": [
+        "fcc-html-pt",
+        "fcc-html-2h",
         "guanabara",
         "fcc-fullstack",
         "fcc-es"
@@ -608,6 +646,8 @@ window.SecureTAcademyData = {
       ],
       "requires": "ST-024",
       "resources": [
+        "fcc-html-pt",
+        "fcc-html-2h",
         "guanabara",
         "fcc-fullstack",
         "fcc-es"
@@ -642,6 +682,8 @@ window.SecureTAcademyData = {
       ],
       "requires": "ST-025",
       "resources": [
+        "fcc-html-pt",
+        "fcc-html-2h",
         "guanabara",
         "fcc-fullstack",
         "fcc-es"
@@ -811,6 +853,7 @@ window.SecureTAcademyData = {
       ],
       "requires": "ST-034",
       "resources": [
+        "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
         "fcc-es"
@@ -845,6 +888,7 @@ window.SecureTAcademyData = {
       ],
       "requires": "ST-035",
       "resources": [
+        "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
         "fcc-es"
@@ -1014,6 +1058,7 @@ window.SecureTAcademyData = {
       ],
       "requires": "ST-044",
       "resources": [
+        "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
         "fcc-es"
@@ -1048,6 +1093,7 @@ window.SecureTAcademyData = {
       ],
       "requires": "ST-045",
       "resources": [
+        "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
         "fcc-es"
@@ -1217,6 +1263,7 @@ window.SecureTAcademyData = {
       ],
       "requires": "ST-054",
       "resources": [
+        "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
         "fcc-es"
@@ -1251,6 +1298,7 @@ window.SecureTAcademyData = {
       ],
       "requires": "ST-055",
       "resources": [
+        "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
         "fcc-es"
@@ -1420,6 +1468,7 @@ window.SecureTAcademyData = {
       ],
       "requires": "ST-064",
       "resources": [
+        "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
         "fcc-es"
@@ -1454,6 +1503,7 @@ window.SecureTAcademyData = {
       ],
       "requires": "ST-065",
       "resources": [
+        "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
         "fcc-es"
@@ -1623,6 +1673,7 @@ window.SecureTAcademyData = {
       ],
       "requires": "ST-074",
       "resources": [
+        "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
         "fcc-es"
@@ -1657,6 +1708,7 @@ window.SecureTAcademyData = {
       ],
       "requires": "ST-075",
       "resources": [
+        "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
         "fcc-es"
@@ -1826,6 +1878,7 @@ window.SecureTAcademyData = {
       ],
       "requires": "ST-084",
       "resources": [
+        "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
         "fcc-es"
@@ -1860,6 +1913,7 @@ window.SecureTAcademyData = {
       ],
       "requires": "ST-085",
       "resources": [
+        "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
         "fcc-es"
@@ -2029,6 +2083,7 @@ window.SecureTAcademyData = {
       ],
       "requires": "ST-094",
       "resources": [
+        "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
         "fcc-es"
@@ -2063,6 +2118,7 @@ window.SecureTAcademyData = {
       ],
       "requires": "ST-095",
       "resources": [
+        "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
         "fcc-es"
