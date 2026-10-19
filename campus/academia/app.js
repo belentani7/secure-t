@@ -118,6 +118,8 @@
     el("tutor-input").placeholder=tr("tutor.placeholder");
     el("tutor-engine").textContent=tr(aiSession?"tutor.engineAI":"tutor.engine");
     el("voice-toggle").querySelector("[data-i18n]").textContent=tr(voice?"tutor.audioOn":"tutor.audioOff");
+    el("voice-stop").setAttribute("aria-label",({pt:"Parar voz e microfone",es:"Detener voz y micrófono",en:"Stop voice and microphone"})[lang]);
+    el("voice-listen").setAttribute("aria-label",({pt:"Ditar pergunta ao tutor",es:"Dictar pregunta al tutor",en:"Dictate a tutor question"})[lang]);
     const voiceAutoButton=el("voice-auto-send");
     if(voiceAutoButton)voiceAutoButton.textContent=tr(autoVoiceSend?"tutor.voiceAutoOn":"tutor.voiceAutoOff");
     renderFilters();renderCourses();renderResources();if(selected)renderDetail();
