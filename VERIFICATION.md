@@ -9,6 +9,15 @@ funcionando» **no son verificaciones actuales de producción**. No deben
 presentarse como auditoría certificada ni como prueba de que exista un
 servicio online disponible.
 
+
+## Avance curricular verificado en la rama del PR #36
+
+El campus incluye **72 de 240 unidades** con lectura propia y práctica específica en portugués, español e inglés, repartidas entre semestres 1, 2 y 3. Las restantes 168 son itinerarios planificados; el programa de cinco años sigue incompleto y no equivale a una titulación académica acreditada. El tutor y el repaso son orientaciones educativas locales, no calificaciones de profesorado.
+
+**Prueba aislada ejecutada:** JavaScript del contenido y de repaso cargado sobre entorno simulado, 72 claves válidas, sin lecturas o actividades ausentes, transición de repaso y traducción al español sin errores. **Pendiente:** tests completos de Python, Node y Playwright, validación accesibilidad manual, seguridad de despliegue, firma de credenciales y revisión académica externa.
+
+La fuente `drivedopobre.com.br` indicada como candidata no se pudo inspeccionar en línea. No se han descargado ni republicado contenidos sin comprobar autoría o licencias.
+
 ## Componentes comprobables en el repositorio
 
 | Componente | Evidencia | Estado |
