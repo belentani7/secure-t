@@ -3,7 +3,9 @@
 Instituto abierto de ciberseguridad e inteligencia artificial: cuatro programas de
 veinte semanas, gratuitos, en espanol y funcionales sin conexion.
 
-URL prevista para GitHub Pages: <https://belentani7.github.io/secure-t/> (no se confirma como activa).\nLa publicacion desde un repositorio privado requiere un plan de GitHub compatible;\nno se cambia la visibilidad del codigo para habilitar Pages.
+URL prevista para GitHub Pages: <https://belentani7.github.io/secure-t/> (no se confirma como activa).
+La publicacion desde un repositorio privado requiere un plan de GitHub compatible;
+no se cambia la visibilidad del codigo para habilitar Pages.
 
 ## Que es este repositorio
 
