@@ -108,12 +108,39 @@ Esta seccion existe para que nadie confunda lo publicado con lo deseado.
 | Traduccion PT y EN del contenido docente | **PLANNED** |
 | Catala del contenido docente | **PLANNED** |
 | Backend con base de datos | retirado; el campus no lo necesita |
-| Constancias SHA-256 locales | Integridad autocontenida, sin firma de emisor |\n| Credenciales institucionales verificables | **PLANNED** |
+| Constancias SHA-256 locales | Integridad autocontenida, sin firma de emisor |
+| Credenciales institucionales verificables | **PLANNED** |
 
 La landing declara el estado real de idiomas en `campus/idiomas.md`: nada se marca
 como traducido sin estarlo.
 
-## Contenedores\n\n`Dockerfile` compila la SPA/API local de Secure T con Node 22 y ejecuta el\nservicio como usuario no privilegiado. `docker-compose.yml` solo sirve para\ndesarrollo local: escucha en 127.0.0.1 y exige `POSTGRES_PASSWORD`,\n`MINIO_ROOT_USER` y `MINIO_ROOT_PASSWORD` mediante un archivo `.env` no\nversionado. `.env.example` contiene los nombres, nunca valores reales.\nLa API de ejemplo no es un backend académico con autenticación productiva.\n\n## Licencia
+## API opcional y tutor IA
+
+`pnpm start` arranca el servidor Express de demostración. Las rutas
+`/api/catalog` y `/api/progress` son datos demo, **no** registros
+académicos autenticados ni persistencia real. En producción, el tutor
+`/api/tutor` permanece deshabilitado (HTTP 503) sin
+`SECURE_T_TUTOR_API_KEY`. Si se configura esta clave en el **servidor**,
+cada petición debe aportar `x-secure-t-key`; existe además un límite
+de diez solicitudes por minuto por IP. **No incorporar esa clave en
+código JavaScript del cliente**: para habilitarlo a usuarios finales se
+necesita sesión segura, autorización server-side y protección ante
+abuso. Ollama se configura con `OLLAMA_URL` y `OLLAMA_MODEL`; no se
+publica ni se descarga un modelo automáticamente.
+
+`node --test tests/api-security.test.mjs` verifica las restricciones de
+producción sobre el servidor real una vez instaladas las dependencias.
+
+## Contenedores
+
+`Dockerfile` compila la SPA/API local de Secure T con Node 22 y ejecuta el
+servicio como usuario no privilegiado. `docker-compose.yml` solo sirve para
+desarrollo local: escucha en 127.0.0.1 y exige `POSTGRES_PASSWORD`,
+`MINIO_ROOT_USER` y `MINIO_ROOT_PASSWORD` mediante un archivo `.env` no
+versionado. `.env.example` contiene los nombres, nunca valores reales.
+La API de ejemplo no es un backend académico con autenticación productiva.
+
+## Licencia
 
 MIT para el codigo. El material didactico cita sus fuentes en cada semana.
 
