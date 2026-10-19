@@ -1,65 +1,87 @@
-# Despliegue de secure-t a producción (Railway + Supabase)
+# Secure T — despliegue verificable
 
-Guía para poner secure-t online. No depende de Docker local: todo corre en la nube.
+> Estado 2026-10-19: el producto público principal es un **campus estático**
+> sin cuentas, base de datos ni certificados emitidos por una institución.
+> La aplicación Express/React incluida en este repositorio es una
+> **demostración técnica separada**; no debe confundirse con el campus público.
 
-## Arquitectura
-```
-Internet → Railway (monolito Express: API + campus web, 24/7) → Supabase (Postgres gestionado + Auth)
-```
+## 1. Construir el campus estático real
 
-## Requisitos
-- Cuenta en [supabase.com](https://supabase.com) (gratis para empezar)
-- Cuenta en [railway.app](https://railway.app) (gratis con límites)
-- Repo de GitHub: `belentani7/secure-t-app`
-
----
-
-## Paso 1 — PostgreSQL (Supabase)
-1. Abrir https://supabase.com → **New project**
-2. Crear organización + proyecto (dá un nombre, ej. `secure-t`)
-3. Elegir región cercana y **guardar la contraseña de la base de datos**
-4. Una vez creado:
-   - **Connection string (pooler)**: Dashboard → *Settings* → *Database* → *Connection string* → copiar la URL de `Transaction` (empieza con `postgresql://postgres.xxxx.supabase.co:6543/...`)
-   - Guardar esa URL (la usarás en Railway como `DATABASE_URL`)
-
-## Paso 2 — Cargar el esquema y seed (Supabase)
-1. En Supabase Dashboard → **SQL Editor** → *New query*
-2. Pegar el contenido de **`sql/seed.sql`** (de este repo)
-3. **Run** → debe devolver "Success". Crea todas las tablas, programa BSCY, 6 cursos, módulos, lecciones, competencias, agentes IA y usuario demo.
-
-## Paso 3 — Servidor online (Railway)
-1. Abrir https://railway.app → **Start new project**
-2. **Deploy from GitHub repo** → conectar la cuenta de GitHub → elegir `belentani7/secure-t-app`
-3. Railway detecta `Dockerfile` + `railway.json` automáticamente (builder DOCKERFILE, healthcheck `/api/health`)
-4. En el servicio, pestaña **Variables**:
-   - `DATABASE_URL` = la URL del Paso 1
-   - `PORT` = `3000`
-5. **Deploy**. Esperar a que `Build` y `Deploy` terminen (unos minutos).
-6. Railway genera una URL tipo `secure-t-production.up.railway.app`
-
-## Paso 4 — Verificar
-Navegar a:
-```
-https://TU-URL.up.railway.app/api/health
-https://TU-URL.up.railway.app/api/db/status   → debe darte { "connected": true, "mode": "postgres" }
-https://TU-URL.up.railway.app/api/catalog     → 6 cursos
-https://TU-URL.up.railway.app                 → campus web
+```bash
+python3 -m pytest -q tests/
+python3 scripts/build_site.py
+python3 -m http.server 8000 --directory site-dist
 ```
 
-Si `connected: true` → la persistencia real está activa (adiós al fallback en memoria).
+El comando `build_site.py` ensambla únicamente archivos públicos autorizados
+y comprueba enlaces, rutas privadas, enlaces simbólicos y secretos reconocibles.
+La salida es `site-dist/`. Si una comprobación falla, no sustituye la
+última salida correcta.
 
----
+Para alojar el campus en un proveedor de sitios estáticos, configurar:
 
-## Solución de problemas
-| Problema | Causa | Fix |
-| :--- | :--- | :--- |
-| `/api/db/status` muestra `connected: false` | `DATABASE_URL` mal copiada o falta | Revisar variable en Railway (y/o cadena de conexión con puerto 6543 + `sslmode=require`) |
-| Build falla | Depende de esbuild (en Linux Railway funciona) | Revisar logs de build en Railway |
-| Credenciales | Usuario demo que no se puede loguear aún | Auth (Supabase Auth) se conecta en una fase posterior |
+- **Build command:** `python3 scripts/build_site.py`
+- **Output directory:** `site-dist`
+- **SITE_URL:** URL HTTPS pública exacta, incluida la ruta base cuando exista.
 
-## Archivos involucrados
-- `Dockerfile` — build multicapa (pnpm build → runtime mínimo)
-- `railway.json` — config de deploy en Railway
-- `sql/seed.sql` — DDL completo + seed del catálogo
-- `server/db/index.ts` — conexión Drizzle
-- `server/services/db.ts` — capa de acceso con fallback a memoria
+Netlify ya utiliza esta configuración en `netlify.toml`. En Vercel es
+necesario configurar el proyecto específico de campus con **Framework:
+Other**, el comando anterior y el directorio `site-dist`. Si el proyecto
+de Vercel usa `pnpm build` desde este repositorio, servirá la **SPA demo**,
+no el campus estático: no marcarlo como campus publicado.
+
+## 2. GitHub Pages
+
+`.github/workflows/pages.yml` implementa la misma publicación con lista
+blanca. El destino previsto es
+`https://belentani7.github.io/secure-t/`, pero **no es una URL confirmada
+como publicada**: en un repositorio personal privado GitHub Free no se puede
+habilitar Pages sin cambiar de plan o de visibilidad. No se hará público el
+código como efecto secundario de un despliegue.
+
+## 3. Aplicación Express + React opcional
+
+```bash
+pnpm install --frozen-lockfile
+pnpm typecheck
+pnpm test
+pnpm build
+pnpm start
+```
+
+El `Dockerfile` usa Node 22 y ejecuta el servidor con usuario no root.
+`railway.json` apunta a `index.ts` mediante `tsx`. Rutas disponibles:
+`GET /api/health`, `GET /api/catalog`, `GET /api/progress` y
+`POST /api/tutor`. **Catálogo y progreso son demostrativos**: sin
+usuarios persistentes, autorización de estudiantes ni base de datos real.
+
+En `NODE_ENV=production`, la ruta del tutor responde HTTP 503 sin
+`SECURE_T_TUTOR_API_KEY` configurada en el **servidor**. Con esa clave
+requiere cabecera `x-secure-t-key` y aplica límites de uso. **No exponer
+la clave en JavaScript de clientes ni abrir esta API a usuarios finales sin
+autenticación y autorización de servidor.** `OLLAMA_URL` debe apuntar a
+un modelo al que el servidor pueda acceder por red autorizada.
+
+## 4. Servicios locales de desarrollo
+
+`docker-compose.yml` ofrece PostgreSQL, Redis y MinIO **sin conectarlos
+automáticamente** al campus. Estos servicios requieren variables locales
+`POSTGRES_PASSWORD`, `MINIO_ROOT_USER` y `MINIO_ROOT_PASSWORD`.
+Los puertos están ligados a `127.0.0.1`. No desplegar esta composición
+como entorno público sin diseño e intervención adicionales.
+
+`.env.example` enumera variables, nunca claves reales. Los secretos
+encontrados en commits anteriores requieren revocación en sus proveedores,
+no solo reemplazos en el código: issue #6.
+
+## 5. Gates antes de producción
+
+- Tests completos Python, Node, navegador y construcción del artefacto.
+- Semgrep CE (repo privado) o CodeQL (si es público y el plan lo permite).
+- Escaneo Gitleaks de código actual, revisión de historial y revocación de
+  credenciales expuestas.
+- Revisión manual de accesibilidad, enlaces, contenidos y permisos del host.
+- Verificar URL publicada y headers HTTP desde el despliegue real.
+
+**No afirmar que un servicio es operativo, escalable o certificado por
+el simple hecho de que exista un archivo de configuración.**
