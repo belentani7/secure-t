@@ -31,9 +31,13 @@ function allowTutor(ip: string): { allowed: boolean; retryAfter: number } {
     for (const [key, value] of tutorLimits) {
       if (value.resetAt <= now) tutorLimits.delete(key);
     }
-    if (tutorLimits.size >= 2048) tutorLimits.clear();
   }
   const entry = tutorLimits.get(ip);
+  // Never flush the active limit table: a flood of distinct clients could
+  // otherwise reset every quota. Refuse new identities at capacity.
+  if (!entry && tutorLimits.size >= 2048) {
+    return { allowed: false, retryAfter: 60 };
+  }
   if (!entry || entry.resetAt <= now) {
     tutorLimits.set(ip, { count: 1, resetAt: now + 60_000 });
     return { allowed: true, retryAfter: 0 };
