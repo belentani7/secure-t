@@ -101,3 +101,8 @@
 /* Multiple voice and tutor controls must remain usable on narrow screens. */
 .tutor-controls{flex-wrap:wrap;justify-content:flex-end;max-width:100%}
 @media(max-width:580px){.tutor-controls{width:100%;justify-content:flex-start}.tutor-controls>.control{flex:1 1 42%;min-width:0;min-height:38px;white-space:normal;text-align:center}}
+
+/* Data controls: destructive actions remain visually restrained but distinguishable. */
+.student-data-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.danger-button{border-color:rgba(241,176,176,.36)!important;color:#f4c3c3!important;background:rgba(104,39,48,.1)!important}
+.danger-button:hover{background:rgba(104,39,48,.22)!important}
