@@ -14,7 +14,7 @@ no se cambia la visibilidad del codigo para habilitar Pages.
 - **Mapa académico:** 5 años, 10 semestres, 60 asignaturas y **240 unidades planificadas**, en ciberseguridad, desarrollo web e idiomas.
 - **Contenido redactado y utilizable actualmente:** **72 unidades de los tres primeros semestres**, con explicación original y ejercicio específico por unidad en PT/ES/EN, incluidos los cambios `lesson-content.js`, `lesson-content-2.js` y `lesson-content-3.js`. **Las otras 168 son temarios pendientes de desarrollar, revisar y evaluar**; no presentarlas como lecciones realizadas.
 - **Biblioteca:** fuentes externas y clases largas atribuidas, sin copiar obras ni prometer contenidos de terceros bajo licencia Secure-T.
-- **Laboratorios:** simulación de alertas SOC e interfaz HTML/CSS aislada, sin acceso a sistemas de terceros.
+- **Laboratorios funcionales:** simulación SOC con eventos ficticios, interfaz HTML/CSS aislada y **comparación SHA-256 mediante Web Crypto local**. No se escanean dispositivos ajenos ni se suben textos.
 - **Tutor:** orientación curricular interactiva local y preguntas formativas; lectura de voz y dictado con consentimiento y capacidades del navegador. El modelo lingüístico local es experimental y opcional. No existe IA remota gratuita universal ni corrección institucional.
 - **Repaso:** 72 tarjetas de evocación espaciada, almacenamiento únicamente en el navegador, sin notas oficiales.
 - **Fusos:** Rio de Janeiro (`America/Sao_Paulo`), Barcelona (`Europe/Madrid`) y Dublin (`Europe/Dublin`); utilizan `Intl.DateTimeFormat` para cambios estacionales.
