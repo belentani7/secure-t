@@ -42,7 +42,7 @@ const boot=()=>{
 
 test('self-review initializes with 48 authored lessons and no external service',()=>{
   const page=boot();
-  assert.match(page.controls['review-count'].textContent,/1\/24/);
+  assert.match(page.controls['review-count'].textContent,/1\/48/);
   assert.match(page.controls['review-task'].textContent,/Desenhe um diagrama/);
   assert.match(page.controls['review-status'].textContent,/48 unidade/);
   assert.equal(Object.keys(page.storage).length,0);
@@ -61,7 +61,7 @@ test('review feedback is only shown after explicit reveal and persists due date 
   const gap=state['ST-011/0'].next-Date.now();
   assert.ok(gap>2*24*60*60*1000 && gap<=4*24*60*60*1000);
   assert.equal(page.controls['review-solution'].hidden,true);
-  assert.match(page.controls['review-count'].textContent,/1\/24/);
+  assert.match(page.controls['review-count'].textContent,/1\/48/);
 });
 test('a language click changes the active review's question',()=>{
   const page=boot();
