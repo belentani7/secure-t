@@ -1,8 +1,8 @@
 // Cache only this campus. Other applications can share the same hosting origin.
 const SCOPE = new URL(self.registration.scope);
 const PREFIX = `secure-t-campus:${SCOPE.pathname}:`;
-const CACHE = `${PREFIX}v7`;
-const CORE = ['./', './index.html', './tokens.css', './app.js', './academia/', './academia/index.html', './academia/style.css', './academia/data.js', './academia/lesson-content.js', './academia/tutor-guide.js', './academia/study-review.js', './academia/app.js', './academia/labs.js'];
+const CACHE = `${PREFIX}v8`;
+const CORE = ['./', './index.html', './tokens.css', './app.js', './academia/', './academia/index.html', './academia/style.css', './academia/data.js', './academia/lesson-content.js', './academia/lesson-content-2.js', './academia/tutor-guide.js', './academia/study-review.js', './academia/app.js', './academia/labs.js'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)));
