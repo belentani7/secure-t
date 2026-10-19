@@ -17,6 +17,8 @@
 <script defer src="app.js"></script>
 <script defer src="labs.js"></script>
 <script defer src="lab-hash.js"></script>
+<script defer src="formative-bank.js"></script>
+<script defer src="formative.js"></script>
 <script defer src="study-review.js"></script>
 </head>
 <body>
@@ -31,6 +33,7 @@
 <a class="rail-link" href="#curriculo"><span>▦</span><span data-i18n="nav.courses">Cursos e semestres</span></a>
 <a class="rail-link" href="#recursos"><span>▣</span><span data-i18n="nav.library">Biblioteca de aulas</span></a>
 <a class="rail-link" href="#revisao"><span>◌</span><span id="review-nav-label">Revisão ativa</span></a>
+<a class="rail-link" href="#autoevaluacao"><span>◉</span><span id="check-nav">Autoavaliação</span></a>
 <a class="rail-link" href="#tutor"><span>◎</span><span data-i18n="nav.tutor">Tutor interativo</span></a>
 <a class="rail-link" href="#sobre"><span>✧</span><span data-i18n="nav.about">Nossa origem</span></a>
 </nav>
@@ -105,7 +108,7 @@
 <section class="section" id="recursos" aria-labelledby="resources-title"><div class="section-heading"><div><p class="overline" data-i18n="resources.eyebrow">BIBLIOTECA ABERTA</p><h2 id="resources-title" data-i18n="resources.title">Aprender com quem ensina de verdade.</h2><p class="section-description" data-i18n="resources.subtitle">Aulas extensas e referências de instituições e professores externos. Abrimos a fonte original; não copiamos vídeos nem atribuímos autoria à Secure T.</p></div></div><div class="resource-grid" id="resource-grid"></div>
 <div id="video-viewer" class="video-viewer" aria-live="polite" hidden><div class="video-viewer-header"><h3 id="video-title">YouTube</h3><button id="video-close" type="button" class="icon-button" aria-label="Fechar vídeo">✕</button></div><div id="video-mount" class="video-mount"></div><p class="tutor-privacy" data-i18n="resources.videoPrivacy">O player de YouTube só carrega após clicar; políticas e cookies de terceiros podem aplicar-se. Também pode abrir a aula na fonte original.</p></div></section>
 <section id="revisao" class="section" aria-labelledby="review-title">
-<div class="section-heading"><div><p class="overline" id="review-label">ESTUDO ATIVO · RECORDAÇÃO ESPAÇADA</p><h2 id="review-title">Transforme leitura em memória.</h2><p class="section-description" id="review-intro">Reveja as 72 unidades desenvolvidas dos três primeiros semestres. Responda antes de abrir a referência e escolha quando precisa revisar novamente. As respostas não recebem nota automática.</p></div></div>
+<div class="section-heading"><div><p class="overline" id="review-label">ESTUDO ATIVO · RECORDAÇÃO ESPAÇADA</p><h2 id="review-title">Transforme leitura em memória.</h2><p class="section-description" id="review-intro">Reveja as 96 unidades desenvolvidas dos quatro primeiros semestres. Responda antes de abrir a referência e escolha quando precisa revisar novamente. As respostas não recebem nota automática.</p></div></div>
 <div class="review-panel">
 <div class="review-heading"><div><p class="overline" id="review-context">CADERNO · TRÊS PRIMEIROS SEMESTRES</p><h3 id="review-course">—</h3><p class="review-topic" id="review-topic">—</p></div><div class="review-count" id="review-count" aria-live="polite">0/72</div></div>
 <label class="review-label" for="review-answer" id="review-task-label">EXERCÍCIO DE RECORDAÇÃO</label><p id="review-task" class="review-question">—</p>
@@ -114,6 +117,21 @@
 <div id="review-solution" class="review-solution" hidden><p class="overline" id="review-solution-label">NOTAS PARA COMPARAR · NÃO É GABARITO OFICIAL</p><p id="review-explanation"></p><p class="review-notice" id="review-notice">Compare o seu texto com as notas de estudo. A autoavaliação serve apenas para organizar a revisão.</p><div class="review-actions"><button type="button" class="secondary-button" data-review-score="1">Rever amanhã</button><button type="button" class="secondary-button" data-review-score="2">Rever em 3 dias</button><button type="button" class="primary-button" data-review-score="3">Rever em 7 dias</button></div></div>
 <p class="review-meta" id="review-status" role="status" aria-live="polite">Progresso privado e local: nenhuma pontuação automática.</p>
 </div></section>
+<section class="section" id="autoevaluacao" aria-labelledby="check-title">
+<div class="section-heading"><div><p class="overline" id="check-kicker">CONHECIMENTO APLICADO · EXERCÍCIO LOCAL</p><h2 id="check-title">O que compreendeu até agora?</h2><p class="section-description" id="check-lead">24 perguntas formativas originais, uma por disciplina dos dois primeiros anos. Sem nota nem certificação.</p></div></div>
+<div class="formative-panel">
+<div class="formative-top"><div><label for="check-course-select" id="check-course">Escolha a disciplina</label><select id="check-course-select" aria-describedby="check-count"></select></div><p id="check-count" role="status" aria-live="polite">24 perguntas formativas.</p></div>
+<form id="check-form" class="formative-form">
+<fieldset><legend class="overline" id="check-question-label">Pergunta de compreensão</legend>
+<p id="check-prompt" class="formative-prompt"></p>
+<div id="check-choices" class="formative-options"></div>
+</fieldset>
+<div class="formative-actions"><button type="submit" class="primary-button" id="check-submit">Conferir resposta</button><button type="button" class="secondary-button" id="check-next">Outra pergunta →</button></div>
+<p id="check-feedback" class="formative-feedback" role="status" aria-live="polite" hidden></p>
+</form>
+<p class="honesty" id="check-source">Revisão formativa local, sem avaliação institucional.</p>
+</div>
+</section>
 <section class="section" id="tutor" aria-labelledby="tutor-title"><div class="section-heading"><div><p class="overline" data-i18n="tutor.eyebrow">ACOMPANHAMENTO INTERATIVO</p><h2 id="tutor-title" data-i18n="tutor.title">Uma conversa pode abrir caminhos.</h2><p class="section-description" data-i18n="tutor.subtitle">Tutor socrático com recursos do currículo e voz do navegador. Quando disponível e autorizado, experimente o modelo local do seu próprio navegador — sem chave de servidor no cliente.</p></div></div>
 <div class="tutor-shell"><div class="tutor-portrait" aria-hidden="true"><div class="tutor-ring"></div><div class="tutor-core">◎</div><div class="tutor-wave"><i></i><i></i><i></i><i></i><i></i></div><span>SECURE T · TUTOR</span></div><div class="tutor-chat"><div class="tutor-chat-header"><div><h3 data-i18n="tutor.name">Tutor de aprendizagem</h3><p id="tutor-engine" class="engine-badge">Apoio curricular local</p></div><div class="tutor-controls"><button type="button" id="voice-toggle" class="control" aria-pressed="false" title="Ativar/desativar leitura das respostas"><span>♫</span><span data-i18n="tutor.audioOff">Voz desligada</span></button><button type="button" id="voice-stop" class="control" title="Parar voz" aria-label="Parar voz e microfone">■</button></div></div><div id="chat-history" class="chat-history" role="log" aria-label="Mensagens do tutor" aria-live="polite"></div><form id="tutor-form" class="chat-compose"><label for="tutor-input" class="sr-only" data-i18n="tutor.question">Sua pergunta</label><textarea id="tutor-input" rows="2" maxlength="1200" placeholder="O que é Zero Trust? Pode me orientar?"></textarea><div class="compose-actions"><button type="button" id="voice-listen" class="mic-button" aria-label="Ditado por voz" title="Ditado por voz">◉</button><button type="submit" class="primary-button" id="tutor-send"><span data-i18n="tutor.send">Enviar</span> ↗</button></div></form><p class="tutor-privacy" data-i18n="tutor.privacy">O modo curricular funciona sem enviar mensagens para servidores. Reconhecimento de voz pode usar o serviço do fornecedor do navegador: só use com consentimento. Não introduza senhas nem dados sensíveis.</p></div></div></section>
 <section class="section about" id="sobre"><p class="overline" data-i18n="about.label">SOBRE A IDEIA</p><div class="about-grid"><div><h2 data-i18n="about.title">Toda grande ideia começa com uma razão humana.</h2><p data-i18n="about.body">A Secure T nasceu quando seu criador encontrou no amor a inspiração para compartilhar conhecimento. Uma ideia íntima tornou-se um compromisso público: abrir caminhos para quem quer aprender, atravessando fronteiras, idiomas e oportunidades.</p><p data-i18n="about.second">Sem promessas de diplomas oficiais; com curiosidade, responsabilidade e respeito por quem estuda.</p></div><blockquote data-i18n="about.quote">Há afetos que não pedem reconhecimento. Eles apenas se tornam coisas boas no mundo.</blockquote></div></section>
