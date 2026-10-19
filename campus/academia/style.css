@@ -97,3 +97,7 @@
 .hash-output{display:block;overflow-wrap:anywhere;word-break:break-all;font:12px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;color:#bbecf0;min-height:42px}
 .hash-verdict{padding:13px 17px;background:rgba(142,226,225,.075);border-left:2px solid var(--aqua);color:var(--ink);border-radius:2px 10px 10px 2px;font-size:12px}
 @media(max-width:640px){.hash-lab-grid{grid-template-columns:1fr}}
+
+/* Multiple voice and tutor controls must remain usable on narrow screens. */
+.tutor-controls{flex-wrap:wrap;justify-content:flex-end;max-width:100%}
+@media(max-width:580px){.tutor-controls{width:100%;justify-content:flex-start}.tutor-controls>.control{flex:1 1 42%;min-width:0;min-height:38px;white-space:normal;text-align:center}}
