@@ -167,6 +167,12 @@ test('offline tutor offers trilingual explanations, exercises, Socratic checks a
   assert.ok(html.includes('<script defer src="tutor-guide.js"></script>'));
 });
 
+test('front page distinguishes authored lessons from the remaining 168 planned units',()=>{
+  assert.ok(html.includes('id="authored-count"'));
+  assert.ok(app.includes('permittedIds.size-authored'));
+  assert.ok(app.includes('hero.authored'));
+});
+
 test('learning progress is private and self-reported',()=>{
   assert.ok(app.includes('permittedIds.has(key) && value===true'));
   assert.ok(app.includes('stt-academia-progress'));
