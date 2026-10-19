@@ -91,7 +91,11 @@
     const score=Number(btn.dataset.reviewScore);
     state[active.key]=step(state[active.key],score);
     try{localStorage.setItem(scheduleKey,JSON.stringify(state))}catch{ /* study still works in private mode */ }
-    next();
+    index=0; // Reprioritize due cards after scheduling; never skip the next overdue unit.
+    revealed=false;
+    get("review-answer").value="";
+    get("review-solution").hidden=true;
+    render();
     get("review-status").textContent=t("saved");
   }));
   get("review-speak").addEventListener("click",()=>{
