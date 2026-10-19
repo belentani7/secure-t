@@ -41,6 +41,20 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   assert.match(await page.locator('#data-status').innerText(), /inválido|inválida/i);
   assert.deepEqual(errors, [], 'New academy must not throw browser exceptions');
 
+  // Authentic first semester: the learner can read, rehearse, and schedule locally.
+  await page.goto(base + '/campus/academia/');
+  assert.match(await page.locator('#review-task').innerText(), /Desenhe um diagrama/);
+  await page.locator('#review-reveal').click();
+  assert.equal(await page.locator('#review-solution').isVisible(),true);
+  assert.match(await page.locator('#review-explanation').innerText(), /arquitetura distingue CPU/i);
+  await page.locator('[data-review-score="2"]').click();
+  const review = await page.evaluate(() => JSON.parse(localStorage.getItem('stt-academia-review-v1')));
+  assert.equal(review['ST-011/0'].count,1);
+  assert.ok(review['ST-011/0'].next > Date.now());
+  await page.locator('button[data-lang="en"]').click();
+  assert.match(await page.locator('#review-task').innerText(), /Inspect your device/);
+  assert.deepEqual(errors, [], 'Spaced-repetition room must not throw browser errors');
+
   await page.goto(base);
   await page.locator('a[href="conceptos/index.html"]').first().click();
   assert.match(page.url(), /conceptos/);
