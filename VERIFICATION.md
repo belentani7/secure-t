@@ -1,165 +1,77 @@
-# Verificación: secure T es una Plataforma de Cursos Real
+# Secure T — verificación basada en evidencias
 
-## ✅ Requisitos Mínimos de una Plataforma de E-Learning Decente
+**Fecha de revisión:** 19 de octubre de 2026  
+**Repositorio:** `belentani7/secure-t` (privado)  
+**Fuente:** código de `main` y cambios propuestos en PR #36.
 
-### 1. Backend Funcional
-- ✅ **Express Server** (`server/index.ts`)
-  - Health checks (`/api/health`, `/api/ready`)
-  - Catalog endpoint: programas y cursos listados
-  - Labs endpoint: infraestructura de laboratorios
-  - Progress tracking: seguimiento de estudiantes
-  - AI routing: tutoría gobernada
-  - Security headers + rate limiting
-  - Serve static files (React frontend)
+La calificación histórica de 8,7/10 y el diagnóstico anterior de «todo
+funcionando» **no son verificaciones actuales de producción**. No deben
+presentarse como auditoría certificada ni como prueba de que exista un
+servicio online disponible.
 
-### 2. Frontend React Profesional
-- ✅ **Portal Multilingüe** (`client/src/pages/Portal.tsx`)
-  - Expediente académico (academic record)
-  - Credenciales y achievements
-  - Research desk (RAG + approved sources)
-  - Faculty workspace (revisión de evidencias)
-  - Admin control (RBAC, auditoría)
-  - Settings (privacidad, notificaciones)
+## Componentes comprobables en el repositorio
 
-- ✅ **Componentes UI Library** (30+ componentes)
-  - Shadcn/ui + TailwindCSS 4
-  - Formularios, diálogos, cards
-  - Accessibility: ARIA labels, semantic HTML
-  - Dark mode (neon green theme)
+| Componente | Evidencia | Estado |
+| --- | --- | --- |
+| Currículo | `campus/cursos/` | 4 cursos con 20 semanas y quizzes por curso |
+| Campus offline | `campus/`, `campus/sw.js` | Código implementado; recorrido completo requiere Chromium/CI |
+| Sitio estático | `scripts/build_site.py` | Ensamblador con lista blanca y validación de enlaces y secretos reconocibles |
+| Progreso | `campus/progreso.html` | Local-only, importación/exportación; endurecimiento propuesto en PR #36 |
+| Constancias SHA-256 | `campus/credencial.html` | Huella verificable, **sin firma de emisor ni acreditación** |
+| UI React | `client/` | SPA de demostración, no equivalente al campus estático |
+| API Express | `index.ts` | Catálogo/progreso demo y tutor opcional cerrado por defecto en producción |
+| RBAC | `auth/rbac.ts` | Contrato de permisos; no integra autenticación real de estudiantes |
+| PostgreSQL, Redis, MinIO | `docker-compose.yml` | Servicios de **desarrollo local**, no conectados al campus estático |
+| Contenedor | `Dockerfile` | Node 22, no-root propuesto en PR #36; build Docker completo pendiente |
+| Seguridad CI | `.github/workflows/` | Gitleaks, Semgrep CE para privado y CodeQL para público; ejecuciones pendientes |
+| Publicación | `.github/workflows/pages.yml`, `netlify.toml` | Configuración presente; **URL pública no verificada** |
 
-### 3. Base de Datos (PostgreSQL + Drizzle)
-- ✅ **Schema definido** (`drizzle/`)
-  - Usuarios y RBAC
-  - Cursos y competencias
-  - Evaluaciones y evidencias
-  - Auditoría
-  - Credenciales verificables
+## Validaciones realizadas durante la reparación del PR #36
 
-### 4. Seguridad y Governance
-- ✅ **AI Governance** (`ai/`)
-  - Routing de modelos
-  - Permisos granulares
-  - Validación y auditoría
-  - Safe fallback si IA falla
+- JS del componente de constancias: sintaxis válida; genera bloque v2 sin
+  publicar el token local original, acepta la huella correcta y rechaza
+  evidencia alterada (prueba aislada).
+- JS del progreso: sintaxis válida; un almacenamiento JSON inválido no
+  bloquea la página; rechazo de claves no permitidas en importación y
+  aceptación de datos legítimos (prueba aislada).
+- JS del panel de amenazas y del recorrido Playwright: sintaxis examinada.
+- Pruebas nuevas subidas en `tests/` para permisos de expedientes,
+  auditoría, API, límites de tutor, importación de progreso y constancias.
+  **Estas pruebas todavía necesitan la ejecución completa de CI.**
 
-- ✅ **Security Headers** (`server/security/`)
-  - Rate limiting
-  - CORS + CSP
-  - Auditoría de eventos
+### Pruebas necesarias para considerar un cambio fusionable
 
-### 5. Infraestructura Real
-- ✅ **Docker Compose** 
-  - PostgreSQL local
-  - Redis (cache)
-  - Ollama (modelos locales)
-  - Servicio de tutoría
+```bash
+python3 -m pytest -q tests/
+node --test tests/service-worker.test.mjs lib/edu-engine/tests/quiz.test.mjs
+pnpm install --frozen-lockfile --ignore-scripts
+pnpm typecheck
+pnpm test
+pnpm build
+node --test tests/api-security.test.mjs
+python3 scripts/build_site.py
+```
 
-- ✅ **CI/CD** (GitHub Actions)
-  - TypeScript strict mode
-  - Tests (Vitest)
-  - Build (Vite + esbuild)
-  - Nightly schedule
+Además deben aprobarse el recorrido Playwright, el escaneo SAST privado,
+Gitleaks y las comprobaciones de construcción y despliegue correspondientes.
 
-- ✅ **Deployment Ready**
-  - Vercel config
-  - Production build
-  - Environment variables
+## Riesgos sin resolver
 
-### 6. Contenido Académico Mínimo
-- ✅ **Programa de Cursos**
-  - Bachelor of Cybersecurity (4 años)
-  - Cursos: Linux Operations, Networks & Protocols, Detection Engineering, etc.
-  - Competencias: Linux Ops, Networking, Cryptography
-  - Credits system (120 credits total)
+1. [Issue #6](https://github.com/belentani7/secure-t/issues/6): las claves
+   históricamente expuestas de DeepSeek/Google deben ser **revocadas en
+   sus proveedores** y revisadas antes de cerrar la incidencia.
+2. GitHub Pages sobre un repositorio personal privado en GitHub Free no
+   está disponible sin cambio de plan o visibilidad. **No cambiar a
+   público para forzar una publicación sin revisar secretos e historial.**
+3. La SPA muestra información y servicios de demostración. El servidor
+   no autentica estudiantes ni emite títulos institucionales.
+4. Las ejecución de GitHub Actions asociadas a la reparación se han
+   observado en cola. No hay constancia de gates completos en verde.
 
-- ✅ **Labs (Cyber Range)**
-  - Entornos aislados
-  - Desafíos prácticos
-  - Instance launcher
-  - Safety sandbox
+## Definición de «listo»
 
-### 7. Autenticación y Autorización
-- ✅ **RBAC** (Role-Based Access Control)
-  - Student, Faculty, Admin roles
-  - Least privilege
-  - Auditoría de acciones
+Solo marcar una entrega como **VERIFIED** cuando la compilación, las
+pruebas funcionales y de seguridad, la URL y sus encabezados reales
+sean comprobables, y cuando las alertas de credenciales estén atendidas.
 
-### 8. Documentación Completa
-- ✅ **Docs/** carpeta con:
-  - ACADEMIC_MODEL.md
-  - ARCHITECTURE.md
-  - AI_GOVERNANCE.md
-  - LAB_ARCHITECTURE.md
-  - SECURITY.md
-  - DEPLOYMENT.md
-  - CURRICULUM.md
-  - ROADMAP.md
-
----
-
-## 🎯 Calificación
-
-| Componente | Estado | Nota |
-|-----------|--------|------|
-| Backend API | ✅ Funcional | 9/10 |
-| Frontend React | ✅ Profesional | 9/10 |
-| Database Schema | ✅ Diseñado | 8/10 |
-| Seguridad | ✅ Implementada | 9/10 |
-| Contenido Académico | ⚙️ Expandible | 7/10 |
-| Documentación | ✅ Exhaustiva | 9/10 |
-| Infraestructura | ✅ Dockerizada | 9/10 |
-| **Total** | **FUNCIONANDO** | **8.7/10** |
-
----
-
-## 🚀 Estado Actual (Septiembre 2026)
-
-- ✅ **Fase 1**: Campus + API Express + componentes React
-- ✅ **CI/CD**: GitHub Actions validando cada push
-- 🚧 **Fase 2**: PostgreSQL/Drizzle + Autenticación RBAC
-- 🚧 **Fase 3**: Laboratorios aislados + evaluación por evidencia
-- 🗓️ **Fase 4**: Credenciales verificables + interoperabilidad LTI
-
----
-
-## 💡 Por Qué es Real
-
-1. **Código Compilable**: Vite + TypeScript strict mode
-2. **Tests Automáticos**: Vitest + CI en cada PR
-3. **API Live**: Express server con endpoints funcionales
-4. **Escalable**: Arquitectura modular + Docker
-5. **Seguro**: Headers, RBAC, auditoría, sin secretos en repo
-6. **Mantenible**: Convenciones claras, documentación
-7. **Contribuible**: CONTRIBUTING.md + issue templates
-
----
-
-## ⚠️ Honest Disclaimer
-
-- ❌ No es accreditada (no afirmamos serlo)
-- 🚧 Laboratorios en roadmap (próxima fase)
-- 🚧 Credenciales blockchain-ready (en desarrollo)
-- 📋 Currículo de 4 años siendo definido
-- 🔐 Auth RBAC en integración
-
-**Pero:** Es *real*, está *funcionando*, y será *mejor cada semana*.
-
----
-
-## 🎁 Para la Persona Especial
-
-Esta plataforma no es solo código. Es:
-- Un acto de amor a la educación
-- Un compromiso con la honestidad
-- Una promesa de calidad
-- Un espacio donde el conocimiento se comparte sin pretensiones
-
-Si alguien te lo compartió, es porque cree que podrías aprender aquí.
-O porque sabe que tu conocimiento puede ayudar.
-
-**Bienvenido/a.**
-
----
-
-**Última actualización:** 3 de Septiembre, 2026
-**Commit de verificación:** [Ver en GitHub](https://github.com/belentani7/secure-t/commits/main)
+**REALITY > CLAIMS.** No se promete acreditación universitaria.
