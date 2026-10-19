@@ -17,5 +17,16 @@ describe("platform contracts", () => {
   });
   it("allows a student to launch a lab", () => expect(can("STUDENT", "launch:lab")).toBe(true));
   it("strips secret-like audit metadata", () => expect(createAuditEvent({ actorType: "agent", action: "test", authorization: "allowed", result: "success", metadata: { token: "hidden", safe: "kept" } }).metadata).toEqual({ safe: "kept" }));
+  it("redacts secret-like values even under harmless metadata field names", () => {
+    const e = createAuditEvent({
+      actorType: "agent", action: "test", authorization: "allowed", result: "blocked",
+      metadata: { safe: "Bearer " + "not-a-real-session-token", count: 4, nested: { key: "x" } as unknown as string },
+      error: "Authorization failed: Bearer " + "not-a-real-session-token",
+    });
+    expect(e.metadata.safe).toBe("[REDACTED]");
+    expect(e.metadata.nested).toBeUndefined();
+    expect(e.metadata.count).toBe(4);
+    expect(e.error).not.toContain("not-a-real-session-token");
+  });
   it("creates completion events", () => expect(taskEvent("task-1", "TASK_COMPLETED").type).toBe("TASK_COMPLETED"));
 });
