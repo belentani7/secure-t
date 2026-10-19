@@ -53,6 +53,24 @@
   Object.assign(WORDS.pt,{"progress.note":"Seu caderno e seus marcos ficam apenas no navegador. Exporte para continuar em outro dispositivo. Não inclua segredos nas anotações.","progress.export":"Exportar caderno JSON","progress.import":"Importar caderno JSON","progress.importOk":"Caderno importado com validação.","progress.importBad":"Ficheiro inválido (máx. 1 MiB).","progress.exportOk":"Caderno exportado.","detail.notes":"Evidência de estudo (mínimo de 80 caracteres para autodeclarar esta unidade):"});
   Object.assign(WORDS.es,{"progress.note":"Tu cuaderno y tu progreso se guardan solo en el navegador. Exporta una copia para seguir en otro dispositivo. No guardes secretos.","progress.export":"Exportar cuaderno JSON","progress.import":"Importar cuaderno JSON","progress.importOk":"Cuaderno importado y validado.","progress.importBad":"Archivo no válido (máx. 1 MiB).","progress.exportOk":"Cuaderno exportado.","detail.notes":"Evidencia de estudio (mínimo 80 caracteres para marcar esta unidad):"});
   Object.assign(WORDS.en,{"progress.note":"Your notebook and progress live only in this browser. Export a copy to continue on another device. Never store secrets.","progress.export":"Export notebook JSON","progress.import":"Import notebook JSON","progress.importOk":"Notebook validated and imported.","progress.importBad":"Invalid file (max 1 MiB).","progress.exportOk":"Notebook exported.","detail.notes":"Study evidence (at least 80 characters before self-reporting this unit):"});
+  // These guides are actually authored content; the remainder of the five-year
+  // programme remains an honest syllabus, not generated "completed" lectures.
+  const authoredGuides=window.SecureTStudyGuides || {};
+  Object.assign(WORDS.pt,{
+    "detail.read":"LEITURA GUIADA","detail.practical":"ATIVIDADE APLICADA",
+    "detail.planned":"Esta unidade é um plano curricular em desenvolvimento. O material completo ainda não foi redigido.",
+    "filter.authored":"aulas produzidas","filter.syllabus":"plano em expansão"
+  });
+  Object.assign(WORDS.es,{
+    "detail.read":"LECTURA GUIADA","detail.practical":"ACTIVIDAD APLICADA",
+    "detail.planned":"Esta unidad es un temario en desarrollo. El material completo todavía no está redactado.",
+    "filter.authored":"lecciones redactadas","filter.syllabus":"temario en desarrollo"
+  });
+  Object.assign(WORDS.en,{
+    "detail.read":"GUIDED READING","detail.practical":"APPLIED EXERCISE",
+    "detail.planned":"This unit is a developing syllabus. Complete teaching material has not yet been written.",
+    "filter.authored":"authored lessons","filter.syllabus":"developing syllabus"
+  });
   const el = id => document.getElementById(id);
   const text = (node,value) => { node.textContent = String(value); return node; };
   const make = (tag,cls) => { const node=document.createElement(tag); if(cls)node.className=cls; return node; };
@@ -117,7 +135,8 @@
       text(append(article,make("h3")),c.title[lang]);
       text(append(article,make("p")),c.outcome[lang]);
       const bottom=append(article,make("div","course-bottom"));
-      text(append(bottom,make("small")),tr("filter.modules",{hours:c.hours}));
+      const authoredCount=c.topics.filter((_,i)=>Boolean(authoredGuides[c.id+"/"+i])).length;
+      text(append(bottom,make("small")),tr("filter.modules",{hours:c.hours})+" · "+(authoredCount ? authoredCount+" "+tr("filter.authored") : tr("filter.syllabus")));
       append(bottom,button(tr("filter.open"),"",()=>openCourse(c)));
       append(grid,article);
     }
@@ -143,9 +162,18 @@
       const col=append(card,make("div"));
       text(append(col,make("span","lesson-number")),tr("detail.lesson",{n:i+1}));
       text(append(col,make("h4")),topic);
-      text(append(col,make("p")),tr("detail.guide"));
-      const extra=append(col,make("p"));extra.style.marginTop="7px";extra.textContent=tr("detail.activity");
       const key=c.id+"/"+i;
+      const guide=authoredGuides[key];
+      if(guide && guide.read?.[lang] && guide.exercise?.[lang]){
+        const guided=append(col,make("div","lesson-guide"));
+        text(append(guided,make("span","lesson-guide-label")),tr("detail.read"));
+        text(append(guided,make("p","lesson-reading")),guide.read[lang]);
+        text(append(guided,make("span","lesson-guide-label")),tr("detail.practical"));
+        text(append(guided,make("p","lesson-practice")),guide.exercise[lang]);
+      }else{
+        text(append(col,make("p","lesson-pending")),tr("detail.planned"));
+        const extra=append(col,make("p"));extra.style.marginTop="7px";extra.textContent=tr("detail.guide");
+      }
       const notebook=append(card,make("div","lesson-notebook"));
       const label=append(notebook,make("label"));label.textContent=tr("detail.notes");label.htmlFor="evidence-"+key;
       const field=append(notebook,make("textarea"));field.id="evidence-"+key;field.maxLength=4000;field.rows=4;field.value=evidence[key]||"";
