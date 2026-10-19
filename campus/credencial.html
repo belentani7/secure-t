@@ -31,13 +31,14 @@
   <span class="brand"><span>credencial</span></span>
 </div></header>
 <main class="env" id="app">
-  <h1>Credencial verificable</h1>
-  <p class="t2">Al superar un curso con evidencia, generas aquí tu credencial. El sello es
-  un <strong>SHA-256</strong> calculado en tu navegador: cualquiera puede verificarlo
-  recomputando el hash, sin servidor y sin confiar en nosotros.</p>
+  <h1>Constancia local de aprendizaje</h1>
+  <p class="t2">Genera una constancia personal con huella SHA-256 calculada en tu
+  navegador. Cualquiera puede comprobar que el bloque es internamente coherente,
+  pero <strong>no demuestra identidad, autoría, resultados de examen ni aprobación
+  de una institución</strong>. Un tercero puede crear otro bloque y calcular su propio hash.</p>
   <p class="meta">Anti-atajo: el sellado comprueba tu progreso local (semanas, quiz,
   laboratorio, proyecto y examen completos). Revisión humana de evidencias: PLANNED.
-  Fase actual: sello hash verificable offline. Anclaje en blockchain: fase 2 (roadmap).</p>
+  Fase actual: comprobación local de integridad, sin emisor ni firma digital. Revisión humana y credenciales institucionales: PLANNED.</p>
 
   <h2 id="generar">Generar</h2>
   <label class="meta">Curso superado</label>
@@ -76,48 +77,75 @@ function esc(s) {
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
   }[ch]));
 }
+// No cryptographic issuer exists in this static edition. Version 2 is an
+// independently recomputable checksum, not a signed educational credential.
+try { document.getElementById("token").value = localStorage.getItem("stt-token") || ""; } catch (_) {}
+
+function showResult(el, message, good = false) {
+  el.hidden = false;
+  el.textContent = message;
+  el.className = "resultado " + (good ? "ok" : "mal");
+}
+
 document.getElementById("sellar").onclick = async () => {
   const c = document.getElementById("curso").value;
   const t = document.getElementById("token").value.trim();
   const e = document.getElementById("evidencia").value.trim();
   const out = document.getElementById("salida");
-  if (!t || !e) { out.hidden = false; out.innerHTML =
-    '<span class="mal">Falta token o evidencia.</span>'; return; }
-  // anti-atajo: sin recorrido completo no hay sello (verificación local)
-  const req = REQUISITOS[c] || [];
-  let est = {};
-  try { est = JSON.parse(localStorage.getItem("stt-progreso") || "{}"); } catch (err) {}
-  const faltan = req.filter(r => !est[c + "/" + r]);
-  if (faltan.length) {
-    out.hidden = false;
-    out.innerHTML = '<span class="mal">Recorrido incompleto: faltan ' + faltan.length +
-      ' de ' + req.length + ' hitos (' + faltan.slice(0, 3).join(", ") +
-      (faltan.length > 3 ? "…" : "") + '). Completa semanas, quiz, laboratorio,' +
-      ' proyecto y examen (progreso.html). La credencial exige el trabajo.</span>';
+  if (!Object.prototype.hasOwnProperty.call(REQUISITOS, c) || !t ||
+      e.length < 3 || e.length > 2000) {
+    showResult(out, "Indica un curso, tu token local y una evidencia de 3 a 2000 caracteres.");
     return;
   }
-  const f = new Date().toISOString().slice(0, 10);
-  const sello = await sha256(canonico(c, t, e, f));
-  const bloque = {v: 1, curso: c, token: t.slice(0, 8) + "…", evidencia: e,
-    fecha: f, sello};
-  out.hidden = false;
-  out.textContent = "Sello SHA-256:\n" + sello +
-    "\n\nBloque verificable (cópialo entero):\n" +
-    JSON.stringify(bloque, null, 2);
-};
-document.getElementById("btn-verificar").onclick = async () => {
-  const v = document.getElementById("veredicto");
+  let localToken = "";
+  let progress = {};
   try {
-    const b = JSON.parse(document.getElementById("bloque").value);
-    const recomputado = await sha256(canonico(b.curso, b.token, b.evidencia, b.fecha));
-    const ok = recomputado === b.sello;
-    v.hidden = false;
-    v.innerHTML = ok
-      ? '<span class="ok">✓ Sello válido: la credencial no fue modificada.</span>'
-      : '<span class="mal">✗ Sello inválido: el bloque fue alterado o es falso.</span>';
-  } catch (err) {
-    v.hidden = false;
-    v.innerHTML = '<span class="mal">Bloque ilegible: ' + esc(err.message) + "</span>";
+    localToken = localStorage.getItem("stt-token") || "";
+    progress = JSON.parse(localStorage.getItem("stt-progreso") || "{}");
+  } catch (_) { /* unavailable browser storage means no verified local path */ }
+  if (!localToken || t !== localToken || !progress || typeof progress !== "object") {
+    showResult(out, "El token debe coincidir con el que tiene guardado este navegador.");
+    return;
+  }
+  const required = REQUISITOS[c];
+  const missing = required.filter(item => progress[c + "/" + item] !== true);
+  if (missing.length) {
+    showResult(out, "Recorrido incompleto: faltan " + missing.length + " de " +
+      required.length + " hitos. Completa el recorrido en progreso.html.");
+    return;
+  }
+  try {
+    const date = new Date().toISOString().slice(0, 10);
+    // A nonreversible subject digest is exported instead of the local token.
+    const subject = await sha256(t);
+    const seal = await sha256(canonico(c, subject, e, date));
+    const block = {v: 2, curso: c, sujeto: subject, evidencia: e, fecha: date, sello: seal};
+    showResult(out, "Huella SHA-256 (sin firma de emisor):\n" + seal +
+      "\n\nBloque verificable (cópialo entero):\n" +
+      JSON.stringify(block, null, 2), true);
+  } catch (_) {
+    showResult(out, "No se pudo calcular la huella; abre el campus en un contexto seguro.");
+  }
+};
+
+document.getElementById("btn-verificar").onclick = async () => {
+  const out = document.getElementById("veredicto");
+  try {
+    const block = JSON.parse(document.getElementById("bloque").value);
+    if (!block || block.v !== 2 || !Object.prototype.hasOwnProperty.call(REQUISITOS, block.curso) ||
+        typeof block.sujeto !== "string" || !/^[a-f0-9]{64}$/.test(block.sujeto) ||
+        typeof block.evidencia !== "string" || block.evidencia.length < 3 || block.evidencia.length > 2000 ||
+        typeof block.fecha !== "string" || !/^\\d{4}-\\d{2}-\\d{2}$/.test(block.fecha) ||
+        typeof block.sello !== "string" || !/^[a-f0-9]{64}$/.test(block.sello)) {
+      showResult(out, "Bloque inválido o versión antigua. Genera una nueva constancia v2.");
+      return;
+    }
+    const computed = await sha256(canonico(block.curso, block.sujeto, block.evidencia, block.fecha));
+    showResult(out, computed === block.sello
+      ? "✓ Huella coherente: los campos coinciden con este hash. NO acredita emisor, identidad ni aprendizaje."
+      : "✗ Huella diferente: los campos no coinciden con el hash.", computed === block.sello);
+  } catch (_) {
+    showResult(out, "Bloque JSON ilegible o no se pudo calcular la huella.");
   }
 };
 </script>
