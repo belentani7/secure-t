@@ -34,6 +34,21 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   await firstLesson.locator('input[type="checkbox"]').check();
   assert.equal(await page.locator('#count-progress').innerText(), '0.4%'); // First of 240 units must be visible to the learner.
   assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('stt-academia-progress'))['ST-011/0']), true);
+  // Seamless reading-to-understanding journey, including localized feedback.
+  await page.locator('#course-self-check').click();
+  assert.match(await page.locator('#check-prompt').innerText(), /diferença entre programa e processo/i);
+  assert.equal(await page.locator('.check-choice').count(),3);
+  await page.locator('.check-choice input').first().check();
+  await page.locator('#check-submit').click();
+  assert.match(await page.locator('#check-feedback').innerText(), /correta/i);
+  await page.locator('button[data-lang="es"]').click();
+  assert.match(await page.locator('#check-title').innerText(), /comprendido/i);
+  assert.equal(await page.locator('#check-course-select option').count(),24);
+  await page.locator('button[data-lang="en"]').click();
+  assert.match(await page.locator('#check-title').innerText(), /understood/i);
+  await page.locator('button[data-lang="pt"]').click();
+  assert.deepEqual(errors,[], 'Trilingual formative checks must be interactive without errors');
+
   const academyUpload = page.waitForEvent('filechooser');
   await page.locator('#import-progress').click();
   const academyChooser = await academyUpload;
