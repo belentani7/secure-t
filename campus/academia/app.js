@@ -77,6 +77,9 @@
   Object.assign(WORDS.pt,{"tutor.voiceAutoOff":"Envio por voz: manual","tutor.voiceAutoOn":"Envio por voz: automático"});
   Object.assign(WORDS.es,{"tutor.voiceAutoOff":"Envío por voz: manual","tutor.voiceAutoOn":"Envío por voz: automático"});
   Object.assign(WORDS.en,{"tutor.voiceAutoOff":"Voice send: manual","tutor.voiceAutoOn":"Voice send: automatic"});
+  Object.assign(WORDS.pt,{"privacy.clear":"Apagar dados de estudo","privacy.confirm":"Apagar definitivamente o caderno de estudo e as revisões guardadas neste dispositivo? Esta ação não pode ser desfeita. Exporte antes se quiser conservar uma cópia.","privacy.cleared":"Dados académicos locais apagados. A preferência de idioma foi preservada.","privacy.storageBad":"Não foi possível gravar todos os dados neste navegador. O armazenamento pode estar cheio ou bloqueado."});
+  Object.assign(WORDS.es,{"privacy.clear":"Borrar datos de estudio","privacy.confirm":"¿Borrar permanentemente notas, progreso y repasos guardados en este dispositivo? No se puede deshacer. Exporta antes si quieres conservar una copia.","privacy.cleared":"Datos académicos locales borrados. Se conserva el idioma elegido.","privacy.storageBad":"No se pudieron guardar todos los datos en este navegador. Puede estar lleno o bloqueado."});
+  Object.assign(WORDS.en,{"privacy.clear":"Erase learning data","privacy.confirm":"Permanently erase notes, progress and reviews saved on this device? This cannot be undone. Export first if you want a backup.","privacy.cleared":"Local learning data erased. Your language preference is preserved.","privacy.storageBad":"Not all data could be saved on this browser. Storage may be full or disabled."});
   const el = id => document.getElementById(id);
   const text = (node,value) => { node.textContent = String(value); return node; };
   const make = (tag,cls) => { const node=document.createElement(tag); if(cls)node.className=cls; return node; };
@@ -249,7 +252,12 @@
     const status=el("data-status");
     const announce=message=>{status.textContent=message};
     el("export-progress").addEventListener("click",()=>{
-      const data={version:1,progress,evidence};
+      let review={};
+      try {
+        const input=JSON.parse(persist("stt-academia-review-v1")||"{}");
+        if(window.SecureTReview?.parseSchedule)review=window.SecureTReview.parseSchedule(input);
+      }catch{review={}}
+      const data={version:1,progress,evidence,review};
       const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
       const url=URL.createObjectURL(blob);
       const link=make("a");link.href=url;link.download="secure-t-caderno.json";document.body.appendChild(link);link.click();link.remove();
@@ -257,6 +265,19 @@
       announce(tr("progress.exportOk"));
     });
     el("import-progress").addEventListener("click",()=>el("import-file").click());
+    el("clear-learning-data").addEventListener("click",()=>{
+      if(!window.confirm(tr("privacy.confirm")))return;
+      const names=["stt-academia-evidence","stt-academia-progress","stt-academia-review-v1"];
+      try{
+        for(const key of names)localStorage.removeItem(key);
+        if(names.some(key=>localStorage.getItem(key)!==null))throw Error("blocked");
+      }catch{announce(tr("privacy.storageBad"));return;}
+      progress={};evidence={};tutorState={};
+      renderStats();if(selected)renderDetail();
+      announce(tr("privacy.cleared"));
+      // The separate spaced-repetition room reads saved state on initialization.
+      window.location.reload();
+    });
     el("import-file").addEventListener("change",async event=>{
       const file=event.target.files?.[0];event.target.value="";
       if(!file||file.size>1024*1024){announce(tr("progress.importBad"));return;}
@@ -275,11 +296,33 @@
           if(!permittedIds.has(key)||value!==true||(nextEvidence[key]||"").trim().length<80)throw Error("progress");
           nextProgress[key]=true;
         }
+        let nextReview=null;
+        if(Object.prototype.hasOwnProperty.call(incoming,"review")){
+          if(!incoming.review||typeof incoming.review!=="object"||Array.isArray(incoming.review)||
+              Object.keys(incoming.review).length>96||!window.SecureTReview?.parseSchedule)throw Error("review schema");
+          nextReview=window.SecureTReview.parseSchedule(incoming.review);
+          if(Object.keys(nextReview).length!==Object.keys(incoming.review).length)throw Error("invalid review record");
+        }
+        // All-or-nothing import. Storage errors must not result in a false success.
+        const changes=[
+          ["stt-academia-evidence",JSON.stringify(nextEvidence)],
+          ["stt-academia-progress",JSON.stringify(nextProgress)],
+          ...(nextReview===null?[]:[["stt-academia-review-v1",JSON.stringify(nextReview)]])
+        ];
+        const previous=changes.map(([key])=>[key,persist(key)]);
+        try{
+          for(const [key,val] of changes){
+            localStorage.setItem(key,val);
+            if(localStorage.getItem(key)!==val)throw Error("storage mismatch");
+          }
+        }catch{
+          for(const [key,val] of previous){try{if(val===null)localStorage.removeItem(key);else localStorage.setItem(key,val);}catch{}}
+          throw Error("storage blocked");
+        }
         evidence=nextEvidence;progress=nextProgress;
-        save("stt-academia-evidence",JSON.stringify(evidence));
-        save("stt-academia-progress",JSON.stringify(progress));
         renderStats();if(selected)renderDetail();
         announce(tr("progress.importOk"));
+        if(nextReview!==null)window.location.reload();
       }catch{announce(tr("progress.importBad"));}
     });
   }
