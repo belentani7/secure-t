@@ -92,3 +92,24 @@ test('tutor requires server-side secret when enabled', async () => {
     assert.equal(health.tutorConfigured, true);
   });
 });
+
+
+test('tutor throttles authenticated requests before external model calls', async () => {
+  await withApi({
+    SECURE_T_TUTOR_API_KEY: 'local-test-credential-not-real',
+    OLLAMA_URL: 'http://127.0.0.1:1',
+  }, async origin => {
+    for (let n = 0; n < 11; n++) {
+      const result = await fetch(origin + '/api/tutor', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          'x-secure-t-key': 'local-test-credential-not-real',
+        },
+        body: JSON.stringify({ message: 'Explica una medida de defensa de red.' }),
+      });
+      assert.equal(result.status, n < 10 ? 200 : 429);
+      if (n === 10) assert.ok(Number(result.headers.get('retry-after')) > 0);
+    }
+  });
+});
