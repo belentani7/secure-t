@@ -408,9 +408,11 @@
       };
       rec.onerror=()=>{failed=true;listening=false;mic.setAttribute("aria-pressed","false");};
       rec.onend=()=>{
-        if(activeRecognition===rec)activeRecognition=null;
+        const completedNormally=activeRecognition===rec;
+        if(completedNormally)activeRecognition=null;
         listening=false;mic.setAttribute("aria-pressed","false");
-        if(!failed&&heard&&autoVoiceSend)el("tutor-form").requestSubmit();
+        // Aborted recordings must never become requests.
+        if(completedNormally&&!failed&&heard&&autoVoiceSend)el("tutor-form").requestSubmit();
       };
       try{activeRecognition=rec;rec.start();listening=true;mic.setAttribute("aria-pressed","true");}
       catch{activeRecognition=null;listening=false;mic.setAttribute("aria-pressed","false");}
