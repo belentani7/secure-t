@@ -39,6 +39,8 @@ jobs:
         run: pnpm test
       - name: Build local SPA
         run: pnpm build
+      - name: Optional API security integration tests
+        run: node --test tests/api-security.test.mjs
 
   secretos:
     name: Current source secrets scan
