@@ -113,3 +113,32 @@ def test_security_reference_urls_are_not_treated_as_tokens(tmp_path):
         "https://www.nist.gov/itl/ai-risk-management-framework"
     )
     module.validate_public_files(tmp_path)
+
+
+def test_generated_metadata_has_resolved_urls(tmp_path, monkeypatch):
+    module = builder()
+    monkeypatch.setenv("SITE_URL", "https://learn.example.test/secure-t")
+    output = tmp_path / "site"
+    module.build_site(output)
+    expected = "https://learn.example.test/secure-t"
+    robots = (output / "robots.txt").read_text(encoding="utf-8")
+    sitemap = (output / "sitemap.xml").read_text(encoding="utf-8")
+    landing = (output / "index.html").read_text(encoding="utf-8")
+    assert "__BASE_URL__" not in robots + sitemap
+    assert "Sitemap: " + expected + "/sitemap.xml" in robots
+    assert "<loc>" + expected + "/campus/</loc>" in sitemap
+    assert 'rel="canonical" href="' + expected + '/"' in landing
+    assert 'property="og:url" content="' + expected + '/"' in landing
+
+
+@pytest.mark.parametrize("site_url", [
+    "http://insecure.example.test",
+    "https://username:password@example.test",
+    "https://example.test/#fragment",
+    "https://example.test/../secret",
+])
+def test_invalid_public_site_url_is_rejected(monkeypatch, site_url):
+    module = builder()
+    monkeypatch.setenv("SITE_URL", site_url)
+    with pytest.raises(ValueError, match="SITE_URL"):
+        module.public_site_url()
