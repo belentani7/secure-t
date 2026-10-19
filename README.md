@@ -3,7 +3,7 @@
 Instituto abierto de ciberseguridad e inteligencia artificial: cuatro programas de
 veinte semanas, gratuitos, en espanol y funcionales sin conexion.
 
-En linea: <https://belentani7.github.io/secure-t/>
+URL prevista para GitHub Pages: <https://belentani7.github.io/secure-t/> (no se confirma como activa).\nLa publicacion desde un repositorio privado requiere un plan de GitHub compatible;\nno se cambia la visibilidad del codigo para habilitar Pages.
 
 ## Que es este repositorio
 
@@ -66,7 +66,7 @@ ensambla el campus y prueba los cuatro quizzes y el progreso en Chromium.
 
 Dos destinos, una sola fuente:
 
-- **GitHub Pages** via `.github/workflows/pages.yml`, que publica unicamente
+- **GitHub Pages** via `.github/workflows/pages.yml`, preparado para publicar unicamente
   el campus completo con `python3 scripts/build_site.py --destination _site`.
   Antes de subir, comprueba que no
   haya secretos en lo que va a publicarse.
@@ -98,20 +98,20 @@ Esta seccion existe para que nadie confunda lo publicado con lo deseado.
 
 | Elemento | Estado |
 |---|---|
-| Campus estatico (4 cursos, 20 semanas) | publicado |
-| Tests con pytest | publicado, en CI |
-| Tests con vitest (capa SPA y dominio) | restaurados, en CI |
-| Escaneo de secretos en CI | publicado |
+| Campus estatico (4 cursos, 20 semanas) | Implementado en codigo; publicacion externa no verificada |
+| Tests con pytest | Configurados en CI; ultima ejecucion no valida |
+| Tests con vitest (capa SPA y dominio) | Configurados; ejecucion verde pendiente |
+| Escaneo de secretos en CI | Configurado; claves historicas requieren revocacion externa (issue #6) |
 | Capa SPA React + servidor local (`pnpm start`) | restaurada en el repo; no se publica en Pages |
 | Traduccion PT y EN del contenido docente | **PLANNED** |
 | Catala del contenido docente | **PLANNED** |
 | Backend con base de datos | retirado; el campus no lo necesita |
-| Credenciales verificables emitidas | **PLANNED** |
+| Constancias SHA-256 locales | Integridad autocontenida, sin firma de emisor |\n| Credenciales institucionales verificables | **PLANNED** |
 
 La landing declara el estado real de idiomas en `campus/idiomas.md`: nada se marca
 como traducido sin estarlo.
 
-## Licencia
+## Contenedores\n\n`Dockerfile` compila la SPA/API local de Secure T con Node 22 y ejecuta el\nservicio como usuario no privilegiado. `docker-compose.yml` solo sirve para\ndesarrollo local: escucha en 127.0.0.1 y exige `POSTGRES_PASSWORD`,\n`MINIO_ROOT_USER` y `MINIO_ROOT_PASSWORD` mediante un archivo `.env` no\nversionado. `.env.example` contiene los nombres, nunca valores reales.\nLa API de ejemplo no es un backend académico con autenticación productiva.\n\n## Licencia
 
 MIT para el codigo. El material didactico cita sus fuentes en cada semana.
 
