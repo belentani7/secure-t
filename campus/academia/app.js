@@ -304,12 +304,15 @@
     if(chatHistory.length>22){const item=chatHistory.shift();item.node.remove();}
     el("chat-history").scrollTop=el("chat-history").scrollHeight;
   }
+  // Stateful, privacy-preserving academic coaching remains available without
+  // browser AI APIs or server calls. It is labeled curricular guidance, not an LLM.
+  let tutorState={};
   function localTutor(question){
-    const normalized=question.toLocaleLowerCase();
-    const course=selected || dataset.courses.find(c=>[c.title.pt,c.title.es,c.title.en,c.id,...c.topics,...localizedTopics(c)].some(t=>normalized.includes(t.toLocaleLowerCase()))) || dataset.courses.find(c=>normalized.includes("web")?c.track==="web":normalized.includes("idiom")||normalized.includes("english")?c.track==="languages":c.track==="cyber");
-    if(!course)return tr("tutor.ask");
-    const topic=localizedTopics(course).find(t=>normalized.includes(t.toLocaleLowerCase()))||localizedTopics(course)[0];
-    return tr("tutor.reply",{course:course.title[lang],topic});
+    const coach=window.SecureTCurriculumTutor;
+    if(!coach)return tr("tutor.ask");
+    const result=coach.respond({message:question,lang,selected,dataset,guides:authoredGuides,state:tutorState});
+    tutorState=result.state;
+    return result.text;
   }
   async function tutorReply(message){
     if(!aiSession)return localTutor(message);
