@@ -812,7 +812,8 @@ status  › <span class="t-ok">verified · immutable · public</span></div>
   </button>
 
   <script>
-    lucide.createIcons();
+    // External icon CDN is progressive enhancement: language and navigation must still work offline.
+    if (window.lucide && typeof window.lucide.createIcons === 'function') window.lucide.createIcons();
 
     // ---------- idioma (PT padrão, regra: pt > es > en) ----------
     var i18n = window.SecureTI18n;
