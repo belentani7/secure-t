@@ -97,6 +97,27 @@ test('first-semester original lessons include reading and exercises in all three
   assert.ok(app.includes('detail.planned'));
 });
 
+test('second semester now has authored and localized readings and practice',()=>{
+  const source=readFileSync(new URL('../campus/academia/lesson-content.js',import.meta.url),'utf8');
+  const extension=readFileSync(new URL('../campus/academia/lesson-content-2.js',import.meta.url),'utf8');
+  const ctx=createContext({window:{}});
+  new Script(source).runInContext(ctx);
+  new Script(extension).runInContext(ctx);
+  const guides=ctx.window.SecureTStudyGuides;
+  assert.equal(Object.keys(guides).length,48);
+  const second=Object.entries(guides).filter(([key])=>key.startsWith('ST-02'));
+  assert.equal(second.length,24);
+  for(const [key,guide] of second){
+    const course=academy.courses.find(c=>c.id===key.split('/')[0]);
+    assert.equal(course.semester,2);
+    for(const lang of ['pt','es','en']){
+      assert.ok(guide.read[lang].length>=100,key+' reading '+lang);
+      assert.ok(guide.exercise[lang].length>=65,key+' exercise '+lang);
+    }
+  }
+  assert.ok(html.includes('<script defer src="lesson-content-2.js"></script>'));
+});
+
 test('offline tutor offers trilingual explanations, exercises, Socratic checks and credits',()=>{
   const guideSource=readFileSync(new URL('../campus/academia/lesson-content.js',import.meta.url),'utf8');
   const tutorSource=readFileSync(new URL('../campus/academia/tutor-guide.js',import.meta.url),'utf8');
