@@ -1,6 +1,6 @@
 # Secure T — verificación basada en evidencias
 
-**Fecha de revisión:** 19 de octubre de 2026  
+**Fecha de revisión:** 20 de octubre de 2026  
 **Repositorio:** `belentani7/secure-t` (privado)  
 **Fuente:** código de `main` y cambios propuestos en PR #36.
 
@@ -12,11 +12,15 @@ servicio online disponible.
 
 ## Avance curricular verificado en la rama del PR #36
 
-El campus incluye **72 de 240 unidades** con lectura propia y práctica específica en portugués, español e inglés, repartidas entre semestres 1, 2 y 3. Las restantes 168 son itinerarios planificados; el programa de cinco años sigue incompleto y no equivale a una titulación académica acreditada. El tutor y el repaso son orientaciones educativas locales, no calificaciones de profesorado.
+El campus incluye **96 de 240 unidades** con lectura propia y práctica específica en portugués, español e inglés, repartidas entre semestres 1, 2, 3 y 4. Las restantes 144 son itinerarios planificados; el programa de cinco años sigue incompleto y no equivale a una titulación académica acreditada. El tutor y el repaso son orientaciones educativas locales, no calificaciones de profesorado.
 
 **Nuevo laboratorio real:** comparación SHA-256 local mediante `crypto.subtle.digest`, con tres idiomas, valores de prueba y pruebas de regresión en `tests/lab-hash.test.mjs`. El cálculo de hashes no implica una firma digital o acreditación. El código no hace llamadas de red.
 
-**Prueba aislada ejecutada:** JavaScript del contenido y de repaso cargado sobre entorno simulado, 72 claves válidas, sin lecturas o actividades ausentes, transición de repaso y traducción al español sin errores. **Pendiente:** tests completos de Python, Node y Playwright, validación accesibilidad manual, seguridad de despliegue, firma de credenciales y revisión académica externa.
+**Ampliación del 20-10-2026:** examen de comprensión de 24 preguntas formativas trilingües, independiente de acreditación o calificación, y control explícito de privacidad para exportar, restaurar y borrar datos de estudio locales. La prueba de navegador para el viaje alumno → lección → pregunta y la portabilidad fue añadida, pero no ejecutada con un navegador real.
+
+**Comprobaciones ejecutadas en entorno V8 aislado:** 13/13 casos del currículo, 4/4 casos del repaso, 4/4 casos del banco formativo (21/21); pruebas específicas de 24 respuestas correctas e incorrectas y cambios PT/ES/EN sin errores. No se confunden con GitHub Actions, Playwright completo ni una prueba de producción.
+
+**Prueba aislada ejecutada:** JavaScript del contenido y de repaso cargado sobre entorno simulado, 96 claves válidas, sin lecturas o actividades ausentes, transición de repaso y traducción al español sin errores. **Pendiente:** tests completos de Python, Node y Playwright, validación accesibilidad manual, seguridad de despliegue, firma de credenciales y revisión académica externa.
 
 La fuente `drivedopobre.com.br` indicada como candidata no se pudo inspeccionar en línea. No se han descargado ni republicado contenidos sin comprobar autoría o licencias.
 
