@@ -39,11 +39,11 @@ const boot=()=>{
   return {window,doc,controls,score,languages,storage};
 };
 
-test('self-review initializes with 24 authored lessons and no external service',()=>{
+test('self-review initializes with 48 authored lessons and no external service',()=>{
   const page=boot();
   assert.match(page.controls['review-count'].textContent,/1\/24/);
   assert.match(page.controls['review-task'].textContent,/Desenhe um diagrama/);
-  assert.match(page.controls['review-status'].textContent,/24 unidade/);
+  assert.match(page.controls['review-status'].textContent,/48 unidade/);
   assert.equal(Object.keys(page.storage).length,0);
   assert.doesNotMatch(read('study-review.js'),/fetch\s*\(|XMLHttpRequest\s*\(|navigator\.sendBeacon/);
 });
