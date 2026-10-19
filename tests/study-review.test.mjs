@@ -9,6 +9,7 @@ const boot=()=>{
   const window={};
   new Script(read('data.js')).runInContext(createContext({window}));
   new Script(read('lesson-content.js')).runInContext(createContext({window}));
+  new Script(read('lesson-content-2.js')).runInContext(createContext({window}));
   class Control{
     constructor(data={}){
       this.dataset=data;this.listeners={};this.textContent='';
