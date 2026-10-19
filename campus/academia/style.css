@@ -73,3 +73,11 @@
 #soc-result[data-correct="true"]{color:var(--success)}
 @media(max-width:850px){.lab-editor-grid,.soc-grid{grid-template-columns:1fr}.lab-preview iframe{height:290px}}
 @media(max-width:580px){.lab-panel{padding:15px}.lab-panel-head .student-data-actions{width:100%}.lab-switch button{flex:1}}
+
+/* Substantive first-semester reading and practice, visually distinct from
+   the planned five-year syllabus cards. */
+.lesson-guide{display:grid;gap:8px;margin:14px 0 6px;padding:16px;border:1px solid rgba(149,218,222,.18);border-radius:12px;background:linear-gradient(135deg,rgba(120,187,208,.085),rgba(9,21,34,.1))}
+.lesson-guide-label{font-size:10px;font-weight:800;letter-spacing:.15em;color:var(--aqua)}
+.lesson-guide p{font-size:12px;line-height:1.75;max-width:74ch;color:var(--ink);margin:0 0 8px}
+.lesson-guide .lesson-practice{color:#d1e7e8;border-left:2px solid var(--aqua);padding-left:12px}
+.lesson-pending{color:var(--muted);font-style:italic;font-size:12px;border-left:2px solid var(--line-strong);padding-left:12px;margin-top:12px}
