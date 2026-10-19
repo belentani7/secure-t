@@ -18,7 +18,7 @@ function makeElement(name='div'){
   };
 }
 function boot(){
-  const window={};
+  const window={matchMedia:()=>({matches:false})};
   for(const file of ['data.js','formative-bank.js']){
     new Script(read(file),{filename:file}).runInContext(createContext({window}));
   }
