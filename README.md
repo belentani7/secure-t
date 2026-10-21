@@ -1,88 +1,138 @@
-# secure-t
+# secure T
 
-> Professional project template
+Instituto abierto de ciberseguridad e inteligencia artificial: cuatro programas de
+veinte semanas, gratuitos, en espanol y funcionales sin conexion.
 
-## 🚀 Quick Start
+En linea: <https://belentani7.github.io/secure-t/>
 
-### Prerequisites
-- Node.js >= 20.0.0
-- pnpm >= 9.0.0
+## Que es este repositorio
 
-### Installation
+Un campus estatico. La portada `index.html` enlaza los cuatro programas y todo el
+material vive en `campus/`: sin base de datos en produccion ni cuentas de usuario,
+se abre desde el disco. El repositorio contiene ademas una capa SPA local
+(`client/`, React + Vite) y un servidor estatico opcional con API de demostracion
+(`pnpm start`); ninguna de las dos se publica en GitHub Pages.
+
+| Programa | Carpeta |
+|---|---|
+| Ciberseguridad Ofensiva: Pensar como Atacante | `campus/cursos/ciber-ofensiva/` |
+| Ciberseguridad Defensiva: Operar como SOC | `campus/cursos/ciber-defensiva/` |
+| Inteligencia Artificial Aplicada y Segura | `campus/cursos/ia-aplicada-segura/` |
+| Gobernanza y Compliance Digital | `campus/cursos/gobernanza-compliance/` |
+
+Cada curso tiene veinte semanas con lectura, practica guiada y un caso real, mas
+`quiz.json`, `laboratorio.md`, `rubrica.md`, `glosario.md`, `chuleta.md`, `examen.md`
+y `syllabus.md`.
+
+## Privacidad por diseno
+
+No hay cuenta, no hay correo y no hay seguimiento. El progreso se guarda en el
+`localStorage` del navegador con un token anonimo que nunca se envia a ningun sitio.
+
+## Tests
+
+Los tests del campus se ejecutan con **pytest** sobre los artefactos publicados,
+no sobre el motor:
+
 ```bash
-# Clone the repository
-git clone https://github.com/belentani7/secure-t.git
-cd secure-t
+pip install pytest
+python -m pytest -q tests/
+```
 
-# Install dependencies
+`tests/test_campus.py` valida el esquema de los quizzes, la coherencia de la
+evaluacion, la estructura de las paginas de curso, los enlaces reales de la portada,
+el SEO minimo, y que el workflow de Pages no lleve tokens personales.
+`tests/test_forge_smoke.py` cubre el arranque del motor educativo.
+
+La capa SPA y los modulos de dominio (gobernanza de agentes, RBAC, auditoria,
+curriculo, notificaciones) se validan con **vitest** y **tsc**:
+
+```bash
 pnpm install
-
-# Start development server
-pnpm dev
+pnpm test         # 22 tests: gobernanza, contratos, curriculo, notificaciones
+pnpm typecheck    # tsc --noEmit
+pnpm build        # vite build -> dist/public
 ```
 
-## 📦 Available Scripts
+## CI
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start development server |
-| `pnpm build` | Build for production |
-| `pnpm preview` | Preview production build |
-| `pnpm lint` | Run ESLint |
-| `pnpm lint:fix` | Fix ESLint errors |
-| `pnpm format` | Format with Prettier |
-| `pnpm format:check` | Check formatting |
-| `pnpm typecheck` | TypeScript type checking |
-| `pnpm test` | Run unit tests |
-| `pnpm test:watch` | Run tests in watch mode |
-| `pnpm test:coverage` | Run tests with coverage |
-| `pnpm test:e2e` | Run E2E tests |
+`.github/workflows/ci.yml` instala dependencias fijadas, valida tipos y ejecuta
+los tests y la compilacion de la SPA local. Gitleaks comprueba el codigo actual
+sin imprimir valores secretos; este gate no certifica el historial completo.
+`campus-publication.yml` ejecuta pytest, el motor educativo y las pruebas offline,
+ensambla el campus y prueba los cuatro quizzes y el progreso en Chromium.
 
-## 🏗️ Architecture
+## Despliegue
 
-```
-src/
-├── components/     # Reusable UI components
-├── hooks/          # Custom React hooks
-├── pages/          # Page components
-├── services/       # Business logic & API calls
-├── utils/          # Utility functions
-├── styles/         # Global styles & theme
-├── types/          # TypeScript types
-├── test/           # Test utilities & setup
-└── main.tsx        # Application entry point
+Dos destinos, una sola fuente:
+
+- **GitHub Pages** via `.github/workflows/pages.yml`, que publica unicamente
+  el campus completo con `python3 scripts/build_site.py --destination _site`.
+  Antes de subir, comprueba que no
+  haya secretos en lo que va a publicarse.
+- **Netlify**, con `publish = "site-dist"` y el mismo ensamblador. Nunca la raiz del repositorio: eso dejaria
+  accesibles por URL los scripts, los tests y el material de trabajo.
+
+El ensamblador usa la portada y los cursos vigentes de la raiz, incluye conceptos,
+recursos de voz y metadatos publicos, y comprueba sus referencias HTML locales.
+No publica la copia incompleta de `public/campus/`. Si una comprobacion falla,
+conserva el artefacto anterior. Para probar exactamente la entrega:
+
+```bash
+python3 scripts/build_site.py
+python3 -m http.server 8000 --directory site-dist
 ```
 
-## 🧪 Testing
+## Motor educativo (eduforge)
 
-- **Unit/Integration**: Vitest + React Testing Library
-- **E2E**: Playwright
-- **Coverage**: Target ≥ 80%
+`lib/edu-engine/` contiene el motor que genera y valida el curriculo. Tiene tests
+propios (`lib/edu-engine/tests/`), ejecutados por el CI del repositorio: el
+workflow anidado que tenia en su carpeta nunca corrio, porque GitHub solo lee
+`.github/workflows/` de la raiz. La carpeta `audit/` guarda
+los informes de auditoria del propio repositorio: que se reviso, que se encontro y
+que quedo pendiente.
 
-## 🔧 Code Quality
+## Que NO esta
 
-- **TypeScript**: Strict mode enabled
-- **Linting**: ESLint + Biome
-- **Formatting**: Prettier
-- **Git Hooks**: Husky + lint-staged
-- **Commits**: Conventional Commits enforced
+Esta seccion existe para que nadie confunda lo publicado con lo deseado.
 
-## 🚢 Deployment
+| Elemento | Estado |
+|---|---|
+| Campus estatico (4 cursos, 20 semanas) | publicado |
+| Tests con pytest | publicado, en CI |
+| Tests con vitest (capa SPA y dominio) | restaurados, en CI |
+| Escaneo de secretos en CI | publicado |
+| Capa SPA React + servidor local (`pnpm start`) | restaurada en el repo; no se publica en Pages |
+| Traduccion PT y EN del contenido docente | **PLANNED** |
+| Catala del contenido docente | **PLANNED** |
+| Backend con base de datos | retirado; el campus no lo necesita |
+| Credenciales verificables emitidas | **PLANNED** |
 
-### Staging
-Automatic on push to `main` branch.
+La landing declara el estado real de idiomas en `campus/idiomas.md`: nada se marca
+como traducido sin estarlo.
 
-### Production
-Manual via GitHub Actions workflow dispatch or tag push.
+## Licencia
 
-## 📋 Contributing
+MIT para el codigo. El material didactico cita sus fuentes en cada semana.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+---
 
-## 📄 License
+## Parte del indice educativo
 
-MIT License - see [LICENSE](LICENSE) for details.
+Esta plataforma forma parte del conjunto educativo de **Belentani / NOIACORE**:
+formacion gratuita y abierta. El indice completo vive en el nodo central:
 
-## 🔒 Security
+**<https://github.com/belentani7/open-school/blob/main/INDICE-EDUCATIVO.md>**
 
-See [SECURITY.md](SECURITY.md) for reporting vulnerabilities.
+| Plataforma | Que ensena | Enlace |
+|---|---|---|
+| Open School | Instituto digital universal | https://open-school-gamma.vercel.app |
+| ManosAbiertas | IA y ofimatica para recien llegados | https://belentani7.github.io/ManosAbiertas/ |
+| WILLIAMSCHOOL | Escuela comunitaria (curriculo Nepal) | https://williamschool.vercel.app |
+| UX Academy | Diseno UX/Producto, trilingue | https://ux-academy-professional.vercel.app |
+| Aprende Brasil | Educacion para Brasil | https://aprende-brasil.vercel.app/ |
+| Lingua Aberta | Idiomas, progresion CEFR | https://belentani7.github.io/lingua-aberta-empresa/ |
+| Cruzando el Charco | Acogida y arraigo | https://belentani7.github.io/Cruzando-el-charco/ |
+| secure-t | Ciberseguridad e IA | https://belentani7.github.io/secure-t/ |
+
+**PT > ES > EN > CA.** Gratuito, accesible (WCAG) y conectado.

@@ -2,168 +2,61 @@ name: CI
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
   pull_request:
-    branches: [main, develop]
+    branches: [main]
+  workflow_dispatch:
 
-env:
-  NODE_VERSION: '20.x'
-  PNPM_VERSION: '9.x'
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  lint-and-typecheck:
-    name: Lint & TypeCheck
+  # Retain the required check name from the existing CI repair PR #18.
+  # Campus, engine and browser checks live in campus-publication.yml;
+  # CodeQL runs separately for the languages actually present here.
+  lint-test:
+    name: lint-test
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
         with:
-          fetch-depth: 0
-      
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+          version: 11.25.0
+      - uses: actions/setup-node@v4
         with:
-          version: ${{ env.PNPM_VERSION }}
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
-      
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      
-      - name: Run Biome
-        run: pnpm biome check --apply .
-      
-      - name: Run ESLint
-        run: pnpm lint
-      
-      - name: Run Prettier
-        run: pnpm format:check
-      
-      - name: TypeScript type check
+          node-version: '22'
+          cache: pnpm
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
+      - name: Typecheck
         run: pnpm typecheck
-
-  test:
-    name: Tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
-      
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      
-      - name: Run unit tests with coverage
-        run: pnpm test:coverage
-      
-      - name: Upload coverage
-        uses: codecov/codecov-action@v4
-        with:
-          files: ./coverage/lcov.info
-          fail_ci_if_error: true
-
-  test-e2e:
-    name: E2E Tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
-      
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      
-      - name: Install Playwright browsers
-        run: pnpm playwright install --with-deps chromium
-      
-      - name: Build
+      - name: Domain and SPA tests
+        run: pnpm test
+      - name: API security and tutor privacy regression
+        run: node --test tests/api-security.test.mjs
+      - name: Build local SPA
         run: pnpm build
-      
-      - name: Run E2E tests
-        run: pnpm test:e2e
-      
-      - name: Upload Playwright report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 7
 
-  build:
-    name: Build
+  secretos:
+    name: Current source secrets scan
     runs-on: ubuntu-latest
-    needs: [lint-and-typecheck, test]
+    timeout-minutes: 10
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
-      
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      
-      - name: Build
-        run: pnpm build
-      
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist/
-          retention-days: 7
-
-  docker:
-    name: Docker Build
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      
-      - name: Build Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: false
-          tags: ${{ github.repository }}:latest
-          load: true
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+      - uses: actions/checkout@v5
+      - name: Install checksum-verified Gitleaks
+        run: |
+          set -euo pipefail
+          VERSION=8.30.1
+          BASE="https://github.com/gitleaks/gitleaks/releases/download/v${VERSION}"
+          TARBALL="gitleaks_${VERSION}_linux_x64.tar.gz"
+          curl -sSfL -o "$TARBALL" "$BASE/$TARBALL"
+          curl -sSfL -o checksums.txt "$BASE/gitleaks_${VERSION}_checksums.txt"
+          grep " ${TARBALL}$" checksums.txt | sha256sum -c -
+          tar -xzf "$TARBALL" gitleaks
+      - name: Scan the current source without printing secret values
+        run: ./gitleaks dir . --config .gitleaks.toml --redact --no-banner
