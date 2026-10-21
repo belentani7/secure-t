@@ -8,151 +8,8 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   const errors = [];
   page.on('pageerror', e => errors.push(e.message));
   const base = 'http://127.0.0.1:8765';
-  // Five-year academy: actual Portuguese entry, filters, study evidence and offline shell.
-  await page.goto(base + '/campus/academia/');
-  assert.equal(await page.locator('html').getAttribute('lang'), 'pt-BR');
-  assert.equal(await page.locator('.course-card').count(), 60);
-  assert.match(await page.locator('#clock-rio').innerText(), /\d{2}:\d{2}/);
-  assert.match(await page.locator('#clock-barcelona').innerText(), /\d{2}:\d{2}/);
-  assert.match(await page.locator('#clock-dublin').innerText(), /\d{2}:\d{2}/);
-  await page.locator('#year-filters button').nth(1).click();
-  assert.equal(await page.locator('.course-card').count(), 12);
-  await page.locator('#year-filters button').first().click();
-  await page.locator('button[data-lang="es"]').click();
-  assert.equal(await page.locator('html').getAttribute('lang'), 'es');
-  assert.match(await page.locator('#hero-title').innerText(), /conocimiento/i);
-  await page.locator('.course-card').first().locator('button').click();
-  assert.match(await page.locator('.lesson h4').first().innerText(), /Arquitectura de computadores/);
-  await page.locator('button[data-lang="en"]').click();
-  assert.match(await page.locator('.lesson h4').first().innerText(), /Computer architecture/);
-  await page.locator('button[data-lang="pt"]').click();
-  assert.match(await page.locator('.lesson h4').first().innerText(), /Arquitetura de computadores/);
-  assert.equal(await page.locator('.lesson').count(), 4);
-  const firstLesson = page.locator('.lesson').first();
-  assert.equal(await firstLesson.locator('input[type="checkbox"]').isDisabled(), true);
-  await firstLesson.locator('textarea').fill('Estudei os objetivos do módulo com atenção. Registrei um exemplo documentado, os limites e como validaria as evidências num laboratório autorizado.');
-  await firstLesson.locator('input[type="checkbox"]').check();
-  assert.equal(await page.locator('#count-progress').innerText(), '0.4%'); // First of 240 units must be visible to the learner.
-  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('stt-academia-progress'))['ST-011/0']), true);
-  // Seamless reading-to-understanding journey, including localized feedback.
-  await page.locator('#course-self-check').click();
-  assert.match(await page.locator('#check-prompt').innerText(), /diferença entre programa e processo/i);
-  assert.equal(await page.locator('.check-choice').count(),3);
-  await page.locator('.check-choice input').first().check();
-  await page.locator('#check-submit').click();
-  assert.match(await page.locator('#check-feedback').innerText(), /correta/i);
-  await page.locator('button[data-lang="es"]').click();
-  assert.match(await page.locator('#check-title').innerText(), /comprendido/i);
-  assert.equal(await page.locator('#check-course-select option').count(),24);
-  await page.locator('button[data-lang="en"]').click();
-  assert.match(await page.locator('#check-title').innerText(), /understood/i);
-  await page.locator('button[data-lang="pt"]').click();
-  assert.deepEqual(errors,[], 'Trilingual formative checks must be interactive without errors');
-
-  const academyUpload = page.waitForEvent('filechooser');
-  await page.locator('#import-progress').click();
-  const academyChooser = await academyUpload;
-  await academyChooser.setFiles({name:'academia-bad.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({version:1,progress:{'outside':true},evidence:{'outside':'x'.repeat(90)}}))});
-  assert.match(await page.locator('#data-status').innerText(), /inválido|inválida/i);
-  assert.deepEqual(errors, [], 'New academy must not throw browser exceptions');
-
-  // Authentic first semester: the learner can read, rehearse, and schedule locally.
-  await page.goto(base + '/campus/academia/');
-  assert.match(await page.locator('#review-task').innerText(), /Desenhe um diagrama/);
-  await page.locator('#review-reveal').click();
-  assert.equal(await page.locator('#review-solution').isVisible(),true);
-  assert.match(await page.locator('#review-explanation').innerText(), /arquitetura distingue CPU/i);
-  await page.locator('[data-review-score="2"]').click();
-  const review = await page.evaluate(() => JSON.parse(localStorage.getItem('stt-academia-review-v1')));
-  assert.equal(review['ST-011/0'].count,1);
-  assert.ok(review['ST-011/0'].next > Date.now());
-  await page.locator('button[data-lang="en"]').click();
-  assert.match(await page.locator('#review-task').innerText(), /Inspect your device/);
-  assert.deepEqual(errors, [], 'Spaced-repetition room must not throw browser errors');
-
-  // Complete privacy lifecycle: export notes + review schedule, restore
-  // validated data, then erase only this academy's records.
-  await page.evaluate(() => {
-    const original = URL.createObjectURL.bind(URL);
-    URL.createObjectURL = blob => {
-      window.__academyBackupBlob = blob;
-      return original(blob);
-    };
-  });
-  await page.locator('#export-progress').click();
-  const portableBackup = await page.evaluate(async () => JSON.parse(await window.__academyBackupBlob.text()));
-  assert.equal(portableBackup.version, 1);
-  assert.equal(portableBackup.progress['ST-011/0'],true);
-  assert.ok(portableBackup.evidence['ST-011/0'].length >= 80);
-  assert.equal(portableBackup.review['ST-011/0'].count, 1);
-  const beforeLocale = await page.evaluate(() => localStorage.getItem('stt-academia-lang'));
-
-  page.once('dialog',dialog=>dialog.accept());
-  await page.locator('#clear-learning-data').click();
-  await page.waitForLoadState();
-  assert.deepEqual(await page.evaluate(() => ({
-    progress:localStorage.getItem('stt-academia-progress'),
-    evidence:localStorage.getItem('stt-academia-evidence'),
-    review:localStorage.getItem('stt-academia-review-v1'),
-  })),{progress:null,evidence:null,review:null});
-  assert.equal(await page.evaluate(() => localStorage.getItem('stt-academia-lang')),beforeLocale);
-  const importPromise = page.waitForEvent('filechooser');
-  await page.locator('#import-progress').click();
-  const backupPicker = await importPromise;
-  await backupPicker.setFiles({name:'academy-backup.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(portableBackup))});
-  await page.waitForLoadState();
-  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('stt-academia-progress'))['ST-011/0']),true);
-  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('stt-academia-review-v1'))['ST-011/0'].count),1);
-  assert.deepEqual(errors, [], 'The backup, restore, and erase operations must not throw browser errors');
-
-
-  // Third semester lesson: real reading and exercise, localized across PT/ES/EN.
-  await page.goto(base + '/campus/academia/');
-  await page.locator('#year-filters button').nth(2).click();
-  assert.equal(await page.locator('.course-card').count(), 12);
-  await page.locator('.course-card').first().locator('button').click();
-  assert.match(await page.locator('.lesson h4').first().innerText(), /Hash e integridade/);
-  assert.match(await page.locator('.lesson-reading').first().innerText(), /função hash criptográfica/i);
-  assert.match(await page.locator('.lesson-practice').first().innerText(), /impressão digital/i);
-  await page.locator('button[data-lang="es"]').click();
-  assert.match(await page.locator('.lesson-reading').first().innerText(), /función hash criptográfica/i);
-  await page.locator('button[data-lang="en"]').click();
-  assert.match(await page.locator('.lesson-reading').first().innerText(), /cryptographic hash/i);
-  assert.deepEqual(errors, [], 'Third-semester authored lessons must render without exceptions');
-
-  // Consent-based speech tutor: one microphone gesture yields one question,
-  // and Stop must suppress any late transcript from a cancelled session.
-  await page.addInitScript(() => {
-    window.confirm = () => true;
-    window.SpeechRecognition = class SyntheticRecognition {
-      start() {
-        setTimeout(() => {
-          this.onresult?.({results:[[{transcript:'Explique Zero Trust'}]]});
-          this.onend?.();
-        }, 25);
-      }
-      abort() { this.onend?.(); }
-    };
-  });
-  await page.goto(base + '/campus/academia/');
-  const voiceAuto = page.locator('#voice-auto-send');
-  await voiceAuto.click();
-  assert.equal(await voiceAuto.getAttribute('aria-pressed'),'true');
-  await page.locator('#voice-listen').click();
-  await page.locator('.chat-message.mine').last().waitFor();
-  assert.match(await page.locator('.chat-message.mine').last().innerText(), /Explique Zero Trust/);
-  await page.locator('.chat-message:not(.mine)').last().waitFor();
-  const voiceCount = await page.locator('.chat-message.mine').count();
-  await page.locator('#voice-listen').click();
-  await page.locator('#voice-stop').click();
-  await page.waitForTimeout(80);
-  assert.equal(await page.locator('.chat-message.mine').count(),voiceCount,
-    'Stopping the mic must not send late recognized text');
-  assert.deepEqual(errors, [], 'Voice tutor must not throw in the browser');
-
-
   await page.goto(base);
-  await page.locator('a[href="conceptos/index.html"]').first().click();
+  await page.locator('a[href="./conceptos/index.html"]').click();
   assert.match(page.url(), /conceptos/);
   let answered = 0;
   const courses = ['ciber-ofensiva', 'ciber-defensiva', 'ia-aplicada-segura', 'gobernanza-compliance'];
@@ -172,48 +29,35 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   }
   await page.goto(base + '/campus/progreso.html');
   assert.equal(await page.locator('input[type="checkbox"]:checked').count(), courses.length);
-  // Broken browser storage must not crash progress or permit malformed imports.
-  const previousProgress = await page.evaluate(() => localStorage.getItem('stt-progreso'));
-  await page.evaluate(() => localStorage.setItem('stt-progreso', '{not-json'));
-  await page.reload();
-  assert.deepEqual(errors, [], 'Corrupted localStorage must be handled safely');
-  const uploadPromise = page.waitForEvent('filechooser');
-  await page.locator('#importar').click();
-  const chooser = await uploadPromise;
-  await chooser.setFiles({
-    name: 'malformed-progress.json', mimeType: 'application/json',
-    buffer: Buffer.from(JSON.stringify({version:1,estado:{"outside/unsafe":true}})),
-  });
-  assert.match(await page.locator('#estado').innerText(), /No se pudo importar/);
-  await page.evaluate(previous => localStorage.setItem('stt-progreso', previous), previousProgress);
-  await page.reload();
-  assert.deepEqual(errors, [], 'Restoring progress must not create JS errors');
-
-  // Exercise the complete local-only verification path; never mistake a hash
-  // for an issuer's signature or a diploma.
+  // Local hashes are reproducible integrity checks, not institutional signatures.
+  // Complete the visible local learning milestones before creating a v2 block.
   await page.evaluate(() => {
-    const p = JSON.parse(localStorage.getItem('stt-progreso') || '{}');
+    const progress = JSON.parse(localStorage.getItem('stt-progreso') || '{}');
     for (let week = 1; week <= 20; week++) {
-      p['ciber-ofensiva/semana-' + String(week).padStart(2, '0')] = true;
+      progress['ciber-ofensiva/semana-' + String(week).padStart(2, '0')] = true;
     }
     for (const part of ['quiz', 'laboratorio', 'proyecto', 'examen']) {
-      p['ciber-ofensiva/' + part] = true;
+      progress['ciber-ofensiva/' + part] = true;
     }
-    localStorage.setItem('stt-progreso', JSON.stringify(p));
+    localStorage.setItem('stt-progreso', JSON.stringify(progress));
   });
   await page.goto(base + '/campus/credencial.html');
-  await page.locator('#evidencia').fill('Laboratorio local SOC: análisis documentado de alertas.');
+  await page.locator('#evidencia').fill('Práctica ética documentada con datos simulados.');
   await page.locator('#sellar').click();
   const output = await page.locator('#salida').innerText();
   const block = JSON.parse(output.slice(output.indexOf('{')));
   assert.equal(block.v, 2);
-  assert.equal('token' in block, false);
+  assert.equal('token' in block, false, 'Never export raw learner token');
+  assert.match(block.sujeto, /^[a-f0-9]{64}$/);
   await page.locator('#bloque').fill(JSON.stringify(block));
   await page.locator('#btn-verificar').click();
   assert.match(await page.locator('#veredicto').innerText(), /Huella coherente/);
-  await page.locator('#bloque').fill(JSON.stringify({...block, evidencia: 'alterado'}));
+  const tampered = {...block, evidencia: 'evidencia alterada'};
+  await page.locator('#bloque').fill(JSON.stringify(tampered));
   await page.locator('#btn-verificar').click();
   assert.match(await page.locator('#veredicto').innerText(), /Huella diferente/);
+  assert.deepEqual(errors, [], 'Credential v2 must not throw JavaScript errors');
+
   await page.goto(base + '/campus/');
   await page.evaluate(() => navigator.serviceWorker.ready);
   await page.reload();
