@@ -1,19 +1,41 @@
 version: 2
 updates:
-  - package-ecosystem: 'npm'
-    directory: '/'
+  - package-ecosystem: "npm"
+    directory: "/"
     schedule:
-      interval: 'weekly'
+      interval: "weekly"
+      day: "monday"
+      time: "03:00"
     open-pull-requests-limit: 10
-  - package-ecosystem: 'github-actions'
-    directory: '/'
+    labels:
+      - "dependencies"
+      - "npm"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    groups:
+      dev-dependencies:
+        patterns:
+          - "@types/*"
+          - "eslint*"
+          - "prettier*"
+          - "typescript*"
+          - "vitest*"
+          - "playwright*"
+      react-ecosystem:
+        patterns:
+          - "react*"
+          - "@vitejs/plugin-react*"
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+  
+  - package-ecosystem: "github-actions"
+    directory: "/"
     schedule:
-      interval: 'weekly'
-  - package-ecosystem: 'pip'
-    directory: '/'
-    schedule:
-      interval: 'weekly'
-  - package-ecosystem: 'uv'
-    directory: '/'
-    schedule:
-      interval: 'weekly'
+      interval: "weekly"
+      day: "monday"
+      time: "03:00"
+    labels:
+      - "dependencies"
+      - "github-actions"
