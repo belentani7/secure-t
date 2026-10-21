@@ -1,34 +1,62 @@
-Contributing to Belentani Project
+# Contributing to secure-t
 
-## Getting Started
+Thank you for your interest in contributing! Please follow these guidelines.
 
-1. Fork the repository and clone it locally
-2. Install dependencies: `npm install` or `pip install -r requirements.txt`
-3. Create a branch: `git checkout -b feat/feature-name`
+## 📋 Development Workflow
 
-## Development Workflow
+1. **Fork** the repository
+2. **Create** a feature branch: `git checkout -b feat/amazing-feature`
+3. **Commit** using Conventional Commits: `git commit -m 'feat: add amazing feature'`
+4. **Push** to your fork: `git push origin feat/amazing-feature`
+5. **Open** a Pull Request
 
-- Run linting: `npm run lint` or `python -m ruff lint`
-- Run tests: `npm test` or `python -m pytest`
-- Build the project: `npm run build` or `pip install -e .`
+## ✅ Commit Message Convention
 
-## Pull Request Process
+We use [Conventional Commits](https://www.conventionalcommits.org/):
 
-1. Commit your changes using conventional commits: `git commit -m "feat: add new feature"`
-2. Push to your fork: `git push origin feat/feature-name`
-3. Submit a Pull Request with a clear description
-4. Link any related issues: `Fixes #123`
+```
+<type>(<scope>): <description>
 
-## Code Standards
+[optional body]
 
-- Follow the project's code style (ESLint/Prettier for JS, ruff/black for Python)
-- Write tests for new functionality
-- Update documentation as needed
-- Ensure all CI checks pass before merging
+[optional footer]
+```
 
-## Reporting Issues
+### Types
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation changes
+- `style`: Code style (formatting, etc.)
+- `refactor`: Code refactoring
+- `perf`: Performance improvement
+- `test`: Adding tests
+- `chore`: Maintenance tasks
+- `build`: Build system changes
+- `ci`: CI/CD changes
 
-- Use the issue templates: `.github/ISSUE_TEMPLATE/bug_report.yml`
-- Check for existing issues first
-- Provide clear reproduction steps
-- Include environment details (OS, version, etc.)
+### Examples
+```
+feat(auth): add OAuth2 login
+fix(api): handle 404 errors gracefully
+docs(readme): update installation steps
+```
+
+## 🔍 Code Review Checklist
+
+- [ ] All CI checks pass
+- [ ] TypeScript compiles without errors (`pnpm typecheck`)
+- [ ] Linting passes (`pnpm lint`)
+- [ ] Formatting correct (`pnpm format:check`)
+- [ ] Tests pass (`pnpm test`)
+- [ ] Coverage ≥ 80% for new code
+- [ ] E2E tests pass for UI changes
+- [ ] Documentation updated if needed
+- [ ] No breaking changes without major version bump
+
+## 🏷️ Versioning
+
+We use [Semantic Versioning](https://semver.org/). Releases are automated via `semantic-release`.
+
+## 📝 Code of Conduct
+
+See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
