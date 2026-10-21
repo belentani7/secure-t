@@ -1,25 +1,28 @@
 # Security Policy
 
+## Supported Versions
+
+| Version | Supported |
+|---------|-----------|
+| 0.1.x   | Yes       |
+
 ## Reporting a Vulnerability
 
-Please report security vulnerabilities via email to belentani7pedro@gmail.com.
+Please report security vulnerabilities by emailing **security@belentani.com** or using GitHub's [Private Vulnerability Reporting](https://github.com/belentani7/secure-t/security/advisories/new).
 
-## Code Scanning
+Do NOT create public issues for security vulnerabilities.
 
-This project uses GitHub CodeQL for automated security scanning. All security issues detected by CodeQL will be addressed with priority.
+## Response Timeline
 
-## Dependabot
+- **Acknowledgment**: Within 48 hours
+- **Assessment**: Within 7 days
+- **Fix**: Within 30 days (critical), 90 days (non-critical)
+- **Disclosure**: Coordinated with reporter
 
-Dependabot alerts security vulnerabilities in dependencies. Dependabot security updates will be accepted via Pull Request.
+## Security Measures
 
-## Secret Protection
-
-GitHub Secret Protection scans for hardcoded secrets. Do not commit API keys, tokens, or passwords to this repository.
-
-## Advanced Security
-
-Enable GitHub Advanced Security for:
-- Dependabot alerts
-- CodeQL analysis
-- Secret scanning
-- Push protection
+- Dependabot for dependency updates
+- CodeQL for static analysis
+- Secret scanning enabled
+- Signed commits required
+- Minimum 2 reviewers for merges
