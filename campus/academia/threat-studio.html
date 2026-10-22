@@ -89,7 +89,7 @@ function render(){
  }
  $('likelihood-label').textContent=w.likelihood;$('likelihood').textContent=String(t.likelihood)+' / 5';
  $('impact-label').textContent=w.impact;$('impact').textContent=String(t.impact)+' / 5';
- $('priority-label').textContent=w.priority;$('priority').textContent=String(riskScore(t))+'/25';
+ $('priority-label').textContent=w.priority;const tier=riskTier(t);const level={pt:{high:'alto',medium:'moderado',low:'baixo'},es:{high:'alto',medium:'moderado',low:'bajo'},en:{high:'high',medium:'medium',low:'low'}}; $('priority').textContent=String(riskScore(t))+'/25 · '+level[lang][tier];
  $('question').textContent=t.question[lang];$('choose-label').textContent=w.choose;
  $('check').textContent=w.check;$('next').textContent=w.next;
  $('check').hidden=isReviewed;$('next').hidden=!isReviewed;$('feedback').hidden=!isReviewed;
