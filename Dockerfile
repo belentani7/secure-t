@@ -1,9 +1,9 @@
 # Multi-stage build for production
-FROM node:20-alpine AS base
+FROM node:22-alpine AS base
 WORKDIR /app
 ENV PNPM_HOME="/pnpm"
 ENV PATH="${PNPM_HOME}:${PATH}"
-RUN corepack enable && corepack prepare pnpm@9.0.0 --activate
+RUN corepack enable && corepack prepare pnpm@10.4.1 --activate
 
 FROM base AS builder
 COPY package.json pnpm-lock.yaml ./
@@ -16,7 +16,9 @@ WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package.json ./
-COPY --from=builder /app/pnpm-lock.yaml ./
-RUN pnpm install --prod --frozen-lockfile
+COPY --from=builder /app/index.ts ./index.ts
+# tsx is required by the real TypeScript server entry point.
+COPY --from=builder /app/node_modules ./node_modules
+USER node
 EXPOSE 3000
-CMD ["node", "dist/index.js"]
+CMD ["./node_modules/.bin/tsx", "index.ts"]

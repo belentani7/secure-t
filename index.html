@@ -54,9 +54,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Frontend legado recuperado: migrar CDN Tailwind para CSS compilado antes de produção definitiva. -->
-  <script src="https://unpkg.com/lucide@1.46.0"></script>
+  <link rel="stylesheet" href="ui/vendor/landing.css">
+  <!-- Layout compiled locally; runtime does not depend on a Tailwind CDN. -->
+  <script src="ui/vendor/lucide.min.js"></script>
   <script src="ui/i18n.js"></script>
 
   <style>
@@ -186,6 +186,14 @@
     .btn-ghost { border-color: var(--border); color: var(--text-1); background: transparent; }
     .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
+    @media (max-width: 639px) {
+      header nav { gap: .5rem; }
+      header .lang-btn { padding: .5rem .4rem; }
+      header .btn { min-width: 44px; justify-content: center; }
+      .campus-shortcut { padding: .65rem !important; gap: 0; }
+      .campus-shortcut span { display: none; }
+    }
+
     /* ---------- nav ---------- */
     .nav-link { font: 500 .9rem/1 var(--font-display); color: var(--text-2); text-decoration: none; padding: .45rem .6rem; border-radius: .5rem; transition: color .2s; }
     .nav-link:hover { color: var(--text-1); }
@@ -292,7 +300,7 @@
         </span>
       </a>
 
-      <div class="hidden lg:flex items-center gap-1">
+      <div class="hidden xl:flex items-center gap-1">
         <a class="nav-link" data-i18n="nav.about" href="#quienes-somos">Quem somos</a>
         <a class="nav-link" data-i18n="nav.access" href="#acceso">Acesso</a>
         <a class="nav-link" data-i18n="nav.courses" href="#cursos">Cursos</a>
@@ -308,20 +316,20 @@
           <button class="lang-btn" data-lang-btn="es" aria-pressed="false" lang="es">ES</button>
           <button class="lang-btn" data-lang-btn="en" aria-pressed="false" lang="en">EN</button>
         </div>
-        <a href="campus/academia/" class="btn btn-primary !py-2 !px-4 text-sm">
+        <a href="campus/academia/" class="btn btn-primary campus-shortcut !py-2 !px-4 text-sm" aria-label="Campus">
           <i data-lucide="graduation-cap" class="w-4 h-4"></i> <span data-i18n="nav.campus">Campus</span>
         </a>
         <button id="theme-btn" class="btn btn-ghost !p-2.5" data-i18n-aria="aria.theme" aria-label="Trocar tema">
           <i data-lucide="sun" class="w-4 h-4 hidden" data-icon-sun></i>
           <i data-lucide="moon" class="w-4 h-4" data-icon-moon></i>
         </button>
-        <button id="menu-btn" class="btn btn-ghost !p-2.5 lg:hidden" data-i18n-aria="aria.menu" aria-label="Abrir menu" aria-expanded="false">
+        <button id="menu-btn" class="btn btn-ghost !p-2.5 xl:hidden" data-i18n-aria="aria.menu" aria-label="Abrir menu" aria-expanded="false">
           <i data-lucide="menu" class="w-4 h-4"></i>
         </button>
       </div>
     </nav>
 
-    <div id="mobile-menu" class="hidden lg:hidden border-t" style="border-color:var(--border);">
+    <div id="mobile-menu" class="hidden xl:hidden border-t" style="border-color:var(--border);">
       <div class="px-4 py-3 grid gap-1">
         <a class="nav-link" data-i18n="nav.about" href="#quienes-somos">Quem somos</a>
         <a class="nav-link" data-i18n="nav.access" href="#acceso">Acesso</a>
@@ -525,7 +533,7 @@
             <div class="week"><span class="n">S4</span><span class="t2 text-sm" data-i18n="c1.w4">Laboratório final + relatório ético</span></div>
           </div>
           <div class="flex flex-wrap gap-3 mt-auto">
-            <a class="btn btn-primary !py-2 !px-4 text-sm" href="campus/cursos/ciber-ofensiva/index.html"><i data-lucide="book-open" class="w-4 h-4"></i> <span data-i18n="courses.program">Ver programa</span></a>
+            <a class="btn btn-primary campus-shortcut !py-2 !px-4 text-sm" aria-label="Campus" href="campus/cursos/ciber-ofensiva/index.html"><i data-lucide="book-open" class="w-4 h-4"></i> <span data-i18n="courses.program">Ver programa</span></a>
             <a class="btn btn-ghost !py-2 !px-4 text-sm" href="campus/cursos/ciber-ofensiva/index.html#semana-1"><span data-i18n="courses.start">Começar semana 1</span></a>
           </div>
         </article>
@@ -545,7 +553,7 @@
             <div class="week"><span class="n">S4</span><span class="t2 text-sm" data-i18n="c2.w4">Hardening e continuidade</span></div>
           </div>
           <div class="flex flex-wrap gap-3 mt-auto">
-            <a class="btn btn-primary !py-2 !px-4 text-sm" href="campus/cursos/ciber-defensiva/index.html"><i data-lucide="book-open" class="w-4 h-4"></i> <span data-i18n="courses.program">Ver programa</span></a>
+            <a class="btn btn-primary campus-shortcut !py-2 !px-4 text-sm" aria-label="Campus" href="campus/cursos/ciber-defensiva/index.html"><i data-lucide="book-open" class="w-4 h-4"></i> <span data-i18n="courses.program">Ver programa</span></a>
             <a class="btn btn-ghost !py-2 !px-4 text-sm" href="campus/cursos/ciber-defensiva/index.html#semana-1"><span data-i18n="courses.start">Começar semana 1</span></a>
           </div>
         </article>
@@ -565,7 +573,7 @@
             <div class="week"><span class="n">S4</span><span class="t2 text-sm" data-i18n="c3.w4">Projeto: tutor com salvaguardas</span></div>
           </div>
           <div class="flex flex-wrap gap-3 mt-auto">
-            <a class="btn btn-primary !py-2 !px-4 text-sm" href="campus/cursos/ia-aplicada-segura/index.html"><i data-lucide="book-open" class="w-4 h-4"></i> <span data-i18n="courses.program">Ver programa</span></a>
+            <a class="btn btn-primary campus-shortcut !py-2 !px-4 text-sm" aria-label="Campus" href="campus/cursos/ia-aplicada-segura/index.html"><i data-lucide="book-open" class="w-4 h-4"></i> <span data-i18n="courses.program">Ver programa</span></a>
             <a class="btn btn-ghost !py-2 !px-4 text-sm" href="campus/cursos/ia-aplicada-segura/index.html#semana-1"><span data-i18n="courses.start">Começar semana 1</span></a>
           </div>
         </article>
@@ -585,7 +593,7 @@
             <div class="week"><span class="n">S4</span><span class="t2 text-sm" data-i18n="c4.w4">O dossiê de compliance</span></div>
           </div>
           <div class="flex flex-wrap gap-3 mt-auto">
-            <a class="btn btn-primary !py-2 !px-4 text-sm" href="campus/cursos/gobernanza-compliance/index.html"><i data-lucide="book-open" class="w-4 h-4"></i> <span data-i18n="courses.program">Ver programa</span></a>
+            <a class="btn btn-primary campus-shortcut !py-2 !px-4 text-sm" aria-label="Campus" href="campus/cursos/gobernanza-compliance/index.html"><i data-lucide="book-open" class="w-4 h-4"></i> <span data-i18n="courses.program">Ver programa</span></a>
             <a class="btn btn-ghost !py-2 !px-4 text-sm" href="campus/cursos/gobernanza-compliance/index.html#semana-1"><span data-i18n="courses.start">Começar semana 1</span></a>
           </div>
         </article>
@@ -812,7 +820,7 @@ status  › <span class="t-ok">verified · immutable · public</span></div>
   </button>
 
   <script>
-    // External icon CDN is progressive enhancement: language and navigation must still work offline.
+    // Local icons are progressive enhancement: language and navigation must still work offline.
     if (window.lucide && typeof window.lucide.createIcons === 'function') window.lucide.createIcons();
 
     // ---------- idioma (PT padrão, regra: pt > es > en) ----------

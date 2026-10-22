@@ -10,8 +10,8 @@ const scripts = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)];
 assert.equal(scripts.length, 1, 'the static credential contains exactly one inline script');
 
 test('v2 receipt uses a versioned, domain-separated checksum input', () => {
-  assert.match(html, /secure-t\\/v2/);
-  assert.doesNotMatch(html, /secure-t\\/v1/);
+  assert.ok(html.includes('secure-t/v2'));
+  assert.ok(!html.includes('secure-t/v1'));
 });
 
 function instance({ complete = true, token = 'anon-example-course-2026', evidence = 'Portfolio and reflections' } = {}) {

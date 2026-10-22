@@ -2,14 +2,18 @@ const assert = require('node:assert/strict');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 
 (async () => {
-  const browser = await chromium.launch({headless:true});
-  const context = await browser.newContext();
+  const browser = await chromium.launch({headless:true,
+    ...(process.env.PLAYWRIGHT_EXECUTABLE_PATH ? {executablePath:process.env.PLAYWRIGHT_EXECUTABLE_PATH} : {})});
+  const context = await browser.newContext({colorScheme:'dark'});
   const page = await context.newPage();
   const errors = [];
   page.on('pageerror', e => errors.push(e.message));
   const base = 'http://127.0.0.1:8765';
+  // Verify the real landing while third-party networks are unavailable.
+  await context.route('**/*', route => route.request().url().startsWith(base + '/')
+    ? route.continue() : route.abort());
   await page.goto(base);
-  await page.locator('a[href="./conceptos/index.html"]').click();
+  await page.locator('a[href="conceptos/index.html"]').click();
   assert.match(page.url(), /conceptos/);
   let answered = 0;
   const courses = ['ciber-ofensiva', 'ciber-defensiva', 'ia-aplicada-segura', 'gobernanza-compliance'];
@@ -46,7 +50,26 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   await context.setOffline(false);
   await page.setViewportSize({width:390,height:844});
   await page.goto(base);
-  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+  assert.equal(await page.locator('#mobile-menu').isHidden(),true);
+  await page.locator('#menu-btn').click();
+  assert.equal(await page.locator('#menu-btn').getAttribute('aria-expanded'),'true');
+  assert.equal(await page.locator('#mobile-menu').isVisible(),true);
+  await page.locator('#menu-btn').click();
+  assert.equal(await page.locator('#mobile-menu').isHidden(),true);
+  assert.ok(await page.locator('svg.lucide').count() > 10, 'icons must load locally');
+  for (const width of [320,390,768,1024,1440]) {
+    await page.setViewportSize({width,height:844});
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true,
+      'landing must fit viewport width '+width);
+  }
+  await page.setViewportSize({width:390,height:844});
+  // Scroll through the actual page so entrance animations can finish before QA.
+  for (let y=0; y<await page.evaluate(() => document.body.scrollHeight); y+=650) {
+    await page.evaluate(y => scrollTo(0,y),y);
+    await page.waitForTimeout(80);
+  }
+  await page.evaluate(() => scrollTo(0,0));
+  await page.waitForTimeout(600);
   await page.screenshot({path:'campus-mobile.png',fullPage:true});
   assert.deepEqual(errors, []);
   console.log(JSON.stringify({journey:'home → concepts → course → quiz → progress → offline lesson',quizQuestions:answered,courses:courses.length,mobileWidth:390,pageErrors:errors.length}));

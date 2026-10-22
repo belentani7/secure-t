@@ -1,5 +1,6 @@
 """Exercise the actual publication artifact, rather than source-only links."""
 import importlib.util
+import re
 from pathlib import Path
 
 import pytest
@@ -165,9 +166,16 @@ def test_legacy_remote_securetea_docker_is_not_used():
     assert "index.ts" in railway
 
 
-def test_local_services_require_secrets_and_do_not_listen_publicly():
+def test_local_preview_services_do_not_listen_publicly():
+    # Current services are app/app-dev previews, not Postgres/MinIO databases.
     compose = (ROOT / "docker-compose.yml").read_text(encoding="utf-8")
-    for variable in ("POSTGRES_PASSWORD", "MINIO_ROOT_USER", "MINIO_ROOT_PASSWORD"):
-        assert "${" + variable + ":?" in compose
-    for port in ("5432", "6379", "9000", "9001"):
-        assert "127.0.0.1:" + port + ":" + port in compose
+    bindings = re.findall(r'^\s+- "([^"\n]*:\d+)"\s*$', compose, re.MULTILINE)
+    assert bindings, "local preview ports must be declared"
+    assert all(binding.startswith("127.0.0.1:") for binding in bindings)
+    assert "127.0.0.1:3000:3000" in bindings
+    assert "127.0.0.1:5173:5173" in bindings
+    docker = (ROOT / "Dockerfile").read_text(encoding="utf-8")
+    assert 'target: runner' in compose and 'AS runner' in docker
+    assert 'target: builder' in compose and 'AS builder' in docker
+    assert '/app/index.ts' in docker and '/app/node_modules' in docker
+    assert '["./node_modules/.bin/tsx", "index.ts"]' in docker
