@@ -711,7 +711,8 @@ Al superar 70 %, márcalo en tu progreso.</p>
   <script>
     const QUIZ = [{"pregunta": "Un LLM 'alucina' porque...", "opciones": ["Está roto", "Predice texto plausible, no verdad verificada", "Le falta internet", "Se entrena poco"], "correcta": 1, "explicacion": "Genera la continuación estadística más plausible; la verificación es humana."}, {"pregunta": "El prompt injection consiste en...", "opciones": ["Inyectar código SQL", "Instrucciones ocultas que cambian el comportamiento del modelo", "Robar la API key", "Cifrar el prompt"], "correcta": 1, "explicacion": "Entrada no confiable que el sistema trata como instrucción de sistema."}, {"pregunta": "Grounding en un asistente significa...", "opciones": ["Usar el modelo más grande", "Anclar respuestas a fuentes citadas", "Reducir la temperatura a 0", "Entrenar desde cero"], "correcta": 1, "explicacion": "Responder solo a partir de material verificable y citarlo."}, {"pregunta": "El sobreajuste (overfitting) se describe mejor como...", "opciones": ["El modelo falla en producción", "Memoriza el entrenamiento y no generaliza", "El modelo es lento", "Faltan datos de test"], "correcta": 1, "explicacion": "Perfecto con lo visto, malo con lo nuevo: no generaliza."}, {"pregunta": "Defensa principal contra prompt injection en un producto con IA...", "opciones": ["Pedir amablemente al modelo que ignore instrucciones", "Tratar toda entrada como dato, nunca como instrucción (delimitadores + permisos mínimos)", "Subir la temperatura", "Usar un modelo cerrado"], "correcta": 1, "explicacion": "La entrada no es confiable: se aísla el contenido y se limita lo que el sistema puede hacer."}, {"pregunta": "Un poisoning attack apunta a...", "opciones": ["La API en producción", "Los datos de entrenamiento", "El navegador del usuario", "El servidor de estáticos"], "correcta": 1, "explicacion": "Corrompe el aprendizaje contaminando el corpus de entrenamiento."}, {"pregunta": "GIGO (Garbage In, Garbage Out) significa...", "opciones": ["El hardware es malo", "La calidad del dato determina la calidad del modelo", "Google es malo", "El modelo es lento"], "correcta": 1, "explicacion": "Un modelo entrenado con datos malos produce predicciones malas."}, {"pregunta": "El sobreajuste se detecta cuando...", "opciones": ["El modelo es lento", "Accuracy alta en train, baja en test", "El modelo no converge", "Los datos son pequeños"], "correcta": 1, "explicacion": "Memoriza el entrenamiento pero no generaliza a datos nuevos."}, {"pregunta": "Data leakage es peligroso porque...", "opciones": ["Hace el modelo más lento", "El modelo parece perfecto en el lab pero falla en producción", "Consume más memoria", "Requiere más datos"], "correcta": 1, "explicacion": "Usa información que no estará disponible en producción."}, {"pregunta": "Aprendizaje supervisado requiere...", "opciones": ["Un supervisor humano permanente", "Datos con etiquetas conocidas", "GPU obligatoriamente", "Internet constante"], "correcta": 1, "explicacion": "El modelo aprende la relación entre features y etiquetas."}, {"pregunta": "LLM01 (Prompt Injection) consiste en...", "opciones": ["Inyectar SQL en el prompt", "Instrucciones ocultas que cambian el comportamiento del modelo", "Robar el modelo", "Enviar demasiados prompts"], "correcta": 1, "explicacion": "Input no confiable que el sistema trata como instrucción."}, {"pregunta": "Temperatura 0.0 en un LLM produce...", "opciones": ["Errores", "Respuestas deterministas (siempre iguales)", "Respuestas creativas", "Tiempo de espera mayor"], "correcta": 1, "explicacion": "Siempre elige el token más probable — sin variación."}, {"pregunta": "En el caso Air Canada, el tribunal falló que...", "opciones": ["El chatbot no es responsabilidad de la empresa", "La empresa es responsable de lo que dice su agente IA", "El pasajero debía verificar", "Los chatbots son infalibles"], "correcta": 1, "explicacion": "Si despliegas un LLM, eres responsable de su output."}, {"pregunta": "Prompt injection indirecta ocurre cuando...", "opciones": ["El usuario escribe una instrucción maliciosa", "Instrucciones ocultas en datos externos que el LLM procesa", "Se roba el modelo", "El modelo se apaga"], "correcta": 1, "explicacion": "El atacante no habla con el LLM directamente; inyecta en los datos que consume."}, {"pregunta": "MITRE ATLAS es el equivalente de ATT&CK para...", "opciones": ["Redes industriales", "Sistemas de IA/ML", "Dispositivos IoT", "Aplicaciones móviles"], "correcta": 1, "explicacion": "Adversarial Threat Landscape for AI Systems."}, {"pregunta": "La defensa más efectiva contra prompt injection es...", "opciones": ["Un prompt más largo", "Combinar delimitadores + permisos mínimos + validación de output", "Usar un modelo más grande", "Desactivar el chat"], "correcta": 1, "explicacion": "Ninguna defensa sola es suficiente; se combinan en capas."}, {"pregunta": "Data poisoning ataca...", "opciones": ["El servidor en producción", "Los datos de entrenamiento", "El navegador del usuario", "La red WiFi"], "correcta": 1, "explicacion": "Contamina el corpus para que el modelo aprenda comportamiento malicioso."}, {"pregunta": "RAG reduce alucinaciones porque...", "opciones": ["Usa un modelo más grande", "Ancla respuestas a documentos reales dados en contexto", "Aumenta la temperatura", "Elimina el system prompt"], "correcta": 1, "explicacion": "El modelo responde usando documentos verificables, no solo su entrenamiento."}, {"pregunta": "En la defensa del proyecto, los intentos de abuso prueban...", "opciones": ["Que el modelo es perfecto", "Que las salvaguardas contienen usos no previstos", "Que el estudiante sabe hackear", "Que el modelo es inseguro"], "correcta": 1, "explicacion": "Demostrar que el asistente rechaza lo que debe rechazar."}, {"pregunta": "El checklist de IA responsable incluye TRANSPARENCIA, que significa...", "opciones": ["Publicar el código fuente", "El usuario sabe que habla con IA", "Mostrar los pesos del modelo", "Revelar los datos de entrenamiento"], "correcta": 1, "explicacion": "El usuario debe saber que interactúa con un sistema automatizado."}, {"pregunta": "El patrón de evaluación 30/30/40 asigna el mayor peso a...", "opciones": ["Asistencia", "Quizzes", "Proyecto final con defensa", "Participación en foros"], "correcta": 2, "explicacion": "40% al proyecto: la evidencia más completa de competencia."}];
     const SLUG = "ia-aplicada-segura";
-    let qi = 0, score = 0;
+    let qi = 0, score = 0, answered = false, finished = false;
+    const mistakes = [];
     const qt = document.getElementById('q-titulo');
     const qo = document.getElementById('q-opciones');
     const qf = document.getElementById('q-feedback');
@@ -725,7 +726,8 @@ Al superar 70 %, márcalo en tu progreso.</p>
       return a;
     }
     function render() {
-      const q = QUIZ[qi];
+      answered = false;
+      const q = QUIZ[qi], questionIndex = qi;
       qt.textContent = (qi + 1) + '/' + QUIZ.length + ' · ' + q.pregunta;
       qo.innerHTML = ''; qf.textContent = ''; qb.hidden = true;
       const orden = barajar(q.opciones.map((_, i) => i));
@@ -733,13 +735,16 @@ Al superar 70 %, márcalo en tu progreso.</p>
         const b = document.createElement('button');
         b.textContent = q.opciones[i];
         b.onclick = () => {
+          if (answered || finished || qi !== questionIndex) return;
+          answered = true;
           [...qo.children].forEach(el => {
             el.classList.add(el.dataset.i == q.correcta ? 'correcta' : 'fallo');
             el.disabled = true;
           });
           const ok = i === q.correcta;
           if (ok) score++;
-          qf.textContent = (ok ? '✓ Correcto. ' : '✗ Incorrecto. ') + q.explicacion;
+          else mistakes.push(q);
+          qf.textContent = (ok ? '✓ Correcto. ' : '✗ Incorrecto. Respuesta correcta: ' + q.opciones[q.correcta] + '. ') + q.explicacion;
           qm.textContent = 'Aciertos: ' + score;
           qb.hidden = false;
         };
@@ -747,8 +752,12 @@ Al superar 70 %, márcalo en tu progreso.</p>
         qo.appendChild(b);
       });
     }
-    qb.onclick = () => { qi++; qi < QUIZ.length ? render() : fin(); };
+    qb.onclick = () => {
+      if (!answered || finished) return;
+      qi++; qi < QUIZ.length ? render() : fin();
+    };
     function fin() {
+      finished = true; qb.hidden = true;
       qt.textContent = 'Terminado: ' + score + '/' + QUIZ.length;
       qo.innerHTML = ''; qm.textContent = '';
       const superado = score >= QUIZ.length * 0.7;
@@ -763,9 +772,13 @@ Al superar 70 %, márcalo en tu progreso.</p>
       } else {
         qf.textContent = 'Repasa las semanas y vuelve a intentarlo (se supera con 70 %).';
       }
+      qf.style.whiteSpace = 'pre-line';
+      if (mistakes.length) qf.textContent += '\n\nRepaso de respuestas:\n' + mistakes.map((q, i) =>
+        (i + 1) + '. ' + q.pregunta + '\nRespuesta correcta: ' + q.opciones[q.correcta] + '. ' + q.explicacion).join('\n\n');
+      else qf.textContent += '\nTodas las respuestas fueron correctas.';
       const re = document.createElement('button');
       re.className = 'btn'; re.textContent = 'Reintentar quiz';
-      re.onclick = () => { qi = 0; score = 0; re.remove(); render(); };
+      re.onclick = () => { qi = 0; score = 0; finished = false; mistakes.length = 0; re.remove(); render(); };
       qm.after(re);
     }
     render();
@@ -800,3 +813,4 @@ Al superar 70 %, márcalo en tu progreso.</p>
   </script>
 </body>
 </html>
+
