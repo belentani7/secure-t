@@ -3,7 +3,29 @@
 Instituto abierto de ciberseguridad e inteligencia artificial: cuatro programas de
 veinte semanas, gratuitos, en espanol y funcionales sin conexion.
 
-En linea: <https://belentani7.github.io/secure-t/>
+URL prevista para GitHub Pages: <https://belentani7.github.io/secure-t/> (no se confirma como activa).
+La publicacion desde un repositorio privado requiere un plan de GitHub compatible;
+no se cambia la visibilidad del codigo para habilitar Pages.
+
+
+## Campus digital de cinco años (fase de desarrollo)
+
+- **Entrada principal:** `campus/academia/index.html` — interfaz con **portugués de Brasil por defecto**, traducciones de navegación, materias y lecciones al español y al inglés.
+- **Mapa académico:** 5 años, 10 semestres, 60 asignaturas y **240 unidades planificadas**, en ciberseguridad, desarrollo web e idiomas.
+- **Contenido redactado y utilizable actualmente:** **96 unidades de los cuatro primeros semestres**, con explicación original y ejercicio específico por unidad en PT/ES/EN, incluidos los cambios `lesson-content.js`, `lesson-content-2.js` y `lesson-content-3.js` y `lesson-content-4.js`. **Las otras 144 son temarios pendientes de desarrollar, revisar y evaluar**; no presentarlas como lecciones realizadas.
+- **Biblioteca:** fuentes externas y clases largas atribuidas, sin copiar obras ni prometer contenidos de terceros bajo licencia Secure-T.
+- **Laboratorios funcionales:** simulación SOC con eventos ficticios, interfaz HTML/CSS aislada y **comparación SHA-256 mediante Web Crypto local**. No se escanean dispositivos ajenos ni se suben textos.
+- **Tutor:** orientación curricular interactiva local y preguntas formativas; lectura de voz y dictado con consentimiento y capacidades del navegador. El modelo lingüístico local es experimental y opcional. No existe IA remota gratuita universal ni corrección institucional.
+- **Repaso:** 96 tarjetas de evocación espaciada, almacenamiento únicamente en el navegador, sin notas oficiales.
+- **Autoevaluación práctica:** 24 preguntas originales de opción múltiple, una por asignatura de los primeros cuatro semestres, localizadas en PT/ES/EN. El navegador muestra explicación, no emite notas oficiales ni almacena respuestas.
+- **Portabilidad privada:** exportación/importación validada de notas, evidencias y calendario de repaso; borrado local explícito que conserva la preferencia del idioma. Los escritos locales no deben contener información sensible.
+
+- **Fusos:** Rio de Janeiro (`America/Sao_Paulo`), Barcelona (`Europe/Madrid`) y Dublin (`Europe/Dublin`); utilizan `Intl.DateTimeFormat` para cambios estacionales.
+- **Origen humano:** la página “Sobre” reconoce discretamente que la idea nació inspirada por el amor, sin atribuirse a terceros ni exponer identidades.
+- **Acreditación:** Secure-T sigue siendo un proyecto educativo independiente, **no una universidad oficialmente acreditada** ni un emisor de títulos académicos.
+- **Revisión editorial:** las 96 lecciones son materiales introductorios escritos, pendientes de revisión docente externa; aún no equivalen a 5 años completos de docencia.
+
+Validación puntual ejecutada: 96 identificadores pertenecen al mapa de 240, sus seis campos de lectura y actividad PT/ES/EN están presentes, el repaso local inicia como `1/96`, acepta autoevaluación y permite cambio de idioma; ejecución completa de CI/Playwright pendiente. No fusionar ni declarar producción validada por estas pruebas aisladas.
 
 ## Que es este repositorio
 
@@ -66,7 +88,7 @@ ensambla el campus y prueba los cuatro quizzes y el progreso en Chromium.
 
 Dos destinos, una sola fuente:
 
-- **GitHub Pages** via `.github/workflows/pages.yml`, que publica unicamente
+- **GitHub Pages** via `.github/workflows/pages.yml`, preparado para publicar unicamente
   el campus completo con `python3 scripts/build_site.py --destination _site`.
   Antes de subir, comprueba que no
   haya secretos en lo que va a publicarse.
@@ -98,18 +120,45 @@ Esta seccion existe para que nadie confunda lo publicado con lo deseado.
 
 | Elemento | Estado |
 |---|---|
-| Campus estatico (4 cursos, 20 semanas) | publicado |
-| Tests con pytest | publicado, en CI |
-| Tests con vitest (capa SPA y dominio) | restaurados, en CI |
-| Escaneo de secretos en CI | publicado |
+| Campus estatico (4 cursos, 20 semanas) | Implementado en codigo; publicacion externa no verificada |
+| Tests con pytest | Configurados en CI; ultima ejecucion no valida |
+| Tests con vitest (capa SPA y dominio) | Configurados; ejecucion verde pendiente |
+| Escaneo de secretos en CI | Configurado; claves historicas requieren revocacion externa (issue #6) |
 | Capa SPA React + servidor local (`pnpm start`) | restaurada en el repo; no se publica en Pages |
 | Traduccion PT y EN del contenido docente | **PLANNED** |
 | Catala del contenido docente | **PLANNED** |
 | Backend con base de datos | retirado; el campus no lo necesita |
-| Credenciales verificables emitidas | **PLANNED** |
+| Constancias SHA-256 locales | Integridad autocontenida, sin firma de emisor |
+| Credenciales institucionales verificables | **PLANNED** |
 
 La landing declara el estado real de idiomas en `campus/idiomas.md`: nada se marca
 como traducido sin estarlo.
+
+## API opcional y tutor IA
+
+`pnpm start` arranca el servidor Express de demostración. Las rutas
+`/api/catalog` y `/api/progress` son datos demo, **no** registros
+académicos autenticados ni persistencia real. En producción, el tutor
+`/api/tutor` permanece deshabilitado (HTTP 503) sin
+`SECURE_T_TUTOR_API_KEY`. Si se configura esta clave en el **servidor**,
+cada petición debe aportar `x-secure-t-key`; existe además un límite
+de diez solicitudes por minuto por IP. **No incorporar esa clave en
+código JavaScript del cliente**: para habilitarlo a usuarios finales se
+necesita sesión segura, autorización server-side y protección ante
+abuso. Ollama se configura con `OLLAMA_URL` y `OLLAMA_MODEL`; no se
+publica ni se descarga un modelo automáticamente.
+
+`node --test tests/api-security.test.mjs` verifica las restricciones de
+producción sobre el servidor real una vez instaladas las dependencias.
+
+## Contenedores
+
+`Dockerfile` compila la SPA/API local de Secure T con Node 22 y ejecuta el
+servicio como usuario no privilegiado. `docker-compose.yml` solo sirve para
+desarrollo local: escucha en 127.0.0.1 y exige `POSTGRES_PASSWORD`,
+`MINIO_ROOT_USER` y `MINIO_ROOT_PASSWORD` mediante un archivo `.env` no
+versionado. `.env.example` contiene los nombres, nunca valores reales.
+La API de ejemplo no es un backend académico con autenticación productiva.
 
 ## Licencia
 

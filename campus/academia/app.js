@@ -53,6 +53,36 @@
   Object.assign(WORDS.pt,{"progress.note":"Seu caderno e seus marcos ficam apenas no navegador. Exporte para continuar em outro dispositivo. Não inclua segredos nas anotações.","progress.export":"Exportar caderno JSON","progress.import":"Importar caderno JSON","progress.importOk":"Caderno importado com validação.","progress.importBad":"Ficheiro inválido (máx. 1 MiB).","progress.exportOk":"Caderno exportado.","detail.notes":"Evidência de estudo (mínimo de 80 caracteres para autodeclarar esta unidade):"});
   Object.assign(WORDS.es,{"progress.note":"Tu cuaderno y tu progreso se guardan solo en el navegador. Exporta una copia para seguir en otro dispositivo. No guardes secretos.","progress.export":"Exportar cuaderno JSON","progress.import":"Importar cuaderno JSON","progress.importOk":"Cuaderno importado y validado.","progress.importBad":"Archivo no válido (máx. 1 MiB).","progress.exportOk":"Cuaderno exportado.","detail.notes":"Evidencia de estudio (mínimo 80 caracteres para marcar esta unidad):"});
   Object.assign(WORDS.en,{"progress.note":"Your notebook and progress live only in this browser. Export a copy to continue on another device. Never store secrets.","progress.export":"Export notebook JSON","progress.import":"Import notebook JSON","progress.importOk":"Notebook validated and imported.","progress.importBad":"Invalid file (max 1 MiB).","progress.exportOk":"Notebook exported.","detail.notes":"Study evidence (at least 80 characters before self-reporting this unit):"});
+  // These guides are actually authored content; the remainder of the five-year
+  // programme remains an honest syllabus, not generated "completed" lectures.
+  const authoredGuides=window.SecureTStudyGuides || {};
+  Object.assign(WORDS.pt,{
+    "detail.read":"LEITURA GUIADA","detail.practical":"ATIVIDADE APLICADA",
+    "detail.planned":"Esta unidade é um plano curricular em desenvolvimento. O material completo ainda não foi redigido.",
+    "filter.authored":"aulas produzidas","filter.syllabus":"plano em expansão"
+  });
+  Object.assign(WORDS.es,{
+    "detail.read":"LECTURA GUIADA","detail.practical":"ACTIVIDAD APLICADA",
+    "detail.planned":"Esta unidad es un temario en desarrollo. El material completo todavía no está redactado.",
+    "filter.authored":"lecciones redactadas","filter.syllabus":"temario en desarrollo"
+  });
+  Object.assign(WORDS.en,{
+    "detail.read":"GUIDED READING","detail.practical":"APPLIED EXERCISE",
+    "detail.planned":"This unit is a developing syllabus. Complete teaching material has not yet been written.",
+    "filter.authored":"authored lessons","filter.syllabus":"developing syllabus"
+  });
+  Object.assign(WORDS.pt,{"hero.authored":"{n} unidades com aulas e atividades originais · {remaining} planos em desenvolvimento."});
+  Object.assign(WORDS.es,{"hero.authored":"{n} unidades con clases y actividades propias · {remaining} temarios en preparación."});
+  Object.assign(WORDS.en,{"hero.authored":"{n} units with original readings and activities · {remaining} developing syllabi."});
+  Object.assign(WORDS.pt,{"tutor.voiceAutoOff":"Envio por voz: manual","tutor.voiceAutoOn":"Envio por voz: automático"});
+  Object.assign(WORDS.es,{"tutor.voiceAutoOff":"Envío por voz: manual","tutor.voiceAutoOn":"Envío por voz: automático"});
+  Object.assign(WORDS.en,{"tutor.voiceAutoOff":"Voice send: manual","tutor.voiceAutoOn":"Voice send: automatic"});
+  Object.assign(WORDS.pt,{"privacy.clear":"Apagar dados de estudo","privacy.confirm":"Apagar definitivamente o caderno de estudo e as revisões guardadas neste dispositivo? Esta ação não pode ser desfeita. Exporte antes se quiser conservar uma cópia.","privacy.cleared":"Dados académicos locais apagados. A preferência de idioma foi preservada.","privacy.storageBad":"Não foi possível gravar todos os dados neste navegador. O armazenamento pode estar cheio ou bloqueado."});
+  Object.assign(WORDS.es,{"privacy.clear":"Borrar datos de estudio","privacy.confirm":"¿Borrar permanentemente notas, progreso y repasos guardados en este dispositivo? No se puede deshacer. Exporta antes si quieres conservar una copia.","privacy.cleared":"Datos académicos locales borrados. Se conserva el idioma elegido.","privacy.storageBad":"No se pudieron guardar todos los datos en este navegador. Puede estar lleno o bloqueado."});
+  Object.assign(WORDS.en,{"privacy.clear":"Erase learning data","privacy.confirm":"Permanently erase notes, progress and reviews saved on this device? This cannot be undone. Export first if you want a backup.","privacy.cleared":"Local learning data erased. Your language preference is preserved.","privacy.storageBad":"Not all data could be saved on this browser. Storage may be full or disabled."});
+  Object.assign(WORDS.pt,{"check.short":"Testar compreensão"});
+  Object.assign(WORDS.es,{"check.short":"Comprobar comprensión"});
+  Object.assign(WORDS.en,{"check.short":"Check understanding"});
   const el = id => document.getElementById(id);
   const text = (node,value) => { node.textContent = String(value); return node; };
   const make = (tag,cls) => { const node=document.createElement(tag); if(cls)node.className=cls; return node; };
@@ -61,6 +91,7 @@
   const readLang = persist("stt-academia-lang");
   let lang = LANGS.includes(readLang) ? readLang : "pt"; // Never infer another initial language.
   let selectedYear=0, selectedTrack="all", search="", selected=null, voice=false, listening=false, aiSession=null, aiInitializing=false, chatHistory=[];
+  let autoVoiceSend=false, activeRecognition=null;
   const permittedIds = new Set(dataset.courses.flatMap(c=>c.topics.map((_,i)=>c.id+"/"+i)));
   let progress={};
   try {
@@ -78,6 +109,7 @@
     }
   }catch{evidence={}}
   const tr=(key,args={}) => (WORDS[lang][key] || WORDS.pt[key] || key).replace(/\{(\w+)\}/g,(_,x)=>String(args[x]??""));
+  const localizedTopics = c => c.topicsI18n?.[lang] || c.topics;
   const tracks = () => ({cyber:tr("filter.cyber"),web:tr("filter.web"),languages:tr("filter.languages")});
   const append=(parent,child)=>{parent.appendChild(child);return child};
   const button=(label,cls,handler)=>{const b=make("button",cls);b.type="button";b.textContent=label;b.addEventListener("click",handler);return b};
@@ -86,10 +118,16 @@
     lang=next;save("stt-academia-lang",lang);document.documentElement.lang=lang==="pt"?"pt-BR":lang;
     document.querySelectorAll("[data-i18n]").forEach(node=>{ const v=WORDS[lang][node.dataset.i18n];if(v!==undefined)text(node,v); });
     document.querySelectorAll("[data-lang]").forEach(node=>node.setAttribute("aria-pressed",String(node.dataset.lang===lang)));
+    const authored=Object.keys(authoredGuides).filter(key=>permittedIds.has(key)).length;
+    text(el("authored-count"),tr("hero.authored",{n:authored,remaining:permittedIds.size-authored}));
     el("search-courses").placeholder=tr("courses.searchPlaceholder");
     el("tutor-input").placeholder=tr("tutor.placeholder");
     el("tutor-engine").textContent=tr(aiSession?"tutor.engineAI":"tutor.engine");
     el("voice-toggle").querySelector("[data-i18n]").textContent=tr(voice?"tutor.audioOn":"tutor.audioOff");
+    el("voice-stop").setAttribute("aria-label",({pt:"Parar voz e microfone",es:"Detener voz y micrófono",en:"Stop voice and microphone"})[lang]);
+    el("voice-listen").setAttribute("aria-label",({pt:"Ditar pergunta ao tutor",es:"Dictar pregunta al tutor",en:"Dictate a tutor question"})[lang]);
+    const voiceAutoButton=el("voice-auto-send");
+    if(voiceAutoButton)voiceAutoButton.textContent=tr(autoVoiceSend?"tutor.voiceAutoOn":"tutor.voiceAutoOff");
     renderFilters();renderCourses();renderResources();if(selected)renderDetail();
     chatHistory.forEach(m=>{if(m.intro)m.node.querySelector("p").textContent=tr("tutor.hello")});
     if(window.speechSynthesis)window.speechSynthesis.cancel();
@@ -107,7 +145,7 @@
   function renderCourses(){
     const grid=el("course-grid");grid.replaceChildren();
     const needle=search.trim().toLocaleLowerCase();
-    const matches=dataset.courses.filter(c=>(!selectedYear||c.year===selectedYear)&&(selectedTrack==="all"||c.track===selectedTrack)&&(!needle||[c.id,c.title[lang],c.title.pt,c.title.es,c.title.en,...c.topics].join(" ").toLocaleLowerCase().includes(needle)));
+    const matches=dataset.courses.filter(c=>(!selectedYear||c.year===selectedYear)&&(selectedTrack==="all"||c.track===selectedTrack)&&(!needle||[c.id,c.title[lang],c.title.pt,c.title.es,c.title.en,...c.topics,...localizedTopics(c)].join(" ").toLocaleLowerCase().includes(needle)));
     for(const c of matches){
       const article=make("article","course-card");article.dataset.track=c.track;
       const top=append(article,make("div","course-top"));
@@ -116,7 +154,8 @@
       text(append(article,make("h3")),c.title[lang]);
       text(append(article,make("p")),c.outcome[lang]);
       const bottom=append(article,make("div","course-bottom"));
-      text(append(bottom,make("small")),tr("filter.modules",{hours:c.hours}));
+      const authoredCount=c.topics.filter((_,i)=>Boolean(authoredGuides[c.id+"/"+i])).length;
+      text(append(bottom,make("small")),tr("filter.modules",{hours:c.hours})+" · "+(authoredCount ? authoredCount+" "+tr("filter.authored") : tr("filter.syllabus")));
       append(bottom,button(tr("filter.open"),"",()=>openCourse(c)));
       append(grid,article);
     }
@@ -137,14 +176,23 @@
     text(el("detail-outcome"),tr("detail.outcome")+": "+c.outcome[lang]);
     text(el("detail-assessment-text"),c.assessment[lang]);
     const lessons=el("detail-lessons");lessons.replaceChildren();
-    c.topics.forEach((topic,i)=>{
+    localizedTopics(c).forEach((topic,i)=>{
       const card=append(lessons,make("article","lesson"));
       const col=append(card,make("div"));
       text(append(col,make("span","lesson-number")),tr("detail.lesson",{n:i+1}));
       text(append(col,make("h4")),topic);
-      text(append(col,make("p")),tr("detail.guide"));
-      const extra=append(col,make("p"));extra.style.marginTop="7px";extra.textContent=tr("detail.activity");
       const key=c.id+"/"+i;
+      const guide=authoredGuides[key];
+      if(guide && guide.read?.[lang] && guide.exercise?.[lang]){
+        const guided=append(col,make("div","lesson-guide"));
+        text(append(guided,make("span","lesson-guide-label")),tr("detail.read"));
+        text(append(guided,make("p","lesson-reading")),guide.read[lang]);
+        text(append(guided,make("span","lesson-guide-label")),tr("detail.practical"));
+        text(append(guided,make("p","lesson-practice")),guide.exercise[lang]);
+      }else{
+        text(append(col,make("p","lesson-pending")),tr("detail.planned"));
+        const extra=append(col,make("p"));extra.style.marginTop="7px";extra.textContent=tr("detail.guide");
+      }
       const notebook=append(card,make("div","lesson-notebook"));
       const label=append(notebook,make("label"));label.textContent=tr("detail.notes");label.htmlFor="evidence-"+key;
       const field=append(notebook,make("textarea"));field.id="evidence-"+key;field.maxLength=4000;field.rows=4;field.value=evidence[key]||"";
@@ -207,7 +255,12 @@
     const status=el("data-status");
     const announce=message=>{status.textContent=message};
     el("export-progress").addEventListener("click",()=>{
-      const data={version:1,progress,evidence};
+      let review={};
+      try {
+        const input=JSON.parse(persist("stt-academia-review-v1")||"{}");
+        if(window.SecureTReview?.parseSchedule)review=window.SecureTReview.parseSchedule(input);
+      }catch{review={}}
+      const data={version:1,progress,evidence,review};
       const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
       const url=URL.createObjectURL(blob);
       const link=make("a");link.href=url;link.download="secure-t-caderno.json";document.body.appendChild(link);link.click();link.remove();
@@ -215,6 +268,19 @@
       announce(tr("progress.exportOk"));
     });
     el("import-progress").addEventListener("click",()=>el("import-file").click());
+    el("clear-learning-data").addEventListener("click",()=>{
+      if(!window.confirm(tr("privacy.confirm")))return;
+      const names=["stt-academia-evidence","stt-academia-progress","stt-academia-review-v1"];
+      try{
+        for(const key of names)localStorage.removeItem(key);
+        if(names.some(key=>localStorage.getItem(key)!==null))throw Error("blocked");
+      }catch{announce(tr("privacy.storageBad"));return;}
+      progress={};evidence={};tutorState={};
+      renderStats();if(selected)renderDetail();
+      announce(tr("privacy.cleared"));
+      // The separate spaced-repetition room reads saved state on initialization.
+      window.location.reload();
+    });
     el("import-file").addEventListener("change",async event=>{
       const file=event.target.files?.[0];event.target.value="";
       if(!file||file.size>1024*1024){announce(tr("progress.importBad"));return;}
@@ -233,17 +299,41 @@
           if(!permittedIds.has(key)||value!==true||(nextEvidence[key]||"").trim().length<80)throw Error("progress");
           nextProgress[key]=true;
         }
+        let nextReview=null;
+        if(Object.prototype.hasOwnProperty.call(incoming,"review")){
+          if(!incoming.review||typeof incoming.review!=="object"||Array.isArray(incoming.review)||
+              Object.keys(incoming.review).length>96||!window.SecureTReview?.parseSchedule)throw Error("review schema");
+          nextReview=window.SecureTReview.parseSchedule(incoming.review);
+          if(Object.keys(nextReview).length!==Object.keys(incoming.review).length)throw Error("invalid review record");
+        }
+        // All-or-nothing import. Storage errors must not result in a false success.
+        const changes=[
+          ["stt-academia-evidence",JSON.stringify(nextEvidence)],
+          ["stt-academia-progress",JSON.stringify(nextProgress)],
+          ...(nextReview===null?[]:[["stt-academia-review-v1",JSON.stringify(nextReview)]])
+        ];
+        const previous=changes.map(([key])=>[key,persist(key)]);
+        try{
+          for(const [key,val] of changes){
+            localStorage.setItem(key,val);
+            if(localStorage.getItem(key)!==val)throw Error("storage mismatch");
+          }
+        }catch{
+          for(const [key,val] of previous){try{if(val===null)localStorage.removeItem(key);else localStorage.setItem(key,val);}catch{}}
+          throw Error("storage blocked");
+        }
         evidence=nextEvidence;progress=nextProgress;
-        save("stt-academia-evidence",JSON.stringify(evidence));
-        save("stt-academia-progress",JSON.stringify(progress));
         renderStats();if(selected)renderDetail();
         announce(tr("progress.importOk"));
+        if(nextReview!==null)window.location.reload();
       }catch{announce(tr("progress.importBad"));}
     });
   }
   function renderStats(){
     el("count-courses").textContent=String(dataset.courses.length);
-    el("count-progress").textContent=(Math.round(Object.keys(progress).length/permittedIds.size*100))+"%";
+    const value=Object.keys(progress).length/permittedIds.size*100;
+    // The first completed unit is 0.4% of the roadmap: never display 0%.
+    el("count-progress").textContent=(value>0&&value<1?value.toFixed(1):String(Math.round(value)))+"%";
   }
   const zoneFormats=[
     ["rio","America/Sao_Paulo"],["barcelona","Europe/Madrid"],["dublin","Europe/Dublin"]
@@ -275,16 +365,19 @@
     if(chatHistory.length>22){const item=chatHistory.shift();item.node.remove();}
     el("chat-history").scrollTop=el("chat-history").scrollHeight;
   }
+  // Stateful, privacy-preserving academic coaching remains available without
+  // browser AI APIs or server calls. It is labeled curricular guidance, not an LLM.
+  let tutorState={};
   function localTutor(question){
-    const normalized=question.toLocaleLowerCase();
-    const course=selected || dataset.courses.find(c=>[c.title.pt,c.title.es,c.title.en,c.id,...c.topics].some(t=>normalized.includes(t.toLocaleLowerCase()))) || dataset.courses.find(c=>normalized.includes("web")?c.track==="web":normalized.includes("idiom")||normalized.includes("english")?c.track==="languages":c.track==="cyber");
-    if(!course)return tr("tutor.ask");
-    const topic=course.topics.find(t=>normalized.includes(t.toLocaleLowerCase()))||course.topics[0];
-    return tr("tutor.reply",{course:course.title[lang],topic});
+    const coach=window.SecureTCurriculumTutor;
+    if(!coach)return tr("tutor.ask");
+    const result=coach.respond({message:question,lang,selected,dataset,guides:authoredGuides,state:tutorState});
+    tutorState=result.state;
+    return result.text;
   }
   async function tutorReply(message){
     if(!aiSession)return localTutor(message);
-    const course=selected;const context=course?course.title[lang]+" / "+course.topics.join("; "):"Cybersecurity, secure web development, technical languages";
+    const course=selected;const context=course?course.title[lang]+" / "+localizedTopics(course).join("; "):"Cybersecurity, secure web development, technical languages";
     const prompt="You are a Socratic study tutor for an open, unaccredited cybersecurity and web development academy. Reply in "+lang+". Never claim grades or credentials. Do not give harmful intrusion instructions or fabricate citations. Curriculum: "+context+". Learner question: "+message.slice(0,1200);
     try {return (await aiSession.prompt(prompt)).slice(0,1400);}
     catch {return localTutor(message);}
@@ -315,6 +408,21 @@
     addMessage("assistant",tr("tutor.hello"),true);
     el("tutor-form").addEventListener("submit",onSubmit);
     el("tutor-input").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();el("tutor-form").requestSubmit();}});
+    // The learner must opt in to submitting dictated text; microphone permission
+    // remains a separate per-session consent action, never a background listener.
+    const voiceAuto=button(tr("tutor.voiceAutoOff"),"control",()=>{
+      autoVoiceSend=!autoVoiceSend;
+      voiceAuto.setAttribute("aria-pressed",String(autoVoiceSend));
+      voiceAuto.textContent=tr(autoVoiceSend?"tutor.voiceAutoOn":"tutor.voiceAutoOff");
+      if(autoVoiceSend&&!voice){
+        voice=true;
+        el("voice-toggle").setAttribute("aria-pressed","true");
+        el("voice-toggle").querySelector("[data-i18n]").textContent=tr("tutor.audioOn");
+      }
+    });
+    voiceAuto.id="voice-auto-send";
+    voiceAuto.setAttribute("aria-pressed","false");
+    document.querySelector(".tutor-controls").appendChild(voiceAuto);
     const btn=button("IA LOCAL ◇","control",()=>enableModel(btn));
     btn.id="local-ai-optin";btn.setAttribute("aria-label","Opt in to an on-device language model if your browser supports it");
     document.querySelector(".tutor-controls").appendChild(btn);
@@ -323,11 +431,21 @@
       el("voice-toggle").querySelector("[data-i18n]").textContent=tr(voice?"tutor.audioOn":"tutor.audioOff");
       if(!voice&&window.speechSynthesis)window.speechSynthesis.cancel();
     });
-    el("voice-stop").addEventListener("click",()=>{if(window.speechSynthesis)window.speechSynthesis.cancel();document.querySelector(".tutor-portrait").classList.remove("speaking");});
+    el("voice-stop").addEventListener("click",()=>{
+      if(activeRecognition){const previous=activeRecognition;activeRecognition=null;try{previous.abort();}catch{} listening=false;el("voice-listen").setAttribute("aria-pressed","false");}
+      if(window.speechSynthesis)window.speechSynthesis.cancel();
+      document.querySelector(".tutor-portrait").classList.remove("speaking");
+    });
     el("open-tutor").addEventListener("click",()=>el("tutor").scrollIntoView({behavior:"smooth"}));
+    el("course-self-check").addEventListener("click",()=>{
+      if(!selected)return;
+      if(!window.SecureTFormative?.selectCourse(selected.id)){
+        el("autoevaluacao").scrollIntoView({behavior:"smooth"});
+      }
+    });
     el("ask-course").addEventListener("click",()=>{
       el("tutor").scrollIntoView({behavior:"smooth"});
-      if(selected)el("tutor-input").value=selected.title[lang]+" — "+selected.topics[0]+"?";
+      if(selected)el("tutor-input").value=selected.title[lang]+" — "+localizedTopics(selected)[0]+"?";
       el("tutor-input").focus();
     });
     const recognitionCtor=window.SpeechRecognition||window.webkitSpeechRecognition;
@@ -337,9 +455,21 @@
       if(listening)return;
       if(!window.confirm(tr("tutor.consent")))return;
       const rec=new recognitionCtor();rec.lang=lang==="pt"?"pt-BR":lang==="es"?"es-ES":"en-GB";rec.maxAlternatives=1;rec.interimResults=false;
-      rec.onresult=e=>{const transcript=e.results?.[0]?.[0]?.transcript||"";el("tutor-input").value=transcript;el("tutor-input").focus();};
-      rec.onend=rec.onerror=()=>{listening=false;mic.setAttribute("aria-pressed","false");};
-      try{rec.start();listening=true;mic.setAttribute("aria-pressed","true");}catch{listening=false;}
+      let heard="",failed=false;
+      rec.onresult=e=>{
+        heard=String(e.results?.[0]?.[0]?.transcript||"").trim().slice(0,1200);
+        if(heard){el("tutor-input").value=heard;el("tutor-input").focus();}
+      };
+      rec.onerror=()=>{failed=true;listening=false;mic.setAttribute("aria-pressed","false");};
+      rec.onend=()=>{
+        const completedNormally=activeRecognition===rec;
+        if(completedNormally)activeRecognition=null;
+        listening=false;mic.setAttribute("aria-pressed","false");
+        // Aborted recordings must never become requests.
+        if(completedNormally&&!failed&&heard&&autoVoiceSend)el("tutor-form").requestSubmit();
+      };
+      try{activeRecognition=rec;rec.start();listening=true;mic.setAttribute("aria-pressed","true");}
+      catch{activeRecognition=null;listening=false;mic.setAttribute("aria-pressed","false");}
     });
   }
   document.querySelectorAll("[data-lang]").forEach(node=>node.addEventListener("click",()=>setLang(node.dataset.lang)));

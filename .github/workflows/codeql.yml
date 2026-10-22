@@ -1,36 +1,54 @@
-name: CodeQL Analysis
+# Public repositories can use GitHub Code Scanning.
+# Private personal repositories on GitHub Free cannot upload CodeQL results.
+# Keep static analysis for private code without changing repository visibility.
+name: Security static analysis
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
   pull_request:
-    branches: [main, develop]
+    branches: [main]
   schedule:
-    - cron: '0 3 * * 1'
+    - cron: '0 5 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  analyze:
-    name: CodeQL Analysis
+  codeql-public:
+    if: ${{ github.event.repository.private == false }}
+    name: CodeQL (public repositories)
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
-      actions: read
       contents: read
+      actions: read
       security-events: write
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [javascript, typescript]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      
+      - uses: actions/checkout@v5
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
+        uses: github/codeql-action/init@v4
         with:
-          languages: ${{ matrix.language }}
-          queries: +security-extended,security-and-quality
-      
+          languages: javascript-typescript,python
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
-        with:
-          category: "/language:${{ matrix.language }}"
+        uses: github/codeql-action/analyze@v4
+
+  community-sast-private:
+    if: ${{ github.event.repository.private }}
+    name: Semgrep CE (private repositories)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    container:
+      image: semgrep/semgrep:1.168.0
+    steps:
+      - uses: actions/checkout@v5
+      - name: Scan TypeScript, Python, JavaScript and runtime HTML
+        run: |
+          semgrep scan --config p/ci --severity ERROR --error --metrics off \
+            --exclude client/src/components/ui \
+            --exclude campus/cursos \
+            --exclude public \
+            --exclude secure-t-app \
+            --exclude secure-t-university \
+            .

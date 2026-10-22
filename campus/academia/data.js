@@ -1,4 +1,4 @@
-/* Secure T Academy · syllabus and external original-source media, not a degree. */
+/* Secure T Academy · author-maintained trilingual course topics. */
 window.SecureTAcademyData = {
   "schema": "secure-t.academia.v1",
   "planning": true,
@@ -73,12 +73,13 @@ window.SecureTAcademyData = {
     {
       "id": "lang-pt",
       "track": "languages",
-      "language": "es",
-      "title": "Curso de Portugués para Principiantes — 100 Clases",
-      "creator": "Curso de Línguas Brasil",
-      "url": "https://www.youtube.com/watch?v=HHUxxj-M-HU",
-      "kind": "100 classes",
-      "status": "verified"
+      "language": "pt-PT",
+      "title": "Plataforma de Português Online — 24 módulos",
+      "creator": "AIMA (Agência para a Integração, Migrações e Asilo) · Portugal",
+      "url": "https://aima.gov.pt/pt/lingua-portuguesa/plataforma-de-portugues-online",
+      "kind": "24 módulos · português europeu · acesso gratuito",
+      "status": "verified",
+      "verifiedAt": "2026-10-19"
     },
     {
       "id": "fcc-front-21h",
@@ -109,6 +110,117 @@ window.SecureTAcademyData = {
       "url": "https://www.freecodecamp.org/news/html-full-course-for-beginners",
       "kind": "2-hour class",
       "status": "verified"
+    },
+    {
+      "id": "harvard-cs50-cyber",
+      "track": "cyber",
+      "language": "en",
+      "title": "CS50's Introduction to Cybersecurity — aulas completas",
+      "creator": "David J. Malan · Harvard CS50 / freeCodeCamp.org",
+      "url": "https://www.youtube.com/watch?v=9HOpanT0GRs",
+      "kind": "aprox. 8 h · vídeo original",
+      "status": "verified",
+      "verifiedAt": "2026-10-19",
+      "source": "https://cs50.harvard.edu/cybersecurity/"
+    },
+    {
+      "id": "harvard-cs50-programming",
+      "track": "web",
+      "language": "en",
+      "title": "CS50: Computer Science — edição integral",
+      "creator": "David J. Malan · Harvard CS50 / freeCodeCamp.org",
+      "url": "https://www.freecodecamp.org/news/harvard-university-cs50-computer-science-course-2023",
+      "kind": "aprox. 26 h · aulas de programação",
+      "status": "verified",
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "id": "fcc-networking",
+      "track": "cyber",
+      "language": "en",
+      "title": "Computer Networking Fundamentals — curso integral",
+      "creator": "Shrathir Sharma · freeCodeCamp.org",
+      "url": "https://www.freecodecamp.org/news/computer-networking-fundamentals",
+      "kind": "aprox. 12 h · redes",
+      "status": "verified",
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "id": "fcc-infrastructure",
+      "track": "cyber",
+      "language": "en",
+      "title": "Ultimate IT Fundamentals Bootcamp",
+      "creator": "DolfinED Academy / freeCodeCamp.org",
+      "url": "https://www.freecodecamp.org/news/learn-hardware-cloud-devops-networking-security-databases-dns-git-and-linux",
+      "kind": "aprox. 13 h · infra e segurança",
+      "status": "verified",
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "id": "fcc-deploy",
+      "track": "web",
+      "language": "en",
+      "title": "Deploy, Secure & Automate Full-Stack Applications",
+      "creator": "Imad Saddik · freeCodeCamp.org",
+      "url": "https://www.freecodecamp.org/news/learn-how-to-deploy-secure-and-automate-full-stack-web-apps",
+      "kind": "aprox. 11 h · deployment & DevSecOps",
+      "status": "verified",
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "id": "guanabara-playlist",
+      "track": "web",
+      "language": "pt-BR",
+      "title": "HTML5 e CSS3 — Módulo 01 (playlist oficial)",
+      "creator": "Gustavo Guanabara · Curso em Vídeo",
+      "url": "https://www.youtube.com/playlist?list=PLHz_AreHm4dkZ9-atkcmcBaMZdmLHft8n",
+      "kind": "playlist de aulas · português brasileiro",
+      "status": "verified",
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "id": "lang-spanish-video",
+      "track": "languages",
+      "language": "es",
+      "title": "Dreaming Spanish — Superbeginner Compilation",
+      "creator": "Dreaming Spanish",
+      "url": "https://www.youtube.com/watch?v=AI997gnz-1U",
+      "kind": "aprox. 1 h · compreensão oral",
+      "status": "verified",
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "id": "lang-spanish-library",
+      "track": "languages",
+      "language": "es",
+      "title": "Dreaming Spanish — biblioteca graduada",
+      "creator": "Dreaming Spanish",
+      "url": "https://www.dreaming.com/spanish",
+      "kind": "conteúdo aberto e premium; acesso segundo o autor",
+      "status": "verified",
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "id": "lang-english",
+      "track": "languages",
+      "language": "en",
+      "title": "BBC Learning English — aulas e exercícios",
+      "creator": "BBC Learning English",
+      "url": "https://feeds.bbci.co.uk/learningenglish",
+      "kind": "curso web gratuito e séries em vídeo",
+      "status": "verified",
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "id": "lang-portuguese-br",
+      "track": "languages",
+      "language": "pt-BR",
+      "title": "Introduction to Portuguese — 5 video lessons",
+      "creator": "PortuguesePod101",
+      "url": "https://www.portuguesepod101.com/lesson-library/introduction-to-portuguese",
+      "kind": "aulas curtas; condições de acesso do autor",
+      "status": "verified",
+      "verifiedAt": "2026-10-19"
     }
   ],
   "courses": [
@@ -132,7 +244,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking"
       ],
       "hours": 64,
       "outcome": {
@@ -144,6 +258,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de diagnóstico de ambientes.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Arquitetura de computadores",
+          "Sistemas operacionais e processos",
+          "Arquivos e permissões",
+          "Diagnóstico de ambientes"
+        ],
+        "es": [
+          "Arquitectura de computadores",
+          "Sistemas operativos y procesos",
+          "Archivos y permisos",
+          "Diagnóstico de entornos"
+        ],
+        "en": [
+          "Computer architecture",
+          "Operating systems and processes",
+          "Files and permissions",
+          "Environment diagnostics"
+        ]
       }
     },
     {
@@ -166,7 +300,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking"
       ],
       "hours": 64,
       "outcome": {
@@ -178,6 +314,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de captura de tráfego autorizada.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Modelo TCP/IP",
+          "Endereçamento IP e subnetting",
+          "DNS e HTTP",
+          "Captura de tráfego autorizada"
+        ],
+        "es": [
+          "Modelo TCP/IP",
+          "Direcciones IP y subredes",
+          "DNS y HTTP",
+          "Captura de tráfico autorizada"
+        ],
+        "en": [
+          "TCP/IP model",
+          "IP addressing and subnetting",
+          "DNS and HTTP",
+          "Authorized traffic capture"
+        ]
       }
     },
     {
@@ -200,7 +356,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking"
       ],
       "hours": 64,
       "outcome": {
@@ -212,6 +370,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de higiene e mfa.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Princípios CIA",
+          "Modelo de ameaças",
+          "Ética e autorização",
+          "Higiene e MFA"
+        ],
+        "es": [
+          "Principios CIA",
+          "Modelado de amenazas",
+          "Ética y autorización",
+          "Higiene y autenticación multifactor"
+        ],
+        "en": [
+          "CIA principles",
+          "Threat modeling",
+          "Ethics and authorization",
+          "Security hygiene and MFA"
+        ]
       }
     },
     {
@@ -236,7 +414,9 @@ window.SecureTAcademyData = {
         "fcc-html-2h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "guanabara-playlist",
+        "harvard-cs50-programming"
       ],
       "hours": 64,
       "outcome": {
@@ -248,6 +428,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de projeto de página institucional.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Estrutura de documentos",
+          "Semântica e acessibilidade",
+          "Formulários validados",
+          "Projeto de página institucional"
+        ],
+        "es": [
+          "Estructura documental",
+          "Semántica y accesibilidad",
+          "Formularios validados",
+          "Proyecto de página institucional"
+        ],
+        "en": [
+          "Document structure",
+          "Semantics and accessibility",
+          "Validated forms",
+          "Institutional web page project"
+        ]
       }
     },
     {
@@ -272,7 +472,9 @@ window.SecureTAcademyData = {
         "fcc-html-2h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "guanabara-playlist",
+        "harvard-cs50-programming"
       ],
       "hours": 64,
       "outcome": {
@@ -284,6 +486,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de acessibilidade e contraste.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Layouts responsivos",
+          "CSS Grid e Flexbox",
+          "Design tokens",
+          "Acessibilidade e contraste"
+        ],
+        "es": [
+          "Maquetaciones adaptables",
+          "CSS Grid y Flexbox",
+          "Tokens de diseño",
+          "Accesibilidad y contraste"
+        ],
+        "en": [
+          "Responsive layouts",
+          "CSS Grid and Flexbox",
+          "Design tokens",
+          "Accessibility and contrast"
+        ]
       }
     },
     {
@@ -305,7 +527,11 @@ window.SecureTAcademyData = {
       "requires": null,
       "resources": [
         "lang-pt",
-        "cisco"
+        "cisco",
+        "lang-spanish-video",
+        "lang-english",
+        "lang-portuguese-br",
+        "lang-spanish-library"
       ],
       "hours": 64,
       "outcome": {
@@ -317,6 +543,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de apresentação oral guiada.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Introduções profissionais",
+          "Vocabulário de redes",
+          "Leitura de documentação",
+          "Apresentação oral guiada"
+        ],
+        "es": [
+          "Presentaciones profesionales",
+          "Vocabulario de redes",
+          "Lectura de documentación",
+          "Exposición oral guiada"
+        ],
+        "en": [
+          "Professional introductions",
+          "Networking vocabulary",
+          "Reading documentation",
+          "Guided oral presentation"
+        ]
       }
     },
     {
@@ -339,7 +585,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking"
       ],
       "hours": 64,
       "outcome": {
@@ -351,6 +599,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de hardening básico.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Shell e navegação",
+          "Gestão de usuários",
+          "Permissões e processos",
+          "Hardening básico"
+        ],
+        "es": [
+          "Shell y navegación",
+          "Gestión de usuarios",
+          "Permisos y procesos",
+          "Endurecimiento básico"
+        ],
+        "en": [
+          "Shell and navigation",
+          "User management",
+          "Permissions and processes",
+          "Basic hardening"
+        ]
       }
     },
     {
@@ -373,7 +641,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking"
       ],
       "hours": 64,
       "outcome": {
@@ -385,6 +655,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de diagnóstico com logs.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Roteamento e VLAN",
+          "TLS e certificados",
+          "Firewalls",
+          "Diagnóstico com logs"
+        ],
+        "es": [
+          "Enrutamiento y VLAN",
+          "TLS y certificados",
+          "Cortafuegos",
+          "Diagnóstico mediante registros"
+        ],
+        "en": [
+          "Routing and VLANs",
+          "TLS and certificates",
+          "Firewalls",
+          "Troubleshooting with logs"
+        ]
       }
     },
     {
@@ -407,7 +697,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking"
       ],
       "hours": 64,
       "outcome": {
@@ -419,6 +711,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de automação defensiva.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Tipos e funções",
+          "Arquivos e exceções",
+          "HTTP e APIs",
+          "Automação defensiva"
+        ],
+        "es": [
+          "Tipos y funciones",
+          "Archivos y excepciones",
+          "HTTP y API",
+          "Automatización defensiva"
+        ],
+        "en": [
+          "Types and functions",
+          "Files and exceptions",
+          "HTTP and APIs",
+          "Defensive automation"
+        ]
       }
     },
     {
@@ -443,7 +755,9 @@ window.SecureTAcademyData = {
         "fcc-html-2h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "guanabara-playlist",
+        "harvard-cs50-programming"
       ],
       "hours": 64,
       "outcome": {
@@ -455,6 +769,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de testes de componentes.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "DOM e eventos",
+          "Módulos e async",
+          "Tratamento de erros",
+          "Testes de componentes"
+        ],
+        "es": [
+          "DOM y eventos",
+          "Módulos y asincronía",
+          "Gestión de errores",
+          "Pruebas de componentes"
+        ],
+        "en": [
+          "DOM and events",
+          "Modules and asynchrony",
+          "Error handling",
+          "Component testing"
+        ]
       }
     },
     {
@@ -479,7 +813,9 @@ window.SecureTAcademyData = {
         "fcc-html-2h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "guanabara-playlist",
+        "harvard-cs50-programming"
       ],
       "hours": 64,
       "outcome": {
@@ -491,6 +827,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de integração contínua.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Commits e branches",
+          "Pull requests",
+          "Revisão de código",
+          "Integração contínua"
+        ],
+        "es": [
+          "Commits y ramas",
+          "Pull requests",
+          "Revisión de código",
+          "Integración continua"
+        ],
+        "en": [
+          "Commits and branches",
+          "Pull requests",
+          "Code review",
+          "Continuous integration"
+        ]
       }
     },
     {
@@ -512,7 +868,11 @@ window.SecureTAcademyData = {
       "requires": "ST-016",
       "resources": [
         "lang-pt",
-        "cisco"
+        "cisco",
+        "lang-spanish-video",
+        "lang-english",
+        "lang-portuguese-br",
+        "lang-spanish-library"
       ],
       "hours": 64,
       "outcome": {
@@ -524,6 +884,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de explicação oral de incidentes.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Apresentações e diálogo",
+          "Vocabulário de suporte",
+          "Leitura de tickets",
+          "Explicação oral de incidentes"
+        ],
+        "es": [
+          "Presentaciones y diálogo",
+          "Vocabulario de soporte",
+          "Lectura de incidencias",
+          "Explicación oral de incidentes"
+        ],
+        "en": [
+          "Introductions and dialogue",
+          "Support vocabulary",
+          "Reading support tickets",
+          "Explaining incidents orally"
+        ]
       }
     },
     {
@@ -546,7 +926,10 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -558,6 +941,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de pki e certificados.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Hash e integridade",
+          "Criptografia simétrica",
+          "Chaves públicas",
+          "PKI e certificados"
+        ],
+        "es": [
+          "Hash e integridad",
+          "Criptografía simétrica",
+          "Claves públicas",
+          "PKI y certificados"
+        ],
+        "en": [
+          "Hashes and integrity",
+          "Symmetric cryptography",
+          "Public keys",
+          "PKI and certificates"
+        ]
       }
     },
     {
@@ -580,7 +983,10 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -592,6 +998,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de modelagem stride.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "OWASP Top 10",
+          "Validação de entrada",
+          "Sessões seguras",
+          "Modelagem STRIDE"
+        ],
+        "es": [
+          "OWASP Top 10",
+          "Validación de entradas",
+          "Sesiones seguras",
+          "Modelado STRIDE"
+        ],
+        "en": [
+          "OWASP Top 10",
+          "Input validation",
+          "Secure sessions",
+          "STRIDE threat modeling"
+        ]
       }
     },
     {
@@ -614,7 +1040,10 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -626,6 +1055,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de backup e restauração.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Modelagem relacional",
+          "SQL parametrizado",
+          "Transações",
+          "Backup e restauração"
+        ],
+        "es": [
+          "Modelado relacional",
+          "SQL parametrizado",
+          "Transacciones",
+          "Copias de seguridad y restauración"
+        ],
+        "en": [
+          "Relational modeling",
+          "Parameterized SQL",
+          "Transactions",
+          "Backup and recovery"
+        ]
       }
     },
     {
@@ -650,7 +1099,9 @@ window.SecureTAcademyData = {
         "fcc-html-2h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "guanabara-playlist",
+        "harvard-cs50-programming"
       ],
       "hours": 64,
       "outcome": {
@@ -662,6 +1113,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de qualidade de interface.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Componentes acessíveis",
+          "Roteamento e estado",
+          "Formulários e erros",
+          "Qualidade de interface"
+        ],
+        "es": [
+          "Componentes accesibles",
+          "Enrutamiento y estado",
+          "Formularios y errores",
+          "Calidad de interfaz"
+        ],
+        "en": [
+          "Accessible components",
+          "Routing and state",
+          "Forms and errors",
+          "User interface quality"
+        ]
       }
     },
     {
@@ -686,7 +1157,9 @@ window.SecureTAcademyData = {
         "fcc-html-2h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "guanabara-playlist",
+        "harvard-cs50-programming"
       ],
       "hours": 64,
       "outcome": {
@@ -698,6 +1171,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de observabilidade.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "REST e contratos",
+          "Autenticação e autorização",
+          "Rate limit",
+          "Observabilidade"
+        ],
+        "es": [
+          "REST y contratos",
+          "Autenticación y autorización",
+          "Limitación de peticiones",
+          "Observabilidad"
+        ],
+        "en": [
+          "REST and contracts",
+          "Authentication and authorization",
+          "Rate limiting",
+          "Observability"
+        ]
       }
     },
     {
@@ -719,7 +1212,11 @@ window.SecureTAcademyData = {
       "requires": "ST-026",
       "resources": [
         "lang-pt",
-        "cisco"
+        "cisco",
+        "lang-spanish-video",
+        "lang-english",
+        "lang-portuguese-br",
+        "lang-spanish-library"
       ],
       "hours": 64,
       "outcome": {
@@ -731,6 +1228,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de apresentação de projetos.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Escrita técnica",
+          "Resumos críticos",
+          "Argumentação clara",
+          "Apresentação de projetos"
+        ],
+        "es": [
+          "Redacción técnica",
+          "Resúmenes críticos",
+          "Argumentación clara",
+          "Presentación de proyectos"
+        ],
+        "en": [
+          "Technical writing",
+          "Critical summaries",
+          "Clear argumentation",
+          "Project presentations"
+        ]
       }
     },
     {
@@ -753,7 +1270,10 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -765,6 +1285,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de desenho de controle.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Segmentação",
+          "Zero Trust",
+          "VPN e tunelamento",
+          "Desenho de controle"
+        ],
+        "es": [
+          "Segmentación",
+          "Confianza cero",
+          "VPN y túneles",
+          "Diseño de controles"
+        ],
+        "en": [
+          "Segmentation",
+          "Zero Trust",
+          "VPNs and tunnels",
+          "Security control design"
+        ]
       }
     },
     {
@@ -787,7 +1327,10 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -799,6 +1342,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de triage de incidentes.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Logs estruturados",
+          "SIEM e alertas",
+          "Regras e falsos positivos",
+          "Triage de incidentes"
+        ],
+        "es": [
+          "Registros estructurados",
+          "SIEM y alertas",
+          "Reglas y falsos positivos",
+          "Triaje de incidentes"
+        ],
+        "en": [
+          "Structured logs",
+          "SIEM and alerts",
+          "Rules and false positives",
+          "Incident triage"
+        ]
       }
     },
     {
@@ -821,7 +1384,10 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "harvard-cs50-cyber",
+        "fcc-networking",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -833,6 +1399,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de testes automatizados.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Controle de acesso",
+          "API abuse",
+          "Segurança de dependências",
+          "Testes automatizados"
+        ],
+        "es": [
+          "Control de acceso",
+          "Abusos de API",
+          "Seguridad de dependencias",
+          "Pruebas automatizadas"
+        ],
+        "en": [
+          "Access control",
+          "API abuse",
+          "Dependency security",
+          "Automated tests"
+        ]
       }
     },
     {
@@ -856,7 +1442,9 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "guanabara-playlist",
+        "harvard-cs50-programming"
       ],
       "hours": 64,
       "outcome": {
@@ -868,6 +1456,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de testes ponta a ponta.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Tipos e contratos",
+          "React e composição",
+          "Node e serviços",
+          "Testes ponta a ponta"
+        ],
+        "es": [
+          "Tipos y contratos",
+          "React y composición",
+          "Node y servicios",
+          "Pruebas de extremo a extremo"
+        ],
+        "en": [
+          "Types and contracts",
+          "React and composition",
+          "Node and services",
+          "End-to-end testing"
+        ]
       }
     },
     {
@@ -891,7 +1499,9 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "guanabara-playlist",
+        "harvard-cs50-programming"
       ],
       "hours": 64,
       "outcome": {
@@ -903,6 +1513,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de infraestrutura como código.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Conceitos de nuvem",
+          "Containers seguros",
+          "Segredos e configuração",
+          "Infraestrutura como código"
+        ],
+        "es": [
+          "Conceptos de nube",
+          "Contenedores seguros",
+          "Secretos y configuración",
+          "Infraestructura como código"
+        ],
+        "en": [
+          "Cloud fundamentals",
+          "Secure containers",
+          "Secrets and configuration",
+          "Infrastructure as code"
+        ]
       }
     },
     {
@@ -924,7 +1554,11 @@ window.SecureTAcademyData = {
       "requires": "ST-036",
       "resources": [
         "lang-pt",
-        "cisco"
+        "cisco",
+        "lang-spanish-video",
+        "lang-english",
+        "lang-portuguese-br",
+        "lang-spanish-library"
       ],
       "hours": 64,
       "outcome": {
@@ -936,6 +1570,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de defesa oral de projeto.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Reuniões internacionais",
+          "Escrita de relatórios",
+          "RFCs e padrões",
+          "Defesa oral de projeto"
+        ],
+        "es": [
+          "Reuniones internacionales",
+          "Redacción de informes",
+          "RFC y estándares",
+          "Defensa oral de proyectos"
+        ],
+        "en": [
+          "International meetings",
+          "Report writing",
+          "RFCs and standards",
+          "Oral project defense"
+        ]
       }
     },
     {
@@ -958,7 +1612,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -970,6 +1625,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de divulgação responsável.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Inventário de ativos",
+          "CVSS e priorização",
+          "Scanning autorizado",
+          "Divulgação responsável"
+        ],
+        "es": [
+          "Inventario de activos",
+          "CVSS y priorización",
+          "Escaneo autorizado",
+          "Divulgación responsable"
+        ],
+        "en": [
+          "Asset inventory",
+          "CVSS and prioritization",
+          "Authorized scanning",
+          "Responsible disclosure"
+        ]
       }
     },
     {
@@ -992,7 +1667,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -1004,6 +1680,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de lições aprendidas.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Preparação",
+          "Identificação e contenção",
+          "Coleta de evidência",
+          "Lições aprendidas"
+        ],
+        "es": [
+          "Preparación",
+          "Identificación y contención",
+          "Recogida de evidencias",
+          "Lecciones aprendidas"
+        ],
+        "en": [
+          "Preparation",
+          "Identification and containment",
+          "Evidence collection",
+          "Lessons learned"
+        ]
       }
     },
     {
@@ -1026,7 +1722,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -1038,6 +1735,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de revisão de acessos.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "OIDC e OAuth",
+          "MFA e políticas",
+          "RBAC e ABAC",
+          "Revisão de acessos"
+        ],
+        "es": [
+          "OIDC y OAuth",
+          "MFA y políticas",
+          "RBAC y ABAC",
+          "Revisión de accesos"
+        ],
+        "en": [
+          "OIDC and OAuth",
+          "MFA and policies",
+          "RBAC and ABAC",
+          "Access reviews"
+        ]
       }
     },
     {
@@ -1061,7 +1778,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1073,6 +1791,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de qualidade em ci.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Pirâmide de testes",
+          "Fixtures e mocks",
+          "Testes de segurança",
+          "Qualidade em CI"
+        ],
+        "es": [
+          "Pirámide de pruebas",
+          "Fixtures y simulaciones",
+          "Pruebas de seguridad",
+          "Calidad en CI"
+        ],
+        "en": [
+          "Testing pyramid",
+          "Fixtures and mocks",
+          "Security testing",
+          "CI quality"
+        ]
       }
     },
     {
@@ -1096,7 +1834,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1108,6 +1847,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de desenho de apis.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Escalabilidade",
+          "Consistência de dados",
+          "Resiliência",
+          "Desenho de APIs"
+        ],
+        "es": [
+          "Escalabilidad",
+          "Consistencia de datos",
+          "Resiliencia",
+          "Diseño de API"
+        ],
+        "en": [
+          "Scalability",
+          "Data consistency",
+          "Resilience",
+          "API design"
+        ]
       }
     },
     {
@@ -1129,7 +1888,11 @@ window.SecureTAcademyData = {
       "requires": "ST-046",
       "resources": [
         "lang-pt",
-        "cisco"
+        "cisco",
+        "lang-spanish-video",
+        "lang-english",
+        "lang-portuguese-br",
+        "lang-spanish-library"
       ],
       "hours": 64,
       "outcome": {
@@ -1141,6 +1904,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de glossários bilíngues.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Entrevistas técnicas",
+          "Relatórios de auditoria",
+          "Comunicação em crise",
+          "Glossários bilíngues"
+        ],
+        "es": [
+          "Entrevistas técnicas",
+          "Informes de auditoría",
+          "Comunicación en crisis",
+          "Glosarios bilingües"
+        ],
+        "en": [
+          "Technical interviews",
+          "Audit reports",
+          "Crisis communication",
+          "Bilingual glossaries"
+        ]
       }
     },
     {
@@ -1163,7 +1946,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -1175,6 +1959,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de relatório de impacto.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Regras de engajamento",
+          "Laboratórios isolados",
+          "Reconhecimento permitido",
+          "Relatório de impacto"
+        ],
+        "es": [
+          "Reglas de compromiso",
+          "Laboratorios aislados",
+          "Reconocimiento permitido",
+          "Informe de impacto"
+        ],
+        "en": [
+          "Rules of engagement",
+          "Isolated labs",
+          "Permitted reconnaissance",
+          "Impact reporting"
+        ]
       }
     },
     {
@@ -1197,7 +2001,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -1209,6 +2014,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de relatório reprodutível.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Cadeia de custódia",
+          "Logs e metadados",
+          "Linha temporal",
+          "Relatório reprodutível"
+        ],
+        "es": [
+          "Cadena de custodia",
+          "Registros y metadatos",
+          "Línea temporal",
+          "Informe reproducible"
+        ],
+        "en": [
+          "Chain of custody",
+          "Logs and metadata",
+          "Timeline analysis",
+          "Reproducible reporting"
+        ]
       }
     },
     {
@@ -1231,7 +2056,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure"
       ],
       "hours": 64,
       "outcome": {
@@ -1243,6 +2069,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de briefing analítico.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "IOC e TTP",
+          "MITRE ATT&CK",
+          "Avaliação de fontes",
+          "Briefing analítico"
+        ],
+        "es": [
+          "Indicadores y tácticas",
+          "MITRE ATT&CK",
+          "Evaluación de fuentes",
+          "Resumen analítico"
+        ],
+        "en": [
+          "Indicators and tactics",
+          "MITRE ATT&CK",
+          "Source evaluation",
+          "Intelligence briefing"
+        ]
       }
     },
     {
@@ -1257,7 +2103,7 @@ window.SecureTAcademyData = {
       },
       "topics": [
         "SAST e DAST",
-        "SBOM",
+        "SBOM e inventário de componentes",
         "Supply chain",
         "Pipelines com gates"
       ],
@@ -1266,7 +2112,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1278,6 +2125,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de pipelines com gates.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "SAST e DAST",
+          "SBOM e inventário de componentes",
+          "Supply chain",
+          "Pipelines com gates"
+        ],
+        "es": [
+          "SAST y DAST",
+          "SBOM e inventario de componentes",
+          "Cadena de suministro",
+          "Pipelines con controles"
+        ],
+        "en": [
+          "SAST and DAST",
+          "SBOM and component inventory",
+          "Software supply chain",
+          "Pipelines with gates"
+        ]
       }
     },
     {
@@ -1301,7 +2168,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1313,6 +2181,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de recuperação de desastres.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Migrações",
+          "Princípio do privilégio mínimo",
+          "Auditoria",
+          "Recuperação de desastres"
+        ],
+        "es": [
+          "Migraciones",
+          "Principio de mínimo privilegio",
+          "Auditoría",
+          "Recuperación ante desastres"
+        ],
+        "en": [
+          "Database migrations",
+          "Least privilege principle",
+          "Auditing",
+          "Disaster recovery"
+        ]
       }
     },
     {
@@ -1334,7 +2222,11 @@ window.SecureTAcademyData = {
       "requires": "ST-056",
       "resources": [
         "lang-pt",
-        "cisco"
+        "cisco",
+        "lang-spanish-video",
+        "lang-english",
+        "lang-portuguese-br",
+        "lang-spanish-library"
       ],
       "hours": 64,
       "outcome": {
@@ -1346,6 +2238,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de apresentação de resultados.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Debate técnico",
+          "Documentação bilíngue",
+          "Revisão de textos",
+          "Apresentação de resultados"
+        ],
+        "es": [
+          "Debate técnico",
+          "Documentación bilingüe",
+          "Revisión de textos",
+          "Presentación de resultados"
+        ],
+        "en": [
+          "Technical debate",
+          "Bilingual documentation",
+          "Text editing",
+          "Presenting results"
+        ]
       }
     },
     {
@@ -1368,7 +2280,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1380,6 +2294,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de verificação de eficácia.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Identidade e contexto",
+          "Políticas contínuas",
+          "Microsegmentação",
+          "Verificação de eficácia"
+        ],
+        "es": [
+          "Identidad y contexto",
+          "Políticas continuas",
+          "Microsegmentación",
+          "Verificación de eficacia"
+        ],
+        "en": [
+          "Identity and context",
+          "Continuous policies",
+          "Microsegmentation",
+          "Effectiveness testing"
+        ]
       }
     },
     {
@@ -1402,7 +2336,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1414,6 +2350,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de testes owasp masvs.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Modelo de ameaças móvel",
+          "Armazenamento local",
+          "Autenticação",
+          "Testes OWASP MASVS"
+        ],
+        "es": [
+          "Modelado de amenazas móviles",
+          "Almacenamiento local",
+          "Autenticación",
+          "Pruebas OWASP MASVS"
+        ],
+        "en": [
+          "Mobile threat modeling",
+          "Local storage",
+          "Authentication",
+          "OWASP MASVS testing"
+        ]
       }
     },
     {
@@ -1436,7 +2392,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1448,6 +2406,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de privacidade e dados.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Riscos LLM",
+          "Prompt injection defensiva",
+          "Avaliação de modelos",
+          "Privacidade e dados"
+        ],
+        "es": [
+          "Riesgos de LLM",
+          "Defensa contra inyección de instrucciones",
+          "Evaluación de modelos",
+          "Privacidad y datos"
+        ],
+        "en": [
+          "LLM risks",
+          "Prompt-injection defense",
+          "Model evaluation",
+          "Privacy and data"
+        ]
       }
     },
     {
@@ -1471,7 +2449,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1483,6 +2462,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de acessibilidade wcag.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Core Web Vitals",
+          "Streaming e cache",
+          "PWA offline",
+          "Acessibilidade WCAG"
+        ],
+        "es": [
+          "Core Web Vitals",
+          "Streaming y caché",
+          "PWA sin conexión",
+          "Accesibilidad WCAG"
+        ],
+        "en": [
+          "Core Web Vitals",
+          "Streaming and caching",
+          "Offline PWAs",
+          "WCAG accessibility"
+        ]
       }
     },
     {
@@ -1506,7 +2505,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1518,6 +2518,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de confiabilidade.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Observabilidade",
+          "SLO e incidentes",
+          "Deploy progressivo",
+          "Confiabilidade"
+        ],
+        "es": [
+          "Observabilidad",
+          "SLO e incidentes",
+          "Despliegue progresivo",
+          "Fiabilidad"
+        ],
+        "en": [
+          "Observability",
+          "SLOs and incidents",
+          "Progressive deployment",
+          "Reliability"
+        ]
       }
     },
     {
@@ -1539,7 +2559,11 @@ window.SecureTAcademyData = {
       "requires": "ST-066",
       "resources": [
         "lang-pt",
-        "cisco"
+        "cisco",
+        "lang-spanish-video",
+        "lang-english",
+        "lang-portuguese-br",
+        "lang-spanish-library"
       ],
       "hours": 64,
       "outcome": {
@@ -1551,6 +2575,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de seminário em inglês.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Propostas técnicas",
+          "Mediação intercultural",
+          "Revisão por pares",
+          "Seminário em inglês"
+        ],
+        "es": [
+          "Propuestas técnicas",
+          "Mediación intercultural",
+          "Revisión por pares",
+          "Seminario en inglés"
+        ],
+        "en": [
+          "Technical proposals",
+          "Cross-cultural mediation",
+          "Peer review",
+          "English seminar"
+        ]
       }
     },
     {
@@ -1573,7 +2617,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1585,6 +2631,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de métricas de cobertura.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Casos de uso de detecção",
+          "Correlação contextual",
+          "Playbooks",
+          "Métricas de cobertura"
+        ],
+        "es": [
+          "Casos de uso de detección",
+          "Correlación contextual",
+          "Guías de respuesta",
+          "Métricas de cobertura"
+        ],
+        "en": [
+          "Detection use cases",
+          "Contextual correlation",
+          "Response playbooks",
+          "Coverage metrics"
+        ]
       }
     },
     {
@@ -1607,7 +2673,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1619,6 +2687,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de gestão de incidentes.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "IAM em cloud",
+          "Segurança de rede",
+          "Postura de configuração",
+          "Gestão de incidentes"
+        ],
+        "es": [
+          "IAM en la nube",
+          "Seguridad de redes",
+          "Postura de configuración",
+          "Gestión de incidentes"
+        ],
+        "en": [
+          "Cloud IAM",
+          "Network security",
+          "Configuration posture",
+          "Incident management"
+        ]
       }
     },
     {
@@ -1641,7 +2729,9 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-infrastructure",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1653,6 +2743,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de auditoria de evidências.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "ISO 27001",
+          "NIST CSF",
+          "RGPD e DPIA",
+          "Auditoria de evidências"
+        ],
+        "es": [
+          "ISO 27001",
+          "NIST CSF",
+          "RGPD y evaluación de impacto",
+          "Auditoría de evidencias"
+        ],
+        "en": [
+          "ISO 27001",
+          "NIST CSF",
+          "GDPR and impact assessment",
+          "Evidence audits"
+        ]
       }
     },
     {
@@ -1676,7 +2786,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1688,6 +2799,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de threat modeling.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Mensageria",
+          "Consistência",
+          "Gestão de segredos",
+          "Threat modeling"
+        ],
+        "es": [
+          "Mensajería",
+          "Consistencia",
+          "Gestión de secretos",
+          "Modelado de amenazas"
+        ],
+        "en": [
+          "Messaging",
+          "Consistency",
+          "Secrets management",
+          "Threat modeling"
+        ]
       }
     },
     {
@@ -1711,7 +2842,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1723,6 +2855,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de design inclusivo.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Pesquisa com pessoas",
+          "Linguagem simples",
+          "Teste de usabilidade",
+          "Design inclusivo"
+        ],
+        "es": [
+          "Investigación con usuarios",
+          "Lenguaje sencillo",
+          "Pruebas de usabilidad",
+          "Diseño inclusivo"
+        ],
+        "en": [
+          "User research",
+          "Plain language",
+          "Usability testing",
+          "Inclusive design"
+        ]
       }
     },
     {
@@ -1744,7 +2896,11 @@ window.SecureTAcademyData = {
       "requires": "ST-076",
       "resources": [
         "lang-pt",
-        "cisco"
+        "cisco",
+        "lang-spanish-video",
+        "lang-english",
+        "lang-portuguese-br",
+        "lang-spanish-library"
       ],
       "hours": 64,
       "outcome": {
@@ -1756,6 +2912,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de aula demonstrativa.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Relatórios executivos",
+          "Comunicação intercultural",
+          "Negociação técnica",
+          "Aula demonstrativa"
+        ],
+        "es": [
+          "Informes ejecutivos",
+          "Comunicación intercultural",
+          "Negociación técnica",
+          "Clase de demostración"
+        ],
+        "en": [
+          "Executive reports",
+          "Intercultural communication",
+          "Technical negotiation",
+          "Demonstration teaching"
+        ]
       }
     },
     {
@@ -1778,7 +2954,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1790,6 +2967,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de escrita acadêmica.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Método científico",
+          "Experimentos responsáveis",
+          "Reprodutibilidade",
+          "Escrita acadêmica"
+        ],
+        "es": [
+          "Método científico",
+          "Experimentos responsables",
+          "Reproducibilidad",
+          "Redacción académica"
+        ],
+        "en": [
+          "Scientific method",
+          "Responsible experiments",
+          "Reproducibility",
+          "Academic writing"
+        ]
       }
     },
     {
@@ -1812,7 +3009,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1824,6 +3022,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de retrospectiva.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Simulação autorizada",
+          "Purple teaming",
+          "Detecção e resposta",
+          "Retrospectiva"
+        ],
+        "es": [
+          "Simulación autorizada",
+          "Colaboración ofensiva-defensiva",
+          "Detección y respuesta",
+          "Retrospectiva"
+        ],
+        "en": [
+          "Authorized simulation",
+          "Purple teaming",
+          "Detection and response",
+          "Retrospective"
+        ]
       }
     },
     {
@@ -1846,7 +3064,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1858,6 +3077,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de avaliação de impacto.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Minimização de dados",
+          "Privacy by design",
+          "Retenção e deleção",
+          "Avaliação de impacto"
+        ],
+        "es": [
+          "Minimización de datos",
+          "Privacidad desde el diseño",
+          "Retención y borrado",
+          "Evaluación de impacto"
+        ],
+        "en": [
+          "Data minimization",
+          "Privacy by design",
+          "Retention and deletion",
+          "Impact assessment"
+        ]
       }
     },
     {
@@ -1881,7 +3120,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1893,6 +3133,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de resposta a falhas.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Arquitetura de referência",
+          "Observabilidade de produto",
+          "Multi-região",
+          "Resposta a falhas"
+        ],
+        "es": [
+          "Arquitectura de referencia",
+          "Observabilidad del producto",
+          "Varias regiones",
+          "Respuesta a fallos"
+        ],
+        "en": [
+          "Reference architecture",
+          "Product observability",
+          "Multi-region design",
+          "Failure response"
+        ]
       }
     },
     {
@@ -1916,7 +3176,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1928,6 +3189,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de mentoria.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Gestão de riscos",
+          "Decisões transparentes",
+          "Revisão ética",
+          "Mentoria"
+        ],
+        "es": [
+          "Gestión de riesgos",
+          "Decisiones transparentes",
+          "Revisión ética",
+          "Mentoría"
+        ],
+        "en": [
+          "Risk management",
+          "Transparent decisions",
+          "Ethical review",
+          "Mentoring"
+        ]
       }
     },
     {
@@ -1949,7 +3230,11 @@ window.SecureTAcademyData = {
       "requires": "ST-086",
       "resources": [
         "lang-pt",
-        "cisco"
+        "cisco",
+        "lang-spanish-video",
+        "lang-english",
+        "lang-portuguese-br",
+        "lang-spanish-library"
       ],
       "hours": 64,
       "outcome": {
@@ -1961,6 +3246,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de debate intercultural.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Tradução técnica",
+          "Apresentação PT/ES/EN",
+          "Terminologia consistente",
+          "Debate intercultural"
+        ],
+        "es": [
+          "Traducción técnica",
+          "Presentaciones PT/ES/EN",
+          "Terminología coherente",
+          "Debate intercultural"
+        ],
+        "en": [
+          "Technical translation",
+          "PT/ES/EN presentations",
+          "Consistent terminology",
+          "Intercultural debate"
+        ]
       }
     },
     {
@@ -1983,7 +3288,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -1995,6 +3301,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de relatório e defesa.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Problema e autorização",
+          "Hipóteses e ameaça",
+          "Implementação defensiva",
+          "Relatório e defesa"
+        ],
+        "es": [
+          "Problema y autorización",
+          "Hipótesis y amenazas",
+          "Implementación defensiva",
+          "Informe y defensa"
+        ],
+        "en": [
+          "Problem statement and authorization",
+          "Hypotheses and threat analysis",
+          "Defensive implementation",
+          "Written report and defense"
+        ]
       }
     },
     {
@@ -2017,7 +3343,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -2029,6 +3356,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de deploy e monitorização.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Pesquisa de usuários",
+          "Sistema de design",
+          "Aplicação segura",
+          "Deploy e monitorização"
+        ],
+        "es": [
+          "Investigación de usuarios",
+          "Sistema de diseño",
+          "Aplicación segura",
+          "Despliegue y supervisión"
+        ],
+        "en": [
+          "User research",
+          "Design system",
+          "Secure application",
+          "Deployment and monitoring"
+        ]
       }
     },
     {
@@ -2051,7 +3398,8 @@ window.SecureTAcademyData = {
       "resources": [
         "cisco",
         "owasp",
-        "fcc-cyber"
+        "fcc-cyber",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -2063,6 +3411,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de limites e falhas.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Estado da arte",
+          "Dataset com consentimento",
+          "Protocolo de avaliação",
+          "Limites e falhas"
+        ],
+        "es": [
+          "Estado de la cuestión",
+          "Conjunto de datos con consentimiento",
+          "Protocolo de evaluación",
+          "Límites y fallos"
+        ],
+        "en": [
+          "Literature review",
+          "Consented datasets",
+          "Evaluation protocol",
+          "Limitations and failure modes"
+        ]
       }
     },
     {
@@ -2086,7 +3454,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -2098,6 +3467,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de apresentação de carreira.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Rotina profissional",
+          "Registro de evidências",
+          "Revisão por pares",
+          "Apresentação de carreira"
+        ],
+        "es": [
+          "Rutina profesional",
+          "Registro de evidencias",
+          "Revisión por pares",
+          "Presentación profesional"
+        ],
+        "en": [
+          "Professional routine",
+          "Evidence records",
+          "Peer review",
+          "Career presentation"
+        ]
       }
     },
     {
@@ -2121,7 +3510,8 @@ window.SecureTAcademyData = {
         "fcc-front-21h",
         "guanabara",
         "fcc-fullstack",
-        "fcc-es"
+        "fcc-es",
+        "fcc-deploy"
       ],
       "hours": 64,
       "outcome": {
@@ -2133,6 +3523,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de plano de desenvolvimento.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Normas e jurisdição",
+          "Responsabilidade social",
+          "Tecnologias emergentes",
+          "Plano de desenvolvimento"
+        ],
+        "es": [
+          "Normas y jurisdicción",
+          "Responsabilidad social",
+          "Tecnologías emergentes",
+          "Plan de desarrollo"
+        ],
+        "en": [
+          "Standards and jurisdiction",
+          "Social responsibility",
+          "Emerging technologies",
+          "Development plan"
+        ]
       }
     },
     {
@@ -2154,7 +3564,11 @@ window.SecureTAcademyData = {
       "requires": "ST-096",
       "resources": [
         "lang-pt",
-        "cisco"
+        "cisco",
+        "lang-spanish-video",
+        "lang-english",
+        "lang-portuguese-br",
+        "lang-spanish-library"
       ],
       "hours": 64,
       "outcome": {
@@ -2166,6 +3580,26 @@ window.SecureTAcademyData = {
         "pt": "Portfólio: documentação e demonstração aplicada de defesa ética de resultados.",
         "es": "Portafolio: documentación y demostración aplicada del módulo final.",
         "en": "Portfolio: documented application and demonstration of the final module."
+      },
+      "topicsI18n": {
+        "pt": [
+          "Resumo português",
+          "Argumentação espanhol",
+          "Apresentação inglês",
+          "Defesa ética de resultados"
+        ],
+        "es": [
+          "Resumen en portugués",
+          "Argumentación en español",
+          "Presentación en inglés",
+          "Defensa ética de resultados"
+        ],
+        "en": [
+          "Portuguese summary",
+          "Spanish argumentation",
+          "English presentation",
+          "Ethical defense of results"
+        ]
       }
     }
   ]

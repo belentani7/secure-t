@@ -33,14 +33,16 @@ jobs:
           cache: pnpm
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile --ignore-scripts
+      - name: Validate five-year academy curriculum and browser sources
+        run: node --test tests/academy.test.mjs tests/study-review.test.mjs tests/formative.test.mjs
       - name: Typecheck
         run: pnpm typecheck
       - name: Domain and SPA tests
         run: pnpm test
-      - name: API security and tutor privacy regression
-        run: node --test tests/api-security.test.mjs
       - name: Build local SPA
         run: pnpm build
+      - name: Optional API security integration tests
+        run: node --test tests/api-security.test.mjs
 
   secretos:
     name: Current source secrets scan

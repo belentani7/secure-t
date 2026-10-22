@@ -29,6 +29,35 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   }
   await page.goto(base + '/campus/progreso.html');
   assert.equal(await page.locator('input[type="checkbox"]:checked').count(), courses.length);
+  // Local hashes are reproducible integrity checks, not institutional signatures.
+  // Complete the visible local learning milestones before creating a v2 block.
+  await page.evaluate(() => {
+    const progress = JSON.parse(localStorage.getItem('stt-progreso') || '{}');
+    for (let week = 1; week <= 20; week++) {
+      progress['ciber-ofensiva/semana-' + String(week).padStart(2, '0')] = true;
+    }
+    for (const part of ['quiz', 'laboratorio', 'proyecto', 'examen']) {
+      progress['ciber-ofensiva/' + part] = true;
+    }
+    localStorage.setItem('stt-progreso', JSON.stringify(progress));
+  });
+  await page.goto(base + '/campus/credencial.html');
+  await page.locator('#evidencia').fill('Práctica ética documentada con datos simulados.');
+  await page.locator('#sellar').click();
+  const output = await page.locator('#salida').innerText();
+  const block = JSON.parse(output.slice(output.indexOf('{')));
+  assert.equal(block.v, 2);
+  assert.equal('token' in block, false, 'Never export raw learner token');
+  assert.match(block.sujeto, /^[a-f0-9]{64}$/);
+  await page.locator('#bloque').fill(JSON.stringify(block));
+  await page.locator('#btn-verificar').click();
+  assert.match(await page.locator('#veredicto').innerText(), /Huella coherente/);
+  const tampered = {...block, evidencia: 'evidencia alterada'};
+  await page.locator('#bloque').fill(JSON.stringify(tampered));
+  await page.locator('#btn-verificar').click();
+  assert.match(await page.locator('#veredicto').innerText(), /Huella diferente/);
+  assert.deepEqual(errors, [], 'Credential v2 must not throw JavaScript errors');
+
   await page.goto(base + '/campus/');
   await page.evaluate(() => navigator.serviceWorker.ready);
   await page.reload();

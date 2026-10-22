@@ -26,7 +26,7 @@ jobs:
       - name: Campus and publication tests
         run: python -m pytest -q tests/
       - name: Offline isolation and education engine
-        run: node --test tests/service-worker.test.mjs lib/edu-engine/tests/quiz.test.mjs tests/credential-v2.test.mjs
+        run: node --test tests/service-worker.test.mjs lib/edu-engine/tests/quiz.test.mjs tests/credential-v2.test.mjs tests/lab-hash.test.mjs tests/formative.test.mjs
       - name: Build and validate actual publication artifact
         run: python scripts/build_site.py
       - name: Prepare isolated browser test runner
