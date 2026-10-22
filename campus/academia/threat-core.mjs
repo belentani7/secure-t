@@ -60,7 +60,7 @@ export const WORDS={
 };
 export function riskScore(t){if(!Number.isInteger(t?.likelihood)||t.likelihood<1||t.likelihood>5||!Number.isInteger(t?.impact)||t.impact<1||t.impact>5)throw new RangeError('Invalid risk factors');return t.likelihood*t.impact;}
 export function riskTier(t){const score=riskScore(t);return score>=16?'high':score>=9?'medium':'low';}
-export function isValidThreat(t){return Boolean(t&&typeof t.id==='string'&&typeof t.category==='string'&&Array.isArray(t.choices)&&t.choices.length===3&&Number.isInteger(t.correct)&&t.correct>=0&&t.correct<3&&riskScore(t)>=1&&LANGUAGES.every(lang=>[t.asset,t.boundary,t.observation,t.question,t.rationale,t.evidence,...t.choices].every(s=>typeof s?.[lang]==='string'&&s[lang].length>=25)));}
+export function isValidThreat(t){return Boolean(t&&typeof t.id==='string'&&typeof t.category==='string'&&Array.isArray(t.choices)&&t.choices.length===3&&Number.isInteger(t.correct)&&t.correct>=0&&t.correct<3&&riskScore(t)>=1&&LANGUAGES.every(lang=>[t.asset,t.boundary].every(s=>typeof s?.[lang]==='string'&&s[lang].length>=15)&&[t.observation,t.question,t.rationale,t.evidence,...t.choices].every(s=>typeof s?.[lang]==='string'&&s[lang].length>=25)));}
 export function assessControl(t,answer){if(!isValidThreat(t)||!Number.isInteger(answer)||answer<0||answer>=3)throw new RangeError('Invalid choice');return t.correct===answer;}
 export function exportThreatReport(answers,lang='pt'){
  if(!LANGUAGES.includes(lang)||!Array.isArray(answers)||answers.length!==THREATS.length||answers.some(a=>!Number.isInteger(a)||a<0||a>=3))throw new RangeError('Invalid report');
