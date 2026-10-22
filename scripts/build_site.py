@@ -48,6 +48,18 @@ def render_public_metadata(stage: Path) -> None:
     source = landing.read_text(encoding="utf-8")
     landing.write_text(source.replace(DEFAULT_SITE_URL + "/", site_url + "/"), encoding="utf-8")
 
+    # Academy has its own canonical. Keep it aligned with the deployment host;
+    # publishing the same artifact to Vercel must not canonicalize to Pages.
+    academy = stage / "campus" / "academia" / "index.html"
+    academy_source = academy.read_text(encoding="utf-8")
+    academy.write_text(
+        academy_source.replace(
+            DEFAULT_SITE_URL + "/campus/academia/",
+            site_url + "/campus/academia/",
+        ),
+        encoding="utf-8",
+    )
+
 
 class _References(HTMLParser):
     def __init__(self):
