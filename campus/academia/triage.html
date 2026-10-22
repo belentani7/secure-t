@@ -1,0 +1,77 @@
+<!doctype html><html lang="pt"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#060f1b">
+<meta name="description" content="Secure T SOC Decision Lab: practice cyber incident response with safe synthetic events, offline and in three languages.">
+<title>SOC Decision Lab · Secure T</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,sans-serif;background:#06101c;color:#ecf8ff}
+*{box-sizing:border-box}body{margin:0;line-height:1.6}.skip{position:absolute;left:-999px}.skip:focus{left:1rem;top:1rem;padding:1rem;background:white;color:#06101c;z-index:10}
+.wrap{max-width:1100px;margin:auto;padding:clamp(1rem,4vw,3rem)}
+nav{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}nav a{color:#8cdfe8;font-weight:800;letter-spacing:.07em;text-decoration:none}a{text-decoration-thickness:1px;text-underline-offset:3px}
+select,button{font:inherit}select{background:#152b3b;color:#f1fcff;padding:.6rem;border:1px solid #6c98ab;border-radius:.5rem;min-height:48px}h1{font-size:clamp(2.2rem,5vw,4rem);line-height:1.1;letter-spacing:-.04em;margin:.6rem 0}
+.subtitle{color:#c1d3e4;max-width:70ch}.eyebrow{color:#7de0d1;font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:1.2rem;margin-top:2rem}
+.card{border:1px solid #406277;background:linear-gradient(140deg,#102335,#142b3b);border-radius:1rem;padding:clamp(1.2rem,3vw,2rem);min-width:0}
+pre{white-space:pre-wrap;word-break:break-word;background:#061522;color:#9ce8c1;padding:1rem;border-radius:.7rem;border:1px solid #3c6377;font-size:.86rem;overflow-wrap:anywhere}
+.choices{display:grid;gap:.8rem;margin:1.3rem 0}.option{border:1px solid #56768b;background:#182f40;display:flex;align-items:flex-start;gap:.75rem;padding:1rem;border-radius:.7rem;cursor:pointer}
+.option:has(input:checked){background:#214a54;border-color:#8aebcf}.option:focus-within{outline:3px solid #a9f1e8;outline-offset:2px}
+.option input{accent-color:#9be8d7;width:1.2rem;height:1.2rem;flex:none;margin-top:.3rem}
+button{border:0;background:#9cebd9;color:#061721;min-height:48px;padding:.8rem 1.2rem;font-weight:800;border-radius:.65rem;cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}button:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.feedback{border-left:4px solid #9cebd9;background:#203e4c;padding:1rem;margin:1rem 0;border-radius:.4rem}.feedback p{margin:.25rem 0}
+.summary{max-width:750px}.fine{color:#b4c8d7;font-size:.9rem;margin-top:2rem}
+[hidden]{display:none!important}@media(max-width:800px){.grid{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style></head><body><a class="skip" href="#work">Pular para o exercício / Saltar al ejercicio / Skip to practice</a>
+<div class="wrap"><nav><a href="./">← SECURE T / ACADEMIA</a><label><span class="eyebrow">PT · ES · EN </span><select id="lang" aria-label="Idioma / Language"><option value="pt">Português</option><option value="es">Español</option><option value="en">English</option></select></label></nav>
+<header><p class="eyebrow">CYBER RANGE / BLUE TEAM · OFFLINE</p><h1 id="title"></h1><p class="subtitle" id="subtitle"></p></header>
+<main id="work" tabindex="-1">
+<div class="grid" id="case">
+<section class="card" aria-labelledby="evidence-label"><p class="eyebrow" id="progress"></p><p id="category" class="eyebrow"></p><h2 id="evidence-label"></h2><pre id="evidence" aria-label="Synthetic training logs"></pre></section>
+<section class="card" aria-labelledby="question"><h2 id="question"></h2><form id="decision"><fieldset style="border:0;padding:0;margin:0"><legend class="eyebrow" id="instruction"></legend><div id="options" class="choices"></div></fieldset><button id="submit" type="submit"></button></form>
+<div id="feedback" tabindex="-1" class="feedback" role="status" aria-live="polite" hidden></div><button id="next" type="button" hidden></button></section></div>
+<section class="card summary" id="summary" tabindex="-1" hidden aria-live="polite"><h2 id="complete"></h2><p id="score"></p><p class="subtitle" id="summary-note"></p>
+<button id="download" type="button"></button> <button id="restart" type="button"></button></section>
+<p class="fine" id="note"></p></main><footer class="fine">SECURE T · Fictitious training data only · No external scanning · No server-side persistence</footer></div>
+<script type="module">
+import {INCIDENTS,LABELS,assess,learningReport} from './triage-core.mjs';
+const $=id=>document.getElementById(id);
+let lang='pt',step=0,answers=[],reviewed=false,lastCorrect=false;
+function draw(){
+ const t=LABELS[lang];document.documentElement.lang=lang;document.title=t.title+' · Secure T';
+ $('title').textContent=t.title;$('subtitle').textContent=t.subtitle;$('note').textContent=t.note;
+ $('complete').textContent=t.complete;$('summary-note').textContent=t.note;
+ $('download').textContent=t.download;$('restart').textContent=t.again;
+ $('summary').hidden=step<INCIDENTS.length;$('case').hidden=step>=INCIDENTS.length;
+ if(step>=INCIDENTS.length){$('score').textContent=t.score+': '+answers.filter((choice,i)=>assess(INCIDENTS[i],choice)).length+' / '+INCIDENTS.length;return;}
+ const incident=INCIDENTS[step];$('progress').textContent=t.start+' '+(step+1)+' '+t.of+' '+INCIDENTS.length;
+ $('category').textContent=incident.category[lang]+' · '+incident.time.toUpperCase()+' · '+incident.level.toUpperCase();
+ $('evidence-label').textContent=t.evidence;$('evidence').textContent=incident.evidence;
+ $('question').textContent=incident.question[lang];$('instruction').textContent=t.prompt;
+ $('submit').textContent=t.submit;$('submit').hidden=reviewed;$('next').textContent=t.next;$('next').hidden=!reviewed;
+ $('options').replaceChildren();
+ incident.choices.forEach((word,i)=>{
+  const label=document.createElement('label');label.className='option';
+  const input=document.createElement('input');input.type='radio';input.name='decision';input.value=String(i);input.required=true;input.disabled=reviewed;
+  const span=document.createElement('span');span.textContent=word[lang];label.append(input,span);$('options').append(label);
+ });
+ $('feedback').hidden=!reviewed;
+ if(reviewed){$('feedback').replaceChildren();
+  const head=document.createElement('strong');head.textContent=lastCorrect?t.right:t.wrong;
+  const detail=document.createElement('p');detail.textContent=incident.rationale[lang];
+  const next=document.createElement('p');next.textContent=t.nextstep+': '+incident.next[lang];
+  $('feedback').append(head,detail,next);
+ }
+}
+$('decision').addEventListener('submit',event=>{
+ event.preventDefault();if(reviewed)return;const input=document.querySelector('input[name="decision"]:checked');if(!input)return;
+ const option=Number(input.value);lastCorrect=assess(INCIDENTS[step],option);answers.push(option);reviewed=true;draw();$('feedback').focus();
+});
+$('next').addEventListener('click',()=>{step++;reviewed=false;draw();(step===INCIDENTS.length?$('summary'):$('work')).focus();});
+$('restart').addEventListener('click',()=>{step=0;answers=[];reviewed=false;draw();$('work').focus();});
+$('lang').addEventListener('change',event=>{lang=event.target.value;draw();});
+$('download').addEventListener('click',()=>{
+ const blob=new Blob([learningReport(answers,lang)],{type:'text/plain;charset=utf-8'});
+ const uri=URL.createObjectURL(blob),anchor=document.createElement('a');
+ anchor.href=uri;anchor.download='secure-t-soc-practice.txt';anchor.click();setTimeout(()=>URL.revokeObjectURL(uri),1000);
+});
+draw();
+</script></body></html>
