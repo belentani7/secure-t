@@ -127,6 +127,9 @@ def test_generated_metadata_has_resolved_urls(tmp_path, monkeypatch):
     assert "__BASE_URL__" not in robots + sitemap
     assert "Sitemap: " + expected + "/sitemap.xml" in robots
     assert "<loc>" + expected + "/campus/</loc>" in sitemap
+    assert "<loc>" + expected + "/campus/academia/</loc>" in sitemap
+    academy = (output / "campus" / "academia" / "index.html").read_text(encoding="utf-8")
+    assert 'rel="canonical" href="' + expected + '/campus/academia/"' in academy
     assert 'rel="canonical" href="' + expected + '/"' in landing
     assert 'property="og:url" content="' + expected + '/"' in landing
 
