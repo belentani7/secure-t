@@ -32,3 +32,14 @@ test('Studio is keyboard-friendly and does not send requests',()=>{
  for(const phrase of ['aria-live="polite"','<fieldset','<legend','name="viewport"','threat-core.mjs','type="module"','prefers-reduced-motion'])assert.ok(html.includes(phrase),phrase);
  assert.doesNotMatch(html,/XMLHttpRequest|fetch\s*\(|sendBeacon|localStorage|innerHTML|<script[^>]*src="https?:/i);
 });
+
+test('Threat Modeling Studio is linked and cached by the real Secure T campus',()=>{
+ const campus=readFileSync(new URL('../campus/index.html',import.meta.url),'utf8');
+ const academy=readFileSync(new URL('../campus/academia/index.html',import.meta.url),'utf8');
+ const worker=readFileSync(new URL('../campus/sw.js',import.meta.url),'utf8');
+ const workflow=readFileSync(new URL('../.github/workflows/campus-publication.yml',import.meta.url),'utf8');
+ assert.ok(campus.includes('academia/threat-studio.html'));
+ assert.ok(academy.includes('threat-studio.html'));
+ for(const file of ['threat-studio.html','threat-core.mjs'])assert.ok(worker.includes(file),file);
+ assert.ok(workflow.includes('tests/threat-studio.test.mjs'));
+});
