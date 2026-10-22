@@ -73,5 +73,6 @@ $('download').addEventListener('click',()=>{
  const uri=URL.createObjectURL(blob),anchor=document.createElement('a');
  anchor.href=uri;anchor.download='secure-t-soc-practice.txt';anchor.click();setTimeout(()=>URL.revokeObjectURL(uri),1000);
 });
+if('serviceWorker' in navigator)navigator.serviceWorker.register('../sw.js',{scope:'../'}).catch(()=>{});
 draw();
 </script></body></html>
