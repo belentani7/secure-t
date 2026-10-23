@@ -8,7 +8,8 @@
     "build": "vite build",
     "start": "tsx index.ts",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "quality:check": "pnpm run typecheck && pnpm run test && pnpm run build && python3 -m pytest -q tests/ && python3 scripts/build_site.py --destination _site"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.20",
