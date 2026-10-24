@@ -56,6 +56,57 @@ window.SecureTWorkstationCases = Object.freeze([
       "2026-09-20T22:09:30Z audit target=alumno_demo privileged_action=NONE_OBSERVED",
       "2026-09-20T22:10:00Z monitor event=role_change status=requires_review"
     ]
+  },
+  {
+    id: "cloud", code: "ST-CLOUD-004", area: "Cloud", level: "Prioridad alta",
+    name: "Almacenamiento excesivamente público",
+    description: "Un recurso de laboratorio fue etiquetado como público durante una prueba de configuración. No se ha observado descarga de datos.",
+    task: "¿Cómo reducir la exposición de forma trazable y confirmar su alcance?",
+    conclusion: "Valida la titularidad y el cambio autorizado, aplica mínimo privilegio, preserva el estado previo y revisa accesos registrados. Evita afirmar una filtración sin pruebas.",
+    response: "restrict",
+    lesson: "La política de acceso es una condición de riesgo; para demostrar exposición efectiva se necesitan evidencias adicionales. Primero coordina con la persona responsable del recurso y aplica el procedimiento de contención.",
+    paths: ["/cases/cloud.log"],
+    indicators: ["Permiso público detectado", "Objeto de demostración sin datos reales", "No hay evidencia de lectura externa"],
+    logs: [
+      "2026-09-21T07:10:00Z cloud asset=training-bucket-01 policy=public-read actor=svc-demo",
+      "2026-09-21T07:10:03Z inventory asset=training-bucket-01 classification=synthetic",
+      "2026-09-21T07:12:06Z policy-check asset=training-bucket-01 result=EXCESSIVE_PERMISSION",
+      "2026-09-21T07:14:08Z access-audit asset=training-bucket-01 external_reads=UNKNOWN"
+    ]
+  },
+  {
+    id: "ai", code: "ST-AI-005", area: "IA segura", level: "Prioridad media",
+    name: "Instrucción no confiable en documento",
+    description: "Un documento externo de entrenamiento contiene texto que intenta cambiar las prioridades del asistente de estudio.",
+    task: "¿Por qué el contenido recuperado no debe convertirse en una instrucción para la IA?",
+    conclusion: "Trata el documento como datos de baja confianza, delimita sus instrucciones, comprueba procedencia y valida que el tutor conserva sus restricciones.",
+    response: "review",
+    lesson: "La inyección de instrucciones aparece cuando datos externos intentan dirigir el comportamiento del sistema. Separa las instrucciones privilegiadas de la información recuperada, prueba la resistencia y limita el acceso a herramientas.",
+    paths: ["/cases/ai.log"],
+    indicators: ["Texto imperativo en una fuente recuperada", "El asistente no ejecutó acciones", "Origen del documento no verificado"],
+    logs: [
+      "2026-09-22T10:00:00Z rag source=training-note-02 trust=unverified",
+      "2026-09-22T10:00:02Z rag snippet=NOTICE_training_only_revise_assistant_priorities risk=PROMPT_INJECTION_INDICATOR",
+      "2026-09-22T10:00:03Z tutor input_type=retrieved_data tools_allowed=none",
+      "2026-09-22T10:00:04Z tutor result=BLOCKED_UNTRUSTED_INSTRUCTION external_actions=0"
+    ]
+  },
+  {
+    id: "privacy", code: "ST-GRC-006", area: "Privacidad", level: "Prioridad media",
+    name: "Conservación de datos sin justificar",
+    description: "Una tabla de actividad ficticia conserva identificadores de alumnos más tiempo del definido en la política interna.",
+    task: "¿Qué evidencias y responsabilidades requiere una corrección con privacidad por diseño?",
+    conclusion: "Identifica finalidad y base aplicable, confirma periodos de retención con la política vigente, reduce lo innecesario y documenta la revisión con responsables autorizados.",
+    response: "minimize",
+    lesson: "No borres datos indiscriminadamente: puede haber obligaciones de conservación. Documenta la finalidad, minimiza lo no necesario, respeta las solicitudes de derechos y conserva evidencia de gobernanza sin revelar datos personales.",
+    paths: ["/cases/privacy.log"],
+    indicators: ["Retención supera periodo interno", "IDs completamente ficticios", "Sin evaluación del responsable de datos"],
+    logs: [
+      "2026-09-23T13:00:00Z privacy dataset=activity_demo records=17 classification=synthetic",
+      "2026-09-23T13:00:02Z privacy retention_defined=30d retention_observed=120d",
+      "2026-09-23T13:00:04Z privacy review_owner=UNASSIGNED action=REVIEW_REQUIRED",
+      "2026-09-23T13:00:05Z privacy disclosure=NONE_OBSERVED"
+    ]
   }
 ]);
 window.SecureTWorkstationReadme = [
@@ -64,7 +115,7 @@ window.SecureTWorkstationReadme = [
   "Terminal ficticia con comandos limitados y archivos sintéticos.",
   "NO hay Bash, PowerShell, herramientas ofensivas, internet ni sistemas externos.",
   "",
-  "Rutas: /cases/auth.log, /cases/mail.log, /cases/integrity.log",
+  "Rutas: /cases/{auth,mail,integrity,cloud,ai,privacy}.log",
   "Comandos: help, pwd, ls, cat, grep, head, timeline, case, whoami, clear",
   "Ejemplo: grep FAILED /cases/auth.log",
   "",
