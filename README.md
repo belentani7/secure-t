@@ -185,3 +185,7 @@ Los resultados se guardan exclusivamente en `localStorage`, se pueden exportar/i
 ## Acceso offline directo
 
 Todas las aplicaciones principales del alumno (`campus/workstation/`, Mission Control, Observatorio, laboratorios y Centro de Amenazas) cargan `campus/sw-register.js`, que registra el service worker común **desde la propia página**. La precaché v9 incluye el arranque y todos los archivos necesarios para trabajar sin conexión tras una primera visita online completada. Una primera visita sin conexión no puede descargar archivos no visitados. La caché es por origen/campus y no transmite datos.
+
+## Mi plan: aprendizaje conectado
+
+El Observatorio muestra en «Mi plan» el progreso autodeclarado de 14 laboratorios y seis simulaciones Mission Control a través de registros locales versionados, sin cuentas ni transmisión. Se comprueban los identificadores, respuestas, cuadernos y longitudes antes de mostrar los contadores. No son notas oficiales ni acreditaciones de competencias.
