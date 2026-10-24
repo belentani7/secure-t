@@ -224,7 +224,12 @@
   }
   function submitJournal(e) {
     e.preventDefault();saveJournalDraft();
-    const r=caseRecord($("journal-case").value);
+    const selected = $("journal-case").value;
+    if (!byCase.has(selected)) {
+      feedback("journal-feedback","Selecciona un caso válido antes de guardar el informe.",false);
+      return;
+    }
+    const r=caseRecord(selected);
     if (!noteFields.every(field => r.notes[field].trim().length>=40)) {
       feedback("journal-feedback","Cada apartado exige al menos 40 caracteres. Una frase breve no basta para documentar una investigación.",false);return;
     }
