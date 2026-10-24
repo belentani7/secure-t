@@ -177,11 +177,31 @@
     while (box.childElementCount > 100) box.firstElementChild.remove();
     box.scrollTop = box.scrollHeight;
   }
+  // El historial es de sesión: no guarda comandos ni datos personales.
+  const commandHistory = [];
+  let historyCursor = 0;
+  const commandInput = $("terminal-command");
   $("terminal-form").addEventListener("submit", event => {
     event.preventDefault();
-    const input = $("terminal-command");
-    execute(input.value);
-    input.value = "";
+    const value = commandInput.value.trim();
+    if (!value) return;
+    commandHistory.push(value);
+    if (commandHistory.length > 100) commandHistory.shift();
+    historyCursor = commandHistory.length;
+    execute(value);
+    commandInput.value = "";
+  });
+  commandInput.addEventListener("keydown", event => {
+    if (!commandHistory.length) return;
+    if (event.key === "ArrowUp") {
+      event.preventDefault();
+      historyCursor = Math.max(0, historyCursor - 1);
+      commandInput.value = commandHistory[historyCursor] || "";
+    } else if (event.key === "ArrowDown") {
+      event.preventDefault();
+      historyCursor = Math.min(commandHistory.length, historyCursor + 1);
+      commandInput.value = commandHistory[historyCursor] || "";
+    }
   });
   $("terminal-clear").addEventListener("click", () => $("terminal-output").replaceChildren());
   function loadNotebook() {
