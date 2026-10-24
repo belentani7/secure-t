@@ -192,5 +192,5 @@ document.addEventListener('keydown',event=>{
  if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='k'){event.preventDefault();$('search').focus();}
  if(event.key==='Escape' && selectedRoute){closeRoute();}
 });
-renderAll();showSection('rutas');
+renderAll();showSection('rutas',false);
 })();
