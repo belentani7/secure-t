@@ -3,22 +3,30 @@ import { spawn } from 'node:child_process';
 import { createServer } from 'node:net';
 import { once } from 'node:events';
 import test from 'node:test';
+import { fileURLToPath } from 'node:url';
 import { setTimeout as pause } from 'node:timers/promises';
 
 // Test the real compiled/served Express API, not just a static source assertion.
+const reservedPorts = new Set();
+
 async function freePort() {
-  const server = createServer();
-  server.listen(0, '127.0.0.1');
-  await once(server, 'listening');
-  const port = server.address().port;
-  await new Promise((resolve, reject) => server.close(error => error ? reject(error) : resolve()));
-  return port;
+  while (true) {
+    const server = createServer();
+    server.listen(0, '127.0.0.1');
+    await once(server, 'listening');
+    const port = server.address().port;
+    await new Promise((resolve, reject) => server.close(error => error ? reject(error) : resolve()));
+    if (!reservedPorts.has(port)) {
+      reservedPorts.add(port);
+      return port;
+    }
+  }
 }
 
 async function withApi(environment, callback) {
   const port = await freePort();
-  const child = spawn('./node_modules/.bin/tsx', ['index.ts'], {
-    cwd: process.cwd(),
+  const child = spawn(process.execPath, ['--import', 'tsx', 'index.ts'], {
+    cwd: fileURLToPath(new URL('../', import.meta.url)),
     env: {
       ...process.env,
       NODE_ENV: 'production',
@@ -46,6 +54,7 @@ async function withApi(environment, callback) {
     assert.equal(started, true, 'API failed to start: ' + output.slice(0, 1500));
     await callback(origin);
   } finally {
+    reservedPorts.delete(port);
     if (child.exitCode === null) {
       child.kill('SIGTERM');
       await Promise.race([once(child, 'exit'), pause(1000)]);

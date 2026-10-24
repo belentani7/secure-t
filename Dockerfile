@@ -1,5 +1,5 @@
 # Multi-stage build for production
-FROM node:20-alpine AS base
+FROM node:22-alpine AS base
 WORKDIR /app
 ENV PNPM_HOME="/pnpm"
 ENV PATH="${PNPM_HOME}:${PATH}"
@@ -10,13 +10,15 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 COPY . .
 RUN pnpm build
+RUN pnpm exec tsc index.ts --ignoreConfig --outDir dist/server --target ES2022 --module NodeNext --moduleResolution NodeNext --esModuleInterop --skipLibCheck
 
 FROM base AS runner
 WORKDIR /app
 ENV NODE_ENV=production
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/package.json ./
-COPY --from=builder /app/pnpm-lock.yaml ./
+COPY --from=builder --chown=node:node /app/dist ./dist
+COPY --from=builder --chown=node:node /app/package.json ./
+COPY --from=builder --chown=node:node /app/pnpm-lock.yaml ./
 RUN pnpm install --prod --frozen-lockfile
+USER node
 EXPOSE 3000
-CMD ["node", "dist/index.js"]
+CMD ["node", "dist/server/index.js"]

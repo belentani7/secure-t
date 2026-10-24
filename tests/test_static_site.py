@@ -90,7 +90,12 @@ def test_source_symlinks_cannot_publish_external_files(tmp_path, monkeypatch, na
     else:
         private.write_text("private fixture")
         (source / name).unlink()
-    (source / name).symlink_to(private, target_is_directory=name == "campus")
+    try:
+        (source / name).symlink_to(private, target_is_directory=name == "campus")
+    except OSError as exc:
+        if getattr(exc, "winerror", None) == 1314:
+            pytest.skip("Windows needs Developer Mode or symlink privilege for this test")
+        raise
     monkeypatch.setattr(module, "ROOT", source)
     with pytest.raises(RuntimeError, match="symlink"):
         module.build_site(tmp_path / "output")
@@ -167,7 +172,15 @@ def test_legacy_remote_securetea_docker_is_not_used():
 
 def test_local_services_require_secrets_and_do_not_listen_publicly():
     compose = (ROOT / "docker-compose.yml").read_text(encoding="utf-8")
-    for variable in ("POSTGRES_PASSWORD", "MINIO_ROOT_USER", "MINIO_ROOT_PASSWORD"):
-        assert "${" + variable + ":?" in compose
-    for port in ("5432", "6379", "9000", "9001"):
+    # Only the optional app and its dev UI exist today; both stay on localhost.
+    for port in ("3000", "5173"):
         assert "127.0.0.1:" + port + ":" + port in compose
+        assert '"' + port + ":" + port + '"' not in compose
+    # Should private backing services ever be added, require guarded secrets
+    # and loopback-only bindings instead of forcing unused infrastructure.
+    for variable in ("POSTGRES_PASSWORD", "MINIO_ROOT_USER", "MINIO_ROOT_PASSWORD"):
+        if variable in compose:
+            assert "${" + variable + ":?" in compose
+    for port in ("5432", "6379", "9000", "9001"):
+        if port + ":" + port in compose:
+            assert "127.0.0.1:" + port + ":" + port in compose
