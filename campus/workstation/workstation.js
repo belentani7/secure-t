@@ -4,7 +4,7 @@
   "use strict";
   const cases = window.SecureTWorkstationCases;
   const readme = window.SecureTWorkstationReadme;
-  if (!Array.isArray(cases) || cases.length !== 3) {
+  if (!Array.isArray(cases) || cases.length < 6) {
     throw new Error("No se han podido cargar los escenarios educativos.");
   }
   const $ = id => document.getElementById(id);
@@ -15,7 +15,7 @@
   const cleanRecord = raw => {
     const input = raw && typeof raw === "object" && !Array.isArray(raw) ? raw : {};
     return {
-      action: ["verify", "quarantine", "preserve", "ignore", "scan"].includes(input.action) ? input.action : "",
+      action: ["verify", "quarantine", "preserve", "restrict", "review", "minimize", "ignore", "scan"].includes(input.action) ? input.action : "",
       confidence: ["low", "medium", "high"].includes(input.confidence) ? input.confidence : "low",
       notes: typeof input.notes === "string" ? input.notes.slice(0, 4000) : "",
       reviewed: input.reviewed === true
@@ -54,6 +54,7 @@
   function reviewedCount() { return caseIds.filter(id => data.records[id].reviewed).length; }
   function refreshProgress() {
     $("progress-count").textContent = reviewedCount() + " / " + cases.length;
+    $("case-count").textContent = String(cases.length).padStart(2, "0");
     $("dashboard-cases").replaceChildren();
     for (const c of cases) {
       const card = element("article", "scenario");
