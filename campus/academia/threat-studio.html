@@ -71,7 +71,7 @@ button:disabled{opacity:.5;cursor:not-allowed}.feedback{border-left:4px solid #a
 <script type="module">
 import {THREATS,WORDS,riskScore,riskTier,assessControl,exportThreatReport} from './threat-core.mjs';
 const $=id=>document.getElementById(id);
-let lang='pt',step=0,selected=[],isReviewed=false,lastCorrect=false;
+let lang='pt',step=0,selected=[],isReviewed=false,lastCorrect=false,pendingChoice=null;
 function render(){
  const w=WORDS[lang];document.documentElement.lang=lang;document.title=w.title+' · Secure T';
  $('title').textContent=w.title;$('subtitle').textContent=w.subtitle;$('note').textContent=w.note;
@@ -94,9 +94,10 @@ function render(){
  $('check').textContent=w.check;$('next').textContent=w.next;
  $('check').hidden=isReviewed;$('next').hidden=!isReviewed;$('feedback').hidden=!isReviewed;
  $('choices').replaceChildren();
+ document.querySelector('#decision').addEventListener('change',event=>{if(event.target?.name==="control")pendingChoice=Number(event.target.value);},{once:true});
  t.choices.forEach((choice,i)=>{
   const label=document.createElement('label');label.className='choice';
-  const input=document.createElement('input');input.type='radio';input.name='control';input.value=String(i);input.required=true;input.disabled=isReviewed;
+  const input=document.createElement('input');input.type='radio';input.name='control';input.value=String(i);input.required=true;input.disabled=isReviewed;input.checked=isReviewed?selected[step]===i:pendingChoice===i;
   const text=document.createElement('span');text.textContent=choice[lang];label.append(input,text);$('choices').append(label);
  });
  if(isReviewed){
@@ -111,10 +112,10 @@ $('decision').addEventListener('submit',event=>{
  event.preventDefault();if(isReviewed)return;
  const choice=document.querySelector('input[name="control"]:checked');if(!choice)return;
  const answer=Number(choice.value);lastCorrect=assessControl(THREATS[step],answer);
- selected.push(answer);isReviewed=true;render();$('feedback').focus();
+ selected.push(answer);pendingChoice=null;isReviewed=true;render();$('feedback').focus();
 });
-$('next').addEventListener('click',()=>{step++;isReviewed=false;render();(step===THREATS.length?$('finished'):$('practice')).focus();});
-$('restart').addEventListener('click',()=>{step=0;selected=[];isReviewed=false;render();$('practice').focus();});
+$('next').addEventListener('click',()=>{step++;pendingChoice=null;isReviewed=false;render();(step===THREATS.length?$('finished'):$('practice')).focus();});
+$('restart').addEventListener('click',()=>{step=0;selected=[];pendingChoice=null;isReviewed=false;render();$('practice').focus();});
 $('lang').addEventListener('change',event=>{lang=event.target.value;render();});
 $('download').addEventListener('click',()=>{
  if(selected.length!==THREATS.length)return;
