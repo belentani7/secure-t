@@ -82,7 +82,7 @@ test('search across routes, reset filter and structured learning progress',()=>{
 });
 test('saving a route filters to favorites and clear resets all',()=>{
  const {e}=start();
- const button=e['rutas-grid'].children[0].children.at(-1).children[1];
+ const button=e['rutas-grid'].children[0].children.at(-1).children.at(-1);
  trigger(button);
  e['saved-only'].checked=true;trigger(e['saved-only'],'change');
  assert.equal(e['rutas-grid'].children.length,1);

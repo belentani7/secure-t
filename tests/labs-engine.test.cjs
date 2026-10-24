@@ -22,7 +22,7 @@ class NodeMock{
 function load(initial={},query=''){
  const elements=Object.fromEntries([...html.matchAll(/\bid="([^"]+)"/g)].map(m=>[m[1],new NodeMock()]));
  const storage={...initial};
- const document={body:new NodeMock('body'),getElementById:id=>{assert.ok(elements[id],id);return elements[id];},createElement:tag=>new NodeMock(tag)};
+ const document={body:new NodeMock('body'),getElementById:id=>{assert.ok(elements[id],id);return elements[id];},createElement:tag=>{const node=new NodeMock(tag);Object.defineProperty(node,'id',{get(){return this._id;},set(v){this._id=v;elements[v]=this;}});return node;}};
  const localStorage={getItem:k=>storage[k]??null,setItem:(k,v)=>{storage[k]=v;}};
  const window={SecureTObservatoryLabs:db,location:{search:query},confirm:()=>true};
  vm.runInNewContext(code,{window,document,localStorage,URLSearchParams,URL,Blob,Date,Map,Set,setTimeout:()=>{}});
