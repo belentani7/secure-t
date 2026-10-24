@@ -171,3 +171,7 @@ El catálogo local de `campus/observatorio/` integra **14 rutas de estudio** (56
 El alumno puede buscar transversalmente, filtrar por dominio, marcar módulos estudiados, guardar referencias y exportar/importar su estado con JSON validado. El progreso es una declaración local, no una certificación. El sitio está integrado en campus, academia, PC educativo, sitemap y precaché del service worker.
 
 Ver [README de calidad editorial](campus/observatorio/EDITORIAL.md) y pruebas `tests/observatorio-engine.test.cjs`, `tests/browser-observatorio.cjs`.
+
+## Centro de Amenazas: transparencia sobre la fecha
+
+El visor `campus/amenazas.html` consulta **el archivo estático** `campus/data/threat-intel.json`. La instantánea de este repositorio se generó el **1 de octubre de 2026**; no es un feed en directo. El visor avisa cuando han pasado más de dos días desde la fecha de generación, muestra fuentes originales CISA KEV y NVD y permite acceder al Observatorio editorial fechado. Se endureció el tratamiento de campos procedentes de feeds externos antes de mostrarlos en HTML/SVG. Test: `node --test tests/threat-feed-freshness.test.cjs`.
