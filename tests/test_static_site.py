@@ -138,6 +138,32 @@ def test_generated_metadata_has_resolved_urls(tmp_path, monkeypatch):
     assert 'property="og:url" content="' + expected + '/"' in landing
 
 
+def test_vercel_production_domain_sets_metadata(tmp_path, monkeypatch):
+    module = builder()
+    monkeypatch.delenv("SITE_URL", raising=False)
+    monkeypatch.setenv("VERCEL_PROJECT_PRODUCTION_URL", "secure-t.vercel.app")
+    output = tmp_path / "site"
+    module.build_site(output)
+    assert "https://secure-t.vercel.app/sitemap.xml" in (output / "robots.txt").read_text(encoding="utf-8")
+    assert '<loc>https://secure-t.vercel.app/campus/</loc>' in (output / "sitemap.xml").read_text(encoding="utf-8")
+    assert 'rel="canonical" href="https://secure-t.vercel.app/"' in (output / "index.html").read_text(encoding="utf-8")
+
+
+def test_explicit_site_url_overrides_vercel_domain(monkeypatch):
+    module = builder()
+    monkeypatch.setenv("SITE_URL", "https://belentani7.github.io/secure-t/")
+    monkeypatch.setenv("VERCEL_PROJECT_PRODUCTION_URL", "secure-t.vercel.app")
+    assert module.public_site_url() == "https://belentani7.github.io/secure-t"
+
+
+def test_bad_vercel_production_domain_is_rejected(monkeypatch):
+    module = builder()
+    monkeypatch.delenv("SITE_URL", raising=False)
+    monkeypatch.setenv("VERCEL_PROJECT_PRODUCTION_URL", "bad.example.test/../private")
+    with pytest.raises(ValueError, match="SITE_URL"):
+        module.public_site_url()
+
+
 @pytest.mark.parametrize("site_url", [
     "http://insecure.example.test",
     "https://username:password@example.test",
