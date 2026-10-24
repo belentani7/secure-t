@@ -48,7 +48,6 @@ function draw(){
  $('question').textContent=incident.question[lang];$('instruction').textContent=t.prompt;
  $('submit').textContent=t.submit;$('submit').hidden=reviewed;$('next').textContent=t.next;$('next').hidden=!reviewed;
  $('options').replaceChildren();
- document.querySelector('#decision').addEventListener('change',event=>{if(event.target?.name==="decision")pendingChoice=Number(event.target.value);},{once:true});
  incident.choices.forEach((word,i)=>{
   const label=document.createElement('label');label.className='option';
   const input=document.createElement('input');input.type='radio';input.name='decision';input.value=String(i);input.required=true;input.disabled=reviewed;input.checked=reviewed?answers[step]===i:pendingChoice===i;
@@ -62,6 +61,7 @@ function draw(){
   $('feedback').append(head,detail,next);
  }
 }
+$('decision').addEventListener('change',event=>{if(event.target?.name==="decision")pendingChoice=Number(event.target.value);});
 $('decision').addEventListener('submit',event=>{
  event.preventDefault();if(reviewed)return;const input=document.querySelector('input[name="decision"]:checked');if(!input)return;
  const option=Number(input.value);lastCorrect=assess(INCIDENTS[step],option);answers.push(option);pendingChoice=null;reviewed=true;draw();$('feedback').focus();
