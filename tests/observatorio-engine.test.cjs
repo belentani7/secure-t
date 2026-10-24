@@ -99,3 +99,15 @@ test('invalid or forged saved state is normalized; no unknown modules or bookmar
  const newState=JSON.parse(storage['secure-t.observatorio.v1']);
  assert.equal(newState.done.length,0);assert.equal(newState.favorites.length,0);
 });
+
+test('linked educational workspaces show strictly local, validated completion counts',()=>{
+ const notes='Documentación de práctica sintética con hechos, limitaciones y comprobación autorizada.'.repeat(2);
+ const lab={schema:'secure-t.observatorio.labs.v1',cases:{soc:{answers:[true,true],notes,complete:true},dfir:{answers:[false,true],notes,complete:true}}};
+ const mission={schema:'secure-t.mission-control.v1',cases:{auth:{cursor:4,correct:[true,true,true,true],documented:true,notes:{facts:notes,uncertainty:notes,action:notes}},mail:{cursor:4,correct:[true,false,true,true],documented:true,notes:{facts:notes,uncertainty:notes,action:notes}}}};
+ const {e,nav}=start({'secure-t.observatorio.labs.v1':JSON.stringify(lab),'secure-t.mission-control.v1':JSON.stringify(mission)});
+ trigger(nav[4]);
+ assert.match(e['plan-labs'].children[0].textContent,/1\/14/);
+ assert.match(e['plan-mission'].children[0].textContent,/1\/6/);
+ assert.equal(e['plan-labs'].children[1].tagName,'A');
+ assert.equal(e['plan-mission'].children[1].tagName,'A');
+});
