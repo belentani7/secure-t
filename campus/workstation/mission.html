@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#08131e">
+<meta name="description" content="Secure T · Mission Control: seis simulaciones defensivas, laboratorio de decisiones, 48 tarjetas de repaso y cuaderno local privado.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Secure T · Mission Control | PC educativo</title>
+<link rel="stylesheet" href="mission.css">
+<script defer src="mission-data.js"></script>
+<script defer src="mission.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al laboratorio</a>
+<div class="app-shell">
+<header class="top">
+<a href="index.html" class="logo" aria-label="Secure T: volver al ordenador de alumnos"><span class="logo-shape" aria-hidden="true">◈</span><span>SECURE <em>T</em><small>MISSION CONTROL // EDUCATION OS</small></span></a>
+<div class="signal"><span class="signal-dot" aria-hidden="true"></span> LABORATORIO LOCAL · SIMULACIÓN</div>
+<a href="index.html" class="top-link">↖ PC de alumnos</a>
+</header>
+<div class="frame">
+<aside class="sidebar">
+<div class="side-overline">APLICACIONES / 01</div>
+<h2>Centro de mando<span>.</span></h2>
+<p>Investiga, decide, registra tus límites y vuelve a estudiar los conceptos.</p>
+<nav class="navigation" aria-label="Aplicaciones de Mission Control">
+<button type="button" class="nav-btn active" data-view="cases" aria-controls="view-cases" aria-pressed="true"><span aria-hidden="true">▤</span> Simulaciones <b id="nav-cases">0/6</b></button>
+<button type="button" class="nav-btn" data-view="cards" aria-controls="view-cards" aria-pressed="false"><span aria-hidden="true">◇</span> Memoria activa <b id="nav-due">48</b></button>
+<button type="button" class="nav-btn" data-view="journal" aria-controls="view-journal" aria-pressed="false"><span aria-hidden="true">✎</span> Cuaderno <b id="nav-entries">0</b></button>
+<button type="button" class="nav-btn" data-view="about" aria-controls="view-about" aria-pressed="false"><span aria-hidden="true">◎</span> Método y fuentes</button>
+</nav>
+<div class="side-note"><span>PRINCIPIO 01</span><strong>Una alerta no es una prueba.</strong><small>Observación → hipótesis → validación → respuesta autorizada.</small></div>
+</aside>
+<main id="main" class="main">
+<div class="utility"><span class="breadcrumb" id="breadcrumb">WORKSTATION / INVESTIGATION</span><div class="utility-actions"><button id="export-state" type="button">↓ Exportar</button><button id="import-state" type="button">↑ Importar</button><input id="import-file" hidden type="file" accept=".json,application/json"><button id="reset-state" type="button">↺ Reiniciar</button></div></div>
+<section class="intro"><div><div class="eyebrow"><span class="square"></span> SISTEMA EDUCATIVO / 2026</div><h1>Piensa como<br>un <span>analista.</span></h1><p>Seis investigaciones sintéticas, 24 decisiones explicadas y 48 conceptos con repaso espaciado. Entrena juicio, no automatismos.</p><div class="intro-alert">Datos inventados · Sin shell real · Sin llamadas de red · Ningún título automático</div></div><div class="radar" aria-hidden="true"><div class="ring ring-a"></div><div class="ring ring-b"></div><div class="ring ring-c"></div><div class="radar-core">ST<span>_</span></div></div></section>
+<div class="metrics" aria-label="Progreso local"><article><span>SIMULACIONES COMPLETAS</span><strong id="stat-complete">0 <small>/ 6</small></strong><p>Cuatro decisiones razonadas por caso</p></article><article><span>REPASOS PENDIENTES</span><strong id="stat-due">48</strong><p>Planificador local de memoria activa</p></article><article><span>DOCUMENTACIÓN</span><strong id="stat-notes">0 <small>/ 6</small></strong><p>Cuadernos redactados y revisables</p></article></div>
+<section id="view-cases" class="view" aria-labelledby="heading-cases">
+<div class="section-title"><div><span class="eyebrow">INVESTIGATION DESK / LIVE SIMULATION</span><h2 id="heading-cases" tabindex="-1">Mesa de investigación</h2><p>Elige un escenario y justifica cada decisión antes de escribir el informe.</p></div></div>
+<div class="case-grid"><div class="case-selector"><label for="case-filter">Filtrar casos</label><input id="case-filter" type="search" maxlength="90" placeholder="Identidad, correo, IA, RGPD..."><div id="case-list" class="case-list" aria-label="Escenarios educativos"></div></div>
+<div class="case-main"><header class="case-header"><div><span id="case-code" class="case-code">ST-SOC-001</span><h3 id="case-title">Escenario</h3><p id="case-goal"></p></div><span id="case-priority" class="priority">MEDIA</span></header>
+<div class="case-signals"><h4>01 / EVIDENCIA DISPONIBLE</h4><ul id="case-signals"></ul><a href="index.html" class="quiet-link">Abrir la terminal ficticia del PC →</a></div>
+<div class="decision-head"><div><span class="eyebrow">02 / DECISION MATRIX</span><h4 id="decision-count">Decisión 1 de 4</h4></div><div class="segment-track" id="decision-track" aria-label="Progreso del caso"></div></div>
+<div id="decision-stage"><p id="decision-prompt" class="decision-prompt"></p><form id="decision-form"><fieldset><legend class="visually-hidden">Selecciona la decisión razonada</legend><div id="decision-options" class="decision-options"></div></fieldset><button type="submit" class="primary" id="decision-submit">Evaluar decisión ↗</button></form><div id="decision-feedback" role="status" aria-live="polite" class="feedback"></div><button type="button" id="decision-next" class="primary" hidden>Siguiente decisión →</button><button type="button" id="decision-restart" class="ghost" hidden>Practicar este caso otra vez ↺</button></div>
+<p class="subtle">Las respuestas son orientación formativa basada en un dataset limitado, no una evaluación de incidentes reales.</p>
+</div></div>
+</section>
+<section id="view-cards" class="view" aria-labelledby="heading-cards" hidden>
+<div class="section-title"><div><span class="eyebrow">MEMORY LAB / ACTIVE RECALL</span><h2 id="heading-cards" tabindex="-1">Memoria activa</h2><p>48 conceptos distribuidos en seis áreas. El algoritmo agenda los repasos por días UTC y muestra lo que toca repasar.</p></div></div>
+<div class="study-bar"><div><label for="card-filter">Área de repaso</label><select id="card-filter"><option value="all">Todas las áreas</option></select></div><button type="button" id="study-all" class="ghost">Incluir tarjetas futuras</button><button type="button" id="study-due" class="ghost">Solo pendientes</button><span id="card-session" aria-live="polite">0 revisadas en esta sesión</span></div>
+<div class="flash-layout"><article class="flashcard" aria-label="Tarjeta de repaso"><div class="flash-head"><span id="card-tag">CARD 01</span><span id="card-interval">NUEVA</span></div><div id="card-front" class="flash-front">¿Qué significa...?</div><p id="card-back" class="flash-back" hidden></p><div id="card-status" class="flash-bottom">Intenta responder mentalmente antes de revelar.</div></article><div class="review-actions"><button type="button" id="show-answer" class="primary">Mostrar respuesta</button><fieldset id="rating-panel" hidden><legend>¿Cómo recordaste el concepto?</legend><div class="rating-grid"><button type="button" data-rating="0">1 · Otra vez<small>1 día</small></button><button type="button" data-rating="1">2 · Difícil<small>2 días</small></button><button type="button" data-rating="2">3 · Bien<small>Crece intervalo</small></button><button type="button" data-rating="3">4 · Fácil<small>Crece más</small></button></div></fieldset><div class="help-keys">Teclado: <kbd>Espacio</kbd> revelar · <kbd>1</kbd> a <kbd>4</kbd> valorar (fuera de los campos de formulario).</div></div></div>
+</section>
+<section id="view-journal" class="view" aria-labelledby="heading-journal" hidden>
+<div class="section-title"><div><span class="eyebrow">EVIDENCE NOTEBOOK / PRIVACY FIRST</span><h2 id="heading-journal" tabindex="-1">Cuaderno de investigación</h2><p>Documenta hechos, incertidumbres y próximos pasos. Se guarda en el navegador, no en un servidor.</p></div></div>
+<div class="journal-grid"><form id="journal-form"><label for="journal-case">Caso</label><select id="journal-case"></select><label for="journal-facts">Hechos y fuentes (mínimo 40 caracteres)</label><textarea id="journal-facts" rows="4" maxlength="2000" placeholder="Cita solamente señales visibles en los registros de prueba..."></textarea><label for="journal-uncertainty">Hipótesis, alternativas e incertidumbre (mínimo 40 caracteres)</label><textarea id="journal-uncertainty" rows="4" maxlength="2000" placeholder="Separa con claridad lo que sabes de lo que falta confirmar..."></textarea><label for="journal-action">Siguiente verificación autorizada (mínimo 40 caracteres)</label><textarea id="journal-action" rows="4" maxlength="2000" placeholder="Propón una comprobación proporcional y realizada solo con permiso..."></textarea><label class="consent"><input type="checkbox" id="journal-attest"><span>He evitado datos personales reales y distingo hechos de hipótesis.</span></label><div class="actions"><button type="submit" class="primary">Guardar cuaderno local</button><button type="button" id="journal-clear" class="ghost">Vaciar caso</button></div><div id="journal-feedback" class="feedback" role="status" aria-live="polite"></div></form><aside class="rubric"><h3>Rúbrica de calidad</h3><ol><li><strong>Hechos.</strong> Incluye evidencia concreta, no una conclusión absoluta.</li><li><strong>Limitaciones.</strong> Identifica datos ausentes y explicaciones alternativas.</li><li><strong>Autorización.</strong> Define comprobaciones dentro del alcance permitido.</li><li><strong>Comunicación.</strong> Informa sin exagerar la certeza.</li></ol><p>La validación automática comprueba longitud y confirmación ética. <strong>No evalúa la calidad científica de tus respuestas.</strong></p><button type="button" id="print-report" class="ghost">Imprimir cuaderno / PDF del navegador</button></aside></div>
+</section>
+<section id="view-about" class="view" aria-labelledby="heading-about" hidden>
+<div class="section-title"><div><span class="eyebrow">LEARNING METHOD / SOURCES</span><h2 id="heading-about" tabindex="-1">Método y límites</h2></div></div>
+<div class="about-grid"><article><h3>01 — Observa</h3><p>Lee hechos contenidos en los logs sintéticos y pregunta qué falta para concluir.</p></article><article><h3>02 — Correlaciona</h3><p>Evita atribuciones precipitadas; verifica con fuentes independientes y dentro del alcance autorizado.</p></article><article><h3>03 — Decide</h3><p>Elige contención, preservación o revisión proporcionadas; el simulador explica sus límites.</p></article><article><h3>04 — Recuerda</h3><p>Repite conceptos con tarjetas y un planificador de repaso que no requiere cuentas.</p></article></div>
+<div class="reference"><h3>Normas y fuentes consultables</h3><ul id="source-list"></ul><p>No se otorgan títulos, notas oficiales, diagnósticos de seguridad ni acceso a sistemas reales. Las calificaciones y el progreso guardados en tu navegador son manipulables: no sirven como acreditación.</p></div>
+</section>
+<div id="global-status" class="global-status" role="status" aria-live="polite"></div>
+<footer class="footer"><span>SECURE T // OPEN LEARNING ENVIRONMENT</span><span>Local-first · datos sintéticos · sin telemetría</span></footer>
+</main>
+</div></div>
+</body>
+</html>
