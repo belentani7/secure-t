@@ -116,6 +116,10 @@ app.post("/api/tutor", async (req, res) => {
   }
 });
 
+// Unknown API endpoints must not fall through to the SPA's HTML 200 response.
+// The /api no-store policy above applies to this handler as well.
+app.use("/api", (_req, res) => res.status(404).json({ error: "Not found" }));
+
 // vite build -> dist/public (vite.config.ts build.outDir); este fichero vive en la raiz.
 const staticPath = path.resolve(__dirname, "dist", "public");
 app.use(express.static(staticPath));
