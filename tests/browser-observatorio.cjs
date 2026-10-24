@@ -1,0 +1,68 @@
+'use strict';
+const assert=require('node:assert/strict');
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+const base=process.env.SECURE_T_URL || 'http://127.0.0.1:8765/campus/';
+(async()=>{
+ const browser=await chromium.launch({headless:true});
+ try{
+  const context=await browser.newContext({viewport:{width:1366,height:900},acceptDownloads:true});
+  const page=await context.newPage();
+  const errors=[];
+  page.on('pageerror',e=>errors.push(e.message));
+  await page.goto(base);
+  await page.evaluate(()=>navigator.serviceWorker.ready);
+  await page.goto(new URL('observatorio/',base).href);
+  assert.equal(await page.locator('#rutas-grid article').count(),14);
+  assert.equal(await page.locator('#stat-progress').innerText(),'0/56');
+  await page.locator('.cards-rutas .card-footer button').first().click();
+  assert.equal(await page.locator('#route-detail').isVisible(),true);
+  assert.equal(await page.locator('#route-modules article').count(),4);
+  await page.locator('#route-modules input[type=checkbox]').first().check();
+  assert.equal(await page.locator('#stat-progress').innerText(),'1/56');
+  await page.locator('#route-close').click();
+  await page.locator('#search').fill('NIS2');
+  assert.equal(await page.locator('#rutas-grid article').count(),1);
+  await page.locator('#clear-filters').click();
+  assert.equal(await page.locator('#rutas-grid article').count(),14);
+  await page.locator('.cards-rutas .bookmark').first().click();
+  await page.locator('#saved-only').check();
+  assert.equal(await page.locator('#rutas-grid article').count(),1);
+  await page.locator('#saved-only').uncheck();
+  await page.locator('[data-section="herramientas"]').click();
+  assert.equal(await page.locator('#herramientas-grid article').count(),40);
+  await page.locator('#domain-filter').selectOption('IA');
+  assert.ok(await page.locator('#herramientas-grid article').count()>=2);
+  await page.locator('#clear-filters').click();
+  await page.locator('[data-section="biblioteca"]').click();
+  assert.equal(await page.locator('#biblioteca-grid article').count(),33);
+  await page.locator('[data-section="actualidad"]').click();
+  assert.equal(await page.locator('#actualidad-grid article').count(),6);
+  assert.equal(await page.locator('#watch-grid a').count(),8);
+  const dates=await page.locator('.news-item time').evaluateAll(items=>items.map(x=>x.dateTime));
+  assert.ok(dates.every(s=>s<='2026-10-24'));
+  await page.locator('[data-section="mi-plan"]').click();
+  assert.match(await page.locator('#plan-routes').innerText(),/1\/4 módulos/);
+  const downloading=page.waitForEvent('download');
+  await page.locator('#export-progress').click();
+  const download=await downloading;
+  assert.equal(download.suggestedFilename(),'secure-t-observatorio-progreso.json');
+  await page.reload();
+  assert.equal(await page.locator('#stat-progress').innerText(),'1/56');
+  await page.keyboard.press('Control+k');
+  assert.equal(await page.evaluate(()=>document.activeElement.id),'search');
+  await page.locator('#search').fill('');
+  await context.setOffline(true);
+  await page.reload();
+  assert.equal(await page.locator('#rutas-grid article').count(),14);
+  await context.setOffline(false);
+  for(const width of [320,390,768,1366]){
+   await page.setViewportSize({width,height:850});
+   await page.reload();
+   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth);
+   assert.equal(overflow,false,'Unexpected horizontal overflow at '+width+'px');
+   assert.equal(await page.locator('[data-section]').count(),5);
+  }
+  assert.deepEqual(errors,[]);
+  console.log(JSON.stringify({success:true,routes:14,modules:56,tools:40,sources:33,news:6,navigation:true,progress:true,search:true,favorites:true,json:true,offline:true,widths:[320,390,768,1366]}));
+ }finally{await browser.close();}
+})().catch(e=>{console.error(e);process.exitCode=1;});
