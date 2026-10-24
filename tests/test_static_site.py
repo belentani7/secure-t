@@ -90,7 +90,14 @@ def test_source_symlinks_cannot_publish_external_files(tmp_path, monkeypatch, na
     else:
         private.write_text("private fixture")
         (source / name).unlink()
-    (source / name).symlink_to(private, target_is_directory=name == "campus")
+    try:
+        (source / name).symlink_to(private, target_is_directory=name == "campus")
+    except OSError as exc:
+        # Windows without Developer Mode cannot create symlinks. The
+        # security behavior is still exercised by Linux CI.
+        if getattr(exc, "winerror", None) == 1314:
+            pytest.skip("Windows symlink privilege unavailable")
+        raise
     monkeypatch.setattr(module, "ROOT", source)
     with pytest.raises(RuntimeError, match="symlink"):
         module.build_site(tmp_path / "output")
@@ -165,9 +172,12 @@ def test_legacy_remote_securetea_docker_is_not_used():
     assert "index.ts" in railway
 
 
-def test_local_services_require_secrets_and_do_not_listen_publicly():
+def test_optional_demo_services_are_loopback_only():
     compose = (ROOT / "docker-compose.yml").read_text(encoding="utf-8")
-    for variable in ("POSTGRES_PASSWORD", "MINIO_ROOT_USER", "MINIO_ROOT_PASSWORD"):
-        assert "${" + variable + ":?" in compose
-    for port in ("5432", "6379", "9000", "9001"):
-        assert "127.0.0.1:" + port + ":" + port in compose
+    # The deployed campus needs neither PostgreSQL nor MinIO; the optional
+    # local demo may not expose its ports on every network interface.
+    assert '"127.0.0.1:3000:3000"' in compose
+    assert '"127.0.0.1:5173:5173"' in compose
+    assert '"3000:3000"' not in compose
+    assert '"5173:5173"' not in compose
+    assert "http://127.0.0.1:3000/api/health" in compose
