@@ -149,3 +149,17 @@ formacion gratuita y abierta. El indice completo vive en el nodo central:
 | secure-t | Ciberseguridad e IA | https://belentani7.github.io/secure-t/ |
 
 **PT > ES > EN > CA.** Gratuito, accesible (WCAG) y conectado.
+
+## Mission Control — entrenamiento SOC interactivo
+
+**Implementado en** `campus/workstation/mission.html`, accesible desde el PC de alumnos, campus y academia.
+Seis investigaciones con 24 decisiones guiadas, 48 tarjetas de recuerdo activo y programación de repaso,
+cuaderno de evidencia (hechos, hipótesis y verificación autorizada), filtros, progreso local, exportación/importación
+JSON validado, CSS accesible/responsive y caché offline del campus. No añade repositorios, cuenta de usuario,
+telemetría, shell real, servicios externos ni credenciales académicas. Los escenarios son sintéticos.
+
+**Normativa de referencia:** NIST SP 800-61 Rev. 3 (2025), OWASP LLM01:2025 y RGPD, art. 5.
+**Comprobación:** `node --test tests/mission-control.test.cjs` y
+`node tests/browser-mission.cjs` dentro del entorno Playwright de la CI.
+Los resultados de una autoevaluación guardada por el propio navegador **no constituyen acreditación**.
+
