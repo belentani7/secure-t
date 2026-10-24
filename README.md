@@ -181,3 +181,7 @@ El visor `campus/amenazas.html` consulta **el archivo estático** `campus/data/t
 `campus/observatorio/labs.html` ofrece **14 lecciones completas de exploración introductoria**, una por especialidad del observatorio. Cada una aporta tres conceptos explicados, dos registros sintéticos, dos comprobaciones comentadas y un cuaderno de observaciones que requiere al menos 120 caracteres y confirmación de alcance ético. Son 28 decisiones autocorregidas en conjunto.
 
 Los resultados se guardan exclusivamente en `localStorage`, se pueden exportar/importar mediante JSON validado y **no constituyen evaluación acreditada**. La aplicación no ejecuta código ni contacta a equipos reales. Se accede desde Observatorio y Workstation; sus activos están precargados por el service worker v8. Pruebas: `tests/labs-engine.test.cjs`, `tests/browser-labs.cjs`.
+
+## Acceso offline directo
+
+Todas las aplicaciones principales del alumno (`campus/workstation/`, Mission Control, Observatorio, laboratorios y Centro de Amenazas) cargan `campus/sw-register.js`, que registra el service worker común **desde la propia página**. La precaché v9 incluye el arranque y todos los archivos necesarios para trabajar sin conexión tras una primera visita online completada. Una primera visita sin conexión no puede descargar archivos no visitados. La caché es por origen/campus y no transmite datos.
