@@ -13,7 +13,7 @@ describe('search courses: semantic functional contract', () => {
   });
   it('searches existing course title, code and level (case-insensitive)', () => {
     expect(filterCourseCatalog(courses, 'cy-101').map(item => item.code)).toEqual(['CY-101']);
-    expect(filterCourseCatalog(courses, 'SECURITY').map(item => item.code)).toEqual(['WEB-201']);
+    expect(filterCourseCatalog(courses, 'SECURITY').map(item => item.code)).toEqual(['CY-101', 'WEB-201']);
     expect(filterCourseCatalog(courses, 'advanced').map(item => item.code)).toEqual(['SOC-301']);
   });
   it('shows no results instead of clearing input or pretending a search ran', () => {
