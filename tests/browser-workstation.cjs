@@ -14,7 +14,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   await page.locator('a[href="workstation/"]').click();
   assert.match(page.url(), /\/campus\/workstation\//);
   assert.match(await page.locator('#dashboard-title').innerText(), /aprender a defender/);
-  assert.equal(await page.locator('#dashboard-cases .scenario').count(), 3);
+  assert.equal(await page.locator('#dashboard-cases .scenario').count(), 6);
 
   await page.locator('[data-panel="terminal"]').click();
   await page.locator('#terminal-command').fill('grep FAILED /cases/auth.log');
@@ -26,7 +26,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   assert.match(await output.innerText(), /Comando no disponible|no admite shell/);
 
   await page.locator('[data-panel="cases"]').click();
-  assert.equal(await page.locator('#case-list button').count(), 3);
+  assert.equal(await page.locator('#case-list button').count(), 6);
   assert.match(await page.locator('#case-detail').innerText(), /198\.51\.100\.24/);
 
   await page.locator('[data-panel="notebook"]').click();
@@ -47,11 +47,11 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 
   await page.reload();
   await page.locator('[data-panel="dashboard"]').click();
-  assert.match(await page.locator('#progress-count').innerText(), /1 \/ 3/);
+  assert.match(await page.locator('#progress-count').innerText(), /1 \/ 6/);
 
   await context.setOffline(true);
   await page.reload();
-  assert.equal(await page.locator('#dashboard-cases .scenario').count(), 3, 'pre-cached workstation must work offline');
+  assert.equal(await page.locator('#dashboard-cases .scenario').count(), 6, 'pre-cached workstation must work offline');
   await context.setOffline(false);
 
   await page.setViewportSize({ width: 390, height: 844 });
@@ -60,6 +60,6 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
     'workstation should not overflow horizontally at 390px');
   assert.deepEqual(errors, [], 'no uncaught browser errors');
   console.log(JSON.stringify({ workstation: 'student journey + terminal + SOC + evidence + export + persistence + offline + mobile',
-    scenarios: 3, mobileWidth: 390, pageErrors: errors.length }));
+    scenarios: 6, mobileWidth: 390, pageErrors: errors.length }));
   await browser.close();
 })().catch(err => { console.error(err); process.exit(1); });
