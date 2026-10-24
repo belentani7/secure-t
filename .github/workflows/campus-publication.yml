@@ -43,6 +43,26 @@ jobs:
             sleep 1
           done
           PLAYWRIGHT_MODULE="$RUNNER_TEMP/campus-browser/node_modules/playwright" node tests/browser-campus.cjs
+      - name: Verify security lab full browser journeys
+        run: |
+          set -euo pipefail
+          python3 -m http.server 8765 --bind 127.0.0.1 --directory site-dist > /tmp/secure-labs-http.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --silent --fail http://127.0.0.1:8765/campus/academia/triage.html > /dev/null; then break; fi
+            sleep 1
+          done
+          curl --fail --silent --show-error http://127.0.0.1:8765/campus/academia/threat-studio.html >/dev/null
+          PLAYWRIGHT_MODULE="$RUNNER_TEMP/campus-browser/node_modules/playwright" node tests/browser-security-labs.cjs
+
+      - name: Preserve synthetic security-lab screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: secure-t-security-labs-mobile
+          path: tests/browser-artifacts/*.png
+          if-no-files-found: ignore
       - name: Preserve mobile screenshot
         if: always()
         uses: actions/upload-artifact@v4
