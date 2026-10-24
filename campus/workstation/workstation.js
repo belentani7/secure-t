@@ -303,5 +303,13 @@
   setInterval(updateClock, 60000);
   refreshProgress();
   print("Secure T Workstation · edición educativa 1.0\nDatos 100 % sintéticos. No hay shell, red ni objetivos reales.\nEscribe help para comenzar.", "info");
+  // Whitelisted contextual deep links from Mission Control into the virtual terminal.
+  if (window.location && typeof URLSearchParams !== "undefined") {
+    const query = new URLSearchParams(window.location.search);
+    const requestedCase = query.get("case");
+    const requestedPanel = query.get("panel");
+    if (caseIds.includes(requestedCase)) { current = requestedCase; renderCase(); }
+    if (["dashboard", "terminal", "cases", "notebook", "guide"].includes(requestedPanel)) activePanel = requestedPanel;
+  }
   openPanel(activePanel);
 })();
