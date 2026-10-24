@@ -122,6 +122,7 @@
     $("case-title").textContent = c.title;
     $("case-goal").textContent = c.goal;
     $("case-priority").textContent = c.priority.toLocaleUpperCase("es");
+    $("terminal-link").href = "index.html?case=" + encodeURIComponent(c.id) + "&panel=terminal";
     const list = $("case-signals");list.replaceChildren();
     for (const line of c.signals) list.append(el("li","",line));
     renderCaseList(); renderDecision(); fillStats();

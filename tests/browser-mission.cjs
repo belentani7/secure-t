@@ -49,6 +49,11 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE || 'playwright');
     await page.setViewportSize({width:390,height:840});
     await page.reload();
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+    // Contextual terminal deep link must load the correct case without network execution.
+    await page.goto('http://127.0.0.1:8765/campus/workstation/mission.html');
+    await page.locator('#terminal-link').click();
+    assert.match(page.url(),/case=auth/);
+    assert.equal(await page.locator('#location-title').innerText(),'Terminal simulado');
     assert.deepEqual(errors,[]);
     console.log(JSON.stringify({success:true,cases:6,decisions:24,cards:48,notes:true,localStorage:true,offline:true,viewport:390}));
   }finally{await browser.close();}

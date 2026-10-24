@@ -1,7 +1,7 @@
 // Cache only this campus. Other applications can share the same hosting origin.
 const SCOPE = new URL(self.registration.scope);
 const PREFIX = `secure-t-campus:${SCOPE.pathname}:`;
-const CACHE = `${PREFIX}v4`;
+const CACHE = `${PREFIX}v5`;
 const CORE = ['./', './index.html', './tokens.css', './app.js',
   './workstation/index.html', './workstation/workstation.css',
   './workstation/workstation-data.js', './workstation/workstation.js',
