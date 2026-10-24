@@ -165,6 +165,9 @@ def test_bad_vercel_production_domain_is_rejected(monkeypatch):
 
 
 @pytest.mark.parametrize("site_url", [
+    'https://example.test/"><script>alert(1)</script>',
+    "https://example.test/a b",
+    "https://example.test/a\\\\b",
     "http://insecure.example.test",
     "https://username:password@example.test",
     "https://example.test/#fragment",
