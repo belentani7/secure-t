@@ -26,7 +26,16 @@ DEFAULT_SITE_URL = "https://belentani7.github.io/secure-t"
 
 def public_site_url() -> str:
     """Require an explicit, safe HTTPS origin for generated public metadata."""
-    value = os.environ.get("SITE_URL", DEFAULT_SITE_URL).strip().rstrip("/")
+    # Prefer the actual production domain when Vercel builds this same campus.
+    # SITE_URL remains an explicit override (e.g. for GitHub Pages or Netlify).
+    configured = os.environ.get("SITE_URL")
+    if configured is not None:
+        value = configured.strip().rstrip("/")
+    elif os.environ.get("VERCEL_PROJECT_PRODUCTION_URL"):
+        host = os.environ["VERCEL_PROJECT_PRODUCTION_URL"].strip()
+        value = f"https://{host}"
+    else:
+        value = DEFAULT_SITE_URL
     url = urlsplit(value)
     if (url.scheme != "https" or not url.netloc or url.username or url.password
             or url.query or url.fragment or not url.hostname
