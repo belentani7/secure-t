@@ -36,6 +36,10 @@ def public_site_url() -> str:
         value = f"https://{host}"
     else:
         value = DEFAULT_SITE_URL
+    # This URL is inserted into HTML/XML metadata; never permit markup,
+    # whitespace or escape characters from deployment configuration.
+    if re.search(r"[\\s\"'<>\\\\]", value):
+        raise ValueError("SITE_URL contains unsafe characters")
     url = urlsplit(value)
     if (url.scheme != "https" or not url.netloc or url.username or url.password
             or url.query or url.fragment or not url.hostname
