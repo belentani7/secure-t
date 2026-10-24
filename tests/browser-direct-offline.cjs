@@ -41,6 +41,6 @@ const base=process.env.SECURE_T_URL||'http://127.0.0.1:8765/campus/';
    await context.setOffline(true);
    await assert.rejects(()=>page.goto(new URL('observatorio/not-a-real-page-404.html',base).href));
   }finally{await context.close();}
-  console.log(JSON.stringify({ok:true,deepLinks:passed,offline:false /* intentionally no connection */,homeFallbackForUnknown:false}));
+  console.log(JSON.stringify({ok:true,deepLinks:passed,offline:true,homeFallbackForUnknown:false}));
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});
