@@ -87,7 +87,7 @@ test('production tutor is private by default, public progress is labelled demo',
 
     const missing = await fetch(origin + '/api/no-such-endpoint');
     assert.equal(missing.status, 404);
-    assert.match(missing.headers.get('content-type') || '', /application\\/json/);
+    assert.match(missing.headers.get('content-type') || '', /application\/json/);
     assert.equal(missing.headers.get('cache-control'), 'no-store');
     assert.deepEqual(await missing.json(), { error: 'Not found' });
   });
