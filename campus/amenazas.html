@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Centro de Amenazas · secure T</title>
-<meta name="description" content="Feed en tiempo real de vulnerabilidades activamente explotadas: CISA KEV + NVD. Datos sin credenciales, actualizados diariamente.">
+<meta name="description" content="Visor de datos históricos fechados de vulnerabilidades CISA KEV y NVD, con aviso de antigüedad y fuentes primarias.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b1117'/%3E%3Cpath d='M16 6l9 20H7z' fill='none' stroke='%23b7f36b' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='19' r='2.5' fill='%23b7f36b'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="./tokens.css">
 <style>
@@ -112,6 +112,7 @@ tr:hover td{background:var(--bg-surface)}
 .loading-msg{color:var(--text-2);font-family:var(--font-mono);font-size:var(--fs-sm);padding:2rem;text-align:center}
 .err-msg{color:#f87171;font-family:var(--font-mono);font-size:var(--fs-sm);padding:2rem;text-align:center}
 </style>
+<script defer src="sw-register.js"></script>
 </head>
 <body>
 <div class="env">
@@ -124,10 +125,12 @@ tr:hover td{background:var(--bg-surface)}
   </nav>
 
   <header class="page-header">
-    <p class="eyebrow">Threat Intelligence · Live</p>
+    <p class="eyebrow">Threat Intelligence · Dataset fechado</p>
     <h1>Centro de Amenazas</h1>
-    <p class="lead">Vulnerabilidades activamente explotadas en la naturaleza. Datos en tiempo real desde <strong>CISA KEV</strong> y <strong>NVD/NIST</strong> — sin credenciales, regenerados diariamente.</p>
+    <p class="lead">Instantánea descargada de <strong>CISA KEV</strong> y <strong>NVD/NIST</strong>. No es un servicio en tiempo real; la fecha y posible antigüedad del archivo aparecen debajo. Contrasta avisos urgentes en los organismos oficiales.</p>
     <p class="stamp" id="stamp">Cargando datos…</p>
+    <p class="stamp" id="freshness" role="status" aria-live="polite">Comprobando la antigüedad del conjunto…</p>
+    <p class="stamp"><a href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog" target="_blank" rel="noopener noreferrer">CISA KEV oficial ↗</a> · <a href="https://nvd.nist.gov/" target="_blank" rel="noopener noreferrer">NVD oficial ↗</a> · <a href="observatorio/">Observatorio y fuentes verificadas ↗</a></p>
   </header>
 
   <div class="stats" id="stats-row">
@@ -210,8 +213,16 @@ async function loadData() {
     allKev = data.kev?.recent || [];
     nvdItems = data.nvd_critical_recent || [];
 
+    const generated = Date.parse(data.generated_utc);
+    if (!Number.isFinite(generated) || generated > Date.now() + 86400000) throw new Error('Fecha de generación incorrecta');
+    const ageDays = Math.max(0, Math.floor((Date.now() - generated) / 86400000));
     document.getElementById('stamp').textContent =
-      `Generado: ${new Date(data.generated_utc).toLocaleString('es-ES', {dateStyle:'medium',timeStyle:'short'})} UTC  ·  Catálogo CISA ${data.kev?.catalog_version || '—'}`;
+      'Generado: ' + new Date(generated).toLocaleString('es-ES', {dateStyle:'medium',timeStyle:'short',timeZone:'UTC'}) +
+      ' UTC · Catálogo CISA ' + String(data.kev?.catalog_version || '—');
+    document.getElementById('freshness').textContent =
+      ageDays > 2
+        ? '⚠ Atención: esta instantánea tiene ' + ageDays + ' días. NO refleja nuevas alertas; revisa CISA/NVD oficiales.'
+        : 'Instantánea reciente (' + ageDays + ' días). Aun así, no hay consulta en vivo a CISA ni NVD.';
 
     document.getElementById('s-total').textContent = (stats.total_kev || 0).toLocaleString('es');
     document.getElementById('s-ransomware').textContent = (stats.ransomware_linked || 0).toLocaleString('es');
@@ -222,7 +233,13 @@ async function loadData() {
     renderNvd();
     renderStats();
   } catch(e) {
-    document.getElementById('kev-table-wrap').innerHTML = `<div class="err-msg">⚠️ No se pudieron cargar los datos: ${e.message}<br>Ejecuta: <code>python3 scripts/fetch-threat-intel.py</code></div>`;
+    const area = document.getElementById('kev-table-wrap');
+    area.replaceChildren();
+    const message = document.createElement('div');
+    message.className = 'err-msg';
+    message.textContent = '⚠ No se pudo cargar el dataset. Consulta los enlaces oficiales y comprueba la publicación.';
+    area.append(message);
+    document.getElementById('freshness').textContent = '⚠ Datos locales no disponibles.';
   }
 }
 
@@ -262,9 +279,9 @@ function renderKevTable() {
     if (v.ransomware) badges.push('<span class="badge badge-ransomware">ransomware</span>');
     if (isNew(v.date_added)) badges.push('<span class="badge badge-new">nueva</span>');
     html += `<tr>
-      <td><span class="cve-id">${v.cve_id}</span></td>
+      <td><span class="cve-id">${esc(v.cve_id)}</span></td>
       <td><span class="product-name">${esc(v.product)}</span><br><span class="vendor">${esc(v.vendor)}</span></td>
-      <td><span class="date">${v.date_added || '—'}</span></td>
+      <td><span class="date">${esc(v.date_added || '—')}</span></td>
       <td>${badges.join(' ')}</td>
       <td><span class="desc">${esc(v.short_description || v.name || '')}</span></td>
     </tr>`;
@@ -289,10 +306,10 @@ function renderNvd() {
   for (const v of nvdItems) {
     html += `<div class="nvd-item">
       <div class="nvd-header">
-        <span class="nvd-cve">${v.cve_id}</span>
-        <span class="nvd-score">CVSS ${v.score}</span>
-        <span class="nvd-date">${v.published}</span>
-        ${v.attack_vector ? `<span class="badge badge-critical">${v.attack_vector}</span>` : ''}
+        <span class="nvd-cve">${esc(v.cve_id)}</span>
+        <span class="nvd-score">CVSS ${esc(v.score)}</span>
+        <span class="nvd-date">${esc(v.published)}</span>
+        ${v.attack_vector ? `<span class="badge badge-critical">${esc(v.attack_vector)}</span>` : ''}
       </div>
       <p class="nvd-desc">${esc(v.description)}</p>
     </div>`;
@@ -303,35 +320,35 @@ function renderNvd() {
 function renderStats() {
   // Vendor bar chart
   const vendors = stats.top_vendors || [];
-  const maxV = vendors[0]?.count || 1;
+  const maxV = Math.max(1, ...vendors.map(v => safeNumber(v.count)));
   document.getElementById('vendor-chart').innerHTML = vendors.map(v => `
     <div class="bar-row">
       <span class="bar-label" title="${esc(v.vendor)}">${esc(v.vendor)}</span>
-      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(v.count/maxV*100)}%"></div></div>
-      <span class="bar-count">${v.count}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.max(0,Math.min(100,Math.round(safeNumber(v.count)/maxV*100)))}%"></div></div>
+      <span class="bar-count">${safeNumber(v.count)}</span>
     </div>`).join('');
 
   // CWE list
   const cwes = stats.top_cwes || [];
   document.getElementById('cwe-list').innerHTML = cwes.map(c => `
-    <div class="cwe-item"><span class="cwe-id">${esc(c.cwe)}</span><span class="cwe-count">${c.count}</span></div>`).join('');
+    <div class="cwe-item"><span class="cwe-id">${esc(c.cwe)}</span><span class="cwe-count">${safeNumber(c.count)}</span></div>`).join('');
 
   // Timeline SVG
   const tl = stats.timeline || [];
   if (!tl.length) return;
   const W = 780, H = 120, PL = 40, PR = 10, PT = 10, PB = 30;
   const cw = W - PL - PR, ch = H - PT - PB;
-  const maxC = Math.max(...tl.map(t => t.count));
+  const maxC = Math.max(1, ...tl.map(t => safeNumber(t.count)));
   const bw = cw / tl.length;
 
   let svgBars = '', svgLabels = '';
   tl.forEach((t, i) => {
-    const bh = (t.count / maxC) * ch;
+    const bh = (safeNumber(t.count) / maxC) * ch;
     const x = PL + i * bw + bw * .1;
     const y = PT + ch - bh;
-    svgBars += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${(bw*.8).toFixed(1)}" height="${bh.toFixed(1)}" fill="var(--accent)" opacity=".75" rx="2"><title>${t.month}: ${t.count}</title></rect>`;
+    svgBars += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${(bw*.8).toFixed(1)}" height="${bh.toFixed(1)}" fill="var(--accent)" opacity=".75" rx="2"><title>${esc(t.month)}: ${safeNumber(t.count)}</title></rect>`;
     if (i % 4 === 0 || i === tl.length - 1) {
-      svgLabels += `<text x="${(x + bw*.4).toFixed(1)}" y="${H - 5}" text-anchor="middle" fill="var(--text-3)" font-size="9" font-family="monospace">${t.month.slice(2)}</text>`;
+      svgLabels += `<text x="${(x + bw*.4).toFixed(1)}" y="${H - 5}" text-anchor="middle" fill="var(--text-3)" font-size="9" font-family="monospace">${esc(String(t.month || "").slice(2))}</text>`;
     }
   });
   document.getElementById('timeline-svg').innerHTML = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">${svgBars}${svgLabels}</svg>`;
@@ -368,9 +385,12 @@ document.querySelectorAll('[data-filter]').forEach(btn => {
 document.getElementById('p-prev').addEventListener('click', () => { currentPage--; renderKevTable(); window.scrollTo({top:0,behavior:'smooth'}); });
 document.getElementById('p-next').addEventListener('click', () => { currentPage++; renderKevTable(); window.scrollTo({top:0,behavior:'smooth'}); });
 
-function esc(s) {
-  if (!s) return '';
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function safeNumber(value) {
+  const n = Number(value);
+  return Number.isFinite(n) && n >= 0 ? Math.min(n, 1000000000) : 0;
+}
+function esc(value) {
+  return String(value ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
 loadData();

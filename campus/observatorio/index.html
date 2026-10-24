@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="observatorio.css">
 <script defer src="data.js"></script>
 <script defer src="observatorio.js"></script>
+<script defer src="../sw-register.js"></script>
 </head>
 <body>
 <a class="skip" href="#main">Saltar al contenido</a>
@@ -17,7 +18,7 @@
 <header class="top">
 <a href="../" class="brand" aria-label="Secure T: volver al campus"><span class="brand-icon" aria-hidden="true">⬡</span><span>SECURE <b>T</b><small>OBSERVATORIO // KNOWLEDGE SYSTEM</small></span></a>
 <div class="top-status"><i aria-hidden="true"></i> EDICIÓN 24·10·2026 / OFFLINE</div>
-<a class="return" href="../workstation/">⌘ PC de alumnos ↗</a>
+<a class="return" href="labs.html">◈ 14 laboratorios ↗</a><a class="return" href="../workstation/">⌘ PC de alumnos ↗</a>
 </header>
 <div class="frame">
 <aside class="sidebar">
@@ -35,7 +36,7 @@
 </aside>
 <main id="main" class="main">
 <div class="utility"><span id="breadcrumb">SECURE T / RUTAS</span><div><button id="export-progress" type="button">↓ Exportar JSON</button><button id="import-progress" type="button">↑ Importar</button><input type="file" id="import-file" accept=".json,application/json" hidden><button id="reset-progress" type="button">↺ Borrar</button></div></div>
-<section class="hero"><div><span class="overline"><span class="diamond"></span> CYBERSECURITY INTELLIGENCE · LEARNING</span><h1>No solo aprender.<br><span>Entender el terreno.</span></h1><p>Del analista SOC a IA segura, privacidad, cloud y seguridad por diseño. Estructuras de estudio, herramientas profesionales y documentación con procedencia.</p><div class="hero-label">Bibliografía y noticias seleccionadas · Actualización editorial: 24 de octubre de 2026</div></div><div class="orb" aria-hidden="true"><div class="orb-a"></div><div class="orb-b"></div><div class="orb-c"></div><div class="orb-center">ST<sup>∞</sup></div></div></section>
+<section class="hero"><div><span class="overline"><span class="diamond"></span> CYBERSECURITY INTELLIGENCE · LEARNING</span><h1>No solo aprender.<br><span>Entender el terreno.</span></h1><p>Del analista SOC a IA segura, privacidad, cloud y seguridad por diseño. Estructuras de estudio, herramientas profesionales y documentación con procedencia.</p><div class="hero-label">Bibliografía y noticias seleccionadas · <a href="labs.html">14 laboratorios interactivos</a> · Edición 24/10/2026</div></div><div class="orb" aria-hidden="true"><div class="orb-a"></div><div class="orb-b"></div><div class="orb-c"></div><div class="orb-center">ST<sup>∞</sup></div></div></section>
 <div class="metrics" aria-label="Datos del observatorio"><article><span>RUTAS TEMÁTICAS</span><strong>14</strong><small>De fundamentos a portafolio</small></article><article><span>MÓDULOS PROPUESTOS</span><strong>56</strong><small>Objetivo y evidencia por módulo</small></article><article><span>RECURSOS SELECCIONADOS</span><strong>73</strong><small>40 herramientas · 33 fuentes</small></article><article><span>PROGRESO LOCAL</span><strong id="stat-progress">0/56</strong><small>No es acreditación profesional</small></article></div>
 <div class="searchbar"><label for="search">BUSCADOR TRANSVERSAL</label><div class="search-input"><span aria-hidden="true">⌕</span><input id="search" type="search" maxlength="120" placeholder="SOC, privacidad, Sigma, OWASP, respuesta, NIS2..." autocomplete="off"><kbd>Ctrl K</kbd></div><div class="filterrow"><label for="domain-filter">Área</label><select id="domain-filter"><option value="all">Todas las áreas</option></select><label for="saved-only" class="check"><input id="saved-only" type="checkbox"> Solo guardados</label><button type="button" id="clear-filters">Limpiar filtros</button></div><p id="result-count" role="status" aria-live="polite">Selecciona una sección para explorar.</p></div>
 <section id="section-rutas" class="section" aria-labelledby="h-rutas">
@@ -55,7 +56,7 @@
 <div class="watch"><h3>Fuentes que merece la pena revisar</h3><p>Cadencias recomendadas para una revisión editorial humana. Estas comprobaciones no están automatizadas.</p><div id="watch-grid" class="watch-grid"></div></div></section>
 <section id="section-mi-plan" class="section" aria-labelledby="h-mi-plan" hidden>
 <header class="section-head"><span class="overline">05 / PERSONAL LEARNING SYSTEM</span><h2 id="h-mi-plan" tabindex="-1">Mi plan de desarrollo</h2><p>Marca las actividades revisadas, guarda recursos y organiza tu estudio. El seguimiento local solo refleja tus marcas, no evalúa competencias.</p></header>
-<div class="plan-board"><div><h3>Rutas seleccionadas</h3><div id="plan-routes"></div></div><div><h3>Recursos guardados</h3><div id="plan-resources"></div></div></div><div class="plan-help"><strong>¿Cómo cerrar una competencia con rigor?</strong><p>Completa el material, reproduce un laboratorio autorizado, prepara evidencia verificable y pide revisión de otra persona. Después, incorpora el ejercicio a tu portafolio.</p><a href="../workstation/mission.html">Practicar con Mission Control ↗</a></div></section>
+<div class="plan-board"><div><h3>Rutas seleccionadas</h3><div id="plan-routes"></div></div><div><h3>Recursos guardados</h3><div id="plan-resources"></div></div><div><h3>Prácticas guiadas</h3><div id="plan-labs"></div></div><div><h3>Mission Control</h3><div id="plan-mission"></div></div></div><div class="plan-help"><strong>¿Cómo cerrar una competencia con rigor?</strong><p>Completa el material, reproduce un laboratorio autorizado, prepara evidencia verificable y pide revisión de otra persona. Después, incorpora el ejercicio a tu portafolio.</p><a href="../workstation/mission.html">Practicar con Mission Control ↗</a></div></section>
 <div id="app-status" role="status" aria-live="polite" class="status"></div>
 <footer class="footer"><span>SECURE T / OBSERVATORIO</span><span>Local-first · 0 tracking · Fines educativos · Sin certificación</span></footer>
 </main>

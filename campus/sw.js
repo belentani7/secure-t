@@ -1,14 +1,17 @@
 // Cache only this campus. Other applications can share the same hosting origin.
 const SCOPE = new URL(self.registration.scope);
 const PREFIX = `secure-t-campus:${SCOPE.pathname}:`;
-const CACHE = `${PREFIX}v7`;
+const CACHE = `${PREFIX}v10`;
 const CORE = ['./', './index.html', './tokens.css', './app.js',
+  './sw-register.js',
   './workstation/index.html', './workstation/workstation.css',
   './workstation/workstation-data.js', './workstation/workstation.js',
   './workstation/mission.html', './workstation/mission.css',
   './workstation/mission-data.js', './workstation/mission.js',
   './observatorio/index.html', './observatorio/observatorio.css',
-  './observatorio/data.js', './observatorio/observatorio.js'];
+  './observatorio/data.js', './observatorio/observatorio.js',
+  './observatorio/labs.html', './observatorio/labs.css',
+  './observatorio/labs-data.js', './observatorio/labs.js'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)));
@@ -42,8 +45,12 @@ self.addEventListener('fetch', e => {
           const directoryIndex = await cache.match(url.origin + url.pathname + 'index.html');
           if (directoryIndex) return directoryIndex;
         }
-        const index = await cache.match(new URL('index.html', SCOPE).href);
-        if (index) return index;
+        // Do not disguise an unknown offline page as the campus home.
+        const campusHome = new URL('index.html', SCOPE);
+        if (url.pathname === SCOPE.pathname || url.pathname === campusHome.pathname) {
+          const index = await cache.match(campusHome.href);
+          if (index) return index;
+        }
       }
       // HTML cannot substitute for missing scripts, JSON, styles or audio.
       return Response.error();

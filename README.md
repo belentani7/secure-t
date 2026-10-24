@@ -171,3 +171,21 @@ El catálogo local de `campus/observatorio/` integra **14 rutas de estudio** (56
 El alumno puede buscar transversalmente, filtrar por dominio, marcar módulos estudiados, guardar referencias y exportar/importar su estado con JSON validado. El progreso es una declaración local, no una certificación. El sitio está integrado en campus, academia, PC educativo, sitemap y precaché del service worker.
 
 Ver [README de calidad editorial](campus/observatorio/EDITORIAL.md) y pruebas `tests/observatorio-engine.test.cjs`, `tests/browser-observatorio.cjs`.
+
+## Centro de Amenazas: transparencia sobre la fecha
+
+El visor `campus/amenazas.html` consulta **el archivo estático** `campus/data/threat-intel.json`. La instantánea de este repositorio se generó el **1 de octubre de 2026**; no es un feed en directo. El visor avisa cuando han pasado más de dos días desde la fecha de generación, muestra fuentes originales CISA KEV y NVD y permite acceder al Observatorio editorial fechado. Se endureció el tratamiento de campos procedentes de feeds externos antes de mostrarlos en HTML/SVG. Test: `node --test tests/threat-feed-freshness.test.cjs`.
+
+## Laboratorios guiados por especialidad
+
+`campus/observatorio/labs.html` ofrece **14 lecciones completas de exploración introductoria**, una por especialidad del observatorio. Cada una aporta tres conceptos explicados, dos registros sintéticos, dos comprobaciones comentadas y un cuaderno de observaciones que requiere al menos 120 caracteres y confirmación de alcance ético. Son 28 decisiones autocorregidas en conjunto.
+
+Los resultados se guardan exclusivamente en `localStorage`, se pueden exportar/importar mediante JSON validado y **no constituyen evaluación acreditada**. La aplicación no ejecuta código ni contacta a equipos reales. Se accede desde Observatorio y Workstation; sus activos están precargados por el service worker v8. Pruebas: `tests/labs-engine.test.cjs`, `tests/browser-labs.cjs`.
+
+## Acceso offline directo
+
+Todas las aplicaciones principales del alumno (`campus/workstation/`, Mission Control, Observatorio, laboratorios y Centro de Amenazas) cargan `campus/sw-register.js`, que registra el service worker común **desde la propia página**. La precaché v9 incluye el arranque y todos los archivos necesarios para trabajar sin conexión tras una primera visita online completada. Una primera visita sin conexión no puede descargar archivos no visitados. La caché es por origen/campus y no transmite datos.
+
+## Mi plan: aprendizaje conectado
+
+El Observatorio muestra en «Mi plan» el progreso autodeclarado de 14 laboratorios y seis simulaciones Mission Control a través de registros locales versionados, sin cuentas ni transmisión. Se comprueban los identificadores, respuestas, cuadernos y longitudes antes de mostrar los contadores. No son notas oficiales ni acreditaciones de competencias.

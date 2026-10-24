@@ -43,7 +43,7 @@ function renderTracks(){
   const meta=el('div','card-meta');meta.append(el('span','',t.domain.toUpperCase()),el('span','badge',t.level));
   const name=el('h3','',t.name),desc=el('p','',t.outcome);
   const footer=el('div','card-footer'),open=el('button','', 'Explorar ruta ↗');open.type='button';open.addEventListener('click',()=>openRoute(t.id));
-  footer.append(open,bookmark('route:'+t.id));c.append(meta,name,desc,el('span','tag',trackProgress(t)+'/4 módulos revisados'),footer);grid.append(c);
+  const lab=el('a','','Laboratorio práctico ↗');lab.href='labs.html?topic='+encodeURIComponent(t.id);footer.append(open,lab,bookmark('route:'+t.id));c.append(meta,name,desc,el('span','tag',trackProgress(t)+'/4 módulos revisados'),footer);grid.append(c);
  }
  countIndicator('rutas',n);return n;
 }
@@ -65,6 +65,7 @@ function openRoute(id){
  }
  const links=$('route-course-link');links.replaceChildren();
  if(t.course){const a=el('a','','Ir al curso base del campus →');a.href='../cursos/'+encodeURIComponent(t.course)+'/index.html';links.append(a);}
+ const lab=el('a','','Practicar un laboratorio de '+t.name+' ↗');lab.href='labs.html?topic='+encodeURIComponent(t.id);links.append(lab);
  $('route-title').setAttribute('tabindex','-1');$('route-title').focus({preventScroll:false});
 }
 function closeRoute(){selectedRoute=null;$('route-detail').hidden=true;$('rutas-grid').hidden=false;renderTracks();$('h-rutas').focus({preventScroll:true});}
@@ -110,6 +111,32 @@ function renderPlan(){
   if(!obj)continue;saved++;resources.append(el('p','',obj.name||obj.title));
  }
  if(!saved)resources.append(el('p','','Marca ☆ Guardar en recursos para crear tu biblioteca personal.'));
+ updateLinkedProgress();
+}
+function readSiblingProgress(key,schema,maxSize) {
+ try {
+  const raw=localStorage.getItem(key);
+  if(!raw||raw.length>maxSize)return null;
+  const obj=JSON.parse(raw);
+  return obj&&obj.schema===schema&&obj.cases&&typeof obj.cases==='object'&&!Array.isArray(obj.cases)?obj.cases:null;
+ }catch(_){return null;}
+}
+function updateLinkedProgress() {
+ const lab=$('plan-labs'),mission=$('plan-mission');lab.replaceChildren();mission.replaceChildren();
+ const labData=readSiblingProgress('secure-t.observatorio.labs.v1','secure-t.observatorio.labs.v1',100000);
+ const missionData=readSiblingProgress('secure-t.mission-control.v1','secure-t.mission-control.v1',100000);
+ const labCount=d.tracks.filter(t=>{
+  const c=labData&&Object.prototype.hasOwnProperty.call(labData,t.id)?labData[t.id]:null;
+  return c&&c.complete===true&&Array.isArray(c.answers)&&c.answers.length===2&&c.answers.every(x=>x===true)&&typeof c.notes==='string'&&c.notes.trim().length>=120;
+ }).length;
+ const missionCount=['auth','mail','integrity','cloud','ai','privacy'].filter(id=>{
+  const c=missionData&&Object.prototype.hasOwnProperty.call(missionData,id)?missionData[id]:null;
+  return c&&c.cursor===4&&c.documented===true&&Array.isArray(c.correct)&&c.correct.length===4&&c.correct.every(x=>x===true)&&c.notes&&['facts','uncertainty','action'].every(k=>typeof c.notes[k]==='string'&&c.notes[k].trim().length>=40);
+ }).length;
+ lab.append(el('p','',labCount+'/14 ejercicios autoevaluados.'));
+ const a=el('a','','Ir a laboratorios ↗');a.href='labs.html';lab.append(a);
+ mission.append(el('p','',missionCount+'/6 escenarios documentados.'));
+ const b=el('a','','Abrir Mission Control ↗');b.href='../workstation/mission.html';mission.append(b);
 }
 function updateStats(){
  $('stat-progress').textContent=state.done.length+'/56';$('count-done').textContent=String(state.done.length);
@@ -165,5 +192,5 @@ document.addEventListener('keydown',event=>{
  if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='k'){event.preventDefault();$('search').focus();}
  if(event.key==='Escape' && selectedRoute){closeRoute();}
 });
-renderAll();showSection('rutas');
+renderAll();showSection('rutas',false);
 })();

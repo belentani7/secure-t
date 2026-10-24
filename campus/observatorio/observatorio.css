@@ -4,3 +4,7 @@
 @media(max-width:380px){.brand{font-size:14px}.brand small{font-size:6px}.nav-button{font-size:8px}.hero h1{font-size:35px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 @media print{body{background:white;color:black}.top,.sidebar,.utility,.searchbar,.hero,.metrics,.footer,.card-footer,.filterrow,.status{display:none!important}.frame{display:block}.main{padding:0}.card,.module{background:white;color:black;border:1px solid #555}.section[hidden]{display:none!important}.card p,.module p{color:#333}}
+
+/* Touch/mobile hardening: long labels and source identifiers must wrap, not scroll the page. */
+.nav-button,.card h3,.card p,.news-item h3,.news-item p,.route-detail h3,.watch-grid a,.brand small{overflow-wrap:anywhere;min-width:0}
+@media(max-width:790px){.nav{min-width:0}.nav-button{min-width:0;word-break:break-word}.brand{min-width:0;white-space:normal}.return{max-width:100%}.searchbar,.card,.route-detail{min-width:0}.watch-grid a{min-width:0}}
