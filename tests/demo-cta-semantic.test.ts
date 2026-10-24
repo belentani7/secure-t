@@ -16,4 +16,10 @@ describe('Secure T public demo navigation', () => {
     expect(home).not.toContain('Esta ruta académica se habilitará al completar tu perfil.');
     expect(home).toContain('pathways.map(({ icon: Icon, accent, kicker, title, description, courses: courseMeta }) => <article');
   });
+  it('does not make course preview tiles navigate to the unrelated student record', () => {
+    expect(home).not.toContain('filteredCourses.map(({ code, title, meta, color, icon: Icon, progress }) => <Link');
+    expect(home).toContain('filteredCourses.map(({ code, title, meta, color, icon: Icon, progress }) => <article');
+    expect(home).toContain('Sample progress — not your record');
+  });
+
 });
