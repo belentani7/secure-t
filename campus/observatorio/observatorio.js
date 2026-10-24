@@ -117,7 +117,7 @@ function updateStats(){
 function renderAll(){
  const counts={rutas:renderTracks(),herramientas:renderTools(),biblioteca:renderSources(),actualidad:renderNews()};
  renderPlan();updateStats();
- if(selectedRoute)openRoute(selectedRoute);
+ // Keep an opened route intact during a bookmark refresh; do not re-enter navigation.
  const label=current==='mi-plan'?'Tus preferencias guardadas':counts[current]+' resultados visibles';
  $('result-count').textContent=label+'. '+(current==='actualidad'?'Instantánea editorial, no feed en directo.':'');
 }
