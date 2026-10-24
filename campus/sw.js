@@ -1,7 +1,7 @@
 // Cache only this campus. Other applications can share the same hosting origin.
 const SCOPE = new URL(self.registration.scope);
 const PREFIX = `secure-t-campus:${SCOPE.pathname}:`;
-const CACHE = `${PREFIX}v6`;
+const CACHE = `${PREFIX}v7`;
 const CORE = ['./', './index.html', './tokens.css', './app.js',
   './workstation/index.html', './workstation/workstation.css',
   './workstation/workstation-data.js', './workstation/workstation.js',
@@ -37,6 +37,11 @@ self.addEventListener('fetch', e => {
       const cached = await cache.match(e.request);
       if (cached) return cached;
       if (e.request.mode === 'navigate') {
+        // Cache /campus/observatorio/index.html also serves offline /campus/observatorio/.
+        if (url.pathname.endsWith('/')) {
+          const directoryIndex = await cache.match(url.origin + url.pathname + 'index.html');
+          if (directoryIndex) return directoryIndex;
+        }
         const index = await cache.match(new URL('index.html', SCOPE).href);
         if (index) return index;
       }
