@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#09131f">
+<meta name="description" content="Observatorio Secure T: rutas de ciberseguridad, herramientas, fuentes verificadas y actualidad editorial con fecha.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Observatorio · Secure T Academy</title>
+<link rel="stylesheet" href="observatorio.css">
+<script defer src="data.js"></script>
+<script defer src="observatorio.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<div class="layout">
+<header class="top">
+<a href="../" class="brand" aria-label="Secure T: volver al campus"><span class="brand-icon" aria-hidden="true">⬡</span><span>SECURE <b>T</b><small>OBSERVATORIO // KNOWLEDGE SYSTEM</small></span></a>
+<div class="top-status"><i aria-hidden="true"></i> EDICIÓN 24·10·2026 / OFFLINE</div>
+<a class="return" href="../workstation/">⌘ PC de alumnos ↗</a>
+</header>
+<div class="frame">
+<aside class="sidebar">
+<div class="side-mark">ACADEMY SYSTEM / 2026.10</div>
+<h2>Tu centro de<br><em>conocimiento.</em></h2>
+<p>Una biblioteca del nicho, rutas prácticas y fuentes oficiales, en un mismo espacio.</p>
+<nav aria-label="Secciones del observatorio" class="nav">
+<button type="button" data-section="rutas" aria-controls="section-rutas" aria-pressed="true" class="nav-button selected"><span aria-hidden="true">▤</span> Itinerarios <b id="count-rutas">14</b></button>
+<button type="button" data-section="herramientas" aria-controls="section-herramientas" aria-pressed="false" class="nav-button"><span aria-hidden="true">⟡</span> Laboratorio & tools <b id="count-tools">40</b></button>
+<button type="button" data-section="biblioteca" aria-controls="section-biblioteca" aria-pressed="false" class="nav-button"><span aria-hidden="true">◎</span> Biblioteca <b id="count-sources">33</b></button>
+<button type="button" data-section="actualidad" aria-controls="section-actualidad" aria-pressed="false" class="nav-button"><span aria-hidden="true">◷</span> Actualidad verificada <b id="count-news">6</b></button>
+<button type="button" data-section="mi-plan" aria-controls="section-mi-plan" aria-pressed="false" class="nav-button"><span aria-hidden="true">✓</span> Mi plan & progreso <b id="count-done">0</b></button>
+</nav>
+<div class="side-box"><span>FUENTE DE VERDAD</span><strong>Curado. Fechado. Comprobable.</strong><p>Las noticias son una instantánea editorial, no un feed automático. Consulta siempre la fuente primaria.</p></div>
+</aside>
+<main id="main" class="main">
+<div class="utility"><span id="breadcrumb">SECURE T / RUTAS</span><div><button id="export-progress" type="button">↓ Exportar JSON</button><button id="import-progress" type="button">↑ Importar</button><input type="file" id="import-file" accept=".json,application/json" hidden><button id="reset-progress" type="button">↺ Borrar</button></div></div>
+<section class="hero"><div><span class="overline"><span class="diamond"></span> CYBERSECURITY INTELLIGENCE · LEARNING</span><h1>No solo aprender.<br><span>Entender el terreno.</span></h1><p>Del analista SOC a IA segura, privacidad, cloud y seguridad por diseño. Estructuras de estudio, herramientas profesionales y documentación con procedencia.</p><div class="hero-label">Bibliografía y noticias seleccionadas · Actualización editorial: 24 de octubre de 2026</div></div><div class="orb" aria-hidden="true"><div class="orb-a"></div><div class="orb-b"></div><div class="orb-c"></div><div class="orb-center">ST<sup>∞</sup></div></div></section>
+<div class="metrics" aria-label="Datos del observatorio"><article><span>RUTAS TEMÁTICAS</span><strong>14</strong><small>De fundamentos a portafolio</small></article><article><span>MÓDULOS PROPUESTOS</span><strong>56</strong><small>Objetivo y evidencia por módulo</small></article><article><span>RECURSOS SELECCIONADOS</span><strong>73</strong><small>40 herramientas · 33 fuentes</small></article><article><span>PROGRESO LOCAL</span><strong id="stat-progress">0/56</strong><small>No es acreditación profesional</small></article></div>
+<div class="searchbar"><label for="search">BUSCADOR TRANSVERSAL</label><div class="search-input"><span aria-hidden="true">⌕</span><input id="search" type="search" maxlength="120" placeholder="SOC, privacidad, Sigma, OWASP, respuesta, NIS2..." autocomplete="off"><kbd>Ctrl K</kbd></div><div class="filterrow"><label for="domain-filter">Área</label><select id="domain-filter"><option value="all">Todas las áreas</option></select><label for="saved-only" class="check"><input id="saved-only" type="checkbox"> Solo guardados</label><button type="button" id="clear-filters">Limpiar filtros</button></div><p id="result-count" role="status" aria-live="polite">Selecciona una sección para explorar.</p></div>
+<section id="section-rutas" class="section" aria-labelledby="h-rutas">
+<header class="section-head"><span class="overline">01 / PLANES DE ESTUDIO</span><h2 id="h-rutas" tabindex="-1">Rutas por especialidad</h2><p>14 itinerarios de cuatro módulos cada uno. Son <strong>guías estructurales para el estudio</strong>, no cursos íntegros ni certificados oficiales.</p></header>
+<div id="rutas-grid" class="grid cards-rutas"></div><p id="rutas-empty" class="empty" hidden>No hay rutas que coincidan con tu búsqueda.</p>
+<div id="route-detail" class="route-detail" hidden><button type="button" id="route-close" class="ghost">← Volver a las rutas</button><span class="overline" id="route-code">RUTA</span><h3 id="route-title"></h3><p id="route-outcome"></p><div class="route-meta"><span id="route-role"></span><span id="route-level"></span><span id="route-completion"></span></div><div id="route-modules" class="modules"></div><div id="route-course-link"></div></div>
+</section>
+<section id="section-herramientas" class="section" aria-labelledby="h-herramientas" hidden>
+<header class="section-head"><span class="overline">02 / RECURSOS OPEN SOURCE & PROFESIONALES</span><h2 id="h-herramientas" tabindex="-1">Herramientas del nicho</h2><p>Enlaces a herramientas externas, agrupadas por disciplina. No están instaladas ni ejecutadas dentro de Secure T; revisa licencias, requisitos y alcance permitido.</p></header>
+<div id="herramientas-grid" class="grid cards-resources"></div><p id="herramientas-empty" class="empty" hidden>No hay herramientas que coincidan.</p></section>
+<section id="section-biblioteca" class="section" aria-labelledby="h-biblioteca" hidden>
+<header class="section-head"><span class="overline">03 / NORMATIVA · GUÍAS · DOCUMENTACIÓN PRIMARIA</span><h2 id="h-biblioteca" tabindex="-1">Biblioteca de referencia</h2><p>Prioridad a fuentes institucionales y proyectos mantenidos. Un enlace no equivale a validación de todas sus páginas o a asesoría legal.</p></header>
+<div id="biblioteca-grid" class="grid cards-resources"></div><p id="biblioteca-empty" class="empty" hidden>No hay referencias que coincidan.</p></section>
+<section id="section-actualidad" class="section" aria-labelledby="h-actualidad" hidden>
+<header class="section-head"><span class="overline">04 / VERIFICACIÓN Y CONTEXTO</span><h2 id="h-actualidad" tabindex="-1">Actualidad y señales</h2><p class="news-disclaimer"><strong>Instantánea editorial del 24/10/2026.</strong> No actualiza automáticamente, no monitoriza amenazas en tiempo real ni sustituye los avisos oficiales.</p></header>
+<div id="actualidad-grid" class="news-grid"></div><p id="actualidad-empty" class="empty" hidden>No hay noticias que coincidan.</p>
+<div class="watch"><h3>Fuentes que merece la pena revisar</h3><p>Cadencias recomendadas para una revisión editorial humana. Estas comprobaciones no están automatizadas.</p><div id="watch-grid" class="watch-grid"></div></div></section>
+<section id="section-mi-plan" class="section" aria-labelledby="h-mi-plan" hidden>
+<header class="section-head"><span class="overline">05 / PERSONAL LEARNING SYSTEM</span><h2 id="h-mi-plan" tabindex="-1">Mi plan de desarrollo</h2><p>Marca las actividades revisadas, guarda recursos y organiza tu estudio. El seguimiento local solo refleja tus marcas, no evalúa competencias.</p></header>
+<div class="plan-board"><div><h3>Rutas seleccionadas</h3><div id="plan-routes"></div></div><div><h3>Recursos guardados</h3><div id="plan-resources"></div></div></div><div class="plan-help"><strong>¿Cómo cerrar una competencia con rigor?</strong><p>Completa el material, reproduce un laboratorio autorizado, prepara evidencia verificable y pide revisión de otra persona. Después, incorpora el ejercicio a tu portafolio.</p><a href="../workstation/mission.html">Practicar con Mission Control ↗</a></div></section>
+<div id="app-status" role="status" aria-live="polite" class="status"></div>
+<footer class="footer"><span>SECURE T / OBSERVATORIO</span><span>Local-first · 0 tracking · Fines educativos · Sin certificación</span></footer>
+</main>
+</div>
+</div>
+</body>
+</html>
