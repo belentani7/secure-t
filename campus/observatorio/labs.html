@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#09151e">
+<meta name="description" content="Laboratorio docente Secure T: 14 prácticas de ciberseguridad e IA seguras con 28 verificaciones, evidencia sintética y cuaderno local.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Laboratorios guiados · Secure T</title>
+<link rel="stylesheet" href="observatorio.css">
+<link rel="stylesheet" href="labs.css">
+<script defer src="labs-data.js"></script>
+<script defer src="labs.js"></script>
+</head>
+<body class="labs-body">
+<a class="skip" href="#main">Saltar al laboratorio</a>
+<div class="layout">
+<header class="top"><a href="../" class="brand"><span aria-hidden="true" class="brand-icon">⬡</span><span>SECURE <b>T</b><small>LEARNING LAB // RESPONSIBLE CYBER</small></span></a><div class="top-status"><i aria-hidden="true"></i> FORMACIÓN · SIN DATOS REALES</div><a class="return" href="index.html">◎ Observatorio ↗</a></header>
+<div class="labs-layout">
+<aside class="labs-side">
+<span class="overline">LEARNING OPERATIONS / 01</span>
+<h2>Aprende por<br><em>evidencia.</em></h2>
+<p>14 lecciones independientes con datos ficticios, dos decisiones comentadas y una reflexión escrita.</p>
+<div class="labs-progress"><span id="labs-total">0 / 14 completados</span><progress max="14" value="0" id="labs-bar">0 de 14</progress></div>
+<label for="labs-search">Encontrar un laboratorio</label><input type="search" id="labs-search" maxlength="90" placeholder="SOC, IA, cloud..." autocomplete="off">
+<nav id="labs-list" aria-label="Elegir laboratorio" class="labs-list"></nav>
+</aside>
+<main id="main" class="labs-main">
+<div class="lab-toolbar"><span>SECURE T / PRACTICE LAB</span><div><button type="button" id="lab-export">↓ Exportar</button><button type="button" id="lab-import">↑ Importar</button><input type="file" id="lab-file" accept=".json,application/json" hidden><button type="button" id="lab-reset">↺ Restablecer</button></div></div>
+<div class="lab-hero"><span class="overline">LECCIÓN PRÁCTICA / 20 MIN · AUTODIDACTA</span><h1 id="lab-title" tabindex="-1">Investigación responsable</h1><p id="lab-meta">Analiza datos ficticios, reconoce límites y explica tu decisión.</p><div class="lab-badges"><span id="lab-status" class="lab-badge">SIN COMPLETAR</span><span class="lab-badge">SEGURIDAD · ALCANCE CONTROLADO</span></div></div>
+<div class="lab-sections">
+<section class="lab-section" aria-labelledby="lab-h-principles"><div class="part-head"><span>01 / ESTUDIA</span><h2 id="lab-h-principles">Conceptos esenciales</h2></div><ol id="lab-principles" class="lab-principles"></ol></section>
+<section class="lab-section" aria-labelledby="lab-h-evidence"><div class="part-head"><span>02 / OBSERVA</span><h2 id="lab-h-evidence">Evidencia sintética</h2></div><div class="lab-terminal"><div class="terminal-head"><span class="term-dots" aria-hidden="true">● ● ●</span><span id="lab-path">/training/records.log</span><span>READ ONLY</span></div><pre id="lab-events" tabindex="0"></pre></div><p class="lab-caveat">Estos eventos son inventados y no se conectan con sistemas reales. Se utilizan direcciones IP reservadas y dominios ficticios.</p></section>
+<section class="lab-section" aria-labelledby="lab-h-decisions"><div class="part-head"><span>03 / DECIDE</span><h2 id="lab-h-decisions">Comprueba tus decisiones</h2><p>Lee las tres alternativas, justifica mentalmente tu elección y comprueba la explicación.</p></div><div id="lab-questions" class="lab-questions"></div><p id="lab-check-status" class="lab-message" role="status" aria-live="polite">Responde a las dos preguntas para comenzar tu cuaderno.</p></section>
+<section class="lab-section" aria-labelledby="lab-h-journal"><div class="part-head"><span>04 / DOCUMENTA</span><h2 id="lab-h-journal">Cuaderno de reflexión</h2><p id="lab-prompt">Describe qué sabes, qué no sabes y cómo actuarías dentro del alcance permitido.</p></div><form id="lab-journal-form"><label for="lab-notes">Tus observaciones, límites y próxima verificación (mínimo 120 caracteres)</label><textarea id="lab-notes" rows="7" maxlength="3000" placeholder="Hechos: ...&#10;Incertidumbre: ...&#10;Verificación autorizada: ..."></textarea><div class="lab-words"><span id="lab-charcount">0 / 3000 caracteres</span><span>Máximo 3.000 caracteres · guardado local</span></div><label class="lab-consent"><input type="checkbox" id="lab-confirm"><span>Confirmo que no he incluido datos personales reales ni instrucciones para actuar sobre terceros sin permiso.</span></label><button type="submit" id="lab-submit" class="lab-primary">Comprobar y guardar ejercicio ↗</button><p id="lab-journal-status" class="lab-message" role="status" aria-live="polite"></p></form></section>
+<section class="lab-section lab-outcome" aria-labelledby="lab-h-outcome"><div class="part-head"><span>05 / RESULTADO</span><h2 id="lab-h-outcome">Tu evidencia formativa</h2></div><p>Una práctica completada significa únicamente que has respondido correctamente a dos preguntas y aportado una reflexión de longitud mínima. No comprueba la calidad técnica del texto ni otorga títulos.</p><div class="lab-nav-bottom"><button type="button" id="lab-next" class="lab-primary">Siguiente especialidad →</button><a href="../workstation/mission.html">Continuar en Mission Control ↗</a><a href="index.html">Ver rutas, fuentes y herramientas ↗</a></div></section>
+</div><p id="lab-global" class="status" role="status" aria-live="polite"></p><footer class="footer"><span>SECURE T / LABS</span><span>Sin servicios externos · Sin credenciales · Autodeclaración, no acreditación</span></footer>
+</main>
+</div></div>
+</body></html>
