@@ -163,3 +163,11 @@ telemetría, shell real, servicios externos ni credenciales académicas. Los esc
 `node tests/browser-mission.cjs` dentro del entorno Playwright de la CI.
 Los resultados de una autoevaluación guardada por el propio navegador **no constituyen acreditación**.
 
+
+## Observatorio Cyber: biblioteca editorial y rutas de ciberseguridad
+
+El catálogo local de `campus/observatorio/` integra **14 rutas de estudio** (56 fichas de módulos con objetivo y entregable, no 56 cursos terminados), **40 herramientas de referencia**, **33 fuentes editoriales primarias**, **6 noticias verificadas y fechadas** y ocho destinos sugeridos para seguimiento manual. La sección no se conecta a APIs de terceros ni presenta los avisos como un feed en tiempo real. Las noticias reflejan una instantánea al 24/10/2026.
+
+El alumno puede buscar transversalmente, filtrar por dominio, marcar módulos estudiados, guardar referencias y exportar/importar su estado con JSON validado. El progreso es una declaración local, no una certificación. El sitio está integrado en campus, academia, PC educativo, sitemap y precaché del service worker.
+
+Ver [README de calidad editorial](campus/observatorio/EDITORIAL.md) y pruebas `tests/observatorio-engine.test.cjs`, `tests/browser-observatorio.cjs`.
