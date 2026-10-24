@@ -3,8 +3,8 @@
    No network calls to third parties and no user telemetry. */
 (() => {
   if (!('serviceWorker' in navigator) || !window.isSecureContext) return;
-  const url = new URL('../sw.js', document.currentScript.src);
-  navigator.serviceWorker.register(url.href, {scope:'./'}).catch(() => {
+  const url = new URL('sw.js', document.currentScript.src);
+  navigator.serviceWorker.register(url.href, {scope:new URL('./', url.href).href}).catch(() => {
     // The campus remains usable online without a service worker.
   });
 })();
