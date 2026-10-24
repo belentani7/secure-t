@@ -97,7 +97,7 @@ function message(){
  const n=record().answers.filter(Boolean).length;
  $('lab-check-status').textContent=n+'/2 respuestas razonadas. '+(n===2?'Escribe tu reflexión para completar el ejercicio.':'Todavía quedan preguntas.');
 }
-function selectLesson(id){
+function selectLesson(id,moveFocus=true){
  const lesson=cases.get(id);if(!lesson)return;
  current=lesson;dirty=false;
  $('lab-title').textContent=lesson.title;
@@ -112,7 +112,7 @@ function selectLesson(id){
  $('lab-charcount').textContent=record().notes.length+' / 3000 caracteres';
  $('lab-journal-status').textContent=record().complete?'Completado localmente. Puedes revisar el cuaderno; los cambios requieren nueva confirmación.':'Sin enviar contenido a servidores. Los apuntes se guardan en este navegador.';
  renderQuestions();message();stats();renderMenu();
- $('lab-title').focus({preventScroll:true});
+ if(moveFocus)$('lab-title').focus({preventScroll:true});
 }
 function saveDraft(){
  const notes=$('lab-notes').value.slice(0,3000);
@@ -175,5 +175,5 @@ $('lab-file').addEventListener('change',importFile);
 $('lab-reset').addEventListener('click',reset);
 const query=new URLSearchParams(window.location.search);
 const selected=query.get('topic');
-selectLesson(cases.has(selected)?selected:db.lessons[0].id);
+selectLesson(cases.has(selected)?selected:db.lessons[0].id,false);
 })();
