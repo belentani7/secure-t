@@ -175,3 +175,9 @@ Ver [README de calidad editorial](campus/observatorio/EDITORIAL.md) y pruebas `t
 ## Centro de Amenazas: transparencia sobre la fecha
 
 El visor `campus/amenazas.html` consulta **el archivo estático** `campus/data/threat-intel.json`. La instantánea de este repositorio se generó el **1 de octubre de 2026**; no es un feed en directo. El visor avisa cuando han pasado más de dos días desde la fecha de generación, muestra fuentes originales CISA KEV y NVD y permite acceder al Observatorio editorial fechado. Se endureció el tratamiento de campos procedentes de feeds externos antes de mostrarlos en HTML/SVG. Test: `node --test tests/threat-feed-freshness.test.cjs`.
+
+## Laboratorios guiados por especialidad
+
+`campus/observatorio/labs.html` ofrece **14 lecciones completas de exploración introductoria**, una por especialidad del observatorio. Cada una aporta tres conceptos explicados, dos registros sintéticos, dos comprobaciones comentadas y un cuaderno de observaciones que requiere al menos 120 caracteres y confirmación de alcance ético. Son 28 decisiones autocorregidas en conjunto.
+
+Los resultados se guardan exclusivamente en `localStorage`, se pueden exportar/importar mediante JSON validado y **no constituyen evaluación acreditada**. La aplicación no ejecuta código ni contacta a equipos reales. Se accede desde Observatorio y Workstation; sus activos están precargados por el service worker v8. Pruebas: `tests/labs-engine.test.cjs`, `tests/browser-labs.cjs`.

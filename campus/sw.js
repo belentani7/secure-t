@@ -1,14 +1,16 @@
 // Cache only this campus. Other applications can share the same hosting origin.
 const SCOPE = new URL(self.registration.scope);
 const PREFIX = `secure-t-campus:${SCOPE.pathname}:`;
-const CACHE = `${PREFIX}v7`;
+const CACHE = `${PREFIX}v8`;
 const CORE = ['./', './index.html', './tokens.css', './app.js',
   './workstation/index.html', './workstation/workstation.css',
   './workstation/workstation-data.js', './workstation/workstation.js',
   './workstation/mission.html', './workstation/mission.css',
   './workstation/mission-data.js', './workstation/mission.js',
   './observatorio/index.html', './observatorio/observatorio.css',
-  './observatorio/data.js', './observatorio/observatorio.js'];
+  './observatorio/data.js', './observatorio/observatorio.js',
+  './observatorio/labs.html', './observatorio/labs.css',
+  './observatorio/labs-data.js', './observatorio/labs.js'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)));

@@ -43,7 +43,7 @@ function renderTracks(){
   const meta=el('div','card-meta');meta.append(el('span','',t.domain.toUpperCase()),el('span','badge',t.level));
   const name=el('h3','',t.name),desc=el('p','',t.outcome);
   const footer=el('div','card-footer'),open=el('button','', 'Explorar ruta ↗');open.type='button';open.addEventListener('click',()=>openRoute(t.id));
-  footer.append(open,bookmark('route:'+t.id));c.append(meta,name,desc,el('span','tag',trackProgress(t)+'/4 módulos revisados'),footer);grid.append(c);
+  const lab=el('a','','Laboratorio práctico ↗');lab.href='labs.html?topic='+encodeURIComponent(t.id);footer.append(open,lab,bookmark('route:'+t.id));c.append(meta,name,desc,el('span','tag',trackProgress(t)+'/4 módulos revisados'),footer);grid.append(c);
  }
  countIndicator('rutas',n);return n;
 }
@@ -65,6 +65,7 @@ function openRoute(id){
  }
  const links=$('route-course-link');links.replaceChildren();
  if(t.course){const a=el('a','','Ir al curso base del campus →');a.href='../cursos/'+encodeURIComponent(t.course)+'/index.html';links.append(a);}
+ const lab=el('a','','Practicar un laboratorio de '+t.name+' ↗');lab.href='labs.html?topic='+encodeURIComponent(t.id);links.append(lab);
  $('route-title').setAttribute('tabindex','-1');$('route-title').focus({preventScroll:false});
 }
 function closeRoute(){selectedRoute=null;$('route-detail').hidden=true;$('rutas-grid').hidden=false;renderTracks();$('h-rutas').focus({preventScroll:true});}
