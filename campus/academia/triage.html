@@ -34,7 +34,7 @@ button:disabled{opacity:.5;cursor:not-allowed}button:focus-visible,select:focus-
 <script type="module">
 import {INCIDENTS,LABELS,assess,learningReport} from './triage-core.mjs';
 const $=id=>document.getElementById(id);
-let lang='pt',step=0,answers=[],reviewed=false,lastCorrect=false;
+let lang='pt',step=0,answers=[],reviewed=false,lastCorrect=false,pendingChoice=null;
 function draw(){
  const t=LABELS[lang];document.documentElement.lang=lang;document.title=t.title+' · Secure T';
  $('title').textContent=t.title;$('subtitle').textContent=t.subtitle;$('note').textContent=t.note;
@@ -48,9 +48,10 @@ function draw(){
  $('question').textContent=incident.question[lang];$('instruction').textContent=t.prompt;
  $('submit').textContent=t.submit;$('submit').hidden=reviewed;$('next').textContent=t.next;$('next').hidden=!reviewed;
  $('options').replaceChildren();
+ document.querySelector('#decision').addEventListener('change',event=>{if(event.target?.name==="decision")pendingChoice=Number(event.target.value);},{once:true});
  incident.choices.forEach((word,i)=>{
   const label=document.createElement('label');label.className='option';
-  const input=document.createElement('input');input.type='radio';input.name='decision';input.value=String(i);input.required=true;input.disabled=reviewed;
+  const input=document.createElement('input');input.type='radio';input.name='decision';input.value=String(i);input.required=true;input.disabled=reviewed;input.checked=reviewed?answers[step]===i:pendingChoice===i;
   const span=document.createElement('span');span.textContent=word[lang];label.append(input,span);$('options').append(label);
  });
  $('feedback').hidden=!reviewed;
@@ -63,10 +64,10 @@ function draw(){
 }
 $('decision').addEventListener('submit',event=>{
  event.preventDefault();if(reviewed)return;const input=document.querySelector('input[name="decision"]:checked');if(!input)return;
- const option=Number(input.value);lastCorrect=assess(INCIDENTS[step],option);answers.push(option);reviewed=true;draw();$('feedback').focus();
+ const option=Number(input.value);lastCorrect=assess(INCIDENTS[step],option);answers.push(option);pendingChoice=null;reviewed=true;draw();$('feedback').focus();
 });
-$('next').addEventListener('click',()=>{step++;reviewed=false;draw();(step===INCIDENTS.length?$('summary'):$('work')).focus();});
-$('restart').addEventListener('click',()=>{step=0;answers=[];reviewed=false;draw();$('work').focus();});
+$('next').addEventListener('click',()=>{step++;pendingChoice=null;reviewed=false;draw();(step===INCIDENTS.length?$('summary'):$('work')).focus();});
+$('restart').addEventListener('click',()=>{step=0;answers=[];pendingChoice=null;reviewed=false;draw();$('work').focus();});
 $('lang').addEventListener('change',event=>{lang=event.target.value;draw();});
 $('download').addEventListener('click',()=>{
  const blob=new Blob([learningReport(answers,lang)],{type:'text/plain;charset=utf-8'});
