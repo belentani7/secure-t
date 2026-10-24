@@ -83,6 +83,19 @@ python3 scripts/build_site.py
 python3 -m http.server 8000 --directory site-dist
 ```
 
+## Estación de prácticas (Secure T Workstation)
+
+El laboratorio **ya incluido en el campus estático** vive en `campus/workstation/`.
+Ofrece un terminal de comandos estrictamente simulados (`help`, `ls`, `cat`,
+`grep`, `head`, `timeline`, `case`), tres casos SOC con datos sintéticos, una
+guía de análisis y un cuaderno de evidencias local con exportación e importación
+JSON. No abre sockets, no ejecuta código del alumnado, no consulta APIs y no
+emite certificados. Los casos se autoevalúan solo en estructura y decisión
+inicial; la calidad del análisis libre requiere revisión humana.
+
+El enlace está en `campus/index.html` y `campus/academia/index.html`. La
+construcción estática copia el módulo completo y valida los enlaces.
+
 ## Motor educativo (eduforge)
 
 `lib/edu-engine/` contiene el motor que genera y valida el curriculo. Tiene tests
