@@ -36,6 +36,13 @@ function app(initial={}){
   const elements=Object.fromEntries([...html.matchAll(/\bid="([^"]+)"/g)].map(m=>[m[1],new Mock()]));
   const tabs=['cases','cards','journal','about'].map(v=>{const n=new Mock('button');n.dataset.view=v;return n;});
   const ratings=[0,1,2,3].map(v=>{const n=new Mock('button');n.dataset.rating=String(v);return n;});
+  // jsdom-like essentials: radio choices belong to a descendant of the form,
+  // and a native <select> initially selects its first real option.
+  elements['decision-form'].querySelector=selector=>selector==='input[name="choice"]:checked'
+    ? elements['decision-options'].children.map(x=>x.children[0]).find(x=>x.checked)||null
+    : null;
+  elements['journal-case'].value='auth';
+  elements['card-filter'].value='all';
   const document={
     body:new Mock('body'),getElementById:id=>elements[id],
     createElement:tag=>new Mock(tag),
@@ -92,6 +99,8 @@ test('wrong choice does not advance; 4 correct decisions plus evidence complete 
   assert.match(e['decision-feedback'].textContent,/no está sustentada/);
   assert.equal(e['decision-next'].hidden,true);
   for(let i=0;i<4;i++){
+    // Native radio controls are mutually exclusive; the minimal mock requires this.
+    e['decision-options'].children.forEach(label=>{label.children[0].checked=false;});
     e['decision-options'].children[answers[i]].children[0].checked=true;
     fire(e['decision-form'],'submit');
     assert.equal(e['decision-next'].hidden,false);
