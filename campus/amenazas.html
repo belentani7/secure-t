@@ -305,7 +305,7 @@ function renderNvd() {
   for (const v of nvdItems) {
     html += `<div class="nvd-item">
       <div class="nvd-header">
-        <span class="nvd-cve">${v.cve_id}</span>
+        <span class="nvd-cve">${esc(v.cve_id)}</span>
         <span class="nvd-score">CVSS ${esc(v.score)}</span>
         <span class="nvd-date">${esc(v.published)}</span>
         ${v.attack_vector ? `<span class="badge badge-critical">${esc(v.attack_vector)}</span>` : ''}
