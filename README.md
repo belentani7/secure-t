@@ -87,7 +87,7 @@ python3 -m http.server 8000 --directory site-dist
 
 El laboratorio **ya incluido en el campus estático** vive en `campus/workstation/`.
 Ofrece un terminal de comandos estrictamente simulados (`help`, `ls`, `cat`,
-`grep`, `head`, `timeline`, `case`), tres casos SOC con datos sintéticos, una
+`grep`, `head`, `timeline`, `case`), seis casos interdisciplinarios (SOC, cloud, IA segura y privacidad) con datos sintéticos, una
 guía de análisis y un cuaderno de evidencias local con exportación e importación
 JSON. No abre sockets, no ejecuta código del alumnado, no consulta APIs y no
 emite certificados. Los casos se autoevalúan solo en estructura y decisión
