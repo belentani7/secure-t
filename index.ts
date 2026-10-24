@@ -113,8 +113,11 @@ app.post("/api/tutor", async (req, res) => {
   }
 });
 
-// Resolve from the app working directory so both source TS and compiled JS
-// (dist/server/index.js) serve the same Vite build in dist/public.
+// Unknown API endpoints must not fall through to an SPA HTML 200 response.
+// The /api no-store policy above also applies to this JSON 404 handler.
+app.use("/api", (_req, res) => res.status(404).json({ error: "Not found" }));
+
+// Resolve from the application working directory for both TS and compiled JS.
 const staticPath = path.resolve(process.cwd(), "dist", "public");
 app.use(express.static(staticPath));
 app.get("*", (_req, res) => res.sendFile(path.join(staticPath, "index.html")));
