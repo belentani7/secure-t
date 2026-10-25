@@ -18,8 +18,16 @@ useDefault = true
 [[rules]]
 id = "deepseek-api-key"
 description = "Clave de API de DeepSeek (formato sk- + 32 hex)."
-regex = '''\bREDACTED\b'''
+regex = '''\bsk-[a-f0-9]{32}\b'''
 keywords = ["sk-"]
+
+# Allowlist for REDACTED placeholders (replacement text from git-filter-repo)
+[[allowlists]]
+description = "REDACTED placeholders from secret cleanup"
+paths = [
+  '''.*'''
+]
+regex = '''\bREDACTED\b'''
 
 [[allowlists]]
 description = "Textos de traduccion i18n: contienen literales que parecen claves."
