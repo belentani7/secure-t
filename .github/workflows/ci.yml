@@ -27,12 +27,12 @@ jobs:
       - uses: pnpm/action-setup@v4
         with:
           version: 11.25.0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22'
           cache: pnpm
       - name: Install locked dependencies
-        run: pnpm install --frozen-lockfile --ignore-scripts
+        run: pnpm install --frozen-lockfile
       - name: Typecheck
         run: pnpm typecheck
       - name: Domain and SPA tests
