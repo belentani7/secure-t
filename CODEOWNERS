@@ -1,11 +1,10 @@
-# Global owners
+# CODEOWNERS for Belentani flagships
+# Requires review from @belentani7 for all changes
+
 * @belentani7
-
-# Documentation
-/docs/ @belentani7
-
-# CI/CD
-/.github/ @belentani7
-
-# Security
-/SECURITY.md @belentani7
+.github/ @belentani7
+.github/workflows/ @belentani7
+.github/dependabot.yml @belentani7
+.gitleaks.toml @belentani.toml
+CODEOWNERS @belentani7
+SECURITY.md @belentani7
