@@ -43,3 +43,6 @@ test-results/
 # Misc
 *.pem
 .vercel
+
+# Next.js build output
+.next/
