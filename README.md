@@ -3,7 +3,7 @@
 Instituto abierto de ciberseguridad e inteligencia artificial: cuatro programas de
 veinte semanas, gratuitos, en espanol y funcionales sin conexion.
 
-En linea: <https://belentani7.github.io/secure-t/>
+En línea: sin publicar — GitHub Pages no está activo en repositorios privados.
 
 ## Que es este repositorio
 
@@ -140,13 +140,13 @@ formacion gratuita y abierta. El indice completo vive en el nodo central:
 | Plataforma | Que ensena | Enlace |
 |---|---|---|
 | Open School | Instituto digital universal | https://open-school-gamma.vercel.app |
-| ManosAbiertas | IA y ofimatica para recien llegados | https://belentani7.github.io/ManosAbiertas/ |
+| ManosAbiertas | IA y ofimatica para recien llegados | https://manos-abiertas-rho.vercel.app |
 | WILLIAMSCHOOL | Escuela comunitaria (curriculo Nepal) | https://williamschool.vercel.app |
 | UX Academy | Diseno UX/Producto, trilingue | https://ux-academy-professional.vercel.app |
 | Aprende Brasil | Educacion para Brasil | https://aprende-brasil.vercel.app/ |
-| Lingua Aberta | Idiomas, progresion CEFR | https://belentani7.github.io/lingua-aberta-empresa/ |
-| Cruzando el Charco | Acogida y arraigo | https://belentani7.github.io/Cruzando-el-charco/ |
-| secure-t | Ciberseguridad e IA | https://belentani7.github.io/secure-t/ |
+| Lingua Aberta | Idiomas, progresion CEFR | https://lingua-aberta.vercel.app/ |
+| Cruzando el Charco | Acogida y arraigo | https://cruzando-el-charco-web-20260812.vercel.app |
+| secure-t | Ciberseguridad e IA | https://github.com/belentani7/secure-t |
 
 **PT > ES > EN > CA.** Gratuito, accesible (WCAG) y conectado.
 
