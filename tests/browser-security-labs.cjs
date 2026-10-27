@@ -14,7 +14,7 @@ async function main(){
   try {
     for(const lab of [
       {name:'SOC Decision Lab',path:'/campus/academia/triage.html',input:'decision',submit:'#submit',summary:'#summary',number:6},
-      {name:'Threat Modeling Studio',path:'/campus/academia/threat-studio.html',input:'control',submit:'#check',summary:'#finished',number:6},
+      {name:'Threat Modeling Studio',path:'/campus/academia/threat-studio.html',input:'control',submit:'#check',summary:'#finished',number:5},
     ]){
       const page=await browser.newPage({viewport:{width:390,height:844},acceptDownloads:true});
       const exceptions=[];
@@ -23,6 +23,7 @@ async function main(){
       assert.equal(opened?.status(),200,lab.name+' route');
       await page.locator('#lang').waitFor();
       const choices=page.locator('input[name="'+lab.input+'"]');
+      await choices.first().waitFor(); // ES modules load after DOMContentLoaded.
       assert.equal(await choices.count(),3,lab.name+' starts with three alternatives');
 
       // Partially complete question, switch language and verify the same choice survives.
@@ -45,7 +46,8 @@ async function main(){
         await page.locator('#next').click();
       }
       await page.locator(lab.summary+':not([hidden])').waitFor();
-      assert.match(await page.locator('#score').innerText(),/\/ 6/);
+      const score=(await page.locator('#score').innerText()).trim();
+      assert.ok(score.endsWith(' / '+lab.number),lab.name+' score total: '+score);
       const downloadWait=page.waitForEvent('download');
       await page.locator('#download').click();
       const downloaded=await downloadWait;
