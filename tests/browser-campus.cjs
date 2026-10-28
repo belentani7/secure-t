@@ -9,7 +9,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
   page.on('pageerror', e => errors.push(e.message));
   const base = 'http://127.0.0.1:8765';
   await page.goto(base);
-  await page.locator('a[href="./conceptos/index.html"]').click();
+  await page.locator('a[href$="conceptos/index.html"]').click();
   assert.match(page.url(), /conceptos/);
   let answered = 0;
   const courses = ['ciber-ofensiva', 'ciber-defensiva', 'ia-aplicada-segura', 'gobernanza-compliance'];
