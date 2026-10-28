@@ -33,11 +33,11 @@
 <main class="env" id="app">
   <h1>Credencial verificable</h1>
   <p class="t2">Al superar un curso con evidencia, generas aquí tu credencial. El sello es
-  un <strong>SHA-256</strong> calculado en tu navegador: cualquiera puede verificarlo
-  recomputando el hash, sin servidor y sin confiar en nosotros.</p>
+  un <strong>SHA-256</strong> calculado en tu navegador: cualquiera puede comprobar la integridad recalculando el hash.
+  No es una firma oficial ni acredita por sí solo la superación del curso.</p>
   <p class="meta">Anti-atajo: el sellado comprueba tu progreso local (semanas, quiz,
   laboratorio, proyecto y examen completos). Revisión humana de evidencias: PLANNED.
-  Fase actual: sello hash verificable offline. Anclaje en blockchain: fase 2 (roadmap).</p>
+  Fase actual: huella de integridad verificable offline; sin firma institucional.</p>
 
   <h2 id="generar">Generar</h2>
   <label class="meta">Curso superado</label>
@@ -97,8 +97,9 @@ document.getElementById("sellar").onclick = async () => {
     return;
   }
   const f = new Date().toISOString().slice(0, 10);
-  const sello = await sha256(canonico(c, t, e, f));
-  const bloque = {v: 1, curso: c, token: t.slice(0, 8) + "…", evidencia: e,
+  const huellaToken = await sha256(t);
+  const sello = await sha256(canonico(c, huellaToken, e, f));
+  const bloque = {v: 2, curso: c, huellaToken, evidencia: e,
     fecha: f, sello};
   out.hidden = false;
   out.textContent = "Sello SHA-256:\n" + sello +
@@ -109,12 +110,17 @@ document.getElementById("btn-verificar").onclick = async () => {
   const v = document.getElementById("veredicto");
   try {
     const b = JSON.parse(document.getElementById("bloque").value);
-    const recomputado = await sha256(canonico(b.curso, b.token, b.evidencia, b.fecha));
+    if (b.v !== 2 || !/^[a-f0-9]{64}$/.test(b.huellaToken ?? '') ||
+        typeof b.curso !== 'string' || typeof b.evidencia !== 'string' ||
+        typeof b.fecha !== 'string' || !/^[a-f0-9]{64}$/.test(b.sello ?? '')) {
+      throw new Error('Formato inválido o credencial antigua: genera una nueva versión 2.');
+    }
+    const recomputado = await sha256(canonico(b.curso, b.huellaToken, b.evidencia, b.fecha));
     const ok = recomputado === b.sello;
     v.hidden = false;
     v.innerHTML = ok
-      ? '<span class="ok">✓ Sello válido: la credencial no fue modificada.</span>'
-      : '<span class="mal">✗ Sello inválido: el bloque fue alterado o es falso.</span>';
+      ? '<span class="ok">✓ Integridad correcta: el bloque coincide con su huella; no acredita identidad ni superación.</span>'
+      : '<span class="mal">✗ Integridad incorrecta: el bloque no coincide con su huella.</span>';
   } catch (err) {
     v.hidden = false;
     v.innerHTML = '<span class="mal">Bloque ilegible: ' + esc(err.message) + "</span>";
