@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Credencial — Campus Secure-T</title>
+  <meta name="description" content="Genera y verifica una credencial con sello hash SHA-256, sin servidor.">
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    .env { max-width: 46rem; margin: 0 auto; padding: var(--sp-6) var(--sp-4) var(--sp-12); }
+    .grid-cur { display: grid; gap: var(--sp-4); }
+    .progreso-item { display: flex; gap: var(--sp-3); align-items: baseline;
+      padding: var(--sp-2) 0; border-bottom: 1px dashed var(--border); }
+    .barra { height: .55rem; border-radius: 999px; background: var(--bg-muted); overflow: hidden; }
+    .barra > i { display: block; height: 100%; background: var(--accent);
+      transition: width var(--dur-slow) var(--ease-out); }
+    input[type="text"], textarea, select {
+      width: 100%; padding: var(--sp-3); border-radius: var(--r-md);
+      border: 1px solid var(--border); background: var(--bg-sunken);
+      color: var(--text-1); font: inherit; }
+    .resultado { background: var(--bg-sunken); border: 1px solid var(--border);
+      border-radius: var(--r-md); padding: var(--sp-4); font-family: var(--font-mono);
+      font-size: var(--fs-sm); word-break: break-all; }
+    .ok { color: var(--success); } .mal { color: var(--danger); }
+    .fila-botones { display: flex; gap: var(--sp-3); flex-wrap: wrap; margin: var(--sp-4) 0; }
+  </style>
+</head>
+<body>
+<header class="topbar"><div class="bar">
+  <a class="brand" href="index.html">← Campus</a>
+  <span class="brand"><span>credencial</span></span>
+</div></header>
+<main class="env" id="app">
+  <h1>Constancia local de aprendizaje</h1>
+  <p class="t2">Genera una constancia personal con huella SHA-256 calculada en tu
+  navegador. Cualquiera puede comprobar que el bloque es internamente coherente,
+  pero <strong>no demuestra identidad, autoría, resultados de examen ni aprobación
+  de una institución</strong>. Un tercero puede crear otro bloque y calcular su propio hash.</p>
+  <p class="meta">Anti-atajo: el sellado comprueba tu progreso local (semanas, quiz,
+  laboratorio, proyecto y examen completos). Revisión humana de evidencias: PLANNED.
+  Fase actual: comprobación local de integridad, sin emisor ni firma digital. Revisión humana y credenciales institucionales: PLANNED.</p>
+
+  <h2 id="generar">Generar</h2>
+  <label class="meta">Curso superado</label>
+  <select id="curso">
+    <option value="ciber-ofensiva">Ciberseguridad Ofensiva: Pensar como Atacante</option>
+    <option value="ciber-defensiva">Ciberseguridad Defensiva: Operar como SOC</option>
+    <option value="ia-aplicada-segura">Inteligencia Artificial Aplicada y Segura</option>
+    <option value="gobernanza-compliance">Gobernanza y Compliance Digital</option>
+  </select>
+  <label class="meta">Tu token anónimo (de la página de progreso)</label>
+  <input type="text" id="token" placeholder="ej. 3f2a... (uuid local)">
+  <label class="meta">Resumen de la evidencia (qué entregaste)</label>
+  <input type="text" id="evidencia" placeholder="ej. mini-SOC: 3 alertas detectadas + timeline">
+  <div class="fila-botones"><button class="btn" id="sellar">Sellar credencial</button></div>
+  <div class="resultado" id="salida" hidden></div>
+
+  <h2 id="verificar">Verificar</h2>
+  <p class="t2">Pega el bloque de credencial completo:</p>
+  <textarea id="bloque" rows="8" placeholder='{"v":1,"curso":"...",...}'></textarea>
+  <div class="fila-botones"><button class="btn" id="btn-verificar">Verificar sello</button></div>
+  <div class="resultado" id="veredicto" hidden></div>
+</main>
+<script>
+const REQUISITOS = {"ciber-ofensiva": ["semana-01", "semana-02", "semana-03", "semana-04", "semana-05", "semana-06", "semana-07", "semana-08", "semana-09", "semana-10", "semana-11", "semana-12", "semana-13", "semana-14", "semana-15", "semana-16", "semana-17", "semana-18", "semana-19", "semana-20", "quiz", "laboratorio", "proyecto", "examen"], "ciber-defensiva": ["semana-01", "semana-02", "semana-03", "semana-04", "semana-05", "semana-06", "semana-07", "semana-08", "semana-09", "semana-10", "semana-11", "semana-12", "semana-13", "semana-14", "semana-15", "semana-16", "semana-17", "semana-18", "semana-19", "semana-20", "quiz", "laboratorio", "proyecto", "examen"], "ia-aplicada-segura": ["semana-01", "semana-02", "semana-03", "semana-04", "semana-05", "semana-06", "semana-07", "semana-08", "semana-09", "semana-10", "semana-11", "semana-12", "semana-13", "semana-14", "semana-15", "semana-16", "semana-17", "semana-18", "semana-19", "semana-20", "quiz", "laboratorio", "proyecto", "examen"], "gobernanza-compliance": ["semana-01", "semana-02", "semana-03", "semana-04", "semana-05", "semana-06", "semana-07", "semana-08", "semana-09", "semana-10", "semana-11", "semana-12", "semana-13", "semana-14", "semana-15", "semana-16", "semana-17", "semana-18", "semana-19", "semana-20", "quiz", "laboratorio", "proyecto", "examen"]};
+async function sha256(txt) {
+  const buf = await crypto.subtle.digest("SHA-256",
+    new TextEncoder().encode(txt));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+}
+function canonico(c, t, e, f) {
+  return ["secure-t/v2", c, t, e, f].join("|");
+}
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, ch => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[ch]));
+}
+// No cryptographic issuer exists in this static edition. Version 2 is an
+// independently recomputable checksum, not a signed educational credential.
+try { document.getElementById("token").value = localStorage.getItem("stt-token") || ""; } catch (_) {}
+
+function showResult(el, message, good = false) {
+  el.hidden = false;
+  el.textContent = message;
+  el.className = "resultado " + (good ? "ok" : "mal");
+}
+
+document.getElementById("sellar").onclick = async () => {
+  const c = document.getElementById("curso").value;
+  const t = document.getElementById("token").value.trim();
+  const e = document.getElementById("evidencia").value.trim();
+  const out = document.getElementById("salida");
+  if (!Object.prototype.hasOwnProperty.call(REQUISITOS, c) || !t ||
+      e.length < 3 || e.length > 2000) {
+    showResult(out, "Indica un curso, tu token local y una evidencia de 3 a 2000 caracteres.");
+    return;
+  }
+  let localToken = "";
+  let progress = {};
+  try {
+    localToken = localStorage.getItem("stt-token") || "";
+    progress = JSON.parse(localStorage.getItem("stt-progreso") || "{}");
+  } catch (_) { /* unavailable browser storage means no verified local path */ }
+  if (!localToken || t !== localToken || !progress || typeof progress !== "object") {
+    showResult(out, "El token debe coincidir con el que tiene guardado este navegador.");
+    return;
+  }
+  const required = REQUISITOS[c];
+  const missing = required.filter(item => progress[c + "/" + item] !== true);
+  if (missing.length) {
+    showResult(out, "Recorrido incompleto: faltan " + missing.length + " de " +
+      required.length + " hitos. Completa el recorrido en progreso.html.");
+    return;
+  }
+  try {
+    const date = new Date().toISOString().slice(0, 10);
+    // A nonreversible subject digest is exported instead of the local token.
+    const subject = await sha256(t);
+    const seal = await sha256(canonico(c, subject, e, date));
+    const block = {v: 2, curso: c, sujeto: subject, evidencia: e, fecha: date, sello: seal};
+    showResult(out, "Huella SHA-256 (sin firma de emisor):\n" + seal +
+      "\n\nBloque verificable (cópialo entero):\n" +
+      JSON.stringify(block, null, 2), true);
+  } catch (_) {
+    showResult(out, "No se pudo calcular la huella; abre el campus en un contexto seguro.");
+  }
+};
+
+document.getElementById("btn-verificar").onclick = async () => {
+  const out = document.getElementById("veredicto");
+  try {
+    const block = JSON.parse(document.getElementById("bloque").value);
+    if (!block || block.v !== 2 || !Object.prototype.hasOwnProperty.call(REQUISITOS, block.curso) ||
+        typeof block.sujeto !== "string" || !/^[a-f0-9]{64}$/.test(block.sujeto) ||
+        typeof block.evidencia !== "string" || block.evidencia.length < 3 || block.evidencia.length > 2000 ||
+        typeof block.fecha !== "string" || !(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(block.fecha)) ||
+        typeof block.sello !== "string" || !/^[a-f0-9]{64}$/.test(block.sello)) {
+      showResult(out, "Bloque inválido o versión antigua. Genera una nueva constancia v2.");
+      return;
+    }
+    const computed = await sha256(canonico(block.curso, block.sujeto, block.evidencia, block.fecha));
+    showResult(out, computed === block.sello
+      ? "✓ Huella coherente: los campos coinciden con este hash. NO acredita emisor, identidad ni aprendizaje."
+      : "✗ Huella diferente: los campos no coinciden con el hash.", computed === block.sello);
+  } catch (_) {
+    showResult(out, "Bloque JSON ilegible o no se pudo calcular la huella.");
+  }
+};
+</script>
+</body>
+</html>

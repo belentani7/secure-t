@@ -1,0 +1,8 @@
+# robots.txt — secure-t-university (generado por eduforge)
+# Fija SITE_URL al desplegar para URLs definitivas.
+User-agent: *
+Allow: /
+Allow: /campus/
+Allow: /campus/cursos/
+
+Sitemap: https://belentani7.github.io/secure-t/sitemap.xml

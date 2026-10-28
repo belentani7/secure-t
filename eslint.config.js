@@ -9,7 +9,7 @@ export default [
         project: './tsconfig.json',
       },
     },
-    settings: { react: { version: '18.2' } },
+    settings: { react: { version: '19.3' } },
     plugins: {
       react: await import('eslint-plugin-react'),
       'react-hooks': await import('eslint-plugin-react-hooks'),

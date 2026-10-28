@@ -116,6 +116,24 @@ test('tutor requires server-side secret when enabled', async () => {
 });
 
 
+test('served responses enforce a strict content security policy', async () => {
+  await withApi({}, async origin => {
+    const response = await fetch(origin + '/api/health');
+    assert.equal(response.status, 200);
+    const csp = response.headers.get('content-security-policy') || '';
+    assert.match(csp, /default-src 'self'/);
+    assert.match(csp, /script-src 'self'/);
+    assert.match(csp, /object-src 'none'/);
+    assert.match(csp, /frame-ancestors 'none'/);
+    assert.doesNotMatch(csp, /unsafe-eval/);
+    assert.equal(
+      response.headers.get('permissions-policy'),
+      'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
+    );
+    assert.equal(response.headers.get('cross-origin-opener-policy'), 'same-origin');
+  });
+});
+
 test('tutor throttles authenticated requests before external model calls', async () => {
   await withApi({
     SECURE_T_TUTOR_API_KEY: 'local-test-credential-not-real',

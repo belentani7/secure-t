@@ -1,7 +1,7 @@
 // Cache only this campus. Other applications can share the same hosting origin.
 const SCOPE = new URL(self.registration.scope);
 const PREFIX = `secure-t-campus:${SCOPE.pathname}:`;
-const CACHE = `${PREFIX}v10`;
+const CACHE = `${PREFIX}v11`;
 const CORE = ['./', './index.html', './tokens.css', './app.js',
   './sw-register.js',
   './workstation/index.html', './workstation/workstation.css',
@@ -11,7 +11,9 @@ const CORE = ['./', './index.html', './tokens.css', './app.js',
   './observatorio/index.html', './observatorio/observatorio.css',
   './observatorio/data.js', './observatorio/observatorio.js',
   './observatorio/labs.html', './observatorio/labs.css',
-  './observatorio/labs-data.js', './observatorio/labs.js'];
+  './observatorio/labs-data.js', './observatorio/labs.js',
+  './academia/triage.html', './academia/triage-core.mjs',
+  './academia/threat-studio.html', './academia/threat-core.mjs'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)));
@@ -47,7 +49,7 @@ self.addEventListener('fetch', e => {
         }
         // Do not disguise an unknown offline page as the campus home.
         const campusHome = new URL('index.html', SCOPE);
-        if (url.pathname === SCOPE.pathname || url.pathname === campusHome.pathname) {
+        if (e.request.mode === 'navigate') {
           const index = await cache.match(campusHome.href);
           if (index) return index;
         }

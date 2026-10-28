@@ -1,0 +1,68 @@
+[
+  {
+    "pregunta": "Las cinco funciones del NIST CSF son...",
+    "opciones": [
+      "Planificar, Hacer, Verificar, Actuar",
+      "Identificar, Proteger, Detectar, Responder, Recuperar",
+      "Analizar, Diseñar, Desarrollar, Testear, Desplegar",
+      "Prevenir, Curar, Paliar, Documentar, Auditar"
+    ],
+    "correcta": 1,
+    "explicacion": "El ciclo de vida del CSF cubre gobierno y operación de la seguridad."
+  },
+  {
+    "pregunta": "La minimización extrema de datos significa...",
+    "opciones": [
+      "Cifrar todo dos veces",
+      "No tener el dato cuando el servicio puede funcionar sin él",
+      "Guardar solo 30 días",
+      "Anonimizar al administrador"
+    ],
+    "correcta": 1,
+    "explicacion": "El dato que no existe no puede filtrarse: usuario como token anónimo."
+  },
+  {
+    "pregunta": "Los cuatro tratamientos de riesgo son...",
+    "opciones": [
+      "Mitigar, transferir, aceptar, eliminar",
+      "Comprar, vender, alquilar, donar",
+      "Detectar, analizar, contener, reportar",
+      "Alto, medio, bajo, nulo"
+    ],
+    "correcta": 0,
+    "explicacion": "Todo riesgo se trata con una de esas cuatro decisiones y un dueño."
+  },
+  {
+    "pregunta": "El principio de finalidad (RGPD) exige que...",
+    "opciones": [
+      "Los datos duren 10 años",
+      "Solo se usen para lo declarado al recogerlos",
+      "Se cifren dos veces",
+      "Los guarde el DPO"
+    ],
+    "correcta": 1,
+    "explicacion": "Uso posterior incompatible con la finalidad declarada = nuevo tratamiento que requiere base."
+  },
+  {
+    "pregunta": "Un registro de tratamiento NO debe contener...",
+    "opciones": [
+      "Finalidad y categorías de datos",
+      "Plazos de supresión",
+      "Medidas de seguridad",
+      "La lista de clientes con nombres reales para 'por si acaso'"
+    ],
+    "correcta": 3,
+    "explicacion": "Guardar datos 'por si acaso' viola la minimización: exactamente lo que evita Secure T."
+  },
+  {
+    "pregunta": "'Sin evidencia no hay compliance' significa...",
+    "opciones": [
+      "Que hay que comprar un SIEM",
+      "Que cada afirmación del expediente debe tener un artefacto verificable",
+      "Que firme el CEO",
+      "Que exista un PDF"
+    ],
+    "correcta": 1,
+    "explicacion": "Un expediente es una cadena de afirmaciones → artefactos (logs, revisiones, matrices), no un PDF bonito."
+  }
+]

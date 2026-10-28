@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07121d">
+  <meta name="description" content="Secure T Workstation: entorno educativo local con terminal simulado, casos SOC ficticios y cuaderno exportable.">
+  <title>Secure T Workstation · Laboratorio de alumnos</title>
+  <link rel="stylesheet" href="workstation.css">
+  <script defer src="workstation-data.js"></script>
+  <script defer src="workstation.js"></script>
+<script defer src="../sw-register.js"></script>
+</head>
+<body>
+<a class="skip" href="#workspace">Saltar al laboratorio</a>
+<div class="shell">
+  <header class="topbar">
+    <a class="identity" href="../academia/"><span class="shield" aria-hidden="true">◆</span><span><strong>SECURE <em>T</em></strong><small>WORKSTATION / LAB</small></span></a>
+    <span class="connection"><span class="light"></span>SIMULACIÓN LOCAL · SIN RED</span>
+    <div class="top-right"><span id="clock" class="clock" aria-label="Hora local">--:--</span><a class="back" href="../academia/">← Academia</a></div>
+  </header>
+  <div class="layout">
+    <aside class="rail" aria-label="Aplicaciones de la estación">
+      <p class="rail-title">ESTACIÓN 01</p>
+      <nav class="apps" aria-label="Espacios de trabajo">
+        <button class="app active" data-panel="dashboard" type="button" aria-controls="panel-dashboard" aria-pressed="true"><span aria-hidden="true">◈</span><b>Inicio</b></button>
+        <button class="app" data-panel="terminal" type="button" aria-controls="panel-terminal" aria-pressed="false"><span aria-hidden="true">⌘</span><b>Terminal</b></button>
+        <button class="app" data-panel="cases" type="button" aria-controls="panel-cases" aria-pressed="false"><span aria-hidden="true">▤</span><b>Incidentes</b></button>
+        <button class="app" data-panel="notebook" type="button" aria-controls="panel-notebook" aria-pressed="false"><span aria-hidden="true">✎</span><b>Cuaderno</b></button>
+        <button class="app" data-panel="guide" type="button" aria-controls="panel-guide" aria-pressed="false"><span aria-hidden="true">◎</span><b>Aprender</b></button>
+        <a class="app" href="mission.html"><span aria-hidden="true">✦</span><b>Mission Control</b></a>
+        <a class="app" href="../observatorio/"><span aria-hidden="true">◎</span><b>Observatorio</b></a>
+        <a class="app" href="../observatorio/labs.html"><span aria-hidden="true">◆</span><b>Laboratorios</b></a>
+      </nav>
+      <div class="rail-foot"><span aria-hidden="true">◉</span> <small>PRIVADO EN ESTE DISPOSITIVO</small></div>
+    </aside>
+    <main id="workspace" class="workspace">
+      <div class="workbar"><p><span class="eyebrow">SECURE T OS / ENTORNO EDUCATIVO</span><br><span id="location-title">Escritorio de aprendizaje</span></p><p class="mode">MODO: <strong>SOLO SIMULACIÓN</strong></p></div>
+      <section class="panel" id="panel-dashboard" aria-labelledby="dashboard-title">
+        <div class="hero">
+          <div><span class="chip">LABORATORIO INTERACTIVO · v1</span><h1 id="dashboard-title">Un ordenador para<br><span>aprender a defender.</span></h1><p>Investiga registros ficticios, practica decisiones de respuesta y construye evidencia. No hay terminal real ni conexión a objetivos externos.</p><div class="hero-cta"><button type="button" class="primary" data-go="terminal">Abrir terminal <span aria-hidden="true">↗</span></button><button type="button" class="secondary" data-go="guide">Cómo estudiar</button></div></div>
+          <div class="orb" aria-hidden="true"><div class="ring r1"></div><div class="ring r2"></div><div class="core">T<span>·</span></div></div>
+        </div>
+        <div class="metrics"><article><span>CASOS LOCALES</span><strong id="case-count">06</strong><small>Datos fabricados para formación</small></article><article><span>EVIDENCIAS REVISADAS</span><strong id="progress-count">0 / 6</strong><small>Autoevaluación, no certificación</small></article><article><span>ALCANCE</span><strong>0</strong><small>Servicios externos contactados</small></article></div>
+        <div class="section-heading"><div><p class="eyebrow">RUTAS PRÁCTICAS</p><h2>Elige un escenario</h2></div><span>01 — 06</span></div>
+        <div class="scenario-grid" id="dashboard-cases"></div>
+      </section>
+      <section class="panel" id="panel-terminal" aria-labelledby="terminal-title" hidden>
+        <div class="section-heading"><div><p class="eyebrow">HERRAMIENTA 01 / EXPLORACIÓN</p><h1 id="terminal-title">Terminal educativo</h1><p>Comandos interpretados sobre archivos ficticios. Nunca ejecuta procesos, scripts o conexiones de red.</p></div><span class="badge">SANDBOX DIDÁCTICO</span></div>
+        <div class="terminal-window">
+          <div class="window-top"><div class="window-dots" aria-hidden="true"><i></i><i></i><i></i></div><span>student@secure-t : ~/cases</span><button type="button" class="window-action" id="terminal-clear">Limpiar pantalla</button></div>
+          <div class="terminal-body"><div id="terminal-output" role="log" aria-live="polite" aria-label="Salida de la terminal"></div><form id="terminal-form" autocomplete="off"><label class="prompt" for="terminal-command">student@secure-t:~$</label><input type="text" id="terminal-command" maxlength="160" spellcheck="false" aria-describedby="terminal-help" placeholder="Escribe help" required><button class="run" type="submit">Ejecutar ↵</button></form></div>
+        </div>
+        <p class="helper" id="terminal-help">Prueba <code>help</code>, <code>ls</code>, <code>cat /cases/auth.log</code>, <code>grep FAILED /cases/auth.log</code> o <code>timeline</code>. Sin shell real.</p>
+      </section>
+      <section class="panel" id="panel-cases" aria-labelledby="cases-title" hidden>
+        <div class="section-heading"><div><p class="eyebrow">HERRAMIENTA 02 / ANÁLISIS</p><h1 id="cases-title">Centro de incidentes</h1><p>Todos los eventos, usuarios y direcciones pertenecen a escenarios ficticios.</p></div><span class="badge">DATASET SINTÉTICO</span></div>
+        <div class="case-layout"><div class="case-list" id="case-list" aria-label="Casos disponibles"></div><article class="case-detail" id="case-detail" aria-live="polite"></article></div>
+      </section>
+      <section class="panel" id="panel-notebook" aria-labelledby="notebook-title" hidden>
+        <div class="section-heading"><div><p class="eyebrow">HERRAMIENTA 03 / EVIDENCIA</p><h1 id="notebook-title">Cuaderno de investigación</h1><p>Redacta el contexto y una respuesta defensiva proporcionada. Se guarda solo en tu navegador.</p></div><span class="badge">SIN CUENTA / SIN ENVÍOS</span></div>
+        <div class="notebook">
+          <form id="evidence-form">
+            <label for="evidence-case">Caso a documentar</label><select id="evidence-case"></select>
+            <div class="form-row"><div><label for="evidence-action">Primera acción recomendada</label><select id="evidence-action" required><option value="">Selecciona una acción</option><option value="verify">Correlacionar registros y verificar identidad</option><option value="quarantine">Preservar y poner en cuarentena el mensaje</option><option value="preserve">Preservar evidencia y controlar acceso</option><option value="restrict">Aplicar mínimo privilegio y revisar la exposición</option><option value="review">Aislar instrucciones no confiables y revisar comportamiento IA</option><option value="minimize">Minimizar datos y revisar política de retención</option><option value="ignore">Ignorar sin investigar</option><option value="scan">Escanear equipos ajenos sin permiso</option></select></div><div><label for="evidence-confidence">Confianza inicial</label><select id="evidence-confidence"><option value="low">Baja: faltan datos</option><option value="medium">Media: indicios, no certeza</option><option value="high">Alta: corroborado</option></select></div></div>
+            <label for="evidence-notes">Registro de evidencia · Observación, hipótesis y siguiente comprobación</label>
+            <textarea id="evidence-notes" maxlength="4000" rows="9" placeholder="Anota horarios, indicadores observables, información que falta, límites de tu conclusión y próximos pasos autorizados..."></textarea>
+            <p class="helper">La autoevaluación comprueba estructura mínima y la selección de una respuesta; no juzga la calidad del análisis libre ni emite credenciales.</p>
+            <label class="checkbox"><input id="evidence-attest" type="checkbox"> <span>He diferenciado hechos de hipótesis y usaré únicamente recursos autorizados.</span></label>
+            <div class="actions"><button type="submit" class="primary">Revisar evidencia</button><button type="button" class="secondary" id="export-evidence">Exportar JSON</button><button type="button" class="secondary" id="import-evidence">Importar JSON</button><input type="file" id="evidence-file" accept="application/json,.json" hidden></div>
+            <p role="status" aria-live="polite" class="result" id="evidence-result"></p>
+          </form>
+        </div>
+      </section>
+      <section class="panel" id="panel-guide" aria-labelledby="guide-title" hidden>
+        <div class="section-heading"><div><p class="eyebrow">MANUAL / METODOLOGÍA</p><h1 id="guide-title">Aprender haciendo, con límites claros.</h1><p>Este ordenador educativo complementa los cursos completos del campus.</p></div></div>
+        <div class="guide-grid"><article><span>01 / OBSERVAR</span><h2>Identifica señales</h2><p>Abre un caso, lee los registros y anota únicamente los hechos observables. Las IP usan rangos reservados para documentación, nunca objetivos reales.</p></article><article><span>02 / CONTRASTAR</span><h2>No confundas indicio con prueba</h2><p>Elige hipótesis, evalúa falsos positivos y declara qué otra evidencia necesitarías para confirmar o descartar un incidente.</p></article><article><span>03 / RESPONDER</span><h2>Actúa con autorización</h2><p>Prioriza preservación de evidencias, proporcionalidad, privacidad y escalado. No realices pruebas fuera de un entorno autorizado.</p></article><article><span>04 / JUSTIFICAR</span><h2>Documenta tu criterio</h2><p>Escribe una cronología, recomienda el siguiente paso y exporta tu cuaderno para revisión humana. Completar un reto no es una certificación.</p></article></div>
+        <div class="further"><h2>Continúa con los programas reales</h2><p>Aprende fundamentos, análisis defensivo, IA segura y gobernanza en las unidades del campus.</p><div class="links"><a href="../cursos/ciber-defensiva/index.html">Defensa y SOC ↗</a><a href="../cursos/ia-aplicada-segura/index.html">IA aplicada segura ↗</a><a href="../cursos/gobernanza-compliance/index.html">Gobernanza ↗</a><a href="../cursos/ciber-ofensiva/index.html">Seguridad ofensiva responsable ↗</a></div></div>
+      </section>
+      <footer class="foot"><span>SECURE T · ENTORNO EDUCATIVO ABIERTO</span><span>Sin ejecución remota · Sin datos personales · Sin diplomas automáticos</span><button id="reset-workstation" type="button">Borrar mi progreso local</button></footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>

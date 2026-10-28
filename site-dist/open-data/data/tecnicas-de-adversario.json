@@ -1,0 +1,73 @@
+{
+  "tema": "tecnicas-de-adversario",
+  "portal": "secure-t-university",
+  "registros": [
+    {
+      "fuente": "MITRE ATT&CK",
+      "spec": "mitre:12",
+      "ok": true,
+      "datos": [
+        {
+          "id": "T1055.011",
+          "nombre": "Extra Window Memory Injection",
+          "descripcion": "Adversaries may inject malicious code into process via Extra Window Memory (EWM) in order to evade process-based defenses as well as possibly elevate privileges. EWM injection is a method of executing"
+        },
+        {
+          "id": "T1053.005",
+          "nombre": "Scheduled Task",
+          "descripcion": "Adversaries may abuse the Windows Task Scheduler to perform task scheduling for initial or recurring execution of malicious code. There are multiple ways to access the Task Scheduler in Windows. The ["
+        },
+        {
+          "id": "T1205.002",
+          "nombre": "Socket Filters",
+          "descripcion": "Adversaries may attach filters to a network socket to monitor then activate backdoors used for persistence or command and control. With elevated permissions, adversaries can use features such as the `"
+        },
+        {
+          "id": "T1560.001",
+          "nombre": "Archive via Utility",
+          "descripcion": "Adversaries may use utilities to compress and/or encrypt collected data prior to exfiltration. Many utilities include functionalities to compress, encrypt, or otherwise package data into a format that"
+        },
+        {
+          "id": "T1021.005",
+          "nombre": "VNC",
+          "descripcion": "Adversaries may use [Valid Accounts](https://attack.mitre.org/techniques/T1078) to remotely control machines using Virtual Network Computing (VNC).  VNC is a platform-independent desktop sharing syste"
+        },
+        {
+          "id": "T1047",
+          "nombre": "Windows Management Instrumentation",
+          "descripcion": "Adversaries may abuse Windows Management Instrumentation (WMI) to execute malicious commands and payloads. WMI is designed for programmers and is the infrastructure for management data and operations "
+        },
+        {
+          "id": "T1687",
+          "nombre": "Exploitation for Defense Impairment",
+          "descripcion": "Adversaries may exploit vulnerabilities in security software, infrastructure, or defensive components to degrade, disable, or otherwise continue to impair their ability to prevent, detect, or respond "
+        },
+        {
+          "id": "T1113",
+          "nombre": "Screen Capture",
+          "descripcion": "Adversaries may attempt to take screen captures of the desktop to gather information over the course of an operation. Screen capturing functionality may be included as a feature of a remote access too"
+        },
+        {
+          "id": "T1027.011",
+          "nombre": "Fileless Storage",
+          "descripcion": "Adversaries may store data in \"fileless\" formats to conceal malicious activity from defenses. Fileless storage can be broadly defined as any format other than a file. Common examples of non-volatile f"
+        },
+        {
+          "id": "T1037",
+          "nombre": "Boot or Logon Initialization Scripts",
+          "descripcion": "Adversaries may use scripts automatically executed at boot or logon initialization to establish persistence.(Citation: Mandiant APT29 Eye Spy Email Nov 22)(Citation: Anomali Rocke March 2019) Initiali"
+        },
+        {
+          "id": "T1557",
+          "nombre": "Adversary-in-the-Middle",
+          "descripcion": "Adversaries may attempt to position themselves between two or more networked devices using an adversary-in-the-middle (AiTM) technique to support follow-on behaviors such as [Network Sniffing](https:/"
+        },
+        {
+          "id": "T1033",
+          "nombre": "System Owner/User Discovery",
+          "descripcion": "Adversaries may attempt to identify the primary user, currently logged in user, set of users that commonly uses a system, or whether a user is actively using the system. They may do this, for example,"
+        }
+      ]
+    }
+  ]
+}

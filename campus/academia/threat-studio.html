@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071524">
+<meta name="description" content="Secure T — threat modeling exercises in Portuguese, Spanish and English, using fictional systems and no external targets.">
+<title>Threat Modeling Studio · Secure T</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#071524;color:#edfaff}
+*{box-sizing:border-box}body{margin:0;line-height:1.6}a{color:#b5e9ef}
+.skip{position:absolute;top:0;left:-9999px;padding:.8rem;background:#fff;color:#071524;z-index:10}
+.skip:focus{left:1rem;top:1rem}
+.wrap{max-width:1120px;margin:0 auto;padding:clamp(1rem,4vw,3rem)}
+nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:3rem}
+.brand{font-weight:800;text-decoration:none;color:#8de7dc;letter-spacing:.05em}
+h1{font-size:clamp(2rem,5vw,4rem);line-height:1.12;letter-spacing:-.045em;margin:.7rem 0}
+.description{color:#c1d7df;max-width:65ch}
+.language{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+select,button{font:inherit;min-height:48px}
+select{padding:.7rem;border-radius:.6rem;background:#193142;color:#eefbff;border:1px solid #7499a8}
+.kicker{font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#9ce5d4}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:1.1rem;margin-top:2.2rem}
+.panel{background:linear-gradient(140deg,#13283b,#102235);border:1px solid #4b7289;border-radius:1rem;padding:clamp(1.1rem,3vw,2rem);min-width:0}
+.field{padding:1rem 0;border-bottom:1px solid #34576a}.field:last-of-type{border:0}
+.field h3{font-size:.84rem;text-transform:uppercase;color:#a3d7df;letter-spacing:.04em;margin:0 0 .3rem}.field p{margin:0}
+.risk{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem;margin:1.5rem 0}.risk article{padding:.8rem;border-radius:.6rem;background:#203948;text-align:center}
+.risk strong{display:block;font-size:1.45rem;line-height:1.5}
+fieldset{border:0;padding:0;margin:1rem 0 1.3rem}legend{font-weight:750;padding:0;margin-bottom:.8rem}
+.choices{display:grid;gap:.7rem}.choice{display:flex;gap:.75rem;align-items:flex-start;border:1px solid #627f92;background:#1b3547;padding:1rem;border-radius:.7rem;cursor:pointer}
+.choice input{width:1.15rem;height:1.15rem;flex:none;margin-top:.33rem;accent-color:#9ff2d2}
+.choice:has(input:checked){border-color:#a2e9ce;background:#21495a}.choice:focus-within{outline:3px solid #c9f8ef;outline-offset:2px}
+button{background:#a2efdb;color:#071d22;padding:.8rem 1.3rem;font-weight:800;border:0;border-radius:.7rem;cursor:pointer;margin:.2rem .3rem .2rem 0}
+button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #fff;outline-offset:3px}
+button:disabled{opacity:.5;cursor:not-allowed}.feedback{border-left:4px solid #a8edd7;padding:1rem;background:#204253;border-radius:.5rem;margin:1rem 0}.feedback p{margin:.4rem 0}
+.finish{margin-top:2rem;max-width:720px}.note{margin:2rem 0;color:#c4d4df;font-size:.94rem}footer{font-size:.88rem;color:#a6c2d1;margin-top:2rem}
+[hidden]{display:none!important}
+@media(max-width:790px){.grid{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head><body>
+<a class="skip" href="#practice">Pular para a prática / Saltar a la práctica / Skip to practice</a>
+<div class="wrap"><nav>
+<a class="brand" href="index.html">← SECURE T / ACADEMIA</a>
+<div class="language"><label for="lang">Idioma / Language</label>
+<select id="lang"><option value="pt">Português</option><option value="es">Español</option><option value="en">English</option></select></div>
+</nav>
+<header><p class="kicker">SECURITY ARCHITECTURE / BLUE TEAM · OPEN LAB</p>
+<h1 id="title">Estúdio de Ameaças</h1><p class="description" id="subtitle"></p></header>
+<main id="practice" tabindex="-1">
+<div class="grid" id="exercise">
+<section class="panel" aria-labelledby="context-title">
+<p class="kicker" id="progress"></p><h2 id="context-title"></h2>
+<div class="field"><h3 id="asset-label"></h3><p id="asset"></p></div>
+<div class="field"><h3 id="boundary-label"></h3><p id="boundary"></p></div>
+<div class="field"><h3 id="signal-label"></h3><p id="signal"></p></div>
+<div class="risk" aria-label="Fictional risk factors">
+<article><span id="likelihood-label"></span><strong id="likelihood"></strong></article>
+<article><span id="impact-label"></span><strong id="impact"></strong></article>
+<article><span id="priority-label"></span><strong id="priority"></strong></article>
+</div></section>
+<section class="panel" aria-labelledby="question"><h2 id="question"></h2>
+<form id="decision"><fieldset><legend id="choose-label"></legend><div class="choices" id="choices"></div></fieldset>
+<button type="submit" id="check"></button></form>
+<div class="feedback" id="feedback" role="status" tabindex="-1" aria-live="polite" hidden></div>
+<button type="button" id="next" hidden></button></section></div>
+<section class="panel finish" id="finished" tabindex="-1" aria-live="polite" hidden>
+<h2 id="done"></h2><p id="score"></p>
+<button id="download" type="button"></button><button id="restart" type="button"></button>
+</section>
+<p class="note" id="note"></p></main>
+<footer>Secure T · Synthetic learning scenarios only · No accounts, no tracking, no live system scans</footer>
+</div>
+<script type="module">
+import {THREATS,WORDS,riskScore,riskTier,assessControl,exportThreatReport} from './threat-core.mjs';
+const $=id=>document.getElementById(id);
+let lang='pt',step=0,selected=[],isReviewed=false,lastCorrect=false,pendingChoice=null;
+function render(){
+ const w=WORDS[lang];document.documentElement.lang=lang;document.title=w.title+' · Secure T';
+ $('title').textContent=w.title;$('subtitle').textContent=w.subtitle;$('note').textContent=w.note;
+ $('done').textContent=w.done;$('download').textContent=w.download;$('restart').textContent=w.restart;
+ $('finished').hidden=step<THREATS.length;$('exercise').hidden=step===THREATS.length;
+ if(step===THREATS.length){
+  $('score').textContent=w.score+': '+selected.filter((a,i)=>assessControl(THREATS[i],a)).length+' / '+THREATS.length;
+  return;
+ }
+ const t=THREATS[step];
+ $('progress').textContent=w.case+' '+(step+1)+' '+w.of+' '+THREATS.length;
+ $('context-title').textContent=t.category;
+ for(const [name,key] of [['asset','asset'],['boundary','boundary'],['signal','signal']]){
+  $(name+'-label').textContent=w[name];$(name).textContent=t[key==='signal'?'observation':key][lang];
+ }
+ $('likelihood-label').textContent=w.likelihood;$('likelihood').textContent=String(t.likelihood)+' / 5';
+ $('impact-label').textContent=w.impact;$('impact').textContent=String(t.impact)+' / 5';
+ $('priority-label').textContent=w.priority;const tier=riskTier(t);const level={pt:{high:'alto',medium:'moderado',low:'baixo'},es:{high:'alto',medium:'moderado',low:'bajo'},en:{high:'high',medium:'medium',low:'low'}}; $('priority').textContent=String(riskScore(t))+'/25 · '+level[lang][tier];
+ $('question').textContent=t.question[lang];$('choose-label').textContent=w.choose;
+ $('check').textContent=w.check;$('next').textContent=w.next;
+ $('check').hidden=isReviewed;$('next').hidden=!isReviewed;$('feedback').hidden=!isReviewed;
+ $('choices').replaceChildren();
+ t.choices.forEach((choice,i)=>{
+  const label=document.createElement('label');label.className='choice';
+  const input=document.createElement('input');input.type='radio';input.name='control';input.value=String(i);input.required=true;input.disabled=isReviewed;input.checked=isReviewed?selected[step]===i:pendingChoice===i;
+  const text=document.createElement('span');text.textContent=choice[lang];label.append(input,text);$('choices').append(label);
+ });
+ if(isReviewed){
+  const feedback=$('feedback');feedback.replaceChildren();
+  const heading=document.createElement('strong');heading.textContent=lastCorrect?w.good:w.bad;
+  const explanation=document.createElement('p');explanation.textContent=t.rationale[lang];
+  const evidence=document.createElement('p');evidence.textContent=w.evidence+': '+t.evidence[lang];
+  feedback.append(heading,explanation,evidence);
+ }
+}
+$('decision').addEventListener('change',event=>{if(event.target?.name==="control")pendingChoice=Number(event.target.value);});
+$('decision').addEventListener('submit',event=>{
+ event.preventDefault();if(isReviewed)return;
+ const choice=document.querySelector('input[name="control"]:checked');if(!choice)return;
+ const answer=Number(choice.value);lastCorrect=assessControl(THREATS[step],answer);
+ selected.push(answer);pendingChoice=null;isReviewed=true;render();$('feedback').focus();
+});
+$('next').addEventListener('click',()=>{step++;pendingChoice=null;isReviewed=false;render();(step===THREATS.length?$('finished'):$('practice')).focus();});
+$('restart').addEventListener('click',()=>{step=0;selected=[];pendingChoice=null;isReviewed=false;render();$('practice').focus();});
+$('lang').addEventListener('change',event=>{lang=event.target.value;render();});
+$('download').addEventListener('click',()=>{
+ if(selected.length!==THREATS.length)return;
+ const report=exportThreatReport(selected,lang),blob=new Blob([report],{type:'text/plain;charset=utf-8'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='secure-t-threat-model-study.txt';a.click();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('../sw.js',{scope:'../'}).catch(()=>{});
+render();
+</script>
+</body></html>

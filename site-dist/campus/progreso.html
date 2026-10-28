@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Progreso — Campus secure-t-university</title>
+  <meta name="description" content="Seguimiento de progreso anónimo: token local, sin registro.">
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    .env { max-width: 46rem; margin: 0 auto; padding: var(--sp-6) var(--sp-4) var(--sp-12); }
+    .grid-cur { display: grid; gap: var(--sp-4); }
+    .progreso-item { display: flex; gap: var(--sp-3); align-items: baseline;
+      padding: var(--sp-2) 0; border-bottom: 1px dashed var(--border); }
+    .barra { height: .55rem; border-radius: 999px; background: var(--bg-muted); overflow: hidden; }
+    .barra > i { display: block; height: 100%; background: var(--accent);
+      transition: width var(--dur-slow) var(--ease-out); }
+    input[type="text"], textarea, select {
+      width: 100%; padding: var(--sp-3); border-radius: var(--r-md);
+      border: 1px solid var(--border); background: var(--bg-sunken);
+      color: var(--text-1); font: inherit; }
+    .resultado { background: var(--bg-sunken); border: 1px solid var(--border);
+      border-radius: var(--r-md); padding: var(--sp-4); font-family: var(--font-mono);
+      font-size: var(--fs-sm); word-break: break-all; }
+    .ok { color: var(--success); } .mal { color: var(--danger); }
+    .fila-botones { display: flex; gap: var(--sp-3); flex-wrap: wrap; margin: var(--sp-4) 0; }
+  </style>
+</head>
+<body>
+<header class="topbar"><div class="bar">
+  <a class="brand" href="index.html">← Campus</a>
+  <span class="brand"><span>progreso</span></span>
+</div></header>
+<main class="env" id="app">
+  <h1>Tu progreso</h1>
+  <p class="t2">Sin cuenta y sin rastreo: tu avance vive solo en este navegador,
+  ligado a un token anónimo. Si cambias de dispositivo, exporta e importa el JSON.</p>
+  <p class="meta" id="token"></p>
+  <p class="meta" id="estado" role="status" aria-live="polite"></p>
+  <div class="fila-botones">
+    <button class="btn" id="exportar">Exportar JSON</button>
+    <button class="btn" id="importar">Importar JSON</button>
+    <button class="btn" id="reset">Reiniciar</button>
+  </div>
+  <div class="grid-cur" id="cursos"></div>
+  <p class="meta" id="total"></p>
+</main>
+<script>
+const CURSOS = [{"slug": "ciber-ofensiva", "titulo": "Ciberseguridad Ofensiva: Pensar como Atacante", "items": ["semana-01", "semana-02", "semana-03", "semana-04", "semana-05", "semana-06", "semana-07", "semana-08", "semana-09", "semana-10", "semana-11", "semana-12", "semana-13", "semana-14", "semana-15", "semana-16", "semana-17", "semana-18", "semana-19", "semana-20", "quiz", "laboratorio", "proyecto", "examen"]}, {"slug": "ciber-defensiva", "titulo": "Ciberseguridad Defensiva: Operar como SOC", "items": ["semana-01", "semana-02", "semana-03", "semana-04", "semana-05", "semana-06", "semana-07", "semana-08", "semana-09", "semana-10", "semana-11", "semana-12", "semana-13", "semana-14", "semana-15", "semana-16", "semana-17", "semana-18", "semana-19", "semana-20", "quiz", "laboratorio", "proyecto", "examen"]}, {"slug": "ia-aplicada-segura", "titulo": "Inteligencia Artificial Aplicada y Segura", "items": ["semana-01", "semana-02", "semana-03", "semana-04", "semana-05", "semana-06", "semana-07", "semana-08", "semana-09", "semana-10", "semana-11", "semana-12", "semana-13", "semana-14", "semana-15", "semana-16", "semana-17", "semana-18", "semana-19", "semana-20", "quiz", "laboratorio", "proyecto", "examen"]}, {"slug": "gobernanza-compliance", "titulo": "Gobernanza y Compliance Digital", "items": ["semana-01", "semana-02", "semana-03", "semana-04", "semana-05", "semana-06", "semana-07", "semana-08", "semana-09", "semana-10", "semana-11", "semana-12", "semana-13", "semana-14", "semana-15", "semana-16", "semana-17", "semana-18", "semana-19", "semana-20", "quiz", "laboratorio", "proyecto", "examen"]}];
+const KEY = "stt-progreso";
+const VALID_IDS = new Set(CURSOS.flatMap(c => c.items.map(it => c.slug + "/" + it)));
+const status = document.getElementById("estado");
+const storage = (() => { try { return window.localStorage; } catch (_) { return null; } })();
+function read(key, fallback) { try { return storage ? storage.getItem(key) : fallback; } catch (_) { return fallback; } }
+function write(key, value) { try { if (!storage) return false; storage.setItem(key, value); return true; } catch (_) { return false; } }
+function normalize(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return {};
+  return Object.fromEntries(Object.entries(value).filter(([id, done]) => VALID_IDS.has(id) && done === true));
+}
+function parseState(raw) { try { return normalize(JSON.parse(raw || "{}")); } catch (_) { return {}; } }
+let estado = parseState(read(KEY, "{}"));
+
+// Token anónimo local (nunca se envía a ningún sitio); no bloquea el uso sin almacenamiento.
+let token = read("stt-token", "");
+if (!(/^(?:anon-[a-z0-9-]{8,}|[0-9a-f]{8}-[0-9a-f-]{27,})$/i.test(token))) {
+  token = "anon-" + (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function' ? crypto.randomUUID() : Date.now().toString(36));
+  write("stt-token", token);
+}
+document.getElementById("token").textContent = "token anónimo: " + token;
+
+function announce(message, error = false) { status.textContent = message; status.className = error ? "meta mal" : "meta ok"; }
+function guardar(message = "Progreso guardado en este navegador.") {
+  if (!write(KEY, JSON.stringify(estado))) announce("No se pudo guardar: el almacenamiento está bloqueado.", true);
+  else announce(message);
+  pintar();
+}
+
+function pintar() {
+  const box = document.getElementById("cursos");
+  box.innerHTML = "";
+  let total = 0, hechos = 0;
+  CURSOS.forEach(c => {
+    const art = document.createElement("article");
+    art.className = "card";
+    let done = 0;
+    const filas = c.items.map(it => {
+      const id = c.slug + "/" + it;
+      const ok = !!estado[id]; if (ok) { done++; hechos++; }
+      total++;
+      const nombre = it.startsWith("semana-") ? "Semana " + (+it.slice(7)) :
+        it === "quiz" ? "Quiz del curso" :
+        it === "laboratorio" ? "Laboratorio + evidencia" :
+        it === "proyecto" ? "Proyecto final" : "Examen final";
+      // gating: el examen se desbloquea con semanas + quiz + laboratorio
+      let bloqueado = false;
+      if (it === "examen") {
+        bloqueado = c.items.filter(x => x !== "examen" && x !== "proyecto")
+          .some(x => !estado[c.slug + "/" + x]);
+      }
+      return `<label class="progreso-item"${bloqueado ? ' style="opacity:.45"' : ""}>` +
+        `<input type="checkbox" data-id="${id}" ${ok ? "checked" : ""}` +
+        `${bloqueado ? " disabled title=\"Se desbloquea al completar semanas, quiz y laboratorio\"" : ""}>` +
+        ` <span>${nombre}${bloqueado ? " 🔒" : ""}</span></label>`;
+    }).join("");
+    const pct = Math.round(done / c.items.length * 100);
+    art.innerHTML = `<h3>${c.titulo}</h3>
+      <p class="meta">${done}/${c.items.length} · ${pct} %</p>
+      <div class="barra"><i style="width:${pct}%"></i></div>
+      <div style="margin-top:var(--sp-3)">${filas}</div>`;
+    box.appendChild(art);
+  });
+  box.querySelectorAll("input[type=checkbox]").forEach(ch =>
+    ch.addEventListener("change", () => {
+      if (ch.checked) estado[ch.dataset.id] = true; else delete estado[ch.dataset.id];
+      guardar();
+    }));
+  document.getElementById("total").textContent =
+    `Progreso global: ${hechos}/${total} (${Math.round(hechos/total*100)} %)`;
+}
+pintar();
+
+document.getElementById("exportar").onclick = () => {
+  const blob = new Blob([JSON.stringify({version: 1, token, estado}, null, 2)], {type: "application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = Object.assign(document.createElement("a"), {href: url, download: "progreso-secure-t.json"});
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 0);
+  announce("Progreso exportado: solo avance y token anónimo.");
+};
+document.getElementById("importar").onclick = () => {
+  const inp = Object.assign(document.createElement("input"), {type: "file", accept: ".json"});
+  inp.onchange = async () => {
+    const file = inp.files && inp.files[0];
+    if (!file || file.size > 1024 * 1024) { announce("Archivo no válido o demasiado grande (máximo 1 MiB).", true); return; }
+    try {
+      const d = JSON.parse(await file.text());
+      if (!d || typeof d !== "object" || (d.version !== undefined && d.version !== 1) || !d.estado || typeof d.estado !== "object" || Array.isArray(d.estado)) throw new Error("schema");
+      const imported = normalize(d.estado);
+      if (Object.keys(d.estado).some(id => !VALID_IDS.has(id) || d.estado[id] !== true)) throw new Error("values");
+      estado = imported;
+      if (typeof d.token === "string" && /^(?:anon-[a-z0-9-]{8,}|[0-9a-f]{8}-[0-9a-f-]{27,})$/i.test(d.token)) {
+        token = d.token; write("stt-token", token);
+        document.getElementById("token").textContent = "token anónimo: " + token;
+      }
+      guardar("Progreso importado y validado.");
+    } catch (_) { announce("No se pudo importar: usa un JSON de progreso válido.", true); }
+  };
+  inp.click();
+};
+document.getElementById("reset").onclick = () => {
+  if (confirm("¿Borrar todo el progreso de este navegador?")) { estado = {}; guardar("Progreso reiniciado."); }
+};
+</script>
+</body>
+</html>

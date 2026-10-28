@@ -1,0 +1,26 @@
+# humans.txt for secure-t-university
+# The humans behind the project
+
+TEAM:
+  Founder: Guilherme Rodrigues
+  Curriculum Designer: Guilherme Rodrigues
+  Security Researcher: Guilherme Rodrigues
+  Course Author: Guilherme Rodrigues
+  Platform Developer: Guilherme Rodrigues
+
+THANKS:
+  - Cybersecurity education community
+  - Trust & Safety professionals
+  - Open source security tools
+  - Security certification bodies
+
+SITE:
+  Last update: 2026-09-06
+  Language: English
+  Platform: Custom education platform
+  Focus: Cybersecurity, Trust & Safety, Digital Security
+
+CONTACT:
+  Email: admissions@secure-t-university.example.com
+  GitHub: https://github.com/belentani/secure-t-university
+  LinkedIn: https://linkedin.com/company/secure-t-university

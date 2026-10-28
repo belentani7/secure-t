@@ -3,6 +3,41 @@ import { timingSafeEqual } from "node:crypto";
 import { createServer } from "http";
 import path from "path";
 
+const SPA_CSP = [
+  "default-src 'self'",
+  "script-src 'self'",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com",
+  "img-src 'self' data:",
+  "connect-src 'self'",
+  "manifest-src 'self'",
+  "worker-src 'self'",
+  "frame-src 'none'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+].join("; ");
+
+// The legacy campus is a self-contained static artifact that still compiles
+// Tailwind in the browser and renders Markdown client-side. Keep it functional
+// under a scoped policy without weakening the React app's strict CSP.
+const LEGACY_CAMPUS_CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://unpkg.com",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com data:",
+  "img-src 'self' data: blob: https:",
+  "connect-src 'self'",
+  "manifest-src 'self'",
+  "worker-src 'self'",
+  "frame-src 'none'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+].join("; ");
+
 const app = express();
 const server = createServer(app);
 app.disable("x-powered-by");
@@ -11,7 +46,12 @@ app.use((_req, res, next) => {
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("X-Frame-Options", "DENY");
   res.setHeader("Referrer-Policy", "no-referrer");
-  res.setHeader("Content-Security-Policy", "frame-ancestors 'none'; base-uri 'self'; object-src 'none'");
+  res.setHeader(
+    "Permissions-Policy",
+    "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+  );
+  res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+  res.setHeader("Content-Security-Policy", SPA_CSP);
   next();
 });
 app.use("/api", (_req, res, next) => {
@@ -119,7 +159,30 @@ app.use("/api", (_req, res) => res.status(404).json({ error: "Not found" }));
 
 // Resolve from the application working directory for both TS and compiled JS.
 const staticPath = path.resolve(process.cwd(), "dist", "public");
-app.use(express.static(staticPath));
+app.use(
+  "/assets",
+  express.static(path.join(staticPath, "assets"), {
+    immutable: true,
+    maxAge: "1y",
+  }),
+);
+app.use(
+  express.static(staticPath, {
+    redirect: false,
+    setHeaders(res, filePath) {
+      const inLegacyCampus =
+        filePath.includes(`${path.sep}campus${path.sep}full${path.sep}`) ||
+        filePath.includes(`${path.sep}conceptos${path.sep}`) ||
+        filePath.endsWith("404.html");
+      if (inLegacyCampus) {
+        res.setHeader("Content-Security-Policy", LEGACY_CAMPUS_CSP);
+      }
+      if (/\.html?$/i.test(filePath)) {
+        res.setHeader("Cache-Control", "no-cache");
+      }
+    },
+  }),
+);
 app.get("*", (_req, res) => res.sendFile(path.join(staticPath, "index.html")));
 const port = process.env.PORT || 3000;
 server.listen(port, () => console.log(`secure T server running on http://localhost:${port}/`));

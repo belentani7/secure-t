@@ -1,4 +1,4 @@
-# Dependencies
+﻿# Dependencies
 node_modules/
 .pnpm-store/
 
@@ -46,3 +46,15 @@ test-results/
 
 # Next.js build output
 .next/
+
+# Generated static campus copied for dev/build (source lives in campus/)
+client/public/campus/
+client/public/conceptos/
+client/public/ui/
+client/public/404.html
+
+# Python caches and local static build output
+__pycache__/
+*.pyc
+_site/
+

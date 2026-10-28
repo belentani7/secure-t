@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Buscar — Campus secure-t-university</title>
+  <meta name="description" content="Búsqueda local en todo el material del campus.">
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    .env { max-width: 46rem; margin: 0 auto; padding: var(--sp-6) var(--sp-4) var(--sp-12); }
+    .grid-cur { display: grid; gap: var(--sp-4); }
+    .progreso-item { display: flex; gap: var(--sp-3); align-items: baseline;
+      padding: var(--sp-2) 0; border-bottom: 1px dashed var(--border); }
+    .barra { height: .55rem; border-radius: 999px; background: var(--bg-muted); overflow: hidden; }
+    .barra > i { display: block; height: 100%; background: var(--accent);
+      transition: width var(--dur-slow) var(--ease-out); }
+    input[type="text"], textarea, select {
+      width: 100%; padding: var(--sp-3); border-radius: var(--r-md);
+      border: 1px solid var(--border); background: var(--bg-sunken);
+      color: var(--text-1); font: inherit; }
+    .resultado { background: var(--bg-sunken); border: 1px solid var(--border);
+      border-radius: var(--r-md); padding: var(--sp-4); font-family: var(--font-mono);
+      font-size: var(--fs-sm); word-break: break-all; }
+    .ok { color: var(--success); } .mal { color: var(--danger); }
+    .fila-botones { display: flex; gap: var(--sp-3); flex-wrap: wrap; margin: var(--sp-4) 0; }
+  </style>
+</head>
+<body>
+<header class="topbar"><div class="bar">
+  <a class="brand" href="index.html">← Campus</a>
+  <span class="brand"><span>buscar</span></span>
+</div></header>
+<main class="env" id="app">
+  <h1>Buscar en el campus</h1>
+  <input type="text" id="q" placeholder="Ej.: owasp, nist, prompt, minimización…" autofocus>
+  <p class="meta" id="count"></p>
+  <div class="grid-cur" id="res"></div>
+</main>
+<script src="vendor/fuse.min.js"></script>
+<script>
+let INDICE = [];
+let fuse = null;
+fetch("indice.json").then(r => r.json()).then(d => {
+  INDICE = d;
+  if (window.Fuse) {
+    fuse = new Fuse(d, { keys: ["titulo", "resumen", "tags"],
+      threshold: 0.35, ignoreLocation: true });
+  }
+}).catch(() => document.getElementById("count").textContent =
+  "Índice no disponible (¿offline?).");
+
+function normalizar(s) {
+  return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, ch => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[ch]));
+}
+function pintar(q) {
+  const nq = normalizar(q.trim());
+  let res;
+  if (!nq) res = [];
+  else if (fuse) res = fuse.search(q, { limit: 40 }).map(r => r.item);
+  else res = INDICE.filter(p =>
+    normalizar(p.titulo + " " + p.resumen + " " + p.tags).includes(nq)).slice(0, 40);
+  document.getElementById("count").textContent =
+    !nq ? "Escribe para buscar." :
+    res.length + " página(s) encontrada(s) para “" + q + "”.";
+  document.getElementById("res").innerHTML = res.map(p => `
+    <article class="card">
+      <h3><a href="${esc(p.ruta)}">${esc(p.titulo)}</a></h3>
+      <p class="t2">${esc(p.resumen)}</p>
+      <p class="meta">${esc(p.tags)}</p>
+    </article>`).join("");
+}
+document.getElementById("q").addEventListener("input", e => pintar(e.target.value));
+</script>
+</body>
+</html>

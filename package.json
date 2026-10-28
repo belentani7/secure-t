@@ -4,8 +4,10 @@
   "private": false,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "node scripts/sync-campus.mjs && vite",
+    "campus:data": "node scripts/generate-campus-data.mjs",
+    "campus:sync": "node scripts/sync-campus.mjs",
+    "build": "node scripts/generate-campus-data.mjs && node scripts/sync-campus.mjs && vite build",
     "start": "tsx index.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
@@ -69,7 +71,7 @@
     "@vitejs/plugin-react": "^6.1.1",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.23.15",
-    "typescript": "^7.0.2",
+    "typescript": "^5.6.3",
     "vite": "^8.3.3",
     "vitest": "^5.0.3"
   },
