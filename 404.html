@@ -16,17 +16,18 @@
 </style>
 </head>
 <body>
-<div class="box">
+<main class="box">
   <h1>404</h1>
   <p>Esta página não existe. · Esta página no existe. · This page does not exist.</p>
-  <p><a href="#" id="ir-inicio">← início</a> · <a href="#" id="ir-campus">campus →</a></p>
-</div>
+  <nav aria-label="Navegação de recuperação"><p><a href="./" id="ir-inicio">← início</a> · <a href="./campus/" id="ir-campus">campus →</a></p></nav>
+</main>
 <script>
-  // rutas seguras bajo subpath (project pages): base derivada de la URL real
-  var base = location.pathname.replace(/\/[^/]*\/?$/, "");
-  if (!/(secure-t-university)$/i.test(base)) base = "";
-  document.getElementById("ir-inicio").href = (base || ".") + "/";
-  document.getElementById("ir-campus").href = (base || ".") + "/campus/";
+  // Keep recovery inside the known project subpath on GitHub Pages.
+  // Vercel or custom-domain root deployments always recover to "/".
+  const first = location.pathname.split("/").filter(Boolean)[0] || "";
+  const prefix = /^(secure-t|secure-t-university)$/i.test(first) ? "/" + first : "";
+  document.getElementById("ir-inicio").href = prefix + "/";
+  document.getElementById("ir-campus").href = prefix + "/campus/";
 </script>
 </body>
 </html>
