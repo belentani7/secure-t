@@ -34,7 +34,7 @@ no el campus estático: no marcarlo como campus publicado.
 
 `.github/workflows/pages.yml` implementa la misma publicación con lista
 blanca. El destino previsto es
-`https://belentani7.github.io/secure-t/`, pero **no es una URL confirmada
+`https://github.com/belentani7/secure-t`, pero **no es una URL confirmada
 como publicada**: en un repositorio personal privado GitHub Free no se puede
 habilitar Pages sin cambiar de plan o de visibilidad. No se hará público el
 código como efecto secundario de un despliegue.
