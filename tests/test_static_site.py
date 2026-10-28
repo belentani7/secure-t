@@ -210,3 +210,23 @@ def test_optional_demo_services_are_loopback_only():
     assert '"3000:3000"' not in compose
     assert '"5173:5173"' not in compose
     assert "http://127.0.0.1:3000/api/health" in compose
+
+
+def test_404_recovery_has_real_links_and_a_project_safe_base():
+    source = (ROOT / "404.html").read_text(encoding="utf-8")
+    assert "<main" in source
+    assert 'href="#"' not in source
+    assert 'href="./" id="ir-inicio"' in source
+    assert 'href="./campus/" id="ir-campus"' in source
+    assert 'secure-t|secure-t-university' in source
+    assert 'location.pathname.split("/")' in source
+
+
+def test_campus_legacy_redirect_is_complete_html_with_a_clickable_fallback():
+    source = (ROOT / "campus.html").read_text(encoding="utf-8")
+    assert source.startswith("<!doctype html>")
+    assert '<html lang="es">' in source
+    assert '<meta name="robots" content="noindex">' in source
+    assert '<meta http-equiv="refresh" content="0; url=campus/">' in source
+    assert '<main>' in source
+    assert '<a href="campus/">' in source
