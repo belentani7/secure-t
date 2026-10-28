@@ -13,6 +13,7 @@
   ],
   "exclude": ["node_modules", "build", "dist"],
   "compilerOptions": {
+    "target": "ES2022",
     "incremental": true,
     "tsBuildInfoFile": "./node_modules/typescript/tsbuildinfo",
     "noEmit": true,
