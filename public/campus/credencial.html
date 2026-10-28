@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Credencial — Campus secure-t-university</title>
-  <meta name="description" content="Genera y verifica una credencial con sello hash SHA-256, sin servidor.">
+  <meta name="description" content="Comprueba la integridad de un registro de aprendizaje local mediante SHA-256; no sustituye un certificado oficial.">
   <link rel="stylesheet" href="tokens.css">
   <style>
     .env { max-width: 46rem; margin: 0 auto; padding: var(--sp-6) var(--sp-4) var(--sp-12); }
@@ -31,32 +31,32 @@
   <span class="brand"><span>credencial</span></span>
 </div></header>
 <main class="env" id="app">
-  <h1>Credencial verificable</h1>
+  <h1>Registro local de aprendizaje</h1>
   <p class="t2">Al superar un curso con evidencia, generas aquí tu credencial. El sello es
   un <strong>SHA-256</strong> calculado en tu navegador: cualquiera puede comprobar la integridad recalculando el hash.
   No es una firma oficial ni acredita por sí solo la superación del curso.</p>
-  <p class="meta">Anti-atajo: el sellado comprueba tu progreso local (semanas, quiz,
-  laboratorio, proyecto y examen completos). Revisión humana de evidencias: PLANNED.
+  <p class="meta">Comprobación orientativa: el sellado consulta el progreso de este navegador (semanas, quiz,
+  laboratorio, proyecto y examen). Estos datos son editables en el navegador; no existe verificación independiente.
   Fase actual: huella de integridad verificable offline; sin firma institucional.</p>
 
   <h2 id="generar">Generar</h2>
-  <label class="meta">Curso superado</label>
+  <label class="meta" for="curso">Curso</label>
   <select id="curso">
     <option value="ciber-ofensiva">Ciberseguridad Ofensiva: Pensar como Atacante</option>
     <option value="ciber-defensiva">Ciberseguridad Defensiva: Operar como SOC</option>
     <option value="ia-aplicada-segura">Inteligencia Artificial Aplicada y Segura</option>
     <option value="gobernanza-compliance">Gobernanza y Compliance Digital</option>
   </select>
-  <label class="meta">Tu token anónimo (de la página de progreso)</label>
+  <label class="meta" for="token">Tu token local (de la página de progreso)</label>
   <input type="text" id="token" placeholder="ej. 3f2a... (uuid local)">
-  <label class="meta">Resumen de la evidencia (qué entregaste)</label>
+  <label class="meta" for="evidencia">Resumen de la evidencia (qué entregaste)</label>
   <input type="text" id="evidencia" placeholder="ej. mini-SOC: 3 alertas detectadas + timeline">
   <div class="fila-botones"><button class="btn" id="sellar">Sellar credencial</button></div>
   <div class="resultado" id="salida" hidden></div>
 
   <h2 id="verificar">Verificar</h2>
   <p class="t2">Pega el bloque de credencial completo:</p>
-  <textarea id="bloque" rows="8" placeholder='{"v":1,"curso":"...",...}'></textarea>
+  <textarea id="bloque" rows="8" placeholder='{"v":2,"curso":"...","huellaToken":"...",...}'></textarea>
   <div class="fila-botones"><button class="btn" id="btn-verificar">Verificar sello</button></div>
   <div class="resultado" id="veredicto" hidden></div>
 </main>
@@ -68,32 +68,26 @@ async function sha256(txt) {
   return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
 }
 function canonico(c, t, e, f) {
-  return ["secure-t/v1", c, t, e, f].join("|");
+  return JSON.stringify(["secure-t/integrity/v2", c, t, e, f]);
 }
 
-function esc(s) {
-  return String(s).replace(/[&<>"']/g, ch => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-  }[ch]));
-}
 document.getElementById("sellar").onclick = async () => {
   const c = document.getElementById("curso").value;
   const t = document.getElementById("token").value.trim();
   const e = document.getElementById("evidencia").value.trim();
   const out = document.getElementById("salida");
-  if (!t || !e) { out.hidden = false; out.innerHTML =
-    '<span class="mal">Falta token o evidencia.</span>'; return; }
+  if (!t || !e) { out.hidden = false; out.textContent = 'Falta token o evidencia.'; return; }
   // anti-atajo: sin recorrido completo no hay sello (verificación local)
-  const req = REQUISITOS[c] || [];
+  const req = REQUISITOS[c];
+  if (!req) { out.hidden = false; out.textContent = 'Curso no reconocido.'; return; }
   let est = {};
   try { est = JSON.parse(localStorage.getItem("stt-progreso") || "{}"); } catch (err) {}
   const faltan = req.filter(r => !est[c + "/" + r]);
   if (faltan.length) {
     out.hidden = false;
-    out.innerHTML = '<span class="mal">Recorrido incompleto: faltan ' + faltan.length +
+    out.textContent = 'Recorrido local incompleto: faltan ' + faltan.length +
       ' de ' + req.length + ' hitos (' + faltan.slice(0, 3).join(", ") +
-      (faltan.length > 3 ? "…" : "") + '). Completa semanas, quiz, laboratorio,' +
-      ' proyecto y examen (progreso.html). La credencial exige el trabajo.</span>';
+      (faltan.length > 3 ? "…" : "") + '). Consulta progreso.html para revisar las actividades.';
     return;
   }
   const f = new Date().toISOString().slice(0, 10);
@@ -102,7 +96,7 @@ document.getElementById("sellar").onclick = async () => {
   const bloque = {v: 2, curso: c, huellaToken, evidencia: e,
     fecha: f, sello};
   out.hidden = false;
-  out.textContent = "Sello SHA-256:\n" + sello +
+  out.textContent = "Huella SHA-256 (integridad, no certificación):\n" + sello +
     "\n\nBloque verificable (cópialo entero):\n" +
     JSON.stringify(bloque, null, 2);
 };
@@ -110,9 +104,11 @@ document.getElementById("btn-verificar").onclick = async () => {
   const v = document.getElementById("veredicto");
   try {
     const b = JSON.parse(document.getElementById("bloque").value);
-    if (b.v !== 2 || !/^[a-f0-9]{64}$/.test(b.huellaToken ?? '') ||
+    if (!b || b.v !== 2 || !/^[a-f0-9]{64}$/.test(b.huellaToken ?? '') ||
+        !Object.hasOwn(REQUISITOS, b.curso) ||
         typeof b.curso !== 'string' || typeof b.evidencia !== 'string' ||
-        typeof b.fecha !== 'string' || !/^[a-f0-9]{64}$/.test(b.sello ?? '')) {
+        typeof b.fecha !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(b.fecha) ||
+        !/^[a-f0-9]{64}$/.test(b.sello ?? '')) {
       throw new Error('Formato inválido o credencial antigua: genera una nueva versión 2.');
     }
     const recomputado = await sha256(canonico(b.curso, b.huellaToken, b.evidencia, b.fecha));
@@ -123,7 +119,7 @@ document.getElementById("btn-verificar").onclick = async () => {
       : '<span class="mal">✗ Integridad incorrecta: el bloque no coincide con su huella.</span>';
   } catch (err) {
     v.hidden = false;
-    v.innerHTML = '<span class="mal">Bloque ilegible: ' + esc(err.message) + "</span>";
+    v.textContent = 'Bloque ilegible: ' + (err instanceof Error ? err.message : 'error desconocido');
   }
 };
 </script>
