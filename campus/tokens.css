@@ -171,3 +171,26 @@ footer { padding: var(--sp-8) 0; border-top: 1px solid var(--border);
   .card, section, table, pre { border-color: #ccc; box-shadow: none; }
   main { max-width: 100%; }
 }
+
+/* SECURE-T / Campus visual identity: not part of the BELENTANI music system. */
+.cyber-hero{isolation:isolate;position:relative;min-height:clamp(530px,68svh,800px);display:grid;grid-template-columns:minmax(0,1.18fr) minmax(240px,.82fr);gap:clamp(1rem,4vw,5rem);align-items:center;margin:1.25rem 0 2.8rem;padding:clamp(2rem,5vw,5rem);background:radial-gradient(circle at 80% 40%,#42b7a12e,transparent 40%),linear-gradient(115deg,#0c1621,#071016 80%);border:1px solid #b8f36b4b;border-radius:26px;box-shadow:inset 0 1px #e1f9ec17,0 25px 70px #0009;overflow:hidden}
+.cyber-hero:before{content:"";position:absolute;z-index:-1;inset:0;background-image:linear-gradient(#b2ffb408 1px,transparent 1px),linear-gradient(90deg,#b2ffb408 1px,transparent 1px);background-size:48px 48px;pointer-events:none}
+.cyber-hero-copy{position:relative;z-index:1}.cyber-kicker{font:800 .72rem var(--font-mono);letter-spacing:.17em;color:#b8f36b}
+.cyber-hero h1{font:900 clamp(2.35rem,5.1vw,5.8rem)/1.04 var(--font-sans);letter-spacing:-.065em;max-width:13ch;margin:1.2rem 0}
+.cyber-hero h1 em{font-style:normal;color:#b8f36b}
+.cyber-hero .lead{font-size:clamp(1.04rem,1.7vw,1.32rem);line-height:1.72;max-width:54ch;color:#d0e4e5}
+.cyber-hero-actions{display:flex;gap:.9rem;flex-wrap:wrap;margin:2rem 0}.cyber-hero-actions a{min-height:52px;font-weight:850;letter-spacing:.04em;font-size:.78rem}
+.cyber-primary{background:#b8f36b!important;color:#0b1c20!important;box-shadow:0 0 36px #b8f36b38}.cyber-secondary{background:#0b2534a6!important;border-color:#65c4cc72!important;color:#f3ffff!important}
+.cyber-highlights{display:flex;flex-wrap:wrap;gap:.7rem}.cyber-highlights span{color:#b7cdca;font:700 .65rem var(--font-mono);letter-spacing:.075em;border-left:2px solid #b8f36b87;padding:.2rem .8rem}
+.cyber-reactor{justify-self:center;position:relative;width:min(100%,360px);aspect-ratio:1;display:grid;place-items:center}
+.cyber-grid-lines{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 45% 40%,#4dd4cf36,transparent 60%);box-shadow:0 0 100px #65d4d427}
+.cyber-orbit{position:relative;width:88%;aspect-ratio:1;border:1px solid #77d1d09a;border-radius:50%;display:grid;place-items:center;box-shadow:inset 0 0 75px #55bbaa18,0 0 65px #49bfbf28;animation:securePulse 9s ease-in-out infinite alternate;transform:rotate(-25deg)}
+.cyber-orbit:before,.cyber-orbit:after{content:"";position:absolute;inset:-6%;border-radius:50%;border:1px solid #b8f36b64;transform:rotate3d(1,1,0,65deg)}.cyber-orbit:after{inset:16%;border-color:#ffffff48;transform:rotate3d(1,-1,0,62deg)}
+.cyber-orbit.inner{position:absolute;inset:16%;width:auto;opacity:.28;transform:rotate(25deg)}
+.cyber-shield{position:relative;z-index:1;width:42%;filter:drop-shadow(0 0 33px #b8f36b64);transform:rotate(25deg)}.cyber-shield svg{width:100%;height:auto}
+.cyber-grid-tag{position:absolute;z-index:1;background:#112632dc;border:1px solid #6acdd366;color:#c6f8f5;padding:.7rem .9rem;border-radius:7px;font:700 .62rem var(--font-mono);letter-spacing:.08em;backdrop-filter:blur(12px)}
+.cyber-grid-tag.a{top:7%;right:-4%}.cyber-grid-tag.b{bottom:7%;left:-8%}
+@keyframes securePulse{to{transform:rotate(-15deg) scale(1.035)}}
+@media(max-width:850px){.cyber-hero{grid-template-columns:1fr}.cyber-reactor{width:240px;margin-block:1rem}.cyber-hero h1{max-width:18ch}}
+@media(max-width:520px){.cyber-hero{padding:2rem 1rem}.cyber-hero h1{font-size:clamp(2.2rem,10vw,3.5rem)}.cyber-grid-tag{font-size:.48rem}.cyber-grid-tag.b{left:0}.cyber-grid-tag.a{right:0}}
+@media(prefers-reduced-motion:reduce){.cyber-orbit{animation:none}}

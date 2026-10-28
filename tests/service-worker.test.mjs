@@ -65,10 +65,11 @@ test('offline missing scripts never receive fallback HTML', async () => {
   assert.equal(response.type, 'error');
 });
 
-test('offline navigation can fall back to the cached campus index', async () => {
+test('unknown offline routes fail instead of masquerading as the cached campus index', async () => {
   const instance = worker({ offline: true, cached: req => req === scope + 'index.html'
     ? new Response('Campus index') : undefined });
-  assert.equal(await (await request(instance, scope + 'unvisited.html', 'navigate')).text(), 'Campus index');
+  const missing = await request(instance, scope + 'unvisited.html', 'navigate');
+  assert.equal(missing.type, 'error');
 });
 
 test('offline lookups ignore conflicting legacy and unrelated caches', async () => {

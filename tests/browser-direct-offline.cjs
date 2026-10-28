@@ -39,7 +39,19 @@ const base=process.env.SECURE_T_URL||'http://127.0.0.1:8765/campus/';
    await page.goto(new URL('observatorio/labs.html',base).href);
    await page.evaluate(()=>navigator.serviceWorker.ready);
    await context.setOffline(true);
-   await assert.rejects(()=>page.goto(new URL('observatorio/not-a-real-page-404.html',base).href));
+   // Different browsers surface an uncached offline navigation as a rejected
+   // goto, a network error response, or an explicit not-found status.
+   // Never accept a successful (200) home-page fallback for an unknown route.
+   const missingUrl = new URL('observatorio/not-a-real-page-404.html',base).href;
+   let missing;
+   try {
+    const response = await page.goto(missingUrl,{waitUntil:'domcontentloaded'});
+    missing = {status:response?.status(),url:page.url(),title:await page.title()};
+   } catch(error) {
+    missing = {error:String(error?.message||error)};
+   }
+   assert.ok(missing.error || missing.status===404 || missing.status===410,
+     'Unknown offline route must not masquerade as success: '+JSON.stringify(missing));
   }finally{await context.close();}
   console.log(JSON.stringify({ok:true,deepLinks:passed,offline:true,homeFallbackForUnknown:false}));
  }finally{await browser.close();}

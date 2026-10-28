@@ -1,7 +1,7 @@
 // Cache only this campus. Other applications can share the same hosting origin.
 const SCOPE = new URL(self.registration.scope);
 const PREFIX = `secure-t-campus:${SCOPE.pathname}:`;
-const CACHE = `${PREFIX}v11`;
+const CACHE = `${PREFIX}v12`;
 const CORE = ['./', './index.html', './tokens.css', './app.js',
   './sw-register.js',
   './workstation/index.html', './workstation/workstation.css',
@@ -47,12 +47,9 @@ self.addEventListener('fetch', e => {
           const directoryIndex = await cache.match(url.origin + url.pathname + 'index.html');
           if (directoryIndex) return directoryIndex;
         }
-        // Do not disguise an unknown offline page as the campus home.
-        const campusHome = new URL('index.html', SCOPE);
-        if (e.request.mode === 'navigate') {
-          const index = await cache.match(campusHome.href);
-          if (index) return index;
-        }
+        // Unknown offline URLs must fail explicitly: silently serving the
+        // home page hides 404s, misleads students and breaks route validation.
+        return Response.error();
       }
       // HTML cannot substitute for missing scripts, JSON, styles or audio.
       return Response.error();
