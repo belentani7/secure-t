@@ -59,7 +59,21 @@ def render_public_metadata(stage: Path) -> None:
         path.write_text(source.replace("__BASE_URL__", site_url), encoding="utf-8")
     landing = stage / "index.html"
     source = landing.read_text(encoding="utf-8")
-    landing.write_text(source.replace(DEFAULT_SITE_URL + "/", site_url + "/"), encoding="utf-8")
+    # Canonical and Open Graph refer to the deployed site, never its Git repository.
+    source = source.replace(DEFAULT_SITE_URL + "/", site_url + "/")
+    for expression in (
+        r'(<link rel="canonical" href=")[^"]+(")',
+        r'(<meta property="og:url" content=")[^"]+(")',
+    ):
+        source, count = re.subn(
+            expression,
+            lambda match: match.group(1) + site_url + "/" + match.group(2),
+            source,
+            count=1,
+        )
+        if count != 1:
+            raise RuntimeError("Missing required canonical or Open Graph URL in landing")
+    landing.write_text(source, encoding="utf-8")
 
 
 class _References(HTMLParser):
