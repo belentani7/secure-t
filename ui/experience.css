@@ -106,3 +106,39 @@ body:not(.campus-landing) .btn:hover{transform:translateY(-2px)}
 @media(max-width:720px){.st-journey-grid{grid-template-columns:1fr}.st-route-card{min-height:185px}.st-hero-art{border-radius:22px}.st-diagram{max-width:280px}.campus-landing .campus-primary-nav>.btn{font-size:.8rem;padding:.55rem .58rem}.campus-landing .campus-menu{margin-left:auto}.campus-landing .campus-menu-panel{right:0}.campus-landing .grid-cursos{grid-template-columns:1fr}.campus-landing .cyber-hero{padding:2rem 1.15rem;min-height:0}.campus-landing .cyber-hero h1{font-size:clamp(2.55rem,10vw,4rem)}.campus-landing .cyber-hero-actions a{width:100%}.campus-landing .cyber-highlights span{font-size:.6rem}.campus-landing .topbar{min-height:0}.campus-landing .brand{white-space:normal}}
 @media(prefers-reduced-motion:reduce){.st-diagram-arc{animation:none}.st-route-card,.campus-landing .grid-cursos .card{transition:none}}
 @media print{.st-hero-art,.st-soc-preview{display:none}.st-hero-layout,.campus-landing .cyber-hero{display:block}.st-route-card{min-height:0;break-inside:avoid}}
+
+/* Four full lesson courses: a coherent, readable classroom without touching content. */
+html:not([data-theme="light"]) body.course-landing{background:radial-gradient(ellipse 80% 440px at 45% 0%,#234b4c62,transparent),#08161c;color:#eaf9f4}
+body.course-landing .topbar{background:#0b2028ea;border-bottom:1px solid #558c817c;backdrop-filter:blur(18px);z-index:30}
+body.course-landing .topbar .bar{max-width:1400px;margin:auto;display:flex;align-items:center;gap:1rem}
+body.course-landing .topbar .bar>.brand:first-child{font-weight:850;color:var(--st-electric)}
+body.course-landing .topbar .bar>.brand:nth-child(2){font-weight:750;max-width:min(520px,42vw);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+body.course-landing .curso-layout{max-width:1400px;grid-template-columns:minmax(215px,268px) minmax(0,1fr);gap:clamp(1.5rem,3vw,3.5rem);padding:clamp(1.2rem,3vw,2.5rem);align-items:start}
+body.course-landing .curso-nav{position:sticky;top:100px;max-height:calc(100svh - 115px);overflow-y:auto;overscroll-behavior:contain;scrollbar-color:#659286 transparent;padding:1rem;border:1px solid #5e958a70;border-radius:18px;background:linear-gradient(160deg,#152e36,#0e1c23);box-shadow:0 15px 38px #0003}
+body.course-landing .curso-nav a{border-radius:9px;line-height:1.45;padding:.55rem .6rem;min-height:40px;font-size:.83rem;text-wrap:pretty}
+body.course-landing .curso-nav a:hover,body.course-landing .curso-nav a:focus-visible{background:#3260589c;color:#e9ffcb}
+body.course-landing .curso-nav a.activo{background:#28563f;color:#d2ffa3;font-weight:800}
+body.course-landing .curso-layout>main{min-width:0;width:100%;max-width:1000px}
+body.course-landing .curso-layout>main>section{scroll-margin-top:115px;max-width:100%;margin-bottom:clamp(2rem,4vw,3.5rem)}
+body.course-landing #overview{position:relative;overflow:hidden;padding:clamp(1.5rem,4vw,3.6rem);background:radial-gradient(circle at 88% 14%,#53c6b934,transparent 35%),linear-gradient(130deg,#17313b,#0d1a22);border:1px solid #78c3ac91;border-radius:23px;box-shadow:0 24px 60px #0004}
+body.course-landing #overview>h1{font-size:clamp(2.5rem,4.4vw,4.8rem);line-height:1.07;letter-spacing:-.057em;font-weight:850;max-width:20ch;text-wrap:balance;margin-bottom:1.4rem}
+body.course-landing .curso-layout>main>section:not(#overview){padding:clamp(1.1rem,2.5vw,2.4rem);background:linear-gradient(150deg,#112630ba,#0a181fd1);border:1px solid #557f7c60;border-radius:18px}
+body.course-landing .curso-layout>main>section>h2:first-child{font-size:clamp(1.65rem,3vw,2.6rem);letter-spacing:-.04em;line-height:1.16;color:#eaf8f6;border-color:#4a807b88}
+body.course-landing .curso-layout>main .badge{border:1px solid #79ac8380;background:#1c513c;color:#d9ffb4}
+body.course-landing .curso-layout>main p,body.course-landing .curso-layout>main li{line-height:1.85}
+body.course-landing .curso-layout>main pre{background:#09151bcc;border:1px solid #6b9e9675;white-space:pre;overflow:auto}
+body.course-landing .curso-layout>main table{display:block;max-width:100%;overflow-x:auto;border:0}
+body.course-landing .curso-layout>main th{background:#234249}
+body.course-landing .curso-layout>main blockquote{border-left:3px solid #bafc72;background:#bafc720b;padding:.9rem 1.3rem;margin-inline:0;border-radius:0 11px 11px 0}
+body.course-landing .curso-layout>main a:not(.btn){text-decoration-thickness:1px;text-underline-offset:3px}
+body.course-landing .controles .btn{background:var(--st-electric);color:#0b211b;border-radius:9px;font-weight:750}
+html[data-theme="light"] body.course-landing{background:#f1f7f4}
+html[data-theme="light"] body.course-landing .curso-nav,html[data-theme="light"] body.course-landing .curso-layout>main>section:not(#overview){background:#fff;border-color:#bad4cd;color:#14292b}
+html[data-theme="light"] body.course-landing #overview{background:linear-gradient(125deg,#edf9f1,#d3eee9);color:#152e30;border-color:#8cb7aa}
+html[data-theme="light"] body.course-landing .topbar{background:#f7faf7ef;border-color:#c6d8d1}
+html[data-theme="light"] body.course-landing .curso-layout>main>section>h2:first-child{color:#1d3739}
+html[data-theme="light"] body.course-landing .curso-layout>main pre{background:#eaf2ef;color:#1d3434}
+html[data-theme="light"] body.course-landing .curso-layout>main th{background:#e2f1ec}
+@media(max-width:900px){body.course-landing .curso-layout{grid-template-columns:1fr}body.course-landing .curso-nav{position:static;max-height:320px}body.course-landing .topbar .bar>.brand:nth-child(2){max-width:40vw}}
+@media(max-width:540px){body.course-landing .curso-layout{padding:1rem}body.course-landing .topbar .bar{flex-wrap:wrap}body.course-landing .topbar .bar>.brand:nth-child(2){max-width:100%;white-space:normal}body.course-landing #overview{padding:1.4rem}body.course-landing #overview>h1{font-size:clamp(2rem,9vw,3.1rem)}}
+@media print{body.course-landing #overview,body.course-landing .curso-layout>main>section:not(#overview){background:#fff;border-color:#ccc;color:#000;box-shadow:none}body.course-landing .curso-nav{display:none}body.course-landing .curso-layout{display:block;padding:0}}
