@@ -28,6 +28,8 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build existing app
         run: pnpm build
+      - name: Install Chromium for browser screenshots
+        run: npx --yes playwright install chromium
       - name: Start local app and verify response
         shell: bash
         run: |
