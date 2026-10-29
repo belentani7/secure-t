@@ -20,24 +20,38 @@ button:disabled{opacity:.5;cursor:not-allowed}button:focus-visible,select:focus-
 .feedback{border-left:4px solid #9cebd9;background:#203e4c;padding:1rem;margin:1rem 0;border-radius:.4rem}.feedback p{margin:.25rem 0}
 .summary{max-width:750px}.fine{color:#b4c8d7;font-size:.9rem;margin-top:2rem}
 [hidden]{display:none!important}@media(max-width:800px){.grid{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+progress{display:block;width:100%;height:.65rem;accent-color:#9cebd9;margin:.5rem 0 1.25rem}
 </style></head><body><a class="skip" href="#work">Pular para o exercício / Saltar al ejercicio / Skip to practice</a>
 <div class="wrap"><nav><a href="./">← SECURE T / ACADEMIA</a><label><span class="eyebrow">PT · ES · EN </span><select id="lang" aria-label="Idioma / Language"><option value="pt">Português</option><option value="es">Español</option><option value="en">English</option></select></label></nav>
 <header><p class="eyebrow">CYBER RANGE / BLUE TEAM · OFFLINE</p><h1 id="title"></h1><p class="subtitle" id="subtitle"></p></header>
 <main id="work" tabindex="-1">
 <div class="grid" id="case">
-<section class="card" aria-labelledby="evidence-label"><p class="eyebrow" id="progress"></p><p id="category" class="eyebrow"></p><h2 id="evidence-label"></h2><pre id="evidence" aria-label="Synthetic training logs"></pre></section>
-<section class="card" aria-labelledby="question"><h2 id="question"></h2><form id="decision"><fieldset style="border:0;padding:0;margin:0"><legend class="eyebrow" id="instruction"></legend><div id="options" class="choices"></div></fieldset><button id="submit" type="submit"></button></form>
+<section class="card" aria-labelledby="evidence-label"><p class="eyebrow" id="progress"></p><progress id="case-meter" aria-labelledby="progress" max="6" value="1"></progress><p id="category" class="eyebrow"></p><h2 id="evidence-label"></h2><pre id="evidence" aria-label="Synthetic training logs"></pre></section>
+<section class="card" aria-labelledby="question"><h2 id="question" tabindex="-1"></h2><form id="decision"><fieldset style="border:0;padding:0;margin:0"><legend class="eyebrow" id="instruction"></legend><div id="options" class="choices"></div></fieldset><button id="submit" type="submit"></button></form>
 <div id="feedback" tabindex="-1" class="feedback" role="status" aria-live="polite" hidden></div><button id="next" type="button" hidden></button></section></div>
 <section class="card summary" id="summary" tabindex="-1" hidden aria-live="polite"><h2 id="complete"></h2><p id="score"></p><p class="subtitle" id="summary-note"></p>
 <button id="download" type="button"></button> <button id="restart" type="button"></button></section>
-<p class="fine" id="note"></p></main><footer class="fine">SECURE T · Fictitious training data only · No external scanning · No server-side persistence</footer></div>
+<p class="fine" id="note"></p></main><footer class="fine">SECURE T · Fictitious training data only · No external scanning · No server-side persistence<p id="session-note"></p></footer></div>
 <script type="module">
 import {INCIDENTS,LABELS,assess,learningReport} from './triage-core.mjs';
+import {loadLabSession,saveLabSession,clearLabSession} from './lab-session.mjs';
 const $=id=>document.getElementById(id);
-let lang='pt',step=0,answers=[],reviewed=false,lastCorrect=false,pendingChoice=null;
+const LAB_SESSION_KEY='secure-t:soc-lab:session-v1';
+const LAB_SESSION_SIGNATURE=INCIDENTS.map(item=>item.id).join('|');
+let tabStore=null;try{tabStore=window.sessionStorage;}catch{}
+const restored=loadLabSession(tabStore,LAB_SESSION_KEY,INCIDENTS.length,LAB_SESSION_SIGNATURE);
+let lang=restored?.lang??'pt',step=restored?.step??0,answers=restored?.answers??[],reviewed=restored?.reviewed??false,pendingChoice=restored?.pendingChoice??null;
+let lastCorrect=reviewed?assess(INCIDENTS[step],answers[step]):false;
+const saveProgress=()=>saveLabSession(tabStore,LAB_SESSION_KEY,INCIDENTS.length,LAB_SESSION_SIGNATURE,{lang,step,answers:answers,reviewed:reviewed,pendingChoice});
+const resumeCopy={
+pt:'O progresso desta prática fica somente nesta aba e pode ser recuperado após recarregar. Sem sincronização ou telemetria.',
+es:'El progreso de esta práctica permanece solo en esta pestaña y puede recuperarse al recargar. Sin sincronización ni telemetría.',
+en:'Practice progress stays in this tab and can be recovered on reload. No sync or telemetry.'
+};
+$('lang').value=lang;
 function draw(){
  const t=LABELS[lang];document.documentElement.lang=lang;document.title=t.title+' · Secure T';
- $('title').textContent=t.title;$('subtitle').textContent=t.subtitle;$('note').textContent=t.note;
+ $('title').textContent=t.title;$('session-note').textContent=resumeCopy[lang];$('case-meter').value=Math.min(step+1,INCIDENTS.length);$('subtitle').textContent=t.subtitle;$('note').textContent=t.note;
  $('complete').textContent=t.complete;$('summary-note').textContent=t.note;
  $('download').textContent=t.download;$('restart').textContent=t.again;
  $('summary').hidden=step<INCIDENTS.length;$('case').hidden=step>=INCIDENTS.length;
@@ -61,14 +75,14 @@ function draw(){
   $('feedback').append(head,detail,next);
  }
 }
-$('decision').addEventListener('change',event=>{if(event.target?.name==="decision")pendingChoice=Number(event.target.value);});
+$('decision').addEventListener('change',event=>{if(event.target?.name==="decision"){pendingChoice=Number(event.target.value);saveProgress();}});
 $('decision').addEventListener('submit',event=>{
  event.preventDefault();if(reviewed)return;const input=document.querySelector('input[name="decision"]:checked');if(!input)return;
- const option=Number(input.value);lastCorrect=assess(INCIDENTS[step],option);answers.push(option);pendingChoice=null;reviewed=true;draw();$('feedback').focus();
+ const option=Number(input.value);lastCorrect=assess(INCIDENTS[step],option);answers.push(option);pendingChoice=null;reviewed=true;draw();saveProgress();$('feedback').focus();
 });
-$('next').addEventListener('click',()=>{step++;pendingChoice=null;reviewed=false;draw();(step===INCIDENTS.length?$('summary'):$('work')).focus();});
-$('restart').addEventListener('click',()=>{step=0;answers=[];pendingChoice=null;reviewed=false;draw();$('work').focus();});
-$('lang').addEventListener('change',event=>{lang=event.target.value;draw();});
+$('next').addEventListener('click',()=>{step++;pendingChoice=null;reviewed=false;draw();saveProgress();(step===INCIDENTS.length?$('summary'):$('question')).focus();});
+$('restart').addEventListener('click',()=>{step=0;answers=[];pendingChoice=null;reviewed=false;draw();clearLabSession(tabStore,LAB_SESSION_KEY);$('question').focus();});
+$('lang').addEventListener('change',event=>{lang=event.target.value;draw();saveProgress();});
 $('download').addEventListener('click',()=>{
  const blob=new Blob([learningReport(answers,lang)],{type:'text/plain;charset=utf-8'});
  const uri=URL.createObjectURL(blob),anchor=document.createElement('a');
