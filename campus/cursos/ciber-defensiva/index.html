@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ciberseguridad Defensiva: Operar como SOC — Secure T University</title>
-  <meta name="description" content="Curso universitario de defensa: triada CIA, telemetría y logs, SIEM, respuesta a incidentes NIST y hardening. El estudiante opera un mini-SOC con caso">
+  <meta name="description" content="Curso de defensa y operaciones SOC con telemetría, análisis de registros, SIEM, respuesta a incidentes y prácticas de endurecimiento de sistemas.">
   <link rel="stylesheet" href="../../tokens.css">
   <style>
     .curso-layout { display: grid; grid-template-columns: 15rem 1fr; gap: var(--sp-8);
@@ -47,11 +47,12 @@
     .sem-nav a { color: var(--accent); text-decoration: none; }
     .sem-nav a:hover { text-decoration: underline; }
   </style>
+  <link rel="stylesheet" href="../../../ui/experience.css">
 </head>
-<body>
+<body class="course-landing">
 <header class="topbar"><div class="bar">
   <a class="brand" href="../../index.html">← Campus</a>
-  <span class="brand"><span>Ciberseguridad Defensiva: Operar como SO</span></span>
+  <span class="brand"><span>Ciberseguridad Defensiva: Operar como SOC</span></span>
   <div class="controles no-print">
     <button id="fs-menos" aria-label="Reducir tamaño de letra">A−</button>
     <button id="fs-mas" aria-label="Aumentar tamaño de letra">A+</button>
@@ -72,14 +73,14 @@
       <a href="#semana-6">Semana 6 · Ingenieria de deteccion y reglas Sigma</a>
       <a href="#semana-7">Semana 7 · Respuesta a incidentes (NIST 800-61r3)</a>
       <a href="#semana-8">Semana 8 · Inteligencia de amenazas y TIP</a>
-      <a href="#semana-9">Semana 9 · Deteccion y respuesta en endpoints (ED…</a>
-      <a href="#semana-10">Semana 10 · Analisis de trafico de red con Zeek/Su…</a>
+      <a href="#semana-9">Semana 9 · Deteccion y respuesta en endpoints (EDR)</a>
+      <a href="#semana-10">Semana 10 · Analisis de trafico de red con Zeek/Suricata</a>
       <a href="#semana-11">Semana 11 · Analisis basico de malware</a>
       <a href="#semana-12">Semana 12 · Forense digital y manejo de evidencias</a>
-      <a href="#semana-13">Semana 13 · Gestion del ciclo de vida de vulnerabi…</a>
-      <a href="#semana-14">Semana 14 · Hardening y lineas base de configuraci…</a>
+      <a href="#semana-13">Semana 13 · Gestion del ciclo de vida de vulnerabilidades</a>
+      <a href="#semana-14">Semana 14 · Hardening y lineas base de configuracion</a>
       <a href="#semana-15">Semana 15 · Gestion de identidades y acceso (IAM)</a>
-      <a href="#semana-16">Semana 16 · Postura de seguridad en cloud (CSPM/CW…</a>
+      <a href="#semana-16">Semana 16 · Postura de seguridad en cloud (CSPM/CWPP)</a>
       <a href="#semana-17">Semana 17 · Seguridad de aplicaciones y DevSecOps</a>
       <a href="#semana-18">Semana 18 · Proteccion de datos y DLP</a>
       <a href="#semana-19">Semana 19 · Resiliencia: backup, DR y continuidad</a>
@@ -112,7 +113,7 @@
 proyecto con evidencia 40 %. Nada se aprueba adivinando.</blockquote>
     </section>
     <section id="syllabus">
-<h1>Ciberseguridad Defensiva: Operar como SOC</h1>
+<h2>Ciberseguridad Defensiva: Operar como SOC</h2>
 <blockquote>Nivel: universitario · 60 horas · Idioma principal: ES</blockquote>
 <h2>Descripcion</h2>
 <p>Curso universitario de defensa: triada CIA, telemetría y logs, SIEM, respuesta a incidentes NIST y hardening. El estudiante opera un mini-SOC con casos reales despersonalizados.</p>
@@ -165,7 +166,7 @@ proyecto con evidencia 40 %. Nada se aprueba adivinando.</blockquote>
 <p>Ver <a href="recursos.md">recursos.md</a> — bancos abiertos + Drive do Pobre.</p>
     </section>
     <section id="semana-1">
-<h1>Semana 1: Fundamentos: triada CIA y controles</h1>
+<h2>Semana 1: Fundamentos: triada CIA y controles</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 1 de 20</p>
 <h2>Objetivos de aprendizaje</h2>
 <ul><li>Explicar la triada CIA y aplicarla a la clasificación de activos</li><li>Distinguir controles preventivos, detectivos y correctivos</li><li>Clasificar activos por impacto en confidencialidad, integridad y disponibilidad</li><li>Mapear controles a las funciones del NIST CSF</li></ul>
@@ -208,7 +209,7 @@ Código fuente       ALTO ALTO MEDIO Git + code review + firma</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><span></span><a href="#semana-2">Semana 2 →</a></nav>
     </section>
     <section id="semana-2">
-<h1>Semana 2: Telemetría: logs y detección</h1>
+<h2>Semana 2: Telemetría: logs y detección</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 2 de 20</p>
 <h2>Objetivos de aprendizaje</h2>
 <ul><li>Configurar recolección de logs desde múltiples fuentes en un SIEM</li><li>Escribir reglas de detección básicas (Sigma/Wazuh)</li><li>Correlacionar eventos para identificar actividad sospechosa</li><li>Mantener integridad temporal con NTP y retención legal de logs</li></ul>
@@ -273,7 +274,7 @@ tags:
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-1">← Semana 1</a><a href="#semana-3">Semana 3 →</a></nav>
     </section>
     <section id="semana-3">
-<h1>Semana 3: Respuesta a incidentes (NIST 800-61)</h1>
+<h2>Semana 3: Respuesta a incidentes (NIST 800-61)</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 3 de 20</p>
 <h2>Objetivos de aprendizaje</h2>
 <ul><li>Ejecutar las 6 fases del ciclo de respuesta a incidentes NIST 800-61</li><li>Desarrollar playbooks para ransomware, phishing y cuenta comprometida</li><li>Clasificar indicadores de compromiso (IoC) por tipo y fuente</li><li>Documentar un incidente con cronología y lecciones aprendidas</li></ul>
@@ -338,7 +339,7 @@ LECCIONES: Simulación de phishing + formación targeted</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-2">← Semana 2</a><a href="#semana-4">Semana 4 →</a></nav>
     </section>
     <section id="semana-4">
-<h1>Semana 4: Hardening y continuidad</h1>
+<h2>Semana 4: Hardening y continuidad</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 4 de 20</p>
 <h2>Objetivos de aprendizaje</h2>
 <ul><li>Aplicar CIS Benchmarks nivel 1 para endurecer un servidor Linux</li><li>Verificar hardening con checklist de evidencia antes/después</li><li>Implementar estrategia de backup 3-2-1 con prueba de restauración</li><li>Diseñar un plan básico de continuidad de negocio</li></ul>
@@ -409,7 +410,7 @@ diff -r /datos /tmp/test-restore/datos</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-3">← Semana 3</a><a href="#semana-5">Semana 5 →</a></nav>
     </section>
     <section id="semana-5">
-<h1>Semana 5: Fundamentos de SOC y triaje de alertas</h1>
+<h2>Semana 5: Fundamentos de SOC y triaje de alertas</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 5 de 20</p>
 <h2>LECTURA: Teoria: Fundamentos de SOC y triaje de alertas</h2>
 <p>Contenido teorico detallado para fundamentos de soc y triaje de alertas. Incluye frameworks, comandos y referencias.</p>
@@ -428,7 +429,7 @@ diff -r /datos /tmp/test-restore/datos</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-4">← Semana 4</a><a href="#semana-6">Semana 6 →</a></nav>
     </section>
     <section id="semana-6">
-<h1>Semana 6: Ingenieria de deteccion y reglas Sigma</h1>
+<h2>Semana 6: Ingenieria de deteccion y reglas Sigma</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 6 de 20</p>
 <h2>LECTURA: Teoria: Ingenieria de deteccion y reglas Sigma</h2>
 <p>Contenido teorico detallado para ingenieria de deteccion y reglas sigma. Incluye frameworks, comandos y referencias.</p>
@@ -447,7 +448,7 @@ diff -r /datos /tmp/test-restore/datos</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-5">← Semana 5</a><a href="#semana-7">Semana 7 →</a></nav>
     </section>
     <section id="semana-7">
-<h1>Semana 7: Respuesta a incidentes (NIST 800-61r3)</h1>
+<h2>Semana 7: Respuesta a incidentes (NIST 800-61r3)</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 7 de 20</p>
 <h2>LECTURA: Teoria: Respuesta a incidentes (NIST 800-61r3)</h2>
 <p>Contenido teorico detallado para respuesta a incidentes (nist 800-61r3). Incluye frameworks, comandos y referencias.</p>
@@ -466,7 +467,7 @@ diff -r /datos /tmp/test-restore/datos</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-6">← Semana 6</a><a href="#semana-8">Semana 8 →</a></nav>
     </section>
     <section id="semana-8">
-<h1>Semana 8: Inteligencia de amenazas y TIP</h1>
+<h2>Semana 8: Inteligencia de amenazas y TIP</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 8 de 20</p>
 <h2>LECTURA: Teoria: Inteligencia de amenazas y TIP</h2>
 <p>Contenido teorico detallado para inteligencia de amenazas y tip. Incluye frameworks, comandos y referencias.</p>
@@ -485,7 +486,7 @@ diff -r /datos /tmp/test-restore/datos</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-7">← Semana 7</a><a href="#semana-9">Semana 9 →</a></nav>
     </section>
     <section id="semana-9">
-<h1>Semana 9: Deteccion y respuesta en endpoints (EDR)</h1>
+<h2>Semana 9: Deteccion y respuesta en endpoints (EDR)</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 9 de 20</p>
 <h2>LECTURA: Teoria: Deteccion y respuesta en endpoints (EDR)</h2>
 <p>Contenido teorico detallado para deteccion y respuesta en endpoints (edr). Incluye frameworks, comandos y referencias.</p>
@@ -498,7 +499,7 @@ diff -r /datos /tmp/test-restore/datos</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-8">← Semana 8</a><a href="#semana-10">Semana 10 →</a></nav>
     </section>
     <section id="semana-10">
-<h1>Semana 10: Analisis de trafico de red con Zeek/Suricata</h1>
+<h2>Semana 10: Analisis de trafico de red con Zeek/Suricata</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 10 de 20</p>
 <h2>LECTURA: Teoria: Analisis de trafico de red con Zeek/Suricata</h2>
 <p>Contenido teorico detallado para analisis de trafico de red con zeek/suricata. Incluye frameworks, comandos y referencias.</p>
@@ -511,7 +512,7 @@ diff -r /datos /tmp/test-restore/datos</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-9">← Semana 9</a><a href="#semana-11">Semana 11 →</a></nav>
     </section>
     <section id="semana-11">
-<h1>Semana 11: Analisis basico de malware</h1>
+<h2>Semana 11: Analisis basico de malware</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 11 de 20</p>
 <h2>LECTURA: Teoria: Analisis basico de malware</h2>
 <p>Contenido teorico detallado para analisis basico de malware. Incluye frameworks, comandos y referencias.</p>
@@ -524,7 +525,7 @@ diff -r /datos /tmp/test-restore/datos</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-10">← Semana 10</a><a href="#semana-12">Semana 12 →</a></nav>
     </section>
     <section id="semana-12">
-<h1>Semana 12: Forense digital y manejo de evidencias</h1>
+<h2>Semana 12: Forense digital y manejo de evidencias</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 12 de 20</p>
 <h2>LECTURA: Teoria: Forense digital y manejo de evidencias</h2>
 <p>Contenido teorico detallado para forense digital y manejo de evidencias. Incluye frameworks, comandos y referencias.</p>
@@ -537,7 +538,7 @@ diff -r /datos /tmp/test-restore/datos</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-11">← Semana 11</a><a href="#semana-13">Semana 13 →</a></nav>
     </section>
     <section id="semana-13">
-<h1>Semana 13: Gestion del ciclo de vida de vulnerabilidades</h1>
+<h2>Semana 13: Gestion del ciclo de vida de vulnerabilidades</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 13 de 20</p>
 <h2>LECTURA: Teoria: Gestion del ciclo de vida de vulnerabilidades</h2>
 <p>Contenido teorico detallado para gestion del ciclo de vida de vulnerabilidades. Incluye frameworks, comandos y referencias.</p>
@@ -550,7 +551,7 @@ diff -r /datos /tmp/test-restore/datos</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-12">← Semana 12</a><a href="#semana-14">Semana 14 →</a></nav>
     </section>
     <section id="semana-14">
-<h1>Semana 14: Hardening y lineas base de configuracion</h1>
+<h2>Semana 14: Hardening y lineas base de configuracion</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 14 de 20</p>
 <h2>LECTURA: Teoria: Hardening y lineas base de configuracion</h2>
 <p>Contenido teorico detallado para hardening y lineas base de configuracion. Incluye frameworks, comandos y referencias.</p>
@@ -563,7 +564,7 @@ diff -r /datos /tmp/test-restore/datos</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-13">← Semana 13</a><a href="#semana-15">Semana 15 →</a></nav>
     </section>
     <section id="semana-15">
-<h1>Semana 15: Gestion de identidades y acceso (IAM)</h1>
+<h2>Semana 15: Gestion de identidades y acceso (IAM)</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 15 de 20</p>
 <h2>LECTURA: Teoria: Gestion de identidades y acceso (IAM)</h2>
 <p>Contenido teorico detallado para gestion de identidades y acceso (iam). Incluye frameworks, comandos y referencias.</p>
@@ -576,7 +577,7 @@ diff -r /datos /tmp/test-restore/datos</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-14">← Semana 14</a><a href="#semana-16">Semana 16 →</a></nav>
     </section>
     <section id="semana-16">
-<h1>Semana 16: Postura de seguridad en cloud (CSPM/CWPP)</h1>
+<h2>Semana 16: Postura de seguridad en cloud (CSPM/CWPP)</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 16 de 20</p>
 <h2>LECTURA: Teoria: Postura de seguridad en cloud (CSPM/CWPP)</h2>
 <p>Contenido teorico detallado para postura de seguridad en cloud (cspm/cwpp). Incluye frameworks, comandos y referencias.</p>
@@ -589,7 +590,7 @@ diff -r /datos /tmp/test-restore/datos</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-15">← Semana 15</a><a href="#semana-17">Semana 17 →</a></nav>
     </section>
     <section id="semana-17">
-<h1>Semana 17: Seguridad de aplicaciones y DevSecOps</h1>
+<h2>Semana 17: Seguridad de aplicaciones y DevSecOps</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 17 de 20</p>
 <h2>LECTURA: Teoria: Seguridad de aplicaciones y DevSecOps</h2>
 <p>Contenido teorico detallado para seguridad de aplicaciones y devsecops. Incluye frameworks, comandos y referencias.</p>
@@ -602,7 +603,7 @@ diff -r /datos /tmp/test-restore/datos</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-16">← Semana 16</a><a href="#semana-18">Semana 18 →</a></nav>
     </section>
     <section id="semana-18">
-<h1>Semana 18: Proteccion de datos y DLP</h1>
+<h2>Semana 18: Proteccion de datos y DLP</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 18 de 20</p>
 <h2>LECTURA: Teoria: Proteccion de datos y DLP</h2>
 <p>Contenido teorico detallado para proteccion de datos y dlp. Incluye frameworks, comandos y referencias.</p>
@@ -615,7 +616,7 @@ diff -r /datos /tmp/test-restore/datos</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-17">← Semana 17</a><a href="#semana-19">Semana 19 →</a></nav>
     </section>
     <section id="semana-19">
-<h1>Semana 19: Resiliencia: backup, DR y continuidad</h1>
+<h2>Semana 19: Resiliencia: backup, DR y continuidad</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 19 de 20</p>
 <h2>LECTURA: Teoria: Resiliencia: backup, DR y continuidad</h2>
 <p>Contenido teorico detallado para resiliencia: backup, dr y continuidad. Incluye frameworks, comandos y referencias.</p>
@@ -628,7 +629,7 @@ diff -r /datos /tmp/test-restore/datos</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-18">← Semana 18</a><a href="#semana-20">Semana 20 →</a></nav>
     </section>
     <section id="semana-20">
-<h1>Semana 20: Capstone: Ejercicio Purple Team</h1>
+<h2>Semana 20: Capstone: Ejercicio Purple Team</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Defensiva: Operar como SOC</a> · Semana 20 de 20</p>
 <h2>LECTURA: Teoria: Capstone: Ejercicio Purple Team</h2>
 <p>Contenido teorico detallado para capstone: ejercicio purple team. Incluye frameworks, comandos y referencias.</p>
@@ -653,7 +654,7 @@ Al superar 70 %, márcalo en tu progreso.</p>
       <button class="btn" id="q-next" hidden>Siguiente</button>
     </section>
     <section id="laboratorio">
-<h1>Lab guiado: mini-SOC con Wazuh (local)</h1>
+<h2>Lab guiado: mini-SOC con Wazuh (local)</h2>
 <p><strong>Curso:</strong> Ciberseguridad Defensiva: Operar como SOC · <strong>Duración estimada:</strong> 3–4 h · <strong>Nivel:</strong> universitario</p>
 <h2>Objetivo</h2>
 <p>Operate detection: connect 2 agents and detect 3 simulated events.</p>
@@ -667,7 +668,7 @@ Al superar 70 %, márcalo en tu progreso.</p>
 <p>La evidencia debe permitir que otra persona <strong>reproduzca</strong> el resultado sin preguntarte nada. Si no es reproducible, no es evidencia (ver <a href="#rubrica">rúbrica</a>).</p>
     </section>
     <section id="proyecto">
-<h1>Examen final y proyecto — Ciberseguridad Defensiva: Operar como SOC</h1>
+<h2>Examen final y proyecto — Ciberseguridad Defensiva: Operar como SOC</h2>
 <h2>Parte A — Examen (30 % del bloque de evaluación)</h2>
 <ul><li>12 preguntas tipo test (banco del quiz ampliado) + 2 preguntas cortas de razonamiento.</li><li>Sin material. Duración estimada: 45 min.</li><li>Cubre: S1: Fundamentos: triada CIA y controles, S2: Telemetría: logs y detección, S3: Respuesta a incidentes (NIST 800-61), S4: Hardening y continuidad, S5: Fundamentos de SOC y triaje de alertas, S6: Ingenieria de deteccion y reglas Sigma, S7: Respuesta a incidentes (NIST 800-61r3), S8: Inteligencia de amenazas y TIP, S9: Deteccion y respuesta en endpoints (EDR), S10: Analisis de trafico de red con Zeek/Suricata, S11: Analisis basico de malware, S12: Forense digital y manejo de evidencias, S13: Gestion del ciclo de vida de vulnerabilidades, S14: Hardening y lineas base de configuracion, S15: Gestion de identidades y acceso (IAM), S16: Postura de seguridad en cloud (CSPM/CWPP), S17: Seguridad de aplicaciones y DevSecOps, S18: Proteccion de datos y DLP, S19: Resiliencia: backup, DR y continuidad, S20: Capstone: Ejercicio Purple Team.</li></ul>
 <h2>Parte B — Proyecto final con evidencia (40 %)</h2>
@@ -684,7 +685,7 @@ Al superar 70 %, márcalo en tu progreso.</p>
 <p>Al superar el curso puedes generar tu credencial con sello hash en <a href="../../credencial.html">../credencial.html</a>.</p>
     </section>
     <section id="rubrica">
-<h1>Rúbrica de evaluación — Ciberseguridad Defensiva: Operar como SOC</h1>
+<h2>Rúbrica de evaluación — Ciberseguridad Defensiva: Operar como SOC</h2>
 <blockquote>Peso global: participación y ejercicios <strong>30 %</strong> · quizzes formativos <strong>30 %</strong> · proyecto final con evidencia <strong>40 %</strong>. Estilo Harvard: se aprueba demostrando.</blockquote>
 <h2>Objetivos que la rúbrica mide</h2>
 <ul><li>Aplicar la triada CIA para clasificar activos y controles</li><li>Configurar recolección de logs y detección básica en un SIEM abierto</li><li>Ejecutar el ciclo de respuesta a incidentes de NIST 800-61</li><li>Endurecer un servidor con matriz de hardening verificable</li></ul>
@@ -697,14 +698,14 @@ Al superar 70 %, márcalo en tu progreso.</p>
 <p><strong>Nota final</strong> = 0.3·P1 + 0.3·P2 + 0.4·P3 · Aprobado ≥ 60/100 con evidencia presentada.</p>
     </section>
     <section id="glosario">
-<h1>Glosario — Ciberseguridad Defensiva: Operar como SOC</h1>
+<h2>Glosario — Ciberseguridad Defensiva: Operar como SOC</h2>
 <p>Términos que el curso usa y que el examen puede pedir.</p>
 <table><thead><tr><th>Término</th><th>Definición en una línea</th></tr></thead><tbody><tr><td><strong>Tríada CIA</strong></td><td>Confidentiality, Integrity, Availability: what every control protects.</td></tr><tr><td><strong>Control preventivo/detectivo/correctivo</strong></td><td>Stops it from starting / notices it happening / fixes it afterward.</td></tr><tr><td><strong>Telemetría</strong></td><td>Set of logs and signals from which detection is built.</td></tr><tr><td><strong>SIEM</strong></td><td>Security Information and Event Management: centralizes and correlates logs.</td></tr><tr><td><strong>Correlación</strong></td><td>Joining events from different sources into one timeline.</td></tr><tr><td><strong>EICAR</strong></td><td>Harmless test file to verify that antivirus detects.</td></tr><tr><td><strong>NIST 800-61</strong></td><td>Incident response lifecycle standard: preparation → lessons learned.</td></tr><tr><td><strong>Contención</strong></td><td>Isolate affected machines to stop spread.</td></tr><tr><td><strong>Erradicación</strong></td><td>Remove the cause: accounts, malware, entries.</td></tr><tr><td><strong>Playbook</strong></td><td>Pre-written script per incident scenario.</td></tr><tr><td><strong>Hardening</strong></td><td>Reducing attack surface to the minimum necessary.</td></tr><tr><td><strong>CIS Benchmark</strong></td><td>Internationally recognized hardening checklist per system.</td></tr><tr><td><strong>Backup 3-2-1</strong></td><td>3 copies, 2 media, 1 offsite; and tested restoration.</td></tr><tr><td><strong>RPO/RTO</strong></td><td>How much data I can lose / how long I can be down.</td></tr><tr><td><strong>False positive</strong></td><td>Alert that was not an attack: tuning noise.</td></tr><tr><td><strong>Lecciones aprendidas</strong></td><td>Post-incident report; without it the cycle does not close.</td></tr></tbody></table>
 <blockquote>Regla de estudio: si no sabes explicarlo en una frase a alguien de fuera, aún no lo sabes.</blockquote>
     </section>
     <section id="chuleta">
-<h1>Ciberseguridad Defensiva: Operar como SOC — material de repaso</h1>
-<h1>Chuleta — Ciberseguridad Defensiva</h1>
+<h2>Ciberseguridad Defensiva: Operar como SOC — material de repaso</h2>
+<h2>Chuleta — Ciberseguridad Defensiva</h2>
 <h2>Clasificar un control (siempre lo mismo)</h2>
 <ul><li>¿Qué protects? → C / I / D</li><li>¿Cuándo acts? → preventivo / detectivo / correctivo</li></ul>
 <h2>Logs mínimos (checklist)</h2>
@@ -718,7 +719,7 @@ Al superar 70 %, márcalo en tu progreso.</p>
 <p><em>Generado por edu-forge academy. Imprímela: es lo que llevas al examen.</em></p>
     </section>
     <section id="recursos">
-<h1>Recursos abiertos — Ciberseguridad Defensiva: Operar como SOC</h1>
+<h2>Recursos abiertos — Ciberseguridad Defensiva: Operar como SOC</h2>
 <h2>Repositorios verificados (GitHub, activos)</h2>
 <ul><li><a href="https://github.com/OWASP/wstg">OWASP Web Security Testing Guide</a> — guía oficial de pruebas de seguridad web (9.8k★)</li><li><a href="https://github.com/juice-shop/juice-shop">OWASP Juice Shop</a> — app vulnerable moderna para práctica legal en local (13.8k★)</li><li><a href="https://github.com/digininja/DVWA">DVWA</a> — web app deliberadamente vulnerable (PHP/MySQL) (13.6k★)</li><li><a href="https://github.com/rapid7/metasploit-framework">Metasploit Framework</a> — framework de explotación — solo en pentests autorizados (39k★)</li><li><a href="https://github.com/freeCodeCamp/freeCodeCamp">freeCodeCamp</a> — currículo abierto de programación y matemáticas (455k★)</li><li><a href="https://github.com/public-apis/public-apis">public-apis</a> — directorio comunitario de APIs gratuitas (479k★)</li></ul>
 <h2>APIs abiertas verificadas (sin API key)</h2>
