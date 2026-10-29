@@ -273,6 +273,7 @@
       *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
     }
   </style>
+  <link rel="stylesheet" href="ui/experience.css">
 </head>
 
 <body>
@@ -335,7 +336,70 @@
   </header>
 
   <main id="main">
-    <section id="academia-cinco-anos" aria-labelledby="academia-title" style="background:linear-gradient(125deg,rgba(18,37,54,.95),rgba(7,16,28,.95));border-bottom:1px solid rgba(163,222,239,.19);">
+    <span id="top"></span>
+    <!-- ============ HERO ============ -->
+    <section class="relative overflow-hidden tech-grid hero-glow">
+      <div class="max-w-6xl mx-auto px-4 pt-20 pb-14 md:pt-28 md:pb-20 st-hero-layout"><div class="st-hero-copy">
+        <p class="label mb-5 reveal" data-i18n="hero.label">Universidade digital soberana · Acesso aberto</p>
+        <h1 class="display-1 reveal" style="--d:.08s; max-width:16ch;" data-i18n="hero.h1">Defenda o futuro digital.</h1>
+        <p class="lead mt-6 reveal" style="--d:.16s;" data-i18n-html="hero.lead">
+          A Secure&nbsp;T&nbsp;University ensina <strong>cybersegurança e inteligência artificial aplicadas</strong> com um método simples: aprende-se praticando e aprova-se demonstrando. Sem matrícula, sem cadastro, sem barreiras econômicas.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-3 mt-9 reveal" style="--d:.24s;">
+          <a href="campus/primeros-pasos.html" class="btn btn-primary">
+            <i data-lucide="play" class="w-4 h-4"></i> <span data-i18n="hero.cta0">Começar em 5 min</span>
+          </a>
+          <a href="campus/" class="btn btn-ghost">
+            <i data-lucide="log-in" class="w-4 h-4"></i> <span data-i18n="hero.cta1">Entrar no campus</span>
+          </a>
+          <a href="campus/academia/" class="btn btn-ghost">
+            <span data-i18n="hero.cta3">Passa adiante</span>
+          </a>
+        </div>
+        <aside class="st-hero-art" aria-label="Visualização ilustrativa da metodologia de aprendizagem">
+          <div class="st-console-head"><span><i class="st-beacon" aria-hidden="true"></i>SECURE T / LEARNING OS</span><span>OPEN CAMPUS / 2026</span></div>
+          <div class="st-diagram" aria-hidden="true">
+            <div class="st-diagram-arc"></div>
+            <div class="st-diagram-core"><svg viewBox="0 0 100 100"><path d="M50 8 82 20v27c0 22-12 35-32 45C30 82 18 69 18 47V20L50 8Z"/><path d="m35 49 11 11 22-25"/></svg></div>
+            <span class="st-diagram-label one">LEARN / 01</span>
+            <span class="st-diagram-label two">PRACTICE / 02</span>
+          </div>
+          <div class="st-console-bottom"><span>EVIDENCE-BASED LEARNING</span><strong>ACCESS / OPEN</strong></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="st-journey max-w-6xl mx-auto px-4" id="escolher-rota" aria-labelledby="st-route-title">
+      <div class="st-section-intro">
+        <div>
+          <span class="st-section-kicker" data-i18n="route.kicker">O CAMINHO COMEÇA AQUI / 03 ENTRADAS REAIS</span>
+          <h2 id="st-route-title" data-i18n="route.title">O que você quer aprender primeiro?</h2>
+          <p data-i18n="route.intro">Escolha uma porta. Cada opção abre ferramentas e materiais existentes, sem cadastro.</p>
+        </div>
+      </div>
+      <div class="st-journey-grid">
+        <a class="st-route-card" href="campus/primeros-pasos.html">
+          <span class="st-route-number">01 / ORIENTAÇÃO</span>
+          <strong data-i18n="route.first.title">Comece com sua primeira missão</strong>
+          <small data-i18n="route.first.desc">Um percurso guiado para encontrar uma prática adequada ao seu momento.</small>
+          <span class="st-route-arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="st-route-card" href="campus/cursos/ciber-defensiva/index.html">
+          <span class="st-route-number">02 / DEFESA</span>
+          <strong data-i18n="route.second.title">Aprenda a defender sistemas</strong>
+          <small data-i18n="route.second.desc">Aulas, exercícios e evidências de resposta a incidentes.</small>
+          <span class="st-route-arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="st-route-card" href="campus/academia/triage.html">
+          <span class="st-route-number">03 / LABORATÓRIO</span>
+          <strong data-i18n="route.third.title">Tome uma decisão SOC</strong>
+          <small data-i18n="route.third.desc">Entre em uma simulação de triagem de segurança e pratique com contexto.</small>
+          <span class="st-route-arrow" aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </section>
+    <section id="academia-cinco-anos" class="st-campus-strip" aria-labelledby="academia-title" style="background:linear-gradient(125deg,rgba(18,37,54,.95),rgba(7,16,28,.95));border-bottom:1px solid rgba(163,222,239,.19);">
       <div class="max-w-6xl mx-auto px-4 py-8 md:py-10 flex flex-col md:flex-row md:items-center gap-5 md:justify-between">
         <div>
           <p class="label" style="color:#96e1e2" data-i18n="five.label">NOVA ACADEMIA · 5 ANOS DE PERCURSO</p>
@@ -346,7 +410,7 @@
       </div>
     </section>
     <!-- Secure T student tools: direct routes, no extra accounts or third-party services. -->
-    <section aria-label="Ferramentas práticas do aluno" style="background:linear-gradient(100deg,#0b2630,#122c3a);border-bottom:1px solid rgba(125,237,204,.32);padding:14px 0">
+    <section class="st-tools-strip" aria-label="Ferramentas práticas do aluno" style="background:linear-gradient(100deg,#0b2630,#122c3a);border-bottom:1px solid rgba(125,237,204,.32);padding:14px 0">
       <div class="max-w-6xl mx-auto px-4 flex flex-wrap gap-3 items-center" style="font-size:.8rem">
         <strong style="font-size:.66rem;letter-spacing:.15em;color:#93eacf">PRÁTICA · ACESSO DIRETO</strong>
         <a href="campus/observatorio/" style="color:#d6faf2;padding:8px 11px;border:1px solid #356c67;border-radius:9px">◎ Observatório Cyber</a>
@@ -355,30 +419,7 @@
         <a href="campus/workstation/mission.html" style="color:#d6faf2;padding:8px 11px;border:1px solid #356c67;border-radius:9px">✦ Mission Control</a>
       </div>
     </section>
-    <span id="top"></span>
-
-    <!-- ============ HERO ============ -->
-    <section class="relative overflow-hidden tech-grid hero-glow">
-      <div class="max-w-6xl mx-auto px-4 pt-20 pb-14 md:pt-28 md:pb-20">
-        <p class="label mb-5 reveal" data-i18n="hero.label">Universidade digital soberana · Acesso aberto</p>
-        <h1 class="display-1 reveal" style="--d:.08s; max-width:16ch;" data-i18n="hero.h1">Defenda o futuro digital.</h1>
-        <p class="lead mt-6 reveal" style="--d:.16s;" data-i18n-html="hero.lead">
-          A Secure&nbsp;T&nbsp;University ensina <strong>cybersegurança e inteligência artificial aplicadas</strong> com um método simples: aprende-se praticando e aprova-se demonstrando. Sem matrícula, sem cadastro, sem barreiras econômicas.
-        </p>
-
-        <div class="flex flex-wrap items-center gap-3 mt-9 reveal" style="--d:.24s;">
-          <a href="campus/academia/" class="btn btn-primary">
-            <i data-lucide="play" class="w-4 h-4"></i> <span data-i18n="hero.cta0">Começar em 5 min</span>
-          </a>
-          <a href="campus/" class="btn btn-ghost">
-            <i data-lucide="log-in" class="w-4 h-4"></i> <span data-i18n="hero.cta1">Entrar no campus</span>
-          </a>
-          <a href="campus/academia/" class="btn btn-ghost">
-            <span data-i18n="hero.cta3">Passa adiante</span>
-          </a>
-        </div>
-      </div>
-    </section>
+    
 
     <!-- prova social medível (fora do primeiro viewport) -->
     <section class="border-y" style="border-color:var(--border); background:var(--bg-sunken);" aria-label="Escala do campus">
