@@ -59,5 +59,6 @@ jobs:
           path: |
             .audit/secure-t/tools/
             .lighthouseci/
+          include-hidden-files: true
           retention-days: 30
           if-no-files-found: warn
