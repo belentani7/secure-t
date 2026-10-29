@@ -57,9 +57,13 @@ const lhci={ci:{collect:{url:[target],numberOfRuns:3},assert:{preset:'lighthouse
   'categories:seo':['error',{minScore:0.95}]
 }}}};
 await json('lighthouserc.json',lhci);
-await check('frontend-qa-scan','npx',['--yes','frontend-qa','scan','--url',target],120000,'json');
-await check('frontend-qa-bundle','npx',['--yes','frontend-qa','bundle','--dir','./dist/public'],120000,'json');
-await check('frontend-qa-static','npx',['--yes','frontend-qa','static','--dir','./client/src'],120000,'json');
+// Unverified command provenance: inspect npm registry without running arbitrary code.
+for(const mode of ['scan','bundle','static']){
+  const name='frontend-qa-'+mode;
+  const r=await run(name+'-registry','npm',['view','frontend-qa','name','version','repository','--json'],30000);
+  const blocked={name,at:r.at,command:r.command,status:'blocked',error:r.error||'No verified package provenance or CLI contract. npm metadata inspected; executable not invoked.'};
+  records.push(blocked);failures.push(blocked);
+}
 await check('lighthouse-ci','npx',['--yes','@lhci/cli@latest','autorun','--config',join(output,'lighthouserc.json')],240000);
 await check('pa11y','npx',['--yes','pa11y-ci','--json','--config',join(output,'pa11y-config.json')],120000,'json');
 await check('html-validate','npx',['--yes','html-validate','--formatter','json','client/**/*.html','campus/**/*.html'],120000,'json');
