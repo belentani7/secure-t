@@ -9,3 +9,8 @@
 **/server/             @belentani7
 **/*.env*              @belentani7
 LICENSE                @belentani7
+
+# Security-critical files
+.gitleaks.toml @belentani7
+Dockerfile @belentani7
+SECURITY.md @belentani7
