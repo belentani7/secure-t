@@ -37,8 +37,8 @@ jobs:
         run: pnpm typecheck
       - name: Domain and SPA tests
         run: pnpm test
-      - name: API security and tutor privacy regression
-        run: node --test tests/api-security.test.mjs
+      - name: API security and authenticated CD regression
+        run: node --test tests/api-security.test.mjs tests/vercel-cd-contract.test.mjs
       - name: Build local SPA
         run: pnpm build
 
