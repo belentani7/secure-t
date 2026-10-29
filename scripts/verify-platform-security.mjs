@@ -28,6 +28,13 @@ for (const directive of ["object-src 'none'", "base-uri 'self'", "frame-ancestor
 }
 assert.ok(!common.headers.some(h => h.key.toLowerCase() === "access-control-allow-origin" && h.value.trim() === "*"), "Do not expose a blanket CORS policy");
 
+// This must run even when Gitleaks itself is unavailable during an offline test.
+// The former `[[allowlists]] paths=['.*']` suppressed findings in every file.
+const gitleaksConfig = readFileSync(join(root, ".gitleaks.toml"), "utf8");
+assert.match(gitleaksConfig, /^useDefault\\s*=\\s*true\\s*$/m, "Gitleaks must inherit default detections");
+assert.match(gitleaksConfig, /id\\s*=\\s*"deepseek-api-key"/, "Preserve the custom DeepSeek detection");
+assert.ok(!/^\\s*\\[\\[allowlists\\]\\]\\s*$/m.test(gitleaksConfig), "Do not add unscoped global Gitleaks bypass rules");
+
 const candidateManifests = [
   "campus/itinerarios/curso-manifest.json",
   "public/itinerarios/curso-manifest.json",
