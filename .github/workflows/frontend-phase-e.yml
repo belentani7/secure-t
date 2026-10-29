@@ -1,0 +1,56 @@
+name: Frontend Phase E — Arsenal evidence
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - scripts/frontend-phase-e.mjs
+      - .github/workflows/frontend-phase-e.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  phase-e:
+    name: Phase E — live browser and CLI verification
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - name: Install reproducible dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build existing app
+        run: pnpm build
+      - name: Start local app and verify response
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm exec vite --host 127.0.0.1 --port 4173 --strictPort > /tmp/frontend-phase-e-vite.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then exit 0; fi
+            sleep 2
+          done
+          cat /tmp/frontend-phase-e-vite.log
+          exit 1
+      - name: Execute tools and record every failure
+        env:
+          PHASE_E_REPO: secure-t
+          PHASE_E_URL: http://127.0.0.1:4173/
+        run: node scripts/frontend-phase-e.mjs
+      - name: Preserve raw evidence even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-phase-e-${{ github.run_id }}
+          path: |
+            .audit/secure-t/tools/
+            .lighthouseci/
+          retention-days: 30
+          if-no-files-found: warn
