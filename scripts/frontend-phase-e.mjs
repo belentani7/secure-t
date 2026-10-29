@@ -88,7 +88,7 @@ async function callMCP(name, pkg, preferred, inputs) {
     const command='npx --yes '+pkg+' [stdio initialize -> tools/list -> tools/call]';
     const child=spawn('npx',['--yes',pkg],{stdio:['pipe','pipe','pipe'],env:{...process.env,CI:'true',NO_COLOR:'1'}});
     let buffer='', stderr='', stage='initialize', completed=false, tool=null, raw=[];
-    const send=(id,method,params)=>child.stdin.write(JSON.stringify({jsonrpc:'2.0',id,method,params})+'\\n');
+    const send=(id,method,params)=>child.stdin.write(JSON.stringify({jsonrpc:'2.0',id,method,params})+'\n');
     const finish=async(ok,error)=>{
       if(completed)return; completed=true;clearTimeout(timer);child.kill('SIGTERM');
       const result={name,at:new Date().toISOString(),command,repo,target,tool:tool?.name||null,status:ok?'passed':'failed',error:error||'',responses:raw.slice(0,12),stderr:stderr.slice(0,5000)};
@@ -103,13 +103,13 @@ async function callMCP(name, pkg, preferred, inputs) {
     child.stdout.on('data',d=>{
       buffer+=d.toString();
       let index;
-      while((index=buffer.indexOf('\\n'))>=0){
+      while((index=buffer.indexOf('\n'))>=0){
         const line=buffer.slice(0,index);buffer=buffer.slice(index+1);
         let msg;try{msg=JSON.parse(line)}catch{continue}
         raw.push(msg);
         if(msg.id===1){
           if(msg.error){finish(false,JSON.stringify(msg.error));return}
-          child.stdin.write(JSON.stringify({jsonrpc:'2.0',method:'notifications/initialized'})+'\\n');
+          child.stdin.write(JSON.stringify({jsonrpc:'2.0',method:'notifications/initialized'})+'\n');
           send(2,'tools/list',{});stage='list';
         }else if(msg.id===2){
           if(msg.error){finish(false,JSON.stringify(msg.error));return}
