@@ -54,3 +54,15 @@ def test_learning_entrypoints_have_all_supported_landing_translations():
     for key in ("route.title", "route.first.title", "route.second.title", "route.third.title"):
         assert LANDING.count('data-i18n="' + key + '"') == 1
         assert TRANSLATIONS.count('"' + key + '"') >= 3
+
+
+def test_four_courses_keep_complete_titles_and_semantic_document_headings():
+    for slug in ("ciber-ofensiva", "ciber-defensiva", "ia-aplicada-segura",
+                 "gobernanza-compliance"):
+        page = (ROOT / "campus/cursos" / slug / "index.html").read_text(encoding="utf-8")
+        assert page.count("<h1>") == 1, slug
+        assert '<body class="course-landing">' in page
+        assert 'href="../../../ui/experience.css"' in page
+        assert "…</a>" not in page, slug
+        assert '<meta name="description" content="' in page
+        assert len(re.search(r'<meta name="description" content="([^"]+)"', page).group(1)) > 90
