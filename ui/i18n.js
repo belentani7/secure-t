@@ -431,6 +431,9 @@
   // five-year curricular roadmap; only the original four courses have lessons.
   // Never claim that a checksum is a signed academic diploma.
   Object.assign(I18N.pt, {
+    "hero.cta0": "Começar em 5 min", "hero.cta3": "Compartilhe este caminho",
+    "footer.whisper": "Nasceu do amor. Se te ajudar, compartilhe.",
+    "footer.eco": "Parte do ecossistema educativo BELENTANI / NOIACORE: aprendizagem gratuita e aberta.",
     "five.label": "NOVA ACADEMIA · PERCURSO DE 5 ANOS",
     "five.title": "Cibersegurança · Desenvolvimento Web · PT / ES / EN",
     "five.subtitle": "10 semestres, 60 disciplinas e 240 unidades de aprendizagem planejadas. Tutor com voz e horários de Rio, Barcelona e Dublin. Sem diplomas oficiais.",
@@ -444,6 +447,9 @@
     "doc.desc": "Campus digital independente: quatro cursos com aulas e roteiro curricular de cinco anos em cibersegurança, desenvolvimento web e idiomas. Sem títulos oficiais."
   });
   Object.assign(I18N.es, {
+    "hero.cta0": "Empieza en 5 minutos", "hero.cta3": "Comparte esta oportunidad",
+    "footer.whisper": "Nació del amor. Si te ayuda, compártelo.",
+    "footer.eco": "Parte del ecosistema educativo BELENTANI / NOIACORE: formación gratuita y abierta.",
     "five.label": "NUEVA ACADEMIA · ITINERARIO DE 5 AÑOS",
     "five.title": "Ciberseguridad · Desarrollo web · PT / ES / EN",
     "five.subtitle": "10 semestres, 60 asignaturas y 240 unidades planificadas. Tutor con voz y husos de Río, Barcelona y Dublín. Sin títulos oficiales.",
@@ -457,6 +463,9 @@
     "doc.desc": "Campus abierto con cuatro cursos y programa de cinco años en desarrollo. Ciberseguridad, desarrollo web e idiomas, sin títulos oficiales."
   });
   Object.assign(I18N.en, {
+    "hero.cta0": "Start in 5 minutes", "hero.cta3": "Share this opportunity",
+    "footer.whisper": "Born from love. If it helps you, pass it on.",
+    "footer.eco": "Part of the BELENTANI / NOIACORE learning ecosystem: free and open education.",
     "five.label": "NEW ACADEMY · FIVE-YEAR ROADMAP",
     "five.title": "Cybersecurity · Web Development · PT / ES / EN",
     "five.subtitle": "Ten semesters, 60 planned subjects and 240 learning units. Voice-enabled tutor and Rio, Barcelona and Dublin time zones. No accredited degrees.",
