@@ -18,7 +18,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  SITE_URL: https://belentani7.github.io/secure-t/
+  SITE_URL: https://www.belentani.es/secure-t/
 
 jobs:
   build:

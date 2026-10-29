@@ -67,7 +67,7 @@ def test_local_labs_do_not_allow_active_scripts_or_external_targets():
 def test_pages_uses_current_repository_and_builder_validates_site_metadata():
     workflow = (ROOT / ".github" / "workflows" / "pages.yml").read_text(encoding="utf-8")
     builder = (ROOT / "scripts" / "build_site.py").read_text(encoding="utf-8")
-    assert "https://belentani7.github.io/secure-t/" in workflow
+    assert "https://www.belentani.es/secure-t/" in workflow
     assert "SITE_URL" in builder and "render_public_metadata(stage)" in builder
     assert "site-dist" in builder
     assert "secure-t-university/" not in workflow

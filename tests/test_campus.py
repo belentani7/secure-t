@@ -366,7 +366,7 @@ def test_pages_workflow_sin_secrets_externos():
     wf = (ROOT / ".github" / "workflows" / "pages.yml").read_text(encoding="utf-8")
     assert "id-token: write" in wf and "pages: write" in wf
     assert "actions/deploy-pages@v4" in wf, "no usa la acción oficial de Pages"
-    assert "belentani7.github.io/secure-t" in wf, "SITE_URL real ausente"
+    assert "www.belentani.es/secure-t" in wf, "SITE_URL real ausente"
     # sin tokens personales: solo OIDC con GITHUB_TOKEN
     assert "TOKEN" not in wf.replace("GITHUB_TOKEN", "")
 
