@@ -30,6 +30,8 @@ jobs:
     steps:
       - name: Checkout reviewed source
         uses: actions/checkout@v5
+        with:
+          persist-credentials: false
 
       - name: Set up pnpm matching packageManager
         uses: pnpm/action-setup@v4
@@ -60,6 +62,10 @@ jobs:
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: |
           set -euo pipefail
+          if [[ "${{ inputs.environment }}" == "production" && "$GITHUB_REF" != "refs/heads/main" ]]; then
+            echo "::error::Production releases must be dispatched from main."
+            exit 1
+          fi
           for key in VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID; do
             if [[ -z "${!key:-}" ]]; then
               echo "::error::Missing ${key}. Configure the existing Vercel project and GitHub environment secrets."
@@ -79,17 +85,17 @@ jobs:
         run: |
           set -euo pipefail
           if [[ "$TARGET" == "production" ]]; then
-            vercel pull --yes --environment=production
-            DEPLOY_URL="$(vercel deploy --yes --prod)"
+            vercel pull --yes --environment=production --token "$VERCEL_TOKEN"
+            DEPLOY_URL="$(vercel deploy --yes --prod --token "$VERCEL_TOKEN")"
           else
-            vercel pull --yes --environment=preview
-            DEPLOY_URL="$(vercel deploy --yes)"
+            vercel pull --yes --environment=preview --token "$VERCEL_TOKEN"
+            DEPLOY_URL="$(vercel deploy --yes --token "$VERCEL_TOKEN")"
           fi
 
           if [[ -z "$DEPLOY_URL" ]]; then
             echo "::error::Vercel returned no deployment URL"
             exit 1
           fi
-          vercel inspect "$DEPLOY_URL"
-          vercel curl / --deployment "$DEPLOY_URL" >/dev/null
+          vercel inspect "$DEPLOY_URL" --wait --token "$VERCEL_TOKEN"
+          vercel curl / --deployment "$DEPLOY_URL" --token "$VERCEL_TOKEN" -fS >/dev/null
           echo "Verified $TARGET deployment: $DEPLOY_URL" >> "$GITHUB_STEP_SUMMARY"
