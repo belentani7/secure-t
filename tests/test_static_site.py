@@ -62,6 +62,31 @@ def test_validator_rejects_missing_and_escaping_links(tmp_path):
     assert len(errors) == 2
 
 
+
+def test_validator_uses_document_base_for_nested_course_lessons(tmp_path):
+    module = builder()
+    course = tmp_path / "campus/itinerarios/cursos/defensa"
+    course.mkdir(parents=True)
+    (tmp_path / "campus/itinerarios/course-player.css").write_text("/* safe fixture */")
+    (course / "semana-01.html").write_text(
+        '<!doctype html><html><head><base href="../../">'
+        '<link rel="stylesheet" href="course-player.css"></head></html>'
+    )
+    assert module.validate_local_html(tmp_path) == []
+    (course / "semana-01.html").write_text(
+        '<base href="../../"><link rel="stylesheet" href="nonexistent.css">'
+    )
+    assert len(module.validate_local_html(tmp_path)) == 1
+
+
+def test_validator_rejects_external_and_escaping_base_urls(tmp_path):
+    module = builder()
+    (tmp_path / "index.html").write_text('<base href="https://external.example/">')
+    assert "external base URL" in module.validate_local_html(tmp_path)[0]
+    (tmp_path / "index.html").write_text('<base href="../private/">')
+    assert "base URL escapes site" in module.validate_local_html(tmp_path)[0]
+
+
 def test_validator_resolves_url_encoded_paths(tmp_path):
     module = builder()
     (tmp_path / "lección.html").write_text("Lesson")
