@@ -93,7 +93,7 @@ async function allowTutor(ip: string): Promise<TutorQuota> {
   const identity = createHash("sha256").update(ip).digest("hex");
   const key = `secure-t:tutor:${identity}`;
   try {
-    const response = await fetch(`${redisUrl.replace(/\\/$/, "")}/pipeline`, {
+    const response = await fetch(`${redisUrl.replace(/\/$/, "")}/pipeline`, {
       method: "POST",
       headers: { Authorization: `Bearer ${redisToken}`, "Content-Type": "application/json" },
       body: JSON.stringify([[ "INCR", key ], [ "EXPIRE", key, 60 ]]),
