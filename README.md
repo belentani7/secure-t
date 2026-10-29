@@ -3,7 +3,7 @@
 Instituto abierto de ciberseguridad e inteligencia artificial: cuatro programas de
 veinte semanas, gratuitos, en espanol y funcionales sin conexion.
 
-En línea: sin publicar — GitHub Pages no está activo en repositorios privados.
+**Estado de publicación:** el repositorio es público. El campus puede publicarse desde el workflow de GitHub Pages descrito abajo; la disponibilidad y la URL de producción deben comprobarse independientemente. Un repositorio público no demuestra por sí solo que Pages esté activo.
 
 ## Que es este repositorio
 
