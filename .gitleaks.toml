@@ -21,23 +21,8 @@ description = "Clave de API de DeepSeek (formato sk- + 32 hex)."
 regex = '''\bsk-[a-f0-9]{32}\b'''
 keywords = ["sk-"]
 
-# Allowlist for REDACTED placeholders (replacement text from git-filter-repo)
-[[allowlists]]
-description = "REDACTED placeholders from secret cleanup"
-paths = [
-  '''.*'''
-]
-regex = '''\bREDACTED\b'''
-
-[[allowlists]]
-description = "Textos de traduccion i18n: contienen literales que parecen claves."
-paths = [
-  '''(?i)src/i18n/''',
-]
-
-[[allowlists]]
-description = "Material del curso: ejemplo curl con basic-auth para uso docente."
-ruleID = "curl-auth-user"
-paths = [
-  '''(?i)campus/cursos/ciber-ofensiva/''',
-]
+# SECURITY: no global file/directory allowlists.
+# Gitleaks defaults to OR between path and content allowlist criteria;
+# a path of `.*` disables detection across the repository.
+# Any future exception must be scoped to a rule and tested with a
+# synthetic secret which MUST still be detected.
