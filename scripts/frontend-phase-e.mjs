@@ -68,6 +68,11 @@ await check('lighthouse-ci','npx',['--yes','@lhci/cli@latest','autorun','--confi
 await check('pa11y','npx',['--yes','pa11y-ci','--json','--config',join(output,'pa11y-config.json')],120000,'json');
 await check('html-validate','npx',['--yes','html-validate','--formatter','json','client/**/*.html','campus/**/*.html'],120000,'json');
 await check('axe-cli','npx',['--yes','@axe-core/cli',target,'--tags','wcag2a,wcag2aa,wcag21a,wcag21aa,wcag22aa','--save',join(output,'axe-cli-output.json')],120000,'file:'+join(output,'axe-cli-output.json'));
+// Evidence: actual desktop/tablet/mobile screenshots, not placeholder PNG files.
+for(const [device,viewport] of [['desktop','1440,900'],['tablet','820,1180'],['mobile','390,844']]){
+  const file=join(output,'playwright-'+device+'.png');
+  await check('screenshot-'+device,'npx',['--yes','playwright','screenshot','--browser','chromium','--viewport-size',viewport,'--full-page',target,file],120000,'file:'+file);
+}
 await check('webperf','docker',['run','--rm','--network','host','webperf/core:latest','--url',target],120000);
 
 // Each MCP must prove an actual tool-call, not just a registry entry.
