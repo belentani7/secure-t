@@ -34,6 +34,7 @@ button:disabled{opacity:.5;cursor:not-allowed}.feedback{border-left:4px solid #a
 .finish{margin-top:2rem;max-width:720px}.note{margin:2rem 0;color:#c4d4df;font-size:.94rem}footer{font-size:.88rem;color:#a6c2d1;margin-top:2rem}
 [hidden]{display:none!important}
 @media(max-width:790px){.grid{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+progress{display:block;width:100%;height:.65rem;accent-color:#a2efdb;margin:.5rem 0 1.25rem}
 </style>
 </head><body>
 <a class="skip" href="#practice">Pular para a prática / Saltar a la práctica / Skip to practice</a>
@@ -47,7 +48,7 @@ button:disabled{opacity:.5;cursor:not-allowed}.feedback{border-left:4px solid #a
 <main id="practice" tabindex="-1">
 <div class="grid" id="exercise">
 <section class="panel" aria-labelledby="context-title">
-<p class="kicker" id="progress"></p><h2 id="context-title"></h2>
+<p class="kicker" id="progress"></p><progress id="case-meter" aria-labelledby="progress" max="5" value="1"></progress><h2 id="context-title"></h2>
 <div class="field"><h3 id="asset-label"></h3><p id="asset"></p></div>
 <div class="field"><h3 id="boundary-label"></h3><p id="boundary"></p></div>
 <div class="field"><h3 id="signal-label"></h3><p id="signal"></p></div>
@@ -56,7 +57,7 @@ button:disabled{opacity:.5;cursor:not-allowed}.feedback{border-left:4px solid #a
 <article><span id="impact-label"></span><strong id="impact"></strong></article>
 <article><span id="priority-label"></span><strong id="priority"></strong></article>
 </div></section>
-<section class="panel" aria-labelledby="question"><h2 id="question"></h2>
+<section class="panel" aria-labelledby="question"><h2 id="question" tabindex="-1"></h2>
 <form id="decision"><fieldset><legend id="choose-label"></legend><div class="choices" id="choices"></div></fieldset>
 <button type="submit" id="check"></button></form>
 <div class="feedback" id="feedback" role="status" tabindex="-1" aria-live="polite" hidden></div>
@@ -66,15 +67,28 @@ button:disabled{opacity:.5;cursor:not-allowed}.feedback{border-left:4px solid #a
 <button id="download" type="button"></button><button id="restart" type="button"></button>
 </section>
 <p class="note" id="note"></p></main>
-<footer>Secure T · Synthetic learning scenarios only · No accounts, no tracking, no live system scans</footer>
+<footer>Secure T · Synthetic learning scenarios only · No accounts, no tracking, no live system scans<p id="session-note"></p></footer>
 </div>
 <script type="module">
 import {THREATS,WORDS,riskScore,riskTier,assessControl,exportThreatReport} from './threat-core.mjs';
+import {loadLabSession,saveLabSession,clearLabSession} from './lab-session.mjs';
 const $=id=>document.getElementById(id);
-let lang='pt',step=0,selected=[],isReviewed=false,lastCorrect=false,pendingChoice=null;
+const LAB_SESSION_KEY='secure-t:threat-lab:session-v1';
+const LAB_SESSION_SIGNATURE=THREATS.map(item=>item.id).join('|');
+let tabStore=null;try{tabStore=window.sessionStorage;}catch{}
+const restored=loadLabSession(tabStore,LAB_SESSION_KEY,THREATS.length,LAB_SESSION_SIGNATURE);
+let lang=restored?.lang??'pt',step=restored?.step??0,selected=restored?.answers??[],isReviewed=restored?.reviewed??false,pendingChoice=restored?.pendingChoice??null;
+let lastCorrect=isReviewed?assessControl(THREATS[step],selected[step]):false;
+const saveProgress=()=>saveLabSession(tabStore,LAB_SESSION_KEY,THREATS.length,LAB_SESSION_SIGNATURE,{lang,step,answers:selected,reviewed:isReviewed,pendingChoice});
+const resumeCopy={
+pt:'O progresso desta prática fica somente nesta aba e pode ser recuperado após recarregar. Sem sincronização ou telemetria.',
+es:'El progreso de esta práctica permanece solo en esta pestaña y puede recuperarse al recargar. Sin sincronización ni telemetría.',
+en:'Practice progress stays in this tab and can be recovered on reload. No sync or telemetry.'
+};
+$('lang').value=lang;
 function render(){
  const w=WORDS[lang];document.documentElement.lang=lang;document.title=w.title+' · Secure T';
- $('title').textContent=w.title;$('subtitle').textContent=w.subtitle;$('note').textContent=w.note;
+ $('title').textContent=w.title;$('session-note').textContent=resumeCopy[lang];$('case-meter').value=Math.min(step+1,THREATS.length);$('subtitle').textContent=w.subtitle;$('note').textContent=w.note;
  $('done').textContent=w.done;$('download').textContent=w.download;$('restart').textContent=w.restart;
  $('finished').hidden=step<THREATS.length;$('exercise').hidden=step===THREATS.length;
  if(step===THREATS.length){
@@ -107,16 +121,16 @@ function render(){
   feedback.append(heading,explanation,evidence);
  }
 }
-$('decision').addEventListener('change',event=>{if(event.target?.name==="control")pendingChoice=Number(event.target.value);});
+$('decision').addEventListener('change',event=>{if(event.target?.name==="control"){pendingChoice=Number(event.target.value);saveProgress();}});
 $('decision').addEventListener('submit',event=>{
  event.preventDefault();if(isReviewed)return;
  const choice=document.querySelector('input[name="control"]:checked');if(!choice)return;
  const answer=Number(choice.value);lastCorrect=assessControl(THREATS[step],answer);
- selected.push(answer);pendingChoice=null;isReviewed=true;render();$('feedback').focus();
+ selected.push(answer);pendingChoice=null;isReviewed=true;render();saveProgress();$('feedback').focus();
 });
-$('next').addEventListener('click',()=>{step++;pendingChoice=null;isReviewed=false;render();(step===THREATS.length?$('finished'):$('practice')).focus();});
-$('restart').addEventListener('click',()=>{step=0;selected=[];pendingChoice=null;isReviewed=false;render();$('practice').focus();});
-$('lang').addEventListener('change',event=>{lang=event.target.value;render();});
+$('next').addEventListener('click',()=>{step++;pendingChoice=null;isReviewed=false;render();saveProgress();(step===THREATS.length?$('finished'):$('question')).focus();});
+$('restart').addEventListener('click',()=>{step=0;selected=[];pendingChoice=null;isReviewed=false;render();clearLabSession(tabStore,LAB_SESSION_KEY);$('question').focus();});
+$('lang').addEventListener('change',event=>{lang=event.target.value;render();saveProgress();});
 $('download').addEventListener('click',()=>{
  if(selected.length!==THREATS.length)return;
  const report=exportThreatReport(selected,lang),blob=new Blob([report],{type:'text/plain;charset=utf-8'});
