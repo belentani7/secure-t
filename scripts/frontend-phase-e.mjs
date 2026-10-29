@@ -49,7 +49,7 @@ async function check(name, program, args, timeout, expectation) {
   if(!passing)failures.push(records.at(-1));
 }
 // Perform real CLI tests against this repository's development server.
-await json('pa11y-config.json',{defaults:{standard:'WCAG2AA',timeout:30000},urls:[target]});
+await json('pa11y-config.json',{defaults:{standard:'WCAG2AA',timeout:30000,chromeLaunchConfig:{args:['--no-sandbox','--disable-dev-shm-usage']}},urls:[target]});
 const lhci={ci:{collect:{url:[target],numberOfRuns:3},assert:{preset:'lighthouse:recommended',assertions:{
   'categories:performance':['error',{minScore:0.9}],
   'categories:accessibility':['error',{minScore:1}],
@@ -136,7 +136,7 @@ async function callMCP(name, pkg, preferred, inputs) {
 }
 for(const [name,pkg] of Object.entries(mcp)){
   if(name==='playwright') await callMCP(name,pkg,'browser_navigate',{url:target});
-  else if(name==='chrome-devtools') await callMCP(name,pkg,'navigate_page',{type:'url',url:target});
+  else if(name==='chrome-devtools') await callMCP(name,pkg,'new_page',{url:target});
   else if(name==='w3c') await callMCP(name,pkg,'search_w3c_specs',{query:'HTML accessibility semantic landmarks'});
   else{
     const r=await run(name+'-registry','npm',['view',pkg,'name','version','repository','--json'],30000);
