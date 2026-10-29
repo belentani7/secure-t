@@ -230,3 +230,18 @@ def test_campus_legacy_redirect_is_complete_html_with_a_clickable_fallback():
     assert '<meta http-equiv="refresh" content="0; url=campus/">' in source
     assert '<main>' in source
     assert '<a href="campus/">' in source
+
+def test_vercel_build_uses_the_same_safe_campus_as_pages():
+    """Vercel must publish the allowlisted static campus, not the React API demo."""
+    import json
+
+    config = json.loads((ROOT / "vercel.json").read_text(encoding="utf-8"))
+    pages = (ROOT / ".github/workflows/pages.yml").read_text(encoding="utf-8")
+    assert config["outputDirectory"] == "site-dist"
+    assert "python3 scripts/build_site.py --destination site-dist" in config["buildCommand"]
+    assert "SITE_URL=https://www.belentani.es/secure-t" in config["buildCommand"]
+    assert "SITE_URL: https://www.belentani.es/secure-t/" in pages
+    assert "python3 scripts/build_site.py --destination _site" in pages
+    assert "pnpm build" not in config["buildCommand"]
+    assert config.get("public") is not True
+
