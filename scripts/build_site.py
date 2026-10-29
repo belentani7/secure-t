@@ -80,8 +80,13 @@ class _References(HTMLParser):
     def __init__(self):
         super().__init__()
         self.paths = []
+        self.base_href = None
 
     def handle_starttag(self, tag, attrs):
+        if tag == "base":
+            if self.base_href is None:
+                self.base_href = dict(attrs).get("href")
+            return
         for name, value in attrs:
             if name not in ("href", "src", "poster") or not value:
                 continue
@@ -96,9 +101,22 @@ def validate_local_html(root: Path) -> list[str]:
     for html in root.rglob("*.html"):
         parser = _References()
         parser.feed(html.read_text(encoding="utf-8"))
+        base_dir = html.parent
+        if parser.base_href:
+            base_url = urlsplit(parser.base_href)
+            if base_url.scheme or base_url.netloc:
+                errors.append(f"external base URL: {html.relative_to(root)}")
+                continue
+            base_path = unquote(base_url.path)
+            base_location = (root / base_path.lstrip("/") if base_path.startswith("/")
+                             else html.parent / base_path).resolve()
+            if not base_location.is_relative_to(root):
+                errors.append(f"base URL escapes site: {html.relative_to(root)}")
+                continue
+            base_dir = base_location if base_path.endswith("/") else base_location.parent
         for ref in parser.paths:
             target = (root / ref.lstrip("/") if ref.startswith("/")
-                      else html.parent / ref).resolve()
+                      else base_dir / ref).resolve()
             if not target.is_relative_to(root):
                 errors.append(f"reference escapes site: {html.relative_to(root)} -> {ref}")
                 continue
@@ -134,6 +152,21 @@ def _source(relative: str) -> Path:
     return source
 
 
+def omit_unbacked_lesson_pages(stage: Path) -> None:
+    """Do not distribute generated lesson shells without the original lesson text."""
+    lessons = stage / "campus/itinerarios/cursos"
+    if not lessons.is_dir():
+        return
+    for course_dir in lessons.iterdir():
+        if not course_dir.is_dir():
+            continue
+        source = ROOT / "campus/cursos" / course_dir.name
+        for page in course_dir.glob("semana-??.html"):
+            week_source = source / (page.stem + ".md")
+            if not week_source.is_file():
+                page.unlink()
+
+
 def build_site(destination: Path = DEFAULT_DESTINATION) -> tuple[int, int]:
     destination = Path(destination).absolute()
     if destination.is_symlink():
@@ -163,6 +196,7 @@ def build_site(destination: Path = DEFAULT_DESTINATION) -> tuple[int, int]:
         (stage / ".nojekyll").touch()
         render_public_metadata(stage)
         validate_public_files(stage)
+        omit_unbacked_lesson_pages(stage)
         errors = validate_local_html(stage)
         if errors:
             raise RuntimeError("Broken publication references:\n" + "\n".join(errors))
