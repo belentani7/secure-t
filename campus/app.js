@@ -3,57 +3,93 @@ document.documentElement.classList.add('js');
 
 const $ = (sel, root = document) => root.querySelector(sel);
 
+let quizController = null;
 function loadQuiz(url) {
   const box = $('.quiz-box');
   if (!box) return;
-  fetch(url).then(r => r.json()).then(items => {
-    let idx = 0, score = 0;
-    const titulo = $('.quiz-titulo', box);
-    const opciones = $('.opciones', box);
-    const feedback = $('.feedback', box);
-    const marcador = $('.marcador', box);
-    const btn = $('.quiz-siguiente', box);
+  quizController?.abort();
+  const controller = new AbortController();
+  quizController = controller;
+  const titulo = $('.quiz-titulo', box), opciones = $('.opciones', box);
+  const feedback = $('.feedback', box), marcador = $('.marcador', box);
+  const next = $('.quiz-siguiente', box);
+  opciones.replaceChildren();
+  feedback.textContent = '';
+  marcador.textContent = '';
+  next.hidden = true;
+  next.onclick = null;
+  if (!/^cursos\/(?:ciber-ofensiva|ciber-defensiva|ia-aplicada-segura|gobernanza-compliance)\/quiz\.json$/.test(url)) {
+    titulo.textContent = 'Cuestionario no disponible.';
+    return;
+  }
+  titulo.textContent = 'Cargando preguntas…';
+  fetch(url, {signal: controller.signal}).then(response => {
+    if (!response.ok) throw Error('HTTP ' + response.status);
+    return response.json();
+  }).then(items => {
+    if (controller.signal.aborted) return;
+    if (!Array.isArray(items) || items.length < 1 || items.length > 50 || items.some(q =>
+      !q || typeof q !== 'object' || Array.isArray(q) ||
+      typeof q.pregunta !== 'string' || !q.pregunta.trim() || q.pregunta.length > 800 ||
+      !Array.isArray(q.opciones) || q.opciones.length < 2 || q.opciones.length > 6 ||
+      !q.opciones.every(o => typeof o === 'string' && !!o.trim() && o.length <= 500) ||
+      !Number.isInteger(q.correcta) || q.correcta < 0 || q.correcta >= q.opciones.length ||
+      typeof q.explicacion !== 'string' || !q.explicacion.trim() || q.explicacion.length > 1500))
+      throw Error('Invalid quiz');
+    let idx = 0, score = 0, answered = false;
     const render = () => {
+      answered = false;
       const q = items[idx];
-      titulo.textContent = `${idx + 1}/${items.length} · ${q.pregunta}`;
-      opciones.innerHTML = '';
-      q.opciones.forEach((o, i) => {
-        const b = document.createElement('button');
-        b.className = 'opcion';
-        b.textContent = o;
-        b.addEventListener('click', () => {
-          [...opciones.children].forEach((el, j) => {
+      titulo.textContent = (idx + 1) + '/' + items.length + ' · ' + q.pregunta;
+      opciones.replaceChildren();
+      feedback.textContent = '';
+      marcador.textContent = 'Aciertos: ' + score;
+      next.hidden = true;
+      q.opciones.forEach((option, i) => {
+        const choice = document.createElement('button');
+        choice.type = 'button';
+        choice.className = 'opcion';
+        choice.textContent = option;
+        choice.addEventListener('click', () => {
+          if (answered || controller.signal.aborted) return;
+          answered = true;
+          Array.from(opciones.children).forEach((el, j) => {
             el.classList.add(j === q.correcta ? 'correcta' : 'fallo');
             el.disabled = true;
           });
-          const ok = i === q.correcta;
-          if (ok) score++;
-          feedback.textContent = ok
-            ? `Correcto. ${q.explicacion}`
-            : `Incorrecto. ${q.explicacion}`;
-          marcador.textContent = `Aciertos: ${score}`;
-          btn.hidden = false;
-        });
-        opciones.appendChild(b);
+          if (i === q.correcta) score++;
+          feedback.textContent = (i === q.correcta ? 'Correcto. ' :
+            'Incorrecto. Respuesta correcta: ' + q.opciones[q.correcta] + '. ') + q.explicacion;
+          marcador.textContent = 'Aciertos: ' + score;
+          next.textContent = idx === items.length - 1 ? 'Finalizar' : 'Siguiente';
+          next.hidden = false;
+        }, {once: true});
+        opciones.append(choice);
       });
-      btn.hidden = true;
     };
-    btn.addEventListener('click', () => {
-      idx++;
-      if (idx >= items.length) {
-        titulo.textContent = `Terminado: ${score}/${items.length}`;
-        opciones.innerHTML = '';
-        feedback.textContent = score >= items.length * 0.7
-          ? 'Nivel superado.' : 'Repasa y vuelve a intentarlo.';
-        btn.hidden = true;
-        marcador.textContent = '';
-        return;
+    next.onclick = () => {
+      if (controller.signal.aborted || !answered) return;
+      if (idx === items.length - 1) {
+        titulo.textContent = 'Práctica finalizada: ' + score + '/' + items.length;
+        opciones.replaceChildren();
+        feedback.textContent = 'Práctica formativa: no constituye una certificación.';
+        marcador.textContent = 'Resultado: ' + Math.round(score * 100 / items.length) + '%';
+        next.hidden = true;
+        next.onclick = null;
+      } else {
+        idx++;
+        render();
       }
-      render();
-    });
+    };
     render();
   }).catch(() => {
-    $('.quiz-titulo', box).textContent = 'Quiz no disponible offline.';
+    if (controller.signal.aborted) return;
+    titulo.textContent = 'No se pudo cargar el cuestionario.';
+    opciones.replaceChildren();
+    marcador.textContent = '';
+    feedback.textContent = 'Comprueba la conexión o prepara el campus para uso offline.';
+    next.hidden = true;
+    next.onclick = null;
   });
 }
 
