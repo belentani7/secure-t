@@ -1,8 +1,11 @@
-# robots.txt — secure-t-university (generado por eduforge)
-# Fija SITE_URL al desplegar para URLs definitivas.
+# robots.txt — secure-t-university
 User-agent: *
 Allow: /
-Allow: /campus/
-Allow: /campus/cursos/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /dist/
+Disallow: /audit/
+Disallow: /audit-kit/
 
 Sitemap: __BASE_URL__/sitemap.xml
