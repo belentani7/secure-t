@@ -39,6 +39,7 @@ function loadQuiz(url) {
     let idx = 0, score = 0, answered = false;
     const render = () => {
       answered = false;
+      const questionIndex = idx;
       const q = items[idx];
       titulo.textContent = (idx + 1) + '/' + items.length + ' · ' + q.pregunta;
       opciones.replaceChildren();
@@ -51,7 +52,7 @@ function loadQuiz(url) {
         choice.className = 'opcion';
         choice.textContent = option;
         choice.addEventListener('click', () => {
-          if (answered || controller.signal.aborted) return;
+          if (answered || controller.signal.aborted || idx !== questionIndex) return;
           answered = true;
           Array.from(opciones.children).forEach((el, j) => {
             el.classList.add(j === q.correcta ? 'correcta' : 'fallo');
