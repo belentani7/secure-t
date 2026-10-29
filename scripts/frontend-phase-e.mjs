@@ -82,10 +82,62 @@ const mcp={
  uimax:'uimax-mcp',
  'frontend-inspo':'frontend-inspo-mcp',
 };
+// A real MCP tool call, including the response, is necessary for a PASS.
+async function callMCP(name, pkg, preferred, inputs) {
+  return new Promise(resolveResult => {
+    const command='npx --yes '+pkg+' [stdio initialize -> tools/list -> tools/call]';
+    const child=spawn('npx',['--yes',pkg],{stdio:['pipe','pipe','pipe'],env:{...process.env,CI:'true',NO_COLOR:'1'}});
+    let buffer='', stderr='', stage='initialize', completed=false, tool=null, raw=[];
+    const send=(id,method,params)=>child.stdin.write(JSON.stringify({jsonrpc:'2.0',id,method,params})+'\\n');
+    const finish=async(ok,error)=>{
+      if(completed)return; completed=true;clearTimeout(timer);child.kill('SIGTERM');
+      const result={name,at:new Date().toISOString(),command,repo,target,tool:tool?.name||null,status:ok?'passed':'failed',error:error||'',responses:raw.slice(0,12),stderr:stderr.slice(0,5000)};
+      await json(name+'-mcp.json',result);
+      records.push(result);
+      if(!ok)failures.push(result);
+      resolveResult(result);
+    };
+    child.on('error',e=>finish(false,String(e)));
+    child.on('close',(code,signal)=>finish(false,'MCP process exited before tools/call response. exit='+code+' signal='+signal+' stderr='+stderr.slice(-1000)));
+    child.stderr.on('data',d=>{stderr+=d.toString()});
+    child.stdout.on('data',d=>{
+      buffer+=d.toString();
+      let index;
+      while((index=buffer.indexOf('\\n'))>=0){
+        const line=buffer.slice(0,index);buffer=buffer.slice(index+1);
+        let msg;try{msg=JSON.parse(line)}catch{continue}
+        raw.push(msg);
+        if(msg.id===1){
+          if(msg.error){finish(false,JSON.stringify(msg.error));return}
+          child.stdin.write(JSON.stringify({jsonrpc:'2.0',method:'notifications/initialized'})+'\\n');
+          send(2,'tools/list',{});stage='list';
+        }else if(msg.id===2){
+          if(msg.error){finish(false,JSON.stringify(msg.error));return}
+          const available=msg.result?.tools||[];
+          tool=available.find(t=>t.name===preferred);
+          if(!tool){finish(false,'Expected tool unavailable: '+preferred+'; tools: '+available.map(t=>t.name).join(','));return}
+          const required=tool.inputSchema?.required||[];
+          if(required.some(k=>!(k in inputs))){finish(false,'Missing required arguments: '+JSON.stringify(required));return}
+          send(3,'tools/call',{name:tool.name,arguments:inputs});stage='call';
+        }else if(msg.id===3){
+          finish(!msg.error && !msg.result?.isError,msg.error?JSON.stringify(msg.error):msg.result?.isError?JSON.stringify(msg.result):'');
+          return;
+        }
+      }
+    });
+    send(1,'initialize',{protocolVersion:'2025-03-26',capabilities:{},clientInfo:{name:'belentani-phase-e',version:'1.0.0'}});
+    const timer=setTimeout(()=>finish(false,'MCP '+stage+' timed out after 45000ms'),45000);
+  });
+}
 for(const [name,pkg] of Object.entries(mcp)){
-  const r=await run(name+'-registry','npm',['view',pkg,'name','version','repository','--json'],30000);
-  const evidence={name,at:r.at,command:r.command,status:'blocked',error:r.error||'Package metadata checked, MCP tools/list and tools/call not executed: an MCP client and verified package provenance are required.'};
-  records.push(evidence);failures.push(evidence);
+  if(name==='playwright') await callMCP(name,pkg,'browser_navigate',{url:target});
+  else if(name==='chrome-devtools') await callMCP(name,pkg,'navigate_page',{type:'url',url:target});
+  else if(name==='w3c') await callMCP(name,pkg,'search_w3c_specs',{query:'HTML accessibility semantic landmarks'});
+  else{
+    const r=await run(name+'-registry','npm',['view',pkg,'name','version','repository','--json'],30000);
+    const evidence={name,at:r.at,command:r.command,status:'blocked',error:r.error||'Package metadata checked; MCP server execution blocked pending independent package provenance and tool contract validation.'};
+    records.push(evidence);failures.push(evidence);
+  }
 }
 const external={name:'midos',at:new Date().toISOString(),command:'MCP initialize + tools/call https://midos.dev/mcp',status:'blocked',error:'External MCP session not authenticated or invoked from an MCP client.'};
 records.push(external);failures.push(external);
