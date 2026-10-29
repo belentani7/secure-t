@@ -36,12 +36,6 @@ paths = [
 ]
 
 [[allowlists]]
-description = "Fixtures de tests: valores de ejemplo, no credenciales reales."
-paths = [
-  '''(?i)(^|/)tests/''',
-]
-
-[[allowlists]]
 description = "Material del curso: ejemplo curl con basic-auth para uso docente."
 ruleID = "curl-auth-user"
 paths = [
