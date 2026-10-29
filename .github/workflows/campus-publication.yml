@@ -42,6 +42,7 @@ jobs:
             if curl --silent --fail http://127.0.0.1:8765/ > /dev/null; then break; fi
             sleep 1
           done
+          PLAYWRIGHT_MODULE="$RUNNER_TEMP/campus-browser/node_modules/playwright" node tests/browser-institutional.cjs
           PLAYWRIGHT_MODULE="$RUNNER_TEMP/campus-browser/node_modules/playwright" node tests/browser-campus.cjs
           PLAYWRIGHT_MODULE="$RUNNER_TEMP/campus-browser/node_modules/playwright" node tests/browser-workstation.cjs
           PLAYWRIGHT_MODULE="$RUNNER_TEMP/campus-browser/node_modules/playwright" node tests/browser-mission.cjs

@@ -148,3 +148,56 @@ body.campus-landing { background: #0c121a; color: #f2f5f6; }
 
 .secure-t-home .about-label { font-size:1rem; margin-top:2.25rem; color:#f2f5f6; font-weight:650; }
 .secure-t-home .about-label + p { margin-top:.5rem; font-size:.91rem; }
+/* Professional, responsive interaction polish — progressive CSS only. */
+.secure-t-home .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(12, 18, 26, .96);
+}
+@supports (backdrop-filter: blur(10px)) {
+  .secure-t-home .site-header {
+    background: rgba(12, 18, 26, .90);
+    backdrop-filter: blur(14px);
+  }
+}
+.secure-t-home .site-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.secure-t-home .section,
+.secure-t-home #itinerarios,
+.secure-t-home #formacion,
+.secure-t-home #metodo {
+  scroll-margin-top: 8rem;
+}
+.secure-t-home .st-hero-art {
+  border-radius: 12px;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(166, 217, 212, .12), transparent 48%),
+    linear-gradient(165deg, #162631, #0e1922);
+}
+.secure-t-home .case-head::before {
+  content: "";
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--st-accent);
+}
+.secure-t-home .st-route-card {
+  border-radius: 9px;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+}
+.secure-t-home .st-route-card:focus-visible,
+.secure-t-home .st-route-card:hover {
+  background: #192b32;
+  border-color: var(--st-accent);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .secure-t-home .st-route-card:hover { transform: translateY(-2px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .secure-t-home .st-route-card { transition: none; }
+}
