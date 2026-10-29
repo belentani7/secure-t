@@ -11,6 +11,8 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 
   await page.goto(root + '/campus/');
   await page.evaluate(() => navigator.serviceWorker.ready);
+  // Navigation was regrouped into a native accessible disclosure on all screens.
+  await page.locator('.campus-menu summary').click();
   await page.locator('a[href="workstation/"]').click();
   assert.match(page.url(), /\/campus\/workstation\//);
   assert.match(await page.locator('#dashboard-title').innerText(), /aprender a defender/);
