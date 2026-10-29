@@ -20,8 +20,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DESTINATION = ROOT / "site-dist"
 
 
-# Intended Pages project path. A deployment may override this with SITE_URL.
-DEFAULT_SITE_URL = "https://belentani7.github.io/secure-t"
+# Verified public HTTPS canonical. Deployments may override this with SITE_URL.
+DEFAULT_SITE_URL = "https://www.belentani.es/secure-t"
 
 
 def public_site_url() -> str:
