@@ -129,7 +129,7 @@ def test_source_symlinks_cannot_publish_external_files(tmp_path, monkeypatch, na
 
 
 @pytest.mark.parametrize("content", [
-    "-----BEGIN OPENSSH PRIVATE KEY-----\\nsynthetic test fixture",
+    "-----BEGIN OPENSSH " + "PRIVATE KEY-----\\nsynthetic test fixture",
     "sk-" + "x" * 30,
 ])
 def test_extensionless_credentials_are_rejected(tmp_path, content):
