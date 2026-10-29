@@ -13,7 +13,7 @@
       'method.label':'APRENDER · PRATICAR · ARGUMENTAR','method.title':'A prática precisa deixar uma explicação.','method.body':'Priorizamos o raciocínio acima dos efeitos de interface. Os laboratórios usam cenários sintéticos, oferecem feedback e mantêm o progresso localmente no navegador quando disponível.','method.link':'Abrir Threat Studio','method.item1':'Compreender o que você está observando.','method.item2':'Tomar uma decisão em um ambiente seguro.','method.item3':'Rever as evidências e aprender com o resultado.',
       'about.title':'Quem somos','about.body':'A Secure T é um projeto educativo digital independente que oferece cursos abertos, práticas éticas e planos de estudo. Sem fins de acreditação oficial.',
       'academy.label':'O PROJETO A LONGO PRAZO','academy.title':'Uma academia digital em construção.','academy.body':'Além dos quatro cursos disponíveis, há um roteiro curricular de cinco anos. As novas disciplinas são planos de estudo — ainda não são cursos completos nem diplomas reconhecidos.','academy.link':'Ver o plano acadêmico',
-      'footer.text':'© Secure T · Educação aberta e responsável. Projeto independente.','footer.campus':'Campus','footer.story':'História','footer.security':'Segurança','footer.code':'Código-fonte'
+      'footer.text':'© Secure T · Educação aberta e responsável. Projeto independente.','footer.campus':'Campus','footer.story':'História','footer.concepts':'Conceitos','footer.security':'Segurança','footer.code':'Código-fonte'
     },
     es: {
       'skip':'Saltar al contenido','brand.sub':'FORMACIÓN EN SEGURIDAD DIGITAL','nav.paths':'Cómo empezar','nav.courses':'Cursos','nav.method':'Método','nav.academy':'Academia','language.label':'Idioma',
@@ -26,7 +26,7 @@
       'method.label':'APRENDER · PRACTICAR · ARGUMENTAR','method.title':'La práctica tiene que dejar una explicación.','method.body':'Priorizamos el razonamiento sobre los efectos de interfaz. Los laboratorios usan escenarios sintéticos, las respuestas incluyen retroalimentación y el progreso se conserva localmente en tu navegador cuando la herramienta lo permite.','method.link':'Abrir Threat Studio','method.item1':'Comprender qué estás observando.','method.item2':'Tomar una decisión dentro de un entorno seguro.','method.item3':'Revisar la evidencia y aprender del resultado.',
       'about.title':'Quiénes somos','about.body':'Secure T es un proyecto educativo digital independiente que ofrece cursos abiertos, prácticas éticas e itinerarios de estudio. No expide titulaciones oficiales.',
       'academy.label':'EL PROYECTO A LARGO PLAZO','academy.title':'Una academia digital en construcción.','academy.body':'Además de los cuatro cursos disponibles, existe un itinerario curricular de cinco años. Las nuevas asignaturas son planes de estudio; todavía no representan cursos completos ni títulos acreditados.','academy.link':'Ver el plan académico',
-      'footer.text':'© Secure T · Educación abierta y responsable. Proyecto independiente.','footer.campus':'Campus','footer.story':'Historia','footer.security':'Seguridad','footer.code':'Código fuente'
+      'footer.text':'© Secure T · Educación abierta y responsable. Proyecto independiente.','footer.campus':'Campus','footer.story':'Historia','footer.concepts':'Conceptos','footer.security':'Seguridad','footer.code':'Código fuente'
     },
     en: {
       'skip':'Skip to content','brand.sub':'DIGITAL SECURITY EDUCATION','nav.paths':'Where to start','nav.courses':'Courses','nav.method':'Approach','nav.academy':'Academy','language.label':'Language',
@@ -39,7 +39,7 @@
       'method.label':'LEARN · PRACTISE · EXPLAIN','method.title':'Good practice leaves a clear explanation.','method.body':'Reasoning matters more than flashy interfaces. Labs use synthetic scenarios, provide feedback and keep your progress locally in your browser when supported.','method.link':'Open Threat Studio','method.item1':'Understand what you are observing.','method.item2':'Make a decision in a safe environment.','method.item3':'Review the evidence and learn from the result.',
       'about.title':'Who we are','about.body':'Secure T is an independent digital education project offering open courses, ethical hands-on practice and learning roadmaps. It does not issue accredited degrees.',
       'academy.label':'THE LONG-TERM PROJECT','academy.title':'A digital academy in development.','academy.body':'Alongside four available courses, there is a five-year curriculum roadmap. New subjects are study plans, not yet complete courses or accredited degrees.','academy.link':'View the academic plan',
-      'footer.text':'© Secure T · Open and responsible education. Independent project.','footer.campus':'Campus','footer.story':'Our story','footer.security':'Security','footer.code':'Source code'
+      'footer.text':'© Secure T · Open and responsible education. Independent project.','footer.campus':'Campus','footer.story':'Our story','footer.concepts':'Concepts','footer.security':'Security','footer.code':'Source code'
     }
   };
   const selector = document.getElementById('language');
