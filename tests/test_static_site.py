@@ -166,8 +166,19 @@ def test_legacy_remote_securetea_docker_is_not_used():
 
 
 def test_local_services_require_secrets_and_do_not_listen_publicly():
+    # Current Compose has app + opt-in app-dev, not legacy Postgres/Redis/MinIO.
+    # Do not invent extra network services just to satisfy a stale test.
     compose = (ROOT / "docker-compose.yml").read_text(encoding="utf-8")
-    for variable in ("POSTGRES_PASSWORD", "MINIO_ROOT_USER", "MINIO_ROOT_PASSWORD"):
-        assert "${" + variable + ":?" in compose
-    for port in ("5432", "6379", "9000", "9001"):
-        assert "127.0.0.1:" + port + ":" + port in compose
+    assert '"127.0.0.1:3000:3000"' in compose, "developer app must bind loopback"
+    assert '"127.0.0.1:5173:5173"' in compose, "Vite dev port must bind loopback"
+    for service, variables, ports in (
+        ("postgres", ("POSTGRES_PASSWORD",), ("5432",)),
+        ("redis", (), ("6379",)),
+        ("minio", ("MINIO_ROOT_USER", "MINIO_ROOT_PASSWORD"), ("9000", "9001")),
+    ):
+        if "\\n  " + service + ":" not in compose:
+            continue
+        for variable in variables:
+            assert "${" + variable + ":?" in compose, service + " must require " + variable
+        for port in ports:
+            assert "127.0.0.1:" + port + ":" + port in compose, service + " must bind loopback"
