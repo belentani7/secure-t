@@ -1,0 +1,144 @@
+/* SECURE T / EXPERIENCE SYSTEM — one identity for marketing and learning.
+   Source of truth: authored CSS, no build-time Tailwind dependency for these components. */
+:root{--st-ink:#061014;--st-panel:#0c1c23;--st-panel-high:#112832;--st-electric:#c4ff74;--st-cyan:#80e8e1;--st-muted:#b8cccf;--st-line:#4263687a}
+body{overflow-wrap:break-word}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #d5ff8a!important;outline-offset:4px!important}
+.st-hero-layout{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(300px,.96fr);gap:clamp(2rem,4vw,4.5rem);align-items:center;min-height:min(76svh,830px)}
+.st-hero-copy{min-width:0;position:relative;z-index:1}
+body:not(.campus-landing) .st-hero-layout .display-1{font-weight:800;letter-spacing:-.065em;font-size:clamp(3.25rem,6.2vw,6.9rem);line-height:.99;max-width:10ch!important}
+body:not(.campus-landing) .st-hero-layout .lead{max-width:58ch;line-height:1.7;font-size:clamp(1.04rem,1.65vw,1.24rem)}
+body:not(.campus-landing) .st-hero-layout .label{color:var(--st-electric);font-size:.78rem;letter-spacing:.12em}
+body:not(.campus-landing) .st-hero-layout .btn{min-height:50px;padding:.75rem 1.15rem;border-radius:13px;font-weight:750}
+body:not(.campus-landing) .st-hero-layout .btn-primary{background:var(--st-electric);color:#071714;box-shadow:0 12px 35px #beff6b20}
+body:not(.campus-landing) .st-hero-layout .btn-ghost{border:1px solid #7caba05c;color:var(--text-1);background:#142a2f88}
+.st-hero-art{min-width:0;position:relative;isolation:isolate;padding:clamp(1rem,2vw,2rem);border:1px solid #7ac7b64d;border-radius:30px;background:radial-gradient(circle at 78% 10%,#4ce9d43d,transparent 45%),linear-gradient(135deg,#152d36ee,#061216f0 85%);box-shadow:0 24px 90px #0009,inset 0 1px #ffffff19;overflow:hidden}
+.st-hero-art:before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(#a7f3c80d 1px,transparent 1px),linear-gradient(90deg,#a7f3c80d 1px,transparent 1px);background-size:35px 35px;mask-image:linear-gradient(to bottom,black,transparent)}
+.st-console-head,.st-console-bottom{display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;font:700 .67rem/1.5 ui-monospace,monospace;letter-spacing:.07em;color:#d0edeb;text-transform:uppercase}
+.st-console-head .st-beacon{display:inline-block;width:9px;height:9px;margin-right:.55rem;border-radius:50%;background:var(--st-electric);box-shadow:0 0 0 5px #c4ff7416}
+.st-diagram{margin:1.8rem auto;position:relative;display:grid;place-items:center;aspect-ratio:1;max-width:370px}
+.st-diagram:before,.st-diagram:after{content:"";position:absolute;inset:5%;border:1px solid #93f8ea48;border-radius:50%;box-shadow:0 0 60px #4accb51f}
+.st-diagram:after{inset:19%;border-style:dashed;transform:rotate(24deg);border-color:#c4ff7488}
+.st-diagram-arc{width:62%;height:62%;border:5px solid transparent;border-top-color:#c4ff74;border-bottom-color:#66e1db;border-radius:50%;transform:rotate(-28deg);box-shadow:0 0 46px #9ceccd21;animation:st-arc 22s linear infinite}
+.st-diagram-core{position:absolute;width:37%;aspect-ratio:1;display:grid;place-items:center;border-radius:25%;background:linear-gradient(145deg,#d3ff9e,#77ebdf);box-shadow:0 0 55px #91eed74d;transform:rotate(-14deg)}
+.st-diagram-core svg{width:57%;height:auto;transform:rotate(14deg);fill:none;stroke:#092329;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.st-diagram-label{position:absolute;font:700 .64rem/1.5 ui-monospace,monospace;letter-spacing:.08em;color:#b7e6e0;background:#0c252edc;border:1px solid #7dc8c47a;border-radius:9px;padding:.55rem .8rem}
+.st-diagram-label.one{left:0;top:17%}.st-diagram-label.two{right:0;bottom:15%}
+.st-console-bottom{border-top:1px solid #72aeb34d;padding-top:1.1rem;color:#b1cfcc}
+.st-console-bottom strong{color:var(--st-electric);font-weight:750}
+@keyframes st-arc{to{transform:rotate(332deg)}}
+.st-journey{padding-block:clamp(3rem,6vw,5.5rem)}
+.st-section-intro{display:flex;align-items:end;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.7rem}
+.st-section-intro p{color:var(--text-2);max-width:55ch;margin:.7rem 0 0}
+.st-section-kicker{display:block;color:var(--st-electric);font:700 .69rem/1.7 ui-monospace,monospace;letter-spacing:.15em;text-transform:uppercase}
+.st-journey h2{font-size:clamp(1.65rem,3.1vw,2.8rem);font-weight:800;letter-spacing:-.045em;max-width:28ch}
+.st-journey-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.st-route-card{display:flex;flex-direction:column;min-height:250px;gap:1rem;padding:clamp(1.25rem,2vw,1.8rem);border:1px solid #52867c7c;border-radius:19px;background:linear-gradient(158deg,#193139,#0b171e);text-decoration:none;color:#f5fffa;transition:transform .25s,border-color .25s,box-shadow .25s}
+.st-route-card:hover{transform:translateY(-5px);border-color:#c4ff74;box-shadow:0 15px 35px #0005}
+.st-route-card .st-route-number{color:#c4ff74;font:700 .72rem ui-monospace,monospace;letter-spacing:.12em}
+.st-route-card strong{font-size:clamp(1.2rem,2vw,1.45rem);font-weight:800;line-height:1.22;letter-spacing:-.025em}
+.st-route-card small{color:#bdd2d0;font-size:.89rem;line-height:1.6}
+.st-route-card .st-route-arrow{margin-top:auto;color:#c4ff74;font-weight:800}
+.st-campus-strip{padding-block:1.3rem!important;border:1px solid #385c5b80!important;border-radius:22px;background:linear-gradient(105deg,#10262b,#0a161d)!important;margin:0 auto clamp(2rem,4vw,4rem);width:min(1152px,calc(100% - 2rem));overflow:hidden}
+.st-campus-strip>div{padding-top:0!important;padding-bottom:0!important}
+.st-tools-strip{border-top:1px solid #37665d70;border-bottom:1px solid #37665d70;background:#0b1c20!important}
+body:not(.campus-landing) .tech-grid.hero-glow{background:radial-gradient(circle at 78% 45%,#3eaa8745,transparent 38%),linear-gradient(120deg,#09161b,#0c2528 82%)}
+body:not(.campus-landing) .card{border-radius:18px;transition:border-color .2s,transform .2s,box-shadow .2s}
+body:not(.campus-landing) .card:hover{border-color:#7fcbb2a1;box-shadow:0 14px 32px #0002}
+body:not(.campus-landing) #cursos article.card{background:linear-gradient(150deg,var(--surface),var(--bg-sunken));border:1px solid #54757766}
+body:not(.campus-landing) #cursos article.card h3{font-size:1.5rem;line-height:1.2}
+body:not(.campus-landing) .btn{transition:transform .2s,background .2s,border-color .2s}
+body:not(.campus-landing) .btn:hover{transform:translateY(-2px)}
+/* Campus: clear navigation, genuine wayfinding and a product-like learning dashboard */
+.campus-landing{background:radial-gradient(ellipse 70% 500px at 60% 0%,#1b454755,transparent),#08151b}
+.campus-landing .wrap{width:min(1180px,calc(100% - clamp(2rem,5vw,5rem)))}
+.campus-landing .topbar{padding:0 clamp(1rem,3vw,3rem);min-height:82px;gap:1.5rem;background:#09191fe8;border-color:#528b816e;backdrop-filter:blur(22px)}
+.campus-landing .brand{font-size:1.2rem;font-weight:850;white-space:nowrap;color:#fff}
+.campus-landing .brand span{color:var(--st-electric)}
+.campus-landing .campus-primary-nav{display:flex;align-items:center;gap:.3rem;flex-wrap:wrap;justify-content:flex-end}
+.campus-landing .campus-primary-nav>.btn{background:transparent;border-color:transparent;color:#dcece9;padding:.7rem .8rem}
+.campus-landing .campus-primary-nav>.btn:hover{color:var(--st-electric);background:#29464780}
+.campus-landing .campus-menu{position:relative}
+.campus-landing .campus-menu summary{list-style:none;cursor:pointer;user-select:none;min-height:44px;display:flex;align-items:center;gap:.5rem;border:1px solid #7bb2aa91;border-radius:12px;padding:.65rem .9rem;color:#f1fff9;font-weight:750}
+.campus-landing .campus-menu summary::-webkit-details-marker{display:none}
+.campus-landing .campus-menu summary:after{content:"⌄";color:var(--st-electric)}
+.campus-landing .campus-menu[open] summary{background:#1d4145}
+.campus-landing .campus-menu-panel{position:absolute;right:0;top:calc(100% + .8rem);z-index:20;min-width:min(365px,calc(100vw - 2rem));padding:.8rem;display:grid;gap:.2rem;background:#102831;border:1px solid #75bfb187;border-radius:18px;box-shadow:0 25px 60px #000a}
+.campus-landing .campus-menu-panel a{padding:.72rem .8rem;display:block;border-radius:9px;text-decoration:none;color:#e5f9f3;font-weight:650}
+.campus-landing .campus-menu-panel a:hover{background:#284a4c;color:#c4ff74}
+.campus-landing .cyber-hero{margin-top:1.5rem;padding:clamp(2rem,5vw,4.8rem);min-height:660px;grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr);background:radial-gradient(ellipse at 80% 30%,#48e8c128,transparent 48%),linear-gradient(125deg,#112832,#071419);border-color:#79bcab8e;box-shadow:0 25px 85px #0008}
+.campus-landing .cyber-hero h1{font-weight:900;font-size:clamp(2.8rem,5.5vw,5.8rem);line-height:1.0;max-width:13ch}
+.campus-landing .cyber-hero .lead{font-size:clamp(1rem,1.5vw,1.22rem);line-height:1.72}
+.campus-landing .cyber-hero-actions a{border-radius:13px;font-size:.85rem;letter-spacing:0;text-transform:none;padding:.9rem 1.2rem}
+.campus-landing .cyber-highlights{gap:.8rem}
+.campus-landing .cyber-highlights span{background:#17343870;border:1px solid #5caa9d61;border-left:2px solid #c4ff74;border-radius:7px;padding:.45rem .7rem}
+.campus-landing .st-soc-preview{position:relative;min-width:0;border:1px solid #80a79d77;border-radius:19px;background:#08161ceb;overflow:hidden;box-shadow:0 20px 60px #0009;transform:rotate(1.5deg)}
+.campus-landing .st-soc-top{display:flex;justify-content:space-between;gap:.6rem;padding:.9rem 1rem;border-bottom:1px solid #426d687c;background:#172f37;color:#cbede8;font:700 .68rem ui-monospace,monospace;letter-spacing:.09em}
+.campus-landing .st-soc-top span:last-child{color:#c4ff74}
+.campus-landing .st-soc-body{padding:1.3rem}
+.campus-landing .st-soc-grid{height:155px;position:relative;display:grid;place-items:center;border-radius:10px;background:radial-gradient(circle at center,#2a88804f,transparent 61%),repeating-linear-gradient(0deg,#7ad7bc0b 0 1px,transparent 1px 23px),repeating-linear-gradient(90deg,#7ad7bc0b 0 1px,transparent 1px 23px)}
+.campus-landing .st-soc-grid:before,.campus-landing .st-soc-grid:after{content:"";position:absolute;aspect-ratio:1;border:1px solid #a8eacd96;border-radius:50%;width:120px}
+.campus-landing .st-soc-grid:after{width:66px;border-style:dashed;border-color:#c4ff74}
+.campus-landing .st-soc-grid b{z-index:1;background:#c4ff74;color:#08191b;width:27px;height:27px;border-radius:50%;display:grid;place-items:center}
+.campus-landing .st-soc-list{list-style:none;display:grid;gap:.65rem;padding:1rem 0 0;margin:0;color:#d6eae8;font:600 .75rem ui-monospace,monospace}
+.campus-landing .st-soc-list li{display:flex;align-items:center;gap:.65rem;padding:.65rem;border:1px solid #456c6470;border-radius:8px}
+.campus-landing .st-soc-list li:before{content:"";width:7px;height:7px;flex:none;background:#baff80;border-radius:50%}
+.campus-landing .st-soc-note{color:#b3cec7;font-size:.68rem;margin:1rem 0 0;text-transform:uppercase;letter-spacing:.06em}
+.campus-landing .academy-invitation{background:linear-gradient(105deg,#1b363d,#0b1920)!important;border:1px solid #65b7a86e!important;padding:clamp(1.3rem,3vw,2rem)!important;margin:0 0 clamp(2.5rem,5vw,4rem)!important}
+.campus-landing #cursos{scroll-margin-top:120px}
+.campus-landing .campus-courses-heading{margin:3.6rem 0 1.1rem}
+.campus-landing .campus-courses-heading h2{font-size:clamp(2rem,4vw,3.5rem);letter-spacing:-.055em;font-weight:850;margin:.4rem 0 1rem}
+.campus-landing .campus-courses-heading p{color:#b9d5d0;max-width:65ch;line-height:1.65}
+.campus-landing .grid-cursos{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.1rem}
+.campus-landing .grid-cursos .card{padding:clamp(1.4rem,2.4vw,2.3rem);border:1px solid #5d908b75;border-radius:22px;background:linear-gradient(145deg,#152d35,#0b1922);transition:transform .2s,border-color .2s}
+.campus-landing .grid-cursos .card:hover{transform:translateY(-3px);border-color:#bcf981}
+.campus-landing .grid-cursos .card h3{font-size:clamp(1.38rem,2vw,1.72rem);line-height:1.25;letter-spacing:-.035em}
+.campus-landing .grid-cursos .card>p:not(.meta){font-size:.99rem;color:#cfdfde;line-height:1.7}
+.campus-landing .grid-cursos .card>.badge{background:#254c3c;color:#dbffb0;border:1px solid #b6fb9866}
+.campus-landing .grid-cursos .card>.meta{font-size:.82rem;line-height:1.8}
+.campus-landing .grid-cursos .card>.meta a{color:#c6f995;text-decoration:underline;text-underline-offset:4px}
+.campus-landing .grid-cursos .card>div:last-child{margin-top:auto}
+.campus-landing .grid-cursos .card>div:last-child .btn{background:#c4ff74;color:#0a221c;font-weight:850}
+.campus-landing main>section:not(.cyber-hero):not(.academy-invitation):not(.grid-cursos):not(.st-journey){scroll-margin-top:120px;margin-block:clamp(2rem,5vw,4rem)}
+.campus-landing #quiz,.campus-landing #voz,.campus-landing #gobierno,.campus-landing #agente{padding:clamp(1.3rem,3vw,2rem);background:#10242cae;border:1px solid #527f7878;border-radius:22px}
+.campus-landing #quiz h2,.campus-landing #voz h2,.campus-landing #gobierno h2,.campus-landing #agente h2{font-size:clamp(1.45rem,3vw,2.2rem);margin-bottom:.6rem}
+.campus-landing footer.wrap{border-color:#527f7878;line-height:1.65}
+@media(max-width:1024px){.st-hero-layout{grid-template-columns:1fr;min-height:0}.st-hero-art{max-width:680px;width:100%}.campus-landing .topbar{align-items:flex-start;padding-block:.85rem;flex-direction:column}.campus-landing .campus-primary-nav{width:100%;justify-content:flex-start}.campus-landing .cyber-hero{grid-template-columns:1fr}.campus-landing .st-soc-preview{width:min(100%,540px);transform:none}}
+@media(max-width:720px){.st-journey-grid{grid-template-columns:1fr}.st-route-card{min-height:185px}.st-hero-art{border-radius:22px}.st-diagram{max-width:280px}.campus-landing .campus-primary-nav>.btn{font-size:.8rem;padding:.55rem .58rem}.campus-landing .campus-menu{margin-left:auto}.campus-landing .campus-menu-panel{right:0}.campus-landing .grid-cursos{grid-template-columns:1fr}.campus-landing .cyber-hero{padding:2rem 1.15rem;min-height:0}.campus-landing .cyber-hero h1{font-size:clamp(2.55rem,10vw,4rem)}.campus-landing .cyber-hero-actions a{width:100%}.campus-landing .cyber-highlights span{font-size:.6rem}.campus-landing .topbar{min-height:0}.campus-landing .brand{white-space:normal}}
+@media(prefers-reduced-motion:reduce){.st-diagram-arc{animation:none}.st-route-card,.campus-landing .grid-cursos .card{transition:none}}
+@media print{.st-hero-art,.st-soc-preview{display:none}.st-hero-layout,.campus-landing .cyber-hero{display:block}.st-route-card{min-height:0;break-inside:avoid}}
+
+/* Four full lesson courses: a coherent, readable classroom without touching content. */
+html:not([data-theme="light"]) body.course-landing{background:radial-gradient(ellipse 80% 440px at 45% 0%,#234b4c62,transparent),#08161c;color:#eaf9f4}
+body.course-landing .topbar{background:#0b2028ea;border-bottom:1px solid #558c817c;backdrop-filter:blur(18px);z-index:30}
+body.course-landing .topbar .bar{max-width:1400px;margin:auto;display:flex;align-items:center;gap:1rem}
+body.course-landing .topbar .bar>.brand:first-child{font-weight:850;color:var(--st-electric)}
+body.course-landing .topbar .bar>.brand:nth-child(2){font-weight:750;max-width:min(520px,42vw);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+body.course-landing .curso-layout{max-width:1400px;grid-template-columns:minmax(215px,268px) minmax(0,1fr);gap:clamp(1.5rem,3vw,3.5rem);padding:clamp(1.2rem,3vw,2.5rem);align-items:start}
+body.course-landing .curso-nav{position:sticky;top:100px;max-height:calc(100svh - 115px);overflow-y:auto;overscroll-behavior:contain;scrollbar-color:#659286 transparent;padding:1rem;border:1px solid #5e958a70;border-radius:18px;background:linear-gradient(160deg,#152e36,#0e1c23);box-shadow:0 15px 38px #0003}
+body.course-landing .curso-nav a{border-radius:9px;line-height:1.45;padding:.55rem .6rem;min-height:40px;font-size:.83rem;text-wrap:pretty}
+body.course-landing .curso-nav a:hover,body.course-landing .curso-nav a:focus-visible{background:#3260589c;color:#e9ffcb}
+body.course-landing .curso-nav a.activo{background:#28563f;color:#d2ffa3;font-weight:800}
+body.course-landing .curso-layout>main{min-width:0;width:100%;max-width:1000px}
+body.course-landing .curso-layout>main>section{scroll-margin-top:115px;max-width:100%;margin-bottom:clamp(2rem,4vw,3.5rem)}
+body.course-landing #overview{position:relative;overflow:hidden;padding:clamp(1.5rem,4vw,3.6rem);background:radial-gradient(circle at 88% 14%,#53c6b934,transparent 35%),linear-gradient(130deg,#17313b,#0d1a22);border:1px solid #78c3ac91;border-radius:23px;box-shadow:0 24px 60px #0004}
+body.course-landing #overview>h1{font-size:clamp(2.5rem,4.4vw,4.8rem);line-height:1.07;letter-spacing:-.057em;font-weight:850;max-width:20ch;text-wrap:balance;margin-bottom:1.4rem}
+body.course-landing .curso-layout>main>section:not(#overview){padding:clamp(1.1rem,2.5vw,2.4rem);background:linear-gradient(150deg,#112630ba,#0a181fd1);border:1px solid #557f7c60;border-radius:18px}
+body.course-landing .curso-layout>main>section>h2:first-child{font-size:clamp(1.65rem,3vw,2.6rem);letter-spacing:-.04em;line-height:1.16;color:#eaf8f6;border-color:#4a807b88}
+body.course-landing .curso-layout>main .badge{border:1px solid #79ac8380;background:#1c513c;color:#d9ffb4}
+body.course-landing .curso-layout>main p,body.course-landing .curso-layout>main li{line-height:1.85}
+body.course-landing .curso-layout>main pre{background:#09151bcc;border:1px solid #6b9e9675;white-space:pre;overflow:auto}
+body.course-landing .curso-layout>main table{display:block;max-width:100%;overflow-x:auto;border:0}
+body.course-landing .curso-layout>main th{background:#234249}
+body.course-landing .curso-layout>main blockquote{border-left:3px solid #bafc72;background:#bafc720b;padding:.9rem 1.3rem;margin-inline:0;border-radius:0 11px 11px 0}
+body.course-landing .curso-layout>main a:not(.btn){text-decoration-thickness:1px;text-underline-offset:3px}
+body.course-landing .controles .btn{background:var(--st-electric);color:#0b211b;border-radius:9px;font-weight:750}
+html[data-theme="light"] body.course-landing{background:#f1f7f4}
+html[data-theme="light"] body.course-landing .curso-nav,html[data-theme="light"] body.course-landing .curso-layout>main>section:not(#overview){background:#fff;border-color:#bad4cd;color:#14292b}
+html[data-theme="light"] body.course-landing #overview{background:linear-gradient(125deg,#edf9f1,#d3eee9);color:#152e30;border-color:#8cb7aa}
+html[data-theme="light"] body.course-landing .topbar{background:#f7faf7ef;border-color:#c6d8d1}
+html[data-theme="light"] body.course-landing .curso-layout>main>section>h2:first-child{color:#1d3739}
+html[data-theme="light"] body.course-landing .curso-layout>main pre{background:#eaf2ef;color:#1d3434}
+html[data-theme="light"] body.course-landing .curso-layout>main th{background:#e2f1ec}
+@media(max-width:900px){body.course-landing .curso-layout{grid-template-columns:1fr}body.course-landing .curso-nav{position:static;max-height:320px}body.course-landing .topbar .bar>.brand:nth-child(2){max-width:40vw}}
+@media(max-width:540px){body.course-landing .curso-layout{padding:1rem}body.course-landing .topbar .bar{flex-wrap:wrap}body.course-landing .topbar .bar>.brand:nth-child(2){max-width:100%;white-space:normal}body.course-landing #overview{padding:1.4rem}body.course-landing #overview>h1{font-size:clamp(2rem,9vw,3.1rem)}}
+@media print{body.course-landing #overview,body.course-landing .curso-layout>main>section:not(#overview){background:#fff;border-color:#ccc;color:#000;box-shadow:none}body.course-landing .curso-nav{display:none}body.course-landing .curso-layout{display:block;padding:0}}

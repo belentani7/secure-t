@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ciberseguridad Ofensiva: Pensar como Atacante — Secure T University</title>
-  <meta name="description" content="Curso universitario de seguridad ofensiva con ética desde el día 1: recon pasivo, OSINT, OWASP Top 10 y laboratorio con máquina vulnerable. Se aprueba">
+  <meta name="description" content="Aprende seguridad ofensiva ética y responsable mediante reconocimiento pasivo, OSINT, riesgos web OWASP y documentación de hallazgos en laboratorios autorizados.">
   <link rel="stylesheet" href="../../tokens.css">
   <style>
     .curso-layout { display: grid; grid-template-columns: 15rem 1fr; gap: var(--sp-8);
@@ -47,11 +47,12 @@
     .sem-nav a { color: var(--accent); text-decoration: none; }
     .sem-nav a:hover { text-decoration: underline; }
   </style>
+  <link rel="stylesheet" href="../../../ui/experience.css">
 </head>
-<body>
+<body class="course-landing">
 <header class="topbar"><div class="bar">
   <a class="brand" href="../../index.html">← Campus</a>
-  <span class="brand"><span>Ciberseguridad Ofensiva: Pensar como Ata</span></span>
+  <span class="brand"><span>Ciberseguridad Ofensiva: Pensar como Atacante</span></span>
   <div class="controles no-print">
     <button id="fs-menos" aria-label="Reducir tamaño de letra">A−</button>
     <button id="fs-mas" aria-label="Aumentar tamaño de letra">A+</button>
@@ -67,13 +68,13 @@
       <a href="#semana-1">Semana 1 · Ética, legalidad y alcance del test</a>
       <a href="#semana-2">Semana 2 · Reconocimiento pasivo y OSINT</a>
       <a href="#semana-3">Semana 3 · Los 10 riesgos web (OWASP Top 10)</a>
-      <a href="#semana-4">Semana 4 · Laboratorio final: máquina vulnerable …</a>
+      <a href="#semana-4">Semana 4 · Laboratorio final: máquina vulnerable + informe</a>
       <a href="#semana-5">Semana 5 · Reconocimiento avanzado y OSINT</a>
-      <a href="#semana-6">Semana 6 · Modelado de amenazas y arboles de ataq…</a>
-      <a href="#semana-7">Semana 7 · Escaneo de vulnerabilidades y validaci…</a>
-      <a href="#semana-8">Semana 8 · Ataques a aplicaciones web (OWASP Top …</a>
+      <a href="#semana-6">Semana 6 · Modelado de amenazas y arboles de ataque</a>
+      <a href="#semana-7">Semana 7 · Escaneo de vulnerabilidades y validacion</a>
+      <a href="#semana-8">Semana 8 · Ataques a aplicaciones web (OWASP Top 10)</a>
       <a href="#semana-9">Semana 9 · Explotacion de red y servicios</a>
-      <a href="#semana-10">Semana 10 · Escalada de privilegios Windows y Linu…</a>
+      <a href="#semana-10">Semana 10 · Escalada de privilegios Windows y Linux</a>
       <a href="#semana-11">Semana 11 · Movimiento lateral y pivoting</a>
       <a href="#semana-12">Semana 12 · Mecanismos de persistencia</a>
       <a href="#semana-13">Semana 13 · Evasion de defensas</a>
@@ -112,7 +113,7 @@
 proyecto con evidencia 40 %. Nada se aprueba adivinando.</blockquote>
     </section>
     <section id="syllabus">
-<h1>Ciberseguridad Ofensiva: Pensar como Atacante</h1>
+<h2>Ciberseguridad Ofensiva: Pensar como Atacante</h2>
 <blockquote>Nivel: universitario · 60 horas · Idioma principal: ES</blockquote>
 <h2>Descripcion</h2>
 <p>Curso universitario de seguridad ofensiva con ética desde el día 1: recon pasivo, OSINT, OWASP Top 10 y laboratorio con máquina vulnerable. Se aprueba demostrando hallazgos documentados, nunca adivinando.</p>
@@ -165,7 +166,7 @@ proyecto con evidencia 40 %. Nada se aprueba adivinando.</blockquote>
 <p>Ver <a href="recursos.md">recursos.md</a> — bancos abiertos + Drive do Pobre.</p>
     </section>
     <section id="semana-1">
-<h1>Semana 1: Ética, legalidad y alcance del test</h1>
+<h2>Semana 1: Ética, legalidad y alcance del test</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 1 de 20</p>
 <h2>Objetivos de aprendizaje</h2>
 <ul><li>Distinguir hacking ético de actividad delictiva con base legal concreta</li><li>Redactar un documento de alcance (rules of engagement) válido</li><li>Situar PTES, OWASP WSTG y MITRE ATT&amp;CK en el flujo de un pentest</li><li>Identificar las fases de un test de intrusión profesional</li></ul>
@@ -206,7 +207,7 @@ proyecto con evidencia 40 %. Nada se aprueba adivinando.</blockquote>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><span></span><a href="#semana-2">Semana 2 →</a></nav>
     </section>
     <section id="semana-2">
-<h1>Semana 2: Reconocimiento pasivo y OSINT</h1>
+<h2>Semana 2: Reconocimiento pasivo y OSINT</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 2 de 20</p>
 <h2>Objetivos de aprendizaje</h2>
 <ul><li>Ejecutar reconocimiento pasivo sin enviar un solo paquete al objetivo</li><li>Usar Google dorks, crt.sh, Wayback Machine y Shodan para recopilar inteligencia</li><li>Enumerar subdominios, tecnologías y emails expuestos de un dominio autorizado</li><li>Documentar hallazgos OSINT en formato reproducible</li></ul>
@@ -268,7 +269,7 @@ ATT&amp;CK:   T1596.003 (Search Open Technical Databases: Digital Certs)</code><
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-1">← Semana 1</a><a href="#semana-3">Semana 3 →</a></nav>
     </section>
     <section id="semana-3">
-<h1>Semana 3: Los 10 riesgos web (OWASP Top 10)</h1>
+<h2>Semana 3: Los 10 riesgos web (OWASP Top 10)</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 3 de 20</p>
 <h2>Objetivos de aprendizaje</h2>
 <ul><li>Explicar los 10 riesgos web OWASP Top 10 (2021) con ejemplos reales</li><li>Reproducir una inyección SQL y un XSS en entorno de laboratorio legal</li><li>Mapear vulnerabilidades web a CWE y técnicas ATT&amp;CK</li><li>Proponer remediaciones concretas para cada riesgo demostrado</li></ul>
@@ -327,7 +328,7 @@ REMEDIO:   Usar ORM con prepared statements</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-2">← Semana 2</a><a href="#semana-4">Semana 4 →</a></nav>
     </section>
     <section id="semana-4">
-<h1>Semana 4: Laboratorio final: máquina vulnerable + informe</h1>
+<h2>Semana 4: Laboratorio final: máquina vulnerable + informe</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 4 de 20</p>
 <h2>Objetivos de aprendizaje</h2>
 <ul><li>Ejecutar un pentest completo de recon a reporte sobre una máquina vulnerable</li><li>Usar nmap, nikto y herramientas de explotación en entorno local autorizado</li><li>Puntuar hallazgos con CVSS 3.1 y mapearlos a ATT&amp;CK</li><li>Escribir un informe con resumen ejecutivo y detalle técnico reproducible</li></ul>
@@ -402,7 +403,7 @@ REMEDIACIÓN: Usar ORM con prepared statements; validar formato email</code></pr
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-3">← Semana 3</a><a href="#semana-5">Semana 5 →</a></nav>
     </section>
     <section id="semana-5">
-<h1>Semana 5: Reconocimiento avanzado y OSINT</h1>
+<h2>Semana 5: Reconocimiento avanzado y OSINT</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 5 de 20</p>
 <h2>LECTURA: Teoria: Reconocimiento avanzado y OSINT</h2>
 <p>Contenido teorico detallado para reconocimiento avanzado y osint. Incluye frameworks, comandos y referencias.</p>
@@ -421,7 +422,7 @@ REMEDIACIÓN: Usar ORM con prepared statements; validar formato email</code></pr
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-4">← Semana 4</a><a href="#semana-6">Semana 6 →</a></nav>
     </section>
     <section id="semana-6">
-<h1>Semana 6: Modelado de amenazas y arboles de ataque</h1>
+<h2>Semana 6: Modelado de amenazas y arboles de ataque</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 6 de 20</p>
 <h2>LECTURA: Teoria: Modelado de amenazas y arboles de ataque</h2>
 <p>Contenido teorico detallado para modelado de amenazas y arboles de ataque. Incluye frameworks, comandos y referencias.</p>
@@ -440,7 +441,7 @@ REMEDIACIÓN: Usar ORM con prepared statements; validar formato email</code></pr
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-5">← Semana 5</a><a href="#semana-7">Semana 7 →</a></nav>
     </section>
     <section id="semana-7">
-<h1>Semana 7: Escaneo de vulnerabilidades y validacion</h1>
+<h2>Semana 7: Escaneo de vulnerabilidades y validacion</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 7 de 20</p>
 <h2>LECTURA: Teoria: Escaneo de vulnerabilidades y validacion</h2>
 <p>Contenido teorico detallado para escaneo de vulnerabilidades y validacion. Incluye frameworks, comandos y referencias.</p>
@@ -459,7 +460,7 @@ REMEDIACIÓN: Usar ORM con prepared statements; validar formato email</code></pr
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-6">← Semana 6</a><a href="#semana-8">Semana 8 →</a></nav>
     </section>
     <section id="semana-8">
-<h1>Semana 8: Ataques a aplicaciones web (OWASP Top 10)</h1>
+<h2>Semana 8: Ataques a aplicaciones web (OWASP Top 10)</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 8 de 20</p>
 <h2>LECTURA: Teoria: Ataques a aplicaciones web (OWASP Top 10)</h2>
 <p>Contenido teorico detallado para ataques a aplicaciones web (owasp top 10). Incluye frameworks, comandos y referencias.</p>
@@ -478,7 +479,7 @@ REMEDIACIÓN: Usar ORM con prepared statements; validar formato email</code></pr
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-7">← Semana 7</a><a href="#semana-9">Semana 9 →</a></nav>
     </section>
     <section id="semana-9">
-<h1>Semana 9: Explotacion de red y servicios</h1>
+<h2>Semana 9: Explotacion de red y servicios</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 9 de 20</p>
 <h2>LECTURA: Teoria: Explotacion de red y servicios</h2>
 <p>Contenido teorico detallado para explotacion de red y servicios. Incluye frameworks, comandos y referencias.</p>
@@ -491,7 +492,7 @@ REMEDIACIÓN: Usar ORM con prepared statements; validar formato email</code></pr
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-8">← Semana 8</a><a href="#semana-10">Semana 10 →</a></nav>
     </section>
     <section id="semana-10">
-<h1>Semana 10: Escalada de privilegios Windows y Linux</h1>
+<h2>Semana 10: Escalada de privilegios Windows y Linux</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 10 de 20</p>
 <h2>LECTURA: Teoria: Escalada de privilegios Windows y Linux</h2>
 <p>Contenido teorico detallado para escalada de privilegios windows y linux. Incluye frameworks, comandos y referencias.</p>
@@ -504,7 +505,7 @@ REMEDIACIÓN: Usar ORM con prepared statements; validar formato email</code></pr
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-9">← Semana 9</a><a href="#semana-11">Semana 11 →</a></nav>
     </section>
     <section id="semana-11">
-<h1>Semana 11: Movimiento lateral y pivoting</h1>
+<h2>Semana 11: Movimiento lateral y pivoting</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 11 de 20</p>
 <h2>LECTURA: Teoria: Movimiento lateral y pivoting</h2>
 <p>Contenido teorico detallado para movimiento lateral y pivoting. Incluye frameworks, comandos y referencias.</p>
@@ -517,7 +518,7 @@ REMEDIACIÓN: Usar ORM con prepared statements; validar formato email</code></pr
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-10">← Semana 10</a><a href="#semana-12">Semana 12 →</a></nav>
     </section>
     <section id="semana-12">
-<h1>Semana 12: Mecanismos de persistencia</h1>
+<h2>Semana 12: Mecanismos de persistencia</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 12 de 20</p>
 <h2>LECTURA: Teoria: Mecanismos de persistencia</h2>
 <p>Contenido teorico detallado para mecanismos de persistencia. Incluye frameworks, comandos y referencias.</p>
@@ -530,7 +531,7 @@ REMEDIACIÓN: Usar ORM con prepared statements; validar formato email</code></pr
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-11">← Semana 11</a><a href="#semana-13">Semana 13 →</a></nav>
     </section>
     <section id="semana-13">
-<h1>Semana 13: Evasion de defensas</h1>
+<h2>Semana 13: Evasion de defensas</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 13 de 20</p>
 <h2>LECTURA: Teoria: Evasion de defensas</h2>
 <p>Contenido teorico detallado para evasion de defensas. Incluye frameworks, comandos y referencias.</p>
@@ -543,7 +544,7 @@ REMEDIACIÓN: Usar ORM con prepared statements; validar formato email</code></pr
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-12">← Semana 12</a><a href="#semana-14">Semana 14 →</a></nav>
     </section>
     <section id="semana-14">
-<h1>Semana 14: Acceso a credenciales y volcado</h1>
+<h2>Semana 14: Acceso a credenciales y volcado</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 14 de 20</p>
 <h2>LECTURA: Teoria: Acceso a credenciales y volcado</h2>
 <p>Contenido teorico detallado para acceso a credenciales y volcado. Incluye frameworks, comandos y referencias.</p>
@@ -556,7 +557,7 @@ REMEDIACIÓN: Usar ORM con prepared statements; validar formato email</code></pr
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-13">← Semana 13</a><a href="#semana-15">Semana 15 →</a></nav>
     </section>
     <section id="semana-15">
-<h1>Semana 15: Exfiltracion e impacto</h1>
+<h2>Semana 15: Exfiltracion e impacto</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 15 de 20</p>
 <h2>LECTURA: Teoria: Exfiltracion e impacto</h2>
 <p>Contenido teorico detallado para exfiltracion e impacto. Incluye frameworks, comandos y referencias.</p>
@@ -569,7 +570,7 @@ REMEDIACIÓN: Usar ORM con prepared statements; validar formato email</code></pr
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-14">← Semana 14</a><a href="#semana-16">Semana 16 →</a></nav>
     </section>
     <section id="semana-16">
-<h1>Semana 16: Ataques a cloud y contenedores</h1>
+<h2>Semana 16: Ataques a cloud y contenedores</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 16 de 20</p>
 <h2>LECTURA: Teoria: Ataques a cloud y contenedores</h2>
 <p>Contenido teorico detallado para ataques a cloud y contenedores. Incluye frameworks, comandos y referencias.</p>
@@ -582,7 +583,7 @@ REMEDIACIÓN: Usar ORM con prepared statements; validar formato email</code></pr
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-15">← Semana 15</a><a href="#semana-17">Semana 17 →</a></nav>
     </section>
     <section id="semana-17">
-<h1>Semana 17: Red teaming wireless y fisico</h1>
+<h2>Semana 17: Red teaming wireless y fisico</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 17 de 20</p>
 <h2>LECTURA: Teoria: Red teaming wireless y fisico</h2>
 <p>Contenido teorico detallado para red teaming wireless y fisico. Incluye frameworks, comandos y referencias.</p>
@@ -595,7 +596,7 @@ REMEDIACIÓN: Usar ORM con prepared statements; validar formato email</code></pr
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-16">← Semana 16</a><a href="#semana-18">Semana 18 →</a></nav>
     </section>
     <section id="semana-18">
-<h1>Semana 18: Ingenieria social y phishing</h1>
+<h2>Semana 18: Ingenieria social y phishing</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 18 de 20</p>
 <h2>LECTURA: Teoria: Ingenieria social y phishing</h2>
 <p>Contenido teorico detallado para ingenieria social y phishing. Incluye frameworks, comandos y referencias.</p>
@@ -608,7 +609,7 @@ REMEDIACIÓN: Usar ORM con prepared statements; validar formato email</code></pr
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-17">← Semana 17</a><a href="#semana-19">Semana 19 →</a></nav>
     </section>
     <section id="semana-19">
-<h1>Semana 19: Informes y seguimiento de remediacion</h1>
+<h2>Semana 19: Informes y seguimiento de remediacion</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 19 de 20</p>
 <h2>LECTURA: Teoria: Informes y seguimiento de remediacion</h2>
 <p>Contenido teorico detallado para informes y seguimiento de remediacion. Incluye frameworks, comandos y referencias.</p>
@@ -621,7 +622,7 @@ REMEDIACIÓN: Usar ORM con prepared statements; validar formato email</code></pr
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-18">← Semana 18</a><a href="#semana-20">Semana 20 →</a></nav>
     </section>
     <section id="semana-20">
-<h1>Semana 20: Capstone: Pentest completo end-to-end</h1>
+<h2>Semana 20: Capstone: Pentest completo end-to-end</h2>
 <p>Curso: <a href="#syllabus">Ciberseguridad Ofensiva: Pensar como Atacante</a> · Semana 20 de 20</p>
 <h2>LECTURA: Teoria: Capstone: Pentest completo end-to-end</h2>
 <p>Contenido teorico detallado para capstone: pentest completo end-to-end. Incluye frameworks, comandos y referencias.</p>
@@ -646,7 +647,7 @@ Al superar 70 %, márcalo en tu progreso.</p>
       <button class="btn" id="q-next" hidden>Siguiente</button>
     </section>
     <section id="laboratorio">
-<h1>Lab guiado: Juice Shop en local (legal)</h1>
+<h2>Lab guiado: Juice Shop en local (legal)</h2>
 <p><strong>Curso:</strong> Ciberseguridad Ofensiva: Pensar como Atacante · <strong>Duración estimada:</strong> 3–4 h · <strong>Nivel:</strong> universitario</p>
 <h2>Objetivo</h2>
 <p>Encontrar y documentar 3 vulnerabilidades del OWASP Top 10 en un entorno creado para ser vulnerable.</p>
@@ -660,7 +661,7 @@ Al superar 70 %, márcalo en tu progreso.</p>
 <p>La evidencia debe permitir que otra persona <strong>reproduzca</strong> el resultado sin preguntarte nada. Si no es reproducible, no es evidencia (ver <a href="#rubrica">rúbrica</a>).</p>
     </section>
     <section id="proyecto">
-<h1>Examen final y proyecto — Ciberseguridad Ofensiva: Pensar como Atacante</h1>
+<h2>Examen final y proyecto — Ciberseguridad Ofensiva: Pensar como Atacante</h2>
 <h2>Parte A — Examen (30 % del bloque de evaluación)</h2>
 <ul><li>12 preguntas tipo test (banco del quiz ampliado) + 2 preguntas cortas de razonamiento.</li><li>Sin material. Duración estimada: 45 min.</li><li>Cubre: S1: Ética, legalidad y alcance del test, S2: Reconocimiento pasivo y OSINT, S3: Los 10 riesgos web (OWASP Top 10), S4: Laboratorio final: máquina vulnerable + informe, S5: Reconocimiento avanzado y OSINT, S6: Modelado de amenazas y arboles de ataque, S7: Escaneo de vulnerabilidades y validacion, S8: Ataques a aplicaciones web (OWASP Top 10), S9: Explotacion de red y servicios, S10: Escalada de privilegios Windows y Linux, S11: Movimiento lateral y pivoting, S12: Mecanismos de persistencia, S13: Evasion de defensas, S14: Acceso a credenciales y volcado, S15: Exfiltracion e impacto, S16: Ataques a cloud y contenedores, S17: Red teaming wireless y fisico, S18: Ingenieria social y phishing, S19: Informes y seguimiento de remediacion, S20: Capstone: Pentest completo end-to-end.</li></ul>
 <h2>Parte B — Proyecto final con evidencia (40 %)</h2>
@@ -677,7 +678,7 @@ Al superar 70 %, márcalo en tu progreso.</p>
 <p>Al superar el curso puedes generar tu credencial con sello hash en <a href="../../credencial.html">../credencial.html</a>.</p>
     </section>
     <section id="rubrica">
-<h1>Rúbrica de evaluación — Ciberseguridad Ofensiva: Pensar como Atacante</h1>
+<h2>Rúbrica de evaluación — Ciberseguridad Ofensiva: Pensar como Atacante</h2>
 <blockquote>Peso global: participación y ejercicios <strong>30 %</strong> · quizzes formativos <strong>30 %</strong> · proyecto final con evidencia <strong>40 %</strong>. Estilo Harvard: se aprueba demostrando.</blockquote>
 <h2>Objetivos que la rúbrica mide</h2>
 <ul><li>Distinguir hacking ético de actividad delictiva</li><li>Ejecutar reconocimiento pasivo y OSINT sobre un objetivo autorizado</li><li>Explicar y reproducir los 10 riesgos web principales de OWASP</li><li>Redactar un informe de hallazgos con severidad y remediación</li></ul>
@@ -690,14 +691,14 @@ Al superar 70 %, márcalo en tu progreso.</p>
 <p><strong>Nota final</strong> = 0.3·P1 + 0.3·P2 + 0.4·P3 · Aprobado ≥ 60/100 con evidencia presentada.</p>
     </section>
     <section id="glosario">
-<h1>Glosario — Ciberseguridad Ofensiva: Pensar como Atacante</h1>
+<h2>Glosario — Ciberseguridad Ofensiva: Pensar como Atacante</h2>
 <p>Términos que el curso usa y que el examen puede pedir.</p>
 <table><thead><tr><th>Término</th><th>Definición en una línea</th></tr></thead><tbody><tr><td><strong>Alcance (scope)</strong></td><td>Contractual definition of what can and cannot be tested. No scope, no test.</td></tr><tr><td><strong>OSINT</strong></td><td>Open Source INTelligence: public information without touching the target.</td></tr><tr><td><strong>Footprinting pasivo</strong></td><td>Recon that does not send packets to the target's infrastructure.</td></tr><tr><td><strong>Google dork</strong></td><td>Advanced search operators that expose indexed information.</td></tr><tr><td><strong>Falso amigo de seguridad</strong></td><td>An open service that looks legitimate but expands the attack surface.</td></tr><tr><td><strong>OWASP Top 10</strong></td><td>Community consensus on the 10 most critical web application risks.</td></tr><tr><td><strong>Inyección SQL</strong></td><td>Untrusted input becomes executable code against the DB.</td></tr><tr><td><strong>Broken Access Control</strong></td><td>The server trusts client-side restrictions; users reach what isn't theirs.</td></tr><tr><td><strong>XSS</strong></td><td>Injection of scripts executed in the victim's browser.</td></tr><tr><td><strong>SSRF</strong></td><td>The server is tricked into making requests on the attacker's behalf.</td></tr><tr><td><strong>CVSS</strong></td><td>Common Vulnerability Scoring System: severity from 0 to 10.</td></tr><tr><td><strong>Regla de compromiso</strong></td><td>Rules of engagement: windows, intensity, contacts, stop conditions.</td></tr><tr><td><strong>Escalada de privilegios</strong></td><td>Moving from initial access to higher permissions.</td></tr><tr><td><strong>Pivot</strong></td><td>Using a compromised machine as a bridge to reach others.</td></tr><tr><td><strong>Exfiltración</strong></td><td>Illegitimate extraction of data from the target.</td></tr><tr><td><strong>Informe ético</strong></td><td>Finding + severity + reproduction + remediation. The deliverable of the course.</td></tr></tbody></table>
 <blockquote>Regla de estudio: si no sabes explicarlo en una frase a alguien de fuera, aún no lo sabes.</blockquote>
     </section>
     <section id="chuleta">
-<h1>Ciberseguridad Ofensiva: Pensar como Atacante — material de repaso</h1>
-<h1>Chuleta — Ciberseguridad Ofensiva</h1>
+<h2>Ciberseguridad Ofensiva: Pensar como Atacante — material de repaso</h2>
+<h2>Chuleta — Ciberseguridad Ofensiva</h2>
 <h2>Regla 0 (antes que cualquier comando)</h2>
 <ul><li>¿Permiso escrito? ¿Alcance firmado? ¿Ventana horaria? → si falta algo: NO.</li></ul>
 <h2>Recon pasivo (no toca al objetivo)</h2>
@@ -713,7 +714,7 @@ Al superar 70 %, márcalo en tu progreso.</p>
 <p><em>Generado por edu-forge academy. Imprímela: es lo que llevas al examen.</em></p>
     </section>
     <section id="recursos">
-<h1>Recursos abiertos — Ciberseguridad Ofensiva: Pensar como Atacante</h1>
+<h2>Recursos abiertos — Ciberseguridad Ofensiva: Pensar como Atacante</h2>
 <h2>Repositorios verificados (GitHub, activos)</h2>
 <ul><li><a href="https://github.com/OWASP/wstg">OWASP Web Security Testing Guide</a> — guía oficial de pruebas de seguridad web (9.8k★)</li><li><a href="https://github.com/juice-shop/juice-shop">OWASP Juice Shop</a> — app vulnerable moderna para práctica legal en local (13.8k★)</li><li><a href="https://github.com/digininja/DVWA">DVWA</a> — web app deliberadamente vulnerable (PHP/MySQL) (13.6k★)</li><li><a href="https://github.com/rapid7/metasploit-framework">Metasploit Framework</a> — framework de explotación — solo en pentests autorizados (39k★)</li><li><a href="https://github.com/freeCodeCamp/freeCodeCamp">freeCodeCamp</a> — currículo abierto de programación y matemáticas (455k★)</li><li><a href="https://github.com/public-apis/public-apis">public-apis</a> — directorio comunitario de APIs gratuitas (479k★)</li></ul>
 <h2>APIs abiertas verificadas (sin API key)</h2>

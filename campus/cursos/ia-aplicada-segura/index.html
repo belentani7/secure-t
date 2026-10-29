@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Inteligencia Artificial Aplicada y Segura — Secure T University</title>
-  <meta name="description" content="IA aplicada con seguridad como requisito, no como añadido: fundamentos de ML, LLMs y prompt engineering responsable, ataques adversariales y proyecto ">
+  <meta name="description" content="Curso de IA aplicada y segura: fundamentos de modelos de lenguaje, ingeniería de prompts responsable, riesgos adversariales y proyectos con salvaguardas.">
   <link rel="stylesheet" href="../../tokens.css">
   <style>
     .curso-layout { display: grid; grid-template-columns: 15rem 1fr; gap: var(--sp-8);
@@ -47,11 +47,12 @@
     .sem-nav a { color: var(--accent); text-decoration: none; }
     .sem-nav a:hover { text-decoration: underline; }
   </style>
+  <link rel="stylesheet" href="../../../ui/experience.css">
 </head>
-<body>
+<body class="course-landing">
 <header class="topbar"><div class="bar">
   <a class="brand" href="../../index.html">← Campus</a>
-  <span class="brand"><span>Inteligencia Artificial Aplicada y Segur</span></span>
+  <span class="brand"><span>Inteligencia Artificial Aplicada y Segura</span></span>
   <div class="controles no-print">
     <button id="fs-menos" aria-label="Reducir tamaño de letra">A−</button>
     <button id="fs-mas" aria-label="Aumentar tamaño de letra">A+</button>
@@ -67,21 +68,21 @@
       <a href="#semana-1">Semana 1 · Fundamentos de ML sin humo</a>
       <a href="#semana-2">Semana 2 · LLMs y prompt engineering responsable</a>
       <a href="#semana-3">Semana 3 · Ataques a sistemas de IA</a>
-      <a href="#semana-4">Semana 4 · Proyecto: asistente educativo con salv…</a>
+      <a href="#semana-4">Semana 4 · Proyecto: asistente educativo con salvaguardas</a>
       <a href="#semana-5">Semana 5 · Pipeline MLOps seguro</a>
       <a href="#semana-6">Semana 6 · Robustez adversaria y testing</a>
       <a href="#semana-7">Semana 7 · Envenenamiento de datos y supply chain</a>
-      <a href="#semana-8">Semana 8 · Extraccion de modelo y proteccion de P…</a>
+      <a href="#semana-8">Semana 8 · Extraccion de modelo y proteccion de PI</a>
       <a href="#semana-9">Semana 9 · ML que preserva privacidad</a>
-      <a href="#semana-10">Semana 10 · Seguridad de LLM: inyeccion de prompts…</a>
+      <a href="#semana-10">Semana 10 · Seguridad de LLM: inyeccion de prompts y jailbreaks</a>
       <a href="#semana-11">Semana 11 · Supply chain de LLM y model cards</a>
-      <a href="#semana-12">Semana 12 · Seguridad de RAG y hardening de recupe…</a>
+      <a href="#semana-12">Semana 12 · Seguridad de RAG y hardening de recuperacion</a>
       <a href="#semana-13">Semana 13 · Metodologia de Red Teaming para IA</a>
       <a href="#semana-14">Semana 14 · Gobernanza: EU AI Act y NIST AI RMF</a>
       <a href="#semana-15">Semana 15 · Explicabilidad y rastros de auditoria</a>
       <a href="#semana-16">Semana 16 · Despliegue seguro: on-prem y cloud</a>
       <a href="#semana-17">Semana 17 · Monitoreo y deteccion de deriva</a>
-      <a href="#semana-18">Semana 18 · Respuesta a incidentes en sistemas de …</a>
+      <a href="#semana-18">Semana 18 · Respuesta a incidentes en sistemas de IA</a>
       <a href="#semana-19">Semana 19 · Etica, sesgo y pruebas de equidad</a>
       <a href="#semana-20">Semana 20 · Capstone: Sistema ML seguro end-to-end</a>
       <div class="sep"></div>
@@ -112,7 +113,7 @@
 proyecto con evidencia 40 %. Nada se aprueba adivinando.</blockquote>
     </section>
     <section id="syllabus">
-<h1>Inteligencia Artificial Aplicada y Segura</h1>
+<h2>Inteligencia Artificial Aplicada y Segura</h2>
 <blockquote>Nivel: universitario · 48 horas · Idioma principal: ES</blockquote>
 <h2>Descripcion</h2>
 <p>IA aplicada con seguridad como requisito, no como añadido: fundamentos de ML, LLMs y prompt engineering responsable, ataques adversariales y proyecto final de asistente educativo con salvaguardas.</p>
@@ -165,7 +166,7 @@ proyecto con evidencia 40 %. Nada se aprueba adivinando.</blockquote>
 <p>Ver <a href="recursos.md">recursos.md</a> — bancos abiertos + Drive do Pobre.</p>
     </section>
     <section id="semana-1">
-<h1>Semana 1: Fundamentos de ML sin humo</h1>
+<h2>Semana 1: Fundamentos de ML sin humo</h2>
 <p>Curso: <a href="#syllabus">Inteligencia Artificial Aplicada y Segura</a> · Semana 1 de 20</p>
 <h2>Objetivos de aprendizaje</h2>
 <ul><li>Explicar el ciclo datos → modelo → predicción → error sin tecnicismos vacíos</li><li>Distinguir aprendizaje supervisado, no supervisado y por refuerzo</li><li>Identificar sobreajuste, sesgo y fuga de datos en ejemplos concretos</li><li>Entrenar un clasificador de juguete con scikit-learn y datos abiertos</li></ul>
@@ -210,7 +211,7 @@ modelo_ok = DecisionTreeClassifier(max_depth=5)</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><span></span><a href="#semana-2">Semana 2 →</a></nav>
     </section>
     <section id="semana-2">
-<h1>Semana 2: LLMs y prompt engineering responsable</h1>
+<h2>Semana 2: LLMs y prompt engineering responsable</h2>
 <p>Curso: <a href="#syllabus">Inteligencia Artificial Aplicada y Segura</a> · Semana 2 de 20</p>
 <h2>Objetivos de aprendizaje</h2>
 <ul><li>Explicar cómo funciona un LLM (predicción de token, no comprensión)</li><li>Diseñar prompts estructurados (ROL + TAREA + CONTEXTO + FORMATO)</li><li>Identificar alucinaciones y aplicar verificación humana sistemática</li><li>Conocer los riesgos del OWASP LLM Top 10</li></ul>
@@ -252,7 +253,7 @@ FORMATO:  Tabla con columnas: timestamp, evento, severidad, justificación</code
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-1">← Semana 1</a><a href="#semana-3">Semana 3 →</a></nav>
     </section>
     <section id="semana-3">
-<h1>Semana 3: Ataques a sistemas de IA</h1>
+<h2>Semana 3: Ataques a sistemas de IA</h2>
 <p>Curso: <a href="#syllabus">Inteligencia Artificial Aplicada y Segura</a> · Semana 3 de 20</p>
 <h2>Objetivos de aprendizaje</h2>
 <ul><li>Identificar ataques adversariales, poisoning y prompt injection con ejemplos</li><li>Reproducir una prompt injection en un asistente propio de laboratorio</li><li>Aplicar defensas: delimitadores, permisos mínimos, validación de output</li><li>Conocer MITRE ATLAS como catálogo de ataques a sistemas de IA</li></ul>
@@ -313,7 +314,7 @@ prompt = (
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-2">← Semana 2</a><a href="#semana-4">Semana 4 →</a></nav>
     </section>
     <section id="semana-4">
-<h1>Semana 4: Proyecto: asistente educativo con salvaguardas</h1>
+<h2>Semana 4: Proyecto: asistente educativo con salvaguardas</h2>
 <p>Curso: <a href="#syllabus">Inteligencia Artificial Aplicada y Segura</a> · Semana 4 de 20</p>
 <h2>Objetivos de aprendizaje</h2>
 <ul><li>Diseñar un asistente educativo con grounding y salvaguardas documentadas</li><li>Implementar RAG básico (Retrieval-Augmented Generation) con fuentes citadas</li><li>Aplicar checklist de IA responsable antes de desplegar</li><li>Defender el proyecto: demostrar 3 usos válidos y 2 abusos contenidos</li></ul>
@@ -381,7 +382,7 @@ Cita el documento fuente en tu respuesta."""</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-3">← Semana 3</a><a href="#semana-5">Semana 5 →</a></nav>
     </section>
     <section id="semana-5">
-<h1>Semana 5: Pipeline MLOps seguro</h1>
+<h2>Semana 5: Pipeline MLOps seguro</h2>
 <p>Curso: <a href="#syllabus">Inteligencia Artificial Aplicada y Segura</a> · Semana 5 de 20</p>
 <h2>LECTURA: Teoria: Pipeline MLOps seguro</h2>
 <p>Contenido teorico detallado para pipeline mlops seguro. Incluye frameworks, comandos y referencias.</p>
@@ -400,7 +401,7 @@ Cita el documento fuente en tu respuesta."""</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-4">← Semana 4</a><a href="#semana-6">Semana 6 →</a></nav>
     </section>
     <section id="semana-6">
-<h1>Semana 6: Robustez adversaria y testing</h1>
+<h2>Semana 6: Robustez adversaria y testing</h2>
 <p>Curso: <a href="#syllabus">Inteligencia Artificial Aplicada y Segura</a> · Semana 6 de 20</p>
 <h2>LECTURA: Teoria: Robustez adversaria y testing</h2>
 <p>Contenido teorico detallado para robustez adversaria y testing. Incluye frameworks, comandos y referencias.</p>
@@ -419,7 +420,7 @@ Cita el documento fuente en tu respuesta."""</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-5">← Semana 5</a><a href="#semana-7">Semana 7 →</a></nav>
     </section>
     <section id="semana-7">
-<h1>Semana 7: Envenenamiento de datos y supply chain</h1>
+<h2>Semana 7: Envenenamiento de datos y supply chain</h2>
 <p>Curso: <a href="#syllabus">Inteligencia Artificial Aplicada y Segura</a> · Semana 7 de 20</p>
 <h2>LECTURA: Teoria: Envenenamiento de datos y supply chain</h2>
 <p>Contenido teorico detallado para envenenamiento de datos y supply chain. Incluye frameworks, comandos y referencias.</p>
@@ -438,7 +439,7 @@ Cita el documento fuente en tu respuesta."""</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-6">← Semana 6</a><a href="#semana-8">Semana 8 →</a></nav>
     </section>
     <section id="semana-8">
-<h1>Semana 8: Extraccion de modelo y proteccion de PI</h1>
+<h2>Semana 8: Extraccion de modelo y proteccion de PI</h2>
 <p>Curso: <a href="#syllabus">Inteligencia Artificial Aplicada y Segura</a> · Semana 8 de 20</p>
 <h2>LECTURA: Teoria: Extraccion de modelo y proteccion de PI</h2>
 <p>Contenido teorico detallado para extraccion de modelo y proteccion de pi. Incluye frameworks, comandos y referencias.</p>
@@ -457,7 +458,7 @@ Cita el documento fuente en tu respuesta."""</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-7">← Semana 7</a><a href="#semana-9">Semana 9 →</a></nav>
     </section>
     <section id="semana-9">
-<h1>Semana 9: ML que preserva privacidad</h1>
+<h2>Semana 9: ML que preserva privacidad</h2>
 <p>Curso: <a href="#syllabus">Inteligencia Artificial Aplicada y Segura</a> · Semana 9 de 20</p>
 <h2>LECTURA: Teoria: ML que preserva privacidad</h2>
 <p>Contenido teorico detallado para ml que preserva privacidad. Incluye frameworks, comandos y referencias.</p>
@@ -470,7 +471,7 @@ Cita el documento fuente en tu respuesta."""</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-8">← Semana 8</a><a href="#semana-10">Semana 10 →</a></nav>
     </section>
     <section id="semana-10">
-<h1>Semana 10: Seguridad de LLM: inyeccion de prompts y jailbreaks</h1>
+<h2>Semana 10: Seguridad de LLM: inyeccion de prompts y jailbreaks</h2>
 <p>Curso: <a href="#syllabus">Inteligencia Artificial Aplicada y Segura</a> · Semana 10 de 20</p>
 <h2>LECTURA: Teoria: Seguridad de LLM: inyeccion de prompts y jailbreaks</h2>
 <p>Contenido teorico detallado para seguridad de llm: inyeccion de prompts y jailbreaks. Incluye frameworks, comandos y referencias.</p>
@@ -483,7 +484,7 @@ Cita el documento fuente en tu respuesta."""</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-9">← Semana 9</a><a href="#semana-11">Semana 11 →</a></nav>
     </section>
     <section id="semana-11">
-<h1>Semana 11: Supply chain de LLM y model cards</h1>
+<h2>Semana 11: Supply chain de LLM y model cards</h2>
 <p>Curso: <a href="#syllabus">Inteligencia Artificial Aplicada y Segura</a> · Semana 11 de 20</p>
 <h2>LECTURA: Teoria: Supply chain de LLM y model cards</h2>
 <p>Contenido teorico detallado para supply chain de llm y model cards. Incluye frameworks, comandos y referencias.</p>
@@ -496,7 +497,7 @@ Cita el documento fuente en tu respuesta."""</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-10">← Semana 10</a><a href="#semana-12">Semana 12 →</a></nav>
     </section>
     <section id="semana-12">
-<h1>Semana 12: Seguridad de RAG y hardening de recuperacion</h1>
+<h2>Semana 12: Seguridad de RAG y hardening de recuperacion</h2>
 <p>Curso: <a href="#syllabus">Inteligencia Artificial Aplicada y Segura</a> · Semana 12 de 20</p>
 <h2>LECTURA: Teoria: Seguridad de RAG y hardening de recuperacion</h2>
 <p>Contenido teorico detallado para seguridad de rag y hardening de recuperacion. Incluye frameworks, comandos y referencias.</p>
@@ -509,7 +510,7 @@ Cita el documento fuente en tu respuesta."""</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-11">← Semana 11</a><a href="#semana-13">Semana 13 →</a></nav>
     </section>
     <section id="semana-13">
-<h1>Semana 13: Metodologia de Red Teaming para IA</h1>
+<h2>Semana 13: Metodologia de Red Teaming para IA</h2>
 <p>Curso: <a href="#syllabus">Inteligencia Artificial Aplicada y Segura</a> · Semana 13 de 20</p>
 <h2>LECTURA: Teoria: Metodologia de Red Teaming para IA</h2>
 <p>Contenido teorico detallado para metodologia de red teaming para ia. Incluye frameworks, comandos y referencias.</p>
@@ -522,7 +523,7 @@ Cita el documento fuente en tu respuesta."""</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-12">← Semana 12</a><a href="#semana-14">Semana 14 →</a></nav>
     </section>
     <section id="semana-14">
-<h1>Semana 14: Gobernanza: EU AI Act y NIST AI RMF</h1>
+<h2>Semana 14: Gobernanza: EU AI Act y NIST AI RMF</h2>
 <p>Curso: <a href="#syllabus">Inteligencia Artificial Aplicada y Segura</a> · Semana 14 de 20</p>
 <h2>LECTURA: Teoria: Gobernanza: EU AI Act y NIST AI RMF</h2>
 <p>Contenido teorico detallado para gobernanza: eu ai act y nist ai rmf. Incluye frameworks, comandos y referencias.</p>
@@ -535,7 +536,7 @@ Cita el documento fuente en tu respuesta."""</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-13">← Semana 13</a><a href="#semana-15">Semana 15 →</a></nav>
     </section>
     <section id="semana-15">
-<h1>Semana 15: Explicabilidad y rastros de auditoria</h1>
+<h2>Semana 15: Explicabilidad y rastros de auditoria</h2>
 <p>Curso: <a href="#syllabus">Inteligencia Artificial Aplicada y Segura</a> · Semana 15 de 20</p>
 <h2>LECTURA: Teoria: Explicabilidad y rastros de auditoria</h2>
 <p>Contenido teorico detallado para explicabilidad y rastros de auditoria. Incluye frameworks, comandos y referencias.</p>
@@ -548,7 +549,7 @@ Cita el documento fuente en tu respuesta."""</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-14">← Semana 14</a><a href="#semana-16">Semana 16 →</a></nav>
     </section>
     <section id="semana-16">
-<h1>Semana 16: Despliegue seguro: on-prem y cloud</h1>
+<h2>Semana 16: Despliegue seguro: on-prem y cloud</h2>
 <p>Curso: <a href="#syllabus">Inteligencia Artificial Aplicada y Segura</a> · Semana 16 de 20</p>
 <h2>LECTURA: Teoria: Despliegue seguro: on-prem y cloud</h2>
 <p>Contenido teorico detallado para despliegue seguro: on-prem y cloud. Incluye frameworks, comandos y referencias.</p>
@@ -561,7 +562,7 @@ Cita el documento fuente en tu respuesta."""</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-15">← Semana 15</a><a href="#semana-17">Semana 17 →</a></nav>
     </section>
     <section id="semana-17">
-<h1>Semana 17: Monitoreo y deteccion de deriva</h1>
+<h2>Semana 17: Monitoreo y deteccion de deriva</h2>
 <p>Curso: <a href="#syllabus">Inteligencia Artificial Aplicada y Segura</a> · Semana 17 de 20</p>
 <h2>LECTURA: Teoria: Monitoreo y deteccion de deriva</h2>
 <p>Contenido teorico detallado para monitoreo y deteccion de deriva. Incluye frameworks, comandos y referencias.</p>
@@ -574,7 +575,7 @@ Cita el documento fuente en tu respuesta."""</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-16">← Semana 16</a><a href="#semana-18">Semana 18 →</a></nav>
     </section>
     <section id="semana-18">
-<h1>Semana 18: Respuesta a incidentes en sistemas de IA</h1>
+<h2>Semana 18: Respuesta a incidentes en sistemas de IA</h2>
 <p>Curso: <a href="#syllabus">Inteligencia Artificial Aplicada y Segura</a> · Semana 18 de 20</p>
 <h2>LECTURA: Teoria: Respuesta a incidentes en sistemas de IA</h2>
 <p>Contenido teorico detallado para respuesta a incidentes en sistemas de ia. Incluye frameworks, comandos y referencias.</p>
@@ -587,7 +588,7 @@ Cita el documento fuente en tu respuesta."""</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-17">← Semana 17</a><a href="#semana-19">Semana 19 →</a></nav>
     </section>
     <section id="semana-19">
-<h1>Semana 19: Etica, sesgo y pruebas de equidad</h1>
+<h2>Semana 19: Etica, sesgo y pruebas de equidad</h2>
 <p>Curso: <a href="#syllabus">Inteligencia Artificial Aplicada y Segura</a> · Semana 19 de 20</p>
 <h2>LECTURA: Teoria: Etica, sesgo y pruebas de equidad</h2>
 <p>Contenido teorico detallado para etica, sesgo y pruebas de equidad. Incluye frameworks, comandos y referencias.</p>
@@ -600,7 +601,7 @@ Cita el documento fuente en tu respuesta."""</code></pre>
       <nav class="sem-nav" aria-label="Semana anterior y siguiente"><a href="#semana-18">← Semana 18</a><a href="#semana-20">Semana 20 →</a></nav>
     </section>
     <section id="semana-20">
-<h1>Semana 20: Capstone: Sistema ML seguro end-to-end</h1>
+<h2>Semana 20: Capstone: Sistema ML seguro end-to-end</h2>
 <p>Curso: <a href="#syllabus">Inteligencia Artificial Aplicada y Segura</a> · Semana 20 de 20</p>
 <h2>LECTURA: Teoria: Capstone: Sistema ML seguro end-to-end</h2>
 <p>Contenido teorico detallado para capstone: sistema ml seguro end-to-end. Incluye frameworks, comandos y referencias.</p>
@@ -625,7 +626,7 @@ Al superar 70 %, márcalo en tu progreso.</p>
       <button class="btn" id="q-next" hidden>Siguiente</button>
     </section>
     <section id="laboratorio">
-<h1>Lab guiado: inject and defend your own assistant</h1>
+<h2>Lab guiado: inject and defend your own assistant</h2>
 <p><strong>Curso:</strong> Inteligencia Artificial Aplicada y Segura · <strong>Duración estimada:</strong> 3–4 h · <strong>Nivel:</strong> universitario</p>
 <h2>Objetivo</h2>
 <p>Demonstrate a prompt injection against an assistant YOU build, then contain it.</p>
@@ -639,7 +640,7 @@ Al superar 70 %, márcalo en tu progreso.</p>
 <p>La evidencia debe permitir que otra persona <strong>reproduzca</strong> el resultado sin preguntarte nada. Si no es reproducible, no es evidencia (ver <a href="#rubrica">rúbrica</a>).</p>
     </section>
     <section id="proyecto">
-<h1>Examen final y proyecto — Inteligencia Artificial Aplicada y Segura</h1>
+<h2>Examen final y proyecto — Inteligencia Artificial Aplicada y Segura</h2>
 <h2>Parte A — Examen (30 % del bloque de evaluación)</h2>
 <ul><li>12 preguntas tipo test (banco del quiz ampliado) + 2 preguntas cortas de razonamiento.</li><li>Sin material. Duración estimada: 45 min.</li><li>Cubre: S1: Fundamentos de ML sin humo, S2: LLMs y prompt engineering responsable, S3: Ataques a sistemas de IA, S4: Proyecto: asistente educativo con salvaguardas, S5: Pipeline MLOps seguro, S6: Robustez adversaria y testing, S7: Envenenamiento de datos y supply chain, S8: Extraccion de modelo y proteccion de PI, S9: ML que preserva privacidad, S10: Seguridad de LLM: inyeccion de prompts y jailbreaks, S11: Supply chain de LLM y model cards, S12: Seguridad de RAG y hardening de recuperacion, S13: Metodologia de Red Teaming para IA, S14: Gobernanza: EU AI Act y NIST AI RMF, S15: Explicabilidad y rastros de auditoria, S16: Despliegue seguro: on-prem y cloud, S17: Monitoreo y deteccion de deriva, S18: Respuesta a incidentes en sistemas de IA, S19: Etica, sesgo y pruebas de equidad, S20: Capstone: Sistema ML seguro end-to-end.</li></ul>
 <h2>Parte B — Proyecto final con evidencia (40 %)</h2>
@@ -656,7 +657,7 @@ Al superar 70 %, márcalo en tu progreso.</p>
 <p>Al superar el curso puedes generar tu credencial con sello hash en <a href="../../credencial.html">../credencial.html</a>.</p>
     </section>
     <section id="rubrica">
-<h1>Rúbrica de evaluación — Inteligencia Artificial Aplicada y Segura</h1>
+<h2>Rúbrica de evaluación — Inteligencia Artificial Aplicada y Segura</h2>
 <blockquote>Peso global: participación y ejercicios <strong>30 %</strong> · quizzes formativos <strong>30 %</strong> · proyecto final con evidencia <strong>40 %</strong>. Estilo Harvard: se aprueba demostrando.</blockquote>
 <h2>Objetivos que la rúbrica mide</h2>
 <ul><li>Explicar el ciclo de vida de un modelo de ML sin tecnicismos vacíos</li><li>Diseñar prompts y flujos con LLM de forma responsable y verificable</li><li>Identificar ataques adversariales, poisoning y prompt injection</li><li>Construir un mini-asistente educativo con salvaguardas documentadas</li></ul>
@@ -669,14 +670,14 @@ Al superar 70 %, márcalo en tu progreso.</p>
 <p><strong>Nota final</strong> = 0.3·P1 + 0.3·P2 + 0.4·P3 · Aprobado ≥ 60/100 con evidencia presentada.</p>
     </section>
     <section id="glosario">
-<h1>Glosario — Inteligencia Artificial Aplicada y Segura</h1>
+<h2>Glosario — Inteligencia Artificial Aplicada y Segura</h2>
 <p>Términos que el curso usa y que el examen puede pedir.</p>
 <table><thead><tr><th>Término</th><th>Definición en una línea</th></tr></thead><tbody><tr><td><strong>Entrenamiento</strong></td><td>Adjusting parameters with data until the model minimizes its error.</td></tr><tr><td><strong>Inferencia</strong></td><td>Using the already-trained model to predict.</td></tr><tr><td><strong>Sobreajuste</strong></td><td>Memorizing the training set; fails with anything new.</td></tr><tr><td><strong>Feature</strong></td><td>Input variable the model uses to predict.</td></tr><tr><td><strong>LLM</strong></td><td>Large Language Model: predicts the next token from context.</td></tr><tr><td><strong>Token (linguistic)</strong></td><td>Text unit that the model processes; not the same as credential token.</td></tr><tr><td><strong>Temperatura</strong></td><td>Sampling randomness: low = conservative, high = creative.</td></tr><tr><td><strong>Ventana de contexto</strong></td><td>Maximum text the model can consider at once.</td></tr><tr><td><strong>Alucinación</strong></td><td>Plausible but false output: statistical property, not a bug.</td></tr><tr><td><strong>Prompt engineering</strong></td><td>Designing the instruction: ROLE + TASK + CONTEXT + FORMAT.</td></tr><tr><td><strong>Grounding</strong></td><td>Answering only based on cited sources.</td></tr><tr><td><strong>Prompt injection</strong></td><td>Untrusted input that the system executes as an instruction.</td></tr><tr><td><strong>Ataque adversarial</strong></td><td>Minimal input change that fools the model.</td></tr><tr><td><strong>Poisoning</strong></td><td>Contaminating training data to corrupt the model.</td></tr><tr><td><strong>Safeguard</strong></td><td>Technical limitation of what the assistant can do.</td></tr><tr><td><strong>Human-in-the-loop</strong></td><td>A person validates before the output has an effect.</td></tr></tbody></table>
 <blockquote>Regla de estudio: si no sabes explicarlo en una frase a alguien de fuera, aún no lo sabes.</blockquote>
     </section>
     <section id="chuleta">
-<h1>Inteligencia Artificial Aplicada y Segura — material de repaso</h1>
-<h1>Chuleta — IA Aplicada y Segura</h1>
+<h2>Inteligencia Artificial Aplicada y Segura — material de repaso</h2>
+<h2>Chuleta — IA Aplicada y Segura</h2>
 <h2>Prompt that works (4 pieces)</h2>
 <p>ROLE (who you are) + TASK (what you ask for) + CONTEXT (relevant data) + FORMAT (how to answer)</p>
 <h2>Quick ML checklist</h2>
@@ -692,7 +693,7 @@ Al superar 70 %, márcalo en tu progreso.</p>
 <p><em>Generado por edu-forge academy. Imprímela: es lo que llevas al examen.</em></p>
     </section>
     <section id="recursos">
-<h1>Recursos abiertos — Inteligencia Artificial Aplicada y Segura</h1>
+<h2>Recursos abiertos — Inteligencia Artificial Aplicada y Segura</h2>
 <h2>Repositorios verificados (GitHub, activos)</h2>
 <ul><li><a href="https://github.com/OWASP/wstg">OWASP Web Security Testing Guide</a> — guía oficial de pruebas de seguridad web (9.8k★)</li><li><a href="https://github.com/juice-shop/juice-shop">OWASP Juice Shop</a> — app vulnerable moderna para práctica legal en local (13.8k★)</li><li><a href="https://github.com/digininja/DVWA">DVWA</a> — web app deliberadamente vulnerable (PHP/MySQL) (13.6k★)</li><li><a href="https://github.com/rapid7/metasploit-framework">Metasploit Framework</a> — framework de explotación — solo en pentests autorizados (39k★)</li><li><a href="https://github.com/freeCodeCamp/freeCodeCamp">freeCodeCamp</a> — currículo abierto de programación y matemáticas (455k★)</li><li><a href="https://github.com/public-apis/public-apis">public-apis</a> — directorio comunitario de APIs gratuitas (479k★)</li></ul>
 <h2>APIs abiertas verificadas (sin API key)</h2>

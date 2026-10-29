@@ -476,6 +476,53 @@
     "doc.desc": "Open digital campus with four lesson-based courses and a five-year curriculum in development. Cybersecurity, web and languages, no accredited degrees."
   });
 
+  // Product-wayfinding labels introduced by the premium landing.
+  // Keep new CTAs localized in every supported language, not Portuguese-only.
+  Object.assign(I18N.pt, {
+    "route.kicker": "O CAMINHO COMEÇA AQUI / 03 ENTRADAS REAIS",
+    "route.title": "O que você quer aprender primeiro?",
+    "route.intro": "Escolha uma porta. Cada opção abre ferramentas e materiais existentes, sem cadastro.",
+    "route.first.title": "Comece com sua primeira missão",
+    "route.first.desc": "Um percurso guiado para encontrar uma prática adequada ao seu momento.",
+    "route.second.title": "Aprenda a defender sistemas",
+    "route.second.desc": "Aulas, exercícios e evidências de resposta a incidentes.",
+    "route.third.title": "Tome uma decisão SOC",
+    "route.third.desc": "Entre em uma simulação de triagem de segurança e pratique com contexto."
+  });
+  Object.assign(I18N.es, {
+    "route.kicker": "TU RECORRIDO EMPIEZA AQUÍ / 03 ACCESOS REALES",
+    "route.title": "¿Qué quieres aprender primero?",
+    "route.intro": "Elige un camino. Cada opción abre herramientas y materiales existentes, sin registrarte.",
+    "route.first.title": "Empieza tu primera misión",
+    "route.first.desc": "Una ruta guiada para encontrar prácticas adaptadas a tu experiencia.",
+    "route.second.title": "Aprende a defender sistemas",
+    "route.second.desc": "Clases, ejercicios y evidencias de respuesta a incidentes.",
+    "route.third.title": "Toma una decisión SOC",
+    "route.third.desc": "Entra en una simulación de triaje y practica decisiones de seguridad."
+  });
+  Object.assign(I18N.en, {
+    "route.kicker": "YOUR PATH STARTS HERE / 03 REAL ENTRY POINTS",
+    "route.title": "What would you like to learn first?",
+    "route.intro": "Choose a path. Each option opens existing tools and materials, with no signup.",
+    "route.first.title": "Start your first mission",
+    "route.first.desc": "A guided path to find hands-on learning suited to your experience.",
+    "route.second.title": "Learn to defend systems",
+    "route.second.desc": "Lessons, exercises and incident-response evidence.",
+    "route.third.title": "Make a SOC decision",
+    "route.third.desc": "Try an incident triage simulation and practice security decisions."
+  });
+  if (I18N.ca) Object.assign(I18N.ca, {
+    "route.kicker": "EL TEU CAMÍ COMENÇA AQUÍ / 03 ACCESSOS REALS",
+    "route.title": "Què vols aprendre primer?",
+    "route.intro": "Tria un camí amb eines i materials existents, sense registre.",
+    "route.first.title": "Comença la teva primera missió",
+    "route.first.desc": "Una ruta guiada per trobar pràctiques adaptades a la teva experiència.",
+    "route.second.title": "Aprèn a defensar sistemes",
+    "route.second.desc": "Lliçons, exercicis i evidències de resposta a incidents.",
+    "route.third.title": "Pren una decisió SOC",
+    "route.third.desc": "Practica decisions de seguretat en una simulació de triatge."
+  });
+
   window.SecureTI18n = {
     LANGS: LANGS,
     DEFAULT_LANG: DEFAULT_LANG,
