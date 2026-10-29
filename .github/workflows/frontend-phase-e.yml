@@ -46,6 +46,11 @@ jobs:
           PHASE_E_REPO: secure-t
           PHASE_E_URL: http://127.0.0.1:4173/
         run: node scripts/frontend-phase-e.mjs
+      - name: Verify tool evidence independently
+        if: always()
+        env:
+          PHASE_E_REPO: secure-t
+        run: node scripts/verify-frontend-phase-e.mjs
       - name: Preserve raw evidence even on failure
         if: always()
         uses: actions/upload-artifact@v4
