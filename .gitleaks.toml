@@ -1,49 +1,38 @@
 # secure-t - configuracion de gitleaks
-#
-# El job `secretos` del CI fallaba con 6 hallazgos: 5 falsos positivos y 1 real.
-# Este archivo acota los falsos positivos SIN desactivar la deteccion.
-#
-# IMPORTANTE: sin la linea [extend] useDefault, Gitleaks 8.19+ ignora todo su
-# catalogo de reglas cuando encuentra este archivo y dejaria de detectar
-# secretos en TODO el repositorio. Esa linea es obligatoria, no decorativa.
-
 title = "secure-t"
 
 [extend]
 useDefault = true
 
-# Regla propia: las claves de DeepSeek tienen formato sk- seguido de 32 hex.
-# Las reglas por defecto de Gitleaks 8.30 NO las detectan (verificado): sin esta
-# regla, la clave que aparece en fix_weeks.py pasaba desapercibida.
 [[rules]]
 id = "deepseek-api-key"
 description = "Clave de API de DeepSeek (formato sk- + 32 hex)."
 regex = '''\bsk-[a-f0-9]{32}\b'''
 keywords = ["sk-"]
 
-# Allowlist for REDACTED placeholders (replacement text from git-filter-repo)
 [[allowlists]]
 description = "REDACTED placeholders from secret cleanup"
-paths = [
-  '''.*'''
-]
-regex = '''\bREDACTED\b'''
+paths = ['''.*''']
+regexes = ['''\bREDACTED\b''']
 
 [[allowlists]]
 description = "Textos de traduccion i18n: contienen literales que parecen claves."
-paths = [
-  '''(?i)src/i18n/''',
-]
+paths = ['''(?i)src/i18n/''']
 
 [[allowlists]]
-description = "Fixtures de tests: valores de ejemplo, no credenciales reales."
+description = "Fixtures de tests con valores de ejemplo conocidos."
 paths = [
-  '''(?i)(^|/)tests/''',
+  '''(?i)(^|/)tests/fixtures/''',
+  '''(?i)(^|/)tests/data/''',
+]
+regexes = [
+  '''EXAMPLE_''',
+  '''MOCK_''',
+  '''FAKE_''',
+  '''REDACTED''',
 ]
 
 [[allowlists]]
 description = "Material del curso: ejemplo curl con basic-auth para uso docente."
 ruleID = "curl-auth-user"
-paths = [
-  '''(?i)campus/cursos/ciber-ofensiva/''',
-]
+paths = ['''(?i)campus/cursos/ciber-ofensiva/''']

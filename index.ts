@@ -1,5 +1,5 @@
 import express from "express";
-import { timingSafeEqual } from "node:crypto";
+import { createHash, timingSafeEqual } from "node:crypto";
 import { createServer } from "http";
 import path from "path";
 
@@ -59,10 +59,11 @@ app.use("/api", (_req, res, next) => {
   next();
 });
 
-// Short-lived in-memory throttle for the optional tutor. IP-based, bounded
-// in size, and deliberately independent of untrusted forwarded IP headers.
+// Shared tutor throttle in production; local memory is only a development fallback.
 const tutorLimits = new Map<string, { count: number; resetAt: number }>();
-function allowTutor(ip: string): { allowed: boolean; retryAfter: number } {
+type TutorQuota = { allowed: boolean; retryAfter: number; unavailable?: boolean };
+
+function localTutorQuota(ip: string): TutorQuota {
   const now = Date.now();
   if (tutorLimits.size >= 2048) {
     for (const [key, value] of tutorLimits) {
@@ -70,11 +71,7 @@ function allowTutor(ip: string): { allowed: boolean; retryAfter: number } {
     }
   }
   const entry = tutorLimits.get(ip);
-  // Never flush the active limit table: a flood of distinct clients could
-  // otherwise reset every quota. Refuse new identities at capacity.
-  if (!entry && tutorLimits.size >= 2048) {
-    return { allowed: false, retryAfter: 60 };
-  }
+  if (!entry && tutorLimits.size >= 2048) return { allowed: false, retryAfter: 60 };
   if (!entry || entry.resetAt <= now) {
     tutorLimits.set(ip, { count: 1, resetAt: now + 60_000 });
     return { allowed: true, retryAfter: 0 };
@@ -84,6 +81,34 @@ function allowTutor(ip: string): { allowed: boolean; retryAfter: number } {
   }
   entry.count++;
   return { allowed: true, retryAfter: 0 };
+}
+
+async function allowTutor(ip: string): Promise<TutorQuota> {
+  const redisUrl = process.env.UPSTASH_REDIS_REST_URL?.trim();
+  const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
+  if (!redisUrl || !redisToken) {
+    if (process.env.NODE_ENV === "production") return { allowed: false, retryAfter: 60, unavailable: true };
+    return localTutorQuota(ip);
+  }
+  const identity = createHash("sha256").update(ip).digest("hex");
+  const key = `secure-t:tutor:${identity}`;
+  try {
+    const response = await fetch(`${redisUrl.replace(/\/$/, "")}/pipeline`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${redisToken}`, "Content-Type": "application/json" },
+      body: JSON.stringify([[ "INCR", key ], [ "EXPIRE", key, 60 ]]),
+      signal: AbortSignal.timeout(2500),
+    });
+    if (!response.ok) throw new Error(`Upstash ${response.status}`);
+    const result = await response.json() as Array<{ result?: number }>;
+    const count = Number(result[0]?.result);
+    if (!Number.isInteger(count) || count < 1) throw new Error("Invalid Upstash response");
+    if (count > 10) return { allowed: false, retryAfter: 60 };
+    return { allowed: true, retryAfter: 0 };
+  } catch {
+    // Fail closed: an unavailable shared limiter must not become an unlimited tutor.
+    return { allowed: false, retryAfter: 60, unavailable: true };
+  }
 }
 
 
@@ -135,10 +160,10 @@ app.post("/api/tutor", async (req, res) => {
       return res.status(401).json({ error: "Unauthorized" });
     }
   }
-  const quota = allowTutor(req.ip || req.socket.remoteAddress || "unknown");
+  const quota = await allowTutor(req.ip || req.socket.remoteAddress || "unknown");
   if (!quota.allowed) {
     res.setHeader("Retry-After", String(quota.retryAfter));
-    return res.status(429).json({ error: "Tutor rate limit exceeded" });
+    return res.status(quota.unavailable ? 503 : 429).json({ error: quota.unavailable ? "Tutor protection is temporarily unavailable" : "Tutor rate limit exceeded" });
   }
   const ollamaUrl = process.env.OLLAMA_URL || "http://127.0.0.1:11434";
   const model = process.env.OLLAMA_MODEL || "llama3.2:3b";

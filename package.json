@@ -7,8 +7,9 @@
     "dev": "node scripts/sync-campus.mjs && vite",
     "campus:data": "node scripts/generate-campus-data.mjs",
     "campus:sync": "node scripts/sync-campus.mjs",
-    "build": "node scripts/generate-campus-data.mjs && node scripts/sync-campus.mjs && vite build",
-    "start": "tsx index.ts",
+    "build": "node scripts/generate-campus-data.mjs && node scripts/sync-campus.mjs && vite build && pnpm run server:build",
+    "server:build": "tsc -p tsconfig.server.json",
+    "start": "node dist-server/index.js",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "quality:check": "pnpm run typecheck && pnpm run test && pnpm run build && python3 -m pytest -q tests/ && python3 scripts/build_site.py --destination _site"
