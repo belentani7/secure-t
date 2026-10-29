@@ -431,6 +431,7 @@
   // five-year curricular roadmap; only the original four courses have lessons.
   // Never claim that a checksum is a signed academic diploma.
   Object.assign(I18N.pt, {
+    "hero.glossary": "Glossário · 673 termos",
     "hero.cta0": "Começar em 5 min", "hero.cta3": "Compartilhe este caminho",
     "footer.whisper": "Nasceu do amor. Se te ajudar, compartilhe.",
     "footer.eco": "Parte do ecossistema educativo BELENTANI / NOIACORE: aprendizagem gratuita e aberta.",
@@ -447,6 +448,7 @@
     "doc.desc": "Campus digital independente: quatro cursos com aulas e roteiro curricular de cinco anos em cibersegurança, desenvolvimento web e idiomas. Sem títulos oficiais."
   });
   Object.assign(I18N.es, {
+    "hero.glossary": "Glosario · 673 términos",
     "hero.cta0": "Empieza en 5 minutos", "hero.cta3": "Comparte esta oportunidad",
     "footer.whisper": "Nació del amor. Si te ayuda, compártelo.",
     "footer.eco": "Parte del ecosistema educativo BELENTANI / NOIACORE: formación gratuita y abierta.",
@@ -463,6 +465,7 @@
     "doc.desc": "Campus abierto con cuatro cursos y programa de cinco años en desarrollo. Ciberseguridad, desarrollo web e idiomas, sin títulos oficiales."
   });
   Object.assign(I18N.en, {
+    "hero.glossary": "Glossary · 673 terms",
     "hero.cta0": "Start in 5 minutes", "hero.cta3": "Share this opportunity",
     "footer.whisper": "Born from love. If it helps you, pass it on.",
     "footer.eco": "Part of the BELENTANI / NOIACORE learning ecosystem: free and open education.",
