@@ -58,3 +58,6 @@ __pycache__/
 *.pyc
 _site/
 
+# Ephemeral frontend QA evidence (kept as CI artifacts, never committed)
+.audit/
+.lighthouseci/
