@@ -189,3 +189,9 @@ Todas las aplicaciones principales del alumno (`campus/workstation/`, Mission Co
 ## Mi plan: aprendizaje conectado
 
 El Observatorio muestra en «Mi plan» el progreso autodeclarado de 14 laboratorios y seis simulaciones Mission Control a través de registros locales versionados, sin cuentas ni transmisión. Se comprueban los identificadores, respuestas, cuadernos y longitudes antes de mostrar los contadores. No son notas oficiales ni acreditaciones de competencias.
+
+## Biblioteca offline de los cuatro cursos
+
+En `campus/index.html`, el botón **Guardar cuatro cursos para estudiar offline** solicita al service worker únicamente las 112 rutas públicas de la lista cerrada: cuatro páginas de curso, 80 lecturas semanales y 28 recursos (temario, quiz, glosario, guía, laboratorio, rúbrica y examen). Al completarse, los materiales quedan en la caché de este navegador y funcionan sin conexión, sin registro ni telemetría; la descarga inicial requiere internet y espacio disponible. Si falla un recurso, se muestra una descarga parcial y el botón permite reintentar. Este paquete no es el futuro currículo quinquenal, ni constituye certificación. La página inicial puede depender de estilos compartidos fuera del alcance del service worker, pero las páginas de curso y sus documentos sí quedan guardados.
+
+Pruebas: `node --test tests/offline-course-pack.test.mjs`, `tests/service-worker.test.mjs` y `tests/browser-offline-course-pack.cjs` (Chromium, contra `site-dist` servido por HTTP).
