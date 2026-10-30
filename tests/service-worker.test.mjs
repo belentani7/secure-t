@@ -81,7 +81,7 @@ test('offline lookups ignore conflicting legacy and unrelated caches', async () 
 });
 
 test('offline app shell pre-caches the resumable training module and removes only old owned versions', async () => {
-  assert.match(code, /v13-resumable-labs/);
+  assert.match(code, /v14-offline-courses/);
   assert.match(code, /\.\/academia\/lab-session\.mjs/);
   const instance = worker({ keys: ['other-app-cache', 'secure-t-campus:/secure-t/campus/:v12'] });
   let wait;
