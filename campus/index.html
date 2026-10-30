@@ -154,6 +154,16 @@
       </article>
     </section>
 
+    <section id="sin-conexion" class="academy-invitation" aria-labelledby="offline-title">
+      <div>
+        <p class="meta">ACCESO SIN CONEXIÓN · PRIVADO EN TU DISPOSITIVO</p>
+        <h2 id="offline-title">Lleva los cuatro cursos contigo.</h2>
+        <p>Guarda las páginas docentes, 80 lecturas semanales, temarios, evaluaciones y glosarios de los cuatro programas disponibles. Una vez completada la descarga, podrás consultarlos sin conexión desde este navegador. Necesitas conexión en la primera descarga; no se envían datos personales.</p>
+        <button type="button" class="btn" id="save-offline-courses">Guardar cuatro cursos para estudiar offline</button>
+        <p id="offline-courses-status" class="meta" role="status" aria-live="polite">Los materiales se guardan solo tras pulsar este botón. El almacenamiento depende del navegador.</p>
+      </div>
+    </section>
+
     <section id="quiz" aria-label="Quiz de ejemplo">
       <h2>Quiz interactivo</h2>
       <div class="quiz-box quiz-json"
@@ -216,6 +226,8 @@
       document.getElementById('audio').load();
     });
   </script>
+  <script defer src="sw-register.js"></script>
+  <script defer src="offline-library.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
