@@ -3,7 +3,7 @@ const SCOPE = new URL(self.registration.scope);
 const PREFIX = `secure-t-campus:${SCOPE.pathname}:`;
 const CACHE = `${PREFIX}v14-offline-courses`;
 const CORE = ['./', './index.html', './tokens.css', './app.js',
-  './sw-register.js',
+  './sw-register.js', './offline-library.js',
   './workstation/index.html', './workstation/workstation.css',
   './workstation/workstation-data.js', './workstation/workstation.js',
   './workstation/mission.html', './workstation/mission.css',
