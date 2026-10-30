@@ -26,7 +26,7 @@ jobs:
       - name: Campus and publication tests
         run: python -m pytest -q tests/
       - name: Offline isolation and education engine
-        run: node --test tests/service-worker.test.mjs lib/edu-engine/tests/quiz.test.mjs tests/credential-v2.test.mjs tests/workstation-engine.test.cjs tests/mission-control.test.cjs tests/observatorio-engine.test.cjs tests/threat-feed-freshness.test.cjs tests/labs-engine.test.cjs tests/soc-tabletop.test.mjs tests/threat-studio.test.mjs tests/lab-session.test.mjs tests/campus-quiz-player.test.cjs
+        run: node --test tests/offline-course-pack.test.mjs tests/service-worker.test.mjs lib/edu-engine/tests/quiz.test.mjs tests/credential-v2.test.mjs tests/workstation-engine.test.cjs tests/mission-control.test.cjs tests/observatorio-engine.test.cjs tests/threat-feed-freshness.test.cjs tests/labs-engine.test.cjs tests/soc-tabletop.test.mjs tests/threat-studio.test.mjs tests/lab-session.test.mjs tests/campus-quiz-player.test.cjs
       - name: Build and validate actual publication artifact
         run: python scripts/build_site.py
       - name: Check repository for tracked credentials
@@ -51,6 +51,7 @@ jobs:
           PLAYWRIGHT_MODULE="$RUNNER_TEMP/campus-browser/node_modules/playwright" node tests/browser-observatorio.cjs
           PLAYWRIGHT_MODULE="$RUNNER_TEMP/campus-browser/node_modules/playwright" node tests/browser-labs.cjs
           PLAYWRIGHT_MODULE="$RUNNER_TEMP/campus-browser/node_modules/playwright" node tests/browser-direct-offline.cjs
+          PLAYWRIGHT_MODULE="$RUNNER_TEMP/campus-browser/node_modules/playwright" node tests/browser-offline-course-pack.cjs
           PLAYWRIGHT_MODULE="$RUNNER_TEMP/campus-browser/node_modules/playwright" node tests/browser-learning-bridge.cjs
           PLAYWRIGHT_MODULE="$RUNNER_TEMP/campus-browser/node_modules/playwright" node tests/browser-security-labs.cjs
       - name: Preserve mobile screenshot
