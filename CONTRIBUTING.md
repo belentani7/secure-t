@@ -43,10 +43,12 @@ docs(readme): update installation steps
 
 ## 🔍 Code Review Checklist
 
+Use the repository's executable checks, not assumed tooling: `pnpm typecheck`, `pnpm test`, `pnpm build`, and `python -m pytest -q tests/`. The `pnpm lint` and `pnpm format:check` commands below are aspirational until scripts for them are defined; do not report them as passing unless they exist and run.
+
 - [ ] All CI checks pass
 - [ ] TypeScript compiles without errors (`pnpm typecheck`)
-- [ ] Linting passes (`pnpm lint`)
-- [ ] Formatting correct (`pnpm format:check`)
+- [ ] Static analysis/security checks pass in GitHub Actions
+- [ ] HTML entry points satisfy `python3 scripts/verify_html_standards.py`
 - [ ] Tests pass (`pnpm test`)
 - [ ] Coverage ≥ 80% for new code
 - [ ] E2E tests pass for UI changes

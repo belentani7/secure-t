@@ -8,7 +8,7 @@
   --st-fg: #f2f5f6;
   --st-muted: #abbcc8;
   --st-rule: #354552;
-  --st-accent: #a6d9d4;
+  --st-accent: #b8f36b;
   --st-heading: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 html { scroll-behavior: smooth; }
@@ -21,7 +21,7 @@ body.secure-t-home {
 .secure-t-home a { color: inherit; }
 .secure-t-home button, .secure-t-home select { font: inherit; }
 .secure-t-home :focus-visible, .campus-landing :focus-visible {
-  outline: 3px solid #d4eee9; outline-offset: 4px;
+  outline: 3px solid #b8f36b; outline-offset: 4px;
 }
 .secure-t-home .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 100; background: #f2f5f6; color: #101a22; padding: .6rem .9rem; border-radius: .35rem; }
 .secure-t-home .skip-link:focus { top: 1rem; }
@@ -50,7 +50,7 @@ body.secure-t-home {
 .secure-t-home .hero-actions { display: flex; align-items: center; gap: .85rem; flex-wrap: wrap; margin-top: 2rem; }
 .secure-t-home .action { display: inline-flex; align-items: center; justify-content: center; padding: .83rem 1.23rem; min-height: 48px; border-radius: .28rem; text-decoration: none; font-weight: 620; font-size: .93rem; border: 1px solid var(--st-rule); transition: background .18s, border-color .18s; }
 .secure-t-home .action-primary { color: #0d1b23; background: var(--st-accent); border-color: var(--st-accent); }
-.secure-t-home .action-primary:hover { background: #c8eee9; border-color: #c8eee9; }
+.secure-t-home .action-primary:hover { background: #d0f59d; border-color: #d0f59d; }
 .secure-t-home .action-secondary { background: transparent; color: var(--st-fg); }
 .secure-t-home .action-secondary:hover { border-color: #9aafbc; background: #ffffff0a; }
 .secure-t-home .hero-footnote { font-size: .82rem; line-height: 1.65; color: var(--st-muted); margin-top: 1.9rem; }

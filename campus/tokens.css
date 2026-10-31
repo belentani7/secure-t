@@ -1,6 +1,6 @@
 /* campus tokens — un solo acento, AA, dark-first */
 :root {
-  --u: 1; --motion: 1; --hue: 222; --sat: 62%;
+  --u: 1; --motion: 1; --hue: 145; --sat: 68%;
   --font-sans: ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
   --font-mono: ui-monospace, "Cascadia Code", Consolas, monospace;
   --fs-xs: .875rem; --fs-sm: .98rem; --fs-md: 1.125rem;
@@ -25,7 +25,7 @@
   --success: hsl(145 70% 52%);
   --danger: hsl(358 85% 64%);
   --warning: hsl(38 95% 58%);
-  --focus-ring: 0 0 0 3px hsl(var(--hue) var(--sat) 66% / .35);
+  --focus-ring: 0 0 0 3px hsl(var(--hue) var(--sat) 66% / .45);
   --shadow: 0 8px 24px hsl(222 50% 2% / .5);
 }
 @media (prefers-reduced-motion: reduce) { :root { --motion: 0; } }
