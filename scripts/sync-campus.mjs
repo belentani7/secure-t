@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env node
+#!/usr/bin/env node
 import { cpSync, existsSync, readdirSync, rmSync, statSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
