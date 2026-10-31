@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readFileSync, existsSync} from 'node:fs';
 import test from 'node:test';
 import vm from 'node:vm';
 
@@ -86,4 +86,26 @@ test('messages from other scopes cannot fill the cache and arbitrary paths are i
   assert.equal(worker.fetched.length, 112);
   assert.ok(worker.fetched.every(url => url.startsWith(scope + 'cursos/')));
   assert.ok(worker.fetched.every(url => !url.includes('private')));
+});
+
+
+test('the complete four-program catalog stays reachable without scripts or manifests', () => {
+  const html = readFileSync(new URL('../campus/itinerarios/cursos-completos.html', import.meta.url), 'utf8');
+  const js = readFileSync(new URL('../campus/itinerarios/course-player.js', import.meta.url), 'utf8');
+  const css = readFileSync(new URL('../campus/itinerarios/course-player.css', import.meta.url), 'utf8');
+  const manifest = JSON.parse(readFileSync(new URL('../campus/itinerarios/curso-manifest.json', import.meta.url), 'utf8'));
+  const fallback = html.match(/<div data-fallback class="grid"[^>]*>([\s\S]*?)<\/div><div data-catalog/);
+  assert.ok(fallback, 'Accessible fallback must precede the dynamic catalog');
+  assert.equal(manifest.courses.length, 4);
+  assert.match(html, /<strong data-count>4<\/strong>/);
+  assert.match(html, /data-search[^>]+disabled/);
+  for (const course of manifest.courses) {
+    const link = '../cursos/' + course.slug + '/index.html';
+    assert.ok(fallback[1].includes('href="' + link + '"'), 'Missing course fallback: ' + course.slug);
+    assert.ok(existsSync(new URL('../campus/cursos/' + course.slug + '/index.html', import.meta.url)));
+  }
+  assert.equal((fallback[1].match(/<article class="course">/g) ?? []).length, 4);
+  assert.match(js, /if\(fallback\)fallback\.hidden=true/);
+  assert.match(js, /if\(search\)search\.disabled=false/);
+  assert.match(css, /\[data-fallback\]\[hidden\]\{display:none!important\}/);
 });
