@@ -280,6 +280,11 @@ def test_cero_referencias_prohibidas():
     prohibido_1 = "drivedo" + "pobre"           # sin literal en este archivo
     ficticio = "example" + ".com/"              # idem
     for f in ROOT.rglob("*"):
+        # Historical chat exports preserve third-party references as evidence.
+        # They are not public campus content: scripts/build_site.py copies only
+        # explicit publication inputs, never the chats/ directory.
+        if "chats" in f.relative_to(ROOT).parts:
+            continue
         if f.suffix in {".md", ".html", ".js", ".json", ".toml", ".xml",
                         ".txt", ".py"} and ".git" not in f.parts \
                 and "node_modules" not in f.parts and "dist" not in f.parts \
