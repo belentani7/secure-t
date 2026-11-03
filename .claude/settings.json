@@ -1,0 +1,34 @@
+﻿{
+    "permissions":  {
+                        "deny":  [
+                                     "Read(./.env)",
+                                     "Read(./.env.local)",
+                                     "Read(./.env.production)",
+                                     "Read(./secrets/**)",
+                                     "Read(./**/*.key)",
+                                     "Read(./**/*.pem)"
+                                 ]
+                    },
+    "hooks":  {
+                  "PreToolUse":  [
+                                     {
+                                         "hooks":  [
+                                                       {
+                                                           "command":  "if echo \"$CLAUDE_TOOL_INPUT\" | grep -q \"migrations/\"; then echo \"No editar migrations/\"; exit 2; fi",
+                                                           "type":  "command"
+                                                       }
+                                                   ],
+                                         "matcher":  "Edit|Write"
+                                     },
+                                     {
+                                         "hooks":  [
+                                                       {
+                                                           "command":  "if echo \"$CLAUDE_TOOL_INPUT\" | grep -qE \"git push.*--force|git push -f\"; then echo \"Force-push prohibido\"; exit 2; fi",
+                                                           "type":  "command"
+                                                       }
+                                                   ],
+                                         "matcher":  "Bash"
+                                     }
+                                 ]
+              }
+}
