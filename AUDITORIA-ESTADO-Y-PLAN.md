@@ -4,24 +4,26 @@ Generado 2026-11-03 por el pase de reglas del ecosistema (catálogo `_meta/regla
 Todo lo afirmado aquí sale de datos reales: base de consolidación, gate oficial y git.
 
 - **Categoría:** educacion · **Ruta:** `C:\Users\USER\belentani-ecosystem\educacion\secure-t`
-- **Remoto:** https://github.com/belentani7/secure-t.git · **Rama:** main · **HEAD:** afb0b70 (fix(web-rules): reparar equilibrio de etiquetas (ul en nav, h1/h2, p) + gate end)
-- **Lenguajes:** .md:462,.html:221,.tsx:72,.json:61,.js:42,.ts:41 · **Commits (git real):** 16 · **Tamaño worktree:** 13.4 MB
-- **Visibilidad GitHub:** public · **Homepage:** https://secure-t.vercel.app · **HTTP:** —
+- **Remoto:** https://github.com/belentani7/secure-t.git · **Rama:** main · **HEAD:** bec9ebf (docs(auditoria): estado real del repo, comandos para arreglar/elevar y potencial)
+- **Lenguajes:** .md:462,.html:221,.tsx:72,.json:61,.js:42,.ts:41 · **Commits (git real):** 17 · **Tamaño worktree:** 13.4 MB
+- **Visibilidad GitHub:** public · **Homepage:** https://secure-t.vercel.app · **HTTP:** HTTP_200
 - **GitHub Pages:** ACTIVO → http://www.belentani.es/secure-t/
 
 ## 1. Situación actual
 
 - **Consolidación:** familia `proyecto-securet` · acción survivor (estable).
-- **Git:** 2 ficheros sin commitear · 4 commits sin push · 3 commits del pase de reglas (desde 2026-11-02).
-- **Reglas web (gate oficial):** 221 HTML · **0 hallazgos** · 0 títulos duplicados.
+- **Git:** 2 ficheros sin commitear · 5 commits sin push · 4 commits del pase de reglas (desde 2026-11-02).
+- **Reglas web (gate oficial):** 221 HTML · **13 hallazgos** · 3 títulos duplicados.
 - **Gobernanza GitHub (protocolo MS):** 10/11 reglas aplicadas · pendientes: GH-09
 - **Secretos (triaje):** placeholder-test: 2 → 0 credenciales reales confirmadas en el triaje global (ver `_meta/consolidacion/SECRETOS-TRIAGE.md`).
 
 ## 2. Comandos para arreglar y elevar (ejecutar en este orden)
 
-1. **Reglas web: ya cumplidas (0 hallazgos).** Barrera continua:
+1. **Cumplir reglas web restantes:**
    ```powershell
-   python C:\Users\USER\belentani-ecosystem\_meta\check_web_rules.py secure-t
+   python C:\Users\USER\belentani-ecosystem\_meta\fix_web_rules.py --apply --repo secure-t
+   python C:\Users\USER\belentani-ecosystem\_meta\repair_balance.py --apply --repo secure-t
+   python C:\Users\USER\belentani-ecosystem\_meta\check_web_rules.py secure-t   # esperar issues=0
    ```
 2. **Gobernanza GitHub pendiente (GH-09):** crear/verificar README, LICENSE, CODE_OF_CONDUCT, CONTRIBUTING, ISSUE_TEMPLATE, PR_TEMPLATE, CI verde, .gitignore, descripción+topics, sin secretos:
    ```powershell
@@ -41,6 +43,7 @@ Todo lo afirmado aquí sale de datos reales: base de consolidación, gate oficia
 ## 3. Qué puede alcanzar este repositorio
 
 - **Repositorio público**: puede publicar gratis en GitHub Pages (`https://belentani7.github.io/secure-t/`) y mantener Vercel; hoy tiene  Pages activo
+- Ya tiene despliegue Vercel vivo: siguiente nivel es dominio propio (`<producto>.belentani.es`) añadiendo CNAME en el registrador.
 - Con 221 páginas HTML y el catálogo de reglas cumplido, es candidato a **superviviente/documentado** del ecosistema: README con arranque real, índice navegable y CI que ejecute `check_web_rules.py`.
 
 ---
