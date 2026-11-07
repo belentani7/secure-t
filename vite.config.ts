@@ -11,6 +11,7 @@ export default defineConfig({
       "@shared": path.resolve(import.meta.dirname, "shared"),
       "@notifications": path.resolve(import.meta.dirname, "notifications", "index.ts"),
       "@assets": path.resolve(import.meta.dirname, "attached_assets"),
+      "lucide-react": path.resolve(import.meta.dirname, "node_modules", "lucide-react", "dist", "cjs", "lucide-react.js"),
     },
   },
   envDir: path.resolve(import.meta.dirname),
