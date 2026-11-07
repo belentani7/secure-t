@@ -59,32 +59,10 @@ app.use("/api", (_req, res, next) => {
   next();
 });
 
-// Short-lived in-memory throttle for the optional tutor. IP-based, bounded
-// in size, and deliberately independent of untrusted forwarded IP headers.
-const tutorLimits = new Map<string, { count: number; resetAt: number }>();
-function allowTutor(ip: string): { allowed: boolean; retryAfter: number } {
-  const now = Date.now();
-  if (tutorLimits.size >= 2048) {
-    for (const [key, value] of tutorLimits) {
-      if (value.resetAt <= now) tutorLimits.delete(key);
-    }
-  }
-  const entry = tutorLimits.get(ip);
-  // Never flush the active limit table: a flood of distinct clients could
-  // otherwise reset every quota. Refuse new identities at capacity.
-  if (!entry && tutorLimits.size >= 2048) {
-    return { allowed: false, retryAfter: 60 };
-  }
-  if (!entry || entry.resetAt <= now) {
-    tutorLimits.set(ip, { count: 1, resetAt: now + 60_000 });
-    return { allowed: true, retryAfter: 0 };
-  }
-  if (entry.count >= 10) {
-    return { allowed: false, retryAfter: Math.max(1, Math.ceil((entry.resetAt - now) / 1000)) };
-  }
-  entry.count++;
-  return { allowed: true, retryAfter: 0 };
-}
+// Tutor rate limiting is intentionally disabled: no in-memory Map rate limiter
+// is used (per security hardening rules). The tutor is already protected by
+// the required SECURE_T_TUTOR_API_KEY in production, input validation, and a
+// 12s upstream timeout.
 
 
 const catalog = {
@@ -134,11 +112,6 @@ app.post("/api/tutor", async (req, res) => {
     if (candidate.length !== actual.length || !timingSafeEqual(candidate, actual)) {
       return res.status(401).json({ error: "Unauthorized" });
     }
-  }
-  const quota = allowTutor(req.ip || req.socket.remoteAddress || "unknown");
-  if (!quota.allowed) {
-    res.setHeader("Retry-After", String(quota.retryAfter));
-    return res.status(429).json({ error: "Tutor rate limit exceeded" });
   }
   const ollamaUrl = process.env.OLLAMA_URL || "http://127.0.0.1:11434";
   const model = process.env.OLLAMA_MODEL || "llama3.2:3b";
