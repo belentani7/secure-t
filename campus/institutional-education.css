@@ -25,3 +25,25 @@
 .st-study-footer{padding:3rem 0;color:#c4d8d1}.st-study-footer a{color:#dcf1e4}
 @media(max-width:800px){.st-study-hero,.st-study-split{grid-template-columns:1fr}.st-study-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:570px){.st-study-cards{grid-template-columns:1fr}.st-study-main{width:min(100% - 2rem,1180px)}.st-study-hero{padding-top:3rem}.st-study-art{min-height:240px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* 2026 visual refinement — progressive enhancement, no markup changes */
+.st-education{background:radial-gradient(ellipse 75% 35% at 85% 0%,rgba(39,130,101,.16),transparent 75%),#101a22;color-scheme:dark;font-optical-sizing:auto;-webkit-font-smoothing:antialiased}
+.st-education ::selection{background:#b0d9c6;color:#10251d}
+.st-study-head{position:relative;background:rgba(13,32,35,.75);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.st-study-main{isolation:isolate}
+.st-study-hero{position:relative;gap:clamp(1.5rem,5vw,5rem)}
+.st-study-hero h1{text-wrap:balance}
+.st-study-hero .lead{text-wrap:pretty}
+.st-study-art{background:radial-gradient(circle at 78% 22%,rgba(175,255,215,.23),transparent 42%),linear-gradient(145deg,#10352f 5%,#1d5549 55%,#10292e);box-shadow:0 28px 75px rgba(0,0,0,.24),inset 0 1px rgba(255,255,255,.12);border-radius:12px 92px 12px 12px}
+.st-study-art:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(120deg,transparent 45%,rgba(255,255,255,.06) 52%,transparent 59%)}
+.st-study-button{transition:background-color .22s ease,color .22s ease,box-shadow .22s ease,transform .22s ease;box-shadow:0 6px 22px rgba(0,0,0,.12)}
+.st-study-button:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,0,0,.22)}
+.st-study-card{position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(38,75,70,.55),rgba(23,40,49,.96) 68%);box-shadow:inset 0 1px rgba(255,255,255,.045);transition:border-color .22s ease,transform .22s ease,box-shadow .22s ease}
+.st-study-card:hover{border-color:#86c9ad;transform:translateY(-4px);box-shadow:0 20px 44px rgba(0,0,0,.2)}
+.st-study-card h3{text-wrap:balance}
+.st-study-section h2{text-wrap:balance}
+.st-study-callout{box-shadow:inset 0 1px rgba(255,255,255,.06)}
+.st-education :is(a,button):focus-visible{outline:3px solid #f0bf78;outline-offset:4px}
+@media(max-width:570px){.st-study-hero h1{font-size:clamp(2.6rem,12vw,4.5rem)}.st-study-button{width:100%}.st-study-actions{align-items:stretch}.st-study-card{padding:1.5rem}}
+@media(prefers-reduced-motion:reduce){.st-study-button,.st-study-card{transition:none}.st-study-button:hover,.st-study-card:hover{transform:none}}
+@media(hover:none){.st-study-button:hover,.st-study-card:hover{transform:none}}
