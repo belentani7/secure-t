@@ -107,6 +107,65 @@ body:not(.campus-landing) .btn:hover{transform:translateY(-2px)}
 @media(prefers-reduced-motion:reduce){.st-diagram-arc{animation:none}.st-route-card,.campus-landing .grid-cursos .card{transition:none}}
 @media print{.st-hero-art,.st-soc-preview{display:none}.st-hero-layout,.campus-landing .cyber-hero{display:block}.st-route-card{min-height:0;break-inside:avoid}}
 
+/* ============================================================
+   Capa de elevación visual — secure-t home
+   Aurora espectral, sheen tipográfico y cristal en tarjetas.
+   Se apoya en la cascade: solo refina, no reescribe.
+   ============================================================ */
+@keyframes st-aurora{from{transform:translate3d(-2%, -1.5%,0) rotate(-1.5deg) scale(1.05)}to{transform:translate3d(2%, 2%,0) rotate(1.5deg) scale(1.12)}}
+@keyframes st-sheen{from{background-position:0% 0}to{background-position:100% 0}}
+.secure-t-home .hero-section{position:relative;isolation:isolate;overflow:hidden}
+.secure-t-home .hero-section:before{
+  content:"";position:absolute;inset:-30%;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(40% 32% at 16% 10%,#4ce9d41f,transparent 68%),
+    radial-gradient(44% 36% at 86% 16%,#c4ff7416,transparent 68%),
+    radial-gradient(42% 38% at 60% 92%,#37b6c914,transparent 70%);
+  animation:st-aurora 30s cubic-bezier(.22,.75,.25,1) infinite alternate;
+}
+.secure-t-home .hero-section:after{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.05;
+  background-image:
+    linear-gradient(#a7f3c880 1px,transparent 1px),
+    linear-gradient(90deg,#a7f3c880 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(72% 62% at 50% 34%,#000 0%,transparent 100%);
+  -webkit-mask-image:radial-gradient(72% 62% at 50% 34%,#000 0%,transparent 100%);
+}
+.secure-t-home .hero-section h1{
+  background:linear-gradient(104deg,#f4efe7 15%,#d9ffb0 52%,#7ee6c9 78%,#f4efe7);
+  background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:st-sheen 11s cubic-bezier(.22,.75,.25,1) infinite alternate;
+}
+.secure-t-home .hero-section .action-primary{
+  background:linear-gradient(100deg,#c4ff74,#7ef0c0);
+  box-shadow:0 10px 34px #beff6b2c;transition:transform .25s cubic-bezier(.22,.75,.25,1),box-shadow .25s;
+}
+.secure-t-home .hero-section .action-primary:hover{transform:translateY(-2px);box-shadow:0 16px 46px #beff6b40}
+.secure-t-home .st-route-card{
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  box-shadow:inset 0 1px 0 #ffffff14,0 18px 50px #0006;
+}
+.secure-t-home .st-route-card:before{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(120deg,transparent 30%,#c4ff7414 48%,transparent 62%);
+  opacity:0;transition:opacity .3s;
+}
+.secure-t-home .st-route-card:hover:before{opacity:1}
+.secure-t-home .st-route-card{position:relative}
+.secure-t-home .st-route-card .st-route-arrow{transition:transform .28s cubic-bezier(.22,.75,.25,1)}
+.secure-t-home .st-route-card:hover .st-route-arrow{transform:translateX(5px)}
+.secure-t-home .catalogue .course{transition:transform .28s cubic-bezier(.22,.75,.25,1),border-color .28s}
+.secure-t-home .catalogue .course:hover{transform:translateX(6px);border-color:#c4ff7462}
+@media(prefers-reduced-motion:reduce){
+  .secure-t-home .hero-section:before{animation:none}
+  .secure-t-home .hero-section h1{animation:none;background:none;color:inherit;-webkit-text-fill-color:currentColor}
+  .secure-t-home .hero-section .action-primary,
+  .secure-t-home .st-route-card,.secure-t-home .st-route-card .st-route-arrow,
+  .secure-t-home .catalogue .course{transition:none;transform:none}
+}
+
+
 /* Four full lesson courses: a coherent, readable classroom without touching content. */
 html:not([data-theme="light"]) body.course-landing{background:radial-gradient(ellipse 80% 440px at 45% 0%,#234b4c62,transparent),#08161c;color:#eaf9f4}
 body.course-landing .topbar{background:#0b2028ea;border-bottom:1px solid #558c817c;backdrop-filter:blur(18px);z-index:30}
