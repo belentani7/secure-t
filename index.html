@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#000000">
+<title>Secure T — Formación en seguridad digital</title>
+<meta name="description" content="Secure T: formação aberta em cibersegurança, IA responsável e governança. Cursos de vinte semanas, exercícios e laboratórios simulados sem cadastro.">
+<meta property="og:title" content="Secure T — Formación en seguridad digital">
+<meta property="og:description" content="Aprenda a investigar, decidir e documentar com critério. Formação aberta e prática.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_PT">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Secure T — Formación en seguridad digital">
+<meta name="twitter:description" content="Aprenda a identificar riscos, interpretar evidências e tomar decisões responsáveis. Formação estruturada, exercícios práticos e cenários simulados.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='%23000000'/%3E%3Crect x='3' y='3' width='34' height='34' fill='none' stroke='%2300ff88'/%3E%3Ctext x='20' y='26' font-size='17' text-anchor='middle' font-family='sans-serif' font-weight='bold' fill='%2300ff88'%3ET%3C/text%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#000000;
+    --bg-2:#0a0a0a;
+    --bg-3:#111111;
+    --ink:#e8e8e8;
+    --ink-dim:#8a8a8a;
+    --accent:#00ff88;
+    --accent-2:#0066ff;
+    --accent-3:#ff0066;
+    --line:rgba(0,255,136,.12);
+    --glass:rgba(17,17,17,.6);
+    --glass-border:rgba(0,255,136,.25);
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:ui-sans-serif,"Segoe UI",Inter,system-ui,-apple-system,sans-serif;
+    --mono:ui-monospace,"Cascadia Mono",Consolas,monospace;
+    --measure:62ch;
+    --radius:14px;
+  }
+  *,::before,::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:var(--sans);line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    background-image:
+      radial-gradient(900px 520px at 82% -10%,rgba(0,255,136,.06),transparent 60%),
+      radial-gradient(700px 480px at 5% 12%,rgba(0,102,255,.05),transparent 60%);
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.025;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .shell{position:relative;z-index:2;max-width:1120px;margin:0 auto;padding:0 24px}
+  a{color:var(--accent);text-underline-offset:4px;text-decoration:none}
+  a:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:2px}
+  .skip{
+    position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden
+  }
+  .skip:focus{left:1rem;top:1rem;width:auto;height:auto;padding:8px 12px;background:var(--accent);color:#000;border-radius:6px;z-index:100}
+  .kicker{
+    font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);display:flex;gap:14px;flex-wrap:wrap;align-items:center
+  }
+  .kicker span:not(:last-child)::after{content:"/";margin-left:14px;color:var(--ink-dim);opacity:.5}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.03em}
+  h1{
+    margin:0;font-size:clamp(3rem,10vw,7rem);line-height:.92
+  }
+  h1 em{font-weight:400;color:var(--accent);font-style:normal}
+  h2{
+    margin:0 0 12px;font-size:clamp(2rem,4.5vw,4rem);line-height:1
+  }
+  h3{
+    margin:0 0 10px;font-size:clamp(1.4rem,3vw,2.2rem);line-height:1.1
+  }
+  p{margin:0 0 14px;max-width:var(--measure);color:var(--ink-dim)}
+  p strong{color:var(--ink)}
+  .lede{font-size:clamp(1.08rem,1.7vw,1.32rem)}
+  .lede strong{color:var(--ink)}
+  section{padding:clamp(58px,9vh,104px) 0;border-bottom:1px solid rgba(255,255,255,.04)}
+  .glass{
+    background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)
+  }
+  .button{
+    display:inline-flex;align-items:center;justify-content:center;min-height:46px;
+    padding:0 18px;border:1px solid var(--accent);border-radius:999px;
+    color:#000;background:var(--accent);font-weight:700;text-decoration:none;
+    transition:filter .2s,transform .2s
+  }
+  .button:hover{filter:brightness(1.15);transform:translateY(-2px)}
+  .button.secondary{
+    color:var(--ink);background:transparent;border-color:rgba(255,255,255,.12)
+  }
+  .button.secondary:hover{border-color:var(--accent);color:var(--accent)}
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    .reveal,html .reveal{opacity:1;transform:none;transition:none}
+  }
+  ::selection{background:var(--accent);color:#000}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;min-height:82svh;display:grid;align-content:end;gap:28px;
+    padding:clamp(72px,13vh,150px) 0 clamp(64px,10vh,120px);border-bottom:1px solid rgba(255,255,255,.04);overflow:hidden
+  }
+  .hero-glow{
+    position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(600px 300px at 80% 20%,rgba(0,255,136,.10),transparent 50%),
+      radial-gradient(500px 250px at 20% 80%,rgba(0,102,255,.08),transparent 50%);
+  }
+  .hero > *{position:relative;z-index:2}
+  .actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+
+  /* ---------- CARDS ---------- */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px}
+  .card{
+    position:relative;background:var(--glass);border:1px solid var(--glass-border);
+    border-radius:var(--radius);padding:26px 24px;overflow:hidden;transition:border-color .3s,transform .3s
+  }
+  .card:hover{border-color:var(--accent);transform:translateY(-4px)}
+  .card .tag{
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--accent-2);display:block;margin-bottom:10px
+  }
+  .card h3{color:var(--ink);margin-bottom:8px}
+  .card p{font-size:.94rem;color:var(--ink-dim);margin-bottom:16px}
+
+  /* ---------- MANIFIESTO ---------- */
+  .manifesto{display:grid;gap:0;margin:30px 0 0;padding:0;list-style:none;border-top:1px solid rgba(255,255,255,.06)}
+  .manifesto li{
+    padding:18px 0;border-bottom:1px solid rgba(255,255,255,.04);display:grid;
+    grid-template-columns:10ch 1fr;gap:18px
+  }
+  .manifesto b{
+    font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent-2)
+  }
+
+  /* ---------- EVIDENCIA ---------- */
+  .evidence-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:34px;
+    background:var(--line);border:1px solid rgba(255,255,255,.06)
+  }
+  .evidence-grid div{
+    min-height:150px;padding:22px;background:var(--bg-2);border:1px solid rgba(255,255,255,.03)
+  }
+  .evidence-grid strong{
+    display:block;margin-bottom:10px;color:var(--accent);font-family:var(--mono);
+    font-size:12px;letter-spacing:.12em;text-transform:uppercase
+  }
+  .evidence-grid span{color:var(--ink-dim);font-size:.95rem}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+    padding:48px 0 72px;color:var(--ink-dim);font-size:.9rem
+  }
+  footer .mono{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+
+  @media (max-width:760px){
+    .hero{min-height:60svh;padding-top:clamp(56px,10vh,100px)}
+    .manifesto li{grid-template-columns:8ch 1fr}
+    .evidence-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+  <a class="skip" href="#contenido">Saltar al conteúdo</a>
+
+  <div class="shell">
+    <header class="topbar">
+      <div class="kicker reveal"><span>Secure T</span><span>Educação aberta</span><span>Cibersegurança</span></div>
+      <h1 class="reveal">Segurança digital, <em>aprendida com critério.</em></h1>
+      <p class="lede reveal">Aprenda a identificar riscos, interpretar evidências e tomar decisões responsáveis. Formação estruturada, exercícios práticos y cenários simulados.</p>
+      <div class="actions reveal"><a class="button" href="campus/">Entrar no campus</a><a class="button secondary" href="#formacion">Explorar os cursos</a></div>
+    </header>
+
+    <section id="itinerarios" class="reveal" aria-labelledby="paths-heading">
+      <div class="shell">
+        <p class="kicker">Seu ponto de partida</p>
+        <h2 id="paths-heading">O que você gostaria de aprender primeiro?</h2>
+        <p>Você não precisa entender toda a plataforma antes de começar. Escolha una entrada, avance no seu ritmo y descubra as outras ferramentas quando precisar.</p>
+        <div class="cards">
+          <article class="card reveal">
+            <span class="tag">01 / Orientação</span>
+            <h3>Comece con tu primera misión</h3>
+            <p>Un percurso guiado para encontrar una práctica adequada ao seu momento.</p>
+          </article>
+          <article class="card reveal">
+            <span class="tag">02 / Formação</span>
+            <h3>Aprenda a defender sistemas</h3>
+            <p>Aulas, exercícios y evidências de resposta a incidentes.</p>
+          </article>
+          <article class="card reveal">
+            <span class="tag">03 / Prática</span>
+            <h3>Tome una decisión SOC</h3>
+            <p>Entre en una simulación de triagem de seguridad y practique con contexto.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="formacion" class="reveal" aria-labelledby="courses-heading">
+      <div class="shell">
+        <p class="kicker">Formação disponível</p>
+        <h2 id="courses-heading">Quatro áreas para construir una base sólida.</h2>
+        <p>Cada curso tem un programa de veinte semanas, aulas y recursos para practicar. Acesse o conteúdo sem matrícula ou promessa de certificação oficial.</p>
+        <div class="cards">
+          <article class="card reveal">
+            <span class="tag">01</span>
+            <h3>Ciberseguridad defensiva</h3>
+            <p>Telemetría, análisis de alertas, respuesta a incidentes y operaciones de SOC.</p>
+          </article>
+          <article class="card reveal">
+            <span class="tag">02</span>
+            <h3>Ciberseguridad ofensiva</h3>
+            <p>Ética, escopo autorizado, reconocimiento, riscos web y documentação técnica.</p>
+          </article>
+          <article class="card reveal">
+            <span class="tag">03</span>
+            <h3>IA aplicada y segura</h3>
+            <p>Modelos, avaliação de riscos y uso responsável de inteligencia artificial.</p>
+          </article>
+          <article class="card reveal">
+            <span class="tag">04</span>
+            <h3>Governança e conformidade</h3>
+            <p>Gestão de riscos, políticas, controles y referenciais aplicados.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="metodo" class="reveal" aria-labelledby="method-heading">
+      <div class="shell">
+        <p class="kicker">Aprender · Practicar · Argumentar</p>
+        <h2 id="method-heading">A prática precisa deixar una explicación.</h2>
+        <p>Priorizamos el raciocínio acima dos efectos de interface. Los laboratorios usan cenários sintéticos, ofrecen feedback y mantêm o progresso localmente no navegador cuando disponível.</p>
+        <ul class="manifesto reveal">
+          <li><b>Compreender</b><span>O que você está observando.</span></li>
+          <li><b>Decidir</b><span>En un entorno seguro.</span></li>
+          <li><b>Revisar</b><span>As evidências y aprender con o resultado.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="academia" class="reveal" aria-labelledby="academy-heading">
+      <div class="shell">
+        <p class="kicker">O projeto a longo prazo</p>
+        <h2 id="academy-heading">Una academia digital en construcción.</h2>
+        <p>Além dos quatro cursos disponibles, há un roteiro curricular de cinco años. As nuevas disciplinas son planes de estudio — aún no son cursos completos nem diplomas reconocidos.</p>
+        <a class="button reveal" href="campus/academia/">Ver o plano académico</a>
+      </div>
+    </section>
+
+    <div class="evidence-grid reveal" aria-label="Evidencia del release">
+      <div><strong>Tests</strong><span>54 passed — vitest run.</span></div>
+      <div><strong>HTML</strong><span>VEREDICTO: CONFORME — verificar_html.py.</span></div>
+      <div><strong>CDN</strong><span>Cero recursos externos.</span></div>
+    </div>
+
+    <footer>
+      <span>Secure T · Educação aberta y responsável · 2026</span>
+      <span class="mono">Projeto independiente</span>
+      <a href="https://github.com/belentani7/secure-t" target="_blank" rel="noopener">Código-fonte</a>
+    </footer>
+  </div>
+
+  <script>
+    (() => {
+      const items = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        items.forEach((item) => item.classList.add('in'));
+        return;
+      }
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      items.forEach((item) => observer.observe(item));
+    })();
+  </script>
+</body>
+</html>
