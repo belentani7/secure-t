@@ -1,0 +1,363 @@
+/**
+ * SONIC LOCK — Estilos visuales para el candado sónico
+ * Tokens CHROMA + animaciones de resonancia
+ */
+
+:root {
+  /* Tokens CHROMA mapeados a cuerdas */
+  --sonic-frequency: #38e1ff;    /* Cuerda 1: Cyan - Frecuencia */
+  --sonic-syntony: #b6ff2e;      /* Cuerda 2: Lime - Sintonía */
+  --sonic-state: #4ef0b0;        /* Cuerda 3: Mint - Estado */
+  --sonic-vibration: #ff6b5e;    /* Cuerda 4: Coral - Vibración */
+  --sonic-compatibility: #a78bfa; /* Cuerda 5: Violet - Compatibilidad (NVIDIA) */
+  
+  /* Fondos */
+  --sonic-bg: #0b1322;
+  --sonic-bg-elevated: #0d1626;
+  --sonic-border: rgba(56, 225, 255, 0.18);
+  --sonic-text: #e8f1ff;
+  --sonic-text-muted: #8b949e;
+  --sonic-accent: #b6ff2e;
+}
+
+/* Contenedor principal */
+.sonic-lock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: var(--sonic-bg);
+  border: 1px solid var(--sonic-border);
+  border-radius: 18px;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  color: var(--sonic-text);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.sonic-lock h3 {
+  margin: 0;
+  color: var(--sonic-syntony);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.sonic-lock .subtitle {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--sonic-text-muted);
+  text-align: center;
+}
+
+/* Canvas de visualización */
+.sonic-canvas {
+  width: 100%;
+  height: 180px;
+  background: var(--sonic-bg-elevated);
+  border: 1px solid var(--sonic-border);
+  border-radius: 12px;
+  display: block;
+}
+
+/* Botones */
+.sonic-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.sonic-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sonic-btn--primary {
+  background: var(--sonic-frequency);
+  color: var(--sonic-bg);
+}
+
+.sonic-btn--primary:hover:not(:disabled) {
+  background: #5fd1ff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(56, 225, 255, 0.3);
+}
+
+.sonic-btn--secondary {
+  background: transparent;
+  color: var(--sonic-syntony);
+  border: 1px solid var(--sonic-syntony);
+}
+
+.sonic-btn--secondary:hover:not(:disabled) {
+  background: rgba(182, 255, 46, 0.1);
+  transform: translateY(-1px);
+}
+
+.sonic-btn--tertiary {
+  background: transparent;
+  color: var(--sonic-compatibility);
+  border: 1px solid var(--sonic-compatibility);
+}
+
+.sonic-btn--tertiary:hover:not(:disabled) {
+  background: rgba(167, 139, 250, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Grupo de botones */
+.sonic-btn-group {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Métricas */
+.sonic-metrics {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--sonic-text-muted);
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--sonic-border);
+  width: 100%;
+}
+
+.sonic-metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.sonic-metric__label {
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--sonic-text-muted);
+}
+
+.sonic-metric__value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--sonic-text);
+}
+
+.sonic-metric__value--unlocked {
+  color: var(--sonic-syntony);
+}
+
+.sonic-metric__value--locked {
+  color: var(--sonic-vibration);
+}
+
+/* Visualizador de cuerdas */
+.sonic-strings {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+  padding: 1rem;
+  background: var(--sonic-bg-elevated);
+  border: 1px solid var(--sonic-border);
+  border-radius: 12px;
+}
+
+.sonic-string {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--sonic-bg);
+  border: 1px solid var(--sonic-border);
+  border-radius: 8px;
+  min-width: 80px;
+  transition: all 0.2s ease;
+}
+
+.sonic-string:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.sonic-string__note {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--sonic-text);
+}
+
+.sonic-string__hz {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--sonic-text-muted);
+}
+
+.sonic-string__meaning {
+  font-size: 0.625rem;
+  color: var(--sonic-text-muted);
+  text-align: center;
+  max-width: 120px;
+}
+
+.sonic-string__color-bar {
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  transition: height 0.3s ease, opacity 0.3s ease;
+}
+
+/* Colores de cada cuerda */
+.sonic-string--frequency .sonic-string__color-bar { background: var(--sonic-frequency); }
+.sonic-string--syntony .sonic-string__color-bar { background: var(--sonic-syntony); }
+.sonic-string--state .sonic-string__color-bar { background: var(--sonic-state); }
+.sonic-string--vibration .sonic-string__color-bar { background: var(--sonic-vibration); }
+.sonic-string--compatibility .sonic-string__color-bar { background: var(--sonic-compatibility); }
+
+/* Animación de resonancia */
+@keyframes sonic-pulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.5); }
+}
+
+.sonic-string.resonating .sonic-string__color-bar {
+  animation: sonic-pulse 0.5s ease-in-out infinite;
+  height: 100%;
+}
+
+.sonic-string.resonating .sonic-string__note {
+  color: inherit;
+  text-shadow: 0 0 8px currentColor;
+}
+
+/* Detalles colapsables */
+.sonic-details {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--sonic-bg-elevated);
+  border: 1px solid var(--sonic-border);
+  border-radius: 8px;
+  color: var(--sonic-text-muted);
+  font-size: 0.75rem;
+}
+
+.sonic-details summary {
+  cursor: pointer;
+  color: var(--sonic-compatibility);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  user-select: none;
+}
+
+.sonic-details pre {
+  margin: 0;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.625rem;
+  line-height: 1.6;
+  color: var(--sonic-text-muted);
+}
+
+/* Estado de resonancia global */
+.sonic-lock--unlocked {
+  border-color: var(--sonic-syntony);
+  box-shadow: 0 0 24px rgba(182, 255, 46, 0.2);
+}
+
+.sonic-lock--unlocked h3 {
+  color: var(--sonic-syntony);
+  text-shadow: 0 0 12px rgba(182, 255, 46, 0.5);
+}
+
+/* Animación de desbloqueo */
+@keyframes sonic-unlock {
+  0% { transform: scale(1); border-color: var(--sonic-border); }
+  25% { transform: scale(1.02); border-color: var(--sonic-frequency); }
+  50% { transform: scale(0.98); border-color: var(--sonic-syntony); }
+  75% { transform: scale(1.01); border-color: var(--sonic-compatibility); }
+  100% { transform: scale(1); border-color: var(--sonic-syntony); }
+}
+
+.sonic-lock.unlocking {
+  animation: sonic-unlock 1s ease-out;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .sonic-lock {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+  
+  .sonic-btn-group {
+    flex-direction: column;
+  }
+  
+  .sonic-btn {
+    width: 100%;
+  }
+  
+  .sonic-strings {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .sonic-string {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+/* Modo oscuro forzado para el componente */
+@media (prefers-color-scheme: light) {
+  .sonic-lock {
+    --sonic-bg: #0b1322;
+    --sonic-bg-elevated: #0d1626;
+    --sonic-text: #e8f1ff;
+    --sonic-text-muted: #8b949e;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .sonic-string.resonating .sonic-string__color-bar {
+    animation: none;
+    height: 100%;
+    opacity: 1;
+  }
+  
+  .sonic-lock.unlocking {
+    animation: none;
+  }
+}
+
+/* High contrast */
+@media (prefers-contrast: high) {
+  .sonic-lock {
+    border-width: 2px;
+  }
+  
+  .sonic-btn--secondary,
+  .sonic-btn--tertiary {
+    border-width: 2px;
+  }
+}

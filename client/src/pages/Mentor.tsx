@@ -3,6 +3,7 @@ import { ArrowUpRight, Bot, Send, ShieldCheck, Sparkles, User } from "lucide-rea
 import { Link } from "wouter";
 
 import SiteHeader from "../components/SiteHeader";
+import { useTranslation } from "@/lib/i18n";
 
 type Engine = "ollama-local" | "safe-fallback" | string;
 
@@ -14,22 +15,23 @@ type ChatMessage = {
 };
 
 const CONTEXTS = [
-  { value: "cybersecurity", label: "Fundamentos y ofensiva" },
-  { value: "defensive-security", label: "Defensa y SOC" },
-  { value: "responsible-ai", label: "IA responsable" },
-  { value: "governance", label: "Gobernanza y compliance" },
+  { value: "cybersecurity", key: "mentor.context.cybersecurity" },
+  { value: "defensive-security", key: "mentor.context.defensive" },
+  { value: "responsible-ai", key: "mentor.context.responsible_ai" },
+  { value: "governance", key: "mentor.context.governance" },
 ] as const;
 
 const SUGGESTIONS = [
-  "Explícame la diferencia entre amenaza, vulnerabilidad y riesgo con un ejemplo.",
-  "¿Cómo empiezo un threat model de una API sin inventar ataques?",
-  "Dame un plan de 20 minutos para triagear una alerta de PowerShell.",
-  "¿Qué evidencia necesito para defender un control ante un auditor?",
+  "mentor.suggestion_1",
+  "mentor.suggestion_2",
+  "mentor.suggestion_3",
+  "mentor.suggestion_4",
 ];
 
 let nextId = 1;
 
 export default function Mentor() {
+  const { t } = useTranslation();
   const [context, setContext] = useState<(typeof CONTEXTS)[number]["value"]>(
     "cybersecurity",
   );
@@ -69,16 +71,15 @@ export default function Mentor() {
 
       if (!response.ok) {
         if (response.status === 503) {
-          throw new Error(
-            "El mentor online está desactivado en este despliegue. El campus sigue disponible offline.",
-          );
+          throw new Error(t("mentor.error_503"));
         }
         if (response.status === 429) {
-          throw new Error(
-            "Has alcanzado el límite temporal de consultas. Espera un minuto y vuelve a intentarlo.",
-          );
+          throw new Error(t("mentor.error_429"));
         }
-        throw new Error(data.error || `El mentor respondió ${response.status}.`);
+        throw new Error(
+          data.error ||
+            t("mentor.error_generic", { status: String(response.status) })
+        );
       }
 
       setMessages(prev => [
@@ -87,13 +88,12 @@ export default function Mentor() {
           id: nextId++,
           role: "mentor",
           text:
-            data.reply ||
-            "No recibí una respuesta utilizable. Reformula la pregunta y vuelve a intentarlo.",
+            data.reply || t("mentor.error_no_reply"),
           engine: data.engine,
         },
       ]);
     } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Error de red.");
+      setError(cause instanceof Error ? cause.message : t("mentor.error_network"));
     } finally {
       setBusy(false);
       inputRef.current?.focus();
@@ -106,7 +106,7 @@ export default function Mentor() {
         href="#mentor-main"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-[#b8f36b] focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-[#071016]"
       >
-        Skip to content
+        {t("mentor.skip_content")}
       </a>
       <SiteHeader />
 
@@ -115,16 +115,11 @@ export default function Mentor() {
         className="mx-auto grid max-w-7xl gap-10 px-5 py-14 lg:grid-cols-[.75fr_1.25fr] lg:px-8 lg:py-20"
       >
         <div>
-          <h1 className="max-w-xl font-display text-4xl font-bold leading-[.98] tracking-[-.045em] sm:text-5xl">
-            Astra, your
-            <br />
-            <span className="text-[#b8f36b]">Socratic mentor.</span>
+          <h1 className="max-w-xl font-display text-4xl font-bold leading-[.98] tracking-[-.04em] sm:text-5xl">
+            {t("mentor.title_main")}
           </h1>
-          <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/55">
-            A study companion that asks before it answers. It never invents
-            grades, accreditation or citations. If the online model is not
-            configured, you get an honest fallback and a pointer back to the
-            material.
+          <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/70">
+            {t("mentor.intro")}
           </p>
 
           <div className="mt-8">
@@ -132,7 +127,7 @@ export default function Mentor() {
               htmlFor="mentor-context"
               className="text-sm font-semibold text-white/70"
             >
-              Study context
+              {t("mentor.context_label")}
             </label>
             <select
               id="mentor-context"
@@ -144,7 +139,7 @@ export default function Mentor() {
             >
               {CONTEXTS.map(option => (
                 <option key={option.value} value={option.value}>
-                  {option.label}
+                  {t(option.key)}
                 </option>
               ))}
             </select>
@@ -152,31 +147,29 @@ export default function Mentor() {
 
           <div className="mt-8 border-t border-white/10 pt-5">
             <p className="flex items-center gap-2 text-sm font-semibold text-white/70">
-              <Sparkles className="size-4 text-[#49dce8]" /> Try asking
+              <Sparkles className="size-4 text-[#49dce8]" /> {t("mentor.try_asking")}
             </p>
             <ul className="mt-3 space-y-2">
-              {SUGGESTIONS.map(suggestion => (
-                <li key={suggestion}>
+              {SUGGESTIONS.map(suggestionKey => (
+                <li key={suggestionKey}>
                   <button
                     type="button"
                     onClick={() => {
-                      setInput(suggestion);
+                      setInput(t(suggestionKey));
                       inputRef.current?.focus();
                     }}
-                    className="text-left text-sm text-white/50 underline-offset-4 hover:text-white hover:underline"
+                    className="text-left text-sm text-white/60 underline-offset-4 hover:text-white hover:underline"
                   >
-                    {suggestion}
+                    {t(suggestionKey)}
                   </button>
                 </li>
               ))}
             </ul>
           </div>
 
-          <p className="mt-8 flex items-start gap-2 border-t border-white/10 pt-5 text-xs leading-relaxed text-white/35">
+          <p className="mt-8 flex items-start gap-2 border-t border-white/10 pt-5 text-xs leading-relaxed text-white/50">
             <ShieldCheck className="mt-0.5 size-4 shrink-0 text-[#b8f36b]" />
-            El chat no se guarda en el servidor ni en localStorage. El límite es
-            de 10 consultas por minuto. Para casos legales, de salud o datos
-            personales, consulta a una persona.
+            {t("mentor.privacy")}
           </p>
         </div>
 
@@ -188,8 +181,8 @@ export default function Mentor() {
               </span>
               <div>
                 <p className="text-sm font-semibold">Astra</p>
-                <p className="text-xs text-white/40">
-                  {busy ? "Pensando…" : "Mentor de estudio · demo"}
+                <p className="text-xs text-white/60">
+                  {busy ? t("mentor.thinking") : t("mentor.demo")}
                 </p>
               </div>
             </div>
@@ -200,22 +193,21 @@ export default function Mentor() {
                   setMessages([]);
                   setError("");
                 }}
-                className="text-xs font-semibold text-white/40 hover:text-white"
+                className="text-xs font-semibold text-white/60 hover:text-white"
               >
-                Clear chat
+                {t("mentor.clear_chat")}
               </button>
             )}
           </div>
 
           <div className="flex-1 space-y-5 overflow-y-auto px-5 py-5">
             {messages.length === 0 && (
-              <div className="rounded-xl border border-dashed border-white/15 p-5 text-sm text-white/45">
+              <div className="rounded-xl border border-dashed border-white/15 p-5 text-sm text-white/60">
                 <p className="font-semibold text-white/70">
-                  Empieza con una pregunta concreta.
+                  {t("mentor.empty_title")}
                 </p>
                 <p className="mt-2">
-                  Por ejemplo: “Estoy en la semana 3 de Defensiva. ¿Qué evidencia
-                  demuestra que entiendo el ciclo NIST 800-61?”.
+                  {t("mentor.empty_sub")}
                 </p>
               </div>
             )}
@@ -259,15 +251,15 @@ export default function Mentor() {
             ))}
 
             {busy && (
-              <p role="status" className="text-sm text-white/40">
-                Astra está pensando…
+              <p role="status" className="text-sm text-white/60">
+                {t("mentor.busy")}
               </p>
             )}
             {error && (
               <p role="alert" className="rounded-xl border border-[#ff8377]/30 bg-[#ff8377]/10 px-4 py-3 text-sm text-[#ff8377]">
                 {error}{" "}
                 <Link href="/campus" className="font-semibold underline">
-                  Ir al campus
+                  {t("mentor.error_link")}
                 </Link>
                 .
               </p>
@@ -283,7 +275,7 @@ export default function Mentor() {
             }}
           >
             <label htmlFor="mentor-message" className="sr-only">
-              Mensaje para Astra
+              {t("mentor.send_msg_label")}
             </label>
             <textarea
               id="mentor-message"
@@ -298,19 +290,19 @@ export default function Mentor() {
               }}
               rows={3}
               maxLength={2000}
-              placeholder="Pregunta sobre una semana, un laboratorio o una decisión de seguridad…"
+              placeholder={t("mentor.placeholder")}
               className="w-full resize-none rounded-xl border border-white/10 bg-white/[.03] px-4 py-3 text-sm text-white outline-none placeholder:text-white/30 focus:border-[#b8f36b]"
             />
             <div className="mt-3 flex items-center justify-between gap-3">
               <p className="text-xs text-white/30">
-                {input.length}/2000 · Enter envía, Shift+Enter crea línea
+                {input.length}/2000 · {t("mentor.counter")}
               </p>
               <button
                 type="submit"
                 disabled={busy || !input.trim()}
                 className="inline-flex items-center gap-2 rounded-xl bg-[#b8f36b] px-4 py-2.5 text-sm font-bold text-[#071016] transition hover:bg-[#d0ff9a] disabled:cursor-not-allowed disabled:opacity-50"
               >
-                <Send className="size-4" /> Send
+                <Send className="size-4" /> {t("mentor.send_btn")}
               </button>
             </div>
           </form>
@@ -318,8 +310,8 @@ export default function Mentor() {
       </main>
 
       <footer className="border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-8 text-xs text-white/35 lg:px-8">
-          <p>Secure T · mentor de estudio con salvaguardas</p>
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-8 text-xs text-white/50 lg:px-8">
+          <p>{t("mentor.footer")}</p>
           <div className="flex gap-5">
             <Link href="/campus" className="hover:text-white">
               Campus
@@ -331,7 +323,7 @@ export default function Mentor() {
               href="campus/full/cursos/ciber-defensiva/index.html"
               className="inline-flex items-center gap-1 hover:text-white"
             >
-              Curso de defensiva <ArrowUpRight className="size-3" />
+              {t("mentor.footer_defensive_course")} <ArrowUpRight className="size-3" />
             </a>
           </div>
         </div>

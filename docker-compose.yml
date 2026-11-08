@@ -1,5 +1,6 @@
+version: '3.8'
+
 services:
-  # Optional demo API and SPA; the public campus is deployed as static files.
   app:
     build:
       context: .
@@ -8,7 +9,8 @@ services:
     ports:
       - "127.0.0.1:3000:3000"
     environment:
-      NODE_ENV: production
+      - NODE_ENV=production
+      - PORT=3000
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:3000/api/health"]
@@ -25,7 +27,7 @@ services:
     ports:
       - "127.0.0.1:5173:5173"
     environment:
-      NODE_ENV: development
+      - NODE_ENV=development
     volumes:
       - .:/app
       - /app/node_modules

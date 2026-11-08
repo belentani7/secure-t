@@ -9,7 +9,6 @@ describe('admissions CTA truthfulness', () => {
     expect(app).not.toContain('path="/apply"');
     expect(home).not.toContain('APPLICATIONS OPEN');
     expect(home).not.toContain('Admisiones abiertas');
-    expect(home).toContain('APPLICATIONS COMING SOON');
-    expect(home).toContain('Applications coming soon');
+    expect(home).toContain('header.applications');
   });
 });

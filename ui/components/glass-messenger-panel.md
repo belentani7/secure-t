@@ -4,8 +4,8 @@
 
 ### Visual Style
 - **Background**: Deep dark mode (#0a0a0f) with subtle neon-green accents
-- **Glass panels**: Frosted glass effect ( backdrop-filter: blur(20px)) with 
-gba(10,10,15,0.3) backdrop
+<<<<<<< HEAD
+- **Glass panels**: Frosted glass effect (backdrop-filter: blur(20px)) with rgba(10,10,15,0.3) backdrop
 - **Typography**: System font, monospace for code, geometric sans-serif for UI
 - **Accent colors**: Neon red #ff073a for alerts/errors, electric blue #00d4ff for system messages
 - **Glassmorphism**: Glass panels with  order: 1px solid rgba(255,255,255,0.1) and  ox-shadow: 0 4px 20px rgba(0,0,0,0.5)

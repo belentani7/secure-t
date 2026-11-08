@@ -6,6 +6,7 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import { I18nProvider } from "./lib/i18n";
 
 const Notifications = lazy(() => import("@/pages/Notifications"));
 const Portal = lazy(() => import("./pages/Portal"));
@@ -13,14 +14,17 @@ const Campus = lazy(() => import("./pages/Campus"));
 const ProgressPage = lazy(() => import("./pages/Progress"));
 const Mentor = lazy(() => import("./pages/Mentor"));
 
+import { useTranslation } from "@/lib/i18n";
+
 function RouteFallback() {
+  const { t } = useTranslation();
   return (
     <div
       role="status"
       aria-live="polite"
       className="grid min-h-screen place-items-center bg-[#071016] p-6 text-sm text-white/60"
     >
-      Loading secure T…
+      {t("loading")}
     </div>
   );
 }
@@ -54,23 +58,26 @@ function Router() {
 // - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
 
 function App() {
+  const { t } = useTranslation();
   return (
     <ErrorBoundary>
       <ThemeProvider
-        defaultTheme="light"
+        defaultTheme="dark"
         // switchable
       >
         <TooltipProvider>
           <Toaster />
-          <a
-            href="#main"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-[#b8f36b] focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-[#071016]"
-          >
-            Skip to content
-          </a>
-          <div id="main" tabIndex={-1} className="outline-none">
-            <Router />
-          </div>
+          <I18nProvider>
+            <a
+              href="#main"
+              className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-[#b8f36b] focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-[#071016]"
+            >
+              {t("skip.content")}
+            </a>
+            <div id="main" tabIndex={-1} className="outline-none">
+              <Router />
+            </div>
+          </I18nProvider>
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

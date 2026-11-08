@@ -28,7 +28,9 @@
   </style>
   <link rel="stylesheet" href="ui/experience.css">
   <link rel="stylesheet" href="ui/institutional.css">
+  <link rel="stylesheet" href="ui/sonic-lock/sonic-lock.css">
   <script src="ui/institutional.js" defer></script>
+  <script src="ui/sonic-lock/sonic-lock.js" defer></script>
   <title>Secure T — Formación en seguridad digital</title>
 </head>
 <body class="secure-t-home">
@@ -161,6 +163,27 @@
       </div>
       <a class="action action-secondary" href="campus/academia/" data-copy="academy.link">Ver o plano acadêmico</a>
     </section>
+
+    <!-- SONIC LOCK — Easter Egg: Teoria de Cordas Belentani -->
+    <aside class="container sonic-disclosure" id="sonic-lore" aria-labelledby="sonic-title" style="margin-top: 3rem;">
+      <details>
+        <summary>
+          <span style="font-size: 1.25rem;">🌌</span>
+          <span>TEORIA DE CUERDAS · Candado Sónico de Belentani</span>
+          <span style="font-size: 1.25rem;">🔐</span>
+        </summary>
+        <div>
+          <p style="color: var(--sonic-text-muted, #8b949e); font-size: 0.875rem; text-align: center; margin-bottom: 1.5rem; font-style: italic;">
+            "Quando tudo se desvanece, o água destruiu e o fogo consumiu... lo único que permanece transmutándose son las ondas sonoras."
+          </p>
+          <div id="sonic-lock-container"></div>
+          <p style="margin-top: 1.5rem; font-size: 0.75rem; color: var(--sonic-text-muted, #8b949e); text-align: center; line-height: 1.6;">
+            Lore completo: <a href="https://github.com/belentani7/secure-t/blob/main/docs/LORE-STRING-THEORY.md" style="color: var(--sonic-frequency, #38e1ff);">docs/LORE-STRING-THEORY.md</a> · 
+            Componente: <a href="https://github.com/belentani7/secure-t/blob/main/client/src/lib/sonic-lock.ts" style="color: var(--sonic-frequency, #38e1ff);">sonic-lock.ts</a>
+          </p>
+        </div>
+      </details>
+    </aside>
   </main>
 
   <footer class="site-footer" role="contentinfo">
@@ -175,5 +198,8 @@
       </nav>
     </div>
   </footer>
+
+  <!-- Sonic Lock Initialization — extracted to ui/sonic-lock/init.js, loads with defer -->
+  <script src="ui/sonic-lock/init.js" defer></script>
 </body>
 </html>

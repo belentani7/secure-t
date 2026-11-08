@@ -11,14 +11,8 @@ import {
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
+import { useTranslation } from "@/lib/i18n";
 import type { UseTaskNotifications } from "@/hooks/useTaskNotifications";
-
-const PERMISSION_COPY: Record<string, string> = {
-  unsupported: "Este navegador no admite notificaciones de escritorio.",
-  default: "Autoriza las notificaciones para recibir avisos del sistema.",
-  granted: "Notificaciones autorizadas.",
-  denied: "Notificaciones bloqueadas en los ajustes del navegador.",
-};
 
 /** Preferences panel for task-completion notifications and sound. */
 export function NotificationCenter({
@@ -26,6 +20,7 @@ export function NotificationCenter({
 }: {
   controller: UseTaskNotifications;
 }) {
+  const { t } = useTranslation();
   const {
     preferences,
     permission,
@@ -45,19 +40,18 @@ export function NotificationCenter({
           ) : (
             <BellOff className="size-4" />
           )}
-          Notificaciones de tareas
+          {t("notifications.title")}
         </CardTitle>
         <CardDescription>
-          Recibe un aviso del navegador y un sonido cuando una tarea
-          (laboratorio, evaluación, asistente) termina.
+          {t("notifications.subtitle")}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-5">
         <div className="flex items-center justify-between">
           <div>
-            <Label htmlFor="notif-enabled">Activar avisos</Label>
+            <Label htmlFor="notif-enabled">{t("notifications.enable_label")}</Label>
             <p className="text-muted-foreground text-sm">
-              {PERMISSION_COPY[permission]}
+              {t(`notifications.perm_${permission}`)}
             </p>
           </div>
           <Switch
@@ -68,7 +62,7 @@ export function NotificationCenter({
         </div>
 
         <div className="flex items-center justify-between">
-          <Label htmlFor="notif-sound">Sonido</Label>
+          <Label htmlFor="notif-sound">{t("notifications.sound_label")}</Label>
           <Switch
             id="notif-sound"
             checked={preferences.sound}
@@ -78,7 +72,7 @@ export function NotificationCenter({
 
         <div className="space-y-2">
           <Label className="flex items-center gap-2">
-            <Volume2 className="size-4" /> Volumen
+            <Volume2 className="size-4" /> {t("notifications.volume_label")}
           </Label>
           <Slider
             min={0}
@@ -92,9 +86,9 @@ export function NotificationCenter({
 
         <div className="flex items-center justify-between">
           <div>
-            <Label htmlFor="notif-failures">Avisar también de fallos</Label>
+            <Label htmlFor="notif-failures">{t("notifications.failures_label")}</Label>
             <p className="text-muted-foreground text-sm">
-              Tareas fallidas o canceladas.
+              {t("notifications.failures_desc")}
             </p>
           </div>
           <Switch
@@ -110,7 +104,7 @@ export function NotificationCenter({
               onClick={() => void enable()}
               disabled={permission === "denied" || !supported}
             >
-              Autorizar notificaciones
+              {t("notifications.authorize_button")}
             </Button>
           )}
           <Button
@@ -118,7 +112,7 @@ export function NotificationCenter({
             onClick={sendTest}
             disabled={!preferences.enabled}
           >
-            Probar
+            {t("notifications.test_button")}
           </Button>
         </div>
       </CardContent>

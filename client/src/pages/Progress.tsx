@@ -22,16 +22,21 @@ import {
   parseProgress,
   serializeProgress,
 } from "../lib/progress";
+import { useTranslation } from "@/lib/i18n";
 
-function itemLabel(item: string) {
-  if (item.startsWith("semana-")) return `Semana ${Number(item.slice(7))}`;
-  if (item === "quiz") return "Quiz formativo";
-  if (item === "laboratorio") return "Laboratorio + evidencia";
-  if (item === "proyecto") return "Proyecto final";
-  return "Examen final";
+function itemLabel(item: string, t: (k: string, p?: Record<string, string | number>) => string) {
+  if (item.startsWith("semana-")) {
+    const n = Number(item.slice(7));
+    return t("progress.item.semana", { n });
+  }
+  if (item === "quiz") return t("progress.item.quiz");
+  if (item === "laboratorio") return t("progress.item.laboratorio");
+  if (item === "proyecto") return t("progress.item.proyecto");
+  return t("progress.item.examen");
 }
 
 export default function Progress() {
+  const { t } = useTranslation();
   const { state, save, toggle } = useCampusProgress();
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
@@ -58,7 +63,7 @@ export default function Progress() {
     anchor.download = "secure-t-progress.json";
     anchor.click();
     URL.revokeObjectURL(url);
-    announce("Progreso exportado como JSON.");
+    announce(t("progress.exported"));
   };
 
   const importJson = async (file: File | undefined) => {
@@ -67,9 +72,9 @@ export default function Progress() {
       const text = await file.text();
       const next = parseProgress(text);
       save(next);
-      announce(`Progreso importado: ${Object.keys(next).length} elementos.`);
+      announce(t("progress.imported", { count: Object.keys(next).length }));
     } catch {
-      setError("No se pudo leer el archivo. Debe ser un JSON válido.");
+      setError(t("progress.import_error"));
       setStatus("");
     } finally {
       if (fileRef.current) fileRef.current.value = "";
@@ -77,11 +82,11 @@ export default function Progress() {
   };
 
   const reset = () => {
-    if (!window.confirm("¿Borrar todo el progreso guardado en este navegador?")) {
+    if (!window.confirm(t("progress.reset_confirm"))) {
       return;
     }
     save({});
-    announce("Progreso local borrado.");
+    announce(t("progress.reset_done"));
   };
 
   return (
@@ -90,27 +95,25 @@ export default function Progress() {
         href="#progress-main"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-[#b8f36b] focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-[#071016]"
       >
-        Skip to content
+        {t("skip.content")}
       </a>
       <SiteHeader />
 
       <main id="progress-main" className="mx-auto max-w-7xl px-5 py-14 lg:px-8 lg:py-20">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_.9fr] lg:items-end">
           <div>
-            <h1 className="max-w-2xl font-display text-4xl font-bold leading-[.98] tracking-[-.045em] sm:text-6xl">
-              Your progress,
+            <h1 className="max-w-2xl font-display text-4xl font-bold leading-[.98] tracking-[-.04em] sm:text-6xl">
+              {t("progress.title")}
               <br />
-              <span className="text-[#b8f36b]">on your device.</span>
+              <span className="text-[#b8f36b]">{t("progress.title_sub")}</span>
             </h1>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-white/55">
-              No account, no email, no tracking. This page reads and writes the
-              same local key as the static campus, so what you mark here appears
-              there and the other way around.
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-white/70">
+              {t("progress.intro")}
             </p>
           </div>
           <div className="border-t border-white/10 pt-5">
             <div className="flex items-baseline justify-between gap-4">
-              <p className="text-sm text-white/45">Global progress</p>
+              <p className="text-sm text-white/60">{t("progress.global")}</p>
               <p className="font-mono text-sm text-[#b8f36b]">
                 {global.done}/{global.total} · {global.percent}%
               </p>
@@ -121,16 +124,17 @@ export default function Progress() {
               aria-valuenow={global.percent}
               aria-valuemin={0}
               aria-valuemax={100}
-              aria-label="Global campus progress"
+              aria-label={t("progress.global_aria")}
             >
               <div
                 className="h-full rounded-full bg-[#b8f36b]"
                 style={{ width: `${global.percent}%` }}
               />
             </div>
-            <p className="mt-3 text-xs text-white/35">
-              Stored under <code className="font-mono">{CAMPUS_PROGRESS_KEY}</code>{" "}
-              in localStorage. Never sent to a server.
+            <p className="mt-3 text-xs text-white/50">
+              {t("progress.stored_under")}
+              <code className="font-mono">{CAMPUS_PROGRESS_KEY}</code>{" "}
+              {t("progress.in_localstorage")}
             </p>
           </div>
         </div>
@@ -141,21 +145,21 @@ export default function Progress() {
             onClick={exportJson}
             className="inline-flex items-center gap-2 rounded-xl border border-white/15 px-4 py-2.5 text-sm font-semibold text-white/80 transition hover:border-white/30 hover:bg-white/5"
           >
-            <Download className="size-4" /> Export JSON
+            <Download className="size-4" /> {t("progress.export")}
           </button>
           <button
             type="button"
             onClick={() => fileRef.current?.click()}
             className="inline-flex items-center gap-2 rounded-xl border border-white/15 px-4 py-2.5 text-sm font-semibold text-white/80 transition hover:border-white/30 hover:bg-white/5"
           >
-            <Upload className="size-4" /> Import JSON
+            <Upload className="size-4" /> {t("progress.import")}
           </button>
           <button
             type="button"
             onClick={reset}
             className="inline-flex items-center gap-2 rounded-xl border border-[#ff8377]/30 px-4 py-2.5 text-sm font-semibold text-[#ff8377] transition hover:bg-[#ff8377]/10"
           >
-            <RotateCcw className="size-4" /> Reset
+            <RotateCcw className="size-4" /> {t("progress.reset")}
           </button>
           <input
             ref={fileRef}
@@ -195,7 +199,7 @@ export default function Progress() {
                     >
                       {program.title}
                     </h2>
-                    <p className="mt-1 text-sm text-white/45">
+                    <p className="mt-1 text-sm text-white/60">
                       {progress.done}/{progress.total} · {progress.percent}% ·{" "}
                       {program.hours} h
                     </p>
@@ -204,7 +208,7 @@ export default function Progress() {
                     href={program.links.course}
                     className="inline-flex items-center gap-1 text-sm font-semibold text-[#b8f36b] hover:underline"
                   >
-                    Open course <ArrowUpRight className="size-4" />
+                    {t("progress.open_course")} <ArrowUpRight className="size-4" />
                   </a>
                 </div>
 
@@ -223,7 +227,7 @@ export default function Progress() {
                         }`}
                         title={
                           locked
-                            ? "Se desbloquea al completar semanas, quiz y laboratorio"
+                            ? t("progress.locked_tip")
                             : undefined
                         }
                       >
@@ -236,7 +240,7 @@ export default function Progress() {
                           }
                           className="mt-0.5 size-4 accent-[#b8f36b]"
                         />
-                        <span className="flex-1">{itemLabel(item)}</span>
+                        <span className="flex-1">{itemLabel(item, t)}</span>
                         {locked && <LockKeyhole className="size-3.5" />}
                         {done && !locked && (
                           <CheckCircle2 className="size-3.5 text-[#b8f36b]" />
@@ -247,8 +251,7 @@ export default function Progress() {
                 </div>
                 {progress.complete && (
                   <p className="mt-3 flex items-center gap-2 text-sm text-[#b8f36b]">
-                    <ShieldCheck className="size-4" /> Programa completo en tu
-                    registro local. La credencial real requiere revisión humana.
+                    <ShieldCheck className="size-4" /> {t("progress.complete")}
                   </p>
                 )}
               </section>
@@ -256,12 +259,10 @@ export default function Progress() {
           })}
         </div>
 
-        <p className="mt-14 max-w-3xl text-sm leading-relaxed text-white/40">
-          Este registro es local y no constituye un expediente académico
-          oficial. Para conservarlo, exporta el JSON antes de borrar los datos
-          del navegador. Puedes importarlo en otro dispositivo.{" "}
+        <p className="mt-14 max-w-3xl text-sm leading-relaxed text-white/60">
+          {t("progress.local_note")}{" "}
           <Link href="/campus" className="text-[#b8f36b] hover:underline">
-            Volver al campus
+            {t("progress.back_to_campus")}
           </Link>
           .
         </p>
