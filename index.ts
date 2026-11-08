@@ -113,13 +113,16 @@ function tutorRateLimitCheck(key: string): { allowed: boolean; retryAfter?: numb
 
 app.post("/api/tutor", async (req, res) => {
   const {
+    message,
+    context = "cybersecurity"
+  } = req.body ?? {};
+
   const rateKey = req.get('x-secure-t-key') || req.ip || 'unknown';
   const rate = tutorRateLimitCheck(rateKey);
   if (!rate.allowed) {
     return res.status(429).setHeader('retry-after', String(rate.retryAfter ?? 60)).json({ error: 'Too many requests' });
   }
 
- message, context = "cybersecurity" } = req.body ?? {};
   if (typeof message !== "string" || !message.trim() || message.length > 2000 ||
       typeof context !== "string" || !["cybersecurity", "defensive-security", "responsible-ai", "governance"].includes(context)) {
     return res.status(400).json({ error: "Invalid tutor message or context" });
