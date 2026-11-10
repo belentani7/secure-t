@@ -1,0 +1,17 @@
+{
+  "name": "secure T",
+  "short_name": "secure T",
+  "description": "instituto abierto de formación (programas + laboratorios)",
+  "lang": "es",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbfaf7",
+  "theme_color": "#0e6e5a",
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

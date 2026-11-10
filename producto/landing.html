@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tu equipo, expuesto todos los días, formado en seguridad</title>
+<meta name="description" content="Cuatro cursos, 80 unidades, laboratorio aislado y evaluación con banco de preguntas. El aula se patrocina: tu equipo aprende sin registro y sin pagar matrícula.">
+<meta name="color-scheme" content="light">
+<style>
+  :root{
+    --bg:#fbfaf7; --surface:#f5f4f1; --ink:#1a1a1a; --muted:#5d5c5b;
+    --accent:#0e6e5a; --accent-dark:#0a5344; --accent2:#c2410c;
+    --deep:#122a26; --line:#dedbd4;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:1.0625rem/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.18;margin:0 0 .5em}
+  h1{font-size:clamp(1.85rem,5vw,3rem)}
+  h2{font-size:clamp(1.3rem,3.3vw,1.85rem)}
+  h3{font-family:inherit;font-size:1.05rem}
+  p{margin:0 0 1em;max-width:64ch}
+  a{color:var(--accent-dark)}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--accent2);outline-offset:3px;border-radius:4px}
+  .skip{position:absolute;left:-9999px;background:#000;color:#fff;padding:.6rem 1rem}
+  .skip:focus{left:1rem;top:1rem;z-index:20}
+  .wrap{max-width:64rem;margin:0 auto;padding:0 1.15rem}
+
+  header.site{background:var(--deep);color:#fff}
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 0;min-height:3.7rem}
+  .brand{display:flex;gap:.55rem;align-items:center;color:#fff;text-decoration:none;font-weight:700}
+  .brand i{width:1.55rem;height:1.55rem;border-radius:.3rem;background:var(--accent);display:grid;place-items:center;font-style:normal;font-family:Georgia,serif}
+  nav.top{display:none}
+  nav.top a{color:#dcece7;text-decoration:none;margin-left:1.15rem;font-size:.95rem}
+  nav.top a:hover{color:#fff;text-decoration:underline}
+
+  .hero{background:var(--deep);color:#fff;padding:clamp(1.6rem,4.5vw,3.2rem) 0 clamp(2rem,5vw,3.4rem)}
+  .hero p{color:#d7e6e1}
+  .kicker{display:inline-block;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid #3d6159;color:#bfe0d7;padding:.28rem .6rem;border-radius:999px;margin-bottom:1rem}
+  .cta-row{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin:1.1rem 0 .55rem}
+  .btn{display:inline-block;background:var(--accent2);color:#fff;border:2px solid var(--accent2);padding:.85rem 1.3rem;border-radius:.5rem;font-weight:700;text-decoration:none}
+  .btn:hover{background:#9a3409;border-color:#9a3409}
+  .btn.ghost{background:transparent;border-color:#8fb6ab;color:#eaf4f0}
+  .btn.ghost:hover{background:#1c3d36;border-color:#cfe6df}
+  .fine{font-size:.86rem;color:#b9cfc8;margin:0}
+  .strip{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem;margin:1.5rem 0 0;padding:0;list-style:none}
+  .strip li{background:#17352f;border:1px solid #2c524a;border-radius:.55rem;padding:.7rem .8rem}
+  .strip b{display:block;font-family:Georgia,serif;font-size:1.45rem;color:#fff}
+  .strip span{font-size:.82rem;color:#a9c5bd}
+
+  section{padding:clamp(2rem,5.5vw,3.6rem) 0}
+  .alt{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .grid{display:grid;gap:1rem}
+  .card{background:#fff;border:1px solid var(--line);border-radius:.7rem;padding:1.15rem}
+  .card p{margin:0;font-size:.96rem}
+  .card h3{margin-bottom:.3rem}
+  .tagline{font-family:Georgia,serif;color:var(--accent);font-size:.82rem;letter-spacing:.08em;text-transform:uppercase}
+
+  .steps{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;gap:.8rem}
+  .steps li{display:grid;grid-template-columns:2.2rem 1fr;gap:.8rem;align-items:start;background:#fff;border:1px solid var(--line);border-radius:.6rem;padding:.9rem 1rem}
+  .steps li::before{counter-increment:s;content:counter(s);font-family:Georgia,serif;font-size:1.3rem;color:var(--accent2);line-height:1.2}
+  .steps p{margin:0;font-size:.96rem}
+
+  .price{display:grid;gap:1rem;margin-top:1.2rem}
+  .plan{background:#fff;border:1px solid var(--line);border-radius:.8rem;padding:1.3rem;display:flex;flex-direction:column}
+  .plan.main{border:2px solid var(--accent)}
+  .amount{font-family:Georgia,serif;font-size:2.05rem;margin:.2rem 0 .1rem}
+  .small{font-size:.86rem;color:var(--muted);margin:0}
+  .plan ul{margin:.9rem 0 1.1rem;padding-left:1.15rem;font-size:.95rem}
+  .plan .btn{margin-top:auto;text-align:center}
+
+  details{background:#fff;border:1px solid var(--line);border-radius:.6rem;padding:.9rem 1.1rem;margin-bottom:.7rem}
+  summary{font-weight:700;cursor:pointer}
+  details p{margin:.7rem 0 0;font-size:.96rem}
+
+  .warn{background:#fff6ef;border-left:5px solid var(--accent2);border-radius:.4rem;padding:1rem 1.1rem;font-size:.95rem;border:1px solid #f0d3bd}
+  footer{background:var(--deep);color:#c8dcd6;padding:2rem 0 2.4rem;font-size:.88rem}
+  footer p{max-width:70ch}
+  footer a{color:#eaf4f0}
+  @media (min-width:40rem){
+    .strip{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid.four{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .price{grid-template-columns:repeat(2,minmax(0,1fr))}
+  }
+  @media (min-width:56rem){
+    nav.top{display:block}
+    .grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  @media print{header.site,nav.top,.cta-row{display:none}body{background:#fff}.hero{background:#fff;color:#000}.hero p{color:#000}}
+</style>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tu equipo, expuesto todos los días, formado en seguridad">
+<meta property="og:description" content="Cuatro cursos, 80 unidades, laboratorio aislado y evaluación con banco de preguntas. El aula se patrocina: tu equipo aprende sin registro y sin pagar">
+<meta property="og:image" content="brand/og-image.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="#contenido"><i aria-hidden="true">✳</i> secure T</a>
+    <nav class="top" aria-label="Secciones">
+      <a href="#cursos">Los cuatro cursos</a>
+      <a href="#aula">Cómo funciona</a>
+      <a href="#precio">Precio</a>
+      <a href="#dudas">Dudas</a>
+      <a href="#reservar">Reservar</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido">
+  <section class="hero">
+    <div class="wrap">
+      <p class="kicker">Aula patrocinada · 15 personas · 12 semanas</p>
+      <h1>Tu equipo, expuesto todos los días, formado en seguridad digital sin pagar matrícula</h1>
+      <p>Cuatro cursos completos —defensa, ataque autorizado, IA segura y gobernanza—, 80 unidades
+        con laboratorio y evaluaciones corregidas. La organización paga el aula; las personas
+        entran sin registro y sin coste.</p>
+      <div class="cta-row">
+        <a class="btn cta" href="#reservar" data-cta="reservar">Reservar el aula</a>
+        <a class="btn ghost" href="#precio">Ver precio</a>
+      </div>
+      <p class="fine">2.900 € + IVA · sesión de apertura con devolución íntegra si no seguís ·
+        constancia local por participante, nunca certificado oficial.</p>
+
+      <ul class="strip">
+        <li><b>4</b><span>cursos con 20 unidades cada uno</span></li>
+        <li><b>80</b><span>lecciones con práctica</span></li>
+        <li><b>1</b><span>laboratorio aislado, sin red</span></li>
+        <li><b>0 €</b><span>por persona del equipo</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="cursos">
+    <div class="wrap">
+      <h2>Cuatro cursos, no un catálogo infinito</h2>
+      <p>Son cuatro porque cuatro es lo que una persona no técnica necesita para dejar de ser el
+        eslabón débil: reconocer un engaño, entender el ataque para defenderse, usar IA sin
+        filtrar datos y saber qué exige la norma. Cada curso son 20 semanas publicadas.</p>
+      <div class="grid four">
+        <article class="card">
+          <p class="tagline">01</p>
+          <h3>Seguridad defensiva · SOC</h3>
+          <p>Alertas, evidencias, investigación y respuesta responsable. El curso base para
+            cualquier equipo que recibe correos y datos de clientes.</p>
+        </article>
+        <article class="card">
+          <p class="tagline">02</p>
+          <h3>Seguridad ofensiva autorizada</h3>
+          <p>Pensar como atacante para defender mejor, en entornos propios o con autorización
+            escrita. Sin intervención en sistemas ajenos.</p>
+        </article>
+        <article class="card">
+          <p class="tagline">03</p>
+          <h3>IA aplicada y segura</h3>
+          <p>Usar modelos sin filtrar datos de la empresa, con criterio sobre lo que se puede
+            pegar en una ventana de chat y lo que no.</p>
+        </article>
+        <article class="card">
+          <p class="tagline">04</p>
+          <h3>Gobernanza y compliance</h3>
+          <p>Qué hay que poder demostrar, con qué registro y con qué responsable. Para quien
+            firma, no solo para quien ejecuta.</p>
+        </article>
+      </div>
+      <div class="warn" style="margin-top:1.3rem">
+        <strong>Sin humo:</strong> la evaluación es un banco de preguntas con corrección y
+        explicación, y la constancia final es un bloque con huella SHA-256 que cualquiera puede
+        recomputar. Esa huella demuestra coherencia del bloque, <em>no</em> identidad ni
+        aprendizaje certificado. No emitimos títulos.
+      </div>
+    </div>
+  </section>
+
+  <section id="aula" class="alt">
+    <div class="wrap">
+      <h2>Doce semanas, cuatro momentos</h2>
+      <ol class="steps">
+        <li>
+          <p><strong>Apertura en directo (90 min).</strong> Se entrega el campus en vuestros
+            equipos, se recorre el primer curso y se acuerda el ritmo. Aquí se decide si seguimos.</p>
+        </li>
+        <li>
+          <p><strong>Semanas 1–8 a su ritmo.</strong> Cada persona recorre las unidades en su
+            navegador; el progreso se guarda en su equipo. Los laboratorios se hacen en la vista
+            previa aislada: no hay red, no hay scripts, no hay riesgo.</p>
+        </li>
+        <li>
+          <p><strong>Evaluación y proyecto.</strong> Banco de preguntas con explicación de cada
+            respuesta, más la evidencia de proyecto que la organización define con su gente.</p>
+        </li>
+        <li>
+          <p><strong>Cierre e informe.</strong> Sesión de cierre y recuento de recorrido por
+            participante, sin datos sensibles: qué unidades, qué evaluaciones, qué evidencias.</p>
+        </li>
+      </ol>
+      <p class="small" style="margin-top:1rem">El material se sirve como sitio estático: cabe en
+        vuestro dominio, en una carpeta compartida o en un portátil de aula.</p>
+    </div>
+  </section>
+
+  <section id="precio">
+    <div class="wrap">
+      <h2>Precio</h2>
+      <p>Pago único por aula, sin cuota por persona ni renovación automática. Precios sin IVA;
+        el 21 % va desglosado en la factura.</p>
+      <div class="price">
+        <article class="plan main">
+          <p class="tagline">Recomendado</p>
+          <h3>Aula 15</h3>
+          <p class="amount">2.900 €</p>
+          <p class="small">+ 609 € IVA · total 3.509 €</p>
+          <ul>
+            <li>15 personas, 12 semanas</li>
+            <li>Los 4 cursos completos</li>
+            <li>Sesión de apertura y de cierre</li>
+            <li>Constancia local por participante</li>
+            <li>Informe de recorrido</li>
+          </ul>
+          <a class="btn cta" href="#reservar" data-cta="reservar">Reservar Aula 15</a>
+        </article>
+        <article class="plan">
+          <p class="tagline">Equipo grande</p>
+          <h3>Aula 40</h3>
+          <p class="amount">5.800 €</p>
+          <p class="small">+ 1.218 € IVA · total 7.018 €</p>
+          <ul>
+            <li>40 personas, 12 semanas</li>
+            <li>Los 4 cursos completos</li>
+            <li>Tres sesiones en directo</li>
+            <li>Dos informes de recorrido</li>
+            <li>180 días de acceso al campus</li>
+          </ul>
+          <a class="btn cta" href="#reservar" data-cta="reservar">Reservar Aula 40</a>
+        </article>
+      </div>
+      <p class="small" style="margin-top:1rem">Segunda aula en el mismo ejercicio: 15 % de
+        descuento. Entidades de formación reglada: 10 %.</p>
+    </div>
+  </section>
+
+  <section id="dudas" class="alt">
+    <div class="wrap">
+      <h2>Dudas que hay que responder antes de firmar</h2>
+      <details>
+        <summary>¿La constancia sirve como certificado para el currículum?</summary>
+        <p>No, y el propio producto lo dice al generarla: demuestra que el bloque no se ha
+          alterado, no que la persona sea quien dice ni que haya aprobado. Lo que sí obtiene la
+          organización es un informe de recorrido con unidades, evaluaciones y evidencias.</p>
+      </details>
+      <details>
+        <summary>¿Enseñáis a atacar?</summary>
+        <p>Se enseña el punto de vista del atacante para defender, en entornos propios o con
+          autorización escrita. Cada unidad lo repite. No se imparte explotación sobre sistemas
+          de terceros.</p>
+      </details>
+      <details>
+        <summary>¿Necesitamos instalar algo o dar cuentas?</summary>
+        <p>No hay cuentas. Se copia el campus en los equipos o se sirve desde vuestro dominio;
+          el progreso vive en el navegador de cada persona. Una hora de instalación acompañada.</p>
+      </details>
+      <details>
+        <summary>¿Qué pasa si el equipo no sigue?</summary>
+        <p>Tras la sesión de apertura, devolución del 100 % sin preguntas. El material es abierto:
+          no hay nada que devolver.</p>
+      </details>
+      <details>
+        <summary>¿Quién está detrás?</summary>
+        <p>El autor del repositorio <em>secure T</em>: escribe el currículo, el campus y el
+          laboratorio. No hay institución acreditada detrás y no se presenta como tal.</p>
+      </details>
+    </div>
+  </section>
+
+  <section id="reservar">
+    <div class="wrap">
+      <h2>Reservar el aula</h2>
+      <p>Escribe con el asunto «Aula» indicando la organización, cuántas personas queréis formar
+        y en qué mes empezaríais. Se responde con dos huecos para la apertura y una factura
+        proforma. Sin formulario y sin cookies en esta página.</p>
+      <div class="cta-row">
+        <a class="btn cta" href="mailto:aulas@secure-t.example?subject=Aula%20secure%20T" data-cta="reservar">Escribir para reservar</a>
+        <a class="btn ghost" href="#cursos">Repasar los cursos</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>secure T</strong> — campus abierto de seguridad digital. Contenido bajo licencia
+      MIT. Formación en entornos autorizados; no certifica estudios y no realiza auditorías ni
+      pruebas de intrusión.</p>
+    <p>Página sin CDN, sin fuentes externas y sin analítica. Precios en euros con IVA indicado.</p>
+  </div>
+</footer>
+<!-- page-fix:1 -->
+</body>
+</html>

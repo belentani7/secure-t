@@ -1,0 +1,101 @@
+name: CD — verified manual Vercel deployment
+
+# Production and preview deployments are explicit to avoid quota-draining push loops.
+# GitHub Actions CI and Pages are independent from this Vercel release workflow.
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Deploy target (staging uses a Vercel preview)
+        type: choice
+        required: true
+        default: staging
+        options:
+          - staging
+          - production
+
+permissions:
+  contents: read
+
+concurrency:
+  group: secure-t-cd-${{ inputs.environment }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Validate and deploy ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Checkout reviewed source
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Set up pnpm matching packageManager
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+
+      - name: Set up Node.js compatible with Vite 8
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: pnpm
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck, test and build before release
+        run: |
+          set -euo pipefail
+          pnpm typecheck
+          pnpm test
+          node --test tests/api-security.test.mjs
+          pnpm build
+
+      - name: Ensure deployment credentials and existing project link are configured
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          set -euo pipefail
+          if [[ "${{ inputs.environment }}" == "production" && "$GITHUB_REF" != "refs/heads/main" ]]; then
+            echo "::error::Production releases must be dispatched from main."
+            exit 1
+          fi
+          for key in VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID; do
+            if [[ -z "${!key:-}" ]]; then
+              echo "::error::Missing ${key}. Configure the existing Vercel project and GitHub environment secrets."
+              exit 1
+            fi
+          done
+
+      - name: Install pinned official Vercel CLI
+        run: npm install --global vercel@64.5.0
+
+      - name: Deploy selected environment and verify response
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          TARGET: ${{ inputs.environment }}
+        run: |
+          set -euo pipefail
+          if [[ "$TARGET" == "production" ]]; then
+            vercel pull --yes --environment=production --token "$VERCEL_TOKEN"
+            DEPLOY_URL="$(vercel deploy --yes --prod --token "$VERCEL_TOKEN")"
+          else
+            vercel pull --yes --environment=preview --token "$VERCEL_TOKEN"
+            DEPLOY_URL="$(vercel deploy --yes --token "$VERCEL_TOKEN")"
+          fi
+
+          if [[ -z "$DEPLOY_URL" ]]; then
+            echo "::error::Vercel returned no deployment URL"
+            exit 1
+          fi
+          vercel inspect "$DEPLOY_URL" --wait --token "$VERCEL_TOKEN"
+          vercel curl / --deployment "$DEPLOY_URL" --token "$VERCEL_TOKEN" -fS >/dev/null
+          echo "Verified $TARGET deployment: $DEPLOY_URL" >> "$GITHUB_STEP_SUMMARY"

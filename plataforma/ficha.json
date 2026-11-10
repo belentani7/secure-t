@@ -1,0 +1,80 @@
+{
+  "esquema": "repo-forge/ficha/1",
+  "nombre": "secure-t",
+  "remoto": "https://github.com/belentani7/secure-t",
+  "arquetipo": "python-tool",
+  "stack": "Markdown",
+  "modelo": "instituto abierto de formación (programas + laboratorios)",
+  "publico": "profesionales que quieren entrar en ciberseguridad e IA sin pagar matrícula",
+  "techo": "instituto con cuatro programas, laboratorios reproducibles y credencial verificable; sostenido por empresas que patrocinan cohortes, nunca por el alumno",
+  "modulos": [
+    "Catálogo de 4 programas",
+    "Laboratorios guiados",
+    "Evaluación por evidencias",
+    "Credencial verificable",
+    "Bolsa de prácticas"
+  ],
+  "no_go": "prometer certificación oficial, enseñar ataque sin autorización",
+  "marca": {
+    "nombre": "secure T",
+    "familia": "educacion",
+    "paleta": {
+      "familia": "educacion",
+      "bg": "#fbfaf7",
+      "surface": "#f5f4f1",
+      "ink": "#1a1a1a",
+      "muted": "#706f6e",
+      "accent": "#0e6e5a",
+      "accent2": "#c2410c",
+      "ok": "#15803d",
+      "warn": "#b45309",
+      "danger": "#b91c1c",
+      "contraste_ink_bg": 16.67,
+      "contraste_accent_bg": 5.92,
+      "accent_sobre_bg_ok": true
+    },
+    "narrativa": "Aprender no debería pedir permiso"
+  },
+  "paywall": {
+    "principio": "muro cero para el alumno: el conocimiento no se bloquea",
+    "fases": 4
+  },
+  "medido": {
+    "archivos": 250,
+    "lineas": 25589,
+    "html": 28,
+    "tests": 0,
+    "bytes": 1597581,
+    "lenguajes": {
+      "Markdown": 45.3,
+      "HTML": 31.4,
+      "JavaScript": 10.6,
+      "JSON": 9.0,
+      "CSS": 2.4,
+      "TypeScript": 0.7
+    },
+    "fecha": "2026-11-10"
+  },
+  "gate": {
+    "pass": 32,
+    "fail": 2,
+    "skip": 15,
+    "cumplimiento": 94.1,
+    "fallos": [
+      "WEB-07",
+      "DEV-01"
+    ]
+  },
+  "ajustes": {
+    "total": 65,
+    "aplicados": 63,
+    "ya_estaban": 2,
+    "fallos": 1
+  },
+  "esfuerzo_dias": 51,
+  "doctor": {
+    "ok": true,
+    "detalle": "32/32 comprobaciones en verde"
+  },
+  "huella": "41b324007f0f1f4f"
+}

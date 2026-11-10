@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://belentani7.github.io/secure-t/sitemap.xml

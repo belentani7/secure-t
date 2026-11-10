@@ -1,0 +1,65 @@
+﻿# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+site-dist/
+build/
+*.local
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test
+coverage/
+playwright-report/
+test-results/
+
+# Cache
+.cache/
+*.tsbuildinfo
+
+# Docker
+.docker/
+
+# Misc
+*.pem
+.vercel
+
+# Next.js build output
+.next/
+
+# Generated static campus copied for dev/build (source lives in campus/)
+client/public/campus/
+client/public/conceptos/
+client/public/ui/
+client/public/404.html
+
+# Python caches and local static build output
+__pycache__/
+*.pyc
+_site/
+
+# curacion 2026-11-01
+legacy/
+_stems/
+.aider*
