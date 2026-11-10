@@ -1,4 +1,4 @@
-﻿
+
 
 <!-- repo-forge:readme:inicio -->
 ## Qué es
