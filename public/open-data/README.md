@@ -11,3 +11,7 @@ Orden de idiomas del ecosistema: **PT > ES > EN > CA**.
 Las fuentes y licencias de cada dato estan en `topics.json`. Revisa la licencia
 concreta antes de uso comercial. Regeneracion: `python enrich_portals.py <portal>`
 en el proyecto `edu-open-data`.
+
+
+## Producto
+Véase `plataforma/OFERTA.md`.

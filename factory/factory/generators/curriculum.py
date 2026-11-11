@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Curriculum: blueprint YAML → Course (módulos × lecciones). Requiere LLM (Ollama)."""
 import pathlib
 

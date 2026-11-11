@@ -20,3 +20,7 @@ docker compose -f ../docker-compose.yml -f labs/docker-compose.labs.yml up -d
 
 ## Game-loop (clean-room HTB/SANS)
 Puntos 250 + bonus velocidad/accuracy/first-blood, scoreboard real-time. Implementación propia en `server/`, sin código HTB.
+
+
+## Producto
+Véase `plataforma/OFERTA.md`.

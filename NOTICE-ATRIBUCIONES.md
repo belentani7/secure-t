@@ -1,4 +1,4 @@
-﻿# ATRIBUCIONES OPEN
+# ATRIBUCIONES OPEN
 
 Este proyecto es AGPLv3. Reutiliza literalmente:
 

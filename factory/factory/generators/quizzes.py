@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Quizzes + exámenes con psicometría (muestreo estratificado + semilla por versión)."""
 import random
 

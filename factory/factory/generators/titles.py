@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Títulos SVG→PDF con hash + SCORM/xAPI/LTI (portable a cualquier LMS)."""
 import hashlib
 import json

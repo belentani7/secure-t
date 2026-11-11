@@ -216,3 +216,7 @@ npm run build
 ```
 
 Consulta `package.json` para la lista completa de scripts disponibles.
+
+
+## Producto
+Véase `plataforma/OFERTA.md`, `plataforma/precios.json`, `plataforma/ONEPAGER.md`.

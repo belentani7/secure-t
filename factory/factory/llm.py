@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """LLM open con caché en disco (clave para costo/escala)."""
 import hashlib
 import json

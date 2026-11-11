@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Manifest + contabilidad de GB + subida opcional a S3/R2."""
 import hashlib
 import json

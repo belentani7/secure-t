@@ -28,3 +28,7 @@ python3 -m aegis_cli scan . --format markdown
 ```
 
 La primera versión usa solo la biblioteca estándar de Python.
+
+
+## Producto
+Véase `plataforma/OFERTA.md`.

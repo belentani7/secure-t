@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """SCORM 2004 + xAPI + LTI."""
 import json
 import zipfile

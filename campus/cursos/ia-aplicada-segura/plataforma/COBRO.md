@@ -1,0 +1,1 @@
+# Cobro — ia-aplicada-segura

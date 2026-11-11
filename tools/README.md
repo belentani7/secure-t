@@ -90,3 +90,7 @@ Añadir job `python-quality` en `.github/workflows/deploy-ci.yml`:
 - **Actualizar allowlist** en `i18n_audit.py` cuando se añadan marcas/códigos legítimos
 - **Añadir colores custom** en `TAILWIND_COLORS` de `contrast_audit.py` si cambia `index.css`
 - **Ajustar excepciones** en `i18n_hardcoded.py` si hay falsos positivos/negativos
+
+
+## Producto
+Véase `plataforma/OFERTA.md`.

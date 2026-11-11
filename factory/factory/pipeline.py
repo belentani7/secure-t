@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Pipeline: blueprint → course → assets → QA → manifest. Escalas smoke/medium/giga."""
 import json
 import pathlib

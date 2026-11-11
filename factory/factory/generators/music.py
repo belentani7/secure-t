@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Música procedural numpy + jingle de marca (3 s → notificador)."""
 import subprocess
 

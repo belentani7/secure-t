@@ -42,3 +42,7 @@ Copia `.env.example` a `.env` y rellena los valores. Nunca comitees `.env`.
 ## Licencia
 
 MIT - ver [LICENSE](LICENSE).
+
+
+## Producto
+Véase `plataforma/OFERTA.md`.

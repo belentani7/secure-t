@@ -1,0 +1,2 @@
+REPO = "education"
+FAMILIA = "educación"
