@@ -1,4 +1,4 @@
-﻿# securetea-auditoria
+# securetea-auditoria
 
 Proyecto de Pedro Belentani (belentani7).
 

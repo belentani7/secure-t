@@ -10,7 +10,7 @@
   --sonic-state: #4ef0b0;        /* Cuerda 3: Mint - Estado */
   --sonic-vibration: #ff6b5e;    /* Cuerda 4: Coral - Vibración */
   --sonic-compatibility: #a78bfa; /* Cuerda 5: Violet - Compatibilidad (NVIDIA) */
-  
+
   /* Fondos */
   --sonic-bg: #0b1322;
   --sonic-bg-elevated: #0d1626;
@@ -306,20 +306,20 @@
     padding: 1.5rem;
     border-radius: 12px;
   }
-  
+
   .sonic-btn-group {
     flex-direction: column;
   }
-  
+
   .sonic-btn {
     width: 100%;
   }
-  
+
   .sonic-strings {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .sonic-string {
     width: 100%;
     flex-direction: row;
@@ -344,7 +344,7 @@
     height: 100%;
     opacity: 1;
   }
-  
+
   .sonic-lock.unlocking {
     animation: none;
   }
@@ -355,7 +355,7 @@
   .sonic-lock {
     border-width: 2px;
   }
-  
+
   .sonic-btn--secondary,
   .sonic-btn--tertiary {
     border-width: 2px;

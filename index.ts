@@ -92,8 +92,37 @@ app.get("/api/progress", (_req, res) => res.json({
   currentTerm: "Year 1 · Fall", completion: 72, streakDays: 4,
 }));
 
+
+// Tutor rate limiting: max 10 requests per minute per API key / IP.
+const tutorRateLimit = new Map<string, { count: number; reset: number }>();
+const TUTOR_RATE_LIMIT_MAX = 10;
+const TUTOR_RATE_LIMIT_WINDOW = 60 * 1000;
+function tutorRateLimitCheck(key: string): { allowed: boolean; retryAfter?: number } {
+  const now = Date.now();
+  const entry = tutorRateLimit.get(key);
+  if (!entry || now > entry.reset) {
+    tutorRateLimit.set(key, { count: 1, reset: now + TUTOR_RATE_LIMIT_WINDOW });
+    return { allowed: true };
+  }
+  entry.count += 1;
+  if (entry.count > TUTOR_RATE_LIMIT_MAX) {
+    return { allowed: false, retryAfter: Math.ceil((entry.reset - now) / 1000) };
+  }
+  return { allowed: true };
+}
+
 app.post("/api/tutor", async (req, res) => {
-  const { message, context = "cybersecurity" } = req.body ?? {};
+  const {
+    message,
+    context = "cybersecurity"
+  } = req.body ?? {};
+
+  const rateKey = req.get('x-secure-t-key') || req.ip || 'unknown';
+  const rate = tutorRateLimitCheck(rateKey);
+  if (!rate.allowed) {
+    return res.status(429).setHeader('retry-after', String(rate.retryAfter ?? 60)).json({ error: 'Too many requests' });
+  }
+
   if (typeof message !== "string" || !message.trim() || message.length > 2000 ||
       typeof context !== "string" || !["cybersecurity", "defensive-security", "responsible-ai", "governance"].includes(context)) {
     return res.status(400).json({ error: "Invalid tutor message or context" });

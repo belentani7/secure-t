@@ -30,15 +30,15 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="sonic-lock" id="sonic-lock-widget">
       <h3 id="sonic-title">🔐 CANDADO SÓNICO</h3>
       <p class="subtitle">A llave no es una contraseña. Es resonancia.</p>
-      
+
       <div class="sonic-strings">${stringsHtml}</div>
-      
+
       <div class="sonic-btn-group">
         <button class="sonic-btn sonic-btn--primary" id="btn-sing">🎤 Cantar la llave</button>
         <button class="sonic-btn sonic-btn--secondary" id="btn-master">🎵 Llave Maestra</button>
         <button class="sonic-btn sonic-btn--tertiary" id="btn-belentani">🌌 Secuencia Belentani</button>
       </div>
-      
+
       <div class="sonic-metrics">
         <div class="sonic-metric">
           <span class="sonic-metric__label">Intentos</span>
@@ -53,10 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
           <span class="sonic-metric__value sonic-metric__value--locked" id="metric-status">🔒 CERRADO</span>
         </div>
       </div>
-      
+
       <details class="sonic-details">
         <summary>Ver cuerdas (Teoría de Cuerdas)</summary>
-        <pre>${MASTER_KEY_SEQUENCE.map(s => 
+        <pre>${MASTER_KEY_SEQUENCE.map(s =>
   `  ${s.note} (${s.hz}Hz) — ${s.meaning} [${s.color}]`
 ).join('\n')}</pre>
       </details>
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Callbacks
   lock.onResonanceChange = (level) => {
     metricResonance.textContent = (level * 100).toFixed(1) + '%';
-    
+
     // Animar cuerdas según resonancia
     strings.forEach((str, i) => {
       const bar = str.querySelector('.sonic-string__color-bar');
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         str.classList.remove('resonating');
       }
     });
-    
+
     if (level > 0.15 && !lock.unlocked) {
       lock.isUnlocked = true;
       lock.onUnlock?.();
