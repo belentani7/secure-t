@@ -6,16 +6,27 @@
 <title>Página no encontrada (404) — secure T</title>
 <meta name="description" content="La página que buscas no existe en secure T. Puede que el enlace sea viejo o que el archivo se haya movido. Vuelve al inicio para seguir navegando.">
 <meta name="robots" content="noindex">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='25' font-size='25'%3ET%3C/text%3E%3C/svg%3E" type="image/svg+xml">
 <style>body{margin:0;min-height:100dvh;display:grid;place-items:center;background:#fbfaf7;color:#1a1a1a;font-family:system-ui,sans-serif;text-align:center;padding:2rem}a{color:#0e6e5a}</style>
 </head>
 <body>
   <main>
     <p>404</p>
     <h1>Esta página no existe</h1>
+    <p lang="pt">Esta página não existe.</p>
+    <p lang="en">This page does not exist.</p>
     <p>Puede que el enlace sea viejo o que el archivo se haya movido.</p>
-    <p><a href="/">Volver al inicio</a></p>
+    <p><a href="./" id="ir-inicio">Volver al inicio</a></p>
+    <p><a href="./campus/" id="ir-campus">Abrir el campus</a></p>
   </main>
   <footer><p>© 2026 secure T · Parte del ecosistema Belentani</p></footer>
+<script>
+  // GitHub project paths and custom-domain roots need different recovery URLs.
+  const parts = location.pathname.split("/");
+  const project = parts.findIndex(part => /^(secure-t|secure-t-university)$/i.test(part));
+  const base = project >= 0 ? parts.slice(0, project + 1).join("/") + "/" : "/";
+  document.getElementById("ir-inicio").href = base;
+  document.getElementById("ir-campus").href = base + "campus/";
+</script>
 </body>
 </html>

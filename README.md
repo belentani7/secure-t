@@ -22,9 +22,16 @@ Todo lo anterior se midió en disco el 2026-11-10; no es una estimación.
 ## Uso
 
 ```bash
-python -m unittest discover -s tests -v
+python -m pip install -r requirements-dev.txt
+python -m pytest -q tests/
+node scripts/verify-platform-security.mjs
 python scripts/doctor.py
 ```
+
+El motor educativo vive en `lib/edu-engine` y sus comandos `eduforge` se documentan
+en su fuente. Los registros `audit` describen resultados de comprobaciones; un
+elemento marcado `PLANNED` expresa trabajo previsto y no una función terminada.
+El campus es formativo y no promete certificación oficial.
 
 ## Estructura
 
