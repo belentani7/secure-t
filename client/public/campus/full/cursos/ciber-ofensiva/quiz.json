@@ -1,0 +1,68 @@
+[
+  {
+    "pregunta": "Lo primero en cualquier test ofensivo es...",
+    "opciones": [
+      "Escanear agresivamente",
+      "Obtener permiso escrito y alcance",
+      "Instalar Metasploit",
+      "Buscar 0-days"
+    ],
+    "correcta": 1,
+    "explicacion": "Sin autorización expresa no hay test ético: hay delito."
+  },
+  {
+    "pregunta": "OWASP Top 10 es...",
+    "opciones": [
+      "Una lista de antivirus",
+      "Un ranking de riesgos de seguridad web",
+      "Un firewall",
+      "Una norma ISO"
+    ],
+    "correcta": 1,
+    "explicacion": "Consenso comunitario sobre los 10 riesgos web más críticos."
+  },
+  {
+    "pregunta": "El OSINT pasivo se caracteriza por...",
+    "opciones": [
+      "Enviar paquetes al objetivo",
+      "No contactar directamente el objetivo",
+      "Requerir exploits",
+      "Ser ilegal siempre"
+    ],
+    "correcta": 1,
+    "explicacion": "Recolecta información pública sin tocar la infraestructura del objetivo."
+  },
+  {
+    "pregunta": "Un hallazgo en el informe ético se cierra con...",
+    "opciones": [
+      "Un pantallazo sin contexto",
+      "Severidad + reproducción + remediación",
+      "El nombre del atacante",
+      "El precio del fix"
+    ],
+    "correcta": 1,
+    "explicacion": "Sin severidad (CVSS), reproducción y remediación no es un hallazgo accionable."
+  },
+  {
+    "pregunta": "Juice Shop o Metasploitable son válidos para practicar porque...",
+    "opciones": [
+      "Son sistemas de terceros sin dueño",
+      "Son entornos creados para ser vulnerados legalmente en local",
+      "Están parcheados",
+      "No necesitan VM"
+    ],
+    "correcta": 1,
+    "explicacion": "Son plataformas deliberadamente vulnerables para formación, en red local propia."
+  },
+  {
+    "pregunta": "Un escaneo agresivo se evita en recon porque...",
+    "opciones": [
+      "Es lento",
+      "Puede tumbar el servicio y saltar alarmas IDS",
+      "No da información",
+      "Es ilegal en todo caso"
+    ],
+    "correcta": 1,
+    "explicacion": "El recon profesional minimiza impacto: primero pasivo, escaneo suave después."
+  }
+]
