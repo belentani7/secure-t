@@ -54,18 +54,18 @@ def parse_color(color_str: str) -> Optional[Tuple[float, float, float]]:
             g = int(hex_color[2:4], 16) / 255
             b = int(hex_color[4:6], 16) / 255
             return (r, g, b)
-    
+
     # rgb() / rgba()
     rgb_match = re.match(r'rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)', color_str)
     if rgb_match:
         r, g, b = map(int, rgb_match.groups())
         return (r/255, g/255, b/255)
-    
+
     # Tailwind named colors (simplificado)
     for key, val in TAILWIND_COLORS.items():
         if key in color_str:
             return val
-    
+
     return None
 
 def aplicar_opacidad(color: Tuple[float, float, float], opacidad: float, fondo: Tuple[float, float, float]) -> Tuple[float, float, float]:
@@ -95,10 +95,10 @@ def parsear_clase_tailwind(clase: str) -> Optional[Tuple[str, str, Optional[floa
     match = re.match(r'^(text|bg)-(.+)$', clase)
     if not match:
         return None
-    
+
     tipo = match.group(1)
     valor = match.group(2)
-    
+
     # Separar opacidad si existe: color/45
     opacidad = None
     if '/' in valor:
@@ -108,7 +108,7 @@ def parsear_clase_tailwind(clase: str) -> Optional[Tuple[str, str, Optional[floa
             opacidad = OPACIDADES.get(partes[1]) or (int(partes[1]) / 100)
         except:
             opacidad = 1.0
-    
+
     return (tipo, valor, opacidad)
 
 def extraer_clases_tsx(archivo: Path) -> List[Tuple[int, str, str]]:
@@ -116,7 +116,7 @@ def extraer_clases_tsx(archivo: Path) -> List[Tuple[int, str, str]]:
     resultados = []
     content = archivo.read_text(encoding="utf-8")
     lineas = content.split('\n')
-    
+
     for i, linea in enumerate(lineas, 1):
         # Buscar className="..." o className={...}
         matches = re.finditer(r'className\s*=\s*["\']([^"\']+)["\']', linea)
@@ -126,7 +126,7 @@ def extraer_clases_tsx(archivo: Path) -> List[Tuple[int, str, str]]:
                 parsed = parsear_clase_tailwind(clase)
                 if parsed:
                     resultados.append((i, clase, parsed[0]))  # (linea, clase_completa, tipo)
-    
+
     return resultados
 
 def resolver_color(valor: str, opacidad: Optional[float], fondo_por_defecto: Tuple[float, float, float]) -> Optional[Tuple[float, float, float]]:
@@ -134,7 +134,7 @@ def resolver_color(valor: str, opacidad: Optional[float], fondo_por_defecto: Tup
     color_base = parse_color(valor)
     if not color_base:
         return None
-    
+
     if opacidad and opacidad < 1.0:
         return aplicar_opacidad(color_base, opacidad, fondo_por_defecto)
     return color_base
@@ -143,7 +143,7 @@ def auditar_archivo(archivo: Path, fondo_por_defecto: Tuple[float, float, float]
     """Audita un archivo TSX y devuelve fallos de contraste"""
     fallos = []
     clases = extraer_clases_tsx(archivo)
-    
+
     # Agrupar por línea: buscar pares text-* + bg-* en la misma línea
     por_linea = {}
     for linea, clase, tipo in clases:
@@ -153,13 +153,13 @@ def auditar_archivo(archivo: Path, fondo_por_defecto: Tuple[float, float, float]
         if parsed:
             _, color, opacidad = parsed
             por_linea[linea][tipo].append((color, opacidad))
-    
+
     for linea, datos in por_linea.items():
         for text_color, text_opacidad in datos["text"]:
             text_rgb = resolver_color(text_color, text_opacidad, fondo_por_defecto)
             if not text_rgb:
                 continue
-            
+
             # Buscar bg en misma línea o asumir fondo por defecto
             bg_rgb = fondo_por_defecto
             if datos["bg"]:
@@ -167,7 +167,7 @@ def auditar_archivo(archivo: Path, fondo_por_defecto: Tuple[float, float, float]
                 bg_resuelto = resolver_color(bg_color, bg_opacidad, fondo_por_defecto)
                 if bg_resuelto:
                     bg_rgb = bg_resuelto
-            
+
             ratio = contraste(text_rgb, bg_rgb)
             if ratio < 4.5:
                 fallos.append({
@@ -178,35 +178,35 @@ def auditar_archivo(archivo: Path, fondo_por_defecto: Tuple[float, float, float]
                     "ratio": round(ratio, 2),
                     "texto_ejemplo": "Texto en esta línea",
                 })
-    
+
     return fallos
 
 def main():
     print("=" * 70)
     print("AUDITORÍA DE CONTRASTE WCAG 2.x — secure-t")
     print("=" * 70)
-    
+
     # Fondos por defecto detectados en el proyecto
     FONDOS = [
         ("dark-bg (#071016)", TAILWIND_COLORS["dark-bg"]),
         ("dark-card (#101d24)", TAILWIND_COLORS["dark-card"]),
         ("dark-hover (#0b1322)", TAILWIND_COLORS["dark-hover"]),
     ]
-    
+
     todos_fallos = []
     archivos_procesados = 0
-    
+
     for tsx_file in SRC_DIR.rglob("*.tsx"):
         if "node_modules" in tsx_file.parts or ".git" in tsx_file.parts:
             continue
         archivos_procesados += 1
-        
+
         for nombre_fondo, fondo_rgb in FONDOS:
             fallos = auditar_archivo(tsx_file, fondo_rgb)
             for f in fallos:
                 f["fondo_asumido"] = nombre_fondo
             todos_fallos.extend(fallos)
-    
+
     # Deduplicar (mismo archivo, línea, clases)
     fallos_unicos = []
     vistos = set()
@@ -215,22 +215,22 @@ def main():
         if clave not in vistos:
             vistos.add(clave)
             fallos_unicos.append(f)
-    
+
     print(f"\nARCHIVOS PROCESADOS: {archivos_procesados}")
     print(f"FALLOS DE CONTRASTE (< 4.5:1): {len(fallos_unicos)}")
-    
+
     if fallos_unicos:
         # Agrupar por ratio para mostrar los peores primero
         fallos_unicos.sort(key=lambda x: x["ratio"])
-        
+
         print("\n🔴 TOP FALLOS (peor contraste primero):")
         for f in fallos_unicos[:30]:
             print(f"  {f['archivo']}:{f['linea']} | {f['text_class']} ON {f['bg_class']} ({f['fondo_asumido']})")
             print(f"       Ratio: {f['ratio']}:1")
-        
+
         if len(fallos_unicos) > 30:
             print(f"\n  ... y {len(fallos_unicos) - 30} fallos más")
-        
+
         # Estadísticas por opacidad
         print("\n📊 ESTADÍSTICAS POR OPACIDAD:")
         por_opacidad = {}
@@ -238,10 +238,10 @@ def main():
             match = re.search(r'/(\d+)', f["text_class"])
             op = match.group(1) if match else "100"
             por_opacidad[op] = por_opacidad.get(op, 0) + 1
-        
+
         for op in sorted(por_opacidad.keys(), key=int):
             print(f"   /{op}: {por_opacidad[op]} fallos")
-        
+
         print("\nRESULTADO: FALLOS DE CONTRASTE ❌")
         sys.exit(1)
     else:

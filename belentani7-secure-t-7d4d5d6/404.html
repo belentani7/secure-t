@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+﻿<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 — Secure T University · Secure t</title>
+<meta name="robots" content="noindex">
+<style>
+  :root{color-scheme:dark}
+  body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0a0e17;
+       color:#e8ecf4;font-family:'Space Grotesk',system-ui,sans-serif;text-align:center}
+  h1{font-size:clamp(3rem,10vw,5rem);margin:0;background:linear-gradient(90deg,#5b8cff,#9db8ff);
+     -webkit-background-clip:text;background-clip:text;color:transparent}
+  a{color:#5b8cff;text-decoration:none}a:hover{text-decoration:underline}
+  .box{padding:2rem;max-width:32rem}
+</style>
+<meta name="description" content="404 Esta página não existe. · Esta página no existe. · This page does not exist.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="404 — Secure T University · Secure t">
+<meta property="og:description" content="404 Esta página não existe. · Esta página no existe. · This page does not exist.">
+<meta property="og:image" content="brand/og-image.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<main class="box">
+  <h1>404</h1>
+  <p>Esta página não existe. · Esta página no existe. · This page does not exist.</p>
+  <nav aria-label="Navegação de recuperação"><p><a href="./" id="ir-inicio">← início</a> · <a href="./campus/" id="ir-campus">campus →</a></p></nav>
+</main>
+<script>
+  // Keep recovery inside the known project subpath on GitHub Pages.
+  // Vercel or custom-domain root deployments always recover to "/".
+  const first = location.pathname.split("/").filter(Boolean)[0] || "";
+  const prefix = /^(secure-t|secure-t-university)$/i.test(first) ? "/" + first : "";
+  document.getElementById("ir-inicio").href = prefix + "/";
+  document.getElementById("ir-campus").href = prefix + "/campus/";
+</script>
+<footer><p>© 2026 secure T · Parte del ecosistema Belentani</p></footer>
+<!-- page-fix:1 -->
+</body>
+</html>

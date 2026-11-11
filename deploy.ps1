@@ -1,6 +1,6 @@
-<# 
+<#
 .SYNOPSIS
-    Script de despliegue local para secure-t. Valida entorno, instala dependencias, ejecuta tests, 
+    Script de despliegue local para secure-t. Valida entorno, instala dependencias, ejecuta tests,
     compila build de producción y levanta contenedor Docker.
 
 .NOTES
@@ -114,7 +114,7 @@ try {
     } else {
         Write-Host "  Modo producción: levantando app en puerto 3000..." -ForegroundColor Yellow
         docker compose -f $composeFile up -d --build app
-        
+
         # Esperar healthcheck
         Write-Host "  Esperando healthcheck..." -ForegroundColor Yellow
         $attempts = 0
@@ -123,7 +123,7 @@ try {
             $health = docker inspect --format='{{.State.Health.Status}}' secure-t-app-1 2>$null
             $attempts++
         } while ($health -ne "healthy" -and $attempts -lt 12)
-        
+
         if ($health -eq "healthy") {
             Write-Host "  Healthcheck: HEALTHY" -ForegroundColor Green
             Write-Host "  App disponible en: http://localhost:3000" -ForegroundColor Green

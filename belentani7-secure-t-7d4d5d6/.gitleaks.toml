@@ -1,0 +1,28 @@
+# secure-t - configuracion de gitleaks
+#
+# El job `secretos` del CI fallaba con 6 hallazgos: 5 falsos positivos y 1 real.
+# Este archivo acota los falsos positivos SIN desactivar la deteccion.
+#
+# IMPORTANTE: sin la linea [extend] useDefault, Gitleaks 8.19+ ignora todo su
+# catalogo de reglas cuando encuentra este archivo y dejaria de detectar
+# secretos en TODO el repositorio. Esa linea es obligatoria, no decorativa.
+
+title = "secure-t"
+
+[extend]
+useDefault = true
+
+# Regla propia: las claves de DeepSeek tienen formato sk- seguido de 32 hex.
+# Las reglas por defecto de Gitleaks 8.30 NO las detectan (verificado): sin esta
+# regla, la clave que aparece en fix_weeks.py pasaba desapercibida.
+[[rules]]
+id = "deepseek-api-key"
+description = "Clave de API de DeepSeek (formato sk- + 32 hex)."
+regex = '''\bsk-[a-f0-9]{32}\b'''
+keywords = ["sk-"]
+
+# SECURITY: no global file/directory allowlists.
+# Gitleaks defaults to OR between path and content allowlist criteria;
+# a path of `.*` disables detection across the repository.
+# Any future exception must be scoped to a rule and tested with a
+# synthetic secret which MUST still be detected.

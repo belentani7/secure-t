@@ -1,37 +1,18 @@
+
+
+<!-- repo-forge:changelog:inicio -->
 # Changelog
 
-All notable changes to this project will be documented in this file.
+Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/).
+Versionado: [SemVer](https://semver.org/lang/es/).
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [No publicado]
 
-## [Unreleased]
+### Añadido
 
-### Added
-- Initial project template with professional standards
+- Ficha de máximo potencial, marca, plataforma y fases de monetización (`plataforma/`).
+- Banco de datos canónico (`data/`) y doctor de reglas (`scripts/doctor.py`).
+- Gobernanza pública: contribución, conducta, seguridad y plantillas de GitHub.
 
-### Changed
-- N/A
-
-### Deprecated
-- N/A
-
-### Removed
-- N/A
-
-### Fixed
-- N/A
-
-### Security
-- N/A
-
-## [0.1.0] - 2026-10-21
-
-### Added
-- Professional project structure
-- TypeScript strict configuration
-- ESLint + Prettier + Biome
-- Vitest + Playwright testing
-- GitHub Actions CI/CD
-- Docker support
-- Dependabot + CodeQL
+<!-- repo-forge:changelog -->
+<!-- repo-forge:changelog:fin -->

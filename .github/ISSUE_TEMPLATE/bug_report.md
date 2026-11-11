@@ -1,35 +1,19 @@
 ---
-name: Bug
-about: Algo no funciona
-title: "[Bug] "
+name: Error
+about: Algo no funciona como dice la documentación
 labels: bug
-assignees: ''
 ---
 
-## Qué falla
+## Qué esperabas
 
-<!-- Descripcion clara del sintoma, no de la causa -->
+## Qué pasó
 
-## Como reproducirlo
+## Cómo reproducirlo
 
 1.
 2.
-3.
 
 ## Entorno
 
-- SO / navegador:
-- Version del proyecto:
-- Rama o commit:
-
-## Comportamiento esperado
-
-## Capturas o logs
-
-<!-- Pega aqui el error. NO incluyas tokens, claves ni datos personales: se redactan. -->
-
-## Impacto
-
-- [ ] Rompe la funcionalidad principal
-- [ ] Es un annoyance
-- [ ] Solo documentacion
+- Sistema:
+- Versión o commit:

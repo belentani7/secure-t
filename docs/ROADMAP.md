@@ -1,35 +1,27 @@
+
+
+<!-- repo-forge:docs-roadmap:inicio -->
 # Roadmap
 
-## Fase 0 — Auditoría
+## Ahora
 
-Inventario del scaffold, dependencias, riesgos y funcionalidades existentes. **Completada en esta iteración.**
+- Cerrar las brechas de reglas que el gate marca en rojo.
+- Mantener el banco de datos (`data/catalogo.json`) como única fuente de verdad.
 
-## Fase 1 — Foundation
+## Después
 
-PostgreSQL, migraciones Drizzle, autenticación OIDC/Keycloak, RBAC, auditoría y configuración por entorno.
+| # | Módulo | Estado |
+|---|---|---|
+| 1 | Catálogo de 4 programas | por definir |
+| 2 | Laboratorios guiados | por definir |
+| 3 | Evaluación por evidencias | por definir |
+| 4 | Credencial verificable | por definir |
+| 5 | Bolsa de prácticas | por definir |
 
-## Fase 2 — Academic engine
+## Criterio de terminado
 
-Programas, cursos, lecciones, competencias, evidencias, rúbricas, evaluaciones y expediente.
+Un módulo está terminado cuando: tiene contrato en `plataforma/PLATAFORMA.md`, prueba
+ejecutada, y una persona ajena puede usarlo sin explicación previa.
 
-## Fase 3 — AI Gateway
-
-Registro de agentes, policy engine, router, provider abstraction, RAG y audit events.
-
-## Fase 4 — Cyber Range
-
-Lab templates, instancias efímeras, worker separado, telemetría, validación, evidencia y cleanup.
-
-## Fase 5 — Voice
-
-VoiceProvider, Kokoro/Chatterbox en entorno controlado, consentimiento, colas, caché y notificaciones.
-
-## Fase 6 — Credentials
-
-Achievements, certificados, credenciales verificables, revocación y verificación pública limitada.
-
-## Fase 7 — Production readiness
-
-Accesibilidad WCAG 2.2 AA, pruebas E2E, seguridad, observabilidad, backups, despliegue y revisión legal/académica.
-
-Cada fase termina con `pnpm check`, `pnpm build`, pruebas, revisión de seguridad, documentación y commit descriptivo.
+<!-- repo-forge:roadmap -->
+<!-- repo-forge:docs-roadmap:fin -->
