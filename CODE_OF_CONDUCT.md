@@ -1,29 +1,33 @@
-# Contributor Covenant Code of Conduct
 
-## Our Pledge
 
-We pledge to make participation in our project a harassment-free experience for everyone.
+<!-- repo-forge:code_of_conduct:inicio -->
+# Código de conducta
 
-## Our Standards
+Adaptado del Contributor Covenant v2.1.
 
-Positive behavior includes:
-- Using welcoming and inclusive language
-- Being respectful of differing viewpoints
-- Gracefully accepting constructive criticism
-- Focusing on what is best for the community
+## Compromiso
 
-Unacceptable behavior includes:
-- Harassment, trolling, or insulting comments
-- Publishing private information without consent
-- Sexual content or advances
-- Any conduct inappropriate in a professional setting
+Quien participa en **secure T** se compromete a que la participación sea una
+experiencia libre de acoso para todas las personas, con independencia de edad, cuerpo,
+discapacidad visible o invisible, etnia, identidad de género, nivel de experiencia,
+nacionalidad, apariencia, raza, religión u orientación sexual.
 
-## Enforcement
+## Qué no se tolera
 
-Instances of abusive behavior may be reported to **conduct@belentani.com**.
+- Comentarios sexualizados, atención sexual no deseada, insultos o ataques personales.
+- Trolleo, provocación deliberada o interrupciones hostiles.
+- Publicar información privada de terceros sin permiso.
+- Cualquier conducta que, en un contexto profesional, sería razonablemente inaceptable.
 
-All complaints will be reviewed and investigated promptly and fairly.
+## Alcance y consecuencias
 
-## Attribution
+Aplica a issues, pull requests, discusiones y cualquier espacio del proyecto. Quien
+incumpla será advertido y, si persiste, expulsado de la participación.
 
-This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org/), version 2.1.
+## Reporte
+
+Escribe a través del canal privado de GitHub Security del repositorio. Los reportes se
+atienden sin exponer a quien reporta.
+
+<!-- repo-forge:coc -->
+<!-- repo-forge:code_of_conduct:fin -->

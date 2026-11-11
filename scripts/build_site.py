@@ -115,6 +115,9 @@ def validate_local_html(root: Path) -> list[str]:
                 continue
             base_dir = base_location if base_path.endswith("/") else base_location.parent
         for ref in parser.paths:
+            # Skip placeholder URLs used for metadata injection
+            if "__BASE_URL__" in ref:
+                continue
             target = (root / ref.lstrip("/") if ref.startswith("/")
                       else base_dir / ref).resolve()
             if not target.is_relative_to(root):

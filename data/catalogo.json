@@ -1,0 +1,32 @@
+{
+  "nombre": "secure-t",
+  "remoto": "https://github.com/belentani7/secure-t",
+  "tipo": "python-tool",
+  "modelo": "instituto abierto de formación (programas + laboratorios)",
+  "publico": "profesionales que quieren entrar en ciberseguridad e IA sin pagar matrícula",
+  "licencia": "MIT",
+  "medido": {
+    "archivos": 250,
+    "lineas": 25589,
+    "bytes": 1597581,
+    "html": 28,
+    "tests": 0
+  },
+  "modulos": [
+    "Catálogo de 4 programas",
+    "Laboratorios guiados",
+    "Evaluación por evidencias",
+    "Credencial verificable",
+    "Bolsa de prácticas"
+  ],
+  "paleta": {
+    "bg": "#fbfaf7",
+    "ink": "#1a1a1a",
+    "accent": "#0e6e5a"
+  },
+  "fuente": {
+    "ruta": "repos\\secure-t",
+    "fecha": "2026-11-10"
+  },
+  "generado_por": "repo-forge"
+}

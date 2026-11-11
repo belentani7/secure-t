@@ -1,62 +1,31 @@
-# Contributing to secure-t
 
-Thank you for your interest in contributing! Please follow these guidelines.
 
-## 📋 Development Workflow
+<!-- repo-forge:contributing:inicio -->
+# Contribuir
 
-1. **Fork** the repository
-2. **Create** a feature branch: `git checkout -b feat/amazing-feature`
-3. **Commit** using Conventional Commits: `git commit -m 'feat: add amazing feature'`
-4. **Push** to your fork: `git push origin feat/amazing-feature`
-5. **Open** a Pull Request
+## Antes de tocar nada
 
-## ✅ Commit Message Convention
+1. Lee `BIBLIA.md` (doctrina del repositorio) y `plataforma/FICHA.md` (alcance permitido).
+2. Ejecuta `python scripts/doctor.py` y guarda la salida: es la línea base.
+3. Un cambio resuelve **un solo resultado verificable**.
 
-We use [Conventional Commits](https://www.conventionalcommits.org/):
+## Cómo enviar
 
-```
-<type>(<scope>): <description>
-
-[optional body]
-
-[optional footer]
+```bash
+git checkout -b fix/<asunto-corto>
+# ... cambio mínimo ...
+python scripts/doctor.py
+git commit -m "fix(alcance): <qué se arregla>"
 ```
 
-### Types
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation changes
-- `style`: Code style (formatting, etc.)
-- `refactor`: Code refactoring
-- `perf`: Performance improvement
-- `test`: Adding tests
-- `chore`: Maintenance tasks
-- `build`: Build system changes
-- `ci`: CI/CD changes
+Convención de commit: `type(scope): resumen` con tipos `feat|fix|docs|chore|refactor|test|perf`.
 
-### Examples
-```
-feat(auth): add OAuth2 login
-fix(api): handle 404 errors gracefully
-docs(readme): update installation steps
-```
+## Qué no se acepta
 
-## 🔍 Code Review Checklist
+- Cambios que rompan una regla del catálogo sin justificar la excepción.
+- Archivos generados a mano que el build regenera.
+- Datos personales, credenciales o capturas de clientes.
+- Promesas en el README que el código no cumpla.
 
-- [ ] All CI checks pass
-- [ ] TypeScript compiles without errors (`pnpm typecheck`)
-- [ ] Linting passes (`pnpm lint`)
-- [ ] Formatting correct (`pnpm format:check`)
-- [ ] Tests pass (`pnpm test`)
-- [ ] Coverage ≥ 80% for new code
-- [ ] E2E tests pass for UI changes
-- [ ] Documentation updated if needed
-- [ ] No breaking changes without major version bump
-
-## 🏷️ Versioning
-
-We use [Semantic Versioning](https://semver.org/). Releases are automated via `semantic-release`.
-
-## 📝 Code of Conduct
-
-See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+<!-- repo-forge:contributing -->
+<!-- repo-forge:contributing:fin -->

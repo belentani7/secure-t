@@ -1,16 +1,12 @@
 ---
-name: Propuesta de funcionalidad
-about: Sugerir una idea para el proyecto
-title: "[feature] "
+name: Propuesta
+about: Una mejora concreta, con criterio de aceptación
 labels: enhancement
-assignees: ''
 ---
 
-**¿Está tu propuesta relacionada con un problema?**
-Descripción del problema o contexto.
+## Qué problema resuelve
 
-**Describe la solución que te gustaría**
-Qué quieres que ocurra.
+## Qué propones
 
-**Describe alternativas que hayas considerado**
-Otras opciones posibles.
+## Cómo sabremos que funciona
+

@@ -1,0 +1,10 @@
+# CODEOWNERS for Belentani flagships
+# Requires review from @belentani7 for all changes
+
+* @belentani7
+.github/ @belentani7
+.github/workflows/ @belentani7
+.github/dependabot.yml @belentani7
+.gitleaks.toml @belentani7
+CODEOWNERS @belentani7
+SECURITY.md @belentani7

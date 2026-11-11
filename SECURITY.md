@@ -1,28 +1,25 @@
-# Security Policy
 
-## Supported Versions
 
-| Version | Supported |
-|----------|----------|
-| 0.2.x   | Yes      |
+<!-- repo-forge:security:inicio -->
+# Seguridad
 
-## Reporting a Vulnerability
+## Reportar una vulnerabilidad
 
-Please report security vulnerabilities by emailing **security@belentani.com** or using GitHub's [Private Vulnerability Reporting](https://github.com/belentani7/secure-t/security/advisories/new).
+No abras un issue público. Usa el canal privado de GitHub Security del repositorio.
+Incluye: versión o commit, pasos para reproducir, impacto y, si puedes, una corrección.
 
-Do NOT create public issues for security vulnerabilities.
+## Qué se considera vulnerabilidad
 
-## Response Timeline
+- Ejecución de código o comandos no previstos.
+- Lectura o escritura de archivos fuera del alcance declarado.
+- Exposición de credenciales en logs, informes o manifiestos.
+- Dependencia con CVE conocido en una ruta ejecutable.
 
-- **Acknowledgment**: Within 48 hours
-- **Assessment**: Within 7 days
-- **Fix**: Within 30 days (critical), 90 days (non-critical)
-- **Disclosure**: Coordinated with reporter
+## Reglas del proyecto
 
-## Security Measures
+- Ningún secreto se escribe en disco, en un log ni en un informe.
+- Toda operación de escritura requiere `--apply` explícito.
+- Las operaciones destructivas están bloqueadas por diseño.
 
-- Dependabot for dependency updates
-- CodeQL for static analysis
-- Secret scanning enabled
-- Signed commits required
-- Minimum 2 reviewers for merges
+<!-- repo-forge:security -->
+<!-- repo-forge:security:fin -->

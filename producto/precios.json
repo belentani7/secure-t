@@ -1,0 +1,89 @@
+{
+  "producto": "Aula de seguridad digital — secure T",
+  "moneda": "EUR",
+  "iva": {
+    "tipo": 21,
+    "regimen": "IVA general España",
+    "precios_sin_iva": true,
+    "nota": "Formación a empresas: IVA repercutido y deducible. Si la entidad aplica exención de formación, se confirma con su asesoría antes de facturar."
+  },
+  "prueba": {
+    "tipo": "sesión de apertura con devolución íntegra",
+    "duracion_minutos": 90,
+    "precio": 0,
+    "condiciones": "Se imparte la primera sesión y, si la organización decide no seguir, se devuelve el 100 % del importe del aula."
+  },
+  "planes": [
+    {
+      "id": "aula-15",
+      "nombre": "Aula 15",
+      "precio": 2900,
+      "periodo": "pago único por aula",
+      "plazas": 15,
+      "limites": {
+        "personas": 15,
+        "duracion_semanas": 12,
+        "cursos_incluidos": 4,
+        "sesiones_directo": 2,
+        "acceso_campus_dias": 90,
+        "informe_recorrido": true
+      },
+      "incluye": [
+        "Cuatro cursos, 20 unidades cada uno",
+        "Laboratorio aislado y banco de preguntas por curso",
+        "Constancia local con huella SHA-256 por participante",
+        "Sesión de apertura y sesión de cierre con el autor",
+        "Informe de recorrido agregado"
+      ],
+      "no_incluye": [
+        "Certificación oficial",
+        "Panel de administración con cuentas",
+        "Bolsa de prácticas",
+        "Servicios de auditoría o test de intrusión"
+      ]
+    },
+    {
+      "id": "aula-40",
+      "nombre": "Aula 40",
+      "precio": 5800,
+      "periodo": "pago único por aula",
+      "plazas": 40,
+      "limites": {
+        "personas": 40,
+        "duracion_semanas": 12,
+        "cursos_incluidos": 4,
+        "sesiones_directo": 3,
+        "acceso_campus_dias": 180,
+        "informe_recorrido": true
+      },
+      "incluye": [
+        "Todo lo del Aula 15, ampliado a 40 personas",
+        "Una sesión en directo adicional",
+        "Dos informes de recorrido (mitad y cierre)"
+      ],
+      "no_incluye": [
+        "Certificación oficial",
+        "Panel de administración con cuentas",
+        "Bolsa de prácticas",
+        "Servicios de auditoría o test de intrusión"
+      ]
+    }
+  ],
+  "descuentos": {
+    "segunda_aula_mismo_ejercicio": "15 % sobre la segunda aula",
+    "entidad_de_formacion_reglada": "10 % acreditado"
+  },
+  "reembolso": {
+    "dias": 30,
+    "condicion": "devolución íntegra si la organización no sigue tras la sesión de apertura",
+    "via": "transferencia o pasarela"
+  },
+  "coherencia_paywall": {
+    "fuente": "plataforma/PAYWALL.md",
+    "muro_para_el_alumno": 0,
+    "quien_paga": "empresas, administraciones y entidades que patrocinan cohortes",
+    "fases_cubiertas": ["2 Patrocinio"],
+    "fases_no_vendidas": ["3 Aula con gestión (pendiente)", "4 Credencial verificada (no existe emisor)"]
+  },
+  "nota_precio": "Precio de lanzamiento decidido por el propietario. No es una cifra medida: es una decisión comercial revisable."
+}
