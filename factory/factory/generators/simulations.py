@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Simulaciones HTML standalone (red, crypto, phishing, firewall) + spec JSON."""
 import json
 import pathlib

@@ -6,6 +6,7 @@ const LINKS = [
   { href: "/campus", key: "header.campus" },
   { href: "/progress", key: "header.progress" },
   { href: "/mentor", key: "header.mentor" },
+  { href: "/services", key: "header.services" },
 ];
 
 export default function SiteHeader() {

@@ -1,7 +1,7 @@
 /**
  * SONIC LOCK — Standalone IIFE version for static campus
  * No ES modules, no imports — runs directly in browser
- * 
+ *
  * Teoría de Cuerdas Belentani · Candado Sónico
  */
 

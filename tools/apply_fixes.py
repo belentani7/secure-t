@@ -115,7 +115,7 @@ def fix_ci_python_quality(dry_run: bool = False) -> bool:
                 list((REPO_ROOT / ".github" / "workflows").glob("*.yaml"))
     if not workflows:
         return False
-    
+
     applied = False
     for wf in workflows:
         content = wf.read_text()

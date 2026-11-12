@@ -92,7 +92,7 @@ if [[ "$DEV_MODE" = true ]]; then
 else
     echo "  Modo producción: levantando app en puerto 3000..."
     docker compose up -d --build app
-    
+
     # Esperar healthcheck
     echo "  Esperando healthcheck..."
     attempts=0
@@ -102,7 +102,7 @@ else
         health=$(docker inspect --format='{{.State.Health.Status}}' secure-t-app-1 2>/dev/null || echo "")
         ((attempts++))
     done
-    
+
     if [[ "$health" = "healthy" ]]; then
         echo "  Healthcheck: HEALTHY"
         echo "  App disponible en: http://localhost:3000"

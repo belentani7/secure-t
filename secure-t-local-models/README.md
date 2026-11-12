@@ -29,3 +29,7 @@ Las descargas requieren red. No se guardan tokens en el repositorio; si Hugging 
 ## Licencias
 
 Revisar la licencia de cada modelo antes de distribuirlo o incorporarlo a un producto comercial. Los modelos conservan sus archivos `LICENSE` dentro de cada descarga.
+
+
+## Producto
+Véase `plataforma/OFERTA.md`.

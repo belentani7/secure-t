@@ -102,3 +102,7 @@ Para vídeos externos, almacenar únicamente metadatos y URL: título, proveedor
 
 ## Evidencias
 Cada ruta genera un portfolio verificable: cuestionarios, diagramas, informes de laboratorio, configuraciones seguras, repositorios, playbooks, threat models y proyectos finales.
+
+
+## Producto
+Véase `plataforma/OFERTA.md`.

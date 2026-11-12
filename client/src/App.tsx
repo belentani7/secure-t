@@ -13,6 +13,7 @@ const Portal = lazy(() => import("./pages/Portal"));
 const Campus = lazy(() => import("./pages/Campus"));
 const ProgressPage = lazy(() => import("./pages/Progress"));
 const Mentor = lazy(() => import("./pages/Mentor"));
+const Services = lazy(() => import("./pages/Services"));
 
 import { useTranslation } from "@/lib/i18n";
 
@@ -37,6 +38,7 @@ function Router() {
         <Route path={"/campus"} component={Campus} />
         <Route path={"/progress"} component={ProgressPage} />
         <Route path={"/mentor"} component={Mentor} />
+        <Route path={"/services"} component={Services} />
         <Route path={"/notifications"} component={Notifications} />
         <Route path={"/record"}>{() => <Portal section="record" />}</Route>
         <Route path={"/credentials"}>{() => <Portal section="credentials" />}</Route>

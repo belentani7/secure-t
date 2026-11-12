@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Video 1080p: slides PIL marca Belentani + voz edge-tts/Piper + música + ffmpeg."""
 import asyncio
 import pathlib

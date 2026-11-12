@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Artifacts: flashcards Anki TSV, cheat-sheet PDF, diagrama mermaid."""
 from fpdf import FPDF
 

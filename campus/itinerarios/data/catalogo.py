@@ -1,0 +1,2 @@
+REPO = "itinerarios"
+FAMILIA = "educación"

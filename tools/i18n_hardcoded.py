@@ -48,18 +48,18 @@ def extraer_copy_sospechoso(archivo: Path) -> List[Tuple[int, str, str]]:
     resultados = []
     content = archivo.read_text(encoding="utf-8")
     lineas = content.split('\n')
-    
+
     for i, linea in enumerate(lineas, 1):
         linea_stripped = linea.strip()
-        
+
         # Saltar comentarios
         if linea_stripped.startswith('//') or linea_stripped.startswith('/*'):
             continue
-        
+
         # Saltar imports
         if linea_stripped.startswith('import ') or linea_stripped.startswith('from '):
             continue
-        
+
         # Buscar patrones sospechosos
         for patron in PATRONES_SOSPECHOSOS:
             matches = re.finditer(patron, linea)
@@ -67,13 +67,13 @@ def extraer_copy_sospechoso(archivo: Path) -> List[Tuple[int, str, str]]:
                 # Extraer el texto capturado (último grupo)
                 texto = match.group(match.lastindex) if match.lastindex else match.group(0)
                 texto = texto.strip()
-                
+
                 # Filtrar excepciones
                 if texto and not es_excepcion(texto) and len(texto) > 3:
                     # Verificar si ya está envuelto en t() en la misma línea
                     if 't(' not in linea and 'useTranslation' not in content[:content.find(linea)]:
                         resultados.append((i, texto[:100], archivo.name))
-    
+
     return resultados
 
 def verificar_archivo_tiene_usetranslation(archivo: Path) -> bool:
@@ -85,17 +85,17 @@ def main():
     print("=" * 70)
     print("DETECTOR COPY HARDCODEADO — secure-t")
     print("=" * 70)
-    
+
     todos_hallazgos = []
     archivos_procesados = 0
-    
+
     # Procesar pages/
     print("\n[1] ESCANEANDO pages/:")
     for tsx_file in sorted(PAGES_DIR.glob("*.tsx")):
         archivos_procesados += 1
         tiene_i18n = verificar_archivo_tiene_usetranslation(tsx_file)
         hallazgos = extraer_copy_sospechoso(tsx_file)
-        
+
         if hallazgos:
             print(f"    ⚠️  {tsx_file.name} ({'CON i18n' if tiene_i18n else 'SIN i18n'}): {len(hallazgos)} hallazgos")
             for linea, texto, _ in hallazgos[:5]:
@@ -106,7 +106,7 @@ def main():
         else:
             estado = "✅" if tiene_i18n else "⚪ (sin i18n ni copy)"
             print(f"    {estado} {tsx_file.name}")
-    
+
     # Procesar components/ (excluir ui/)
     print("\n[2] ESCANEANDO components/ (excluye ui/):")
     for tsx_file in sorted(COMPONENTS_DIR.glob("*.tsx")):
@@ -115,7 +115,7 @@ def main():
         archivos_procesados += 1
         tiene_i18n = verificar_archivo_tiene_usetranslation(tsx_file)
         hallazgos = extraer_copy_sospechoso(tsx_file)
-        
+
         if hallazgos:
             print(f"    ⚠️  {tsx_file.name} ({'CON i18n' if tiene_i18n else 'SIN i18n'}): {len(hallazgos)} hallazgos")
             for linea, texto, _ in hallazgos[:5]:
@@ -126,19 +126,19 @@ def main():
         else:
             estado = "✅" if tiene_i18n else "⚪ (sin i18n ni copy)"
             print(f"    {estado} {tsx_file.name}")
-    
+
     # Resumen
     print("\n" + "=" * 70)
     print(f"ARCHIVOS PROCESADOS: {archivos_procesados}")
     print(f"HALLAZGOS TOTALES: {len(todos_hallazgos)}")
-    
+
     if todos_hallazgos:
         print("\n❌ COPY HARDCODEADO DETECTADO (requiere t())")
         # Agrupar por archivo
         por_archivo = {}
         for archivo, linea, texto in todos_hallazgos:
             por_archivo.setdefault(archivo, []).append((linea, texto))
-        
+
         for archivo, items in por_archivo.items():
             print(f"\n  📄 {archivo}:")
             for linea, texto in items[:10]:
