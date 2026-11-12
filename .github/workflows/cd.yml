@@ -34,7 +34,7 @@ jobs:
           persist-credentials: false
 
       - name: Set up pnpm matching packageManager
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: 11.25.0
 
