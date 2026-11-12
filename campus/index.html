@@ -244,6 +244,7 @@
   <!-- Sonic Lock Initialization -->
   <script src="../ui/sonic-lock/sonic-lock.js" defer></script>
   <script>
+    window.addEventListener('DOMContentLoaded', () => {
     // Usa window.SonicLock expuesto por ../ui/sonic-lock/sonic-lock.js
     const SonicLock = window.SonicLock;
     const MASTER_KEY_SEQUENCE = window.MASTER_KEY_SEQUENCE;
@@ -388,6 +389,7 @@
       
       console.log('[SonicLock] Inicializado en Campus. Frecuencias:', MASTER_KEY_SEQUENCE.map(s => `${s.note}:${s.hz}Hz`).join(', '));
     }
+    });
   </script>
   <script>
     const sel = document.getElementById('idioma');
