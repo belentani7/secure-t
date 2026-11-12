@@ -3,6 +3,12 @@ title = "secure-t"
 [extend]
 useDefault = true
 
+[[rules]]
+id = "deepseek-api-key"
+description = "DeepSeek API key"
+regex = '''\bsk-[a-f0-9]{32}\b'''
+keywords = ["sk-"]
+
 [allowlist]
 description = "Plantillas y ejemplos sin secreto real"
 paths = ['''\.env\.example$''', '''docs/.*\.md$''']

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Progreso — Campus secure-t-university · Secure t</title>
+<meta name="description" content="Seguimiento de progreso anónimo: token local, sin registro.">
+<meta name="generator" content="repo-cursor-superpowers-v1">
+<meta property="og:title" content="Progreso — Campus secure-t-university · Secure t">
+<meta property="og:description" content="Seguimiento de progreso anónimo: token local, sin registro.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0a09'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%2342c97d'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#0b0a09;--bg2:#131110;--ink:#f4efe7;--dim:#a89f92;--accent:#e0a35c;
+--accent2:#7fa88b;--line:rgba(244,239,231,.14);--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+--sans:ui-sans-serif,"Segoe UI",Inter,system-ui,-apple-system,sans-serif;
+--mono:ui-monospace,"Cascadia Mono",Consolas,monospace;--measure:62ch;--radius:14px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.65;
+-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(18px,4vw,40px);position:relative;z-index:1}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent2);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#12100e;padding:10px 16px;z-index:9}
+.skip:focus{left:12px;top:12px}
+header.site{border-bottom:1px solid var(--line);padding:22px 0;display:flex;gap:18px;
+align-items:baseline;justify-content:space-between;flex-wrap:wrap}
+.brand{font-family:var(--serif);font-size:1.05rem;letter-spacing:.01em}
+.brand span{color:var(--dim)}
+nav.site{display:flex;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:.72rem;
+letter-spacing:.14em;text-transform:uppercase}
+nav.site a{color:var(--dim);text-decoration:none}
+nav.site a:hover,nav.site a[aria-current=page]{color:var(--ink)}
+main{padding:clamp(48px,9vh,104px) 0}
+.eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+color:var(--accent);margin:0 0 18px}
+h1{font-family:var(--serif);font-size:clamp(2.4rem,7vw,5.2rem);line-height:.95;
+letter-spacing:-.03em;margin:0 0 24px;font-weight:500;text-wrap:balance}
+h2{font-family:var(--serif);font-size:clamp(1.4rem,3vw,2.1rem);line-height:1.15;
+letter-spacing:-.02em;margin:64px 0 18px;font-weight:500}
+h3{font-size:1.02rem;margin:28px 0 10px;letter-spacing:-.01em}
+p,li{max-width:var(--measure);color:var(--ink)}
+.lead{font-size:clamp(1.05rem,2vw,1.28rem);color:var(--dim);max-width:56ch}
+hr{border:0;border-top:1px solid var(--line);margin:clamp(40px,8vh,80px) 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;
+background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:32px 0}
+.cell{background:var(--bg2);padding:22px 20px}
+.cell h3{margin-top:0}
+.cell p{font-size:.9rem;color:var(--dim);margin:0}
+code,kbd{font-family:var(--mono);font-size:.86em;background:rgba(244,239,231,.07);
+padding:2px 6px;border-radius:5px}
+pre{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);
+padding:18px;overflow:auto;max-width:100%}
+pre code{background:none;padding:0}
+table{width:100%;border-collapse:collapse;margin:24px 0;font-size:.92rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.pill{display:inline-block;font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;
+text-transform:uppercase;border:1px solid var(--line);color:var(--dim);padding:3px 9px;border-radius:999px}
+footer.site{border-top:1px solid var(--line);padding:28px 0 44px;color:var(--dim);font-size:.8rem}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}
+.reveal{opacity:1;transform:none;transition:none}}
+::selection{background:var(--accent);color:#12100e}
+.webgl-canvas{width:100%;height:400px;background:var(--bg2);border:1px solid var(--line);
+border-radius:var(--radius);margin:24px 0;display:block}
+.superpowers-badge{display:inline-block;font-family:var(--mono);font-size:.65rem;
+letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--accent2);
+color:var(--accent2);padding:4px 10px;border-radius:999px;margin:10px 0}
+</style>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<header class="site"><div class="wrap" style="display:flex;justify-content:space-between;align-items:baseline;gap:18px;flex-wrap:wrap">
+<div class="brand">campus <span>· ecosistema Belentani · WebGL online</span></div>
+<nav class="site" aria-label="Navegación principal"><a href="index.html">Inicio</a><a href="docs.html">Documentación</a><a href="accesibilidad.html">Accesibilidad</a><a href="privacidad.html">Privacidad</a><a href="404.html">404</a></nav>
+</div></header>
+<main id="contenido"><div class="wrap">
+<header class="topbar"><div class="bar">
+  <a class="brand" href="index.html">← Campus</a>
+  <span class="brand"><span>progreso</span></span>
+</div></header>
+<main class="env" id="app">
+  <h1>Tu progreso</h1>
+  <p class="t2">Sin cuenta y sin rastreo: tu avance vive solo en este navegador,
+  ligado a un token anónimo. Si cambias de dispositivo, exporta e importa el JSON.</p>
+  <p class="meta" id="token"></p>
+  <p class="meta" id="estado" role="status" aria-live="polite"></p>
+  <div class="fila-botones">
+    <button class="btn" id="exportar">Exportar JSON</button>
+    <button class="btn" id="importar">Importar JSON</button>
+    <button class="btn" id="reset">Reiniciar</button>
+  </div>
+  <div class="grid-cur" id="cursos"></div>
+  <p class="meta" id="total"></p>
+</main>
+<script>
+const CURSOS = [{"slug": "ciber-ofensiva", "titulo": "Ciberseguridad Ofensiva: Pensar como Atacante", "items": ["semana-01", "semana-02", "semana-03", "semana-04", "semana-05", "semana-06", "semana-07", "semana-08", "semana-09", "semana-10", "semana-11", "semana-12", "semana-13", "semana-14", "semana-15", "semana-16", "semana-17", "semana-18", "semana-19", "semana-20", "quiz", "laboratorio", "proyecto", "examen"]}, {"slug": "ciber-defensiva", "titulo": "Ciberseguridad Defensiva: Operar como SOC", "items": ["semana-01", "semana-02", "semana-03", "semana-04", "semana-05", "semana-06", "semana-07", "semana-08", "semana-09", "semana-10", "semana-11", "semana-12", "semana-13", "semana-14", "semana-15", "semana-16", "semana-17", "semana-18", "semana-19", "semana-20", "quiz", "laboratorio", "proyecto", "examen"]}, {"slug": "ia-aplicada-segura", "titulo": "Inteligencia Artificial Aplicada y Segura", "items": ["semana-01", "semana-02", "semana-03", "semana-04", "semana-05", "semana-06", "semana-07", "semana-08", "semana-09", "semana-10", "semana-11", "semana-12", "semana-13", "semana-14", "semana-15", "semana-16", "semana-17", "semana-18", "semana-19", "semana-20", "quiz", "laboratorio", "proyecto", "examen"]}, {"slug": "gobernanza-compliance", "titulo": "Gobernanza y Compliance Digital", "items": ["semana-01", "semana-02", "semana-03", "semana-04", "semana-05", "semana-06", "semana-07", "semana-08", "semana-09", "semana-10", "semana-11", "semana-12", "semana-13", "semana-14", "semana-15", "semana-16", "semana-17", "semana-18", "semana-19", "semana-20", "quiz", "laboratorio", "proyecto", "examen"]}];
+const KEY = "stt-progreso";
+const VALID_IDS = new Set(CURSOS.flatMap(c => c.items.map(it => c.slug + "/" + it)));
+const status = document.getElementById("estado");
+const storage = (() => { try { return window.localStorage; } catch (_) { return null; } })();
+function read(key, fallback) { try { return storage ? storage.getItem(key) : fallback; } catch (_) { return fallback; } }
+function write(key, value) { try { if (!storage) return false; storage.setItem(key, value); return true; } catch (_) { return false; } }
+function normalize(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return {};
+  return Object.fromEntries(Object.entries(value).filter(([id, done]) => VALID_IDS.has(id) && done === true));
+}
+function parseState(raw) { try { return normalize(JSON.parse(raw || "{}")); } catch (_) { return {}; } }
+let estado = parseState(read(KEY, "{}"));
+
+// Token anónimo local (nunca se envía a ningún sitio); no bloquea el uso sin almacenamiento.
+let token = read("stt-token", "");
+if (!(/^(?:anon-[a-z0-9-]{8,}|[0-9a-f]{8}-[0-9a-f-]{27,})$/i.test(token))) {
+  token = "anon-" + (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function' ? crypto.randomUUID() : Date.now().toString(36));
+  write("stt-token", token);
+}
+document.getElementById("token").textContent = "token anónimo: " + token;
+
+function announce(message, error = false) { status.textContent = message; status.className = error ? "meta mal" : "meta ok"; }
+function guardar(message = "Progreso guardado en este navegador.") {
+  if (!write(KEY, JSON.stringify(estado))) announce("No se pudo guardar: el almacenamiento está bloqueado.", true);
+  else announce(message);
+  pintar();
+}
+
+function pintar() {
+  const box = document.getElementById("cursos");
+  box.innerHTML = "";
+  let total = 0, hechos = 0;
+  CURSOS.forEach(c => {
+    const art = document.createElement("article");
+    art.className = "card";
+    let done = 0;
+    const filas = c.items.map(it => {
+      const id = c.slug + "/" + it;
+      const ok = !!estado[id]; if (ok) { done++; hechos++; }
+      total++;
+      const nombre = it.startsWith("semana-") ? "Semana " + (+it.slice(7)) :
+        it === "quiz" ? "Quiz del curso" :
+        it === "laboratorio" ? "Laboratorio + evidencia" :
+        it === "proyecto" ? "Proyecto final" : "Examen final";
+      // gating: el examen se desbloquea con semanas + quiz + laboratorio
+      let bloqueado = false;
+      if (it === "examen") {
+        bloqueado = c.items.filter(x => x !== "examen" && x !== "proyecto")
+          .some(x => !estado[c.slug + "/" + x]);
+      }
+      return `<label class="progreso-item"${bloqueado ? ' style="opacity:.45"' : ""}>` +
+        `<input type="checkbox" data-id="${id}" ${ok ? "checked" : ""}` +
+        `${bloqueado ? " disabled title=\"Se desbloquea al completar semanas, quiz y laboratorio\"" : ""}>` +
+        ` <span>${nombre}${bloqueado ? " 🔒" : ""}</span></label>`;
+    }).join("");
+    const pct = Math.round(done / c.items.length * 100);
+    art.innerHTML = `<h3>${c.titulo}</h3>
+      <p class="meta">${done}/${c.items.length} · ${pct} %</p>
+      <div class="barra"><i style="width:${pct}%"></i></div>
+      <div style="margin-top:var(--sp-3)">${filas}</div>`;
+    box.appendChild(art);
+  });
+  box.querySelectorAll("input[type=checkbox]").forEach(ch =>
+    ch.addEventListener("change", () => {
+      if (ch.checked) estado[ch.dataset.id] = true; else delete estado[ch.dataset.id];
+      guardar();
+    }));
+  document.getElementById("total").textContent =
+    `Progreso global: ${hechos}/${total} (${Math.round(hechos/total*100)} %)`;
+}
+pintar();
+
+document.getElementById("exportar").onclick = () => {
+  const blob = new Blob([JSON.stringify({version: 1, token, estado}, null, 2)], {type: "application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = Object.assign(document.createElement("a"), {href: url, download: "progreso-secure-t.json"});
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 0);
+  announce("Progreso exportado: solo avance y token anónimo.");
+};
+document.getElementById("importar").onclick = () => {
+  const inp = Object.assign(document.createElement("input"), {type: "file", accept: ".json"});
+  inp.onchange = async () => {
+    const file = inp.files && inp.files[0];
+    if (!file || file.size > 1024 * 1024) { announce("Archivo no válido o demasiado grande (máximo 1 MiB).", true); return; }
+    try {
+      const d = JSON.parse(await file.text());
+      if (!d || typeof d !== "object" || (d.version !== undefined && d.version !== 1) || !d.estado || typeof d.estado !== "object" || Array.isArray(d.estado)) throw new Error("schema");
+      const imported = normalize(d.estado);
+      if (Object.keys(d.estado).some(id => !VALID_IDS.has(id) || d.estado[id] !== true)) throw new Error("values");
+      estado = imported;
+      if (typeof d.token === "string" && /^(?:anon-[a-z0-9-]{8,}|[0-9a-f]{8}-[0-9a-f-]{27,})$/i.test(d.token)) {
+        token = d.token; write("stt-token", token);
+        document.getElementById("token").textContent = "token anónimo: " + token;
+      }
+      guardar("Progreso importado y validado.");
+    } catch (_) { announce("No se pudo importar: usa un JSON de progreso válido.", true); }
+  };
+  inp.click();
+};
+document.getElementById("reset").onclick = () => {
+  if (confirm("¿Borrar todo el progreso de este navegador?")) { estado = {}; guardar("Progreso reiniciado."); }
+};
+</script>
+</div></main>
+<footer class="site"><div class="wrap">
+<p>campus · WebGL listo para servir online · <a href="index.html">Inicio</a> · <a href="accesibilidad.html">Accesibilidad</a> · <a href="privacidad.html">Privacidad</a></p>
+</div></footer>
+<script>
+(function(){
+  var canvas = document.createElement('canvas');
+  canvas.className = 'webgl-canvas';
+  var container = document.getElementById('contenido');
+  if(container){ container.appendChild(canvas); }
+  try{
+    var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if(!gl){ canvas.innerHTML = '<p style="color:var(--dim);font-family:var(--mono);padding:12px">WebGL no disponible en este navegador.</p>'; return; }
+    gl.clearColor(0.047,0.043,0.039,1);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    var vs = gl.createShader(gl.VERTEX_SHADER);
+    gl.shaderSource(vs, 'attribute vec2 p;void main(){gl_Position=vec4(p,0.0,1.0);}');
+    gl.compileShader(vs);
+    var fs = gl.createShader(gl.FRAGMENT_SHADER);
+    gl.shaderSource(fs, 'precision mediump float;uniform vec4 c;void main(){gl_FragColor=c;}');
+    gl.compileShader(fs);
+    var prog = gl.createProgram();
+    gl.attachShader(prog,vs); gl.attachShader(prog,fs); gl.linkProgram(prog);
+    gl.useProgram(prog);
+    var loc = gl.getUniformLocation(prog,'c');
+    gl.uniform4f(loc, 0.549, 0.659, 0.545, 1.0);
+    var buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+    var attr = gl.getAttribLocation(prog,'p');
+    gl.enableVertexAttribArray(attr);
+    gl.vertexAttribPointer(attr,2,gl.FLOAT,false,0,0);
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+  }catch(e){ console.log('WebGL init:', e.message); }
+})();
+</script>
+</body>
+</html>
