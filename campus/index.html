@@ -395,7 +395,9 @@
     const sel = document.getElementById('idioma');
     if (sel) sel.addEventListener('change', e => {
       const a = document.getElementById('audio-src');
-      a.src = `voces/${e.target.value}/bienvenida.mp3`;
+      const sources = {es: 'voces/es/bienvenida.mp3', pt: 'voces/pt/bienvenida.mp3', en: 'voces/en/bienvenida.mp3', ca: 'voces/ca/bienvenida.mp3'};
+      if (!Object.hasOwn(sources, e.target.value)) return;
+      a.src = sources[e.target.value];
       document.getElementById('audio').load();
     });
   </script>
