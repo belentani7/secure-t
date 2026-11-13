@@ -10,7 +10,7 @@ class PublicationContractTests(unittest.TestCase):
         source = (ROOT / "index.html").read_text(encoding="utf-8")
         self.assertEqual(source.count('<link rel="canonical"'), 1)
         self.assertEqual(source.count('property="og:url"'), 1)
-        self.assertIn("__BASE_URL__", source)
+        self.assertNotIn("__BASE_URL__", source)
 
     def test_builder_rejects_unresolved_landing_placeholders(self):
         source = (ROOT / "scripts" / "build_site.py").read_text(encoding="utf-8")
