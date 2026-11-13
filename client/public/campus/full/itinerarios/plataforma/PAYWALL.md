@@ -1,0 +1,2 @@
+# PAYWALL — itinerarios
+Familia: educación

@@ -1,0 +1,2 @@
+# Oferta — observatorio
+Familia: herramienta
