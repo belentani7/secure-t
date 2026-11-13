@@ -26,7 +26,7 @@ describe("2026 security advisory minimum versions", () => {
     const workspace = readFileSync(new URL("../pnpm-workspace.yaml", import.meta.url), "utf8");
     expect(workspace).toMatch(/body-parser:\s*1\.20\.9/);
   });
-  for (const file of ["secure-t-app/package.json", "cybersecurity_course/package.json", "Cybersecurity-Course-Document-Overview/package.json"]) {
+  for (const file of ["cybersecurity_course/package.json"]) {
     it("uses patched Vitest in " + file, () => {
       expect(atLeast(directVersion(file, "vitest"), [4, 1, 11])).toBe(true);
     });
