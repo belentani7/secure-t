@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>secure-t-university - portal de referencia · Open data ·... · Public</title>
+<meta name="description" content="Página de servicio de open-data.">
+<meta name="generator" content="repo-superpowers-audit-v1">
+<meta property="og:title" content="secure-t-university - portal de referencia · Open data ·... · Public">
+<meta property="og:description" content="Página de servicio de open-data.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0a09'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23e7c543'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#0b0a09;--bg2:#131110;--ink:#f4efe7;--dim:#a89f92;--accent:#e0a35c;
+--accent2:#7fa88b;--line:rgba(244,239,231,.14);--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+--sans:ui-sans-serif,"Segoe UI",Inter,system-ui,-apple-system,sans-serif;
+--mono:ui-monospace,"Cascadia Mono",Consolas,monospace;--measure:62ch;--radius:14px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.65;
+-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(18px,4vw,40px);position:relative;z-index:1}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent2);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#12100e;padding:10px 16px;z-index:9}
+.skip:focus{left:12px;top:12px}
+header.site{border-bottom:1px solid var(--line);padding:22px 0;display:flex;gap:18px;
+align-items:baseline;justify-content:space-between;flex-wrap:wrap}
+.brand{font-family:var(--serif);font-size:1.05rem;letter-spacing:.01em}
+.brand span{color:var(--dim)}
+nav.site{display:flex;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:.72rem;
+letter-spacing:.14em;text-transform:uppercase}
+nav.site a{color:var(--dim);text-decoration:none}
+nav.site a:hover,nav.site a[aria-current=page]{color:var(--ink)}
+main{padding:clamp(48px,9vh,104px) 0}
+.eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+color:var(--accent);margin:0 0 18px}
+h1{font-family:var(--serif);font-size:clamp(2.4rem,7vw,5.2rem);line-height:.95;
+letter-spacing:-.03em;margin:0 0 24px;font-weight:500;text-wrap:balance}
+h2{font-family:var(--serif);font-size:clamp(1.4rem,3vw,2.1rem);line-height:1.15;
+letter-spacing:-.02em;margin:64px 0 18px;font-weight:500}
+h3{font-size:1.02rem;margin:28px 0 10px;letter-spacing:-.01em}
+p,li{max-width:var(--measure);color:var(--ink)}
+.lead{font-size:clamp(1.05rem,2vw,1.28rem);color:var(--dim);max-width:56ch}
+hr{border:0;border-top:1px solid var(--line);margin:clamp(40px,8vh,80px) 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;
+background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:32px 0}
+.cell{background:var(--bg2);padding:22px 20px}
+.cell h3{margin-top:0}
+.cell p{font-size:.9rem;color:var(--dim);margin:0}
+code,kbd{font-family:var(--mono);font-size:.86em;background:rgba(244,239,231,.07);
+padding:2px 6px;border-radius:5px}
+pre{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);
+padding:18px;overflow:auto;max-width:100%}
+pre code{background:none;padding:0}
+table{width:100%;border-collapse:collapse;margin:24px 0;font-size:.92rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.pill{display:inline-block;font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;
+text-transform:uppercase;border:1px solid var(--line);color:var(--dim);padding:3px 9px;border-radius:999px}
+footer.site{border-top:1px solid var(--line);padding:28px 0 44px;color:var(--dim);font-size:.8rem}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}
+.reveal{opacity:1;transform:none;transition:none}}
+::selection{background:var(--accent);color:#12100e}
+.webgl-canvas{width:100%;height:400px;background:var(--bg2);border:1px solid var(--line);
+border-radius:var(--radius);margin:24px 0;display:block}
+.superpowers-badge{display:inline-block;font-family:var(--mono);font-size:.65rem;
+letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--accent2);
+color:var(--accent2);padding:4px 10px;border-radius:999px;margin:10px 0}
+</style>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<header class="site"><div class="wrap" style="display:flex;justify-content:space-between;align-items:baseline;gap:18px;flex-wrap:wrap">
+<div class="brand">open-data <span>· ecosistema Belentani · WebGL online</span></div>
+<nav class="site" aria-label="Navegación principal"><a href="index.html" aria-current="page">Inicio</a><a href="docs.html">Documentación</a><a href="accesibilidad.html">Accesibilidad</a><a href="privacidad.html">Privacidad</a><a href="404.html">404</a></nav>
+</div></header>
+<main id="contenido"><div class="wrap">
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<header class="site"><div class="wrap" style="display:flex;justify-content:space-between;align-items:baseline;gap:18px;flex-wrap:wrap">
+<div class="brand">open-data <span>· ecosistema Belentani · WebGL online</span></div>
+<nav class="site" aria-label="Navegación principal"><a href="index.html" aria-current="page">Inicio</a><a href="docs.html">Documentación</a><a href="accesibilidad.html">Accesibilidad</a><a href="privacidad.html">Privacidad</a><a href="404.html">404</a></nav>
+</div></header>
+<main id="contenido"><div class="wrap">
+<header>
+<h1>secure-t-university</h1>
+<p class="meta">Ciberseguridad y trust &amp; safety &middot; fuentes abiertas verificadas &middot; reutilizable (CC/dominio publico)</p>
+<nav><a href='#vulnerabilidades-explotadas'>vulnerabilidades-explotadas</a> <a href='#cves-recientes'>cves-recientes</a> <a href='#tecnicas-de-adversario'>tecnicas-de-adversario</a> <a href='#media-y-casos'>media-y-casos</a> <a href='#avisos-github'>avisos-github</a> <a href='#investigacion-seguridad'>investigacion-seguridad</a> <a href='#normas-y-estandares'>normas-y-estandares</a></nav>
+</header>
+<main><section id='vulnerabilidades-explotadas'><h2>vulnerabilidades-explotadas</h2><p class='meta'>1/1 fuentes con datos</p><h3>CISA KEV</h3><ul><li>CVE-2026-76461</li><li>CVE-2026-84869</li><li>CVE-2026-42016</li><li>CVE-2026-42018</li><li>CVE-2026-85706</li><li>CVE-2026-86060</li><li>CVE-2026-67277</li><li>CVE-2026-19490</li></ul></section><section id='cves-recientes'><h2>cves-recientes</h2><p class='meta'>1/1 fuentes con datos</p><h3>NVD NIST</h3><ul><li>CVE-1999-0095</li><li>CVE-1999-0082</li><li>CVE-1999-1471</li><li>CVE-1999-1122</li><li>CVE-1999-1467</li><li>CVE-1999-1506</li><li>CVE-1999-0084</li><li>CVE-2000-0388</li></ul></section><section id='tecnicas-de-adversario'><h2>tecnicas-de-adversario</h2><p class='meta'>1/1 fuentes con datos</p><h3>MITRE ATT&amp;CK</h3><ul><li>T1055.011</li><li>T1053.005</li><li>T1205.002</li><li>T1560.001</li><li>T1021.005</li><li>T1047</li><li>T1687</li><li>T1113</li></ul></section><section id='media-y-casos'><h2>media-y-casos</h2><p class='meta'>1/1 fuentes con datos</p><h3>Openverse</h3><ul><li><a  rel='noopener'>Cybersecurity</a></li><li><a  rel='noopener'>Sophia cyber security tool in CAVE</a></li><li><a  rel='noopener'>Sophia cybersecurity tool</a></li><li><a  rel='noopener'>220613-Z-YK181-023</a></li><li><a  rel='noopener'>Cybersecurity for grid components</a></li><li><a  rel='noopener'>Cyber Leaders: A Discussion with the Honorable Eric Rosenbach</a></li></ul></section><section id='avisos-github'><h2>avisos-github</h2><p class='meta'>1/1 fuentes con datos</p><h3>GitHub Advisories</h3><ul><li><a  rel='noopener'>GHSA-v859-c572-qh5p</a></li><li><a  rel='noopener'>GHSA-vrh8-c9cm-wh8v</a></li><li><a  rel='noopener'>GHSA-rrxg-g2pf-6hh4</a></li><li><a  rel='noopener'>GHSA-2xmm-m4wv-3fjh</a></li><li><a  rel='noopener'>GHSA-2ff2-mx52-q8wp</a></li><li><a  rel='noopener'>GHSA-xv9m-fm3w-8w5x</a></li><li><a  rel='noopener'>GHSA-992q-9gwp-7r79</a></li><li><a  rel='noopener'>GHSA-325j-mg25-8q58</a></li></ul></section><section id='investigacion-seguridad'><h2>investigacion-seguridad</h2><p class='meta'>1/1 fuentes con datos</p><h3>OpenAlex</h3><ul><li><a  rel='noopener'>Cybersecurity vulnerabilities in medical devices: a complex environment and multifaceted problem</a></li><li><a  rel='noopener'>A review on cybersecurity vulnerabilities for unmanned aerial vehicles</a></li><li><a  rel='noopener'>A survey on blockchain cybersecurity vulnerabilities and possible countermeasures</a></li><li><a  rel='noopener'>Vulnerability Assessment of Cybersecurity for SCADA Systems</a></li><li><a  rel='noopener'>Big Data for Cybersecurity: Vulnerability Disclosure Trends and Dependencies</a></li></ul></section><section id='normas-y-estandares'><h2>normas-y-estandares</h2><p class='meta'>1/1 fuentes con datos</p><h3>Wikilibros EN</h3><ul><li><a  rel='noopener'>Basic Computer Security</a></li><li><a  rel='noopener'>Basic Computer Security/Introduction</a></li><li><a  rel='noopener'>Basic Computer Security/General Security and Passwords</a></li><li><a  rel='noopener'>Basic Computer Security/Web Security/Web Browser Security</a></li><li><a  rel='noopener'>Basic Computer Security/Further Reading</a></li></ul></section></main>
+<footer>
+<p>Contenido generado desde APIs abiertas por <code>enrich_portals.py</code>.
+Cada tema incluye la atribucion de fuente; revisa la licencia antes de uso comercial.</p>
+</footer>
+</div></main>
+<footer class="site"><div class="wrap">
+<p>open-data · WebGL listo para servir online · <a href="index.html">Inicio</a> · <a href="accesibilidad.html">Accesibilidad</a> · <a href="privacidad.html">Privacidad</a></p>
+</div></footer>
+<script>
+(function(){
+  var canvas = document.createElement('canvas');
+  canvas.className = 'webgl-canvas';
+  var container = document.getElementById('contenido');
+  if(container){ container.appendChild(canvas); }
+  try{
+    var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if(!gl){ canvas.innerHTML = '<p style="color:var(--dim);font-family:var(--mono);padding:12px">WebGL no disponible en este navegador.</p>'; return; }
+    gl.clearColor(0.047,0.043,0.039,1);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    var vs = gl.createShader(gl.VERTEX_SHADER);
+    gl.shaderSource(vs, 'attribute vec2 p;void main(){gl_Position=vec4(p,0.0,1.0);}');
+    gl.compileShader(vs);
+    var fs = gl.createShader(gl.FRAGMENT_SHADER);
+    gl.shaderSource(fs, 'precision mediump float;uniform vec4 c;void main(){gl_FragColor=c;}');
+    gl.compileShader(fs);
+    var prog = gl.createProgram();
+    gl.attachShader(prog,vs); gl.attachShader(prog,fs); gl.linkProgram(prog);
+    gl.useProgram(prog);
+    var loc = gl.getUniformLocation(prog,'c');
+    gl.uniform4f(loc, 0.549, 0.659, 0.545, 1.0);
+    var buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+    var attr = gl.getAttribLocation(prog,'p');
+    gl.enableVertexAttribArray(attr);
+    gl.vertexAttribPointer(attr,2,gl.FLOAT,false,0,0);
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+  }catch(e){ console.log('WebGL init:', e.message); }
+})();
+</script>
+</div></main>
+<footer class="site"><div class="wrap">
+<p>open-data · WebGL listo para servir online · <a href="index.html">Inicio</a> · <a href="accesibilidad.html">Accesibilidad</a> · <a href="privacidad.html">Privacidad</a></p>
+</div></footer>
+<script>
+(function(){
+  var canvas = document.createElement('canvas');
+  canvas.className = 'webgl-canvas';
+  var container = document.getElementById('contenido');
+  if(container){ container.appendChild(canvas); }
+  try{
+    var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if(!gl){ canvas.innerHTML = '<p style="color:var(--dim);font-family:var(--mono);padding:12px">WebGL no disponible.</p>'; return; }
+    gl.clearColor(0.047,0.043,0.039,1);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+  }catch(e){ console.log('WebGL:', e.message); }
+})();
+</script>
+</body>
+</html>

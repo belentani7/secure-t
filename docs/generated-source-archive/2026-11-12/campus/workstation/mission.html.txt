@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secure T · Mission Control | PC educativo · Workstation... · Campus</title>
+<meta name="description" content="Secure T · Mission Control: seis simulaciones defensivas, laboratorio de decisiones, 48 tarjetas de repaso y cuaderno local privado.">
+<meta name="generator" content="repo-cursor-superpowers-v1">
+<meta property="og:title" content="Secure T · Mission Control | PC educativo · Workstation... · Campus">
+<meta property="og:description" content="Secure T · Mission Control: seis simulaciones defensivas, laboratorio de decisiones, 48 tarjetas de repaso y cuaderno local privado.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0a09'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23d195d3'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#0b0a09;--bg2:#131110;--ink:#f4efe7;--dim:#a89f92;--accent:#e0a35c;
+--accent2:#7fa88b;--line:rgba(244,239,231,.14);--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+--sans:ui-sans-serif,"Segoe UI",Inter,system-ui,-apple-system,sans-serif;
+--mono:ui-monospace,"Cascadia Mono",Consolas,monospace;--measure:62ch;--radius:14px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.65;
+-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(18px,4vw,40px);position:relative;z-index:1}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent2);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#12100e;padding:10px 16px;z-index:9}
+.skip:focus{left:12px;top:12px}
+header.site{border-bottom:1px solid var(--line);padding:22px 0;display:flex;gap:18px;
+align-items:baseline;justify-content:space-between;flex-wrap:wrap}
+.brand{font-family:var(--serif);font-size:1.05rem;letter-spacing:.01em}
+.brand span{color:var(--dim)}
+nav.site{display:flex;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:.72rem;
+letter-spacing:.14em;text-transform:uppercase}
+nav.site a{color:var(--dim);text-decoration:none}
+nav.site a:hover,nav.site a[aria-current=page]{color:var(--ink)}
+main{padding:clamp(48px,9vh,104px) 0}
+.eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+color:var(--accent);margin:0 0 18px}
+h1{font-family:var(--serif);font-size:clamp(2.4rem,7vw,5.2rem);line-height:.95;
+letter-spacing:-.03em;margin:0 0 24px;font-weight:500;text-wrap:balance}
+h2{font-family:var(--serif);font-size:clamp(1.4rem,3vw,2.1rem);line-height:1.15;
+letter-spacing:-.02em;margin:64px 0 18px;font-weight:500}
+h3{font-size:1.02rem;margin:28px 0 10px;letter-spacing:-.01em}
+p,li{max-width:var(--measure);color:var(--ink)}
+.lead{font-size:clamp(1.05rem,2vw,1.28rem);color:var(--dim);max-width:56ch}
+hr{border:0;border-top:1px solid var(--line);margin:clamp(40px,8vh,80px) 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;
+background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:32px 0}
+.cell{background:var(--bg2);padding:22px 20px}
+.cell h3{margin-top:0}
+.cell p{font-size:.9rem;color:var(--dim);margin:0}
+code,kbd{font-family:var(--mono);font-size:.86em;background:rgba(244,239,231,.07);
+padding:2px 6px;border-radius:5px}
+pre{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);
+padding:18px;overflow:auto;max-width:100%}
+pre code{background:none;padding:0}
+table{width:100%;border-collapse:collapse;margin:24px 0;font-size:.92rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.pill{display:inline-block;font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;
+text-transform:uppercase;border:1px solid var(--line);color:var(--dim);padding:3px 9px;border-radius:999px}
+footer.site{border-top:1px solid var(--line);padding:28px 0 44px;color:var(--dim);font-size:.8rem}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}
+.reveal{opacity:1;transform:none;transition:none}}
+::selection{background:var(--accent);color:#12100e}
+.webgl-canvas{width:100%;height:400px;background:var(--bg2);border:1px solid var(--line);
+border-radius:var(--radius);margin:24px 0;display:block}
+.superpowers-badge{display:inline-block;font-family:var(--mono);font-size:.65rem;
+letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--accent2);
+color:var(--accent2);padding:4px 10px;border-radius:999px;margin:10px 0}
+</style>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<header class="site"><div class="wrap" style="display:flex;justify-content:space-between;align-items:baseline;gap:18px;flex-wrap:wrap">
+<div class="brand">workstation <span>· ecosistema Belentani · WebGL online</span></div>
+<nav class="site" aria-label="Navegación principal"><a href="index.html">Inicio</a><a href="docs.html">Documentación</a><a href="accesibilidad.html">Accesibilidad</a><a href="privacidad.html">Privacidad</a><a href="404.html">404</a></nav>
+</div></header>
+<main id="contenido"><div class="wrap">
+<a class="skip" href="#main">Saltar al laboratorio</a>
+<div class="app-shell">
+<header class="top">
+<a href="index.html" class="logo" aria-label="Secure T: volver al ordenador de alumnos"><span class="logo-shape" aria-hidden="true">◈</span><span>SECURE <em>T</em><small>MISSION CONTROL // EDUCATION OS</small></span></a>
+<div class="signal"><span class="signal-dot" aria-hidden="true"></span> LABORATORIO LOCAL · SIMULACIÓN</div>
+<a href="index.html" class="top-link">↖ PC de alumnos</a>
+</header>
+<div class="frame">
+<aside class="sidebar">
+<div class="side-overline">APLICACIONES / 01</div>
+<h2>Centro de mando<span>.</span></h2>
+<p>Investiga, decide, registra tus límites y vuelve a estudiar los conceptos.</p>
+<nav class="navigation" aria-label="Aplicaciones de Mission Control">
+<button type="button" class="nav-btn active" data-view="cases" aria-controls="view-cases" aria-pressed="true"><span aria-hidden="true">▤</span> Simulaciones <b id="nav-cases">0/6</b></button>
+<button type="button" class="nav-btn" data-view="cards" aria-controls="view-cards" aria-pressed="false"><span aria-hidden="true">◇</span> Memoria activa <b id="nav-due">48</b></button>
+<button type="button" class="nav-btn" data-view="journal" aria-controls="view-journal" aria-pressed="false"><span aria-hidden="true">✎</span> Cuaderno <b id="nav-entries">0</b></button>
+<button type="button" class="nav-btn" data-view="about" aria-controls="view-about" aria-pressed="false"><span aria-hidden="true">◎</span> Método y fuentes</button>
+</nav>
+<div class="side-note"><span>PRINCIPIO 01</span><strong>Una alerta no es una prueba.</strong><small>Observación → hipótesis → validación → respuesta autorizada.</small></div>
+</aside>
+<main id="main" class="main">
+<div class="utility"><span class="breadcrumb" id="breadcrumb">WORKSTATION / INVESTIGATION</span><div class="utility-actions"><button id="export-state" type="button">↓ Exportar</button><button id="import-state" type="button">↑ Importar</button><input id="import-file" hidden type="file" accept=".json,application/json"><button id="reset-state" type="button">↺ Reiniciar</button></div></div>
+<section class="intro"><div><div class="eyebrow"><span class="square"></span> SISTEMA EDUCATIVO / 2026</div><h1>Piensa como<br>un <span>analista.</span><p>Seis investigaciones sintéticas, 24 decisiones explicadas y 48 conceptos con repaso espaciado. Entrena juicio, no automatismos.</p><div class="intro-alert">Datos inventados · Sin shell real · Sin llamadas de red · Ningún título automático</div></h1></div><div class="radar" aria-hidden="true"><div class="ring ring-a"></div><div class="ring ring-b"></div><div class="ring ring-c"></div><div class="radar-core">ST<span>_</span></div></div></section>
+<div class="metrics" aria-label="Progreso local"><article><span>SIMULACIONES COMPLETAS</span><strong id="stat-complete">0 <small>/ 6</small></strong><p>Cuatro decisiones razonadas por caso</p></article><article><span>REPASOS PENDIENTES</span><strong id="stat-due">48</strong><p>Planificador local de memoria activa</p></article><article><span>DOCUMENTACIÓN</span><strong id="stat-notes">0 <small>/ 6</small></strong><p>Cuadernos redactados y revisables</p></article></div>
+<section id="view-cases" class="view" aria-labelledby="heading-cases">
+<div class="section-title"><div><span class="eyebrow">INVESTIGATION DESK / LIVE SIMULATION</span><h2 id="heading-cases" tabindex="-1">Mesa de investigación</h2><p>Elige un escenario y justifica cada decisión antes de escribir el informe.</p></div></div>
+<div class="case-grid"><div class="case-selector"><label for="case-filter">Filtrar casos</label><input id="case-filter" type="search" maxlength="90" placeholder="Identidad, correo, IA, RGPD..."><div id="case-list" class="case-list" aria-label="Escenarios educativos"></div></div>
+<div class="case-main"><header class="case-header"><div><span id="case-code" class="case-code">ST-SOC-001</span><h3 id="case-title">Escenario</h3><p id="case-goal"></p></div><span id="case-priority" class="priority">MEDIA</span></header>
+<div class="case-signals"><h4>01 / EVIDENCIA DISPONIBLE</h4><ul id="case-signals"></ul><a id="terminal-link" href="index.html?case=auth&amp;panel=terminal" class="quiet-link">Abrir la terminal ficticia del PC →</a></div>
+<div class="decision-head"><div><span class="eyebrow">02 / DECISION MATRIX</span><h4 id="decision-count">Decisión 1 de 4</h4></div><div class="segment-track" id="decision-track" aria-label="Progreso del caso"></div></div>
+<div id="decision-stage"><p id="decision-prompt" class="decision-prompt"></p><form id="decision-form"><fieldset><legend class="visually-hidden">Selecciona la decisión razonada</legend><div id="decision-options" class="decision-options"></div></fieldset><button type="submit" class="primary" id="decision-submit">Evaluar decisión ↗</button></form><div id="decision-feedback" role="status" aria-live="polite" class="feedback"></div><button type="button" id="decision-next" class="primary" hidden>Siguiente decisión →</button><button type="button" id="decision-restart" class="ghost" hidden>Practicar este caso otra vez ↺</button></div>
+<p class="subtle">Las respuestas son orientación formativa basada en un dataset limitado, no una evaluación de incidentes reales.</p>
+</div></div>
+</section>
+<section id="view-cards" class="view" aria-labelledby="heading-cards" hidden>
+<div class="section-title"><div><span class="eyebrow">MEMORY LAB / ACTIVE RECALL</span><h2 id="heading-cards" tabindex="-1">Memoria activa</h2><p>48 conceptos distribuidos en seis áreas. El algoritmo agenda los repasos por días UTC y muestra lo que toca repasar.</p></div></div>
+<div class="study-bar"><div><label for="card-filter">Área de repaso</label><select id="card-filter"><option value="all">Todas las áreas</option></select></div><button type="button" id="study-all" class="ghost">Incluir tarjetas futuras</button><button type="button" id="study-due" class="ghost">Solo pendientes</button><span id="card-session" aria-live="polite">0 revisadas en esta sesión</span></div>
+<div class="flash-layout"><article class="flashcard" aria-label="Tarjeta de repaso"><div class="flash-head"><span id="card-tag">CARD 01</span><span id="card-interval">NUEVA</span></div><div id="card-front" class="flash-front">¿Qué significa...?</div><p id="card-back" class="flash-back" hidden></p><div id="card-status" class="flash-bottom">Intenta responder mentalmente antes de revelar.</div></article><div class="review-actions"><button type="button" id="show-answer" class="primary">Mostrar respuesta</button><fieldset id="rating-panel" hidden><legend>¿Cómo recordaste el concepto?</legend><div class="rating-grid"><button type="button" data-rating="0">1 · Otra vez<small>1 día</small></button><button type="button" data-rating="1">2 · Difícil<small>2 días</small></button><button type="button" data-rating="2">3 · Bien<small>Crece intervalo</small></button><button type="button" data-rating="3">4 · Fácil<small>Crece más</small></button></div></fieldset><div class="help-keys">Teclado: <kbd>Espacio</kbd> revelar · <kbd>1</kbd> a <kbd>4</kbd> valorar (fuera de los campos de formulario).</div></div></div>
+</section>
+<section id="view-journal" class="view" aria-labelledby="heading-journal" hidden>
+<div class="section-title"><div><span class="eyebrow">EVIDENCE NOTEBOOK / PRIVACY FIRST</span><h2 id="heading-journal" tabindex="-1">Cuaderno de investigación</h2><p>Documenta hechos, incertidumbres y próximos pasos. Se guarda en el navegador, no en un servidor.</p></div></div>
+<div class="journal-grid"><form id="journal-form"><label for="journal-case">Caso</label><select id="journal-case"></select><label for="journal-facts">Hechos y fuentes (mínimo 40 caracteres)</label><textarea id="journal-facts" rows="4" maxlength="2000" placeholder="Cita solamente señales visibles en los registros de prueba..."></textarea><label for="journal-uncertainty">Hipótesis, alternativas e incertidumbre (mínimo 40 caracteres)</label><textarea id="journal-uncertainty" rows="4" maxlength="2000" placeholder="Separa con claridad lo que sabes de lo que falta confirmar..."></textarea><label for="journal-action">Siguiente verificación autorizada (mínimo 40 caracteres)</label><textarea id="journal-action" rows="4" maxlength="2000" placeholder="Propón una comprobación proporcional y realizada solo con permiso..."></textarea><label class="consent"><input type="checkbox" id="journal-attest"><span>He evitado datos personales reales y distingo hechos de hipótesis.</span></label><div class="actions"><button type="submit" class="primary">Guardar cuaderno local</button><button type="button" id="journal-clear" class="ghost">Vaciar caso</button></div><div id="journal-feedback" class="feedback" role="status" aria-live="polite"></div></form><aside class="rubric"><h3>Rúbrica de calidad</h3><ol><li><strong>Hechos.</strong> Incluye evidencia concreta, no una conclusión absoluta.</li><li><strong>Limitaciones.</strong> Identifica datos ausentes y explicaciones alternativas.</li><li><strong>Autorización.</strong> Define comprobaciones dentro del alcance permitido.</li><li><strong>Comunicación.</strong> Informa sin exagerar la certeza.</li></ol><p>La validación automática comprueba longitud y confirmación ética. <strong>No evalúa la calidad científica de tus respuestas.</strong></p><button type="button" id="print-report" class="ghost">Imprimir cuaderno / PDF del navegador</button></aside></div>
+</section>
+<section id="view-about" class="view" aria-labelledby="heading-about" hidden>
+<div class="section-title"><div><span class="eyebrow">LEARNING METHOD / SOURCES</span><h2 id="heading-about" tabindex="-1">Método y límites</h2></div></div>
+<div class="about-grid"><article><h3>01 — Observa</h3><p>Lee hechos contenidos en los logs sintéticos y pregunta qué falta para concluir.</p></article><article><h3>02 — Correlaciona</h3><p>Evita atribuciones precipitadas; verifica con fuentes independientes y dentro del alcance autorizado.</p></article><article><h3>03 — Decide</h3><p>Elige contención, preservación o revisión proporcionadas; el simulador explica sus límites.</p></article><article><h3>04 — Recuerda</h3><p>Repite conceptos con tarjetas y un planificador de repaso que no requiere cuentas.</p></article></div>
+<div class="reference"><h3>Normas y fuentes consultables</h3><ul id="source-list"></ul><p>No se otorgan títulos, notas oficiales, diagnósticos de seguridad ni acceso a sistemas reales. Las calificaciones y el progreso guardados en tu navegador son manipulables: no sirven como acreditación.</p></div>
+</section>
+<div id="global-status" class="global-status" role="status" aria-live="polite"></div>
+<footer class="footer"><span>SECURE T // OPEN LEARNING ENVIRONMENT</span><span>Local-first · datos sintéticos · sin telemetría</span></footer>
+</main>
+</div></div>
+</div></main>
+<footer class="site"><div class="wrap">
+<p>workstation · WebGL listo para servir online · <a href="index.html">Inicio</a> · <a href="accesibilidad.html">Accesibilidad</a> · <a href="privacidad.html">Privacidad</a></p>
+</div></footer>
+<script>
+(function(){
+  var canvas = document.createElement('canvas');
+  canvas.className = 'webgl-canvas';
+  var container = document.getElementById('contenido');
+  if(container){ container.appendChild(canvas); }
+  try{
+    var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if(!gl){ canvas.innerHTML = '<p style="color:var(--dim);font-family:var(--mono);padding:12px">WebGL no disponible en este navegador.</p>'; return; }
+    gl.clearColor(0.047,0.043,0.039,1);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    var vs = gl.createShader(gl.VERTEX_SHADER);
+    gl.shaderSource(vs, 'attribute vec2 p;void main(){gl_Position=vec4(p,0.0,1.0);}');
+    gl.compileShader(vs);
+    var fs = gl.createShader(gl.FRAGMENT_SHADER);
+    gl.shaderSource(fs, 'precision mediump float;uniform vec4 c;void main(){gl_FragColor=c;}');
+    gl.compileShader(fs);
+    var prog = gl.createProgram();
+    gl.attachShader(prog,vs); gl.attachShader(prog,fs); gl.linkProgram(prog);
+    gl.useProgram(prog);
+    var loc = gl.getUniformLocation(prog,'c');
+    gl.uniform4f(loc, 0.549, 0.659, 0.545, 1.0);
+    var buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+    var attr = gl.getAttribLocation(prog,'p');
+    gl.enableVertexAttribArray(attr);
+    gl.vertexAttribPointer(attr,2,gl.FLOAT,false,0,0);
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+  }catch(e){ console.log('WebGL init:', e.message); }
+})();
+</script>
+</body>
+</html>

@@ -22,12 +22,72 @@ Todo lo anterior se midió en disco el 2026-11-10; no es una estimación.
 ## Uso
 
 ```bash
-python -m unittest discover -s tests -v
+python -m pip install -r requirements-dev.txt
+python -m pytest -q tests/
+node scripts/verify-platform-security.mjs
 python scripts/doctor.py
 ```
 
-Consulta `package.json` para la lista completa de scripts disponibles.
+El motor educativo vive en `lib/edu-engine` y sus comandos `eduforge` se documentan
+en su fuente. Los registros `audit` describen resultados de comprobaciones; un
+elemento marcado `PLANNED` expresa trabajo previsto y no una función terminada.
+El campus es formativo y no promete certificación oficial.
 
+## Estructura
 
-## Producto
-Véase `plataforma/OFERTA.md`, `plataforma/precios.json`, `plataforma/ONEPAGER.md`.
+```
+assets/
+belentani7-secure-t-7d4d5d6/
+brand/
+data/
+docs/
+plataforma/
+producto/
+scripts/
+tests/
+```
+
+## Diseño de plataforma
+
+- Catálogo de 4 programas
+- Laboratorios guiados
+- Evaluación por evidencias
+- Credencial verificable
+- Bolsa de prácticas
+
+La ficha completa —máximo potencial, marca, fases de monetización y recursos— vive en
+[`plataforma/FICHA.md`](plataforma/FICHA.md). Los tokens de marca están en
+[`brand/tokens.css`](brand/tokens.css).
+
+## Reglas del proyecto
+
+Este repositorio sigue el catálogo oficial del ecosistema (`GH-*`, `WEB-*`, `ACC-*`,
+`SEO-*`, `COH-*`, `DEV-*`). El gate se ejecuta con:
+
+```bash
+python scripts/doctor.py
+```
+
+## Licencia
+
+MIT. Ver [`LICENSE`](LICENSE).
+<!-- repo-forge:readme:fin -->
+## Producto comercial
+
+Se vende un **aula de seguridad digital patrocinada**: 15 personas, 12 semanas, cuatro cursos
+completos con laboratorio aislado, evaluaciones y constancia local. La organización paga; el
+alumno no se registra y no paga.
+
+- [`producto/OFERTA.md`](producto/OFERTA.md) — oferta, precio, garantía y objeciones
+- [`producto/landing.html`](producto/landing.html) — página de venta autocontenida
+- [`producto/precios.json`](producto/precios.json) — planes, límites e IVA
+- [`producto/COBRO.md`](producto/COBRO.md) — cobro, facturación y reembolso
+- [`producto/ONEPAGER.md`](producto/ONEPAGER.md) — ficha de una página
+- [`producto/DEMO.md`](producto/DEMO.md) — guion de demo de 3 minutos
+- [`producto/METRICAS.md`](producto/METRICAS.md) — indicadores y objetivos a 30 días
+
+Verificación: `python tools/area_check.py producto --repo secure-t` desde la raíz del workspace.
+
+<!-- repo-forge:readme:fin -->
+<!-- repo-forge:readme:fin -->
+<!-- repo-forge:readme:fin -->

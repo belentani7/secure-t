@@ -73,6 +73,8 @@ def render_public_metadata(stage: Path) -> None:
         )
         if count != 1:
             raise RuntimeError("Missing required canonical or Open Graph URL in landing")
+    if "__BASE_URL__" in source:
+        raise RuntimeError("Unresolved URL placeholder in landing")
     landing.write_text(source, encoding="utf-8")
 
 
