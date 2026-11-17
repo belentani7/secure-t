@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html dir="ltr" lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,6 +31,11 @@
 <meta name="robots" content="index,follow">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:title" content="Credencial — Campus Secure-T · Secure t">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
 </head>
 <body>
 <header class="topbar"><div class="bar">
@@ -59,13 +64,13 @@
   <input type="text" id="token" placeholder="ej. 3f2a... (uuid local)">
   <label class="meta">Resumen de la evidencia (qué entregaste)</label>
   <input type="text" id="evidencia" placeholder="ej. mini-SOC: 3 alertas detectadas + timeline">
-  <div class="fila-botones"><button class="btn" id="sellar">Sellar credencial</button></div>
+  <div class="fila-botones"><button class="btn" id="sellar" type="button">Sellar credencial</button></div>
   <div class="resultado" id="salida" hidden></div>
 
   <h2 id="verificar">Verificar</h2>
   <p class="t2">Pega el bloque de credencial completo:</p>
   <textarea id="bloque" rows="8" placeholder='{"v":1,"curso":"...",...}'></textarea>
-  <div class="fila-botones"><button class="btn" id="btn-verificar">Verificar sello</button></div>
+  <div class="fila-botones"><button class="btn" id="btn-verificar" type="button">Verificar sello</button></div>
   <div class="resultado" id="veredicto" hidden></div>
 </main>
 <script>
