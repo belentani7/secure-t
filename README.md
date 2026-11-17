@@ -91,3 +91,10 @@ Verificación: `python tools/area_check.py producto --repo secure-t` desde la ra
 <!-- repo-forge:readme:fin -->
 <!-- repo-forge:readme:fin -->
 <!-- repo-forge:readme:fin -->
+
+## Verificacion
+
+```bash
+npm install
+npm test
+```
