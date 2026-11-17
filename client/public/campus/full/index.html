@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html dir="ltr" lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,6 +74,11 @@ color:var(--accent2);padding:4px 10px;border-radius:999px;margin:10px 0}
 <meta name="color-scheme" content="light dark">
 <meta name="robots" content="index,follow">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:title" content="Campus abierto | Secure T University">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
 </head>
 <body>
 <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -364,9 +369,9 @@ color:var(--accent2);padding:4px 10px;border-radius:999px;margin:10px 0}
           <div class="sonic-strings">${stringsHtml}</div>
           
           <div class="sonic-btn-group">
-            <button class="sonic-btn sonic-btn--primary" id="btn-sing">🎤 Cantar la llave</button>
-            <button class="sonic-btn sonic-btn--secondary" id="btn-master">🎵 Llave Maestra</button>
-            <button class="sonic-btn sonic-btn--tertiary" id="btn-belentani">🌌 Secuencia Belentani</button>
+            <button class="sonic-btn sonic-btn--primary" id="btn-sing" type="button">🎤 Cantar la llave</button>
+            <button class="sonic-btn sonic-btn--secondary" id="btn-master" type="button">🎵 Llave Maestra</button>
+            <button class="sonic-btn sonic-btn--tertiary" id="btn-belentani" type="button">🌌 Secuencia Belentani</button>
           </div>
           
           <div class="sonic-metrics">
@@ -492,7 +497,7 @@ color:var(--accent2);padding:4px 10px;border-radius:999px;margin:10px 0}
   </script>
   <script defer src="sw-register.js"></script>
   <script defer src="offline-library.js"></script>
-  <script src="app.js"></script>
+  <script src="app.js" defer></script>
 </div></main>
 <footer class="site"><div class="wrap">
 <p>campus · WebGL listo para servir online · <a href="index.html">Inicio</a> · <a href="accesibilidad.html">Accesibilidad</a> · <a href="privacidad.html">Privacidad</a></p>

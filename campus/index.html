@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html dir="ltr" lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,6 +17,11 @@
 <meta name="robots" content="index,follow">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:title" content="Campus abierto | Secure T University">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
 </head>
 <body class="campus-landing">
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -278,9 +283,9 @@
           <div class="sonic-strings">${stringsHtml}</div>
           
           <div class="sonic-btn-group">
-            <button class="sonic-btn sonic-btn--primary" id="btn-sing">🎤 Cantar la llave</button>
-            <button class="sonic-btn sonic-btn--secondary" id="btn-master">🎵 Llave Maestra</button>
-            <button class="sonic-btn sonic-btn--tertiary" id="btn-belentani">🌌 Secuencia Belentani</button>
+            <button class="sonic-btn sonic-btn--primary" id="btn-sing" type="button">🎤 Cantar la llave</button>
+            <button class="sonic-btn sonic-btn--secondary" id="btn-master" type="button">🎵 Llave Maestra</button>
+            <button class="sonic-btn sonic-btn--tertiary" id="btn-belentani" type="button">🌌 Secuencia Belentani</button>
           </div>
           
           <div class="sonic-metrics">
@@ -409,6 +414,6 @@
   </script>
   <script defer src="sw-register.js"></script>
   <script defer src="offline-library.js"></script>
-  <script src="app.js"></script>
+  <script src="app.js" defer></script>
 </body>
 </html>

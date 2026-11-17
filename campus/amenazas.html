@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html dir="ltr" lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -120,10 +120,15 @@ tr:hover td{background:var(--bg-surface)}
 <meta name="robots" content="index,follow">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:title" content="Centro de Amenazas · secure T · Secure t">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
 </head>
 <body>
 <div class="env">
-  <nav class="nav">
+  <nav class="nav" aria-label="Principal">
     <a href="../index.html">secure T</a>
     <span class="sep">›</span>
     <a href="./index.html">Campus</a>
@@ -148,25 +153,25 @@ tr:hover td{background:var(--bg-surface)}
   </div>
 
   <div class="tabs">
-    <button class="tab active" data-tab="kev">KEV — Activamente explotadas</button>
-    <button class="tab" data-tab="nvd">NVD — Críticas recientes</button>
-    <button class="tab" data-tab="stats">Estadísticas</button>
+    <button class="tab active" data-tab="kev" type="button">KEV — Activamente explotadas</button>
+    <button class="tab" data-tab="nvd" type="button">NVD — Críticas recientes</button>
+    <button class="tab" data-tab="stats" type="button">Estadísticas</button>
   </div>
 
   <!-- KEV tab -->
   <div id="tab-kev">
     <div class="search-bar">
       <input type="search" id="kev-search" placeholder="Buscar CVE, vendor, producto…" autocomplete="off">
-      <button class="filter-btn active" data-filter="all">Todas</button>
-      <button class="filter-btn" data-filter="ransomware">Solo ransomware</button>
+      <button class="filter-btn active" data-filter="all" type="button">Todas</button>
+      <button class="filter-btn" data-filter="ransomware" type="button">Solo ransomware</button>
     </div>
     <div id="kev-table-wrap">
       <div class="loading-msg">⏳ Cargando feed CISA KEV…</div>
     </div>
     <div class="pager" id="kev-pager" style="display:none">
-      <button id="p-prev" disabled>← Anterior</button>
+      <button id="p-prev" disabled type="button">← Anterior</button>
       <span class="page-info" id="p-info"></span>
-      <button id="p-next">Siguiente →</button>
+      <button id="p-next" type="button">Siguiente →</button>
     </div>
   </div>
 
