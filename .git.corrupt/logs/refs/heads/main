@@ -1,0 +1,9 @@
+0000000000000000000000000000000000000000 7d4d5d6f1bd88066b10e525121477721f93796e3 belentani7 <belentani7@users.noreply.github.com> 1794329908 +0100	clone: from https://github.com/belentani7/secure-t.git
+7d4d5d6f1bd88066b10e525121477721f93796e3 4505783b03ef0ab6e333e835d50d33df5f8c7cbd belentani7 <belentani7@users.noreply.github.com> 1794334483 +0100	commit: fix(build): canonical URLs + metadata placeholders + validate skip __BASE_URL__
+4505783b03ef0ab6e333e835d50d33df5f8c7cbd 74e06dcc6562510cfbb119d0b9a9996d5072a36b belentani7 <belentani7@users.noreply.github.com> 1794408464 +0100	commit: chore: sync local changes
+74e06dcc6562510cfbb119d0b9a9996d5072a36b d5a90159206679becc9c49ca9ad4bbd0c938e9cb belentani7 <belentani7@users.noreply.github.com> 1794409606 +0100	merge origin/main: Merge made by the 'ort' strategy.
+d5a90159206679becc9c49ca9ad4bbd0c938e9cb 0e4e59c49d3414898cc90e97987a07d64c579416 Pedro Belentani <belentani7@users.noreply.github.com> 1794414393 +0100	commit: chore(secure-t): sincronizar contenido campus e interfaz generado
+0e4e59c49d3414898cc90e97987a07d64c579416 07c12cae7e3908bac8fcab1348ce7a5b115df31e Pedro Belentani <belentani7@users.noreply.github.com> 1794705421 +0100	reset: moving to origin/main
+07c12cae7e3908bac8fcab1348ce7a5b115df31e 60cc297971510ffa6c978ff3afba267029c6ceff Pedro Belentani <belentani7@users.noreply.github.com> 1794705436 +0100	commit: chore: eliminar metadata de herramientas de desarrollo (.claude) y copia duplicada belentani7-secure-t-7d4d5d6
+60cc297971510ffa6c978ff3afba267029c6ceff cc3bda4b54a8157cb7ca143baffc567d7bcc545b Pedro Belentani <belentani7@users.noreply.github.com> 1794706491 +0100	commit: chore: eliminar .gitkeep residual
+cc3bda4b54a8157cb7ca143baffc567d7bcc545b 7bac3f9b9d3cb416d79cf815f0eb84d60d9fd474 Pedro Belentani <belentani7@users.noreply.github.com> 1794900611 +0100	commit: chore(calidad): licencia, test de humo, README completo y limpieza de metadatos
