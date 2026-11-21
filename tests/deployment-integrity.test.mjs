@@ -13,6 +13,7 @@ test('Vercel deploys compiled React, not the retired Python static builder',()=>
  }
  assert.doesNotMatch(cfg.buildCommand,/python|site-dist/);
  assert.match(read('vite.config.ts'),/base:\s*["']\/["']/);
+ assert.match(JSON.parse(read('package.json')).scripts.typecheck,/generate-campus-data\.mjs/, 'Clean checkout must generate the campus schema before TypeScript');
 });
 test('Four course programs and eighty lesson weeks have canonical source',()=>{
  const content=read('client/src/data/campus.generated.ts');
