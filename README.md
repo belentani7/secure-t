@@ -32,3 +32,8 @@ No se emiten diplomas oficiales. Las acciones con IA, credenciales, autenticaci�
 Fuente: `webs-reparadas/secure-t` del workspace autorizado. Se conservaron los originales. Se excluyeron los historiales de auditoría, versiones experimentales no elegidas y archivos privados de credenciales. Consulta `RECOVERY_SOURCE_20261121.json` para el recuento técnico de archivos recuperados.
 
 Este repositorio unifica el código ejecutable, el campus y los materiales educativos sin declarar cientos de experimentos como productos independientes.
+
+
+### Correcciones de reproducibilidad (21-11-2026)
+
+El desarrollo y las pruebas regeneran el currículo antes de cargar React; de esta forma una instalación limpia no depende de un archivo de campus generado en una sesión anterior. Se incluye `pnpm-workspace.yaml` con la única excepción de compilación permitida (`esbuild`) y el override de `body-parser` ya presente en el lockfile. La portada distingue explícitamente los indicadores ficticios de ejemplo del progreso real de un alumno. Estos cambios no acreditan cuentas, titulaciones ni funciones remotas que aún no estén implementadas.
