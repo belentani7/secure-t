@@ -4,12 +4,12 @@
   "private": false,
   "type": "module",
   "scripts": {
-    "dev": "node scripts/sync-campus.mjs && vite",
+    "dev": "node scripts/generate-campus-data.mjs && node scripts/sync-campus.mjs && vite",
     "campus:data": "node scripts/generate-campus-data.mjs",
     "campus:sync": "node scripts/sync-campus.mjs",
     "build": "node scripts/generate-campus-data.mjs && node scripts/sync-campus.mjs && vite build",
     "start": "tsx index.ts",
-    "test": "vitest run",
+    "test": "node scripts/generate-campus-data.mjs && vitest run",
     "typecheck": "node scripts/generate-campus-data.mjs && tsc --noEmit",
     "quality:check": "npm run typecheck && node --test tests/*.test.mjs && npm test && npm run build && node scripts/verify-bundle.mjs"
   },
