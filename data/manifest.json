@@ -1,0 +1,24 @@
+﻿{
+  "projectName": "Secure-T // Trust & Safety Infrastructure",
+  "bioSource": "README.md",
+  "sections": [
+    {
+      "id": "seguridad",
+      "title": "Protocolos de Seguridad & Auditoría",
+      "description": "Infraestructura de control de accesos, cifrado de extremo a extremo y escaneo continuo de vulnerabilidades.",
+      "buttons": [
+        { "label": "Ver Auditoría de Seguridad", "target": "docs/security-audit.md", "type": "file" },
+        { "label": "Iniciar Escaneo Terminal", "target": "#terminal", "type": "anchor" }
+      ]
+    },
+    {
+      "id": "laboratorio",
+      "title": "AI Tutor & Neural Defense",
+      "description": "Asistente inteligente para análisis de amenazas en tiempo real.",
+      "buttons": [
+        { "label": "Abrir AI Tutor", "target": "#tutor", "type": "anchor" },
+        { "label": "Laboratorio de Voz", "target": "#lab", "type": "anchor" }
+      ]
+    }
+  ]
+}

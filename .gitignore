@@ -1,4 +1,36 @@
-# Generated OS metadata, Python bytecode, and HTML reports
+# Runtime dependencies and compiled artifacts
+node_modules/
+dist/
+build/
+coverage/
+.vite/
+.cache/
+*.tsbuildinfo
+*.log
+
+# Generated campus copies. Canonical source lives in campus/, conceptos/ and ui/.
+client/public/campus/full/
+client/public/conceptos/
+client/public/ui/
+client/public/404.html
+client/src/data/campus.generated.ts
+
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.sqlite
+*.db
+.vercel/
+.next/
+.vscode/
+.idea/
+
+# Generated OS metadata, tests, historical reports
 .DS_Store
 ._*
 __MACOSX/
@@ -10,3 +42,4 @@ __pycache__/
 *.pyo
 htmlcov/
 playwright-report/
+test-results/
