@@ -10,7 +10,7 @@
     "build": "node scripts/generate-campus-data.mjs && node scripts/sync-campus.mjs && vite build",
     "start": "tsx index.ts",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "node scripts/generate-campus-data.mjs && tsc --noEmit",
     "quality:check": "npm run typecheck && node --test tests/*.test.mjs && npm test && npm run build && node scripts/verify-bundle.mjs"
   },
   "dependencies": {
