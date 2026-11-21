@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>__BASE_URL__/</loc><lastmod>2026-09-12</lastmod></url>
+  <url><loc>__BASE_URL__/campus/</loc><lastmod>2026-09-12</lastmod></url>
+  <url><loc>__BASE_URL__/campus/progreso.html</loc><lastmod>2026-09-12</lastmod></url>
+  <url><loc>__BASE_URL__/campus/credencial.html</loc><lastmod>2026-09-12</lastmod></url>
+  <url><loc>__BASE_URL__/campus/buscar.html</loc><lastmod>2026-09-12</lastmod></url>
+  <url><loc>__BASE_URL__/campus/idiomas.md</loc><lastmod>2026-09-12</lastmod></url>
+  <url><loc>__BASE_URL__/campus/calendario.md</loc><lastmod>2026-09-12</lastmod></url>
+  <url><loc>__BASE_URL__/campus/mapa-curricular.md</loc><lastmod>2026-09-12</lastmod></url>
+  <url><loc>__BASE_URL__/campus/cursos/ciber-ofensiva/</loc><lastmod>2026-09-12</lastmod></url>
+  <url><loc>__BASE_URL__/campus/cursos/ciber-defensiva/</loc><lastmod>2026-09-12</lastmod></url>
+  <url><loc>__BASE_URL__/campus/cursos/ia-aplicada-segura/</loc><lastmod>2026-09-12</lastmod></url>
+  <url><loc>__BASE_URL__/campus/cursos/gobernanza-compliance/</loc><lastmod>2026-09-12</lastmod></url>
+</urlset>

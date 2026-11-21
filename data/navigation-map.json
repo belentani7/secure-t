@@ -1,0 +1,79 @@
+{
+  "generatedAt": "2026-11-18T06:45:06.406Z",
+  "repo": "secure-t",
+  "totalFiles": 2942,
+  "links": [
+    {
+      "label": "Abrir bug_report.md",
+      "target": ".github/ISSUE_TEMPLATE/bug_report.md",
+      "type": "file",
+      "exists": true
+    },
+    {
+      "label": "Abrir feature_request.md",
+      "target": ".github/ISSUE_TEMPLATE/feature_request.md",
+      "type": "file",
+      "exists": true
+    },
+    {
+      "label": "Abrir pull_request_template.md",
+      "target": ".github/pull_request_template.md",
+      "type": "file",
+      "exists": true
+    },
+    {
+      "label": "Abrir 404.html",
+      "target": "404.html",
+      "type": "page",
+      "exists": true
+    },
+    {
+      "label": "Abrir ABOUT.md",
+      "target": "ABOUT.md",
+      "type": "file",
+      "exists": true
+    },
+    {
+      "label": "Abrir accesibilidad.html",
+      "target": "accesibilidad.html",
+      "type": "page",
+      "exists": true
+    },
+    {
+      "label": "Abrir accessibility.html",
+      "target": "accessibility.html",
+      "type": "page",
+      "exists": true
+    },
+    {
+      "label": "Abrir AGENTS.md",
+      "target": "AGENTS.md",
+      "type": "file",
+      "exists": true
+    },
+    {
+      "label": "Abrir AI Agents.md",
+      "target": "AI Agents.md",
+      "type": "file",
+      "exists": true
+    },
+    {
+      "label": "Abrir AI Governance.md",
+      "target": "AI Governance.md",
+      "type": "file",
+      "exists": true
+    },
+    {
+      "label": "Abrir ampliacion.html",
+      "target": "ampliacion.html",
+      "type": "page",
+      "exists": true
+    },
+    {
+      "label": "Abrir Architecture Decision Records.md",
+      "target": "Architecture Decision Records.md",
+      "type": "file",
+      "exists": true
+    }
+  ]
+}

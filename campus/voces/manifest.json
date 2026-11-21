@@ -1,0 +1,43 @@
+{
+  "portal": "secure-t-university",
+  "dominio": "Ciberseguridad y trust & safety",
+  "orden_idiomas": [
+    "pt",
+    "es",
+    "en",
+    "ca"
+  ],
+  "generado_utc": "2026-09-12T21:58:58+00:00",
+  "motor": "edge-tts (voces neuronales, sin API key)",
+  "idiomas": {
+    "pt": {
+      "voz": "pt-BR-FranciscaNeural",
+      "guion": "Bem-vindo ao portal de referência secure-t-university. Domínio: Cibersegurança e trust & safety. Reúne 4 temas construídos a partir de 4 fontes de dados abertos verificadas: vulnerabilidades exploradas, CVEs recentes, técnicas de adversário, mídia e casos. Tudo gratuito, sem credenciais, e funciona sem ligação à Internet.",
+      "archivo": "voces/pt/bienvenida.mp3",
+      "bytes": 138960,
+      "sha256": "fa451144a5e4f5a3cf1b69074d30a53c23da14fdc965aa0c4932abc9e632d596"
+    },
+    "es": {
+      "voz": "es-ES-ElviraNeural",
+      "guion": "Bienvenido al portal de referencia secure-t-university. Dominio: Ciberseguridad y trust & safety. Reúne 4 temas construidos a partir de 4 fuentes de datos abiertos verificadas: vulnerabilidades explotadas, CVEs recientes, técnicas de adversario, media y casos. Todo gratuito, sin credenciales, y funciona sin conexión.",
+      "archivo": "voces/es/bienvenida.mp3",
+      "bytes": 137376,
+      "sha256": "a49536097db571f412ac5f266e930562743ce719712e8bdaec06df989ad22c13"
+    },
+    "en": {
+      "voz": "en-US-AriaNeural",
+      "guion": "Welcome to the secure-t-university reference portal. Domain: Cybersecurity and trust & safety. It brings together 4 topics built from 4 verified open data sources: exploited vulnerabilities, recent CVEs, adversary techniques, media and cases. All free, no credentials, and it works offline.",
+      "archivo": "voces/en/bienvenida.mp3",
+      "bytes": 136512,
+      "sha256": "40c0bbd1e81188096428b13068e2d82dd99465db8ad57468706e57fb2eb73f7a"
+    },
+    "ca": {
+      "voz": "ca-ES-JoanaNeural",
+      "guion": "Benvingut al portal de referència secure-t-university. Domini: Ciberseguretat i trust & safety. Aplega 4 temes construïts a partir de 4 fonts de dades obertes verificades: vulnerabilitats explotades, CVEs recents, tècniques d'adversari, mitjans i casos. Tot gratuït, sense credencials, i funciona sense connexió.",
+      "archivo": "voces/ca/bienvenida.mp3",
+      "bytes": 169344,
+      "sha256": "9edee247f3c50865b8552e817d547d9ffb77db23de16c665dedb2e00a6eb7372"
+    }
+  },
+  "nota_correccion": "2026-09-15: guiones PT/EN/CA contenian dominio y temas en espanol; traducidos a cada idioma (con tildes) y audio regenerado."
+}

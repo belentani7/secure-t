@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-21",
+  "source": "webs-reparadas/secure-t",
+  "recovery": "React Vite educational source, actual MIARA-like lessons, campus and offline resources",
+  "copied_files": 1268,
+  "discarded_duplicate_commercial_scaffolds": 154,
+  "excluded_note": "Only cloned release copies of templated COBRO/PAYWALL and other redundant commercial proposal folders removed; originals remain on authorized PC.",
+  "copied_bytes": 7067645,
+  "excluded": "Historical audits, log dumps, metadata, private env, broken decorative client landing; original PC files untouched",
+  "checks": "Clean npm ci, TypeScript, 5 Node integrity tests, 2 Vitest tests, Vite production build and bundle verification passed",
+  "published_campus_static_files_after_cleanup": 460,
+  "published_campus_programs": 4,
+  "published_program_weeks": 80
+}
