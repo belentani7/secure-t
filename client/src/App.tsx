@@ -6,6 +6,7 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import CampusProgressNotifier from "./components/CampusProgressNotifier";
 import { I18nProvider } from "./lib/i18n";
 
 const Notifications = lazy(() => import("@/pages/Notifications"));
@@ -69,6 +70,7 @@ function AppContent() {
       >
         <TooltipProvider>
           <Toaster />
+          <CampusProgressNotifier />
             <a
               href="#main"
               className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-[#b8f36b] focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-[#071016]"
