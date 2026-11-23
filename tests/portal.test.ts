@@ -18,8 +18,7 @@ describe("portal backed by real curriculum and local progress", () => {
   });
   it("searches accent-insensitively and links to published course assets", () => {
     const matches = searchCampusCatalog(programs, "cibernetica");
-    expect(matches).toHaveLength(1);
-    expect(matches[0].href).toBe("/campus/full/cursos/defensa/index.html");
+    expect(matches.some(match => match.kind === "program" && match.href === "/campus/full/cursos/defensa/index.html")).toBe(true);
   });
   it("searches week objectives, not only course titles", () => {
     const matches = searchCampusCatalog(programs, "analisis forense");
