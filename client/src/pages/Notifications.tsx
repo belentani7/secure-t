@@ -1,14 +1,12 @@
-import { useEffect, useMemo, useRef } from "react";
-import { toast } from "sonner";
+import { useMemo } from "react";
 import { NotificationCenter } from "@/components/NotificationCenter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import SiteHeader from "@/components/SiteHeader";
 import { useCampusProgress } from "@/hooks/useCampusProgress";
 import { useTaskNotifications } from "@/hooks/useTaskNotifications";
 import { CAMPUS_PROGRAMS } from "@/data/campus.generated";
-import { campusItems, type ProgressState } from "@/lib/progress";
+import { campusItems } from "@/lib/progress";
 import { realLearningRecord } from "@/lib/portal-data";
-import { describeTask, type TaskEvent } from "@notifications";
 import { useTranslation } from "@/lib/i18n";
 
 /**
@@ -19,7 +17,6 @@ export default function Notifications() {
   const { lang } = useTranslation();
   const { state } = useCampusProgress();
   const controller = useTaskNotifications();
-  const previous = useRef<ProgressState>({ ...state });
   const programs = useMemo(() => realLearningRecord(CAMPUS_PROGRAMS, state), [state]);
 
   const completed = useMemo(() => CAMPUS_PROGRAMS.flatMap(program => {
@@ -35,25 +32,6 @@ export default function Notifications() {
       }));
   }), [state]);
 
-  useEffect(() => {
-    const before = previous.current;
-    previous.current = { ...state };
-    for (const item of completed) {
-      if (before[item.id] === true) continue;
-      const event: TaskEvent = {
-        id: "campus-progress-" + item.id,
-        kind: item.id.endsWith("/examen") || item.id.endsWith("/quiz") ? "assessment" : "lab",
-        label: item.label,
-        state: "completed",
-        at: new Date().toISOString(),
-        detail: item.label,
-      };
-      controller.notify(event);
-      const description = describeTask(event);
-      toast.success(description.title, { description: item.label });
-    }
-  }, [state, completed, controller]);
-
   const spanish = lang === "es";
   const title = spanish ? "Notificaciones del aprendizaje" : "Learning notifications";
   return (
@@ -64,8 +42,8 @@ export default function Notifications() {
           <h1 className="font-display text-3xl font-bold">{title}</h1>
           <p className="mt-3 text-sm leading-relaxed text-white/70">
             {spanish
-              ? "Configura las alertas del navegador. Los avisos se generan al detectar nuevas actividades completadas mientras esta página está abierta, incluso desde otra pestaña del mismo navegador."
-              : "Configure browser alerts. New completed activities trigger notifications while this page is open, including changes from another tab in this browser."}
+              ? "Configura las alertas del navegador. Las actividades realmente completadas generan avisos mientras SECURE T esté abierto, incluso si estudias en otra ruta o pestaña de la aplicación."
+              : "Configure browser alerts. Actual completions trigger notifications while SECURE T is open, including work on other routes or tabs."}
           </p>
         </header>
         <NotificationCenter controller={controller} />
