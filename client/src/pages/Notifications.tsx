@@ -1,132 +1,105 @@
-import { useCallback, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { toast } from "sonner";
-
 import { NotificationCenter } from "@/components/NotificationCenter";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import SiteHeader from "@/components/SiteHeader";
+import { useCampusProgress } from "@/hooks/useCampusProgress";
 import { useTaskNotifications } from "@/hooks/useTaskNotifications";
-import { useTaskWatcher } from "@/hooks/useTaskWatcher";
-import { describeTask, type TaskEvent, type TaskKind } from "@notifications";
+import { CAMPUS_PROGRAMS } from "@/data/campus.generated";
+import { campusItems, type ProgressState } from "@/lib/progress";
+import { realLearningRecord } from "@/lib/portal-data";
+import { describeTask, type TaskEvent } from "@notifications";
 import { useTranslation } from "@/lib/i18n";
 
-const SAMPLES: { kind: TaskKind; key: string; failRate: number }[] = [
-  {
-    kind: "lab",
-    key: "notifications.triage_alert",
-    failRate: 0.15,
-  },
-  {
-    kind: "assessment",
-    key: "notifications.capstone_soc",
-    failRate: 0.1,
-  },
-  { kind: "ai", key: "notifications.ai_synthesis", failRate: 0.05 },
-];
-
-let counter = 0;
-
-/** Demo surface: launch simulated tasks and see the completion notification. */
+/**
+ * The page reflects actual student checkmarks stored by the campus.
+ * It does not launch simulated tasks or claim server-side push delivery.
+ */
 export default function Notifications() {
-  const { t } = useTranslation();
+  const { lang } = useTranslation();
+  const { state } = useCampusProgress();
   const controller = useTaskNotifications();
-  const [tasks, setTasks] = useState<TaskEvent[]>([]);
+  const previous = useRef<ProgressState>({ ...state });
+  const programs = useMemo(() => realLearningRecord(CAMPUS_PROGRAMS, state), [state]);
 
-  const onNotify = useCallback(
-    (event: TaskEvent) => {
+  const completed = useMemo(() => CAMPUS_PROGRAMS.flatMap(program => {
+    return campusItems(program.weeks.length)
+      .filter(item => state[program.slug + "/" + item] === true)
+      .map(item => ({
+        id: program.slug + "/" + item,
+        label: program.title + " · " + (
+          item.startsWith("semana-")
+            ? program.weeks.find(week => "semana-" + String(week.number).padStart(2, "0") === item)?.title || item
+            : item
+        ),
+      }));
+  }), [state]);
+
+  useEffect(() => {
+    const before = previous.current;
+    previous.current = { ...state };
+    for (const item of completed) {
+      if (before[item.id] === true) continue;
+      const event: TaskEvent = {
+        id: "campus-progress-" + item.id,
+        kind: item.id.endsWith("/examen") || item.id.endsWith("/quiz") ? "assessment" : "lab",
+        label: item.label,
+        state: "completed",
+        at: new Date().toISOString(),
+        detail: item.label,
+      };
       controller.notify(event);
-      const c = describeTask(event);
-      (event.state === "completed" ? toast.success : toast.error)(c.title, {
-        description: c.body,
-      });
-    },
-    [controller]
-  );
+      const description = describeTask(event);
+      toast.success(description.title, { description: item.label });
+    }
+  }, [state, completed, controller]);
 
-  useTaskWatcher(tasks, onNotify);
-
-  const patch = (id: string, next: Partial<TaskEvent>) =>
-    setTasks(prev =>
-      prev.map(t =>
-        t.id === id ? { ...t, ...next, at: new Date().toISOString() } : t
-      )
-    );
-
-  const launch = (sample: (typeof SAMPLES)[number]) => {
-    const id = `sim-${++counter}`;
-    const base: TaskEvent = {
-      id,
-      kind: sample.kind,
-      label: t(sample.key),
-      state: "queued",
-      at: new Date().toISOString(),
-    };
-    setTasks(prev => [base, ...prev].slice(0, 8));
-    window.setTimeout(() => patch(id, { state: "running" }), 600);
-    window.setTimeout(
-      () => {
-        const failed = Math.random() < sample.failRate;
-        patch(id, {
-          state: failed ? "failed" : "completed",
-          detail: failed
-            ? t("notifications.detail_failed")
-            : t("notifications.detail_completed"),
-        });
-      },
-      2600 + Math.random() * 1500
-    );
-  };
-
+  const spanish = lang === "es";
+  const title = spanish ? "Notificaciones del aprendizaje" : "Learning notifications";
   return (
-    <div className="mx-auto max-w-3xl space-y-6 p-6">
-      <header>
-        <h1 className="text-2xl font-semibold">{t("notifications.title")}</h1>
-        <p className="text-muted-foreground">
-          {t("notifications.subtitle")}
-        </p>
-      </header>
-
-      <NotificationCenter controller={controller} />
-
-      <Card>
-        <CardHeader>
-          <CardTitle>{t("notifications.card_title")}</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex flex-wrap gap-3">
-            {SAMPLES.map(s => (
-              <Button
-                key={s.key}
-                variant="secondary"
-                onClick={() => launch(s)}
-              >
-                {t("notifications.launch", { label: t(s.key) })}
-              </Button>
-            ))}
-          </div>
-
-          <ul className="divide-border divide-y rounded-md border">
-            {tasks.length === 0 && (
-              <li className="text-muted-foreground p-3 text-sm">
-                {t("notifications.empty")}
-              </li>
+    <div className="min-h-screen bg-[#071016] text-[#f3f7f3]">
+      <SiteHeader />
+      <main className="mx-auto max-w-4xl space-y-7 px-5 py-12 lg:py-16">
+        <header>
+          <h1 className="font-display text-3xl font-bold">{title}</h1>
+          <p className="mt-3 text-sm leading-relaxed text-white/70">
+            {spanish
+              ? "Configura las alertas del navegador. Los avisos se generan al detectar nuevas actividades completadas mientras esta página está abierta, incluso desde otra pestaña del mismo navegador."
+              : "Configure browser alerts. New completed activities trigger notifications while this page is open, including changes from another tab in this browser."}
+          </p>
+        </header>
+        <NotificationCenter controller={controller} />
+        <Card>
+          <CardHeader>
+            <CardTitle>{spanish ? "Actividades registradas" : "Recorded activities"}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-4 text-sm text-muted-foreground">
+              {spanish
+                ? "Este listado usa el progreso local real; no es un historial de notificaciones enviadas."
+                : "This list comes from real local progress, not a log of delivered notifications."}
+            </p>
+            <p className="mb-4 text-sm">
+              {completed.length} {spanish ? "actividades completadas" : "completed activities"} ·
+              {" "}{programs.filter(program => program.complete).length} {spanish ? "programas marcados como completos" : "programs marked complete"}
+            </p>
+            {completed.length === 0 ? (
+              <p className="text-sm text-muted-foreground">
+                {spanish ? "Aún no has marcado actividades como completadas." : "No activities have been marked completed yet."}
+              </p>
+            ) : (
+              <ul className="max-h-[26rem] divide-y divide-white/10 overflow-auto rounded-xl border border-white/10">
+                {completed.map(item => (
+                  <li key={item.id} className="flex items-start justify-between gap-3 px-4 py-3 text-sm">
+                    <span>{item.label}</span>
+                    <span className="shrink-0 text-[#b8f36b]">{spanish ? "Completado" : "Completed"}</span>
+                  </li>
+                ))}
+              </ul>
             )}
-            {tasks.map(task => (
-              <li
-                key={task.id}
-                className="flex items-center justify-between p-3 text-sm"
-              >
-                <span>{task.label}</span>
-                <span
-                  data-state={task.state}
-                  className="text-muted-foreground data-[state=completed]:text-primary data-[state=failed]:text-destructive font-medium"
-                >
-                  {t(`notifications.state.${task.state}`)}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </main>
     </div>
   );
 }
