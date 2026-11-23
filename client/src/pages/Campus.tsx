@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Activity,
   ArrowUpRight,
@@ -80,6 +81,11 @@ const TOOLS = [
 export default function Campus() {
   const { t } = useTranslation();
   const { state } = useCampusProgress();
+  const [query, setQuery] = useState("");
+  const matchingPrograms = CAMPUS_PROGRAMS.filter(program =>
+    [program.title, program.description, ...program.objectives, ...program.weeks.map(week => `${week.title} ${week.objective}`)]
+      .some(value => value.toLocaleLowerCase().includes(query.trim().toLocaleLowerCase()))
+  );
 
   const totalWeeks = CAMPUS_PROGRAMS.reduce(
     (total, program) => total + program.weeks.length,
@@ -215,8 +221,14 @@ export default function Campus() {
             <p className="mt-4 text-white/70">{t("campus.programs.sub")}</p>
           </div>
 
+          <div className="mt-8 max-w-xl">
+            <label htmlFor="program-search" className="mb-2 block text-sm font-semibold text-white/80">Buscar programas, objetivos y semanas</label>
+            <input id="program-search" type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="Ej. phishing, seguridad, redes…" className="w-full rounded-xl border border-white/25 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#b8f36b]" />
+            <p className="mt-2 text-sm text-white/60" role="status" aria-live="polite">{matchingPrograms.length} de {CAMPUS_PROGRAMS.length} programas</p>
+          </div>
+          {matchingPrograms.length === 0 && <p className="mt-8 text-white/70">No hay programas que coincidan. Prueba otra búsqueda.</p>}
           <ol className="mt-12 divide-y divide-white/10 border-y border-white/10">
-            {CAMPUS_PROGRAMS.map((program, index) => {
+            {matchingPrograms.map((program, index) => {
               const items = campusItems(program.weeks.length);
               const progress = courseProgress(state, program.slug, items);
               return (
