@@ -117,3 +117,35 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+.week-guide { margin-top: 16px; padding: 13px 15px; border: 1px solid var(--border); background: #132233; color: var(--muted); }
+.week-guide summary { color: #f5dba8; font-weight: 700; cursor: pointer; }
+.week-guide p { line-height: 1.5; margin: 12px 0; }
+.week-guide strong { color: #f0f5ff; }
+.source-link { display: inline-block; margin-top: 14px; color: #a2e5d7; font-size: 12px; }
+.reader-status[role=status] { border-left: 3px solid var(--accent); }
+.reader-views a:hover { border-color: var(--accent); }
+.reader-views a:focus-visible { outline-color: var(--gold); }
+.reader-footer code { overflow-wrap: anywhere; }
+.content a { overflow-wrap: anywhere; }
+.content table { max-width: 100%; display: block; overflow-x: auto; }
+.content img { max-width: 100%; height: auto; }
+.content h2 { scroll-margin-top: 24px; }
+.content h3 { scroll-margin-top: 24px; }
+.content p { line-height: 1.85; }
+.content li::marker { color: var(--accent); }
+.notebook textarea:focus-visible { border-color: var(--accent); }
+.check-row:has(input:checked) { border-color: var(--accent); background: #122c2d; }
+@media (prefers-contrast: more) {
+ :root { --muted: #e2e8ef; --border: #91b4c9; }
+ .week-card { border-width: 2px; }
+ .button { border-width: 2px; }
+}
+@media print {
+ body { background: white !important; color: black !important; }
+ .site-header, .reader-views, .nav-sibling, .footer, .search-bar { display: none !important; }
+ .content, .content * { color: black !important; }
+ .reader, .container { max-width: 100%; width: 100%; }
+ a { color: black !important; text-decoration: underline; }
+ .lesson-body pre { white-space: pre-wrap; }
+}
