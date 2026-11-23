@@ -7,6 +7,8 @@ import {
   type ProgressState,
 } from "../lib/progress";
 
+export const CAMPUS_PROGRESS_EVENT = "secure-t:progress-updated";
+
 function readLocal(): ProgressState {
   if (typeof window === "undefined") return {};
   try {
@@ -34,6 +36,7 @@ export function useCampusProgress() {
     } catch {
       /* storage blocked: keep the session state */
     }
+    window.dispatchEvent(new CustomEvent(CAMPUS_PROGRESS_EVENT, { detail: next }));
   }, []);
 
   const toggle = useCallback(
