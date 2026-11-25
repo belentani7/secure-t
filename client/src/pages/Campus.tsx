@@ -78,6 +78,61 @@ const TOOLS = [
   },
 ] as const;
 
+
+const DECISION_CASES = [
+  { title: "Correo de identidad dudosa", context: "Un mensaje simulado pide validar la cuenta de una empleada mediante un enlace que no pertenece al dominio de la organización.", options: ["Abrir el enlace para confirmar", "Reportar el mensaje y verificar por un canal independiente", "Reenviar el enlace a toda la plantilla"], correct: 1, explanation: "Verifica por un canal conocido y reporta al equipo responsable. No visites enlaces sospechosos ni los distribuyas." },
+  { title: "Acceso inusual", context: "Un registro sintético muestra un acceso desde un dispositivo desconocido después de varios intentos fallidos.", options: ["Preservar los registros, verificar con el usuario y escalar según el procedimiento", "Borrar los registros", "Ignorar el evento porque el acceso tuvo éxito"], correct: 0, explanation: "Conserva la evidencia, valida el contexto y activa el procedimiento de respuesta. Un acceso exitoso no demuestra legitimidad." },
+  { title: "Archivo compartido", context: "Un documento interno ficticio aparece accesible a cualquier persona con el enlace, aunque solo debería verlo un equipo.", options: ["Difundir el enlace para averiguar quién lo abrió", "Eliminar todos los documentos del equipo", "Restringir el acceso al grupo autorizado y revisar el alcance de la exposición"], correct: 2, explanation: "Aplica el mínimo privilegio, preserva los datos de acceso disponibles y comunica la posible exposición al responsable." },
+  { title: "Actualización de seguridad", context: "Una aplicación interna de demostración tiene una corrección de seguridad disponible. Existe un entorno de pruebas y un procedimiento de rollback.", options: ["Probar la actualización, verificar el resultado y desplegar siguiendo el procedimiento", "Desactivar permanentemente las actualizaciones", "Actualizar sin copia ni posibilidad de recuperación"], correct: 0, explanation: "Valida el parche en un entorno controlado y despliega con medidas de recuperación. Prioriza según el riesgo." },
+  { title: "Copia de seguridad", context: "La copia de seguridad de un conjunto de datos sintéticos existe, pero nadie ha comprobado que pueda restaurarse.", options: ["Dar por garantizada la recuperación", "Restaurar una copia en un entorno aislado y verificar su integridad", "Eliminar la copia antigua antes de verificar"], correct: 1, explanation: "Una copia solo demuestra su utilidad cuando puedes restaurarla y verificar la integridad de los datos." },
+  { title: "Datos de laboratorio", context: "Un alumno quiere usar datos reales de clientes para practicar un ejercicio de análisis de registros.", options: ["Publicar los registros sin cambios", "Compartirlos mediante una cuenta personal", "Usar datos sintéticos o un conjunto autorizado y minimizado"], correct: 2, explanation: "Minimiza datos y trabaja con conjuntos sintéticos o explícitamente autorizados. La formación no justifica exponer datos personales." },
+] as const;
+
+function DecisionLab() {
+  const [step, setStep] = useState(0);
+  const [choice, setChoice] = useState<number | null>(null);
+  const [score, setScore] = useState(0);
+  const finished = step >= DECISION_CASES.length;
+  const scenario = DECISION_CASES[Math.min(step, DECISION_CASES.length - 1)];
+  function answer(value: number) {
+    if (choice !== null || finished) return;
+    setChoice(value);
+    if (value === scenario.correct) setScore(s => s + 1);
+  }
+  function restart() { setStep(0); setChoice(null); setScore(0); }
+  return (
+    <section id="decision-lab" lang="es" aria-labelledby="decision-lab-title" className="mx-auto max-w-7xl scroll-mt-24 px-5 py-16 lg:px-8">
+      <div className="overflow-hidden rounded-[28px] border border-[#b8f36b]/25 bg-gradient-to-br from-[#172d30] to-[#071016] p-5 shadow-xl sm:p-10">
+        <p className="font-mono text-xs uppercase tracking-widest text-[#b8f36b]">Secure T / Decision laboratory</p>
+        <h2 id="decision-lab-title" className="mt-3 font-display text-3xl font-bold sm:text-5xl">Decisiones de defensa digital</h2>
+        <p className="mt-4 max-w-2xl text-white/75">Seis situaciones ficticias de seguridad. Practica decisiones de contención, privacidad y recuperación sin acceder a sistemas reales.</p>
+        <div className="mt-7 flex flex-wrap items-center justify-between gap-3 text-sm text-white/80">
+          <span>Casos respondidos: {finished ? DECISION_CASES.length : step + Number(choice !== null)} / {DECISION_CASES.length}</span>
+          <span>Aciertos: {score}</span>
+        </div>
+        <progress aria-label="Casos respondidos" max={DECISION_CASES.length} value={finished ? DECISION_CASES.length : step + Number(choice !== null)} className="mt-2 h-2 w-full accent-[#b8f36b]" />
+        {finished ? <div className="mt-8 rounded-2xl border border-white/15 bg-black/20 p-6">
+          <h3 className="text-2xl font-bold">Resultado: {score} / {DECISION_CASES.length}</h3>
+          <p className="mt-3 text-white/75">Evaluación de práctica, no certificación. Tu resultado se conserva durante esta sesión.</p>
+          <button type="button" onClick={restart} className="mt-5 min-h-12 rounded-xl bg-[#b8f36b] px-5 py-3 font-bold text-[#071016]">Repetir laboratorio</button>
+        </div> : <div className="mt-8 grid gap-6 lg:grid-cols-[.85fr_1.15fr]">
+          <article className="rounded-2xl border border-white/15 bg-black/20 p-5">
+            <p className="font-mono text-xs text-[#b8f36b]">CASO {String(step + 1).padStart(2, "0")}</p>
+            <h3 className="mt-3 text-2xl font-semibold">{scenario.title}</h3>
+            <p className="mt-3 leading-relaxed text-white/80">{scenario.context}</p>
+          </article>
+          <div className="grid gap-3">
+            <p className="font-semibold">¿Qué acción es más adecuada?</p>
+            {scenario.options.map((option, i) => <button key={option} type="button" disabled={choice !== null} onClick={() => answer(i)} className={"min-h-12 rounded-xl border p-4 text-left " + (choice !== null && i === scenario.correct ? "border-[#b8f36b] bg-[#b8f36b]/10" : choice === i ? "border-red-400 bg-red-500/10" : "border-white/20 bg-white/5 hover:border-white/50")}>{option}{choice !== null && i === scenario.correct ? " — respuesta recomendada" : choice === i ? " — revisar" : ""}</button>)}
+            {choice !== null && <div role="status" className="rounded-xl border border-white/15 bg-black/20 p-4"><strong>{choice === scenario.correct ? "Correcto." : "Revisa esta decisión."}</strong><p className="mt-2 text-white/80">{scenario.explanation}</p></div>}
+            {choice !== null && <button type="button" onClick={() => {setStep(s => s + 1);setChoice(null);}} className="min-h-12 rounded-xl bg-[#b8f36b] px-5 py-3 font-bold text-[#071016]">{step === DECISION_CASES.length - 1 ? "Ver resultado" : "Siguiente caso"}</button>}
+          </div>
+        </div>}
+      </div>
+    </section>
+  );
+}
+
 export default function Campus() {
   const { t } = useTranslation();
   const { state } = useCampusProgress();
@@ -213,6 +268,7 @@ export default function Campus() {
           </ul>
         </nav>
 
+        <DecisionLab />
         <section id="programs" className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24">
           <div className="max-w-3xl">
             <h2 className="font-display text-4xl font-bold tracking-[-.04em] sm:text-5xl">
