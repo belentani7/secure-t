@@ -16,7 +16,7 @@ export default defineConfig({
   },
   envDir: path.resolve(import.meta.dirname),
   root: path.resolve(import.meta.dirname, "client"),
-  base: "/",
+  base: process.env.VITE_BASE ?? "/",
   server: {
     proxy: {
       "/api": "http://127.0.0.1:3000",
